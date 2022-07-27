@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import { AppBar, Toolbar } from "@mui/material";
 
 const Navbar: React.FC = () => {
   return (
-    <div>Navbar</div>
+    <AppBar position="static">
+      <Toolbar>
+        
+      </Toolbar>
+    </AppBar>
   )
-}
+};
 
-export default Navbar
+export default Navbar;
