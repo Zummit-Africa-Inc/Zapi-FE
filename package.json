@@ -12,6 +12,10 @@
     "lint": "npm lint:format && npm lint:fix "
   },
   "dependencies": {
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@mui/material": "^5.9.2",
+    "@mui/styles": "^5.9.2",
     "@reduxjs/toolkit": "^1.8.3",
     "@types/react-redux": "^7.1.24",
     "react": "^18.2.0",
