@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Avatar, Paper, Stack, Typography } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import { AccessTimeOutlined, BookmarkOutlined, DoneOutlined, NewReleasesOutlined, ShowChartOutlined, VerifiedOutlined } from "@mui/icons-material";
 
 interface CardProps {
@@ -15,10 +16,11 @@ interface CardProps {
 }
 
 const APICard: React.FC<CardProps> = ({id,name,description,status,image,latency,popularity,service_level}) => {
+    const classes = useStyles()
 
     return (
         <Link to={`/api/${id}`}>
-            <Paper elevation={3}>
+            <Paper elevation={3} className={classes.root}>
                 <Stack direction="row" alignItems="center" justifyContent="space-between">
                     <Avatar src={image} variant="square" sx={{ width: 32,height: 32,objectFit:"contain"}} />
                     <BookmarkOutlined />
@@ -39,13 +41,13 @@ const APICard: React.FC<CardProps> = ({id,name,description,status,image,latency,
                     </Typography>}
                 </Stack>
                 <Stack direction="row" alignItems="center" justifyContent="space-between">
-                    <Typography variant="caption">
+                    <Typography variant="caption" className={classes.span}>
                         <ShowChartOutlined /> {popularity}
                     </Typography>
-                    <Typography variant="caption">
+                    <Typography variant="caption" className={classes.span}>
                         <AccessTimeOutlined /> {latency}ms
                     </Typography>
-                    <Typography variant="caption">
+                    <Typography variant="caption" className={classes.span}>
                         <DoneOutlined /> {service_level}%
                     </Typography>
                 </Stack>
@@ -53,5 +55,19 @@ const APICard: React.FC<CardProps> = ({id,name,description,status,image,latency,
         </Link>
     );
 };
+
+const useStyles = makeStyles({
+    root: {
+        width: 300,
+        height: 400,
+        padding: "1rem 0.5rem",
+    },
+    span: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "1rem",
+    }
+})
 
 export default APICard;
