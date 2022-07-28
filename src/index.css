@@ -3,7 +3,8 @@
 :root {
   --color-primary: #081F4A;
   --color-secondary: #FF5C00;
-  --color-gray: #F3F4F6;
+  --color-grey: #F3F4F6;
+  --body-font: "Inter", sans-serif;
 }
 
 * {
@@ -17,7 +18,7 @@ html {
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--body-font);
 }
 
 ::-webkit-scrollbar {
