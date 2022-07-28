@@ -1,33 +1,66 @@
 import React from "react";
-import { AppBar, IconButton, Stack, Toolbar } from "@mui/material";
+import { IconButton, Stack, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { AccountCircleOutlined, AddCircleOutline, NotificationsOutlined } from "@mui/icons-material";
+import { AccountCircleOutlined, AddCircleOutline, CloseOutlined, MenuOutlined, NotificationsOutlined } from "@mui/icons-material";
 
-const Navbar: React.FC = () => {
-  const classes = useStyles()
+import { useContextProvider } from "../contexts/ContextProvider";
+interface INavProps {
+  title?: string
+  subtitle?: string
+};
+
+const Navbar: React.FC<INavProps> = ({title,subtitle}) => {
+  const classes = useStyles();
+  const { activeMenu, isLoggedIn, screenSize, setActiveMenu } = useContextProvider()
+
+  const toggleSidebar = () => {
+    activeMenu ? setActiveMenu(false) : setActiveMenu(true)
+  }
 
   return (
-    <AppBar className={classes.root} color="transparent">
-      <Toolbar className={classes.toolbar}>
+    <nav className={classes.root}>
+      <div className={classes.toolbar}>
         <div className={classes.logoWrapper}>
           <img src="/images/zapi-logo.png" alt="zapi-logo" className={classes.logo} />
         </div>
 
         <Stack className={classes.div}>
-          <Stack direction="row" alignItems="center" justifyContent="center" spacing={2} mb={1}>
-            <IconButton color="primary">
-              <AddCircleOutline />
-            </IconButton>
-            <IconButton color="primary">
-              <NotificationsOutlined />
-            </IconButton>
-            <IconButton color="primary">
-              <AccountCircleOutlined />
-            </IconButton>
-          </Stack>
+          {isLoggedIn ? 
+            <Stack direction="row" alignItems="center" justifyContent="center" spacing={1} mb={1}>
+              <IconButton color="primary">
+                <AddCircleOutline />
+              </IconButton>
+              <IconButton color="primary">
+                <NotificationsOutlined />
+              </IconButton>
+              <IconButton color="primary">
+                <AccountCircleOutlined />
+              </IconButton>
+              <div className={classes.drawerButton}>
+                <IconButton onClick={toggleSidebar}>
+                  {activeMenu ? <CloseOutlined /> : <MenuOutlined />}
+                </IconButton>
+              </div>
+            </Stack> : 
+            <Stack mb={screenSize < 900 ? 1 : 6}>
+              <div className={classes.drawerButton}>
+                <IconButton onClick={toggleSidebar}>
+                  {activeMenu ? <CloseOutlined /> : <MenuOutlined />}
+                </IconButton>
+              </div>
+            </Stack>}
         </Stack>
-      </Toolbar>
-    </AppBar>
+      </div>
+
+      <div className={classes.heading}>
+        <Typography variant="h4" color="primary">
+          {title}
+        </Typography>
+        <Typography variant="subtitle1" color="primary">
+          {subtitle}
+        </Typography>
+      </div>
+    </nav>
   )
 };
 
@@ -38,8 +71,6 @@ const useStyles = makeStyles({
     left: 0,
     width: "100%",
     background: "#FFF",
-    padding: 0,
-    boxShadow: "0px"
   },
   toolbar: {
     width: "100%",
@@ -63,7 +94,19 @@ const useStyles = makeStyles({
   logo: {
     width: "100%",
     objectFit: "contain",
+  },
+  heading: {
+    display: "grid",
+    placeItems: "center",
+    textAlign: "center",
+    padding: "0 1rem",
+  },
+  drawerButton: {
+    display: "none",
+    "@media screen and (max-width: 900px)": {
+      display: "block"
+    }
   }
-})
+});
 
 export default Navbar;

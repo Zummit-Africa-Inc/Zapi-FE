@@ -13,5 +13,31 @@ export const theme = createTheme({
         },
     },
     components: {
+        MuiButton: {
+            styleOverrides: {
+                contained: {
+                    backgroundColor: "var(--color-primary)",
+                    color: "var(--color-secondary)",
+                    transition: "0.3s all ease",
+                    "&: hover": {
+                        backgroundColor: "var(--color-primary)",
+                        color: "var(--color-secondary)",
+                        transform: "translateY(-5px)",
+                    }
+                },
+                outlined: {
+                    backgroundColor: "#FFF",
+                    color: "var(--color-primary)",
+                    border: "!px solid var(--color-primary)",
+                    transition: "0.3s all ease",
+                    "&:hover": {
+                        backgroundColor: "#FFF",
+                        color: "var(--color-primary)",
+                        border: "!px solid var(--color-primary)",
+                        transform: "translateY(-5px)",
+                    }
+                },
+            },
+        },
     },
-})
+});

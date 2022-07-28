@@ -18,7 +18,12 @@ html {
 }
 
 body {
+  background: var(--color-grey);
   font-family: var(--body-font);
+}
+
+a {
+  text-decoration: none;
 }
 
 ::-webkit-scrollbar {
