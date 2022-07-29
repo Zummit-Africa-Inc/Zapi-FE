@@ -1,15 +1,19 @@
-import React, { FormEvent, SyntheticEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, FormEvent, SyntheticEvent, useEffect, useState } from "react";
 import { IconButton, Stack, Tab, Tabs, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { CloseOutlined } from "@mui/icons-material";
 
-import { APICard, Navbar, Sidebar, TabPanel } from "../components";
+import { APICard, InputSearch, Navbar, Sidebar, TabPanel } from "../components";
 import { useContextProvider } from "../contexts/ContextProvider";
 import { APIS } from "../testdata";
+
+const data = ["Name","Id","Desc"]
 
 const Home:React.FC = () => {
   const classes = useStyles();
   const [tab, setTab] = useState<number>(0);
+  const [queryString, setQueryString] = useState<string>("")
+  const [queryParam, setQueryParam] = useState<string>("")
   const { activeMenu, screenSize, setActiveMenu, setScreenSize } = useContextProvider();
 
   useEffect(() => {
@@ -51,6 +55,8 @@ const Home:React.FC = () => {
 
         {/* section for search */}
         <form onSubmit={handleSubmit} className={classes.search}>
+          <InputSearch type="select" name="queryParams" value={queryParam} onSelect={(e: ChangeEvent<HTMLSelectElement>) => setQueryParam(e.target.value)} placeholder="Sort by" data={data} />
+          <InputSearch type="text" name="queryString" value={queryString} onChange={(e: ChangeEvent<HTMLInputElement>) => setQueryString(e.target.value)} placeholder="I'm looking for..." />
         </form>
         <div className={classes.root}>
           <div className={classes.sidebar}>
@@ -68,7 +74,7 @@ const Home:React.FC = () => {
                   <Typography variant="subtitle2" mb={2}>
                     APIS curated by Z-API and recommended  based on functionality offered, performance and support
                   </Typography>
-                  <div style={{width:"100%",height:"60vh",display:"flex",flexWrap:"wrap",alignItems:"center",justifyContent:"center",gap:"1.5rem",overflowY:"scroll",padding:"0.5rem 0"}}>
+                  <div className={classes.tabInner}>
                     {APIS.map((api) => (
                       <APICard key={api.id} {...api} />
                     ))}
@@ -78,11 +84,13 @@ const Home:React.FC = () => {
                   <Typography variant="subtitle2" mb={2}>
                     APIs that are popular and frequently used on Z-API.
                   </Typography>
+                  <div className={classes.tabInner}></div>
                 </TabPanel>
                 <TabPanel value={tab} index={2}>
                   <Typography variant="subtitle2" mb={2}>
                     If you're new to Z-API, this collection is a great place to start exploring APIs that are free to test, specifically updated for 2022.
                   </Typography>
+                  <div className={classes.tabInner}></div>
                 </TabPanel>
               </Stack>
             </Stack>
@@ -119,7 +127,7 @@ const useStyles = makeStyles({
     margin: "2rem 0",
     "@media screen and (max-width: 768px)": {
       flexDirection: "column-reverse",
-      gap: "1rem",
+      gap: 0,
     }
   },
   sidebar: {
@@ -143,33 +151,16 @@ const useStyles = makeStyles({
     borderRight: "1px solid var(--color-primary)",
     transition: "1s all ease"
   },
-  formControl: {
-    width: 400,
-    display: "flex",
-    alignItems: "center",
-    gap: "1rem",
-    background: "#FFF",
-    borderRadius: 5,
-    padding: "0.25rem 1rem",
-    "& input": {
-      border: "none",
-      outline: "none",
-      fontSize: "1rem",
-      padding: "0.25rem",
-      width: "100%",
-      height: 40,
-    },
-    "& select": {
-      border: "none",
-      outline: "none",
-      fontSize: "1rem",
-      padding: "0.25rem",
-      width: "100%",
-      height: 40,
-    },
-    "@media screen and (max-width: 768px)": {
-      width: "100%",
-    },
+  tabInner: {
+    width: "100%",
+    height:"60vh",
+    display:"flex",
+    flexWrap:"wrap",
+    alignItems:"center",
+    justifyContent:"center",
+    gap:"1.5rem",
+    overflowY:"scroll",
+    padding:"0.5rem 0"
   }
 });
 
