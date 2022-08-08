@@ -1,12 +1,9 @@
-import { useFormInputs } from "../../hooks/form-hook"
+import { useFormInputs } from "../hooks/form-hook"
 import { FormEvent } from "react";
-import { PASSWORD_REGEX } from "../../utils";
-import { useHttpRequest } from '../../hooks/fetch-hook'
+import { PASSWORD_REGEX } from "../utils";
+import { useHttpRequest } from '../hooks/fetch-hook'
 import { Box, Button, Stack, Tooltip, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-
-//styles
-import '../SignUp/Signup.css'
 
 const initialState = {
   fullName: '',
