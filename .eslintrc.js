@@ -34,9 +34,13 @@ module.exports = {
         "eslint"
     ],
     rules: {
-        "prettier/prettier": {
-        // rules go here
-
-      }
+        "prettier/prettier": [
+          //rules go here
+          "error",
+          {
+            "quotes": "double",
+            "semi": "true"
+          }
+        ]
     },
   };
