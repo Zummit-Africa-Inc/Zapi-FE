@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
 
-import { Home, Login } from "./pages";
+import { Home, Login, ForgotPassword, Otp } from "./pages";
 import { theme } from "./theme";
 
 const App:React.FC = () => {
@@ -13,6 +13,10 @@ const App:React.FC = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/otp" element={<Otp />} />
+
+
         </Routes>
       </div>
     </ThemeProvider>
