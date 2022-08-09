@@ -6,13 +6,15 @@ import { Home, Login, OrgPage } from "./pages";
 import { theme } from "./theme";
 
 const App:React.FC = () => {
+
   return (
     <ThemeProvider theme={theme}>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/orgpage" element= {<OrgPage />} />
-      </Routes>
+      <div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </div>
     </ThemeProvider>
   )
 }
