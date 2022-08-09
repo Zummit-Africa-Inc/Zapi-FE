@@ -4,15 +4,15 @@ import { useContextProvider } from "../contexts/ContextProvider";
 
 
 import { makeStyles } from '@mui/styles';
-import { Avatar, Stack, Typography, Tabs, Tab} from '@mui/material'
-import { APIS } from "../testdata";
+import { Stack,  Tabs, Tab} from '@mui/material'
+import { APIS, USER } from "../testdata";
 
 
-const UserProfile = () => {
+const UserProfile:React.FC = () => {
     const classes = useStyles();
     const [tab, setTab] = useState<number>(0);
-    const { activeMenu, setActiveMenu, screenSize, setScreenSize } = useContextProvider();
-
+    const { setActiveMenu, screenSize, setScreenSize } = useContextProvider();
+    
     useEffect(() => {
         const handleScreenResize = () => setScreenSize(innerWidth)
         window.addEventListener('resize', handleScreenResize)
@@ -36,7 +36,9 @@ const UserProfile = () => {
         <> 
             <Stack direction='row' className={classes.root}>
                 <Stack className={classes.sidebar}>
-                  <UserProSideBar />
+                  {USER.map((user) => (
+                        <UserProSideBar key={user.id} {...user} />
+                      ))}                
                 </Stack>
                 <div className={classes.main}>
                 <Stack>
@@ -48,7 +50,7 @@ const UserProfile = () => {
                     </Tabs>
                     <Stack mt={2}>
                     <TabPanel value={tab} index={0}>
-                    <div style={{width:"100%",height:"60vh",display:"flex",flexWrap:"wrap",alignItems:"center",justifyContent:"center",gap:"1.5rem",overflowY:"scroll",padding:"0.5rem 0"}}>
+                    <div style={{width:"100%",display:"flex",flexWrap:"wrap",alignItems:"center",justifyContent:"center",gap:"1.5rem",overflowY:"scroll",padding:"0.5rem 0"}}>
                         {APIS.map((api) => (
                         <APICard key={api.id} {...api} />
                         ))}
