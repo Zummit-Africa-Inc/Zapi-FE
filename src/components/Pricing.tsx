@@ -5,12 +5,12 @@ import { blue } from "@mui/material/colors";
 import { makeStyles } from "@mui/styles";
 import PricingTable from "./PricingTable";
 
-import developers from "../assets/people.webp";
-import publicapis from "../assets/public.webp";
-import apicalls from "../assets/apicalls.webp";
-import countries from "../assets/countries.webp";
-import sponsors from "../assets/sponsors.webp";
-import charts from "../assets/charts.webp";
+import developers from "../assets/images/people.jpg";
+import publicapis from "../assets/images/public.jpg";
+import apicalls from "../assets/images/apicalls.jpg";
+import countries from "../assets/images//countries.jpg";
+import sponsors from "../assets/images/sponsors.jpg";
+import charts from "../assets/images/charts.jpg";
 
 
 const Pricing:React.FC = () => {
