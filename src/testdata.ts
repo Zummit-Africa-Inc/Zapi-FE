@@ -108,4 +108,17 @@ export const CATEGORIES = [
     "tools",
     "text analysis",
     "weather",
+
 ];
+
+export const USER = [{
+    id : '0001',
+    fullName : 'Dummy Name',
+    email : 'Dummyname@gmail.com',
+    userName : 'Dummzy',
+    userId : '11223344556677',
+    profileId : '11aa22bb33cc44dd55ee',
+    image : '/images/pro-pics.png',
+}]
+
+
