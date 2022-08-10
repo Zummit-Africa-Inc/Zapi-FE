@@ -3,6 +3,7 @@ import { Avatar, Stack, Typography, List, ListItemButton, ListItemIcon, ListItem
 import { LooksOne, LooksTwo, Looks3, ExpandMore } from "@mui/icons-material";
 import { blue } from "@mui/material/colors";
 import { makeStyles } from "@mui/styles";
+import PricingTable from "./PricingTable";
 
 import developers from "../assets/people.webp";
 import publicapis from "../assets/public.webp";
@@ -59,7 +60,7 @@ const Pricing:React.FC = () => {
         </List>
         {/* Pricing Table Section */}
         <Stack direction="column" width="80%" alignItems="center" justifyContent="space-between">
-            {/* <PricingTable /> */}
+            <PricingTable />
         </Stack>
          {/* FAQ Section */}
         <Stack direction="column" width="70%" textAlign="center">
