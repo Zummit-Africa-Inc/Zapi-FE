@@ -108,6 +108,7 @@ export const CATEGORIES = [
     "tools",
     "text analysis",
     "weather",
+
 ];
 
 export const USER = [{
@@ -119,3 +120,5 @@ export const USER = [{
     profileId : '11aa22bb33cc44dd55ee',
     image : '/images/pro-pics.png',
 }]
+
+
