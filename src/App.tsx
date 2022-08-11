@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
 
-import { Home, Login, Signup, UserProfile, ForgotPassword, Otp } from "./pages";
+import { Home, Login, Signup, UserProfile, ForgotPassword,LoginHistory, Otp } from "./pages";
 import { theme } from "./theme";
 
 const App:React.FC = () => {
