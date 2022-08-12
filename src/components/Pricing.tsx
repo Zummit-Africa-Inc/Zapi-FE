@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { SyntheticEvent, useState } from "react";
 import { Avatar, Stack, Typography, List, ListItemButton, ListItemIcon, ListItemText, Collapse } from "@mui/material";
 import { LooksOne, LooksTwo, Looks3, ExpandMore } from "@mui/icons-material";
 import { blue } from "@mui/material/colors";
@@ -16,9 +16,9 @@ import charts from "../assets/images/charts.jpg";
 const Pricing:React.FC = () => {
     const classes = useStyles()
 
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState<boolean>(true);
 
-    const handleClick = () => {
+    const handleClick = (e: SyntheticEvent) => {
         setOpen(!open);
     };
 
