@@ -2,12 +2,9 @@ import { Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { ChangeEvent, useState } from 'react'
 import { Widget, InputSearch, DataTable } from '../../components'
-import { DASHBOARDTEXT1, DASHBOARDTEXT2, ERROR, STATISTICS, SUCCESS, TIMERANGE, PERIOD, ZONE } from '../../testdata'
+import { ERROR, STATISTICS, SUCCESS, TIMERANGE, PERIOD, ZONE } from '../../testdata'
 
-//styles
-import './DevDashboard.css'
-
-const DevDashboard: React.FC = () => {
+const Analytics: React.FC = () => {
     const [statsParam, setStatsParam] = useState<string>(STATISTICS[0])
     const [errorParam, setErrorParam] = useState<string>(ERROR[0])
     const [successParam, setSuccessParam] = useState<string>(SUCCESS[0])
@@ -36,34 +33,31 @@ const DevDashboard: React.FC = () => {
         }
     }
 
-    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const handleStatClick = (e: React.MouseEvent<HTMLDivElement>) => {
         setStatsData(STATISTICS)
         setStyle('clickTab')
         setErrStyle('tab')
         setSuccessStyle('tab')
 
     }
-    const handleClicks = (e: React.MouseEvent<HTMLDivElement>) => {
+    const handleErrClick = (e: React.MouseEvent<HTMLDivElement>) => {
         setStatsData(ERROR)
         setStyle('tab')
         setErrStyle('clickTab')
         setSuccessStyle('tab')
     }
-    const handleClickses = (e: React.MouseEvent<HTMLDivElement>) => {
+    const handleSuccessClick = (e: React.MouseEvent<HTMLDivElement>) => {
         setStatsData(SUCCESS)
         setStyle('tab')
         setErrStyle('tab')
         setSuccessStyle('clickTab')
     }
-
-    return (
-        <div className='dashboard'>
-            <Typography variant='h5' gutterBottom sx={{padding: '1rem 2rem'}}>Dashboard</Typography>
-            <div className="cards">
-                <Widget  className='widget' title={DASHBOARDTEXT1.title} subtitle={DASHBOARDTEXT1.subtitle} />
-                <Widget className='widget' title={DASHBOARDTEXT2.title} subtitle={DASHBOARDTEXT2.subtitle} />
-            </div>
-            <div className="selects">
+  return (
+    <>
+    <div className="heading">
+    <Typography sx={{fontSize: '1.5rem', fontWeight: 500, color: 'var(--color-primary)', padding: '2rem 2rem'}}>default-application_6350466 - Analytics</Typography>
+    </div>
+    <div className="selects">
                 <div className="select-box">
                     <span className='select-title'>Statistics</span>
                     <InputSearch className={classes.select} type='select' name="statsParams" value={statsParam || errorParam || successParam} onSelect={handleStats} data={statsData} />
@@ -82,18 +76,19 @@ const DevDashboard: React.FC = () => {
                 </div>
             </div>
             <div className="tabs">
-                <Widget className={style} title='API Calls' subtitle={statsParam} onClick={handleClick} span='0' />
-                <Widget className={errStyle} title='Errors' subtitle={errorParam} onClick={handleClicks} span='0%' />
-                <Widget className={successStyle} title='Success' subtitle={successParam} onClick={handleClickses} span='0ms' />
+                <Widget className={style} title='API Calls' subtitle={statsParam} onClick={handleStatClick} span='0' />
+                <Widget className={errStyle} title='Errors' subtitle={errorParam} onClick={handleErrClick} span='0%' />
+                <Widget className={successStyle} title='Success' subtitle={successParam} onClick={handleSuccessClick} span='0ms' />
             </div>
             <div className="table">
                 <DataTable />
             </div>
-        </div>
-    )
+
+    </>
+  )
 }
 
-export default DevDashboard
+export default Analytics
 
 const useStyles = makeStyles({
     select: {
@@ -101,4 +96,10 @@ const useStyles = makeStyles({
             padding: '.3rem .4rem',
         }
     },
+    tabs: {
+
+        '& span': {
+            fontSize: '2rem'
+        }
+    }
 })
