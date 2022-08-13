@@ -121,4 +121,51 @@ export const USER = [{
     image : '/images/pro-pics.png',
 }]
 
+export const DASHBOARDTEXT1 = {
+    title: 'Recent Payments',
+    subtitle: "You haven't made any payments yet"
+}
+
+export const DASHBOARDTEXT2 = {
+    title: 'Top API By Quota Usage',
+    subtitle: "You haven't subscribed to any paid/freemium plans yet"
+}
+
+export const STATISTICS = [
+    "Total API Calls (Default)",
+    "Average API Calls",
+    "Calls per second",
+    "Max API Calls",
+    "Min API Calls"
+]
+
+export const ERROR = [
+    "Average Error Rate (Default)",
+    "Median Error Rate",
+    "Max Error Rate",
+    "Min Error Rate",
+    "Total Error Rate",
+]
+
+export const SUCCESS = [
+    "Average Success Rate (Default)",
+    "Median Success Rate",
+    "Max Success Rate",
+    "Min Success Rate",
+    "Total Success Rate",
+]
+
+export const TIMERANGE = [
+"Last hour","Last 3 hours","Last 6 hours","Last 12 hours","Last 24 hours","Last 7 days","Last 30 days","Last 365 days",
+]
+
+export const PERIOD = ["Minutes","Hours","Days"]
+
+export const ZONE = [
+    "GMT+14:00 Line Islands Time (PACIFIC)", 
+    "GMT+13:00 New Zealand Daylight Time (PACIFIC ANTARTICA)",
+]
+
+export const TABLEHADING = ["Time","API Version","Endpoint","Method","Location","Response Status","Latency",]
+
 

@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
 
-import { Home, Login, Signup, UserProfile } from "./pages";
+import { DevDashboard, Home, Login, Signup, UserProfile } from "./pages";
 import { theme } from "./theme";
 
 const App:React.FC = () => {
@@ -15,6 +15,7 @@ const App:React.FC = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/user/:id" element={<UserProfile />} />
+          <Route path="/developers/dashboard/" element={<DevDashboard />} />
         </Routes>
       </div>
     </ThemeProvider>
