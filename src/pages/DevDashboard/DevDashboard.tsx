@@ -66,7 +66,7 @@ const DevDashboard: React.FC = () => {
             <div className="selects">
                 <div className="select-box">
                     <span className='select-title'>Statistics</span>
-                    <InputSearch className={classes.select} type='select' name="statsParams" placeholder='Statistics' value={statsParam || errorParam || successParam} onSelect={handleStats} data={statsData} />
+                    <InputSearch className={classes.select} type='select' name="statsParams" value={statsParam || errorParam || successParam} onSelect={handleStats} data={statsData} />
                 </div>
                 <div className="select-box">
                     <span className='select-title'>Time Range</span>

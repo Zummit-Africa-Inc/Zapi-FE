@@ -1,9 +1,6 @@
 import { Typography } from '@mui/material'
 import React from 'react'
 
-//styles
-import './Widget.css'
-
 interface WidgetProps{
     title?: string
     subtitle?: string

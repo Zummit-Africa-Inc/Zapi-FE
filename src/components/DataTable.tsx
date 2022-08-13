@@ -1,92 +1,6 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TablePagination } from '@mui/material';
 import React, { useState } from 'react';
-import{ TABLEHADING } from '../../testdata'
-
-//styles
-// import './Table.css'
-
-const rows = [
-    {
-        id: 1,
-        time: 1143155,
-        version: "V1",
-        endpoint: "Create A New Link",
-        method: "GET",
-        location: "Nigeria",
-        status: 401,
-        latency: "400ms",
-    },
-    {
-      id: 1,
-      time: 1143155,
-      version: "V1",
-      endpoint: "Create A New Link",
-      method: "GET",
-      location: "Nigeria",
-      status: 401,
-      latency: "400ms",
-  },
-  {
-    id: 1,
-    time: 1143155,
-    version: "V1",
-    endpoint: "Create A New Link",
-    method: "GET",
-    location: "Nigeria",
-    status: 401,
-    latency: "400ms",
-},
-{
-  id: 1,
-  time: 1143155,
-  version: "V1",
-  endpoint: "Create A New Link",
-  method: "GET",
-  location: "Nigeria",
-  status: 401,
-  latency: "400ms",
-},
-{
-  id: 1,
-  time: 1143155,
-  version: "V1",
-  endpoint: "Create A New Link",
-  method: "GET",
-  location: "Nigeria",
-  status: 401,
-  latency: "400ms",
-},
-{
-  id: 1,
-  time: 1143155,
-  version: "V1",
-  endpoint: "Create A New Link",
-  method: "GET",
-  location: "Nigeria",
-  status: 401,
-  latency: "400ms",
-},
-{
-  id: 1,
-  time: 1143155,
-  version: "V1",
-  endpoint: "Create A New Link",
-  method: "GET",
-  location: "Nigeria",
-  status: 401,
-  latency: "400ms",
-},
-{
-  id: 1,
-  time: 1143155,
-  version: "V1",
-  endpoint: "Create A New Link",
-  method: "GET",
-  location: "Nigeria",
-  status: 401,
-  latency: "400ms",
-},
-  ];
+import{ TABLEHADING, ROWS } from '../testdata'
 
 const DataTable: React.FC = () => {
   const [page, setPage] = useState<number>(0);
@@ -112,7 +26,7 @@ const DataTable: React.FC = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
+            {ROWS.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
               <TableRow
                 key={row.id}
               >
@@ -131,7 +45,7 @@ const DataTable: React.FC = () => {
       <TablePagination
         rowsPerPageOptions={[5, 10, 100]}
         component="div"
-        count={rows.length}
+        count={ROWS.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
