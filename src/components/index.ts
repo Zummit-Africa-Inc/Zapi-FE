@@ -3,3 +3,4 @@ export { default as InputSearch } from "./InputSearch";
 export { default as Navbar } from "./Navbar";
 export { default as Sidebar } from "./Sidebar";
 export { default as TabPanel } from "./TabPanel";
+export { default as BaseButton } from "./Button";

@@ -13,6 +13,7 @@ const App:React.FC = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/OrgPage" element={<OrgPage />} />
         </Routes>
       </div>
     </ThemeProvider>
