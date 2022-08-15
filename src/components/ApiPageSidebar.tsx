@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ReactNode, useState } from "react";
 import {Link} from 'react-router-dom'
 import { makeStyles } from "@mui/styles";
 import AddIcon from '@mui/icons-material/Add';
@@ -12,7 +12,7 @@ interface TabPanelProps {
   value: number;
 }
 type Props = {
-  addApi: string,
+  addApi: ReactNode,
 };
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -68,7 +68,6 @@ const APIPage: React.FC<Props> = ({addApi}) => {
         value={value}
         onChange={handleChange}
             aria-label="Vertical tabs example"
-            centered={true}
         sx={{ borderRight: 1, borderColor: 'divider', display: 'flex'}}
         >
           
