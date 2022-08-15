@@ -56,8 +56,8 @@ const Home:React.FC = () => {
 
         {/* section for search */}
         <form onSubmit={handleSubmit} className={classes.search}>
-          <InputSearch type="select" name="queryParams" value={queryParam} onSelect={(e: ChangeEvent<HTMLSelectElement>) => setQueryParam(e.target.value)} placeholder="Sort by" data={data} />
-          <InputSearch type="text" name="queryString" value={queryString} onChange={(e: ChangeEvent<HTMLInputElement>) => setQueryString(e.target.value)} placeholder="I'm looking for..." />
+          <InputSearch className={classes.formControl} type="select" name="queryParams" value={queryParam} onSelect={(e: ChangeEvent<HTMLSelectElement>) => setQueryParam(e.target.value)} placeholder="Sort by" data={data} />
+          <InputSearch className={classes.formControl} type="text" name="queryString" value={queryString} onChange={(e: ChangeEvent<HTMLInputElement>) => setQueryString(e.target.value)} placeholder="I'm looking for..." />
         </form>
         <div className={classes.root}>
           <div className={classes.sidebar}>
@@ -166,6 +166,29 @@ const useStyles = makeStyles({
     overflowY:"scroll",
     padding:"0.5rem 0"
   },
+     formControl: {
+        height: 45,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "1rem",
+        background: "#FFF",
+        padding: "0.25rem 1rem",
+        margin: "1rem 0",
+        borderRadius: 5,
+        "& input": {
+            width: 250,
+            height: "100%",
+            outline: "none",
+            border: "none",
+        },
+        "& select": {
+            width: 100,
+            height: "100%",
+            outline: "none",
+            border: "none",
+        }
+    },
   pricing: {
     width: "100%",
     height:"60vh",

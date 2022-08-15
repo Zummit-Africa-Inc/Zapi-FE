@@ -4,5 +4,6 @@ export { default as Login } from "./Login";
 export { default as LoginHistory } from "./LoginHistory";
 export { default as ForgotPassword } from "./ForgotPassword";
 export { default as Otp } from "./Otp";
-export { default as Signup } from './Signup'
+export { default as Signup } from './Signup';
 export { default as UserProfile } from "./UserProfile";
+export { default as DevDashboard } from "./DevDashboard/DevDashboard"
