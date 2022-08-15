@@ -11,7 +11,7 @@ const initialState = {
   password: ''
 }
 
-const Signup = () => {
+const Signup:React.FC = () => {
   const { inputs, bind } = useFormInputs(initialState)
   const { fullName, email, password } = inputs
   const { loading, error, sendRequest, clearError } = useHttpRequest()
