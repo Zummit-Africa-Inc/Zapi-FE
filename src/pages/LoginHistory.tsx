@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { useContextProvider } from "../contexts/ContextProvider";
 import {
     Box,
@@ -13,11 +13,22 @@ import {
 import { Navbar } from "../components";
 import { makeStyles } from "@mui/styles";
 import { LOGINHISTORIES } from "../testdata";
+import { loadMapApi } from "../utils";
+import Map from '../components/Map';
+
 
 const LoginHistory: React.FC = () => {
+    const [scriptLoaded, setScriptLoaded] = useState(false);
+
     const classes = useStyles();
     const { setActiveMenu, screenSize, setScreenSize } = useContextProvider();
 
+    useEffect(() => {
+        const googleMapScript = loadMapApi();
+        googleMapScript.addEventListener('load', function(){
+            setScriptLoaded(true);
+        })
+      },[]);
     useEffect(() => {
         const handleScreenResize = () => setScreenSize(innerWidth)
         window.addEventListener('resize', handleScreenResize)
@@ -27,16 +38,16 @@ const LoginHistory: React.FC = () => {
 
     useEffect(() => {
     screenSize <= 900 ? setActiveMenu(false) : null
-    },[screenSize]);
+    }, [screenSize]);
 
     return (
         <>
             <Navbar />
-            <Box mx={4}>
-                <Typography variant="h4" style={{ fontWeight: "bold" }}>
-                    Settings
+            <Box>
+                <Typography variant="h4" style={{ fontWeight: "bold", marginBottom: "2rem" }}>
+                    
                 </Typography>
-                <Typography variant="h6">Login History</Typography>
+                <Typography variant="h6" mx={2} my={1}>Login History</Typography>
                 <Stack>
                     <Toolbar
                         style={{ color: "white", backgroundColor: "hsla(219, 80%, 16%, 0.7)" }}
@@ -67,9 +78,9 @@ const LoginHistory: React.FC = () => {
                             </div>
                         </Grid>
                         <Grid item xs={12} md={9}>
-                            <div className={classes.mapResponsive}>
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d253701.1045643507!2d3.7748941499999997!3d6.5115886!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf75df5c74367%3A0x6a7e7df9d6c1cd4a!2sLekki!5e0!3m2!1sen!2sng!4v1660168484705!5m2!1sen!2sng" width="600" height="450" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
-                            </div>
+                            {scriptLoaded && (
+                                <Map mapType={google.maps.MapTypeId.ROADMAP} mapTypeControl={true} />
+                            )}
                         </Grid>
                     </Grid>
                 </Stack>
@@ -90,7 +101,7 @@ const useStyles = makeStyles({
         // justifyContent: "center",
         background: "transparent",
         textAlign: "center",
-        padding: "0 0.25rem",
+        // padding: "0 0.25rem",
 
     },
     list: {
@@ -100,7 +111,7 @@ const useStyles = makeStyles({
         justifyContent: "center",
         textDecoration: "none",
         backgroundColor: " hsla(219, 80%, 16%, 0.3)",
-        "& a": {
+        "&Map": {
             textDecoration: "none",
             cursor: "pointer",
         },
