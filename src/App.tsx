@@ -2,7 +2,8 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
 
-import { Home, Login, Signup, UserProfile, ForgotPassword, Otp, APIPage } from "./pages";
+import { Home, Login, Signup, UserProfile, ForgotPassword,LoginHistory, Otp, APIPage } from "./pages";
+
 import { theme } from "./theme";
 
 const App:React.FC = () => {
@@ -19,6 +20,7 @@ const App:React.FC = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/user/:id" element={<UserProfile />} />
           <Route path="/api" element={<APIPage />} />
+          <Route path="/login-history" element={<LoginHistory/> } />
         </Routes>
       </div>
     </ThemeProvider>

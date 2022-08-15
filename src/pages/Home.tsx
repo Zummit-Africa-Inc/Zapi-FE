@@ -3,7 +3,7 @@ import { IconButton, Stack, Tab, Tabs, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { CloseOutlined } from "@mui/icons-material";
 
-import { APICard, InputSearch, Navbar, Sidebar, TabPanel } from "../components";
+import { APICard, InputSearch, Navbar, Sidebar, TabPanel, Pricing } from "../components";
 import { useContextProvider } from "../contexts/ContextProvider";
 import { APIS } from "../testdata";
 
@@ -85,7 +85,10 @@ const Home:React.FC = () => {
                   <Typography variant="subtitle2" mb={2}>
                     APIs that are popular and frequently used on Z-API.
                   </Typography>
-                  <div className={classes.tabInner}></div>
+                  {/* Pricing is lying in this section for the main time, until singleApi page is created */}
+                  <div className={classes.pricing}>
+                    <Pricing />
+                  </div>
                 </TabPanel>
                 <TabPanel value={tab} index={2}>
                   <Typography variant="subtitle2" mb={2}>
@@ -157,6 +160,15 @@ const useStyles = makeStyles({
     height:"60vh",
     display:"flex",
     flexWrap:"wrap",
+    alignItems:"center",
+    justifyContent:"center",
+    gap:"1.5rem",
+    overflowY:"scroll",
+    padding:"0.5rem 0"
+  },
+  pricing: {
+    width: "100%",
+    height:"60vh",
     alignItems:"center",
     justifyContent:"center",
     gap:"1.5rem",
