@@ -1,8 +1,8 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
+import { DevDashboard, Home, Login, Signup, UserProfile, ForgotPassword,LoginHistory, Otp, APIPage, Analytics } from "./pages";
 
-import { Home, Login, Signup, UserProfile, ForgotPassword,LoginHistory, Otp, APIPage, DevDashboard, Analytics } from "./pages";
 import { theme } from "./theme";
 
 const App:React.FC = () => {
