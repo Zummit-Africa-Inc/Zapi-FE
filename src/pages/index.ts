@@ -6,5 +6,6 @@ export { default as ForgotPassword } from "./ForgotPassword";
 export { default as Otp } from "./Otp";
 export { default as Signup } from './Signup';
 export { default as UserProfile } from "./UserProfile";
+export { default as SuccessPage } from "./SuccessPage";
 export { default as DevDashboard } from "./DevDashboard/DevDashboard";
 export { default as Analytics } from "./Analytics/Analytics";
