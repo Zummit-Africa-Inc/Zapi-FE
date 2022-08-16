@@ -1,5 +1,5 @@
 import React from "react";
-import { IconButton, Stack, Toolbar, Typography, TextField, Box, Grid, Select, MenuItem} from "@mui/material";
+import { IconButton, Stack, Toolbar, Typography, TextField, Box, Grid, Select, MenuItem,InputLabel, FormControl} from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { InsertDriveFileOutlined, AccountCircleOutlined, NotificationsOutlined, } from "@mui/icons-material";
 import { BaseButton } from "../components"
@@ -30,20 +30,20 @@ const OrgPage: React.FC = () => {
         </Stack>
       </Toolbar>  
       <Box>  
-<Typography variant="h4"  className={classes.typo} sx={{mb:{xs:'50px',md:'0',lg:'0'}}}>
+<Typography variant="h4"  className={classes.typo} sx={{mb:{xs:'25px',md:'0',lg:'0'}}}>
  Create Your Organisation
 </Typography>
 <Typography  className={classes.typo} sx={{mb:'80px'}} >
  Organisation accounts allow your team to manage your API both internally and externally 
 </Typography>
 </Box>
-<Box  sx={{ml:{xs:'0%',lg:'25%',md:'25%'}}}>
+<Box  mb={2} sx={{ml:{xs:'0%',lg:'25%',md:'25%'}}}>
 <Box sx={{ display:{xs:'grid'},placeItems:{xs:'center',lg:'normal',md:'normal'}}}>
-<TextField label="Organisation" variant="outlined" sx={{width:{xs:'80vw',md:'35%',lg:'35%'}}} className={classes.field} />
+<TextField label="Organisation Name" variant="outlined" sx={{width:{xs:'80vw',md:'48%',lg:'48%'}}} className={classes.field} />
 <Typography className={classes.orgTypo}  sx={{mb:'50px',width:{xs:'80%'}}}>
  *This business name will own and control this organisation account
 </Typography>
-<TextField label="Organisation" variant="outlined" className={classes.field} sx={{width:{xs:'80vw',md:'35%',lg:'35%'}}}/>
+<TextField label="Organisation Seat" variant="outlined" className={classes.field} sx={{width:{xs:'80vw',md:'48%',lg:'48%'}}}/>
 <Typography className={classes.orgTypo}sx={{mb:'50px',width:{xs:'80%'}}}>
  *Seat can be added or removed at anything. The first seats are free
 </Typography>
@@ -56,22 +56,26 @@ const OrgPage: React.FC = () => {
   xs={12}
 				md={4}
 				lg={4}>
-    <TextField label="Organisation" variant="outlined" sx={{width:{lg:'17rem',md:'17rem',xs:'100%'}}}  />
+    <TextField label="Username or Email" variant="outlined" sx={{width:{lg:'17rem',md:'17rem',xs:'100%'}}}  />
 
   </Grid>
   <Grid item xs={12} md={4} lg={4}>
-  <Select sx={{ width: { xs: "100%", lg: "150px", md: "150px" } }}>
-    <MenuItem value={10}>Ten</MenuItem>
-    <MenuItem value={20}>Twenty</MenuItem>
-    <MenuItem value={30}>Thirty</MenuItem>
-  </Select>  
+  <FormControl sx={{ width: { xs: "100%", lg: "155px", md: "155px" } }}>
+    <InputLabel sx={{xs:"center"}}>Role</InputLabel>
+    <Select variant="outlined" size="small" fullWidth>
+    <MenuItem value={1}>Option 1</MenuItem>
+    <MenuItem value={2}>Option 2</MenuItem>
+    <MenuItem value={2}>Option 3</MenuItem>
+    <MenuItem value={2}>Option 4</MenuItem>
+    </Select>
+</FormControl> 
   </Grid>
   <Grid item
 				xs={12}
 				md={4}
 				lg={4}
 				>
-<TextField  label="Organisation" variant="outlined" sx={{width:{lg:'17rem',md:'17rem',xs:'100%'}}}/>
+<TextField  label="Organisation Role" variant="outlined" sx={{width:{lg:'17rem',md:'17rem',xs:'100%'}}}/>
   </Grid>
 </Grid>
 <BaseButton/>
@@ -115,7 +119,7 @@ const OrgPage: React.FC = () => {
   },
 
  field:  {
-    width: "35%",
+    width: "48%",
     background: "#FFFFFF",
     borderRadius: "1px",
   
@@ -128,7 +132,7 @@ letterSpacing: '0em',
 
   Task: {
 height: "42px",
-left: "415px",
+left: "400px",
 fontWeight: "400px",
 fontSize: "35px",
 lineHeight: "42px",

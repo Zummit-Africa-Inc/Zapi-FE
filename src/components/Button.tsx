@@ -1,11 +1,12 @@
 import React from 'react';
 import Stack from '@mui/material/Stack';
 import Button  from '@mui/material/Button';
+import { height } from '@mui/system';
 
  const BaseButton: React.FC = () => {
   return (
-    <Stack spacing={2} direction="row">
-      <Button variant="contained">Contained</Button>
+    <Stack spacing={1} direction="row" >
+      <Button sx={{backgroundColor:"black", borderRadius:"15px", width: "290px", height: "51px"}} variant="contained">Confirm & Contiune</Button>
     </Stack>
   );
 }
