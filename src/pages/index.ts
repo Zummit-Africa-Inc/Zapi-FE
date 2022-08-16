@@ -8,5 +8,4 @@ export { default as Signup } from './Signup';
 export { default as UserProfile } from "./UserProfile";
 export { default as SuccessPage } from "./SuccessPage";
 export { default as DevDashboard } from "./DevDashboard/DevDashboard";
-export { default as Configuration } from "./Configuration";
 export { default as Analytics } from "./Analytics/Analytics";

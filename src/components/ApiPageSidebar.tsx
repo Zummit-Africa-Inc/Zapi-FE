@@ -17,6 +17,7 @@ interface TabPanelProps {
 }
 type Props = {
   addApi: ReactNode,
+  configuration: ReactNode,
 };
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -47,7 +48,7 @@ function a11yProps(index: number) {
 
 
 
-const APIPage: React.FC<Props> = ({addApi}) => {
+const APIPage: React.FC<Props> = ({addApi, configuration}) => {
   const [open, setOpen] = React.useState<boolean>(true);
 
   const handleClick = (e: React.SyntheticEvent) => {
@@ -86,35 +87,13 @@ const APIPage: React.FC<Props> = ({addApi}) => {
         <Tab label="Add API"{...a11yProps(0)} icon={<AddIcon />} iconPosition="start"  />
             <Tab label="Payment Setting" {...a11yProps(1)} icon={<AccountBalanceWalletIcon />} iconPosition="start" />
             <Tab label="Support" {...a11yProps(2)} icon={<SupportAgentIcon />} iconPosition="start" />
+            <Tab label="Config API"{...a11yProps(3)} icon={<AddIcon />} iconPosition="start"  />
         </Tabs>
             <Stack direction='row' alignItems='center'>
               <form>
                 <TextField type='text' id='text-with-icon-adornment' sx={{ width: '190px', marginLeft: '25px'}} value={query} onChange={(e) => setQuery(e.target.value)} placeholder='Seach By API Name' />
               </form>
             </Stack>
-
-        
-          <List {...a11yProps(3)}
-          sx={{ width: "100%", marginTop: 3}}
-          >
-          <ListItemButton onClick={handleClick}>
-              <ListItemText primary="default-application">
-              </ListItemText>
-                  <ExpandMore />
-          </ListItemButton>
-          <Collapse in={!open} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <Link to="/configuration" >
-                  <ListItemButton sx={{ pl: 4, hover: 'backgroundColor: var(--color-primary)', color: '#081F4A' }}>
-                    <ListItemIcon>
-                      < ConstructionIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Configuration" />
-                  </ListItemButton>
-                </Link>
-              </List>
-          </Collapse>
-          </List>
 
         
           </div>
@@ -126,6 +105,9 @@ const APIPage: React.FC<Props> = ({addApi}) => {
         </TabPanel>
       <TabPanel value={value} index={2}>
         <Typography>security</Typography>
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+        <Typography>{configuration}</Typography>
         </TabPanel>
       </Box>
     </div>
