@@ -2,7 +2,7 @@ import { Typography } from '@mui/material'
 import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react'
 import { makeStyles } from '@mui/styles'
 //components
-import { InputSearch, ApiPageSidebar } from '../components'
+import { InputSearch, ApiPageSidebar, Navbar } from '../components'
 //data
 import { METHOD, DATATYPE } from '../testdata'
 
@@ -54,6 +54,8 @@ const CreateEndpoint: React.FC = () => {
     setRequestBody(newFormValues);
   }
   return (
+    <>
+    <Navbar />
     <div className={classes.createEndpointPage}>
     {/* <ApiPageSidebar /> */}
     <div className={classes.addEndpoint}>
@@ -96,6 +98,7 @@ const CreateEndpoint: React.FC = () => {
       </form>
     </div>
         </div>
+        </>
   )
 }
 
@@ -103,6 +106,7 @@ export default CreateEndpoint
 
 const useStyles = makeStyles({
   createEndpointPage: {
+    background: "#fff",
     width: "100vw",
     display: "flex",
   },
@@ -117,7 +121,8 @@ const useStyles = makeStyles({
     justifyContent: "space-between"
   },
   pageHeading: {
-    fontSize: "2rem",
+    fontSize: "3rem",
+    paddingBottom: "1.5rem",
     fontWeight: 500,
     color: "var(--color-primary)",
   },
@@ -156,11 +161,12 @@ const useStyles = makeStyles({
   input: {
     display: "flex",
     flexDirection: "column",
+    gap: ".3rem",
     "& input, textarea": {
       width: "40%",
-      padding: ".5rem .5rem",
+      padding: ".8rem .5rem",
       border: "1px solid #ccc",
-      borderRadius: "2px"
+      borderRadius: "2px",
     }
   },
   endpointRoute: {
@@ -171,7 +177,7 @@ const useStyles = makeStyles({
   select: {
     "& select": {
       width: "100px",
-      padding: ".5rem .5rem",
+      padding: ".8rem .5rem",
       border: "1px solid #ccc",
       borderRadius: "2px"
     },
@@ -181,7 +187,6 @@ const useStyles = makeStyles({
   },
   postForm: {
     display: "flex",
-    // alignItems: "center",
     marginTop: "1.5rem",
     gap: "2rem",
     flexDirection: "column",
@@ -190,19 +195,15 @@ const useStyles = makeStyles({
     display: "flex",
     gap: "1rem",
     "& input": {
-      // width: "40%",
-      padding: ".5rem .5rem",
+      padding: ".8rem .5rem",
       border: "1px solid #ccc",
       borderRadius: "2px"
     },
     "& select": {
       width: "100px",
-      padding: ".5rem .5rem",
+      padding: ".8rem .5rem",
       border: "1px solid #ccc",
       borderRadius: "2px"
     },
   },
-  // actionButtons: {
-
-  // }
 })
