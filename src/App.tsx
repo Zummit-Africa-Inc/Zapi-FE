@@ -23,7 +23,7 @@ const App:React.FC = () => {
           <Route path="/login-history" element={<LoginHistory/> } />
           <Route path="/success-page" element={<SuccessPage />} />
           <Route path="/endpoint" element={<EndPoint />} />
-          <Route path="/create-endpoint" element={<CreateEndpoint />} />
+          <Route path="/add-endpoint" element={<CreateEndpoint />} />
 
         </Routes>
       </div>
