@@ -9,7 +9,7 @@ const OrgPage: React.FC = () => {
    const classes = useStyles()
   return (
   
-    <Box style={{ background: "#FFF",height:'100vh'}} >
+    <Box style={{ background: "#FFF",height:'100%'}} >
       <Navbar />
       <Box>  
 <Typography variant="h4"  className={classes.typo} sx={{mb:{xs:'25px',md:'0',lg:'0'}}}>
@@ -32,8 +32,8 @@ const OrgPage: React.FC = () => {
 </Box>
 </Box>
   <Typography variant="h5"className={classes.Task} sx={{mb:{xs:'50px',lg:'10px',md:'10px'}}}>Invite Teammates to your new organisation </Typography>
-   <Box  sx={{ml:{xs:'0%',lg:'25%',md:'25%'},display:{xs:'grid'},paddingBottom:{xs:'100px',lg:'0px',md:'0px'}, placeItems:{xs:'center',lg:'normal',md:'normal'}}}>
-   <Grid container rowSpacing={{xs:3,lg:1,md:1}} columnSpacing={{ xs: 4, sm: 2, md: 3 }} sx={{columnGap:{xs:'20px',md:'8rem',lg:'8rem'},maxWidth:{lg:'56%',md:'70%',xs:'80%'}, paddingBottom:'40px'}}>
+   <Box  sx={{ml:{xs:'0%',lg:'25%',md:'25%'},display:{xs:'grid'},paddingBottom:{xs:'80px',lg:'0px',md:'0px'}, placeItems:{xs:'center',lg:'normal',md:'normal'}}}>
+   <Grid container rowSpacing={{xs:3,lg:1,md:1}} columnSpacing={{ xs: 4, sm: 2, md: 3 }} sx={{columnGap:{xs:'20px',md:'8rem',lg:'8rem'},maxWidth:{lg:'56%',md:'70%',xs:'80%'}, paddingBottom:'30px'}}>
   <Grid item 
   xs={12}
 				md={4}
@@ -57,7 +57,7 @@ const OrgPage: React.FC = () => {
 				md={4}
 				lg={4}
 				>
-<TextField  label="Organisation Role" variant="outlined" sx={{width:{lg:'17rem',md:'17rem',xs:'100%'}}}/>
+<TextField  label="Organisation Role" variant="outlined" sx={{width:{lg:'17rem',md:'17rem',xs:'100%'}, paddingBottom:"10px"}} />
   </Grid>
 </Grid>
 <BaseButton/>
@@ -66,8 +66,6 @@ const OrgPage: React.FC = () => {
   )
   };
   const useStyles = makeStyles(()=>({
-   
-
   typo: {
   fontSize: "39px",
   lineHeight: "45px",
