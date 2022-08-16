@@ -1,8 +1,7 @@
 import React from "react";
-import { IconButton, Stack, Toolbar, Typography, TextField, Box, Grid, Select, MenuItem,InputLabel, FormControl} from "@mui/material";
+import {  Typography, TextField, Box, Grid, Select, MenuItem,InputLabel, FormControl} from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { InsertDriveFileOutlined, AccountCircleOutlined, NotificationsOutlined, } from "@mui/icons-material";
-import { BaseButton } from "../components"
+import { BaseButton, Navbar } from "../components"
 
 
 
@@ -10,28 +9,11 @@ const OrgPage: React.FC = () => {
    const classes = useStyles()
   return (
   
-    <div style={{ background: "#FFF",height:'100%'}} >
-      <Toolbar className={classes.toolbar}>
-        <Box className={classes.logoWrapper}>
-          <img src="/images/zapi-logo.png" alt="zapi-logo" className={classes.logo} />
-        </Box>
-        <Stack className={classes.bar}>
-          <Stack direction="row" alignItems="center" justifyContent="center" spacing={2} mb={1}>
-            <IconButton color="primary">
-               <InsertDriveFileOutlined />
-            </IconButton>
-            <IconButton color="primary">
-              <NotificationsOutlined />
-            </IconButton>
-            <IconButton color="primary">
-              <AccountCircleOutlined />
-            </IconButton>
-          </Stack>
-        </Stack>
-      </Toolbar>  
+    <Box style={{ background: "#FFF",height:'100vh'}} >
+      <Navbar />
       <Box>  
 <Typography variant="h4"  className={classes.typo} sx={{mb:{xs:'25px',md:'0',lg:'0'}}}>
- Create Your Organisation
+ <Box fontWeight='fontWeightMedium' display='inline'>Create Your Organisation</Box>
 </Typography>
 <Typography  className={classes.typo} sx={{mb:'80px'}} >
  Organisation accounts allow your team to manage your API both internally and externally 
@@ -50,23 +32,23 @@ const OrgPage: React.FC = () => {
 </Box>
 </Box>
   <Typography variant="h5"className={classes.Task} sx={{mb:{xs:'50px',lg:'10px',md:'10px'}}}>Invite Teammates to your new organisation </Typography>
-   <Box  sx={{ml:{xs:'0%',lg:'25%',md:'25%'},paddingBottom:'100px',display:{xs:'grid'},placeItems:{xs:'center',lg:'normal',md:'normal'}}}>
-   <Grid container rowSpacing={{xs:3,lg:1,md:1}} columnSpacing={{ xs: 4, sm: 2, md: 3 }} sx={{columnGap:{xs:'20px',md:'8rem',lg:'8rem'},maxWidth:{lg:'56%',md:'70%',xs:'80%'},paddingBottom:'60px'}}>
+   <Box  sx={{ml:{xs:'0%',lg:'25%',md:'25%'},display:{xs:'grid'},paddingBottom:{xs:'100px',lg:'0px',md:'0px'}, placeItems:{xs:'center',lg:'normal',md:'normal'}}}>
+   <Grid container rowSpacing={{xs:3,lg:1,md:1}} columnSpacing={{ xs: 4, sm: 2, md: 3 }} sx={{columnGap:{xs:'20px',md:'8rem',lg:'8rem'},maxWidth:{lg:'56%',md:'70%',xs:'80%'}, paddingBottom:'40px'}}>
   <Grid item 
   xs={12}
 				md={4}
 				lg={4}>
-    <TextField label="Username or Email" variant="outlined" sx={{width:{lg:'17rem',md:'17rem',xs:'100%'}}}  />
+    <TextField label="Username or Email" variant="outlined" sx={{width:{lg:'17rem',md:'17rem',xs:'100%'}}} />
 
   </Grid>
   <Grid item xs={12} md={4} lg={4}>
-  <FormControl sx={{ width: { xs: "100%", lg: "155px", md: "155px" } }}>
-    <InputLabel sx={{xs:"center"}}>Role</InputLabel>
+  <FormControl sx={{ width: { xs: "100%", lg: "155px", md: "155px" }}}>
+    <InputLabel >Role</InputLabel>
     <Select variant="outlined" size="small" fullWidth>
     <MenuItem value={1}>Option 1</MenuItem>
     <MenuItem value={2}>Option 2</MenuItem>
-    <MenuItem value={2}>Option 3</MenuItem>
-    <MenuItem value={2}>Option 4</MenuItem>
+    <MenuItem value={3}>Option 3</MenuItem>
+    <MenuItem value={4}>Option 4</MenuItem>
     </Select>
 </FormControl> 
   </Grid>
@@ -80,39 +62,15 @@ const OrgPage: React.FC = () => {
 </Grid>
 <BaseButton/>
 </Box>
-</div>
+</Box>
   )
   };
-  const useStyles = makeStyles({
-    toolbar: {
-    width: "100%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    background: "#FFF",
-    padding: 0,
-    },
-    bar: {
-    width: "90%",
-    alignItems: "flex-end",
-    borderBottom: "2px solid var(--color-primary)",
-    },
-    logoWrapper : {
-    width: "5rem",
-    display: "grid",
-    placeItems: "center",
-    margin: "0.25rem",
-  },
-  logo: {
-    width: "100%",
-    objectFit: "contain",
-  },
+  const useStyles = makeStyles(()=>({
+   
 
   typo: {
-  fontStyle: "normal",
-  fontWeight: "600",
   fontSize: "39px",
-  lineHeight: "47px",
+  lineHeight: "45px",
   textAlign: "center",
   color: "#081F4A",
   
@@ -139,6 +97,6 @@ lineHeight: "42px",
 textAlign: "center",
 color: "#081F4A",
   }
-  })
+  }))
 
 export default OrgPage;
