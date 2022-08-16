@@ -32,7 +32,6 @@ const AddApi: React.FC = () => {
         </Avatar>
         </Stack>
   
-
         <Button variant="contained" size="large" className={classes.button}>
            Edit
         </Button>
@@ -55,9 +54,6 @@ const useStyles = makeStyles({
   },
   button: {
     width: "15vh",
-  },
-  grey: {
-    color: "#B8B8B8",
   },
   space: {
     marginRight: "10px"

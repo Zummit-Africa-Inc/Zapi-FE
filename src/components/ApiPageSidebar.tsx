@@ -1,14 +1,11 @@
 import React, { ReactNode, useState } from "react";
-import {Link} from 'react-router-dom'
 import { makeStyles } from "@mui/styles";
-import AddIcon from '@mui/icons-material/Add';
 import { Stack, Typography, Avatar, TextField, Tabs, Tab, Box } from "@mui/material";
-import {  List, ListItemButton, ListItemIcon, ListItemText, Collapse } from "@mui/material";
-import { ExpandMore } from "@mui/icons-material";
 
+import AddIcon from '@mui/icons-material/Add';
 import ConstructionIcon from '@mui/icons-material/Construction';
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
-import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -73,41 +70,41 @@ const APIPage: React.FC<Props> = ({addApi, configuration}) => {
               src="/static/images/avatar/1.jpg"
               sx={{ width: 56, height: 56 }}
             />
-         <Typography sx={{ margin: '0px 10px'}}>John Doe Dummy user</Typography>
-       </Stack> <hr />
-      <Tabs
-        orientation="vertical"
-        variant="scrollable"
-        value={value}
-        onChange={handleChange}
-            aria-label="Vertical tabs example"
-        sx={{ borderRight: 1, borderColor: 'divider', display: 'flex'}}
-        >
-          
-        <Tab label="Add API"{...a11yProps(0)} icon={<AddIcon />} iconPosition="start"  />
+            <Typography sx={{ margin: '0px 10px'}}>John Doe Dummy user</Typography>
+          </Stack> <hr />
+          <Tabs
+            orientation="vertical"
+            variant="scrollable"
+            value={value}
+            onChange={handleChange}
+                aria-label="Vertical tabs example"
+            sx={{ borderRight: 1, borderColor: 'divider', display: 'flex'}}
+            >
+              
+            <Tab label="Add API"{...a11yProps(0)} icon={<AddIcon />} iconPosition="start"  />
             <Tab label="Payment Setting" {...a11yProps(1)} icon={<AccountBalanceWalletIcon />} iconPosition="start" />
             <Tab label="Support" {...a11yProps(2)} icon={<SupportAgentIcon />} iconPosition="start" />
-            <Tab label="Config API"{...a11yProps(3)} icon={<AddIcon />} iconPosition="start"  />
-        </Tabs>
-            <Stack direction='row' alignItems='center'>
-              <form>
-                <TextField type='text' id='text-with-icon-adornment' sx={{ width: '190px', marginLeft: '25px'}} value={query} onChange={(e) => setQuery(e.target.value)} placeholder='Seach By API Name' />
-              </form>
-            </Stack>
+            <Tab label="Configuration"{...a11yProps(3)} icon={<ConstructionIcon />} iconPosition="start"  />
+          </Tabs>
+          <Stack direction='row' alignItems='center'>
+            <form>
+              <TextField type='text' id='text-with-icon-adornment' sx={{ width: '190px', marginLeft: '25px'}} value={query} onChange={(e) => setQuery(e.target.value)} placeholder='Seach By API Name' />
+            </form>
+          </Stack>
+        </div>
 
-        
-          </div>
-          <TabPanel value={value} index={0}>
-        {addApi}
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <Typography>payment</Typography>
+        {/* Tab Panels */}
+        <TabPanel value={value} index={0}>
+          {addApi}
         </TabPanel>
-      <TabPanel value={value} index={2}>
-        <Typography>security</Typography>
+        <TabPanel value={value} index={1}>
+          <Typography>payment</Typography>
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <Typography>security</Typography>
         </TabPanel>
         <TabPanel value={value} index={3}>
-        <Typography>{configuration}</Typography>
+          <Typography>{configuration}</Typography>
         </TabPanel>
       </Box>
     </div>
