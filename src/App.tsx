@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
-import { DevDashboard, Home, Login, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, Analytics, SuccessPage, EndPoint } from "./pages";
+import { DevDashboard, Home, Login, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, Analytics, SuccessPage, EndPoint, CreateEndpoint } from "./pages";
 
 import { theme } from "./theme";
 
@@ -23,6 +23,7 @@ const App:React.FC = () => {
           <Route path="/login-history" element={<LoginHistory/> } />
           <Route path="/success-page" element={<SuccessPage />} />
           <Route path="/endpoint" element={<EndPoint />} />
+          <Route path="/create-endpoint" element={<CreateEndpoint />} />
 
         </Routes>
       </div>

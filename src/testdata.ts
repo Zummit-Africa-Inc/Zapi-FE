@@ -180,7 +180,7 @@ export const ROWS = [
         latency: "400ms",
     },
     {
-      id: 1,
+      id: 2,
       time: 1143155,
       version: "V1",
       endpoint: "Create A New Link",
@@ -190,7 +190,7 @@ export const ROWS = [
       latency: "400ms",
   },
   {
-    id: 1,
+    id: 3,
     time: 1143155,
     version: "V1",
     endpoint: "Create A New Link",
@@ -200,7 +200,7 @@ export const ROWS = [
     latency: "400ms",
 },
 {
-  id: 1,
+  id: 4,
   time: 1143155,
   version: "V1",
   endpoint: "Create A New Link",
@@ -210,7 +210,7 @@ export const ROWS = [
   latency: "400ms",
 },
 {
-  id: 1,
+  id: 5,
   time: 1143155,
   version: "V1",
   endpoint: "Create A New Link",
@@ -220,7 +220,7 @@ export const ROWS = [
   latency: "400ms",
 },
 {
-  id: 1,
+  id: 6,
   time: 1143155,
   version: "V1",
   endpoint: "Create A New Link",
@@ -230,7 +230,7 @@ export const ROWS = [
   latency: "400ms",
 },
 {
-  id: 1,
+  id: 7,
   time: 1143155,
   version: "V1",
   endpoint: "Create A New Link",
@@ -240,7 +240,7 @@ export const ROWS = [
   latency: "400ms",
 },
 {
-  id: 1,
+  id: 8,
   time: 1143155,
   version: "V1",
   endpoint: "Create A New Link",
@@ -264,3 +264,7 @@ export const LOGINHISTORIES = [
     "2012-06-25 10:24pm",
     "2010-06-17 15:24pm",
 ];
+
+export const METHOD = ["GET", "POST"]
+
+export const DATATYPE = ["STRING", "NUMBER", "BOOLEAN"]

@@ -1,9 +1,8 @@
 import { Button, IconButton, Typography } from "@mui/material"
-import { InputSearch } from "../../components"
+import { InputSearch } from "../components"
 import { makeStyles } from "@mui/styles"
 
 //styles
-import "./EndpointPage.css"
 import { Add } from "@mui/icons-material"
 
 

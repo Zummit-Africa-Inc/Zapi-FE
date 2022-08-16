@@ -21,7 +21,7 @@ const DataTable: React.FC = () => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>{TABLEHADING.map((heading) => (
-                <TableCell className="tableCell">{heading}</TableCell>
+                <TableCell className="tableCell" key={heading}>{heading}</TableCell>
             ))}
             </TableRow>
           </TableHead>
