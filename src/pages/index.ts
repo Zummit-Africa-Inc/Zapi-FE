@@ -8,6 +8,6 @@ export { default as Signup } from './Signup';
 export { default as UserProfile } from "./UserProfile";
 export { default as SuccessPage } from "./SuccessPage";
 export { default as DevDashboard } from "./DevDashboard/DevDashboard";
-export { default as Analytics } from "./Analytics/Analytics";
+export { default as Analytics } from "./Analytics";
 export { default as EndPoint } from "./EndpointPage"
 export { default as CreateEndpoint } from "./CreateEndpoint" 

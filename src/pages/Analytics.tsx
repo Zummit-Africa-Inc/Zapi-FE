@@ -1,8 +1,8 @@
 import { Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { ChangeEvent, useState } from 'react'
-import { Widget, InputSearch, DataTable, Navbar } from '../../components'
-import { ERROR, STATISTICS, SUCCESS, TIMERANGE, PERIOD, ZONE, TABLEHADING, ROWS } from '../../testdata'
+import { Widget, InputSearch, DataTable, Navbar } from '../components'
+import { ERROR, STATISTICS, SUCCESS, TIMERANGE, PERIOD, ZONE, TABLEHADING, ROWS } from '../testdata'
 
 const Analytics: React.FC = () => {
     const [statsParam, setStatsParam] = useState<string>(STATISTICS[0])
