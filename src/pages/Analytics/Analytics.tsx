@@ -1,8 +1,8 @@
 import { Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { ChangeEvent, useState } from 'react'
-import { Widget, InputSearch, DataTable } from '../../components'
-import { ERROR, STATISTICS, SUCCESS, TIMERANGE, PERIOD, ZONE } from '../../testdata'
+import { Widget, InputSearch, DataTable, Navbar } from '../../components'
+import { ERROR, STATISTICS, SUCCESS, TIMERANGE, PERIOD, ZONE, TABLEHADING, ROWS } from '../../testdata'
 
 const Analytics: React.FC = () => {
     const [statsParam, setStatsParam] = useState<string>(STATISTICS[0])
@@ -54,6 +54,7 @@ const Analytics: React.FC = () => {
     }
   return (
     <>
+    <Navbar />
     <div className="heading">
     <Typography sx={{fontSize: '1.5rem', fontWeight: 500, color: 'var(--color-primary)', padding: '2rem 2rem'}}>default-application_6350466 - Analytics</Typography>
     </div>
@@ -81,7 +82,7 @@ const Analytics: React.FC = () => {
                 <Widget className={successStyle} title='Success' subtitle={successParam} onClick={handleSuccessClick} span='0ms' />
             </div>
             <div className="table">
-                <DataTable />
+                <DataTable Heading={TABLEHADING} Rows={ROWS} />
             </div>
 
     </>

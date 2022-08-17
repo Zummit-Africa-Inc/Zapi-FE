@@ -1,23 +1,26 @@
 import { Button, IconButton, Typography } from "@mui/material"
-import { InputSearch } from "../components"
+import { DataTable, InputSearch, Navbar } from "../components"
 import { makeStyles } from "@mui/styles"
 
 //styles
 import { Add } from "@mui/icons-material"
+import { TABLEHEADING, TABLEROWS } from "../testdata"
+import { Link } from "react-router-dom"
 
 
 const EndpointPage: React.FC = () => {
     const classes = useStyles()
     return (
         <>
-            <div className="topSection">
-                <div className="page-heading">
-                    <Typography>Endpoints</Typography>
+        <Navbar />
+            <div className={classes.topSection}>
+                <div className={classes.pageHeading}>
+                    <Typography variant="h5">Endpoints</Typography>
                 </div>
-                <div className="page-subHeading">
+                <div className={classes.pageSubHeading}>
                     <Typography>Changes made to the endpoints will be reflected in the Hub.</Typography>
                 </div>
-                <div className="page-description">
+                <div className={classes.pageDescription}>
                     <Typography>Add and define your API endpoints.</Typography>
                 </div>
                 <div className={classes.pageActions}>
@@ -25,18 +28,18 @@ const EndpointPage: React.FC = () => {
                         <InputSearch className={classes.searchEndpoints} type="text" name="queryString" placeholder="Search Endpoints" />
                     </div>
                     <div className={classes.pageButtons}>
-                        <div className={classes.createButton}>
-                            <IconButton sx={{pointerEvents: "none"}}>
+                            <Link to="/add-endpoint" className={classes.createButton}>
                                 <Add sx={{ fontSize: "1rem", color: "rgb(139, 246, 236)", backgroundColor: "#fff", borderRadius: "50%", border: "2px solid rgb(149, 236, 236)"}} />
                                 <Typography sx={{fontWeight: 600, marginLeft: ".5rem"}}>Create Endpoint</Typography>
-                            </IconButton>
-                        </div>
+                            </Link>
                         <div className="delete-button">
                             <Button disabled variant="contained" sx={{backgroundColor: "red", color: "#000"}}>Delete</Button>
                         </div>
                     </div>
                 </div>
             </div>
+             {/* Table goes here */}
+             <DataTable Heading={TABLEHEADING} Rows={TABLEROWS} />
         </>
     )
 }
@@ -44,6 +47,21 @@ const EndpointPage: React.FC = () => {
 export default EndpointPage
 
 const useStyles = makeStyles({
+    topSection: {
+        padding: "2rem 5rem",
+    },
+    pageHeading: {
+        padding: "1rem 0",
+        fontSize: "2rem",
+        fontWeight: 500,
+        color: "rgb(40, 65, 206)"
+    },
+    pageSubHeading: {
+        paddingBottom: "1rem"
+    },
+    pageDescription: {
+        paddingBottom: "1rem"
+    },
     pageActions: {
         display: "flex",
         alignItems: "center",
@@ -73,9 +91,13 @@ const useStyles = makeStyles({
     },
     pageButtons: {
         display: "flex",
-        gap: "1rem"
+        alignItems: "center",
+        gap: "1rem",
     },
     createButton: {
         cursor: "pointer",
+        display: "flex",
+        alignItems: "center",
+        color: "#000"
     }
 })

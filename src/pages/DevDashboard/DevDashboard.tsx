@@ -1,8 +1,8 @@
 import { Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { ChangeEvent, useState } from 'react'
-import { Widget, InputSearch, DataTable } from '../../components'
-import { DASHBOARDTEXT1, DASHBOARDTEXT2, ERROR, STATISTICS, SUCCESS, TIMERANGE, PERIOD, ZONE } from '../../testdata'
+import { Widget, InputSearch, DataTable, Navbar } from '../../components'
+import { DASHBOARDTEXT1, DASHBOARDTEXT2, ERROR, STATISTICS, SUCCESS, TIMERANGE, PERIOD, ZONE, TABLEHADING, ROWS } from '../../testdata'
 
 //styles
 import './DevDashboard.css'
@@ -57,6 +57,8 @@ const DevDashboard: React.FC = () => {
     }
 
     return (
+        <>
+        <Navbar />
         <div className='dashboard'>
             <Typography variant='h5' gutterBottom sx={{padding: '1rem 2rem'}}>Dashboard</Typography>
             <div className="cards">
@@ -87,9 +89,10 @@ const DevDashboard: React.FC = () => {
                 <Widget className={successStyle} title='Success' subtitle={successParam} onClick={handleClickses} span='0ms' />
             </div>
             <div className="table">
-                <DataTable />
+                <DataTable Heading={TABLEHADING} Rows={ROWS} />
             </div>
         </div>
+</>
     )
 }
 
