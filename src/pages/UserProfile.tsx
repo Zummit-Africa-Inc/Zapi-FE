@@ -2,9 +2,9 @@ import React, { SyntheticEvent, useState, useEffect } from 'react'
 import { APICard, UserProSideBar , TabPanel} from '../components'
 import { useContextProvider } from "../contexts/ContextProvider";
 
-
+import styled from "@emotion/styled";
 import { makeStyles } from '@mui/styles';
-import { Stack,  Tabs, Tab} from '@mui/material'
+import { Stack,  Tabs, Tab, Box} from '@mui/material'
 import { APIS, USER } from "../testdata";
 
 
@@ -41,13 +41,15 @@ const UserProfile:React.FC = () => {
                       ))}                
                 </Stack>
                 <div className={classes.main}>
-                <Stack>
-                    <Tabs  value={tab} onChange={handleTabSwitch}>
+                <Stack className={classes.tabmain}>
+                  <Box sx={{ width: '100%' }}>
+                    <StyledTabs value={tab} onChange={handleTabSwitch}>
                     <Tab  className={classes.tabs} label= {`Published APIs (${list})`} />
                     <Tab className={classes.tabs} label='Subscribed APIs'/>
                     <Tab className={classes.tabs} label='Followed By(0)' />
                     <Tab className={classes.tabs} label='Following(0)'/>
-                    </Tabs>
+                    </StyledTabs>
+                  </Box>
                     <Stack mt={2}>
                     <TabPanel value={tab} index={0}>
                     <div style={{width:"100%",display:"flex",flexWrap:"wrap",alignItems:"center",justifyContent:"center",gap:"1.5rem",overflowY:"scroll",padding:"0.5rem 0"}}>
@@ -74,10 +76,49 @@ const UserProfile:React.FC = () => {
     )
 }
 
+const StyledTabs = styled(({  ...other }) => {
+  return (
+    <Tabs
+      {...other}
+      classes={{
+        
+        flexContainer: "flexContainer",
+        indicator: "indicator"
+      }}
+      variant="fullWidth"
+      TabIndicatorProps={{ children: <span /> }}
+      centered
+    />
+  );
+})({
+  "& .indicator": {
+    display: "flex",
+    justifyContent: "center",
+    backgroundColor: "transparent",
+    "& > span": {
+      maxWidth: 80,
+      width: "100%",
+      backgroundColor: "#081F4A"
+    }
+  },
+  "& .flexContainer": {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center"
+    // width:'fit-content'
+  }
+});
+
+
+
+
+
 const useStyles = makeStyles({
     tabs:{
+      letterSpacing: '0.15rem',
+      fontWeight: 'bold',
         '&:hover':{
-          backgroundColor: 'rgba(0,0,0,0.1)'
+          backgroundColor: 'rgba(0,0,0,0.1)',
         }
       },
       root: {
@@ -91,6 +132,11 @@ const useStyles = makeStyles({
         width: "80%",
         flexGrow: 1,
         background: "#FFF",
+        
+      },
+      tabmain: {
+        marginTop: "2.5rem",
+        marginLeft: "2rem"
       },
       sidebar: {
         width: "20%",
