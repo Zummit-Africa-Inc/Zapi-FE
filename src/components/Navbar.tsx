@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, IconButton, Stack, Toolbar, Typography } from "@mui/material";
+import { Box, IconButton, Stack, Toolbar,} from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { AccountCircleOutlined, InsertDriveFileOutlined, NotificationsOutlined } from "@mui/icons-material";
 
