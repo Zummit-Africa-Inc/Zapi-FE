@@ -1,9 +1,8 @@
 import React from "react";
 import { Box, IconButton, Stack, Toolbar, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { AccountCircleOutlined, AddCircleOutline, CloseOutlined, InsertDriveFileOutlined, MenuOutlined, NotificationsOutlined } from "@mui/icons-material";
+import { AccountCircleOutlined, InsertDriveFileOutlined, NotificationsOutlined } from "@mui/icons-material";
 
-import { useContextProvider } from "../contexts/ContextProvider";
 interface INavProps {
   title?: string
   subtitle?: string
@@ -11,10 +10,6 @@ interface INavProps {
 
 const Navbar: React.FC<INavProps> = () => {
   const classes = useStyles();
-
-
- 
-
   return (
   <Toolbar className={classes.toolbar}>
         <Box className={classes.logoWrapper}>
@@ -61,48 +56,6 @@ const useStyles = makeStyles({
     width: "100%",
     objectFit: "contain",
   },
-  // root: {
-  //   position: "static",
-  //   top: 0,
-  //   left: 0,
-  //   width: "100%",
-  //   background: "#FFF",
-  // },
-  // toolbar: {
-  //   width: "100%",
-  //   display: "flex",
-  //   alignItems: "center",
-  //   justifyContent: "space-between",
-  //   background: "#FFF",
-  //   padding: 0,
-  // },
-  // div: {
-  //   width: "90%",
-  //   alignItems: "flex-end",
-  //   borderBottom: "2px solid var(--color-primary)",
-  // },
-  // logoWrapper : {
-  //   width: "5rem",
-  //   display: "grid",
-  //   placeItems: "center",
-  //   margin: "0.25rem",
-  // },
-  // logo: {
-  //   width: "100%",
-  //   objectFit: "contain",
-  // },
-  // heading: {
-  //   display: "grid",
-  //   placeItems: "center",
-  //   textAlign: "center",
-  //   padding: "0 1rem",
-  // },
-  // drawerButton: {
-  //   display: "none",
-  //   "@media screen and (max-width: 900px)": {
-  //     display: "block"
-  //   }
-  // }
 });
 
 export default Navbar;
