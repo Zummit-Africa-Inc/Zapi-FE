@@ -1,5 +1,5 @@
 import { makeStyles } from '@mui/styles'
-import { Hero, HomeNavbar } from '../sections'
+import { Hero, HomeNavbar, Features } from '../sections'
 
 const Homepage: React.FC = () => {
     const classes = useStyles()
@@ -8,6 +8,7 @@ const Homepage: React.FC = () => {
     <HomeNavbar />
         <div className={classes.main}>
             <Hero />
+            <Features />
         </div>
     </div>
   )
