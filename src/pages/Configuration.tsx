@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles } from "@mui/styles";
-import { deepOrange } from '@mui/material/colors';
+import { blueGrey } from '@mui/material/colors';
 
 import { Stack, TextField, Typography, Button, Avatar } from "@mui/material";
 
@@ -27,7 +27,7 @@ const AddApi: React.FC = () => {
           />
           <Typography className={classes.label}>Upload Image</Typography>
         <Stack direction="row" spacing={2}>
-        <Avatar sx={{ bgcolor: deepOrange[500], width: 60, height: 60, border: '2px dotted #081F4A' }} variant="square">
+        <Avatar sx={{ bgcolor: blueGrey[500], width: 60, height: 60, border: '1px dotted #081F4A' }} variant="rounded">
             N
         </Avatar>
         </Stack>

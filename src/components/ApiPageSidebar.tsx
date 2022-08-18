@@ -1,8 +1,14 @@
 import React, { ReactNode, useState } from "react";
 import { makeStyles } from "@mui/styles";
-import { Stack, Typography, Avatar, TextField, Tabs, Tab, Box } from "@mui/material";
+import { Link } from 'react-router-dom';
+import { Stack, Typography, Avatar, TextField, Tabs, Tab, Box, List, ListItemButton, ListItemIcon, ListItemText, Collapse } from "@mui/material";
+import { ExpandMore } from "@mui/icons-material";
+
+
 
 import AddIcon from '@mui/icons-material/Add';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
@@ -14,7 +20,6 @@ interface TabPanelProps {
 }
 type Props = {
   addApi: ReactNode,
-  configuration: ReactNode,
 };
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -45,7 +50,7 @@ function a11yProps(index: number) {
 
 
 
-const APIPage: React.FC<Props> = ({addApi, configuration}) => {
+const APIPage: React.FC<Props> = ({addApi}) => {
   const [open, setOpen] = React.useState<boolean>(true);
 
   const handleClick = (e: React.SyntheticEvent) => {
@@ -84,13 +89,57 @@ const APIPage: React.FC<Props> = ({addApi, configuration}) => {
             <Tab label="Add API"{...a11yProps(0)} icon={<AddIcon />} iconPosition="start"  />
             <Tab label="Payment Setting" {...a11yProps(1)} icon={<AccountBalanceWalletIcon />} iconPosition="start" />
             <Tab label="Support" {...a11yProps(2)} icon={<SupportAgentIcon />} iconPosition="start" />
-            <Tab label="Configuration"{...a11yProps(3)} icon={<ConstructionIcon />} iconPosition="start"  />
           </Tabs>
           <Stack direction='row' alignItems='center'>
             <form>
               <TextField type='text' id='text-with-icon-adornment' sx={{ width: '190px', marginLeft: '25px'}} value={query} onChange={(e) => setQuery(e.target.value)} placeholder='Seach By API Name' />
             </form>
           </Stack>
+
+      <List
+        sx={{ width: "100%"}}
+        >
+        <ListItemButton onClick={handleClick}>
+            <ListItemText primary="default-application">
+            </ListItemText>
+                <ExpandMore />
+        </ListItemButton>
+        <Collapse in={!open} timeout="auto" unmountOnExit>
+            {/* Dashboard */}
+            <List component="div" disablePadding>
+            <Link to='/developers/dashboard/' className={classes.link}>
+              <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemIcon>
+                  <DashboardIcon  />
+                  </ListItemIcon>
+                  <ListItemText primary="Dashboard" />
+              </ListItemButton>
+            </Link>
+            </List>
+            {/* Configuration */}
+            <List component="div" disablePadding>
+            <Link to='/configuration' className={classes.link}>
+            <ListItemButton sx={{ pl: 4 }}>
+                <ListItemIcon>
+                < ConstructionIcon />
+                </ListItemIcon>
+                <ListItemText primary="Configuration" />
+            </ListItemButton>
+            </Link>
+            </List>
+             {/* Analytics */}
+             <List component="div" disablePadding>
+            <Link to='/analytics' className={classes.link}>
+              <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemIcon>
+                  < BarChartIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Analytics" />
+              </ListItemButton>
+            </Link>
+            </List>
+        </Collapse>
+        </List> 
         </div>
 
         {/* Tab Panels */}
@@ -103,9 +152,6 @@ const APIPage: React.FC<Props> = ({addApi, configuration}) => {
         <TabPanel value={value} index={2}>
           <Typography>security</Typography>
         </TabPanel>
-        <TabPanel value={value} index={3}>
-          <Typography>{configuration}</Typography>
-        </TabPanel>
       </Box>
     </div>
   )
@@ -117,6 +163,9 @@ const useStyles = makeStyles({
   align: {
     display: 'flex',
     justifyContent: 'flex-start'
+  },
+  link: {
+    color: 'var(--color-primary)'
   }
 })
 export default APIPage
