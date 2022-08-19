@@ -3,7 +3,7 @@ export const APIS = [
     {
         id: "0001",
         name: "Text Summarizer API",
-        description: "The simplest and most effective way to skip the plenty text, and focus on the main points in ... ",
+        description: "The simplest and most effective way to skip the plenty text, and focus on the main points in to summarize the text. This API does that for you using our SumryMan AI built with Python.",
         status: "verified",
         image: "/images/zapi-logo.png",
         latency: 300,
@@ -12,8 +12,8 @@ export const APIS = [
     },
     {
         id: "0002",
-        name: "Text Summarizer API",
-        description: "The simplest and most effective way to skip the plenty text, and focus on the main points in ... ",
+        name: "Weather API",
+        description: "The simplest and most effective way to skip the plenty text, and focus on the main points in to summarize the text. This API does that for you using our SumryMan AI built with Python.",
         status: "unverified",
         image: "/images/zapi-logo.png",
         latency: 300,
@@ -22,8 +22,8 @@ export const APIS = [
     },
     {
         id: "0003",
-        name: "Text Summarizer API",
-        description: "The simplest and most effective way to skip the plenty text, and focus on the main points in ... ",
+        name: "Speech Synthesis API",
+        description: "The simplest and most effective way to skip the plenty text, and focus on the main points in to summarize the text. This API does that for you using our SumryMan AI built with Python.",
         status: "verified",
         image: "/images/zapi-logo.png",
         latency: 300,
@@ -32,8 +32,8 @@ export const APIS = [
     },
     {
         id: "0004",
-        name: "Text Summarizer API",
-        description: "The simplest and most effective way to skip the plenty text, and focus on the main points in ... ",
+        name: "Self-driving Car(Test)",
+        description: "The simplest and most effective way to skip the plenty text, and focus on the main points in to summarize the text. This API does that for you using our SumryMan AI built with Python.",
         status: "unverified",
         image: "/images/zapi-logo.png",
         latency: 300,
@@ -42,8 +42,8 @@ export const APIS = [
     },
     {
         id: "0005",
-        name: "Text Summarizer API",
-        description: "The simplest and most effective way to skip the plenty text, and focus on the main points in ... ",
+        name: "Emotion Detector",
+        description: "The simplest and most effective way to skip the plenty text, and focus on the main points in to summarize the text. This API does that for you using our SumryMan AI built with Python.",
         status: "verified",
         image: "/images/zapi-logo.png",
         latency: 300,
@@ -52,8 +52,8 @@ export const APIS = [
     },
     {
         id: "0006",
-        name: "Text Summarizer API",
-        description: "The simplest and most effective way to skip the plenty text, and focus on the main points in ... ",
+        name: "Premier League API",
+        description: "The simplest and most effective way to skip the plenty text, and focus on the main points in to summarize the text. This API does that for you using our SumryMan AI built with Python.",
         status: "unverified",
         image: "/images/zapi-logo.png",
         latency: 300,
@@ -62,8 +62,8 @@ export const APIS = [
     },
     {
         id: "0007",
-        name: "Text Summarizer API",
-        description: "The simplest and most effective way to skip the plenty text, and focus on the main points in ... ",
+        name: "Typicode",
+        description: "The simplest and most effective way to skip the plenty text, and focus on the main points in to summarize the text. This API does that for you using our SumryMan AI built with Python.",
         status: "verified",
         image: "/images/zapi-logo.png",
         latency: 300,
@@ -72,8 +72,8 @@ export const APIS = [
     },
     {
         id: "0008",
-        name: "Text Summarizer API",
-        description: "The simplest and most effective way to skip the plenty text, and focus on the main points in ... ",
+        name: "Cryptocurrency",
+        description: "The simplest and most effective way to skip the plenty text, and focus on the main points in to summarize the text. This API does that for you using our SumryMan AI built with Python.",
         status: "unverified",
         image: "/images/zapi-logo.png",
         latency: 300,
@@ -82,8 +82,8 @@ export const APIS = [
     },
     {
         id: "0009",
-        name: "Text Summarizer API",
-        description: "The simplest and most effective way to skip the plenty text, and focus on the main points in ... ",
+        name: "Auto Code Completion",
+        description: "The simplest and most effective way to skip the plenty text, and focus on the main points in to summarize the text. This API does that for you using our SumryMan AI built with Python.",
         status: "verified",
         image: "/images/zapi-logo.png",
         latency: 300,
@@ -170,7 +170,6 @@ export const TABLEHADING = ["Time","API Version","Endpoint","Method","Location",
 
 export const ROWS = [
     {
-        id: 1,
         time: 1143155,
         version: "V1",
         endpoint: "Create A New Link",
@@ -180,7 +179,6 @@ export const ROWS = [
         latency: "400ms",
     },
     {
-      id: 1,
       time: 1143155,
       version: "V1",
       endpoint: "Create A New Link",
@@ -190,7 +188,6 @@ export const ROWS = [
       latency: "400ms",
   },
   {
-    id: 1,
     time: 1143155,
     version: "V1",
     endpoint: "Create A New Link",
@@ -200,7 +197,6 @@ export const ROWS = [
     latency: "400ms",
 },
 {
-  id: 1,
   time: 1143155,
   version: "V1",
   endpoint: "Create A New Link",
@@ -210,7 +206,6 @@ export const ROWS = [
   latency: "400ms",
 },
 {
-  id: 1,
   time: 1143155,
   version: "V1",
   endpoint: "Create A New Link",
@@ -220,7 +215,6 @@ export const ROWS = [
   latency: "400ms",
 },
 {
-  id: 1,
   time: 1143155,
   version: "V1",
   endpoint: "Create A New Link",
@@ -230,7 +224,6 @@ export const ROWS = [
   latency: "400ms",
 },
 {
-  id: 1,
   time: 1143155,
   version: "V1",
   endpoint: "Create A New Link",
@@ -240,7 +233,6 @@ export const ROWS = [
   latency: "400ms",
 },
 {
-  id: 1,
   time: 1143155,
   version: "V1",
   endpoint: "Create A New Link",
@@ -264,3 +256,22 @@ export const LOGINHISTORIES = [
     "2012-06-25 10:24pm",
     "2010-06-17 15:24pm",
 ];
+
+export const METHOD = ["GET", "POST"]
+
+export const DATATYPE = ["STRING", "NUMBER", "BOOLEAN"]
+
+export const TABLEHEADING = ["Endpoint", "Method", "Route"]
+
+export const TABLEROWS = [
+    {
+    endpoint: "user",
+    method: "POST",
+    Route: "/signup"
+},
+{
+    endpoint: "user",
+    method: "GET",
+    Route: "/login"
+},
+]
