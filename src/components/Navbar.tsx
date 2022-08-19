@@ -1,9 +1,11 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { IconButton, Stack, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { AccountCircleOutlined, AddCircleOutline, CloseOutlined, MenuOutlined, NotificationsOutlined } from "@mui/icons-material";
 
 import { useContextProvider } from "../contexts/ContextProvider";
+import Notification from './Notification';
+import { io } from 'socket.io-client';
 interface INavProps {
   title?: string
   subtitle?: string
@@ -11,12 +13,17 @@ interface INavProps {
 
 const Navbar: React.FC<INavProps> = ({title,subtitle}) => {
   const classes = useStyles();
+  const [socket, setSocket] = useState<any>("");
   const { activeMenu, isLoggedIn, screenSize, setActiveMenu } = useContextProvider()
 
   const toggleSidebar = () => {
     activeMenu ? setActiveMenu(false) : setActiveMenu(true)
   }
 
+  useEffect(() => { 
+    setSocket(io("https://localhost:5000"));
+  }, []);
+  
   return (
     <nav className={classes.root}>
       <div className={classes.toolbar}>
@@ -25,13 +32,13 @@ const Navbar: React.FC<INavProps> = ({title,subtitle}) => {
         </div>
 
         <Stack className={classes.div}>
-          {isLoggedIn ? 
+          {/* {isLoggedIn ?  */}
             <Stack direction="row" alignItems="center" justifyContent="center" spacing={1} mb={1}>
               <IconButton color="primary">
                 <AddCircleOutline />
               </IconButton>
               <IconButton color="primary">
-                <NotificationsOutlined />
+                <Notification socket={socket}/>
               </IconButton>
               <IconButton color="primary">
                 <AccountCircleOutlined />
@@ -41,14 +48,16 @@ const Navbar: React.FC<INavProps> = ({title,subtitle}) => {
                   {activeMenu ? <CloseOutlined /> : <MenuOutlined />}
                 </IconButton>
               </div>
-            </Stack> : 
-            <Stack mb={screenSize < 900 ? 1 : 6}>
-              <div className={classes.drawerButton}>
-                <IconButton onClick={toggleSidebar}>
-                  {activeMenu ? <CloseOutlined /> : <MenuOutlined />}
-                </IconButton>
-              </div>
-            </Stack>}
+            </Stack>
+             {/* : 
+             <Stack mb={screenSize < 900 ? 1 : 6}>
+               <div className={classes.drawerButton}>
+                 <IconButton onClick={toggleSidebar}>
+                   {activeMenu ? <CloseOutlined /> : <MenuOutlined />}
+                 </IconButton>
+               </div>
+             </Stack>
+             } */}
         </Stack>
       </div>
 
