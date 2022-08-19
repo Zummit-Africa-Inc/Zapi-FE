@@ -20,8 +20,8 @@ const App:React.FC = () => {
           <Route path="/otp" element={<Otp />} />
           <Route path="/developers/dashboard/" element={<DevDashboard />} />
           <Route path="/analytics" element={<Analytics />} />
+          <Route path="/api/:id" element={<APIPage />} />
           <Route path="/configuration" element={<Configuration />} />
-          <Route path="/api" element={<APIPage />} />
           <Route path="/login-history" element={<LoginHistory/> } />
           <Route path="/success-page" element={<SuccessPage />} />
 

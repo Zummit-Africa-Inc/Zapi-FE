@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { APIType } from "../../types";
+import { APIResponseType } from "../../types";
 
 const url = ""
 
 interface ApiState {
-    apis: APIType[]
+    apis: APIResponseType[]
     loading: "idle" | "pending" | "fulfilled" | "rejected"
     error?: any
 }
@@ -51,4 +51,3 @@ const apiSlice = createSlice({
 
 export const { clearError } = apiSlice.actions
 export default apiSlice.reducer
-// export 
