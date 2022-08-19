@@ -18,8 +18,8 @@ const Hero: React.FC = () => {
   return (
     <div>
         <div className={classes.heroText}>
-          <Typography gutterBottom variant="h4" sx={{ fontWeight: 700, fontSize: "2.25rem", lineHeight: "2.87rem", paddingBottom: "1.5rem" }}>Your one stop shop for Artificial Intelligence related APIs.</Typography>
-          <Typography gutterBottom variant="subtitle1" sx={{ fontWeight: 400, fontSize: "1.5rem", lineHeight: "2.5rem", paddingBottom: "2rem" }}>Emotion detection, drowsiness detection, chat bots, face recognition, <br />{''}
+          <Typography gutterBottom variant="h4" sx={{ fontFamily: "Space Grotesk",fontWeight: 700, fontSize: "2.25rem", lineHeight: "2.87rem", paddingBottom: "1.5rem" }}>Your one stop shop for Artificial Intelligence related APIs.</Typography>
+          <Typography gutterBottom variant="subtitle1" sx={{ fontFamily: "Space Grotesk",fontWeight: 400, fontSize: "1.5rem", lineHeight: "2.5rem", paddingBottom: "2rem" }}>Emotion detection, drowsiness detection, chat bots, face recognition, <br />{''}
             sentiment analysis, and lots more with Z-API.</Typography>
         </div>
         <form className={classes.form} onSubmit={handleSubmit}>
@@ -66,16 +66,19 @@ const useStyles = makeStyles({
     color: "#000000",
     fontWeight: 500,
     fontSize: "1rem",
+    fontFamily: "Space Grotesk",
   },
   input: {
     background: "#F3F3F3",
     flex: 1,
     border: "none",
     padding: "1rem",
+    fontFamily: "Space Grotesk",
     "&::placeholder": {
       fontWeight: 400,
       fontSize: "1rem",
       lineHeight: "1.25rem",
+      fontFamily: "Space Grotesk",
     },
   },
   send: {
@@ -85,5 +88,6 @@ const useStyles = makeStyles({
     fontWeight: 500,
     fontSize: "1rem",
     cursor: "pointer",
+    fontFamily: "Space Grotesk",
   },
 })
