@@ -19,7 +19,7 @@ interface TabPanelProps {
   value: number;
 }
 type Props = {
-  addApi: ReactNode,
+  addApi?: ReactNode,
 };
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;

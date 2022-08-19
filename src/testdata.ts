@@ -170,7 +170,6 @@ export const TABLEHADING = ["Time","API Version","Endpoint","Method","Location",
 
 export const ROWS = [
     {
-        id: 1,
         time: 1143155,
         version: "V1",
         endpoint: "Create A New Link",
@@ -180,7 +179,6 @@ export const ROWS = [
         latency: "400ms",
     },
     {
-      id: 1,
       time: 1143155,
       version: "V1",
       endpoint: "Create A New Link",
@@ -190,7 +188,6 @@ export const ROWS = [
       latency: "400ms",
   },
   {
-    id: 1,
     time: 1143155,
     version: "V1",
     endpoint: "Create A New Link",
@@ -200,7 +197,6 @@ export const ROWS = [
     latency: "400ms",
 },
 {
-  id: 1,
   time: 1143155,
   version: "V1",
   endpoint: "Create A New Link",
@@ -210,7 +206,6 @@ export const ROWS = [
   latency: "400ms",
 },
 {
-  id: 1,
   time: 1143155,
   version: "V1",
   endpoint: "Create A New Link",
@@ -220,7 +215,6 @@ export const ROWS = [
   latency: "400ms",
 },
 {
-  id: 1,
   time: 1143155,
   version: "V1",
   endpoint: "Create A New Link",
@@ -230,7 +224,6 @@ export const ROWS = [
   latency: "400ms",
 },
 {
-  id: 1,
   time: 1143155,
   version: "V1",
   endpoint: "Create A New Link",
@@ -240,7 +233,6 @@ export const ROWS = [
   latency: "400ms",
 },
 {
-  id: 1,
   time: 1143155,
   version: "V1",
   endpoint: "Create A New Link",
@@ -264,3 +256,22 @@ export const LOGINHISTORIES = [
     "2012-06-25 10:24pm",
     "2010-06-17 15:24pm",
 ];
+
+export const METHOD = ["GET", "POST"]
+
+export const DATATYPE = ["STRING", "NUMBER", "BOOLEAN"]
+
+export const TABLEHEADING = ["Endpoint", "Method", "Route"]
+
+export const TABLEROWS = [
+    {
+    endpoint: "user",
+    method: "POST",
+    Route: "/signup"
+},
+{
+    endpoint: "user",
+    method: "GET",
+    Route: "/login"
+},
+]
