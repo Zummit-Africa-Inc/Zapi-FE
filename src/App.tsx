@@ -1,8 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
-import { DevDashboard, Home, Login, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, Analytics, SuccessPage, EndPoint, CreateEndpoint, Configuration } from "./pages";
-
+import { Homepage, EndPoint, CreateEndpoint, DevDashboard, Home, Login, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, Analytics, SuccessPage, Configuration } from "./pages";
 import { theme } from "./theme";
 
 const App:React.FC = () => {
@@ -11,7 +10,8 @@ const App:React.FC = () => {
     <ThemeProvider theme={theme}>
       <div>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Homepage />} />
+          <Route path="/dashboard" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/user/:id" element={<UserProfile />} />
@@ -25,7 +25,6 @@ const App:React.FC = () => {
           <Route path="/success-page" element={<SuccessPage />} />
           <Route path="/endpoint" element={<EndPoint />} />
           <Route path="/add-endpoint" element={<CreateEndpoint />} />
-
         </Routes>
       </div>
     </ThemeProvider>
