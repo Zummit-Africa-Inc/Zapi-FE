@@ -10,3 +10,4 @@ export { default as SuccessPage } from "./SuccessPage";
 export { default as DevDashboard } from "./DevDashboard/DevDashboard";
 export { default as Analytics } from "./Analytics/Analytics";
 export { default as Configuration } from "./Configuration";
+export {default as OrgPage} from "./OrgPage";
