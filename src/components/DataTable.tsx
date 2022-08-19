@@ -1,10 +1,17 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TablePagination } from '@mui/material';
 import React, { useState } from 'react';
-import{ TABLEHADING, ROWS } from '../testdata'
 
-const DataTable: React.FC = () => {
+interface TableProps {
+  Heading: Array<any>
+  Rows: Array<any>
+}
+
+const DataTable: React.FC<TableProps> = ({Heading, Rows}) => {
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
+
+  const Keys = Object.keys(Rows[0])
+  const result = [...Rows.map(obj => Keys.map(key => obj[key]))];
 
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
     setPage(newPage);
@@ -20,23 +27,16 @@ const DataTable: React.FC = () => {
       <TableContainer component={Paper} className="table">
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
-            <TableRow>{TABLEHADING.map((heading) => (
-                <TableCell className="tableCell">{heading}</TableCell>
+            <TableRow>{Heading.map((heading) => (
+                <TableCell className="tableCell" key={heading}>{heading}</TableCell>
             ))}
             </TableRow>
           </TableHead>
           <TableBody>
-            {ROWS.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-              <TableRow
-                key={row.id}
-              >
-                <TableCell className="tableCell">{row.time}</TableCell>
-                <TableCell className="tableCell">{row.version}</TableCell>
-                <TableCell className="tableCell">{row.endpoint}</TableCell>
-                <TableCell className="tableCell">{row.method}</TableCell>
-                <TableCell className="tableCell">{row.location}</TableCell>
-                <TableCell className="tableCell">{row.status}</TableCell>
-                <TableCell className="tableCell">{row.latency}</TableCell>
+            {result.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, i) => (
+              <TableRow key={i}>{Object.values(row).map((m, i) => (
+                <TableCell className="tableCell" key={i}>{m}</TableCell>
+              ))}
               </TableRow>
             ))}
           </TableBody>
@@ -45,7 +45,7 @@ const DataTable: React.FC = () => {
       <TablePagination
         rowsPerPageOptions={[5, 10, 100]}
         component="div"
-        count={ROWS.length}
+        count={Rows.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
