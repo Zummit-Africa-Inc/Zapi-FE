@@ -43,7 +43,7 @@ const OrgPage: React.FC = () => {
   </Grid>
   <Grid item xs={12} md={4} lg={4}>
   <FormControl sx={{ width: { xs: "100%", lg: "155px", md: "155px" }}}>
-    <InputLabel >Role</InputLabel>
+    <InputLabel sx={{fontSize:"0.8em"}}>Role</InputLabel>
     <Select variant="outlined" size="small" fullWidth>
     <MenuItem value={1}>Option 1</MenuItem>
     <MenuItem value={2}>Option 2</MenuItem>
