@@ -1,5 +1,5 @@
 import { makeStyles } from '@mui/styles'
-import { Hero, HomeNavbar, Features } from '../sections'
+import { Hero, HomeNavbar, Features, Footer } from '../sections'
 
 const Homepage: React.FC = () => {
     const classes = useStyles()
@@ -9,6 +9,8 @@ const Homepage: React.FC = () => {
         <div className={classes.main}>
             <Hero />
             <Features />
+
+            <Footer />
         </div>
     </div>
   )
@@ -20,11 +22,12 @@ const useStyles = makeStyles({
     homePage: {
         height: "100vh",
         width: "100vw",
-        background: "#F5F5F5",
+        backgroundColor: "#ffff",
         fontFamily: "Space Grotesk, sans-serif"
     },
     main: {
         padding: "1rem 5rem",
+        backgroundColor: "#ffff",
         "@media screen and (max-width: 400px)": {
             padding: "1rem .5rem"
         },

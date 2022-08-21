@@ -1,4 +1,4 @@
-import { Stack, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import React from 'react'
 import { makeStyles } from "@mui/styles"
 
@@ -74,7 +74,7 @@ const useStyles = makeStyles({
     },
     column:{
         width:"calc(50% - 30px)",
-        backgroundColor:'#C4C4C4',
+        backgroundColor:'#F5F5F5',
         margin: "0 15px 30px",
         padding: "20px",
         borderRadius:"16px",
