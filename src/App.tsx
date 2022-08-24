@@ -3,6 +3,9 @@ import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
 
 import { Home, Login, Signup, UserProfile, ForgotPassword, Otp, Orgpage} from "./pages";
+
+import { Homepage, EndPoint, CreateEndpoint, DevDashboard, LoginHistory, APIPage, Analytics, SuccessPage, Configuration, sections } from "./pages";
+
 import { theme } from "./theme";
 
 
@@ -12,14 +15,28 @@ const App:React.FC = () => {
     <ThemeProvider theme={theme}>
       <div>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Homepage />} />
+          <Route path="/dashboard" element={<Home />} />
           <Route path="/login" element={<Login />} />
+
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/otp" element={<Otp />} />
           <Route path="/orgpage" element={<Orgpage />} />
 
+
           <Route path="/signup" element={<Signup />} />
           <Route path="/user/:id" element={<UserProfile />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/otp" element={<Otp />} />
+          <Route path="/developers/dashboard/" element={<DevDashboard />} />
+          <Route path="/analytics" element={<Analytics />} />
+          <Route path="/api/:id" element={<APIPage />} />
+          <Route path="/configuration" element={<Configuration />} />
+          <Route path="/login-history" element={<LoginHistory/> } />
+          <Route path="/success-page" element={<SuccessPage />} />
+          <Route path="/endpoint" element={<EndPoint />} />
+          <Route path="/add-endpoint" element={<CreateEndpoint />} />
+          
         </Routes>
       </div>
     </ThemeProvider>
