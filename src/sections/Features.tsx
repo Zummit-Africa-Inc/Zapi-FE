@@ -13,7 +13,7 @@ const Features: React.FC = () => {
     <>
         <main>
             <div className={classes.feature}>
-                <Typography gutterBottom variant='h4'sx={{ fontWeight: 700, fontSize:'36px', lineHeight: "45.94px", fontFamily: 'Space Grotesk', }}>Features to give your business a head start.</Typography>
+                <Typography gutterBottom variant='h4'sx={{ color:'#071B85', fontWeight: 700, fontSize:'36px', lineHeight: "45.94px", fontFamily: 'Space Grotesk', }}>Features to give your business a head start.</Typography>
             </div>
             <div>
              <div className={classes.wrapper}>
@@ -74,7 +74,8 @@ const useStyles = makeStyles({
     },
     column:{
         width:"calc(50% - 30px)",
-        backgroundColor:'#F5F5F5',
+        backgroundColor:'#657AC526',
+        color:'#071B85',
         margin: "0 15px 30px",
         padding: "20px",
         borderRadius:"16px",
