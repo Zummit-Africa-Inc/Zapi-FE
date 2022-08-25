@@ -29,7 +29,7 @@ const HomeNavbar: React.FC = () => {
                 <div className={classes.links}>
                     <ul>
                         <li className={classes.active}><Link to="/">Home</Link></li>
-                        <li><Link to="/dashbord">API hub</Link></li>
+                        <li><Link to="/dashboard">API hub</Link></li>
                         <li><Link to="#">Pricing</Link></li>
                         <li><Link to="#">Documentation</Link></li>
                         <li><Link to="/login">Login</Link></li>
