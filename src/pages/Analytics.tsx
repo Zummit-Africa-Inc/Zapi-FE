@@ -8,7 +8,7 @@ const Analytics: React.FC = () => {
     const [statsParam, setStatsParam] = useState<string>(STATISTICS[0])
     const [errorParam, setErrorParam] = useState<string>(ERROR[0])
     const [successParam, setSuccessParam] = useState<string>(SUCCESS[0])
-    const [statsData, setStatsData] = useState<any>(STATISTICS)
+    const [statsData, setStatsData] = useState<string[]>(STATISTICS)
     const [queryParam, setQueryParam] = useState<string>("")
     const [style, setStyle] = useState('clickTab')
     const [errStyle, setErrStyle] = useState('tab')

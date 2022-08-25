@@ -2,7 +2,7 @@ import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow
 import React, { useState } from 'react';
 
 interface TableProps {
-  Heading: Array<any>
+  Heading: Array<string>
   Rows: Array<any>
 }
 

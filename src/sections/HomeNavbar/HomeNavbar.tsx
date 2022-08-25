@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 import "./HomeNavbar.css"
 
 //images
-import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png"
+import ZapiHomeLogo from "../../assets/images/ZapiHomeLogo.png"
 
 const HomeNavbar: React.FC = () => {
     const classes = useStyles()
@@ -33,8 +33,8 @@ const HomeNavbar: React.FC = () => {
                         <li><Link to="#">Pricing</Link></li>
                         <li><Link to="#">Documentation</Link></li>
                         <li><Link to="/login">Login</Link></li>
-                        <li className={classes.signup}><Link to="/signup">Sign up</Link></li>
                     </ul>
+                    <div className={classes.signup}><Link to="/signup">Sign up</Link></div>
                 </div>
                 <div className={classes.hamburger} onClick={handleClick}>
                     <Menu />
@@ -47,8 +47,8 @@ const HomeNavbar: React.FC = () => {
                     <li><Link to="#">Pricing</Link></li>
                     <li><Link to="#">Documentation</Link></li>
                     <li><Link to="/login">Login</Link></li>
-                    <li className={classes.signup}><Link to="/signup">Sign up</Link></li>
                 </ul>
+                <div className={classes.signup}><Link to="/signup">Sign up</Link></div>
             </div>
         </>
     )
@@ -61,6 +61,8 @@ const useStyles = makeStyles({
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
+        background: "#081F4A",
+        boxShadow: "0px 1px 15px rgba(7, 27, 133, 0.15)",
         padding: "1rem 5rem",
         "@media screen and (max-width: 1000px)": {
             padding: "1rem 2rem"
@@ -72,14 +74,16 @@ const useStyles = makeStyles({
     logo: {
         display: "flex",
         alignItems: "center",
-        gap: "1rem"
+        gap: "1rem",
     },
     zapi: {
-        color: "#000000",
+        color: "#FFFFFF",
         fontWeight: 700,
         fontSize: "1.5rem"
     },
     links: {
+        display: "flex",
+        gap: "1.5rem",
         "& ul": {
             display: "flex",
             alignItems: "center",
@@ -91,7 +95,7 @@ const useStyles = makeStyles({
                     fontStyle: "normal",
                     fontWeight: 500,
                     fontSize: "1rem",
-                    color: "#000000",
+                    color: "#FFFFFF",
                 }
             }
         },
@@ -100,7 +104,7 @@ const useStyles = makeStyles({
         }
     },
     active: {
-        borderBottom: "2px solid #000"
+        borderBottom: "2px solid #FFEA00"
     },
     hamburger: {
         display: "none",
@@ -131,7 +135,10 @@ const useStyles = makeStyles({
     signup: {
         borderRadius: "4px",
         padding: ".5rem 1rem",
-        background: "#C4C4C4",
+        background: "#FFEA00",
+        fontWeight: 500,
+        fontSize: "1rem",
+        color: "#081F4A",
     }
 
 })
