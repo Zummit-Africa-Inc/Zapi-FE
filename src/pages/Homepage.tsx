@@ -1,5 +1,5 @@
 import { makeStyles } from '@mui/styles'
-import { Hero, HomeNavbar, Features, Footer } from '../sections'
+import { Hero, HomeNavbar, Features, Footer, Pricing } from '../sections'
 
 const Homepage: React.FC = () => {
     const classes = useStyles()
@@ -9,7 +9,8 @@ const Homepage: React.FC = () => {
         <div className={classes.main}>
             <Hero />
             <Features />
-
+            <Pricing />
+            
             <Footer />
         </div>
     </div>
