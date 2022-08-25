@@ -13,3 +13,4 @@ export { default as EndPoint } from "./EndpointPage"
 export { default as CreateEndpoint } from "./CreateEndpoint" 
 export { default as Homepage } from "./Homepage"
 export { default as Configuration } from "./Configuration";
+export {default as OrgPage} from "./OrgPage";

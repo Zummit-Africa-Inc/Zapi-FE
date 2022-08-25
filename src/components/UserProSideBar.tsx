@@ -15,7 +15,7 @@ interface UserProp {
     image?: string
 }
 
-const UserProSideBar:React.FC<UserProp> = ({email,fullName,userName,image}) => {
+const UserProSideBar:React.FC <UserProp> = ({email,fullName,userName,image}) => {
     const classes = useStyles();
     
 
@@ -110,4 +110,4 @@ const useStyles = makeStyles({
 
 })
 
-export default UserProSideBar
+export default UserProSideBar;
