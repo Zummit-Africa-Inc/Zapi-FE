@@ -23,7 +23,7 @@ const Signup:React.FC = () => {
     try {
       const data = await sendRequest(inputs)
       console.log(data)
-    } catch (err) { alert(error)}
+    } catch (err: any) { alert(err.message)}
   }
   return (
     <>
@@ -37,7 +37,12 @@ const Signup:React.FC = () => {
             <Tooltip title='Password must between 8 - 20 characters and must include a capital letter, a small letter, a number and a special characters'>
             <input required type="password" name="password" {...bind} placeholder="Password" />
             </Tooltip>
-            <button type="submit" disabled={!fullName || !email || !password || !PASSWORD_REGEX.test(password)}>Sign Up</button>
+            {!fullName || !email || !password || !PASSWORD_REGEX.test(password) 
+            ?  
+            (<button className={classes.btn} type="submit">Sign Up</button>)
+            :
+            <button className={classes.submitBtn} type="submit">Sign Up</button>
+          }
           </form>
           <Stack className={classes.socialLogin}>
             <Typography className={classes.bodyText} variant='body1'>or Sign in with:</Typography>
@@ -128,19 +133,32 @@ const useStyles = makeStyles({
         width: '100%',
       }
     },
-    '& button': {
-      width: '20rem',
-      height: '3rem',
-      background: '#081F4A',
-      borderRadius: '15px',
-      color: '#FF5C00',
-      fontWeight: 600,
-      fontSize: '1rem',
-      cursor: 'pointer',
-      marginBottom: '2rem',
-      '@media screen and (max-width: 450px)': {
-        width: '100%',
-      }
+  },
+  submitBtn: {
+    width: '20rem',
+    height: '3rem',
+    background: '#081F4A',
+    borderRadius: '15px',
+    color: '#FF5C00',
+    fontWeight: 600,
+    fontSize: '1rem',
+    cursor: 'pointer',
+    marginBottom: '2rem',
+    '@media screen and (max-width: 450px)': {
+      width: '100%',
+    }
+  },
+  btn: {
+    width: '20rem',
+    height: '3rem',
+    borderRadius: '15px',
+    color: '#FF5C00',
+    fontWeight: 600,
+    fontSize: '1rem',
+    cursor: 'pointer',
+    marginBottom: '2rem',
+    '@media screen and (max-width: 450px)': {
+      width: '100%',
     }
   },
   socialLogin: {

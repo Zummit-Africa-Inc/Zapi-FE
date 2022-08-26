@@ -1,3 +1,6 @@
+import blueFire from "./assets/images/blueFire.png"
+import purpleFire from "./assets/images/purpleFire.png"
+
 
 export const APIS = [
     {
@@ -112,13 +115,13 @@ export const CATEGORIES = [
 ];
 
 export const USER = [{
-    id : '0001',
-    fullName : 'Dummy Name',
-    email : 'Dummyname@gmail.com',
-    userName : 'Dummzy',
-    userId : '11223344556677',
-    profileId : '11aa22bb33cc44dd55ee',
-    image : '/images/pro-pics.png',
+    id: '0001',
+    fullName: 'Dummy Name',
+    email: 'Dummyname@gmail.com',
+    userName: 'Dummzy',
+    userId: '11223344556677',
+    profileId: '11aa22bb33cc44dd55ee',
+    image: '/images/pro-pics.png',
 }]
 
 export const DASHBOARDTEXT1 = {
@@ -156,21 +159,20 @@ export const SUCCESS = [
 ]
 
 export const TIMERANGE = [
-"Last hour","Last 3 hours","Last 6 hours","Last 12 hours","Last 24 hours","Last 7 days","Last 30 days","Last 365 days",
+    "Last hour", "Last 3 hours", "Last 6 hours", "Last 12 hours", "Last 24 hours", "Last 7 days", "Last 30 days", "Last 365 days",
 ]
 
-export const PERIOD = ["Minutes","Hours","Days"]
+export const PERIOD = ["Minutes", "Hours", "Days"]
 
 export const ZONE = [
-    "GMT+14:00 Line Islands Time (PACIFIC)", 
+    "GMT+14:00 Line Islands Time (PACIFIC)",
     "GMT+13:00 New Zealand Daylight Time (PACIFIC ANTARTICA)",
 ]
 
-export const TABLEHADING = ["Time","API Version","Endpoint","Method","Location","Response Status","Latency",]
+export const TABLEHADING = ["Time", "API Version", "Endpoint", "Method", "Location", "Response Status", "Latency",]
 
 export const ROWS = [
     {
-        id: 1,
         time: 1143155,
         version: "V1",
         endpoint: "Create A New Link",
@@ -180,76 +182,69 @@ export const ROWS = [
         latency: "400ms",
     },
     {
-      id: 1,
-      time: 1143155,
-      version: "V1",
-      endpoint: "Create A New Link",
-      method: "GET",
-      location: "Nigeria",
-      status: 401,
-      latency: "400ms",
-  },
-  {
-    id: 1,
-    time: 1143155,
-    version: "V1",
-    endpoint: "Create A New Link",
-    method: "GET",
-    location: "Nigeria",
-    status: 401,
-    latency: "400ms",
-},
-{
-  id: 1,
-  time: 1143155,
-  version: "V1",
-  endpoint: "Create A New Link",
-  method: "GET",
-  location: "Nigeria",
-  status: 401,
-  latency: "400ms",
-},
-{
-  id: 1,
-  time: 1143155,
-  version: "V1",
-  endpoint: "Create A New Link",
-  method: "GET",
-  location: "Nigeria",
-  status: 401,
-  latency: "400ms",
-},
-{
-  id: 1,
-  time: 1143155,
-  version: "V1",
-  endpoint: "Create A New Link",
-  method: "GET",
-  location: "Nigeria",
-  status: 401,
-  latency: "400ms",
-},
-{
-  id: 1,
-  time: 1143155,
-  version: "V1",
-  endpoint: "Create A New Link",
-  method: "GET",
-  location: "Nigeria",
-  status: 401,
-  latency: "400ms",
-},
-{
-  id: 1,
-  time: 1143155,
-  version: "V1",
-  endpoint: "Create A New Link",
-  method: "GET",
-  location: "Nigeria",
-  status: 401,
-  latency: "400ms",
-},
-  ];
+        time: 1143155,
+        version: "V1",
+        endpoint: "Create A New Link",
+        method: "GET",
+        location: "Nigeria",
+        status: 401,
+        latency: "400ms",
+    },
+    {
+        time: 1143155,
+        version: "V1",
+        endpoint: "Create A New Link",
+        method: "GET",
+        location: "Nigeria",
+        status: 401,
+        latency: "400ms",
+    },
+    {
+        time: 1143155,
+        version: "V1",
+        endpoint: "Create A New Link",
+        method: "GET",
+        location: "Nigeria",
+        status: 401,
+        latency: "400ms",
+    },
+    {
+        time: 1143155,
+        version: "V1",
+        endpoint: "Create A New Link",
+        method: "GET",
+        location: "Nigeria",
+        status: 401,
+        latency: "400ms",
+    },
+    {
+        time: 1143155,
+        version: "V1",
+        endpoint: "Create A New Link",
+        method: "GET",
+        location: "Nigeria",
+        status: 401,
+        latency: "400ms",
+    },
+    {
+        time: 1143155,
+        version: "V1",
+        endpoint: "Create A New Link",
+        method: "GET",
+        location: "Nigeria",
+        status: 401,
+        latency: "400ms",
+    },
+    {
+        time: 1143155,
+        version: "V1",
+        endpoint: "Create A New Link",
+        method: "GET",
+        location: "Nigeria",
+        status: 401,
+        latency: "400ms",
+    },
+];
 
 export const LOGINHISTORIES = [
     "2022-06-12 13:24pm",
@@ -264,3 +259,47 @@ export const LOGINHISTORIES = [
     "2012-06-25 10:24pm",
     "2010-06-17 15:24pm",
 ];
+
+export const METHOD = ["GET", "POST"]
+
+export const DATATYPE = ["STRING", "NUMBER", "BOOLEAN"]
+
+export const TABLEHEADING = ["Endpoint", "Method", "Route"]
+
+export const TABLEROWS = [
+    {
+        endpoint: "user",
+        method: "POST",
+        Route: "/signup"
+    },
+    {
+        endpoint: "user",
+        method: "GET",
+        Route: "/login"
+    },
+]
+
+export const TextBoxData = [
+    { id: 1, text: "Lorem Ipsum" },
+    { id: 2, text: "Lorem Ipsum" }
+]
+
+export const EducationText1 = { id: 1, }
+export const EducationText2 =
+    {
+        id: 2,
+        image: blueFire,
+        title: "Learn More about API",
+        text: "A complete API reference of the Product Library, a JavaScript library made for rapid interactive prototyping for web and mobile.",
+        buttonText: "Learn more",
+        buttonText2: "Dismiss"
+    }
+export const EducationText3 = {
+        id: 3,
+        image: purpleFire,
+        title: "Learn More about API",
+        text: "A complete API reference of the Product Library, a JavaScript library made for rapid interactive prototyping for web and mobile.",
+        buttonText: "Learn more",
+        buttonText2: "Dismiss"
+    }
+export const EducationText4 = { id: 4,}
