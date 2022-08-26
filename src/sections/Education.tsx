@@ -26,9 +26,11 @@ export default Education
 
 const useStyles = makeStyles({
     Education: {
-        width: "100%",
-        height: "100vh",
+        width: "100vw",
+        height: "100%",
         background: "#FFFFFF",
+        paddingTop: "2rem",
+        paddingBottom: "8rem"
     },
     EdBoxes: {
         display: "flex",
