@@ -10,6 +10,7 @@ const Homepage: React.FC = () => {
             <Hero />
             <Features />
             <Pricing />
+            
             <Education />
             <Footer />
         </div>
