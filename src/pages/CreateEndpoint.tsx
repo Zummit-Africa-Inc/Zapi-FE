@@ -8,10 +8,10 @@ import { METHOD, DATATYPE } from '../testdata'
 
 
 const CreateEndpoint: React.FC = () => {
-  const [name, setName] = useState("")
-  const [route, setRoute] = useState("/")
-  const [method, setMethod] = useState("GET")
-  const [description, setDescription] = useState("")
+  const [name, setName] = useState<string>("")
+  const [route, setRoute] = useState<string>("/")
+  const [method, setMethod] = useState<string>("GET")
+  const [description, setDescription] = useState<string>("")
   const classes = useStyles()
   const [requestBody, setRequestBody] = useState<Array<any>>([{ payload: "", dataType: "" }])
   const [showPostComponent, setShowPostComponent] = useState<boolean>(false)

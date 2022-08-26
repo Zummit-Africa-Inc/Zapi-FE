@@ -1,5 +1,5 @@
 import { makeStyles } from '@mui/styles'
-import { Hero, HomeNavbar, Features, Footer, Pricing } from '../sections'
+import { Education, Hero, HomeNavbar, Features, Footer, Pricing } from '../sections'
 
 const Homepage: React.FC = () => {
     const classes = useStyles()
@@ -12,6 +12,7 @@ const Homepage: React.FC = () => {
             <Pricing />
             
             <Footer />
+            <Education />
         </div>
     </div>
   )
@@ -21,10 +22,10 @@ export default Homepage
 
 const useStyles = makeStyles({
     homePage: {
-        height: "100vh",
-        width: "100vw",
-        backgroundColor: "#ffff",
-        fontFamily: "Space Grotesk, sans-serif"
+        height: "100%",
+        width: "100%",
+        fontFamily: "Space Grotesk, sans-serif",
+        background: "#fff"
     },
     main: {
         padding: "1rem 5rem",
