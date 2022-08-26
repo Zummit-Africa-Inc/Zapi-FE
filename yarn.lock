@@ -548,9 +548,9 @@
   integrity sha512-9X2obfABZuDVLCgPK9aX0a/x4jaOEweTTWE2+9sr0Qqqevj2Uv5XorvusThmc9XGYpS9yI+fhh8RTafBtGposw==
 
 "@reduxjs/toolkit@^1.8.3":
-  version "1.8.3"
-  resolved "https://registry.yarnpkg.com/@reduxjs/toolkit/-/toolkit-1.8.3.tgz#9c6a9c497bde43a67618d37a4175a00ae12efeb2"
-  integrity sha512-lU/LDIfORmjBbyDLaqFN2JB9YmAT1BElET9y0ZszwhSBa5Ef3t6o5CrHupw5J1iOXwd+o92QfQZ8OJpwXvsssg==
+  version "1.8.4"
+  resolved "https://registry.yarnpkg.com/@reduxjs/toolkit/-/toolkit-1.8.4.tgz#8f226acff22adf539d078b64fa2eafc3f8d1d045"
+  integrity sha512-IpFq1WI7sCYeLQpDCGvlcQY9wn70UpAM3cOLq78HRnVn1746RI+l3y5xcuOeVOxORaxABJh3cfJMxycD2IwH5w==
   dependencies:
     immer "^9.0.7"
     redux "^4.1.2"
@@ -561,6 +561,11 @@
   version "0.3.3"
   resolved "https://registry.npmjs.org/@types/cookie/-/cookie-0.3.3.tgz"
   integrity sha512-LKVP3cgXBT9RYj+t+9FDKwS5tdI+rPBXaNSkma7hvqy35lc7mAokC2zsqWJH0LaqIt3B962nuYI77hsJoT1gow==
+
+"@types/googlemaps@^3.43.3":
+  version "3.43.3"
+  resolved "https://registry.npmjs.org/@types/googlemaps/-/googlemaps-3.43.3.tgz"
+  integrity sha512-ZWNoz/O8MPEpiajvj7QiqCY8tTLFNqNZ/a+s+zTV58wFVNAvvqV4bdGfnsjTb5Cs4V6wEsLrX8XRhmnyYJ2Tdg==
 
 "@types/hoist-non-react-statics@^3.3.0", "@types/hoist-non-react-statics@^3.3.1":
   version "3.3.1"
@@ -2163,7 +2168,7 @@ redux-thunk@^2.4.1:
 
 redux@^4.0.0, redux@^4.1.2:
   version "4.2.0"
-  resolved "https://registry.npmjs.org/redux/-/redux-4.2.0.tgz"
+  resolved "https://registry.yarnpkg.com/redux/-/redux-4.2.0.tgz#46f10d6e29b6666df758780437651eeb2b969f13"
   integrity sha512-oSBmcKKIuIR4ME29/AeNUnl5L+hvBq7OaJWzaptTQJAntaPvxIJqfnjbaEiCzzaIz+XmVILfqAM3Ob0aXLPfjA==
   dependencies:
     "@babel/runtime" "^7.9.2"

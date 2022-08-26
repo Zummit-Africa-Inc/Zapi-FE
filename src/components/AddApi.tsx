@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles } from "@mui/styles";
 import FileUploadIcon from '@mui/icons-material/FileUpload';
-import { Stack, TextField, Select, MenuItem, InputLabel, Typography, Box, Button } from "@mui/material";
+import { Stack, TextField, Select, MenuItem, Typography, Box, Button } from "@mui/material";
 
 const AddApi: React.FC = () => { 
   const classes = useStyles();
