@@ -10,9 +10,8 @@ const Homepage: React.FC = () => {
             <Hero />
             <Features />
             <Pricing />
-            
-            <Footer />
             <Education />
+            <Footer />
         </div>
     </div>
   )
