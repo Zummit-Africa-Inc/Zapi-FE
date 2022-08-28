@@ -7,6 +7,7 @@ import "./HomeNavbar.css"
 
 //images
 import ZapiHomeLogo from "../../assets/images/ZapiHomeLogo.png"
+import Vector from "../../assets/images/Vector.png"
 
 const HomeNavbar: React.FC = () => {
     const classes = useStyles()
@@ -25,6 +26,7 @@ const HomeNavbar: React.FC = () => {
                 <div className={classes.logo}>
                     <img src={ZapiHomeLogo} alt="zapi-Home" />
                     <span className={classes.zapi}>Z-API</span>
+                    <img className={classes.vector} src={Vector} alt="vector-img" />
                 </div>
                 <div className={classes.links}>
                     <ul>
@@ -58,12 +60,17 @@ export default HomeNavbar
 
 const useStyles = makeStyles({
     NavBar: {
+        position: "fixed",
+        left: "0rem",
+        right: "0rem",
+        zIndex: "1000",
+        height: "112px",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
         background: "#081F4A",
         boxShadow: "0px 1px 15px rgba(7, 27, 133, 0.15)",
-        padding: "1rem 5rem",
+        padding: "0 5rem",
         "@media screen and (max-width: 1000px)": {
             padding: "1rem 2rem"
         },
@@ -80,6 +87,12 @@ const useStyles = makeStyles({
         color: "#FFFFFF",
         fontWeight: 700,
         fontSize: "1.5rem"
+    },
+    vector: {
+        position: "absolute",
+        left: "130px",
+top: "-2px",
+        filter: "drop-shadow(0px 1px 15px rgba(0, 0, 0, 0.1))",
     },
     links: {
         display: "flex",
