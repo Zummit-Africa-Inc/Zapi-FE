@@ -174,7 +174,7 @@ const useStyles = makeStyles({
         gap: "1rem",
         background: "#FFF",
         padding: "0.25rem 1rem",
-        margin: "1rem 0",
+        marginTop: "6rem",
         borderRadius: 5,
         "& input": {
             width: 250,
@@ -187,6 +187,9 @@ const useStyles = makeStyles({
             height: "100%",
             outline: "none",
             border: "none",
+        },
+        "@media screen and (max-width: 900px)": {
+          marginTop: "1rem",
         }
     },
   pricing: {
