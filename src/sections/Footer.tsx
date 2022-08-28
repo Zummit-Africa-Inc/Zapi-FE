@@ -6,6 +6,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 
 
+
 //image
 import Twitter from "../assets/images/Twitter.png"
 import Linkedin from "../assets/images/Linkedin.png"
@@ -20,6 +21,7 @@ const Footer: React.FC = () => {
 
 
   return (
+    <>
     <footer>
       <Box px={{ xs:3, sm:10 }} py={{  xs:5, sm:10}} bgcolor='#081F4A' color='#FFEA00'>
         <Container maxWidth='lg'>
@@ -98,7 +100,6 @@ const Footer: React.FC = () => {
                 </Link>
               </Box>
             </Grid>
-            {/* <Divider variant='middle'/> */}
             <div style={{ border: '1px solid #FFEA00', width: '100%', marginTop:'2rem' }}></div>
             <Grid container mt={{ xs: '2rem', sm: 4, md: 6, lg: 4 }}>
               <Grid item xs={12} mt={{ xs: '1rem' }} lg={6} fontSize={14} fontWeight={900} lineHeight='30px' alignItems='center'>
@@ -126,9 +127,11 @@ const Footer: React.FC = () => {
         </Container>
       </Box>
     </footer>
+    </>
   )
   
 }
+
 
 
 export default Footer
