@@ -21,9 +21,9 @@ const Navbar: React.FC<INavProps> = ({title,subtitle}) => {
   }
 
   useEffect(() => { 
-    setSocket(io("https://localhost:5000"));
+    setSocket(io('http://localhost:3000'));
   }, []);
-  
+
   return (
     <nav className={classes.root}>
       <div className={classes.toolbar}>
@@ -32,7 +32,7 @@ const Navbar: React.FC<INavProps> = ({title,subtitle}) => {
         </div>
 
         <Stack className={classes.div}>
-          {/* {isLoggedIn ?  */}
+          {isLoggedIn ? 
             <Stack direction="row" alignItems="center" justifyContent="center" spacing={1} mb={1}>
               <IconButton color="primary">
                 <AddCircleOutline />
@@ -49,7 +49,7 @@ const Navbar: React.FC<INavProps> = ({title,subtitle}) => {
                 </IconButton>
               </div>
             </Stack>
-             {/* : 
+             : 
              <Stack mb={screenSize < 900 ? 1 : 6}>
                <div className={classes.drawerButton}>
                  <IconButton onClick={toggleSidebar}>
@@ -57,7 +57,7 @@ const Navbar: React.FC<INavProps> = ({title,subtitle}) => {
                  </IconButton>
                </div>
              </Stack>
-             } */}
+             }
         </Stack>
       </div>
 
