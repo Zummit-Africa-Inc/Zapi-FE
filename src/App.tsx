@@ -4,6 +4,7 @@ import { ThemeProvider } from "@mui/material";
 
 import { CreateEndpoint, DevDashboard, EndPointPage, Home, HomePage, Login, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, Analytics, SuccessPage, Configuration, OrgPage } from "./pages";
 import { Fallback } from "./components";
+
 import { theme } from "./theme";
 
 const App:React.FC = () => {

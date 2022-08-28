@@ -16,18 +16,29 @@ const Widget: React.FC<WidgetProps> = ({ title, subtitle, className, span, butto
     return (
         <>
             <div>
-                <div className={className} onClick={onClick}>
+                {buttonText ?
+                    <div className={className} onClick={onClick}>
                         <img src={image} />
                         <div>
-                        <Typography variant='subtitle1' sx={{ fontWeight: 'bold' }} gutterBottom>{title}</Typography>
-                        <Typography variant='body1' gutterBottom>{subtitle}</Typography>
-                        <Typography sx={{ fontSize: '2rem', fontWeight: 200 }}>{span}</Typography>
+                            <Typography variant='subtitle1' sx={{ fontWeight: 'bold' }} gutterBottom>{title}</Typography>
+                            <Typography variant='body1' gutterBottom>{subtitle}</Typography>
+                            <Typography sx={{ fontSize: '2rem', fontWeight: 200 }}>{span}</Typography>
+                            <div>
+                                <button>{buttonText}</button>
+                                <button>{buttonText2}</button>
+                            </div>
+                        </div>
+                    </div>
+                    :
+                    <div className={className} onClick={onClick}>
+                        <img src={image} />
                         <div>
-                            <button>{buttonText}</button>
-                            <button>{buttonText2}</button>
+                            <Typography variant='subtitle1' sx={{ fontWeight: 'bold' }} gutterBottom>{title}</Typography>
+                            <Typography variant='body1' gutterBottom>{subtitle}</Typography>
+                            <Typography sx={{ fontSize: '2rem', fontWeight: 200 }}>{span}</Typography>
                         </div>
-                        </div>
-                </div>
+                    </div>
+                }
             </div>
         </>
     )
