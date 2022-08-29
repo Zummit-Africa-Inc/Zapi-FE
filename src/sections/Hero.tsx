@@ -46,6 +46,7 @@ export default Hero
 
 const useStyles = makeStyles({
   hero: {
+    paddingTop: "10rem",
     background: "#FFFFFF",
     padding: "1rem 5rem 0",
   },
