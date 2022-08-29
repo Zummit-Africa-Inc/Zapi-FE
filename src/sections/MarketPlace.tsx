@@ -1,8 +1,6 @@
 import React from "react";
 import { Typography, List } from "@mui/material";
 import { makeStyles,  } from '@mui/styles';
-import { ClassNames } from "@emotion/react";
-import { styled } from '@mui/material/styles';
 
 
 const MarketPlace = () => {
