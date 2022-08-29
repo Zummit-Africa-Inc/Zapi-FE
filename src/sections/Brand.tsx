@@ -2,117 +2,205 @@ import React from 'react';
 import { makeStyles } from '@mui/styles';
 import { Typography } from '@mui/material';
 import { ClassNames } from "@emotion/react";
-import { Card, CardActionArea, CardMedia, CardContent, Grid} from '@mui/material'
 import { Height } from '@mui/icons-material';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpotify, faSlack, faDropbox, } from '@fortawesome/free-brands-svg-icons'
-
-
-
 
 
 const Brand = () => {
     const classes = useStyles()
     
     return (
-        <div className={classes.brand}>
+      <div className={classes.brand}>
           <div className={classes.logo}>
             <div className={classes.brandText}>
-                 <Typography  gutterBottom variant="subtitle1" sx={{ fontWeight: 400, fontSize: "1.5rem", lineHeight: "2.5rem", paddingBottom: "2rem" }}>Used and trusted by developers and brands such as:</Typography>
+                 <Typography  gutterBottom variant="subtitle1" sx={{ fontStyle: 'normal', fontColor: '#071B85', fontFamily: 'Space Grotesk', fontWeight: 500, fontSize: "24px", lineHeight: "30px" }}>Used and trusted by developers and brands such as:</Typography>
             </div>
               
             <div className={classes.brandlogo}>
-               <Typography gutterBottom variant="subtitle1" sx={{ fontWeight: 600, fontSize: "2rem", lineHeight: "2.5rem", paddingBottom: "2rem", color: "#0000FF" }}>coinbase</Typography>
-               <div className={classes.logoname}>
-                 <FontAwesomeIcon className={classes.icon} icon={faSpotify}></FontAwesomeIcon>
-                 <Typography  gutterBottom variant="subtitle1" sx={{ marginLeft: "0.5rem", fontWeight: 600, fontSize: "2rem", lineHeight: "2.5rem", paddingBottom: "2rem", color: "#32CD32"}}>Spotify</Typography>
+               <div className={classes.coinbase}>
+                 <img  src="images/coinbase.svg "/>
                </div>
                
                <div className={classes.logoname}>
-                  <FontAwesomeIcon className={classes.icontwo} icon={faSlack}></FontAwesomeIcon>
-                  <Typography gutterBottom variant="subtitle1" sx={{ marginLeft: "0.5rem", fontWeight: 600, fontSize: "2rem", lineHeight: "2.5rem", paddingBottom: "2rem" }}>Slack</Typography>
+                 <img className={classes.spotify} src="images/spotify.svg"/>
                </div>
+               
+                <div className={classes.slackdiv}>
+                   <div className={classes.slacklogo}>
+                    <div className={classes.slackUpper}>
+                      <img className={classes.slack1} src="images/slack1.svg"/>
+                      <img className={classes.slack2} src="images/slack2.svg"/>
+                    </div>
+                    <div className={classes.slackLower}>
+                      <img className={classes.slack3} src="images/slack3.svg"/>
+                      <img className={classes.slack4} src="images/slack4.svg"/>
+                    </div>
+                   </div>
+                  
+                   <img className={classes.slack} src="images/slack.svg"/>
+                </div>
 
-               <div className={classes.logoname}>
-                  <FontAwesomeIcon  className={classes.iconthree} icon={faDropbox}></FontAwesomeIcon>
-                  <Typography  gutterBottom variant="subtitle1" sx={{ marginLeft: "0.5rem", fontWeight: 600, fontSize: "2rem", lineHeight: "2.5rem", paddingBottom: "2rem" }}>Dropbox</Typography>
+               <div className={classes.dropboxlogo}>
+                  <img className={classes.dropboxx} src="images/dropboxx.svg"/>
+                  <img className={classes.dropbox} src="images/dropbox.svg"/>
                </div>
                
-               <Typography gutterBottom variant="subtitle1" sx={{ fontWeight: 600, fontSize: "2rem", lineHeight: "2.5rem", paddingBottom: "2rem" }}>Webflow</Typography>
-               <Typography gutterBottom variant="subtitle1" sx={{ fontWeight: 600, fontSize: "2rem", lineHeight: "2.5rem", paddingBottom: "2rem", color: "#1E90FF" }}>zoom</Typography>
+               <img  className={classes.webflow} src="images/webflow.svg"/>
+               <img  className={classes.zoom} src="images/zoom.svg"/>
             </div>  
             
           </div>
         </div>
-    )
-}
 
+      
+    )
+  }      
 export default Brand
 
 const useStyles = makeStyles ({
-    brand: {
-     backgroundColor: '#F0F8FF',
-     marginTop: '3rem',
-     height: '12rem',
-   },
-
-    logo: {
-      backgroundColor: 'silver',
-      height: ' 9rem',
-      width: '80rem',
-      marginLeft: '3rem',
-      alignItems: 'center',   
-    },
-
-    brandlogo: {
-        display: 'flex',
-        justifyContent: 'space-evenly',
-        marginTop: '-2rem'
-    },
-
-    icon: {
-      width: '3rem',
-      height: '3rem',
-      color: '#32CD32'
-    },
-    icontwo: {
-      width: '3rem',
-      height: '3rem',
-      color: '#DAA520'
-    },
-
-    iconthree: {
-      width: '3rem',
-      height: '3rem',
-      color: '#0000FF'
-    },
-
-    logoname: {
-      display: 'flex'
-    },
-
-    brandText: {
-        textAlign: "center",
-        paddingTop: "2rem",
-        color: "#00308F",
-        "@media screen and (max-width: 950px)": {
-          "& br": {
-            display: "none"
-          },
-        }
-    },
-
-    area: {
-        display: 'flex',
-        padding: '4rem 4rem',
-        marginTop: '-8rem'
-    },
-
-    card: {
-      width: '13rem',
-      height: '3rem',
-      margin: '3rem',
+  brand: {
+    width: '1440px',
+    height: '398px',
+    left: '0px',
+    top: '902px',
+   background: '#EDF5FD',
+   padding: '80px,0px',
+   alignItems: 'center',
+   justifyContent: 'center',
+   flexDirection: 'column',
+   display: 'flex'
+   
+ },
+ 
+  logo: {
+    width: '1216px',
+    height: '238px',
+    background: '#F9FAFB', 
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    borderRadius: '16px',
+    justifyContent: 'space-evenly',
+    padding: '48px, 64px',
+    gap: '64px',
+    
+  },
+ 
+  brandlogo: {
+      display: 'flex',
+      justifyContent: 'space-evenly',
+      gap: '65px'
       
+  },
+  brandText: {
+    height: '30px',
+    width: '611px',
+    display: 'flex',
+    alignItems: 'center',
+    flex: 'none',
+    color: '#071B85',
+    order: '0',
+    flexGrow: '0'
 
-    },
+  },
+
+  coinbase: {
+    width: '134.35px',
+    height: '24px',
+    top: '10px'
+  },
+  
+  logoname: {
+    display: 'flex'
+  },
+ 
+  spotify: {
+    width: '140.04px',
+    height: '42px',
+  },
+
+  slackdiv: {
+    gap: '18px',
+    display: 'flex'
+  },
+
+  slacklogo: {
+    justifyContent: 'space-between'
+  },
+
+  slackUpper: {
+    width: '13.97px',
+    height: '14px',
+    top: '24.7px',
+    display: 'flex',
+    bottom: '19.37%'
+
+  },
+
+  slack1: {
+    height: '14px',
+    width: '13.97px'
+
+  },
+  slack2: {
+    width: '13.97px',
+    height: '14px'
+  },
+  
+  slackLower: {
+    width: '13.97px',
+    height: '14px',
+    top: '24.7px',
+    display: 'flex',
+    bottom: '19.37%'
+  },
+  slack3: {
+    
+    left: '0%',
+    right: '88.45%',
+    top: '51.47%',
+    bottom: '19.37%'
+  },
+
+  slack4: {
+    
+    left: '0%',
+    right: '88.45%',
+    top: '51.47%',
+    bottom: '19.37%'
+  },
+
+  slack: {
+    height: '25.34px',
+    width: '82.79px'
+  },
+
+  dropboxlogo: {
+    gap: '10px',
+    justifyContent: 'space-between',
+    display: 'flex'
+  },
+
+  dropboxx: {
+    width: '37.66px',
+    height: '32px'
+  },
+
+  dropbox: {
+    width: '117.17px',
+    height: '27.19px',
+  },
+
+  webflow: {
+    width: '115.45px',
+    height: '29px'
+  },
+
+  zoom: {
+    height: '22px',
+    width: '97.9px',
+    top: '14px',
+    right: '0.1%',
+    bottom: '25%',
+  }
+    
 })
