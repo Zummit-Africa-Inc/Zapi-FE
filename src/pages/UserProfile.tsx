@@ -1,5 +1,5 @@
 import React, { SyntheticEvent, useState, useEffect } from 'react'
-import { APICard, UserProSideBar , TabPanel} from '../components'
+import { APICard, UserProSideBar, TabPanel} from '../components';
 import { useContextProvider } from "../contexts/ContextProvider";
 
 import styled from "@emotion/styled";
@@ -148,4 +148,4 @@ const useStyles = makeStyles({
 })
 
 
-export default UserProfile
+export default UserProfile;

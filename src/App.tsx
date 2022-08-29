@@ -2,9 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
 
-import { Home, Login, Signup, UserProfile, ForgotPassword, Otp, Orgpage} from "./pages";
-
-import { Homepage, EndPoint, CreateEndpoint, DevDashboard, LoginHistory, APIPage, Analytics, SuccessPage, Configuration, sections } from "./pages";
+import { Homepage, EndPoint, CreateEndpoint, DevDashboard, LoginHistory, APIPage, Analytics, SuccessPage, Configuration, OrgPage } from "./pages";
 
 import { theme } from "./theme";
 
@@ -34,8 +32,7 @@ const App:React.FC = () => {
           <Route path="/configuration" element={<Configuration />} />
           <Route path="/login-history" element={<LoginHistory/> } />
           <Route path="/success-page" element={<SuccessPage />} />
-          <Route path="/endpoint" element={<EndPoint />} />
-          <Route path="/add-endpoint" element={<CreateEndpoint />} />
+          <Route path="/OrgPage" element={<OrgPage />} />
           
         </Routes>
       </div>
