@@ -108,7 +108,7 @@ const useStyles = makeStyles({
     left: 0,
     background: "rgba(225, 225, 225, 0.3)",
     backdropFilter: "blur(2px)",
-    zIndex: 10,
+    zIndex: 50,
   },
   main: {
     display: "flex",

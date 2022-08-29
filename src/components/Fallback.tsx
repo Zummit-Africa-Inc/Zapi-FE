@@ -24,7 +24,7 @@ const useStyles = makeStyles({
         left: 0,
         background: "rgba(225, 225, 225, 0.3)",
         backdropFilter: "blur(2px)",
-        zIndex: 50,
+        zIndex: 70,
     },
     loader: {}
 })
