@@ -49,6 +49,7 @@ const Login: React.FC = () => {
       cookies.set('refreshToken', refresh);
       cookies.set('profileId', profileId);
       cookies.set('userId', userId);
+      return () => handleUnclicked('login')
     } catch (error) {};
   };
 
@@ -89,7 +90,9 @@ const Login: React.FC = () => {
         </Stack>
         <Typography variant="body1" fontSize="16px">
           Dont't have an account?
-          <Link to="/signup" className={classes.link}>Sign up</Link>
+          <Link to="/signup" className={classes.link} onClick={() => handleUnclicked('login')}>
+            Sign up
+          </Link>
         </Typography>
       </motion.div>
     </div>
