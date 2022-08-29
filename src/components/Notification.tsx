@@ -1,47 +1,29 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from 'react-redux'
+import React, { useRef, useState, useEffect } from "react";
 import { makeStyles } from "@mui/styles";
-import { Badge, Button, Menu, MenuItem } from '@mui/material';
+import {Badge, Button,Menu,MenuItem} from '@mui/material';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import { io } from 'socket.io-client';
-import { USER } from "../testdata";
+
 
 
 interface INotificationProps {
     socket: any;
 };
 
-
 const Notification: React.FC<INotificationProps> = ({ socket }) => {
     const classes = useStyles();
     const [notifications, setNotifications] = useState<string[]>([]);
     const [open, setOpen] = useState<any>(false);
-    const profileId = USER.map(user => {
-        { user.profileId }
-    });
 
-    socket = io('http://localhost:3000');
+
     useEffect(() => {
-        socket.on(`newSubscription_${profileId}`, (data: any) => {
-            console.log(data);
-            setNotifications([...notifications, data])
-        })
-        console.log(notifications);
-        socket.on(`unSubscription_${profileId}`, (data: any) => {
-            console.log(data);
-            setNotifications([...notifications, data])
-        })
-        console.log(notifications);
-        socket.on(`apiHosted_${profileId}`, (data: any) => {
-            console.log(data);
-            setNotifications([...notifications, data])
-        })
-        console.log(notifications);
-        socket.on(`approfileIdown_${profileId}`, (data: any) => {
-            console.log(data);
-            setNotifications([...notifications, data])
-        })
-        console.log(notifications);
+        if (socket.connected) {
+            socket.on("getNotification", (data: any) => {
+                setNotifications([...notifications, data])
+            })
+            console.log(notifications);
+        } else {
+            console.log("socket is not connected");
+        }
     }, [socket]);
 
 
@@ -50,27 +32,18 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
 
         if (type === 1) {
             action = "newSubscription";
-            return (
-                <span className={classes.notification}>{'Someone UnSubscribed from your api'}</span>
-            )
         } else if (type === 2) {
-            action = "unSubscription";
-            return (
-                <span className={classes.notification}>{'Someone UnSubscribed from your api'}</span>
-            )
+            action = "newSubscription";
         }
         else if (type === 3) {
             action = "apiHosted";
-            return (
-                <span className={classes.notification}>{'Your Api has been Hosted'}</span>
-            )
         }
         else {
             action = "apiDown";
-            return (
-                <span className={classes.notification}>{'Your Api is down'}</span>
-            )
         }
+        return (
+            <span className={classes.notification}>{`Notification: ${action}`}</span>
+        )
     }
 
     const handleRead = () => {
@@ -81,24 +54,19 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
     return (
         <>
             <div>
-                {notifications.length > 0 ?
-                    <Badge badgeContent={notifications.length} color="error">
-                        <NotificationsNoneIcon color="action" onClick={() => setOpen(!open)} />
-                    </Badge>
-                    : <NotificationsNoneIcon color="action" onClick={() => setOpen(!open)} />
-                }
+                <Badge badgeContent={notifications.length} color="primary">
+                    <NotificationsNoneIcon color="action" onClick={() => setOpen(!open)} />
+                </Badge>
                 {open && (
                     <div className={classes.notifications}>
-                        {notifications.length > 0 ?
-                            <>
-                                {notifications.map((n: any) => displayNotification(n))}
+                            {notifications.length > 0 ?
+                        <>
+                                {notifications.map((n: any) => displayNotification)}
                                 <span className={classes.nButton} onClick={handleRead}>Mark as read</span>
-                            </>
-                            :
-                            <>
+                        </>
+                                : 
                                 <span className={classes.notification}>No new notification</span>
-                            </>
-                        }
+                            }
                     </div>
                 )}
             </div>
@@ -110,25 +78,24 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
 const useStyles = makeStyles({
     notification: {
         padding: '5px',
-        width: '25rem',
+        width: '10rem',
         height: '3rem',
-        bordeBottom: '5px solid black',
         borderRadius: '15px',
         textAlign: 'center',
         paddingTop: '15px',
         alignItems: 'center',
         fontWeight: 600,
         fontSize: '1rem',
-        cursor: 'default',
+        cursor: 'pointer',
         '@media screen and (max-width: 450px)': {
-            width: '100%',
+          width: '100%',
         }
     },
     notifications: {
         position: 'absolute',
         top: '50px',
         right: '-2.5rem',
-        backgroundColor: '#F3F4F6',
+        backgroundColor: 'white',
         color: 'black',
         fontWeight: '300',
         display: 'flex',
@@ -149,9 +116,9 @@ const useStyles = makeStyles({
         cursor: 'pointer',
         marginTop: '10px',
         '@media screen and (max-width: 450px)': {
-            width: '100%',
+          width: '100%',
         }
-    }
+      }
 
 })
 
