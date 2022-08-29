@@ -1,12 +1,30 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
+import { deviceDetect } from "react-device-detect";
 
-import { CreateEndpoint, DevDashboard, EndPointPage, Home, HomePage, Login, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, Analytics, SuccessPage, Configuration, OrgPage } from "./pages";
-import { Fallback } from "./components";
+import { CreateEndpoint, DevDashboard, EndPointPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, Analytics, SuccessPage, Configuration, OrgPage } from "./pages";
+import { useContextProvider } from "./contexts/ContextProvider";
+import { Fallback, Login } from "./components";
 import { theme } from "./theme";
 
 const App:React.FC = () => {
+  const { isClicked, setDeviceLocation, setDeviceInfo } = useContextProvider()
+
+  useEffect(() => {
+    const device = deviceDetect(navigator.userAgent)
+    setDeviceInfo(device)
+  },[])
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setDeviceLocation({
+        lat: position.coords.latitude,
+        lon: position.coords.longitude,
+        time: position.timestamp
+      })
+    })
+  },[])
 
   return (
     <ThemeProvider theme={theme}>
@@ -15,7 +33,7 @@ const App:React.FC = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/dashboard" element={<Home />} />
-            <Route path="/login" element={<Login />} />
+
             <Route path="/signup" element={<Signup />} />
             <Route path="/user/:id" element={<UserProfile />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -29,6 +47,7 @@ const App:React.FC = () => {
             <Route path="/OrgPage" element={<OrgPage />} />
           </Routes>
         </Suspense>
+        {isClicked.login && <Login />}
       </div>
     </ThemeProvider>
   )

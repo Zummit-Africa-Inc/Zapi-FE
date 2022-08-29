@@ -6,7 +6,9 @@ const Fallback: React.FC = () => {
 
   return (
     <div className={classes.container}>
-        <div className={classes.loader}></div>
+        <div className={classes.loader}>
+          Fallback
+        </div>
     </div>
   )
 }
@@ -17,7 +19,12 @@ const useStyles = makeStyles({
         height: "100vh",
         display: "grid",
         placeItems: "center",
-        background: "#FFF",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        background: "rgba(225, 225, 225, 0.3)",
+        backdropFilter: "blur(2px)",
+        zIndex: 50,
     },
     loader: {}
 })

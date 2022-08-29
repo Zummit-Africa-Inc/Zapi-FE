@@ -1,16 +1,18 @@
-import { Menu } from "@mui/icons-material"
-import { makeStyles } from "@mui/styles"
-import { useState } from "react"
-import { Link } from "react-router-dom"
+import React, { useState } from "react";
+import { Menu } from "@mui/icons-material";
+import { makeStyles } from "@mui/styles";
+import { Link } from "react-router-dom";
 
-import "./HomeNavbar.css"
+import { useContextProvider } from "../../contexts/ContextProvider";
+import "./HomeNavbar.css";
 
 //images
-import ZapiHomeLogo from "../../assets/images/ZapiHomeLogo.png"
+import ZapiHomeLogo from "../../assets/images/ZapiHomeLogo.png";
 
 const HomeNavbar: React.FC = () => {
     const classes = useStyles()
-    const [style, setStyle] = useState("mobileLinks")
+    const [style, setStyle] = useState("mobileLinks") // ! add types here
+    const { handleClicked } = useContextProvider()
 
     const handleClick = () => {
         if (style === "mobileLinks") {
@@ -28,11 +30,14 @@ const HomeNavbar: React.FC = () => {
                 </div>
                 <div className={classes.links}>
                     <ul>
+                        {/*  ! Use the NavLink instead of Link
+                        * There is an "isActive" prop available in NavLink that allows conditional rendering
+                        */}
                         <li className={classes.active}><Link to="/">Home</Link></li>
                         <li><Link to="/dashboard">API hub</Link></li>
                         <li><Link to="#">Pricing</Link></li>
                         <li><Link to="#">Documentation</Link></li>
-                        <li><Link to="/login">Login</Link></li>
+                        <li><button onClick={() => handleClicked('login')}>Login</button></li>
                     </ul>
                     <div className={classes.signup}><Link to="/signup">Sign up</Link></div>
                 </div>
@@ -96,6 +101,17 @@ const useStyles = makeStyles({
                     fontWeight: 500,
                     fontSize: "1rem",
                     color: "#FFFFFF",
+                },
+                "& button": {
+                    textDecoration: "none",
+                    fontStyle: "normal",
+                    fontWeight: 500,
+                    fontSize: "1rem",
+                    color: "#FFFFFF",
+                    cursor: "pointer",
+                    background: "transparent",
+                    border: "none",
+                    outline: "none",
                 }
             }
         },

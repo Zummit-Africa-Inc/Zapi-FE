@@ -47,6 +47,7 @@ export default Hero
 const useStyles = makeStyles({
   hero: {
     background: "#FFFFFF",
+    padding: "1rem 5rem 0",
   },
   heroText: {
     textAlign: "center",
