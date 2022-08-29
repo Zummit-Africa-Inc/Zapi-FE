@@ -3,7 +3,7 @@ import { IconButton, Stack, Tab, Tabs, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { CloseOutlined } from "@mui/icons-material";
 
-import { APICard, InputSearch, Navbar, Sidebar, TabPanel, Pricing } from "../components";
+import { APICard, InputSearch, Navbar, Sidebar, TabPanel } from "../components";
 import { useContextProvider } from "../contexts/ContextProvider";
 import { APIS } from "../testdata";
 
@@ -56,8 +56,8 @@ const Home:React.FC = () => {
 
         {/* section for search */}
         <form onSubmit={handleSubmit} className={classes.search}>
-          <InputSearch className={classes.formControl} type="select" name="queryParams" value={queryParam} onSelect={(e: ChangeEvent<HTMLSelectElement>) => setQueryParam(e.target.value)} placeholder="Sort by" data={data} />
-          <InputSearch className={classes.formControl} type="text" name="queryString" value={queryString} onChange={(e: ChangeEvent<HTMLInputElement>) => setQueryString(e.target.value)} placeholder="I'm looking for..." />
+          <InputSearch type="select" name="queryParams" value={queryParam} onSelect={(e: ChangeEvent<HTMLSelectElement>) => setQueryParam(e.target.value)} placeholder="Sort by" data={data} />
+          <InputSearch type="text" name="queryString" value={queryString} onChange={(e: ChangeEvent<HTMLInputElement>) => setQueryString(e.target.value)} placeholder="I'm looking for..." />
         </form>
         <div className={classes.root}>
           <div className={classes.sidebar}>
@@ -85,10 +85,7 @@ const Home:React.FC = () => {
                   <Typography variant="subtitle2" mb={2}>
                     APIs that are popular and frequently used on Z-API.
                   </Typography>
-                  {/* Pricing is lying in this section for the main time, until singleApi page is created */}
-                  <div className={classes.pricing}>
-                    <Pricing />
-                  </div>
+                  <div className={classes.tabInner}></div>
                 </TabPanel>
                 <TabPanel value={tab} index={2}>
                   <Typography variant="subtitle2" mb={2}>
@@ -160,41 +157,6 @@ const useStyles = makeStyles({
     height:"60vh",
     display:"flex",
     flexWrap:"wrap",
-    alignItems:"center",
-    justifyContent:"center",
-    gap:"1.5rem",
-    overflowY:"scroll",
-    padding:"0.5rem 0"
-  },
-     formControl: {
-        height: 45,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "1rem",
-        background: "#FFF",
-        padding: "0.25rem 1rem",
-        marginTop: "6rem",
-        borderRadius: 5,
-        "& input": {
-            width: 250,
-            height: "100%",
-            outline: "none",
-            border: "none",
-        },
-        "& select": {
-            width: 100,
-            height: "100%",
-            outline: "none",
-            border: "none",
-        },
-        "@media screen and (max-width: 900px)": {
-          marginTop: "1rem",
-        }
-    },
-  pricing: {
-    width: "100%",
-    height:"60vh",
     alignItems:"center",
     justifyContent:"center",
     gap:"1.5rem",

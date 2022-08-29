@@ -30,7 +30,7 @@ const APICard: React.FC<CardProps> = ({id,name,description,status,image,latency,
                 </Typography>
                 <Stack height="30%">
                     <Typography variant="body2" fontWeight="light">
-                        {description.substring(0, 150)}...
+                        {description}
                     </Typography>
                 </Stack>
                 <Stack direction="row" alignItems="center" spacing={2} mb={4}>

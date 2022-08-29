@@ -3,7 +3,6 @@ import { makeStyles } from '@mui/styles';
 import { Avatar, Stack, Typography } from '@mui/material'
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'
 import SettingsIcon from '@mui/icons-material/Settings'
-import EditIcon from '@mui/icons-material/Edit';
 
 
 
@@ -15,18 +14,15 @@ interface UserProp {
     image?: string
 }
 
-const UserProSideBar:React.FC <UserProp> = ({email,fullName,userName,image}) => {
+const UserProSideBar:React.FC<UserProp> = ({email,fullName,userName,image}) => {
     const classes = useStyles();
     
 
     return(
         <>
             <div className={classes.sidebar}>
-                <Stack className={classes.avatar}>
-                    <Avatar src={image} alt='Dummy-image'  sx={{ width: 150, height: 150 }} />
-                    <div className={classes.edit}>
-                        <EditIcon className={classes.editIcon}/>
-                    </div> 
+                <Stack style={{ margin: '2rem' }}>
+                    <Avatar src={image} alt='Dummy-image'  sx={{ width: 150, height: 150 }} /> 
                 </Stack>
                 <Typography variant='h5' style={{ fontSize: '1rem', fontWeight: 'bold'}} >
                     { fullName }
@@ -76,38 +72,10 @@ const useStyles = makeStyles({
 
     note:{
         margin: '6rem',
-        alignSelf: 'flex-end',
-        position: "relative"
-    },
-
-    avatar:{
-        margin: "2rem",
-        position: "relative",
-    },
-
-    edit:{
-        borderRadius: "15px",
-        backgroundColor: "#ffff",
-        color: "rgba(255, 92, 0, 1)",
-        height: "30px",
-        alignContent: "center",
-        width: "42px",
-        position: "absolute",
-        bottom: "10px",
-        right: "0",
-        cursor: "pointer"
-        
-    },
-    
-    editIcon:{
-        position:"relative",
-        top:"50%",
-        left:"50%",
-        transform:"translate(-50%,-50%)"
+        alignSelf: 'flex-end'
     }
-
 
 
 })
 
-export default UserProSideBar;
+export default UserProSideBar
