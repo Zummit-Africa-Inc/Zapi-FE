@@ -4,6 +4,7 @@ import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
 
 import { useContextProvider } from "../../contexts/ContextProvider";
+import Vector from "../../assets/images/vector.png";
 import "./HomeNavbar.css";
 
 //images
