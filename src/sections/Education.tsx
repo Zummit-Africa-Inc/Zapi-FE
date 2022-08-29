@@ -30,7 +30,12 @@ const useStyles = makeStyles({
         height: "100%",
         background: "#FFFFFF",
         paddingTop: "2rem",
-        paddingBottom: "8rem"
+        paddingBottom: "8rem",
+        paddingLeft: "5rem",
+        paddingRight: "5rem",
+        "@media screen and (max-width: 400px)": {
+            padding: "1rem .5rem"
+        },
     },
     EdBoxes: {
         display: "flex",

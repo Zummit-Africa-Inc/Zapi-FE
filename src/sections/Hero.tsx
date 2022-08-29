@@ -48,6 +48,11 @@ const useStyles = makeStyles({
   hero: {
     paddingTop: "10rem",
     background: "#FFFFFF",
+    paddingRight: "5rem",
+    paddingLeft: "5rem",
+        "@media screen and (max-width: 400px)": {
+            padding: "1rem .5rem"
+        },
   },
   heroText: {
     textAlign: "center",

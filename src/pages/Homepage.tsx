@@ -6,14 +6,14 @@ const Homepage: React.FC = () => {
   return (
     <div className={classes.homePage}>
     <HomeNavbar />
-        <div className={classes.main}>
+        {/* <div className={classes.main}> */}
             <Hero />
+            <Brand/>
             <Features />
             <Pricing />
             <Education />  
-            <Brand/>
             <MarketPlace/>
-        </div>
+        {/* </div> */}
     <Footer />
     </div>
   )
