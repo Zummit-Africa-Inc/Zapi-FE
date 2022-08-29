@@ -1,8 +1,7 @@
 import { Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { Widget } from '../components'
-import TextBox from '../components/TextBox'
-import { EducationText1, EducationText2, EducationText3 } from '../testdata'
+import {EducationText2, EducationText3 } from '../testdata'
 
 const Education: React.FC = () => {
     const classes = useStyles()
@@ -26,7 +25,7 @@ export default Education
 
 const useStyles = makeStyles({
     Education: {
-        width: "100vw",
+        width: "100%",
         height: "100%",
         background: "#FFFFFF",
         paddingTop: "2rem",
@@ -35,7 +34,10 @@ const useStyles = makeStyles({
     EdBoxes: {
         display: "flex",
         gap: "1.5rem",
-        padding: "2rem 0"
+        padding: "2rem 0",
+        "@media screen and (max-width: 840px)": {
+           flexDirection: "column",
+        }
     },
     smallBox: {
         marginTop: "10rem",
@@ -47,6 +49,11 @@ const useStyles = makeStyles({
         border: "1px solid #FF5C00",
         boxShadow: "0px 0px 1px rgba(26, 32, 36, 0.32), 0px 40px 64px rgba(91, 104, 113, 0.24)",
         borderRadius: "6px",
+        "@media screen and (max-width: 1024px)": {
+            padding: "0 6rem",
+            width: "auto",
+            // height: "426px",
+        }
     },
     midBoxes: {
         marginTop: "4rem",
@@ -106,6 +113,11 @@ const useStyles = makeStyles({
             outline: "none",
             color: "#0E2DCC",
             opacity: "0.5",
+        },
+        "@media screen and (max-width: 1024px)": {
+            // padding: "0 6rem",
+            width: "auto",
+            height: "auto",
         }
     },
     midTwo: {
@@ -165,6 +177,11 @@ const useStyles = makeStyles({
             letterSpacing: "-0.006em",
             color: "#F6F8F9",
             opacity: "0.5",
+        },
+        "@media screen and (max-width: 1024px)": {
+            // padding: "0 6rem",
+            width: "auto",
+            height: "auto",
         }
     },
     largeBox: {
@@ -176,5 +193,10 @@ const useStyles = makeStyles({
         border: "1px solid #161616",
         boxShadow: "0px 0px 1px rgba(26, 32, 36, 0.32), 0px 40px 64px rgba(91, 104, 113, 0.24)",
         borderRadius: "6px",
+        "@media screen and (max-width: 1024px)": {
+            padding: "0 6rem",
+            width: "auto",
+            // height: "426px",
+        }
     }
 })

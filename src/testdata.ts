@@ -303,3 +303,11 @@ export const EducationText3 = {
         buttonText2: "Dismiss"
     }
 export const EducationText4 = { id: 4,}
+
+export const APIData = [
+    {
+      id: "1",
+      url: "https://qnanswer-api.pk25mf6178910.eu-west-3.cs.amazonlightsail.com/q_and_a",
+      name: "Text Summarizer"
+    }
+  ]
