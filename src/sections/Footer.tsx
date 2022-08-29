@@ -46,6 +46,7 @@ const Footer: React.FC = () => {
         </Stack>
       </Stack>
     </footer>
+    </>
   )
 }
 
@@ -73,5 +74,6 @@ const useStyles = makeStyles({
     marginBottom: "4rem"
   }
 })
+
 
 export default Footer
