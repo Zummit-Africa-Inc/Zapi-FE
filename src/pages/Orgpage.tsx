@@ -1,211 +1,100 @@
 import React from "react";
-import {useForm} from "react-hook-form";
-import {useState} from "react";
-import { ClassNames } from "@emotion/react";
-import { Box, Button, Stack, Tooltip, Typography } from "@mui/material";
+import {  Typography, TextField, Box, Grid, Select, MenuItem,InputLabel, FormControl} from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { alignProperty } from "@mui/material/styles/cssUtils";
-import Select from 'react-select'
-
-const Orgpage=()=>{
-    const[organisationname, setOrganisationname]= useState("")
-
-    const handleSubmit = (e:any)=>{
-        e.preventDefault();
-    const data = new FormData(e.target)
-    };
-    const classes = useStyles()
-
-    const options = [
-      {value: 'Instructor', label: 'Instructor'},
-      {value: 'Administrator', label: 'Administrator'},
-      {value: 'Accountant', label: 'Accountant'},
-      {value: 'Auditor', label: 'Auditor'},
-      {value: 'Manager', label: 'Manager'}
-    ];
-
-    const [selectedOption, setSelectedOption] = useState(null);
-
-    return(
-        
-        <div className={classes.orgpage}>
-            <img src = '/images/zapi-logo.png' alt ="zapi" className={classes.logo}/>
-            <section className={classes.sectionOne}>
-                <Typography variant='h4' className={classes.title} gutterBottom>Create Your Organisation</Typography>
-                <p>Organisation accounts allow your team to manage your API both internally and externally</p>
-
-                <form className={classes.form}>
-                    <input required type='text' name='organisationname' placeholder='Organisation Name'/>
-                    <p className={classes.para}>*The business name will own and control this organisation account</p>
-                    
-                    <input required type='text' name='organisationrole' placeholder='Organisation Role'/>
-                    <p className={classes.paratwo}>*Seats can be added or removed at any time. This first 5 seats are free</p>
-                </form>
-                <br/>
-
-                <Typography variant='h5' className={classes.title}>Invite teammates to your new organisation</Typography>
-                <form className={classes.formTwo}>
-                  <div className={classes.formThree}>
-                    <div className={classes.username}>
-                      <input required type='text' name='usernameoremail' placeholder='Username or Email'/>
-                    </div>
-                    <div >
-                      <Select
-                      className={classes.select}
-                      defaultValue={selectedOption}
-                      options={options}
-                      placeholder='Role'
-                     />
-                     
-                    </div>
-                    
-                  </div>
-                  <div className={classes.orgrole}>
-                      <input required type='text' name='Organisationrole' placeholder='Organisation Role'/>
-                  </div>
-                    
-                </form>
-                <button className={classes.button}>Confirm & Continue</button>
-
-            </section>
-         
-        </div>
-    )
-
-};
-
-export default Orgpage;
-
-
-                    
-                    
+import { BaseButton, Navbar } from "../components"
 
 
 
-const useStyles = makeStyles({
-    orgpage: {
-      background: '#fff',
-      display: 'flex',
-      height: '100vh',
-      width: '100vw',
-      overflowX: 'hidden',
-      
-      
-    },
+const OrgPage: React.FC = () => {
+   const classes = useStyles()
+  return (
+  
+    <Box style={{ background: "#FFF",height:'100%'}} >
+      <Navbar />
+      <Box>  
+<Typography variant="h4"  className={classes.typo} sx={{mb:{xs:'25px',md:'0',lg:'0'}}}>
+ <Box fontWeight='fontWeightMedium' display='inline'>Create Your Organisation</Box>
+</Typography>
+<Typography  className={classes.typo} sx={{mb:'80px'}} >
+ Organisation accounts allow your team to manage your API both internally and externally 
+</Typography>
+</Box>
+<Box  mb={2} sx={{ml:{xs:'0%',lg:'25%',md:'25%'}}}>
+<Box sx={{ display:{xs:'grid'},placeItems:{xs:'center',lg:'normal',md:'normal'}}}>
+<TextField label="Organisation Name" variant="outlined" sx={{width:{xs:'80vw',md:'48%',lg:'48%'}}} className={classes.field} />
+<Typography className={classes.orgTypo}  sx={{mb:'50px',width:{xs:'80%'}}}>
+ *This business name will own and control this organisation account
+</Typography>
+<TextField label="Organisation Seat" variant="outlined" className={classes.field} sx={{width:{xs:'80vw',md:'48%',lg:'48%'}}}/>
+<Typography className={classes.orgTypo}sx={{mb:'50px',width:{xs:'80%'}}}>
+ *Seat can be added or removed at anything. The first seats are free
+</Typography>
+</Box>
+</Box>
+  <Typography variant="h5"className={classes.Task} sx={{mb:{xs:'50px',lg:'10px',md:'10px'}}}>Invite Teammates to your new organisation </Typography>
+   <Box  sx={{ml:{xs:'0%',lg:'25%',md:'25%'},display:{xs:'grid'},paddingBottom:{xs:'80px',lg:'0px',md:'0px'}, placeItems:{xs:'center',lg:'normal',md:'normal'}}}>
+   <Grid container rowSpacing={{xs:3,lg:1,md:1}} columnSpacing={{ xs: 4, sm: 2, md: 3 }} sx={{columnGap:{xs:'20px',md:'8rem',lg:'8rem'},maxWidth:{lg:'56%',md:'70%',xs:'80%'}, paddingBottom:'30px'}}>
+  <Grid item 
+  xs={12}
+				md={4}
+				lg={4}>
+    <TextField label="Username or Email" variant="outlined" sx={{width:{lg:'17rem',md:'17rem',xs:'100%'}}} />
 
-    logo: {
-      width: '100px',
-      height: '100px',
-      
-      '@media screen and (max-width: 1000px)': {
-        width: '50px',
-        height: '50px',
-      }
-    },
-    sectionOne: {
-      width: '50vw',
-      margin: '0 25rem',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    title: {
-      fontWeight: 500,
-      fontSize: '2.5rem',
-      color: '#081F4A',
-      
-      
-    },
-
-    para: {
-      marginLeft: '-13rem'
-    },
-
-    paratwo: {
-      marginLeft: '-11rem'
-    },
-    
-
-    form: {
-      display: 'flex',
-      paddingTop: '2rem',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      
-      gap: '.5rem',
-      '& input': {
-        width: '45rem',
-        height: '2.5rem',
-        padding: '1rem 1rem',
-        border: '1.5px solid #081F4A',
-        borderRadius: '5px',
-        '@media screen and (max-width: 450px)': {
-          width: '100%',
-        }
-      },
-      
-    },
-
-    formTwo: {display: 'flex',
-         paddingTop: '2rem',
-         flexDirection: 'column',
-         alignItems: 'center',
-         justifyContent: 'center',
-         gap: '.5rem',
-          '& input': {
-         width: '15rem',
-         height: '2.5rem',
-         padding: '1rem 1rem',
-         border: '1.5px solid #081F4A',
-         borderRadius: '5px',
-
-          '@media screen and (max-width: 450px)': {
-          width: '100%',
-        }
-      }
-    },
-
-    formThree: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-between'
-    },
-
-    username: {
-      marginLeft: '-18rem'
-    },
-
-    select: {
-      padding: '2rem 2rem',
-      display: 'flex',
-      marginTop: '-2rem',
-      marginRight: '2rem',
-      height: '3rem',
-      
+  </Grid>
+  <Grid item xs={12} md={4} lg={4}>
+  <FormControl sx={{ width: { xs: "100%", lg: "155px", md: "155px" }}}>
+    <InputLabel sx={{fontSize:"0.8em"}}>Role</InputLabel>
+    <Select variant="outlined" size="small" fullWidth>
+    <MenuItem value={1}>Option 1</MenuItem>
+    <MenuItem value={2}>Option 2</MenuItem>
+    <MenuItem value={3}>Option 3</MenuItem>
+    <MenuItem value={4}>Option 4</MenuItem>
+    </Select>
+</FormControl> 
+  </Grid>
+  <Grid item
+				xs={12}
+				md={4}
+				lg={4}
+				>
+<TextField  label="Organisation Role" variant="outlined" sx={{width:{lg:'17rem',md:'17rem',xs:'100%'}, paddingBottom:"10px"}} />
+  </Grid>
+</Grid>
+<BaseButton/>
+</Box>
+</Box>
+  )
+  };
+  const useStyles = makeStyles(()=>({
+  typo: {
+  fontSize: "39px",
+  lineHeight: "45px",
+  textAlign: "center",
+  color: "#081F4A",
+  
   },
 
-    orgrole: {
-      flexWrap: 'wrap',
-      marginLeft: '-30rem',
-      marginTop: '1rem'
-    },
+ field:  {
+    width: "48%",
+    background: "#FFFFFF",
+    borderRadius: "1px",
+  
+  },
 
-    button: {
-        width: '15rem',
-        height: '3rem',
-        background: 'black',
-        borderRadius: '5px',
-        color: 'red',
-        fontWeight: 600,
-        
-        fontSize: '1rem',
-        cursor: 'pointer',
-        marginTop: '2rem',
-        marginLeft: '-30rem'
-    
-        
-      },
+  orgTypo: {
+fontSize: '20px',
+letterSpacing: '0em',
+  },
 
-})
+  Task: {
+height: "42px",
+left: "400px",
+fontWeight: "400px",
+fontSize: "35px",
+lineHeight: "42px",
+textAlign: "center",
+color: "#081F4A",
+  }
+  }))
+
+export default OrgPage;
