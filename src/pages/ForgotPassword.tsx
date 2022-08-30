@@ -9,6 +9,9 @@ import { useHttpRequest } from '../hooks/fetch-hook'
 import { Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
+import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png"
+
+
 const initialState = {
   email: "",
 }
@@ -23,9 +26,9 @@ const ForgotPassword: React.FC = () => {
   return (
     <>
     <div className={classes.container}>
-        <img src='/images/zapi-logo.png' alt="zapi" className={classes.logo} />
+        <img src={ZapiHomeLogo} alt="zapi" className={classes.logo} />
         <section className={classes.sectionOne}>
-          <Typography variant='h4' className={classes.title} gutterBottom>Forgot Password</Typography>
+          <Typography variant='h4' className={classes.title} gutterBottom>Forgot Password?</Typography>
           <Typography variant='body1' className={classes.sub} gutterBottom>No need to worry, we'll send you an email with instructions to reset.</Typography>
 
           <form className={classes.form}>
@@ -44,7 +47,7 @@ export default ForgotPassword;
 
 const useStyles = makeStyles({
     container: {
-      background: '#fff',
+      background: '#f5f5f5',
       display: 'flex',
       height: '100vh',
       width: '100vw',
@@ -58,8 +61,8 @@ const useStyles = makeStyles({
       }
     },
     logo: {
-      width: '100px',
-      height: '100px',
+      width: '70px',
+      height: '70px',
       '@media screen and (max-width: 1000px)': {
         width: '50px',
         height: '50px',
@@ -91,18 +94,19 @@ const useStyles = makeStyles({
         width: '30rem',
         height: '3.5rem',
         padding: '1rem 1rem',
-        border: '1.5px solid #081F4A',
+        outline: "none",
+        border: "1px solid #999",
         borderRadius: '5px',
         '@media screen and (max-width: 450px)': {
           width: '20rem',
         }
       },
       '& button': {
-        width: '20rem',
+        width: '30rem',
         height: '3rem',
-        background: '#081F4A',
-        borderRadius: '15px',
-        color: '#FF5C00',
+        background: '#4B4B4B',
+        borderRadius: '5px',
+        color: '#FDFDFD',
         fontWeight: 600,
         fontSize: '1rem',
         cursor: 'pointer',
