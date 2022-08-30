@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
-import { motion } from "framer-motion";
 
 import { useContextProvider } from "../contexts/ContextProvider";
 import { useFormInputs, useHttpRequest } from "../hooks";
@@ -14,12 +13,6 @@ import { Fallback } from "../components";
 import { GoogleIcon } from "../assets";
 
 const initialState = {email: "",password: ""};
-// * Framer motion objects
-const initial = { opacity: 0, scale: 0.5};
-const animate = {opacity: 1,scale: 1};
-const transition = {default: {duration: 1, ease: [0, 0.71, 0.2, 1.01]}};
-const scale = {type: 'spring',stiffness: 100,dumping: 5,restDelta: 0.001};
-
 const url = import.meta.env.VITE_IDENTITY_URL;
 
 const Login: React.FC = () => {
@@ -58,7 +51,7 @@ const Login: React.FC = () => {
     {error && <Alert onClose={clearError}>{error.message}</Alert>}
     {loading && <Fallback />}
     <div className={classes.container} onClick={() => handleUnclicked('login')}>
-      <motion.div initial={initial} animate={animate} transition={{default: transition, scale: scale}} className={classes.main} onClick={(e) => e.stopPropagation()}>
+      <div className={classes.main} onClick={(e) => e.stopPropagation()}>
         <Typography variant="body1" fontSize="40px" fontWeight={400}>Sign In</Typography>
 
         <p className={classes.subtitle}>
@@ -94,7 +87,7 @@ const Login: React.FC = () => {
             Sign up
           </Link>
         </Typography>
-      </motion.div>
+      </div>
     </div>
     </>
   );

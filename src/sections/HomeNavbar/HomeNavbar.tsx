@@ -53,7 +53,7 @@ const HomeNavbar: React.FC = () => {
                     <li><Link to="/dashboard">API hub</Link></li>
                     <li><Link to="#">Pricing</Link></li>
                     <li><Link to="#">Documentation</Link></li>
-                    <li><Link to="/login">Login</Link></li>
+                    <li><button onClick={() => handleClicked('login')}>Login</button></li>
                 </ul>
                 <div className={classes.signup}><Link to="/signup">Sign up</Link></div>
             </div>
@@ -159,6 +159,16 @@ top: "-2px",
                 fontSize: "1rem",
                 color: "#000000",
             }
+        },
+        "& button": {
+            textDecoration: "none",
+            fontStyle: "normal",
+            fontWeight: 500,
+            fontSize: "1rem",
+            cursor: "pointer",
+            background: "transparent",
+            border: "none",
+            outline: "none",
         }
     },
     signup: {
