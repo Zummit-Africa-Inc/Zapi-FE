@@ -28,7 +28,7 @@ const useStyles = makeStyles({
         width: "100%",
         height: "100%",
         background: "#FFFFFF",
-        padding: "0 5rem"
+        paddingTop: "2rem"
     },
     EdBoxes: {
         display: "flex",
@@ -52,13 +52,19 @@ const useStyles = makeStyles({
             padding: "0 6rem",
             width: "auto",
             // height: "426px",
+        },
+        "@media screen and (max-width: 850px)": {
+            marginTop: "2rem",
         }
     },
     midBoxes: {
         marginTop: "4rem",
         display: "flex",
         flexDirection: "column",
-        gap: "1rem"
+        gap: "1rem",
+        "@media screen and (max-width: 850px)": {
+            marginTop: "0rem",
+        }
     },
     midOne: {
         display: "flex",

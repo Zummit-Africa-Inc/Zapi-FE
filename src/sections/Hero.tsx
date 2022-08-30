@@ -75,6 +75,7 @@ const useStyles = makeStyles({
     display: "flex",
     gap: "1.5rem",
     width: "100%",
+    justifyContent: "center",
     "@media screen and (max-width: 600px)": {
       flexDirection: "column",
     },
