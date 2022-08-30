@@ -31,7 +31,14 @@ const Login: React.FC = () => {
     const { email, password } = inputs;
     if(!email || !EMAIL_REGEX.test(email)) return alert('Invalid email address');
     if(!password || !PASSWORD_REGEX.test(password)) return alert('Invalid password');
-    const payload = { email, password, deviceInfo, deviceLocation };
+    const payload = { email, password, userInfo: {
+        login_time: deviceLocation.time,
+        country: { lat: deviceLocation.lat, lon: deviceLocation.lon },
+        ip_address: '',
+        browser_name: deviceInfo.browserName,
+        os_name: deviceInfo.osName,
+      }
+    };
     try {
       const data = await sendRequest(`${url}/auth/signin`, 'POST', JSON.stringify(payload));
       if(!data || data === undefined) return;

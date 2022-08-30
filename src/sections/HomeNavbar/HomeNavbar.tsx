@@ -12,6 +12,7 @@ import ZapiHomeLogo from "../../assets/images/ZapiHomeLogo.png";
 
 const HomeNavbar: React.FC = () => {
     const classes = useStyles()
+    const [mobileScreen, setMobileScreen] = useState(false)
     const [style, setStyle] = useState("mobileLinks") // ! add types here
     const { handleClicked } = useContextProvider()
 
