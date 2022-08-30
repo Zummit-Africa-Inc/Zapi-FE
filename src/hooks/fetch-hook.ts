@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export const useHttpRequest = () => {
-    const [loading, setLoading] = useState<string>("idle")
+    const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<any>(null)
 
     const activeHttpRequests = useRef(<any>[])
 
-    const sendRequest = useCallback(async(url = "", method = "GET", body = null, headers = {}) => {
-        setLoading("pending")
+    const sendRequest = useCallback(async(url: string, method: string, body?: string, headers?:{}): Promise<any> => {
+        setLoading(true)
 
         const httpAbortCtrl = new AbortController()
         activeHttpRequests.current.push(httpAbortCtrl)
@@ -17,7 +17,7 @@ export const useHttpRequest = () => {
                 method,
                 body,
                 headers,
-                signal: httpAbortCtrl.signal
+                // signal: httpAbortCtrl.signal
             })
             const data = await response.json()
             activeHttpRequests.current = activeHttpRequests.current.filter((reqCtrl: any) => {
@@ -26,11 +26,11 @@ export const useHttpRequest = () => {
             if(!response.ok) {
                 throw new Error(data.message)
             }
-            setLoading("fulfilled")
+            setLoading(false)
             return data
         } catch (error) {
             setError(error)
-            setLoading("rejected")
+            setLoading(false)
         }
     },[])
 

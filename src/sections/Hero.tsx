@@ -1,42 +1,55 @@
-import { Typography } from "@mui/material"
+import { TextField, Typography } from "@mui/material"
 import { makeStyles } from "@mui/styles"
 import React, { useState } from "react"
-import TextBox from "../components/TextBox"
-import { TextBoxData } from "../testdata"
+import { APIData } from "../testdata"
 
 const Hero: React.FC = () => {
   const classes = useStyles()
-  const [url, setUrl] = useState<string>("https://zapi.com/")
   const [API, setAPI] = useState<string>("")
+  const [endpoint, setEndpoint] = useState<string>(`https://zapi.com/${API}`)
+  const [query, setQuery] = useState<string>("{}")
+  const [data, setData] = useState("")
 
-  const DATA = ["HELLO"]
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    try {  
+      const json = JSON.parse(query); 
+      const res = await fetch("https://qnanswer-api.pk25mf6178910.eu-west-3.cs.amazonlightsail.com/q_and_a", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: query
+    })
+    const data = await res.json() 
+      setData(data.answer)
+    } catch (err) {  
+      alert(err);  
+    }
 
-    console.log({ API, url })
   }
   return (
     <div className={classes.hero}>
         <div className={classes.heroText}>
           <Typography gutterBottom variant="h4" sx={{fontFamily: "Space Grotesk",fontWeight: 700, fontSize: "2.25rem", lineHeight: "2.87rem", paddingBottom: "1.5rem", color: "#071B85" }}>Your one stop shop for Artificial Intelligence related APIs.</Typography>
-          <Typography gutterBottom variant="subtitle1" sx={{ fontFamily: "Space Grotesk",fontWeight: 400, fontSize: "1.5rem", lineHeight: "2.5rem", paddingBottom: "2rem", color: "#071B85" }}>Emotion detection, drowsiness detection, chat bots, face recognition, <br />{''}
+          <Typography gutterBottom variant="subtitle1" sx={{fontFamily: "Space Grotesk",fontWeight: 400, fontSize: "1.5rem", lineHeight: "2.5rem", paddingBottom: "2rem", color: "#071B85" }}>Emotion detection, drowsiness detection, chat bots, face recognition, <br />{''}
             sentiment analysis, and lots more with Z-API.</Typography>
         </div>
         <form className={classes.form} onSubmit={handleSubmit}>
           <select className={classes.select} value={API} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setAPI(e.target.value)}>
             <option value="">Select an API</option>
-            {DATA?.map((item, index) => (
-              <option key={index} value={item}>
-                {item}
+            {APIData?.map(api => (
+              <option key={api.id} value={api.url}>
+                {api.name}
               </option>
             ))}
           </select>
-          <input type="text" className={classes.input} value={url} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUrl(e.target.value)} placeholder="drowsinessdetection" />
+          <input type="text" className={classes.input} value={API ? API : endpoint} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEndpoint(e.target.value)} placeholder="drowsinessdetection" />
           <button className={classes.send}>Send</button>
         </form>
-        <div>
-          <TextBox className={classes.box} data={TextBoxData} />
+        <div className={classes.actionBoxes}>
+         <TextField className={classes.box} value={query} onChange={(e) => setQuery(e.target.value)} fullWidth multiline rows="8.5" />
+         <TextField className={classes.box} value={data} fullWidth multiline rows="8.5" />
         </div>
     </div>
   )
@@ -113,8 +126,10 @@ const useStyles = makeStyles({
     background: "#FFFFFF",
     boxShadow: "0px 1px 15px rgba(6, 113, 224, 0.2)",
     borderRadius: "4px",
-    width: "592px",
-    height: "320px",
-    padding: "1rem 1.5rem"
+},
+actionBoxes: {
+  display: "flex",
+  gap: "2rem",
+  paddingTop: "2.5rem",
 }
 })

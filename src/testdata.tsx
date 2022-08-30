@@ -1,5 +1,6 @@
 import blueFire from "./assets/images/blueFire.png"
 import purpleFire from "./assets/images/purpleFire.png"
+import Frame from "./assets/images/frame.svg"
 
 
 export const APIS = [
@@ -303,3 +304,36 @@ export const EducationText3 = {
         buttonText2: "Dismiss"
     }
 export const EducationText4 = { id: 4,}
+
+export const APIData = [
+    {
+      id: "1",
+      url: "https://qnanswer-api.pk25mf6178910.eu-west-3.cs.amazonlightsail.com/q_and_a",
+      name: "Text Summarizer"
+    }
+  ]
+
+export const MarketPlaceText = [
+    {
+    title: "Safety",
+    subtitle: "A few of our safety related APIs:",
+    apis: [
+        {
+            image: Frame,
+            name: "Drowsiness detection",
+        },
+        {
+            image: Frame,
+            name: "Drowsiness detection",
+        },
+        {
+            image: Frame,
+            name: "Drowsiness detection",
+        },
+        {
+            image: Frame,
+            name: "Drowsiness detection",
+        },
+    ]
+    }
+]

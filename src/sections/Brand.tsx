@@ -36,6 +36,7 @@ const useStyles = makeStyles({
   brandBox: {
     width: '100%',
     background: '#EDF5FD',
+    marginTop: "5rem",
     padding: '5rem 0',
     alignItems: 'center',
     justifyContent: 'center',

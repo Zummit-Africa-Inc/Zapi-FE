@@ -10,6 +10,7 @@ interface INavProps {
 
 const Navbar: React.FC<INavProps> = () => {
   const classes = useStyles();
+
   return (
   <Toolbar className={classes.toolbar}>
         <Box className={classes.logoWrapper}>
