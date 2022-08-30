@@ -1,7 +1,7 @@
 import { Menu } from "@mui/icons-material"
 import { makeStyles } from "@mui/styles"
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 
 import "./HomeNavbar.css"
 
@@ -11,14 +11,14 @@ import Vector from "../../assets/images/Vector.png"
 
 const HomeNavbar: React.FC = () => {
     const classes = useStyles()
-    const [style, setStyle] = useState("mobileLinks")
+    const [mobileScreen, setMobileScreen] = useState(false)
 
     const handleClick = () => {
-        if (style === "mobileLinks") {
-            setStyle("showMobileLinks")
-        } else {
-            setStyle("mobileLinks")
-        }
+        if (mobileScreen) {
+            setMobileScreen(false)
+          } else {
+            setMobileScreen(true)
+          }
     }
     return (
         <>
@@ -28,9 +28,9 @@ const HomeNavbar: React.FC = () => {
                     <span className={classes.zapi}>Z-API</span>
                     <img className={classes.vector} src={Vector} alt="vector-img" />
                 </div>
-                <div className={classes.links}>
+                <div className={mobileScreen ? classes.mobileLinks : classes.links}>
                     <ul>
-                        <li className={classes.active}><Link to="/">Home</Link></li>
+                        <li><NavLink to="/" className={({ isActive }) => isActive ? classes.active : undefined}>Home</NavLink></li>
                         <li><Link to="/dashboard">API hub</Link></li>
                         <li><Link to="#">Pricing</Link></li>
                         <li><Link to="#">Documentation</Link></li>
@@ -41,16 +41,6 @@ const HomeNavbar: React.FC = () => {
                 <div className={classes.hamburger} onClick={handleClick}>
                     <Menu />
                 </div>
-            </div>
-            <div className={style}>
-                <ul className={classes.mobileLinks}>
-                    <li className={classes.active}><Link to="/">Home</Link></li>
-                    <li><Link to="/dashboard">API hub</Link></li>
-                    <li><Link to="#">Pricing</Link></li>
-                    <li><Link to="#">Documentation</Link></li>
-                    <li><Link to="/login">Login</Link></li>
-                </ul>
-                <div className={classes.signup}><Link to="/signup">Sign up</Link></div>
             </div>
         </>
     )
@@ -71,10 +61,10 @@ const useStyles = makeStyles({
         background: "#081F4A",
         boxShadow: "0px 1px 15px rgba(7, 27, 133, 0.15)",
         padding: "0 5rem",
-        "@media screen and (max-width: 1000px)": {
+        "@media screen and (max-width: 1024px)": {
             padding: "1rem 2rem"
         },
-        "@media screen and (max-width: 300px)": {
+        "@media screen and (max-width: 375px)": {
             padding: "1rem 1rem"
         }
     },
@@ -91,7 +81,7 @@ const useStyles = makeStyles({
     vector: {
         position: "absolute",
         left: "130px",
-top: "-2px",
+        top: "-2px",
         filter: "drop-shadow(0px 1px 15px rgba(0, 0, 0, 0.1))",
     },
     links: {
@@ -123,17 +113,29 @@ top: "-2px",
         display: "none",
         cursor: "pointer",
         fontSize: "2rem",
+        color: "#FFFFFF",
+        zIndex: "1000",
         "@media screen and (max-width: 800px)": {
             display: "block",
         }
     },
     mobileLinks: {
+        // marginTop: "32rem",
+        position: "absolute",
+        top: "100%",
+        width: "100%",
         background: "#ccc",
-        padding: "2rem 0",
+        padding: "2rem 2rem",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: "1.5rem",
+        gap: "2rem",
+        "& ul": {
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "1.5rem",
+        },
         "& li": {
             listStyle: "none",
             "& a": {

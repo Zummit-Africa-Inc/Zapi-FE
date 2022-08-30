@@ -24,6 +24,8 @@ const App:React.FC = () => {
           <Route path="/login-history" element={<LoginHistory/> } />
           <Route path="/success-page" element={<SuccessPage />} />
           <Route path="/OrgPage" element={<OrgPage />} />
+          <Route path="/create-endpoint" element={<CreateEndpoint />} />
+          <Route path="/endpoint" element={<EndPoint />} />
         </Routes>
       </div>
     </ThemeProvider>
