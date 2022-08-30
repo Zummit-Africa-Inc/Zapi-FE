@@ -235,8 +235,8 @@
 //   }
 // })
 
-import React, {useState} from 'react'
-import {Box, Typography, Button} from "@mui/material"
+import React, { useState } from 'react'
+import { Box, Typography, Button } from "@mui/material"
 import * as Yup from 'yup'
 import { Link } from 'react-router-dom';
 import GoogleIcon from '@mui/icons-material/Google';
@@ -250,26 +250,26 @@ import { makeStyles } from '@mui/styles';
 import googleicon from "../assets/images/googleicon.svg"
 
 const useStyles = makeStyles({
-  input:{
-    padding:'10px',
-    borderRadius:'5px',
-    width:'100%'
+  input: {
+    padding: '10px',
+    borderRadius: '5px',
+    width: '100%'
   },
-form:{
-  display:'flex',
-  gap:'20px',
-  flexDirection:'column',
-  // alignItems:'center',
-  marginTop:'15px',
-  width:'50%',
-  alignItems:'stretch'
-},
-term:{
-  fontSize:'14px'
-},
-google:{
-  float:'left'
-}
+  form: {
+    display: 'flex',
+    gap: '20px',
+    flexDirection: 'column',
+    // alignItems:'center',
+    marginTop: '15px',
+    width: '50%',
+    alignItems: 'stretch'
+  },
+  term: {
+    fontSize: '14px'
+  },
+  google: {
+    float: 'left'
+  }
 
 })
 
@@ -288,71 +288,71 @@ interface ISignUpForm {
   terms: boolean
 }
 
-const initialValues:ISignUpForm = {
-  email:'',
-  password:'',
-  confirmPassword:'',
+const initialValues: ISignUpForm = {
+  email: '',
+  password: '',
+  confirmPassword: '',
   terms: false
- }
+}
 
 
 
- function Signup () {
+function Signup() {
   const [message, setMessage] = useState('')
 
   const classes = useStyles()
 
- 
+
   return (
     <>
-    <Navbar/>
-    <Box sx={{display:'flex', flexDirection:'column',  alignItems:'center', width:'70%',mx:'auto', my:6}}>
-      <Formik 
-      initialValues={initialValues}
-      onSubmit = {(values, actions) =>{
-        console.log(values)
-      }}
-      validationSchema={ValidationSchema}
-      >
-        {({errors, touched}) =>(
-          <Form className={classes.form}>
-          <h2>{message} </h2>
-          <Typography variant='h5' sx={{textAlign:'center'}}> Create a Free Account</Typography>
-          <Typography variant='p' sx={{textAlign:'center'}}> Complete this form to register on ZAPI and start exploring our API options </Typography>
-        <Box sx={{display:'flex', flexDirection:'column'}}>
-         
-        <label htmlFor="email"> Email</label>
-        <Field className={classes.input} id="email" name="email" placeholder="Enter your Email" />
-        {errors.email && touched.email ? <Typography variant='p' sx={{color:'red'}}> {errors.email} </Typography>: null}
-        </Box>
+      <Navbar />
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '70%', mx: 'auto', my: 6 }}>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={(values, actions) => {
+            console.log(values)
+          }}
+          validationSchema={ValidationSchema}
+        >
+          {({ errors, touched }) => (
+            <Form className={classes.form}>
+              <h2>{message} </h2>
+              <Typography variant='h5' sx={{ textAlign: 'center' }}> Create a Free Account</Typography>
+              <Typography variant='p' sx={{ textAlign: 'center' }}> Complete this form to register on ZAPI and start exploring our API options </Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
 
-        <Box sx={{display:'flex', flexDirection:'column'}}>
-        <label htmlFor="password"> Password</label>
-        <Field type='password' className={classes.input} id="password" name="password" placeholder="Enter Password" />
-        {errors.password && touched.password ? <Typography variant='p' sx={{color:'red'}}> {errors.password} </Typography>: null}
-        </Box>
+                <label htmlFor="email"> Email</label>
+                <Field className={classes.input} id="email" name="email" placeholder="Enter your Email" />
+                {errors.email && touched.email ? <Typography variant='p' sx={{ color: 'red' }}> {errors.email} </Typography> : null}
+              </Box>
 
-        <Box sx={{display:'flex', flexDirection:'column'}}>
-        <label htmlFor="confirm_password"> Confirm Password</label>
-        <Field type='password' className={classes.input} id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" />
-        {errors.confirmPassword && touched.confirmPassword ? <Typography variant='p' sx={{color:'red'}}> {errors.confirmPassword} </Typography>: null}
-        </Box>
+              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                <label htmlFor="password"> Password</label>
+                <Field type='password' className={classes.input} id="password" name="password" placeholder="Enter Password" />
+                {errors.password && touched.password ? <Typography variant='p' sx={{ color: 'red' }}> {errors.password} </Typography> : null}
+              </Box>
 
-        <Box sx={{display:'flex', justifyContent:'center', alignItems:'center', gap:'10px', alignItems:'center'}}>
-        <Field type='checkbox' name='terms' />
-        <label htmlFor='terms'> <span className={classes.term}> I agree to ZAPI’s terms and conditions and privacy policy.</span> </label>
+              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                <label htmlFor="confirm_password"> Confirm Password</label>
+                <Field type='password' className={classes.input} id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" />
+                {errors.confirmPassword && touched.confirmPassword ? <Typography variant='p' sx={{ color: 'red' }}> {errors.confirmPassword} </Typography> : null}
+              </Box>
+
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px', alignItems: 'center' }}>
+                <Field type='checkbox' name='terms' />
+                <label htmlFor='terms'> <span className={classes.term}> I agree to ZAPI’s terms and conditions and privacy policy.</span> </label>
+              </Box>
+              {errors.terms && touched.terms ? <Typography variant='p' sx={{ color: 'red' }}> {errors.terms} </Typography> : null}
+              <Button type="submit" variant="contained" sx={{ backgroundColor: '#4B4B4B', color: '#FFF', textTransform: 'none' }}> Create my account </Button>
+            </Form>
+          )}
+        </Formik>
+        <Typography variant='h6' sx={{ mt: 2 }}> OR </Typography>
+        <Box className={classes.form}>
+          <Button onClick={() => alert('Google signup')} variant="outlined" sx={{ textTransform: 'none', display: 'flex', gap: '7rem', justifyContent: 'start' }} ><span className={classes.google}> <img src={googleicon} alt="Google icon" /> </span> Sign up with Google</Button>
+          <Typography> Already have an account? <Link to="/login"> Sign In</Link> </Typography>
         </Box>
-        {errors.terms && touched.terms ?  <Typography variant='p' sx={{color:'red'}}> {errors.terms} </Typography>: null}
-        <Button type="submit" variant="contained" sx={{backgroundColor:'#4B4B4B', color:'#FFF', textTransform:'none' }}> Create my account </Button>
-        </Form>
-        ) }
-      </Formik>
-      <Typography variant='h6' sx={{mt:2}}> OR </Typography>
-      <Box className={classes.form}>
-      <Button onClick={()=>alert('Google signup')} variant="outlined" sx={{textTransform:'none', display:'flex', gap:'7rem', justifyContent:'start'}} ><span className={classes.google}> <img src={googleicon} alt="Google icon"/> </span> Sign up with Google</Button>
-      <Typography> Already have an account? <Link to="/login"> Sign In</Link> </Typography>
       </Box>
-    </Box>
     </>
   )
 }
