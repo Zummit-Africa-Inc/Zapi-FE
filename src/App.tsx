@@ -9,6 +9,7 @@ import { Fallback, Login } from "./components";
 import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
 
+
 const App:React.FC = () => {
   const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP } = useContextProvider()
 

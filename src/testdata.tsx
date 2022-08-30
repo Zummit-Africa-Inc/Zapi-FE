@@ -1,5 +1,6 @@
 import blueFire from "./assets/images/blueFire.png"
 import purpleFire from "./assets/images/purpleFire.png"
+import Frame from "./assets/images/frame.svg"
 
 
 export const APIS = [
@@ -311,3 +312,28 @@ export const APIData = [
       name: "Text Summarizer"
     }
   ]
+
+export const MarketPlaceText = [
+    {
+    title: "Safety",
+    subtitle: "A few of our safety related APIs:",
+    apis: [
+        {
+            image: Frame,
+            name: "Drowsiness detection",
+        },
+        {
+            image: Frame,
+            name: "Drowsiness detection",
+        },
+        {
+            image: Frame,
+            name: "Drowsiness detection",
+        },
+        {
+            image: Frame,
+            name: "Drowsiness detection",
+        },
+    ]
+    }
+]
