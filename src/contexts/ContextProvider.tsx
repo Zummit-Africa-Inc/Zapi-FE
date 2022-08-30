@@ -29,6 +29,7 @@ export const ContextProvider: React.FC<IChildren> = ({children}) => {
     const [isClicked, setIsClicked] = useState<{}>(initialState)
     const [deviceLocation, setDeviceLocation] = useState<Location>(initialLocation)
     const [deviceInfo, setDeviceInfo] = useState<DeviceInfo>(initialDeviceInfo)
+    const [deviceIP, setDeviceIP] = useState<string>("")
 
     const handleClicked = (clicked: string) => {
         setIsClicked({...initialState, [clicked]: true})
@@ -41,7 +42,8 @@ export const ContextProvider: React.FC<IChildren> = ({children}) => {
     const values = {activeMenu,isLoggedIn,screenSize,
         setActiveMenu,setisLoggedIn,setScreenSize,
         isClicked, handleClicked, handleUnclicked,
-        deviceLocation, setDeviceLocation, deviceInfo, setDeviceInfo}
+        deviceLocation, setDeviceLocation, deviceInfo,
+        setDeviceInfo, deviceIP, setDeviceIP}
     
     return (
         <AppContext.Provider value={values}>

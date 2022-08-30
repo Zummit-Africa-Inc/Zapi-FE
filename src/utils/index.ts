@@ -19,3 +19,9 @@ export const loadMapApi = () => {
 
     return googleMapScript;
 };
+
+export const getDeviceIP = async() => {
+    let response = await fetch("https://api.ipify.org/?format=json")
+    let data = await response.json()
+    return data;
+};

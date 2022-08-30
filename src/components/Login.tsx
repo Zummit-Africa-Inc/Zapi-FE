@@ -1,4 +1,4 @@
-import React, { FormEvent } from "react";
+import React, { FormEvent, useEffect } from "react";
 import { Alert, Stack, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { makeStyles } from "@mui/styles";
@@ -16,7 +16,7 @@ const initialState = {email: "",password: ""};
 const url = import.meta.env.VITE_IDENTITY_URL;
 
 const Login: React.FC = () => {
-  const { deviceInfo, deviceLocation, handleUnclicked } = useContextProvider();
+  const { deviceInfo, deviceLocation, deviceIP, handleUnclicked } = useContextProvider();
   const { clearError, error, loading, sendRequest } = useHttpRequest();
   const { inputs, bind } = useFormInputs(initialState);
   const dispatch = useDispatch();
@@ -34,11 +34,12 @@ const Login: React.FC = () => {
     const payload = { email, password, userInfo: {
         login_time: deviceLocation.time,
         country: { lat: deviceLocation.lat, lon: deviceLocation.lon },
-        ip_address: '',
+        deviceIP,
         browser_name: deviceInfo.browserName,
         os_name: deviceInfo.osName,
       }
     };
+    console.log(payload)
     try {
       const data = await sendRequest(`${url}/auth/signin`, 'POST', JSON.stringify(payload));
       if(!data || data === undefined) return;

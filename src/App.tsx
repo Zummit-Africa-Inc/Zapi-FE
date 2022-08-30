@@ -6,10 +6,11 @@ import { deviceDetect } from "react-device-detect";
 import { CreateEndpoint, DevDashboard, EndPointPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, Analytics, SuccessPage, Configuration, OrgPage } from "./pages";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { Fallback, Login } from "./components";
+import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
 
 const App:React.FC = () => {
-  const { isClicked, setDeviceLocation, setDeviceInfo } = useContextProvider()
+  const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP } = useContextProvider()
 
   useEffect(() => {
     const device = deviceDetect(navigator.userAgent)
@@ -24,6 +25,14 @@ const App:React.FC = () => {
         time: position.timestamp
       })
     })
+  },[])
+
+  useEffect(() => {
+    const getIPAddress = async() => {
+      const data = await getDeviceIP()
+      setDeviceIP(data)
+    }
+    getIPAddress()
   },[])
 
   return (
