@@ -8,7 +8,7 @@ export const useHttpRequest = () => {
 
     const activeHttpRequests = useRef(<any>[])
 
-    const sendRequest = useCallback(async(url = "", method = "GET", body = null, headers = {'Authorization':cookies.get('accessToken')}) => {
+    const sendRequest = useCallback(async(url = "", method = "GET", body = null, headers = {}) => {
         setLoading("pending")
 
         const httpAbortCtrl = new AbortController()
@@ -18,7 +18,10 @@ export const useHttpRequest = () => {
             const response  = await fetch(url,{
                 method,
                 body,
-                headers,
+                headers: {
+                    'Authorization': cookies.get('accessToken'),
+                    ...headers,
+                },
                 signal: httpAbortCtrl.signal
             })
             const data = await response.json()
