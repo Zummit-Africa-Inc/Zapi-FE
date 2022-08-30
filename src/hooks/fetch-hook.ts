@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import Cookies from 'universal-cookie'
 
 export const useHttpRequest = () => {
     const [loading, setLoading] = useState<string>("idle")
     const [error, setError] = useState<any>(null)
+    const cookies = new Cookies()
 
     const activeHttpRequests = useRef(<any>[])
 
-    const sendRequest = useCallback(async(url = "", method = "GET", body = null, headers = {}) => {
+    const sendRequest = useCallback(async(url = "", method = "GET", body = null, headers = {'Authorization':cookies.get('accessToken')}) => {
         setLoading("pending")
 
         const httpAbortCtrl = new AbortController()
