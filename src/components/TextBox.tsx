@@ -11,9 +11,8 @@ const TextBox: React.FC<TextBoxProps> = ({ data, className }) => {
 
     return (
         <div className={classes.textBox}>
-            {data?.map((text) => (
-                <div className={className}>
-                    <Typography id={text.id} variant="subtitle1" sx={{ fontFamily: 'Space Grotesk', fontWeight: 500, fontSize: "16px", lineHeight: "30px", display: "flex", alignItems: "center", color: "#071B85" }}>{text.text}</Typography>
+            {data?.map((text, index) => (
+                <div key={index} className={className}>   <Typography id={text.id} variant="subtitle1" sx={{ fontFamily: 'Space Grotesk', fontWeight: 500, fontSize: "16px", lineHeight: "30px", display: "flex", alignItems: "center", color: "#071B85" }}>{text.text}</Typography>
                 </div>
             ))}
         </div>

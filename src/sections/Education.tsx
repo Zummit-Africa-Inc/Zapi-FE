@@ -7,8 +7,8 @@ const Education: React.FC = () => {
     const classes = useStyles()
     return (
         <div className={classes.Education}>
-            <Typography variant="h5" sx={{ fontFamily: 'Space Grotesk', fontWeight: 400, fontSize: "16px", lineHeight: "20px", letterSpacing: "-0.006em", color: "#0671E0" }}>A.I EDUCATION</Typography>
-            <Typography variant="h5" sx={{ fontFamily: 'Space Grotesk', fontWeight: 500, fontSize: "24px", lineHeight: "30px", letterSpacing: "-0.006em", color: "#071B85" }}>LEARN WITH US AT ZUMMIT ACADEMY</Typography>
+            <Typography variant="h5" sx={{fontWeight: 400, fontSize: "16px", lineHeight: "20px", letterSpacing: "-0.006em", color: "#0671E0" }}>A.I EDUCATION</Typography>
+            <Typography variant="h5" sx={{fontWeight: 500, fontSize: "24px", lineHeight: "30px", letterSpacing: "-0.006em", color: "#071B85" }}>LEARN WITH US AT ZUMMIT ACADEMY</Typography>
             <div className={classes.EdBoxes}>
                 <Widget className={classes.smallBox} />
                 <div className={classes.midBoxes}>
@@ -28,8 +28,7 @@ const useStyles = makeStyles({
         width: "100%",
         height: "100%",
         background: "#FFFFFF",
-        paddingTop: "2rem",
-        paddingBottom: "8rem"
+        padding: "0 5rem"
     },
     EdBoxes: {
         display: "flex",

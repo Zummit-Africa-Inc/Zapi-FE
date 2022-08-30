@@ -27,7 +27,6 @@ const useStyles = makeStyles({
         background: "#fff"
     },
     main: {
-        padding: "1rem 5rem",
         backgroundColor: "#ffff",
         "@media screen and (max-width: 400px)": {
             padding: "1rem .5rem"

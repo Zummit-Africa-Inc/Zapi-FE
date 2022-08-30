@@ -1,137 +1,78 @@
 import React from 'react'
-import {  Box, Container, Grid, Typography} from '@mui/material'
-import Link from '@mui/material/Link'
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import { Link } from 'react-router-dom';
+import { Stack, Typography } from '@mui/material'
+import { makeStyles } from '@mui/styles';
 
-
-
-
-//image
-import Twitter from "../assets/images/Twitter.png"
-import Linkedin from "../assets/images/Linkedin.png"
-import Youtube from "../assets/images/Youtube.png"
-
-
-
+import { FOOTER_LINKS, LinkedInIcon, TwitterIcon, YoutubeIcon } from "../assets"
 
 const Footer: React.FC = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.up('lg'));
-
+  const classes = useStyles()
 
   return (
-    <>
-    <footer>
-      <Box px={{ xs:3, sm:10 }} py={{  xs:5, sm:10}} bgcolor='#081F4A' color='#FFEA00'>
-        <Container maxWidth='lg'>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={3}>
-              <Box ><Typography variant='h4' sx={{ fontWeight:700, fontSize:'18px', lineHeight:'30px', fontFamily:'Space Grotesk' }}>EXPLORE</Typography></Box>
-              <Box>
-                <Link href='/' underline="none" color='inherit'>
-                  <Typography display="block" py={1} fontSize={16} fontWeight={300}>Our APIs</Typography>
-                </Link>
-              </Box>
-              <Box>
-                <Link href='/' underline="none" color='inherit'>
-                <Typography display="block" py={1} fontSize={16} fontWeight={300} fontFamily='Space Grotesk'>ZAPI Tools</Typography>
-                </Link>
-              </Box>
-              <Box>
-                <Link href='/' underline="none" color='inherit'>
-                <Typography display="block" py={1} fontSize={16} fontWeight={300} fontFamily='Space Grotesk'>Zummit Africa </Typography>
-                </Link>
-              </Box>
-              <Box>
-                <Link href='/' underline="none" color='inherit'>
-                <Typography display="block" py={1} fontSize={16} fontWeight={300} fontFamily='Space Grotesk'>Zummit Africa Articles</Typography>
-                </Link>
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={3}>
-              <Box><Typography variant='h4' sx={{ fontWeight:700, fontSize:'18px', lineHeight:'30px', fontFamily:'Space Grotesk' }}>COMPANY</Typography></Box>
-              <Box>
-                <Link href='/' underline="none" color='inherit'>
-                <Typography display="block" py={1} fontSize={16} fontWeight={300} fontFamily='Space Grotesk'>About</Typography>
-                </Link>
-              </Box>
-              <Box>
-                <Link href='/' underline="none" color='inherit'>
-                <Typography display="block" py={1} fontSize={16} fontWeight={300} fontFamily='Space Grotesk'>Help</Typography>
-                </Link>
-              </Box>
-              <Box>
-                <Link href='/' underline="none" color='inherit'>
-                <Typography display="block" py={1} fontSize={16} fontWeight={300} fontFamily='Space Grotesk'>Status</Typography>
-                </Link>
-              </Box>
-              <Box>
-                <Link href='/' underline="none" color='inherit'>
-                <Typography display="block" py={1} fontSize={16} fontWeight={300} fontFamily='Space Grotesk'>Cookie Policy</Typography>
-                </Link>
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={3}>
-              <Box><Typography variant='h4' sx={{ fontWeight:700, fontSize:'18px', lineHeight:'30px',fontFamily:'Space Grotesk' }}>POPULAR APIs</Typography></Box>
-              <Box>
-                <Link href='/' underline="none" color='inherit'>
-                <Typography display="block" py={1} fontSize={16} fontWeight={300} fontFamily='Space Grotesk'>Drowsiness Detection</Typography>
-                </Link>
-              </Box>
-              <Box>
-                <Link href='/' underline="none" color='inherit'>
-                <Typography display="block" py={1} fontSize={16} fontWeight={300} fontFamily='Space Grotesk'>Emotion Detection</Typography>
-                </Link>
-              </Box>
-              <Box>
-                <Link href='/' underline="none" color='inherit'>
-                <Typography display="block" py={1} fontSize={16} fontWeight={300} fontFamily='Space Grotesk'>Text Summarizer</Typography>
-                </Link>
-              </Box>
-              <Box>
-                <Link href='/' underline="none" color='inherit'>
-                <Typography display="block" py={1} fontSize={16} fontWeight={300} fontFamily='Space Grotesk'>Chat Bots</Typography>
-                </Link>
-              </Box>  
-              <Box>
-                <Link href='/' underline="none" color='inherit'>
-                <Typography display="block" py={1} fontSize={16} fontWeight={300} fontFamily='Space Grotesk'>Sentiment Analyzer</Typography>
-                </Link>
-              </Box>
-            </Grid>
-            <div style={{ border: '1px solid #FFEA00', width: '100%', marginTop:'2rem' }}></div>
-            <Grid container mt={{ xs: '2rem', sm: 4, md: 6, lg: 4 }}>
-              <Grid item xs={12} mt={{ xs: '1rem' }} lg={6} fontSize={14} fontWeight={900} lineHeight='30px' alignItems='center'>
-                &copy; {new Date().getFullYear()}, ZAPI
-              </Grid>
-              <Grid item xs={12} lg={6} fontSize={10} display='flex' justifyContent={isMobile ? 'flex-end' : 'flex-start'} >
-              <Link href="https://mobile.twitter.com/zummitafrica" underline="none" >
-                <Box mt={4} mr={{ xs: '1rem', lg: '1rem' }} sx={{ backgroundColor:'#081F4A', width:'32px', height:'32px' }} display="inline-block">
-                  <img src={Twitter} alt="Twitter" style={{ justifySelf: 'center', marginTop:'0.4rem', marginLeft:'0.4rem'}}/>
-                </Box>
+    <footer className={classes.footer}>
+      <Stack direction="row" width="100%" flexWrap="wrap">
+        {FOOTER_LINKS.map((item, index) => (
+          <div key={index} className={classes.container}>
+            <>
+            <Typography fontSize="18px" fontWeight={700} lineHeight="30px" color="#FFEA00" mb={8}>
+              {item.title}
+            </Typography>
+            {item.links.map((link, index) => (
+              <Link key={index} to={`/${link.link}`}>
+                <Typography fontSize="18px" fontWeight={300} lineHeight="30px" color="#FFEA00" my={2}>
+                  {link.name}
+                </Typography>
               </Link>
-              <Link href="https://www.instagram.com/zummitafrica/" underline="none" color="#081F4A">
-                <Box mt={4} mr={{ xs: '1rem', lg: '1rem' }} sx={{ backgroundColor:'#081F4A', width:'32px', height:'32px'}} display="inline-block">
-                  <img src={Linkedin} alt="Linkedin" style={{ justifySelf: 'center', marginTop:'0.4rem', marginLeft:'0.4rem', color:'#FFEA00'}}/>
-                </Box>
-              </Link>
-              <Link href="https://www.instagram.com/zummitafrica/" underline="none" color="#081F4A">
-                <Box mt={4} mr={{ xs: '1rem', lg: '1rem' }} sx={{ backgroundColor:'#081F4A', width:'32px', height:'32px', justifyContent: 'center' }} display="inline-block">
-                  <img src={Youtube} alt="Youtube" style={{ justifySelf: 'center', marginTop:'0.4rem', marginLeft:'0.2rem'}}/>
-                </Box>
-              </Link>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
+            ))}
+            </>
+          </div>
+        ))}
+      </Stack>
+      <div className={classes.divider} />
+      <Stack direction="row" width="100%" alignItems="center" justifyContent="space-between">
+        <Typography fontSize="14px" fontWeight={900} lineHeight="30px" color="#FFEA00">
+          &copy; {new Date().getFullYear()} ZAPI
+        </Typography>
+        <Stack direction="row" alignItems="center" spacing={2}>
+          <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
+            <img src={TwitterIcon} alt="twitter logo" />
+          </a>
+          <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer">
+            <img src={LinkedInIcon} alt="linkedin logo" />
+          </a>
+          <a href="https://youtube.com/" target="_blank" rel="noopener noreferrer">
+            <img src={YoutubeIcon} alt="youtube logo" />
+          </a>
+        </Stack>
+      </Stack>
     </footer>
-    </>
   )
-  
 }
 
+const useStyles = makeStyles({
+  footer: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    background: "#081F4A",
+    padding: "2rem 4rem"
+  },
+  container: {
+    width: "300px",
+    height: "fit-content",
+    margin: "0 0 5rem",
+  },
+  icon: {
+    fill: "#FFEA00",
+  },
+  divider: {
+    width: "100%",
+    height: "1px",
+    background: "#FFEA00",
+    marginBottom: "4rem"
+  }
+})
 
 
 export default Footer
