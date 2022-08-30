@@ -13,18 +13,17 @@ const Hero: React.FC = () => {
   const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {  
-      const json = JSON.parse(query); 
       const res = await fetch("https://qnanswer-api.pk25mf6178910.eu-west-3.cs.amazonlightsail.com/q_and_a", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: query
+        body: JSON.parse(query)
     })
     const data = await res.json() 
       setData(data.answer)
     } catch (err) {  
-      alert(err);  
+      alert("Input must be a JSON String");  
     }
 
   }

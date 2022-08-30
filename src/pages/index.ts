@@ -17,10 +17,10 @@ const UserProfile = React.lazy(() => import("./UserProfile"));
 const Homepage = React.lazy(() => import("./Homepage"));
 const EndPoint = React.lazy(() => import("./EndpointPage"));
 const CreateEndpoint = React.lazy(() => import("./CreateEndpoint"));
-const OrgPage = React.lazy(() => import("./OrgPage"));
+// const OrgPage = React.lazy(() => import("./OrgPage"));
 
 export { Analytics, APIPage, Configuration, DevDashboard,
     ForgotPassword, Home, Login,
     LoginHistory, Otp, Signup,
     SuccessPage, UserProfile, Homepage,EndPoint,
-    CreateEndpoint, OrgPage };
+    CreateEndpoint,};
