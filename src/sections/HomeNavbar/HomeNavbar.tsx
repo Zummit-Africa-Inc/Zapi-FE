@@ -16,11 +16,11 @@ const HomeNavbar: React.FC = () => {
     const { handleClicked } = useContextProvider()
 
     const handleClick = () => {
-        if (style === "mobileLinks") {
-            setStyle("showMobileLinks")
-        } else {
-            setStyle("mobileLinks")
-        }
+        if (mobileScreen) {
+            setMobileScreen(false)
+          } else {
+            setMobileScreen(true)
+          }
     }
     return (
         <>
@@ -30,7 +30,7 @@ const HomeNavbar: React.FC = () => {
                     <span className={classes.zapi}>Z-API</span>
                     <img className={classes.vector} src={Vector} alt="vector-img" />
                 </div>
-                <div className={classes.links}>
+                <div className={mobileScreen ? classes.mobileLinks : classes.links}>
                     <ul>
                         {/*  ! Use the NavLink instead of Link
                         * There is an "isActive" prop available in NavLink that allows conditional rendering
@@ -76,10 +76,10 @@ const useStyles = makeStyles({
         background: "#081F4A",
         boxShadow: "0px 1px 15px rgba(7, 27, 133, 0.15)",
         padding: "0 5rem",
-        "@media screen and (max-width: 1000px)": {
+        "@media screen and (max-width: 1024px)": {
             padding: "1rem 2rem"
         },
-        "@media screen and (max-width: 300px)": {
+        "@media screen and (max-width: 375px)": {
             padding: "1rem 1rem"
         }
     },
@@ -96,7 +96,7 @@ const useStyles = makeStyles({
     vector: {
         position: "absolute",
         left: "130px",
-top: "-2px",
+        top: "-2px",
         filter: "drop-shadow(0px 1px 15px rgba(0, 0, 0, 0.1))",
     },
     links: {
@@ -139,17 +139,29 @@ top: "-2px",
         display: "none",
         cursor: "pointer",
         fontSize: "2rem",
+        color: "#FFFFFF",
+        zIndex: "1000",
         "@media screen and (max-width: 800px)": {
             display: "block",
         }
     },
     mobileLinks: {
+        // marginTop: "32rem",
+        position: "absolute",
+        top: "100%",
+        width: "100%",
         background: "#ccc",
-        padding: "2rem 0",
+        padding: "2rem 2rem",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: "1.5rem",
+        gap: "2rem",
+        "& ul": {
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "1.5rem",
+        },
         "& li": {
             listStyle: "none",
             "& a": {
