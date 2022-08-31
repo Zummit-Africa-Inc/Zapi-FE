@@ -2,7 +2,7 @@ import GoogleIcon from "./icons/GoogleIcon";
 import LinkedInIcon from "./images/linkedin.png";
 import TwitterIcon from "./images/twitter.png";
 import YoutubeIcon from "./images/youtube.png";
-import Frame from "./assets/images/frame.svg"
+import Frame from "./images/frame.svg"
 
 export { GoogleIcon, LinkedInIcon, TwitterIcon, YoutubeIcon }
 
