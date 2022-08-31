@@ -1,11 +1,8 @@
 import { Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { ChangeEvent, useState } from 'react'
-import { Widget, InputSearch, DataTable } from '../../components'
-import { DASHBOARDTEXT1, DASHBOARDTEXT2, ERROR, STATISTICS, SUCCESS, TIMERANGE, PERIOD, ZONE } from '../../testdata'
-
-//styles
-import './DevDashboard.css'
+import { Widget, InputSearch, DataTable, Navbar } from '../components'
+import { DASHBOARDTEXT1, DASHBOARDTEXT2, ERROR, STATISTICS, SUCCESS, TIMERANGE, PERIOD, ZONE, TABLEHADING, ROWS } from '../testdata'
 
 const DevDashboard: React.FC = () => {
     const [statsParam, setStatsParam] = useState<string>(STATISTICS[0])
@@ -57,7 +54,9 @@ const DevDashboard: React.FC = () => {
     }
 
     return (
-        <div className='dashboard'>
+        <>
+        <Navbar />
+        <div className={classes.dashboard}>
             <Typography variant='h5' gutterBottom sx={{padding: '1rem 2rem'}}>Dashboard</Typography>
             <div className="cards">
                 <Widget  className='widget' title={DASHBOARDTEXT1.title} subtitle={DASHBOARDTEXT1.subtitle} />
@@ -87,15 +86,21 @@ const DevDashboard: React.FC = () => {
                 <Widget className={successStyle} title='Success' subtitle={successParam} onClick={handleClickses} span='0ms' />
             </div>
             <div className="table">
-                <DataTable />
+                <DataTable Heading={TABLEHADING} Rows={ROWS} />
             </div>
         </div>
+</>
     )
 }
 
 export default DevDashboard
 
 const useStyles = makeStyles({
+    dashboard: {
+        height: "100%",
+        width: "100vw",
+        overflowX: "hidden",
+    },
     select: {
         '& select': {
             padding: '.3rem .4rem',
