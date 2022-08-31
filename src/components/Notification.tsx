@@ -22,7 +22,7 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
     //     { user.profileId }
     // });
 
-    socket = io("process.env.REACT_APP_SOCKET_URL as string");
+    socket = io(import.meta.env.VITE_SOCKET_URL);
     useEffect(() => {
         socket.on(`newSubscription_${user.profileId}`, (data: any) => {
             setNotifications([...notifications, data])
@@ -91,6 +91,7 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
                             :
                             <>
                                 <span className={classes.notification}>No new notification</span>
+                                <Button type="button" className={classes.button} style={{ background: "#081F4A", color:"#FF5C00" }} onClick={handleRead}>Mark as read</Button>
                             </>
                         }
                     </div>
@@ -144,6 +145,24 @@ const useStyles = makeStyles({
         marginTop: '10px',
         '@media screen and (max-width: 450px)': {
             width: '100%',
+        }
+    },
+    button: {
+        width: "440px",
+        height: "52px",
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: "4px",
+        fontSize: "16px",
+        fontWeight: 400,
+        lineHeight: "16px",
+        cursor: "pointer",
+        margin: "2rem 0",
+        padding: "0 1rem",
+        "@media screen and (max-width: 768px)": {
+            width: "100%",
         }
     }
 

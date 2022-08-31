@@ -14,7 +14,7 @@ const Navbar: React.FC<INavProps> = () => {
   const [socket, setSocket] = useState<any>("");
 
   useEffect(() => { 
-    setSocket(io(process.env.REACT_APP_SOCKET_URL! as string));
+    setSocket(io(import.meta.env.VITE_SOCKET_URL));
   }, []);
 
   return (
