@@ -342,7 +342,7 @@ function Signup() {
                 <Field type='checkbox' name='terms' />
                 <label htmlFor='terms'> <span className={classes.term}> I agree to ZAPI’s terms and conditions and privacy policy.</span> </label>
               </Box>
-              {errors.terms && touched.terms ? <Typography variant='p' sx={{ color: 'red' }}> {errors.terms} </Typography> : null}
+              {errors.terms && touched.terms ? <Typography variant="p" sx={{ color: 'red' }}> {errors.terms} </Typography> : null}
               <Button type="submit" variant="contained" sx={{ backgroundColor: '#4B4B4B', color: '#FFF', textTransform: 'none' }}> Create my account </Button>
             </Form>
           )}
