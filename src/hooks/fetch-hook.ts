@@ -19,7 +19,7 @@ export const useHttpRequest = () => {
                 method,
                 body,
                 headers: {
-                    'Authorization': cookies.get('accessToken'),
+                    'Zapi_Auth_token': cookies.get('accessToken'),
                     ...headers,
                 },
                 // signal: httpAbortCtrl.signal
