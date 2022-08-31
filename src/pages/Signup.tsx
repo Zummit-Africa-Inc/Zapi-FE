@@ -116,6 +116,7 @@ const useStyles = makeStyles({
     fontWeight: 500,
     fontSize: '2.5rem',
     color: '#081F4A'
+    
   },
   form: {
     display: 'flex',

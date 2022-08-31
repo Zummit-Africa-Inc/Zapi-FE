@@ -1,15 +1,14 @@
 import { Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { Widget } from '../components'
-import TextBox from '../components/TextBox'
-import { EducationText1, EducationText2, EducationText3 } from '../testdata'
+import {EducationText2, EducationText3 } from '../testdata'
 
 const Education: React.FC = () => {
     const classes = useStyles()
     return (
         <div className={classes.Education}>
-            <Typography variant="h5" sx={{ fontFamily: 'Space Grotesk', fontWeight: 400, fontSize: "16px", lineHeight: "20px", letterSpacing: "-0.006em", color: "#0671E0" }}>A.I EDUCATION</Typography>
-            <Typography variant="h5" sx={{ fontFamily: 'Space Grotesk', fontWeight: 500, fontSize: "24px", lineHeight: "30px", letterSpacing: "-0.006em", color: "#071B85" }}>LEARN WITH US AT ZUMMIT ACADEMY</Typography>
+            <Typography variant="h5" sx={{fontWeight: 400, fontSize: "16px", lineHeight: "20px", letterSpacing: "-0.006em", color: "#0671E0" }}>A.I EDUCATION</Typography>
+            <Typography variant="h5" sx={{fontWeight: 500, fontSize: "24px", lineHeight: "30px", letterSpacing: "-0.006em", color: "#071B85" }}>LEARN WITH US AT ZUMMIT ACADEMY</Typography>
             <div className={classes.EdBoxes}>
                 <Widget className={classes.smallBox} />
                 <div className={classes.midBoxes}>
@@ -26,16 +25,24 @@ export default Education
 
 const useStyles = makeStyles({
     Education: {
-        width: "100vw",
+        width: "100%",
         height: "100%",
         background: "#FFFFFF",
         paddingTop: "2rem",
-        paddingBottom: "8rem"
+        paddingBottom: "8rem",
+        paddingLeft: "5rem",
+        paddingRight: "5rem",
+        "@media screen and (max-width: 400px)": {
+            padding: "1rem .5rem"
+        },
     },
     EdBoxes: {
         display: "flex",
         gap: "1.5rem",
-        padding: "2rem 0"
+        padding: "2rem 0",
+        "@media screen and (max-width: 840px)": {
+           flexDirection: "column",
+        }
     },
     smallBox: {
         marginTop: "10rem",
@@ -47,6 +54,11 @@ const useStyles = makeStyles({
         border: "1px solid #FF5C00",
         boxShadow: "0px 0px 1px rgba(26, 32, 36, 0.32), 0px 40px 64px rgba(91, 104, 113, 0.24)",
         borderRadius: "6px",
+        "@media screen and (max-width: 1024px)": {
+            padding: "0 6rem",
+            width: "auto",
+            // height: "426px",
+        }
     },
     midBoxes: {
         marginTop: "4rem",
@@ -106,6 +118,11 @@ const useStyles = makeStyles({
             outline: "none",
             color: "#0E2DCC",
             opacity: "0.5",
+        },
+        "@media screen and (max-width: 1024px)": {
+            // padding: "0 6rem",
+            width: "auto",
+            height: "auto",
         }
     },
     midTwo: {
@@ -165,6 +182,11 @@ const useStyles = makeStyles({
             letterSpacing: "-0.006em",
             color: "#F6F8F9",
             opacity: "0.5",
+        },
+        "@media screen and (max-width: 1024px)": {
+            // padding: "0 6rem",
+            width: "auto",
+            height: "auto",
         }
     },
     largeBox: {
@@ -176,5 +198,10 @@ const useStyles = makeStyles({
         border: "1px solid #161616",
         boxShadow: "0px 0px 1px rgba(26, 32, 36, 0.32), 0px 40px 64px rgba(91, 104, 113, 0.24)",
         borderRadius: "6px",
+        "@media screen and (max-width: 1024px)": {
+            padding: "0 6rem",
+            width: "auto",
+            // height: "426px",
+        }
     }
 })

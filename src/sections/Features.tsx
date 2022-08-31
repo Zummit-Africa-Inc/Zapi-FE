@@ -11,7 +11,6 @@ const Features: React.FC = () => {
 
   return (
     <>
-        <main>
             <div className={classes.feature}>
                 <Typography gutterBottom variant='h4'sx={{ color:'#071B85', fontWeight: 700, fontSize:'36px', lineHeight: "45.94px", fontFamily: 'Space Grotesk', }}>Features to give your business a head start.</Typography>
             </div>
@@ -49,7 +48,6 @@ const Features: React.FC = () => {
                 </div>
              </div>
             </div>
-        </main>
     </>
   )
 }
