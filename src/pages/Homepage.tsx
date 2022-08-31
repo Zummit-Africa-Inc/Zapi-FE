@@ -1,17 +1,17 @@
 import { makeStyles } from '@mui/styles'
-import { Education, Hero, HomeNavbar, Features, Footer, Pricing } from '../sections'
+import { Education, Hero, HomeNavbar, Features, Footer, Pricing, Brand, MarketPlace } from '../sections'
 
 const Homepage: React.FC = () => {
     const classes = useStyles()
   return (
     <div className={classes.homePage}>
     <HomeNavbar />
-        <div className={classes.main}>
             <Hero />
+            <Brand/>
+            <MarketPlace/>
             <Features />
             <Pricing />
             <Education />  
-        </div>
     <Footer />
     </div>
   )

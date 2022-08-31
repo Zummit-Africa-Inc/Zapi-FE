@@ -9,6 +9,7 @@ import { Fallback, Login } from "./components";
 import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
 
+
 const App:React.FC = () => {
   const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP } = useContextProvider()
 
@@ -38,6 +39,7 @@ const App:React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <div>
+      <Suspense fallback={<Fallback />}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/dashboard" element={<Home />} />
@@ -55,6 +57,8 @@ const App:React.FC = () => {
           <Route path="/create-endpoint" element={<CreateEndpoint />} />
           <Route path="/endpoint" element={<EndPointPage />} />
         </Routes>
+        </Suspense>
+        {isClicked.login && <Login />}
       </div>
     </ThemeProvider>
   )

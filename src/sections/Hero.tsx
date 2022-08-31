@@ -13,16 +13,17 @@ const Hero: React.FC = () => {
   const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {  
+      const json = JSON.parse(query);
       const res = await fetch("https://qnanswer-api.pk25mf6178910.eu-west-3.cs.amazonlightsail.com/q_and_a", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.parse(query)
+        body: query
     })
     const data = await res.json() 
       setData(data.answer)
-    } catch (err) {  
+    } catch (error) { 
       alert("Input must be a JSON String");  
     }
 
@@ -60,7 +61,11 @@ const useStyles = makeStyles({
   hero: {
     paddingTop: "10rem",
     background: "#FFFFFF",
-    padding: "1rem 5rem 0",
+    paddingRight: "5rem",
+    paddingLeft: "5rem",
+        "@media screen and (max-width: 400px)": {
+            padding: "1rem .5rem"
+        },
   },
   heroText: {
     textAlign: "center",
