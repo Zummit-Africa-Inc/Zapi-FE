@@ -259,7 +259,6 @@ const useStyles = makeStyles({
     display: 'flex',
     gap: '20px',
     flexDirection: 'column',
-    // alignItems:'center',
     marginTop: '15px',
     width: '50%',
     alignItems: 'stretch'
@@ -306,7 +305,8 @@ function Signup() {
   return (
     <>
       <Navbar />
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '70%', mx: 'auto', my: 6 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column',
+       alignItems: 'center', width: '70%', mx: 'auto', my: 6 }}>
         <Formik
           initialValues={initialValues}
           onSubmit={(values, actions) => {
@@ -338,7 +338,8 @@ function Signup() {
                 {errors.confirmPassword && touched.confirmPassword ? <Typography variant='p' sx={{ color: 'red' }}> {errors.confirmPassword} </Typography> : null}
               </Box>
 
-              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px', alignItems: 'center' }}>
+              <Box sx={{ display: 'flex', justifyContent: 'center', 
+              alignItems: 'center', gap: '10px' }}>
                 <Field type='checkbox' name='terms' />
                 <label htmlFor='terms'> <span className={classes.term}> I agree to ZAPI’s terms and conditions and privacy policy.</span> </label>
               </Box>
