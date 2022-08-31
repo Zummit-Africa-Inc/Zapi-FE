@@ -8,14 +8,14 @@ import { io } from 'socket.io-client';
 import { USER } from "../testdata";
 
 interface INotificationProps {
-    socket: any;
+    socket: string | any;
 };
 
 
 const Notification: React.FC<INotificationProps> = ({ socket }) => {
     const classes = useStyles();
     const [notifications, setNotifications] = useState<string[]>([]);
-    const [open, setOpen] = useState<any>(false);
+    const [open, setOpen] = useState<boolean>(false);
     const [user] = USER;
 
     // const profileId = USER.map(user => {
@@ -39,7 +39,7 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
     }, [socket]);
 
 
-    const displayNotification = ({ type }: any) => {
+    const displayNotification = ( type : number) => {
         let action;
 
         if (type === 1) {
