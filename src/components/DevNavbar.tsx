@@ -1,11 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { makeStyles } from "@mui/styles";
 import { Link } from 'react-router-dom';
 
-import Menus from '../components/Menus'
-
-
-
+import  Menus  from "../components/Menus";
 
 //images
 import { ZapiDevLogo, ZapiWidget } from '../assets'
