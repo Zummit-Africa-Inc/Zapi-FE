@@ -78,7 +78,7 @@ const MarketPlace = () => {
             <button className={classes.button}>
                     <Typography>Explore the marketplace</Typography>
                     <img className={classes.arrow} src="images/arrow.svg" />
-                </button>
+            </button>
             </div>
         </>
     )

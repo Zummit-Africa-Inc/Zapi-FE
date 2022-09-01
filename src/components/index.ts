@@ -2,6 +2,7 @@
 export { default as APICard } from "./APICard";
 export { default as BaseButton } from "./Button";
 export { default as DataTable } from "./DataTable"
+export { default as DevAddApi } from "./DevAddApi"
 export { default as Fallback } from "./Fallback";
 export { default as InputSearch } from "./InputSearch";
 export { default as Login } from "./Login";
