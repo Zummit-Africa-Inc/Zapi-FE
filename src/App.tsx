@@ -8,6 +8,8 @@ import { useContextProvider } from "./contexts/ContextProvider";
 import { Fallback, Login } from "./components";
 import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 const App:React.FC = () => {
@@ -38,6 +40,7 @@ const App:React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <ToastContainer />
       <div>
         <Suspense fallback={<Fallback />}>
           <Routes>
