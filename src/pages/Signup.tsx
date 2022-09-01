@@ -21,8 +21,8 @@ const Signup:React.FC = () => {
     e.preventDefault()
     console.log(inputs)
     try {
-      const data = await sendRequest(inputs)
-      console.log(data)
+      // const data = await sendRequest(inputs)
+      // console.log(data)
     } catch (err: any) { alert(err.message)}
   }
   return (

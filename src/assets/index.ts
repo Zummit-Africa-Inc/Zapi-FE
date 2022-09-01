@@ -9,6 +9,7 @@ import ZapiApps from './images/apps.svg';
 import ZapiHelp from './images/help.svg';
 import ZapiArrow from './images/arrow_drop_down.svg';
 import ZapiPic from './images/pic.svg';
+
 import Frame from "./images/frame.svg"
 
 export { GoogleIcon, LinkedInIcon, TwitterIcon, YoutubeIcon, ZapiDevLogo, ZapiWidget, ZapiDash, ZapiApps, ZapiHelp, ZapiArrow, ZapiPic }
