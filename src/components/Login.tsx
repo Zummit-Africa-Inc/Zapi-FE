@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
+import { toast }  from "react-toastify";
 
 import { useContextProvider } from "../contexts/ContextProvider";
 import { useFormInputs, useHttpRequest } from "../hooks";
@@ -31,7 +32,7 @@ const Login: React.FC = () => {
 
     const { email, password } = inputs;
     if(!email || !EMAIL_REGEX.test(email)) return alert('Invalid email address');
-    if(!password || !PASSWORD_REGEX.test(password)) return alert('Invalid password');
+    if(!password || !PASSWORD_REGEX.test(password)) return toast.error('Invalid password');
     const payload = { email, password, userInfo: {
         login_time: deviceLocation.time,
         country: { lat: deviceLocation.lat, lon: deviceLocation.lon },
