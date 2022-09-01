@@ -236,20 +236,19 @@
 // })
 
 import React, { useState } from 'react'
-import { Box, Typography, Button } from "@mui/material"
+import { Box, Typography, Button, Theme } from "@mui/material"
 import * as Yup from 'yup'
 import { Link } from 'react-router-dom';
-import GoogleIcon from '@mui/icons-material/Google';
+import {HomeNavbar} from '../sections';
 import {
   Formik,
   Form,
   Field,
 } from 'formik';
-import { Navbar } from '../components';
 import { makeStyles } from '@mui/styles';
 import googleicon from "../assets/images/googleicon.svg"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) =>({
   input: {
     padding: '10px',
     borderRadius: '5px',
@@ -257,20 +256,36 @@ const useStyles = makeStyles({
   },
   form: {
     display: 'flex',
-    gap: '20px',
+    gap: '10px',
     flexDirection: 'column',
-    marginTop: '15px',
+    marginTop: '120px',
     width: '50%',
-    alignItems: 'stretch'
+    alignItems: 'stretch',
+    [theme.breakpoints.down("sm")]: {
+      width:'80%'
+    }
   },
   term: {
-    fontSize: '14px'
+    fontSize: '14px',
+    [theme.breakpoints.down("sm")]: {
+      fontSize:'10px'
+    }
   },
   google: {
     float: 'left'
+  },
+  signin:{
+    display: 'flex',
+    gap: '10px',
+    flexDirection: 'column',
+    marginTop:'10px',
+    width: '50%',
+    alignItems: 'stretch',
+    [theme.breakpoints.down("sm")]: {
+      width:'80%'
+    }
   }
-
-})
+}))
 
 
 const ValidationSchema = Yup.object().shape({
@@ -304,8 +319,8 @@ function Signup() {
 
   return (
     <>
-      <Navbar />
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '70%', mx: 'auto', my: 6 }}>
+      <HomeNavbar />
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width:{xs:'100%',sm:'100%',lg:'70%' ,md:'70%'}, mx: {md:'auto', } }}>
         <Formik
           initialValues={initialValues}
           onSubmit={(values, actions) => {
@@ -316,7 +331,7 @@ function Signup() {
           {({ errors, touched }) => (
             <Form className={classes.form}>
               <h2>{message} </h2>
-              <Typography variant='h5' sx={{ textAlign: 'center' }}> Create a Free Account</Typography>
+              <Typography variant='h5' sx={{ textAlign: 'center', fontSize:{xs:'18px', sm:'18px', md:'28px', lg:'32px'} }}> Create a Free Account</Typography>
               <Typography sx={{ textAlign: 'center' }}> Complete this form to register on ZAPI and start exploring our API options </Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column' }}>
 
@@ -347,8 +362,8 @@ function Signup() {
           )}
         </Formik>
         <Typography variant='h6' sx={{ mt: 2 }}> OR </Typography>
-        <Box className={classes.form}>
-          <Button onClick={() => alert('Google signup')} variant="outlined" sx={{ textTransform: 'none', display: 'flex', gap: '7rem', justifyContent: 'start' }} ><span className={classes.google}> <img src={googleicon} alt="Google icon" /> </span> Sign up with Google</Button>
+        <Box className={classes.signin}>
+          <Button onClick={() => alert('Google signup')} variant="outlined" sx={{ textTransform: 'none', display: 'flex', gap: {md:'7rem',lg:'7rem'}, justifyContent: 'start' }} ><span className={classes.google}> <img src={googleicon} alt="Google icon" /> </span> Sign up with Google</Button>
           <Typography> Already have an account? <Link to="/login"> Sign In</Link> </Typography>
         </Box>
       </Box>
