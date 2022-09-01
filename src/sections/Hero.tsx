@@ -13,7 +13,7 @@ const Hero: React.FC = () => {
   const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {  
-      const json = JSON.parse(query); 
+      const json = JSON.parse(query);
       const res = await fetch("https://qnanswer-api.pk25mf6178910.eu-west-3.cs.amazonlightsail.com/q_and_a", {
         method: 'POST',
         headers: {
@@ -23,8 +23,8 @@ const Hero: React.FC = () => {
     })
     const data = await res.json() 
       setData(data.answer)
-    } catch (err) {  
-      alert(err);  
+    } catch (error) { 
+      alert("Input must be a JSON String");  
     }
 
   }
@@ -80,6 +80,7 @@ const useStyles = makeStyles({
     display: "flex",
     gap: "1.5rem",
     width: "100%",
+    justifyContent: "center",
     "@media screen and (max-width: 600px)": {
       flexDirection: "column",
     },
