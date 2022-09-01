@@ -29,9 +29,9 @@ const useStyles = makeStyles({
         height: "100%",
         background: "#FFFFFF",
         paddingTop: "2rem",
-        paddingBottom: "8rem",
         paddingLeft: "5rem",
         paddingRight: "5rem",
+        paddingBottom: "8rem",
         "@media screen and (max-width: 400px)": {
             padding: "1rem .5rem"
         },
@@ -58,13 +58,19 @@ const useStyles = makeStyles({
             padding: "0 6rem",
             width: "auto",
             // height: "426px",
+        },
+        "@media screen and (max-width: 850px)": {
+            marginTop: "2rem",
         }
     },
     midBoxes: {
         marginTop: "4rem",
         display: "flex",
         flexDirection: "column",
-        gap: "1rem"
+        gap: "1rem",
+        "@media screen and (max-width: 850px)": {
+            marginTop: "0rem",
+        }
     },
     midOne: {
         display: "flex",
