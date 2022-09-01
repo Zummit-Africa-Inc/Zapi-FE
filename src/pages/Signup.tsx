@@ -52,9 +52,9 @@ const useStyles = makeStyles((theme: Theme) =>({
 
 
 const ValidationSchema = Yup.object().shape({
-  email: Yup.string().email().required(),
-  password: Yup.string().min(8).required(),
-  confirmPassword: Yup.string().label('confirm_password').required().oneOf([Yup.ref('password'), null], 'Password must match'),
+  email: Yup.string().email().required("Email is a required field"),
+  password: Yup.string().min(8).required("Password is a required field"),
+  confirmPassword: Yup.string().label('confirm_password').required("Comfirm Password is a required field").oneOf([Yup.ref('password'), null], 'Password must match'),
   terms: Yup.bool().required().oneOf([true], 'You need to accept the terms and conditions')
 })
 
