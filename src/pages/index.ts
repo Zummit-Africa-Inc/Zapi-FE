@@ -11,7 +11,6 @@ const ForgotPassword = React.lazy(() => import("./ForgotPassword"));
 const Home = React.lazy(() => import("./Home"));
 const Homepage = React.lazy(() => import("./Homepage"));
 const LoginHistory = React.lazy(() => import("./LoginHistory"));
-const OrgPage = React.lazy(() => import("./Orgpage"));
 const Otp = React.lazy(() => import("./Otp"));
 const Signup = React.lazy(() => import('./Signup'));
 const SuccessPage = React.lazy(() => import("./SuccessPage"));
@@ -20,4 +19,4 @@ const CreateEndpoint = React.lazy(() => import("./CreateEndpoint"));
 
 
 export { Analytics, APIPage, Configuration, CreateEndpoint, DevDashboard, EndPointPage,
-ForgotPassword, Home, Homepage, LoginHistory, Otp, OrgPage, Signup, SuccessPage, UserProfile };
+ForgotPassword, Home, Homepage, LoginHistory, Otp, Signup, SuccessPage, UserProfile };
