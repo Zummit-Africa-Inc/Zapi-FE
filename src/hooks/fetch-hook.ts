@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import Cookies from 'universal-cookie'
 
 export const useHttpRequest = () => {
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<any>(null)
+    const cookies = new Cookies()
 
     const activeHttpRequests = useRef(<any>[])
 
@@ -16,7 +18,10 @@ export const useHttpRequest = () => {
             const response  = await fetch(url,{
                 method,
                 body,
-                headers,
+                headers: {
+                    'Zapi_Auth_token': cookies.get('accessToken'),
+                    ...headers,
+                },
                 // signal: httpAbortCtrl.signal
             })
             const data = await response.json()

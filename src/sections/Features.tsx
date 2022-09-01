@@ -20,30 +20,38 @@ const Features: React.FC = () => {
                     <div className={classes.column}>
                         <div className={classes.img}>
                             <img src={AddTask} alt="Add_Task" />
-                            <Typography gutterBottom variant='h5' sx={{ fontWeight: 700, fontSize:'24px', lineHeight: "30.62px" }}>Cost effective</Typography>
+                            <Typography gutterBottom variant='h5' sx={{ fontWeight: 700, fontSize:'24px', lineHeight: "30.62px", "@media screen and (max-width:400px)": {
+                            textAlign: "center", fontSize: "18px", lineHeight: "22px"} }}>Cost effective</Typography>
                         </div>
-                        <Typography gutterBottom variant='h6' sx={{ fontSize:'16px', lineHeight:'20,42px', fontWeight: 400 }}>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt </Typography>
+                        <Typography gutterBottom variant='h6' sx={{ fontSize:'16px', lineHeight:'20.42px', fontWeight: 400, "@media screen and (max-width:400px)": {
+                            textAlign: "center", fontSize: "13px", lineHeight: "16px"} }}>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt </Typography>
                     </div>
                     <div className={classes.column}>
                         <div className={classes.img}>
                             <img src={AddTask} alt="Add_Task" />
-                            <Typography gutterBottom variant='h5' sx={{ fontWeight: 700, fontSize:'24px', lineHeight: "30.62px" }}>Cost effective</Typography>
+                            <Typography gutterBottom variant='h5' sx={{ fontWeight: 700, fontSize:'24px', lineHeight: "30.62px", "@media screen and (max-width:400px)": {
+                            textAlign: "center", fontSize: "18px", lineHeight: "22px"} }}>Cost effective</Typography>
                         </div>
-                        <Typography gutterBottom variant='h6' sx={{ fontSize:'16px', lineHeight:'20,42px', fontWeight: 400 }}>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt </Typography>
+                        <Typography gutterBottom variant='h6' sx={{ fontSize:'16px', lineHeight:'20,42px', fontWeight: 400, "@media screen and (max-width:400px)": {textAlign: "center", fontSize: "13px", lineHeight: "16px"} }}>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt </Typography>
                     </div>
                     <div className={classes.column}>
                         <div className={classes.img}>
                             <img src={AddTask} alt="Add_Task" />
-                            <Typography gutterBottom variant='h5' sx={{ fontWeight: 700, fontSize:'24px', lineHeight: "30.62px" }}>Cost effective</Typography>
+                            <Typography gutterBottom variant='h5' sx={{ fontWeight: 700, fontSize:'24px', lineHeight: "30.62px", "@media screen and (max-width:400px)": {
+                            fontSize: "18px", lineHeight: "22px"} }}>Cost effective</Typography>
                         </div>
-                        <Typography gutterBottom variant='h6' sx={{ fontSize:'16px', lineHeight:'20,42px', fontWeight: 400 }}>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt </Typography>
+                        <Typography gutterBottom variant='h6' sx={{ fontSize:'16px', lineHeight:'20.42px', fontWeight: 400, "@media screen and (max-width:400px)": {
+                            textAlign: "center", fontSize: "13px", lineHeight: "16px"} }}>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt </Typography>
                     </div>
                     <div className={classes.column}>
                         <div className={classes.img}>
                             <img src={AddTask} alt="Add_Task" />
-                            <Typography gutterBottom variant='h5' sx={{ fontWeight: 700, fontSize:'24px', lineHeight: "30.62px" }}>Cost effective</Typography>
+                            <Typography gutterBottom variant='h5' sx={{ fontWeight: 700, fontSize:'24px', lineHeight: "30.62px", "@media screen and (max-width:400px)": {
+                             fontSize: "18px", lineHeight: "22px"} }}>Cost effective</Typography>
                         </div>
-                        <Typography gutterBottom variant='h6' sx={{ fontSize:'16px', lineHeight:'20,42px', fontWeight: 400 }}>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt </Typography>
+                        <Typography gutterBottom variant='h6' sx={{ fontSize:'16px', lineHeight:'20.42px', fontWeight: 400, "@media screen and (max-width:400px)": {
+                            textAlign: "center", fontSize: "13px", lineHeight: "16px"
+                        } }}>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt </Typography>
                     </div>
                 </div>
              </div>
