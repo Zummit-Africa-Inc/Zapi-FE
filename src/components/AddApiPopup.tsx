@@ -1,6 +1,8 @@
 import React from "react";
-import { Typography, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from "@mui/material";
+import { Typography, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, MenuItem } from "@mui/material";
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { makeStyles } from "@mui/styles";
+
 
 import { useFormInputs, useHttpRequest } from "../hooks";
 import { Fallback } from "../components";
@@ -11,6 +13,17 @@ const AddApiPopup: React.FC = () => {
   const { loading } = useHttpRequest();
   const { bind } = useFormInputs(initialState);
   const classes = useStyles();
+
+  const [category, setCategory] = React.useState('');
+  const [team, setTeam] = React.useState('');
+
+  const handleCategoryChange = (event: SelectChangeEvent) => {
+    setCategory(event.target.value);
+  };
+  const handleTeamChange = (event: SelectChangeEvent) => {
+    setTeam(event.target.value);
+  };
+
 
   
   return (
@@ -30,12 +43,38 @@ const AddApiPopup: React.FC = () => {
           </div>
           <div className={classes.input}>
             <label>Category</label>
-            <input type="text" name="description" {...bind} placeholder="Select a category" />
+            <div>
+              <FormControl className={classes.input}>
+                <Select
+                  value={category}
+                  displayEmpty
+                  inputProps={{ 'aria-label': 'Category' }}
+                  onChange={handleCategoryChange}
+                >
+                  <MenuItem value={10}>Technology</MenuItem>
+                  <MenuItem value={20}>Sports</MenuItem>
+                  <MenuItem value={30}>Health</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
           </div>
+
           <div className={classes.input}>
             <label>Team</label>
-            <input type="text" name="description" {...bind} placeholder="Personal" />
+            <div>
+              <FormControl className={classes.input}>
+                <Select
+                  value={team}
+                  onChange={handleTeamChange}
+                  displayEmpty
+                   inputProps={{ 'aria-label': 'Team' }}
+                >
+                  <MenuItem value={10}>Personal</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
           </div>
+
         </form>
      
          {/* Radio Buttons */}
