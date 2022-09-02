@@ -74,9 +74,6 @@ const DevAddApi: React.FC = () => {
   )
 }
 const useStyles = makeStyles({
-    bodyColor: {
-        background:'#FFFFFF',
-    },
     body: {
         left:'0rem',
         right:'0rem',
@@ -91,21 +88,36 @@ const useStyles = makeStyles({
         height:  '96px',
         fontFamily:'Space Grotesk',
         "@media screen and (max-width: 1024px)": {
-            padding: "1rem 2rem"
+            padding: "1rem 2rem",
+            display: "grid",
+            justifyContent: "center",
+            gap: 0,
         },
         "@media screen and (max-width: 375px)": {
-            padding: "1rem 1rem"
+            padding: "1rem 1rem",
+            display: "grid",
+            justifyContent: "center",
+            gap: 0,
         }
+    },
+    bodyColor: {
+        background:'#FFFFFF',
     },
     widget1:{
         display:'flex',
         alignItems:'center',
-        gap:'1rem'
+        gap:'1rem',
+        "@media screen and (max-width: 1024px)": {
+            marginBottom: "2rem",
+        }
     },
     widget2:{
         gap:'1rem',
         display:'flex',
-        alignItems:'center'
+        alignItems:'center',
+        "@media screen and (max-width: 1024px)": {
+            marginBottom: "2rem",
+        }
     },
 
     leftText:{
@@ -189,6 +201,9 @@ const useStyles = makeStyles({
         border: "none",
         fontWeight: '500',
         fontSize: '16px',
+        "@media screen and (max-width: 1024px)": {
+            marginBottom: "2rem",
+        }
     },
     disabledButton: {
         display: "flex",
