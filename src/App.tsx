@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
 import { deviceDetect } from "react-device-detect";
 
-import { CreateEndpoint, DevDashboard, EndPointPage, Home, Homepage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, Analytics, SuccessPage, Configuration } from "./pages";
+import { CreateEndpoint, DevDashboard, EndPointPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, Analytics, SuccessPage, Configuration } from "./pages";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { Fallback, Login } from "./components";
 import { getDeviceIP } from "./utils";
@@ -41,7 +41,7 @@ const App:React.FC = () => {
       <div>
       <Suspense fallback={<Fallback />}>
         <Routes>
-          <Route path="/" element={<Homepage />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/dashboard" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
