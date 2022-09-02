@@ -26,15 +26,15 @@ const AddApiPopup: React.FC = () => {
           </div>
           <div className={classes.input}>
             <label>Description</label>
-            <input type="password" name="password" {...bind} placeholder="Add API Description" />
+            <input type="text" name="description" {...bind} placeholder="Add API Description" />
           </div>
           <div className={classes.input}>
             <label>Category</label>
-            <input type="password" name="password" {...bind} placeholder="Select a category" />
+            <input type="text" name="description" {...bind} placeholder="Select a category" />
           </div>
           <div className={classes.input}>
             <label>Team</label>
-            <input type="password" name="password" {...bind} placeholder="Personal" />
+            <input type="text" name="description" {...bind} placeholder="Personal" />
           </div>
         </form>
      

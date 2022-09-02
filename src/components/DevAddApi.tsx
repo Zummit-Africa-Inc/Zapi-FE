@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { makeStyles } from "@mui/styles";
 import InputSearch from './InputSearch';
-import { Button, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 
 import { useContextProvider } from "../contexts/ContextProvider";
 import StarIcon from '@mui/icons-material/Star';
@@ -12,20 +12,19 @@ const DevAddApi: React.FC = () => {
   const [queryString, setQueryString] = useState<string>("")
   const { handleClicked } = useContextProvider()
 
-
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
   }
   return (
     <div className={classes.bodyColor}>
         <div className={classes.body}>
-            <div className={classes.logo}>
+            <div className={classes.widget1}>
                 <form onSubmit={handleSubmit} className={classes.search}>
                 <InputSearch className={classes.formControl} type="text" name="queryString" value={queryString} onChange={(e: ChangeEvent<HTMLInputElement>) => setQueryString(e.target.value)} placeholder="Search API Projects" />
                 </form>
             </div>
 
-            <div className={classes.widget}>
+            <div className={classes.widget2}>
                 <div className={classes.leftText}>
                     <Typography variant="subtitle2" mt={0.5}>
                         All
@@ -98,12 +97,12 @@ const useStyles = makeStyles({
             padding: "1rem 1rem"
         }
     },
-    logo:{
+    widget1:{
         display:'flex',
         alignItems:'center',
         gap:'1rem'
     },
-    widget:{
+    widget2:{
         gap:'1rem',
         display:'flex',
         alignItems:'center'
@@ -114,10 +113,8 @@ const useStyles = makeStyles({
         flexDirection: "column",
         alignItems: "flex-start",
         padding: "8px 16px",
-
         width: "50px",
         height: "46px",
-
         background: "#C4C4C4",
         border: "1px solid #8C8C8C",
         borderRadius: "8px 0px 0px 8px",
@@ -128,10 +125,8 @@ const useStyles = makeStyles({
         alignItems: "flex-start",
         padding: "8px 16px",
         margin: "-35px 30px",
-
         width: "130px",
         height: "46px",
-        
         background: "white",
         borderTop: "1px solid #8C8C8C",
         borderBottom: "1px solid #8C8C8C",
@@ -152,20 +147,32 @@ const useStyles = makeStyles({
         color: "#8B8B8C",
         background: "#E1E1E2",
       },
-
-      formControl: {
+    formControl: {
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
         padding: "8px 64px 8px 16px",
         gap: "16px",
-        
         width: "269px",
         height: "46px",
-        
         background: "#E1E1E2",
         borderRadius: "8px",
-        
+        "& input": {
+            width: 250,
+            height: "100%",
+            outline: "none",
+            border: "none",
+            background: "#E1E1E2",
+        },
+        "& select": {
+            width: 100,
+            height: "100%",
+            outline: "none",
+            border: "none",
+        },
+        "@media screen and (max-width: 900px)": {
+          marginTop: "1rem",
+        }
     },
     button: {
         display: "flex",
@@ -179,7 +186,6 @@ const useStyles = makeStyles({
         borderRadius:"8px",
         cursor: "pointer",
         color: "#FFFFFF",
-
         border: "none",
         fontWeight: '500',
         fontSize: '16px',
