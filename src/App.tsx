@@ -5,7 +5,7 @@ import { deviceDetect } from "react-device-detect";
 
 import { CreateEndpoint, DevDashboard, EndPointPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, Analytics, SuccessPage, Configuration, OrgPage } from "./pages";
 import { useContextProvider } from "./contexts/ContextProvider";
-import { Fallback, Login } from "./components";
+import { Fallback, Login, AddApiPopup } from "./components";
 import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
 
@@ -58,6 +58,7 @@ const App:React.FC = () => {
           </Routes>
         </Suspense>
         {isClicked.login && <Login />}
+        {isClicked.addapi && <AddApiPopup />}
       </div>
     </ThemeProvider>
   )

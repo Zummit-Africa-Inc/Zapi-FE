@@ -3,12 +3,14 @@ import { makeStyles } from "@mui/styles";
 import InputSearch from './InputSearch';
 import { Button, Typography } from '@mui/material';
 
+import { useContextProvider } from "../contexts/ContextProvider";
 import StarIcon from '@mui/icons-material/Star';
 import AddIcon from '@mui/icons-material/Add';
 
 const DevAddApi: React.FC = () => { 
   const classes = useStyles();
   const [queryString, setQueryString] = useState<string>("")
+  const { handleClicked } = useContextProvider()
 
 
   const handleSubmit = (e: FormEvent) => {
@@ -39,10 +41,10 @@ const DevAddApi: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div className={classes.button}>
+            <button className={classes.button} onClick={() => handleClicked('addapi')}>
                     <AddIcon />
                     <Typography>Add API Project</Typography>
-            </div>
+            </button>
 
         </div>
             {/* Add API Description */}
