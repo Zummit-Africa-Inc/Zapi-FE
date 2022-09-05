@@ -39,7 +39,6 @@ const Login: React.FC = () => {
         os_name: deviceInfo.osName,
       }
     };
-    console.log(payload)
     try {
       const data = await sendRequest(`${url}/auth/signin`, 'POST', JSON.stringify(payload));
       if(!data || data === undefined) return;
@@ -53,10 +52,17 @@ const Login: React.FC = () => {
       return () => handleUnclicked('login')
     } catch (error) {};
   };
+  
+  useEffect(() => {
+    const timeOut = setTimeout(() => {
+      clearError()
+    },5000)
+    return () => clearTimeout(timeOut)
+  },[error])
 
   return (
     <>
-    {error && <Alert onClose={clearError}>{error.message}</Alert>}
+    {error && <Alert severity="error" onClose={() => clearError}>{error.message}</Alert>}
     {loading && <Fallback />}
     <div className={classes.container} onClick={() => handleUnclicked('login')}>
       <div className={classes.main} onClick={(e) => e.stopPropagation()}>
@@ -75,6 +81,12 @@ const Login: React.FC = () => {
             <label htmlFor="email">Password</label>
             <input type="password" name="password" {...bind} placeholder="Enter a Password" />
           </div>
+          <Typography variant="body1" fontSize="16px">
+          Forgot your password?
+          <Link to="/forgot-password" className={classes.link} onClick={() => handleUnclicked('login')}>
+            Reset it here.
+          </Link>
+        </Typography>
           <button type="submit" className={classes.button} style={{background:"#4B4B4B",color:"#FFF"}}>
             {loading ? 'loading' : 'Sign In'}
           </button>
@@ -170,7 +182,7 @@ const useStyles = makeStyles({
     fontWeight: 400,
     lineHeight: "16px",
     cursor: "pointer",
-    margin: "2rem 0",
+    margin: "1rem 0 2rem",
     padding: "0 1rem",
     "@media screen and (max-width: 768px)": {
       width: "100%",
