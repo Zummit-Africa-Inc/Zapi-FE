@@ -13,7 +13,6 @@ import ZapiHomeLogo from "../../assets/images/ZapiHomeLogo.png";
 const HomeNavbar: React.FC = () => {
     const classes = useStyles()
     const [mobileScreen, setMobileScreen] = useState(false)
-    const [style, setStyle] = useState("mobileLinks") // ! add types here
     const { handleClicked } = useContextProvider()
 
     const handleClick = () => {
@@ -33,9 +32,6 @@ const HomeNavbar: React.FC = () => {
                 </div>
                 <div className={mobileScreen ? classes.mobileLinks : classes.links}>
                     <ul>
-                        {/*  ! Use the NavLink instead of Link
-                        * There is an "isActive" prop available in NavLink that allows conditional rendering
-                        */}
                         <li className={classes.active}><Link to="/">Home</Link></li>
                         <li><Link to="/dashboard">API hub</Link></li>
                         <li><Link to="#">Pricing</Link></li>
@@ -47,16 +43,6 @@ const HomeNavbar: React.FC = () => {
                 <div className={classes.hamburger} onClick={handleClick}>
                     <Menu />
                 </div>
-            </div>
-            <div className={style}>
-                <ul className={classes.mobileLinks}>
-                    <li className={classes.active}><Link to="/">Home</Link></li>
-                    <li><Link to="/dashboard">API hub</Link></li>
-                    <li><Link to="#">Pricing</Link></li>
-                    <li><Link to="#">Documentation</Link></li>
-                    <li><button onClick={() => handleClicked('login')}>Login</button></li>
-                </ul>
-                <div className={classes.signup}><Link to="/signup">Sign up</Link></div>
             </div>
         </>
     )
@@ -126,6 +112,7 @@ const useStyles = makeStyles({
                     background: "transparent",
                     border: "none",
                     outline: "none",
+                    fontFamily: "Space Grotesk"
                 }
             }
         },
@@ -147,7 +134,6 @@ const useStyles = makeStyles({
         }
     },
     mobileLinks: {
-        // marginTop: "32rem",
         position: "absolute",
         top: "100%",
         width: "100%",
@@ -182,6 +168,7 @@ const useStyles = makeStyles({
             background: "transparent",
             border: "none",
             outline: "none",
+            fontFamily: "Space Grotesk"
         }
     },
     signup: {
