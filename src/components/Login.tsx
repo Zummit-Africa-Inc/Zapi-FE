@@ -81,7 +81,7 @@ const Login: React.FC = () => {
             <label htmlFor="email">Password</label>
             <input type="password" name="password" {...bind} placeholder="Enter a Password" />
           </div>
-          <Typography variant="body1" fontSize="16px">
+          <Typography variant="body1" fontSize="16px" alignSelf="flex-start">
           Forgot your password?
           <Link to="/forgot-password" className={classes.link} onClick={() => handleUnclicked('login')}>
             Reset it here.
@@ -101,7 +101,7 @@ const Login: React.FC = () => {
             Signin with Google
           </button>
         </Stack>
-        <Typography variant="body1" fontSize="16px">
+        <Typography variant="body1" fontSize="16px" alignSelf="flex-start">
           Dont't have an account?
           <Link to="/signup" className={classes.link} onClick={() => handleUnclicked('login')}>
             Sign up
