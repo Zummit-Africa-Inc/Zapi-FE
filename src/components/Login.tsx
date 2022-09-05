@@ -115,6 +115,8 @@ const useStyles = makeStyles({
     zIndex: 50,
   },
   main: {
+    maxWidth: "500px",
+    width: "90%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -122,14 +124,11 @@ const useStyles = makeStyles({
     padding: "1rem 2rem",
   },
   form: {
-    width: "500px",
+    width: "100%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     gap: "1rem",
-    "@media screen and (max-width: 768px)": {
-      width: "70%",
-    }
   },
   input: {
     width: "440px",
@@ -178,7 +177,7 @@ const useStyles = makeStyles({
     }
   },
   subtitle: {
-    width: "468px",
+    maxWidth: "468px",
     fontSize: "20px",
     fontWeight: 400,
     margin: "12px 0 24px",
