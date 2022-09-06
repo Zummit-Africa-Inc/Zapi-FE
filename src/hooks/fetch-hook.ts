@@ -8,7 +8,7 @@ export const useHttpRequest = () => {
 
     const activeHttpRequests = useRef(<any>[])
 
-    const sendRequest = useCallback(async(url: string, method: string, body?: string, headers?:{'Content-Type': 'application/json'}): Promise<any> => {
+    const sendRequest = useCallback(async(url: string, method: string, body?: string, headers={}): Promise<any> => {
         setLoading(true)
 
         const httpAbortCtrl = new AbortController()
@@ -20,6 +20,7 @@ export const useHttpRequest = () => {
                 body,
                 headers: {
                     'Zapi_Auth_token': cookies.get('accessToken'),
+                    'Content-Type': 'application/json',
                     ...headers,
                 },
                 // signal: httpAbortCtrl.signal
