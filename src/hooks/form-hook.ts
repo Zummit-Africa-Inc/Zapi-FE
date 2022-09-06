@@ -2,17 +2,38 @@ import { ChangeEvent, useReducer } from "react";
 
 
 export const useFormInputs = (initialState: any) => {
-    const reducer = (state: typeof initialState, payload: { name: string, value: string}) => {
-        return {
-            ...state,
-            [payload.name]: payload.value
+    const reducer = (state: typeof initialState, payload: { type: string, name: string, value: string | boolean}) => {
+        switch(payload.type) {
+            case 'text':
+                return {
+                    ...state,
+                    [payload.name]: payload.value
+                }
+            case 'check':
+                return {
+                    ...state,
+                    [payload.name]: payload.value
+                }
+            case 'reset':
+                return initialState
+            default:
+                return state
         }
     };
 
     const [inputs, dispatch] = useReducer(reducer, initialState);
+    
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch({ name: e.target.name, value: e.target.value})
+        dispatch({type: 'text', name: e.target.name, value: e.target.value})
     };
 
-    return { inputs, bind: { onChange: handleChange }};
+    const handleToggle = (e: ChangeEvent<HTMLInputElement>) => {
+        dispatch({type: 'check', name: e.target.name, value: e.target.checked})
+    }
+
+    // const handleReset = () => {
+    //     dispatch({type: 'reset'})
+    // }
+
+    return {inputs, bind: { onChange: handleChange }, toggle: { onChange: handleToggle},};
 };

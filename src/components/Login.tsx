@@ -40,9 +40,10 @@ const Login: React.FC = () => {
       }
     };
     try {
-      const data = await sendRequest(`${url}/auth/signin`, 'POST', JSON.stringify(payload));
+      const data = await sendRequest(`${url}/zapi-identity/auth/signin`, 'POST', JSON.stringify(payload));
       if(!data || data === undefined) return;
       const { data: {access, email, fullName, profileId, refresh, userId}} = data;
+      console.log(data)
       const user = { email, fullName };
       dispatch(login(user));
       cookies.set('accessToken', access);
@@ -75,10 +76,10 @@ const Login: React.FC = () => {
         <form onSubmit={handleLogin} className={classes.form}>
           <div className={classes.input}>
             <label htmlFor="email">Email Address</label>
-            <input type="email" name="email" {...bind} placeholder="Enter you Email" />
+            <input type="email" name="email" {...bind} placeholder="Enter your Email" />
           </div>
           <div className={classes.input}>
-            <label htmlFor="email">Password</label>
+            <label htmlFor="password">Password</label>
             <input type="password" name="password" {...bind} placeholder="Enter a Password" />
           </div>
           <Typography variant="body1" fontSize="16px" alignSelf="flex-start">
