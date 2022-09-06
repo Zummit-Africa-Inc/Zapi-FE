@@ -31,6 +31,7 @@ const Login: React.FC = () => {
     const { email, password } = inputs;
     if(!email || !EMAIL_REGEX.test(email)) return alert('Invalid email address');
     if(!password || !PASSWORD_REGEX.test(password)) return alert('Invalid password');
+    const headers = { 'Content-Type': 'application/json' }
     const payload = { email, password, userInfo: {
         login_time: deviceLocation.time,
         country: { lat: deviceLocation.lat, lon: deviceLocation.lon },
@@ -40,7 +41,7 @@ const Login: React.FC = () => {
       }
     };
     try {
-      const data = await sendRequest(`${url}/zapi-identity/auth/signin`, 'POST', JSON.stringify(payload));
+      const data = await sendRequest(`${url}/zapi-identity/auth/signin`, 'POST', JSON.stringify(payload), headers);
       if(!data || data === undefined) return;
       const { data: {access, email, fullName, profileId, refresh, userId}} = data;
       console.log(data)
@@ -50,7 +51,7 @@ const Login: React.FC = () => {
       cookies.set('refreshToken', refresh);
       cookies.set('profileId', profileId);
       cookies.set('userId', userId);
-      return () => handleUnclicked('login')
+      handleUnclicked('login')
     } catch (error) {};
   };
   
