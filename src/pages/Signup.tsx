@@ -27,9 +27,10 @@ const Signup:React.FC = () => {
     if(!PASSWORD_REGEX.test(password)) return alert('Password is not strong enough')
     if(!MATCH_CHECKER(password, confirm_password)) return alert('Passwords do not match')
     if(!terms) return alert('Please read and accept the T&Cs before you can proceed')
+    const headers = { 'Content-Type': 'application/json' }
     const payload = { fullName, email, password }
     try {
-      const data = await sendRequest(`${url}/zapi-identity/auth/signup`, 'POST', JSON.stringify(payload))
+      const data = await sendRequest(`${url}/zapi-identity/auth/signup`, 'POST', JSON.stringify(payload), headers)
     } catch (error) {}
   };
 
