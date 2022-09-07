@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
+import { toast }  from "react-toastify";
 
 import { useContextProvider } from "../contexts/ContextProvider";
 import { useFormInputs, useHttpRequest } from "../hooks";
@@ -11,6 +12,8 @@ import { EMAIL_REGEX, PASSWORD_REGEX } from "../utils";
 import { login } from "../redux/slices/userSlice";
 import { Fallback } from "../components";
 import { GoogleIcon } from "../assets";
+
+
 
 const initialState = {email: "",password: ""};
 const url = import.meta.env.VITE_IDENTITY_URL;
@@ -29,8 +32,8 @@ const Login: React.FC = () => {
     e.preventDefault();
 
     const { email, password } = inputs;
-    if(!email || !EMAIL_REGEX.test(email)) return alert('Invalid email address');
-    if(!password || !PASSWORD_REGEX.test(password)) return alert('Invalid password');
+    if(!email || !EMAIL_REGEX.test(email)) return toast.error('Invalid email address');
+    if(!password || !PASSWORD_REGEX.test(password)) return toast.error('Invalid password');
     const headers = { 'Content-Type': 'application/json' }
     const payload = { email, password, userInfo: {
         login_time: deviceLocation.time,

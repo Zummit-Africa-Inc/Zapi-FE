@@ -17,6 +17,8 @@ const SuccessPage = React.lazy(() => import("./SuccessPage"));
 const UserProfile = React.lazy(() => import("./UserProfile"));
 const CreateEndpoint = React.lazy(() => import("./CreateEndpoint"));
 
+// const OrgPage = React.lazy(() => import("./Orgpage"));
+
 
 export { Analytics, APIPage, Configuration, CreateEndpoint, DevDashboard, EndPointPage,
 ForgotPassword, Home, HomePage, LoginHistory, Otp, Signup, SuccessPage, UserProfile };
