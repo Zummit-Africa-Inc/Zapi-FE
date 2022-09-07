@@ -14,6 +14,7 @@ import { Fallback } from "../components";
 import { GoogleIcon } from "../assets";
 
 
+
 const initialState = {email: "",password: ""};
 const url = import.meta.env.VITE_IDENTITY_URL;
 
@@ -31,8 +32,9 @@ const Login: React.FC = () => {
     e.preventDefault();
 
     const { email, password } = inputs;
-    if(!email || !EMAIL_REGEX.test(email)) return alert('Invalid email address');
+    if(!email || !EMAIL_REGEX.test(email)) return toast.error('Invalid email address');
     if(!password || !PASSWORD_REGEX.test(password)) return toast.error('Invalid password');
+    const headers = { 'Content-Type': 'application/json' }
     const payload = { email, password, userInfo: {
         login_time: deviceLocation.time,
         country: { lat: deviceLocation.lat, lon: deviceLocation.lon },
@@ -41,24 +43,31 @@ const Login: React.FC = () => {
         os_name: deviceInfo.osName,
       }
     };
-    console.log(payload)
     try {
-      const data = await sendRequest(`${url}/auth/signin`, 'POST', JSON.stringify(payload));
+      const data = await sendRequest(`${url}/zapi-identity/auth/signin`, 'POST', JSON.stringify(payload), headers);
       if(!data || data === undefined) return;
       const { data: {access, email, fullName, profileId, refresh, userId}} = data;
+      console.log(data)
       const user = { email, fullName };
       dispatch(login(user));
       cookies.set('accessToken', access);
       cookies.set('refreshToken', refresh);
       cookies.set('profileId', profileId);
       cookies.set('userId', userId);
-      return () => handleUnclicked('login')
+      handleUnclicked('login')
     } catch (error) {};
   };
+  
+  useEffect(() => {
+    const timeOut = setTimeout(() => {
+      clearError()
+    },5000)
+    return () => clearTimeout(timeOut)
+  },[error])
 
   return (
     <>
-    {error && <Alert onClose={clearError}>{error.message}</Alert>}
+    {error && <Alert severity="error" onClose={() => clearError}>{error.message}</Alert>}
     {loading && <Fallback />}
     <div className={classes.container} onClick={() => handleUnclicked('login')}>
       <div className={classes.main} onClick={(e) => e.stopPropagation()}>
@@ -71,12 +80,18 @@ const Login: React.FC = () => {
         <form onSubmit={handleLogin} className={classes.form}>
           <div className={classes.input}>
             <label htmlFor="email">Email Address</label>
-            <input type="email" name="email" {...bind} placeholder="Enter you Email" />
+            <input type="email" name="email" {...bind} placeholder="Enter your Email" />
           </div>
           <div className={classes.input}>
-            <label htmlFor="email">Password</label>
+            <label htmlFor="password">Password</label>
             <input type="password" name="password" {...bind} placeholder="Enter a Password" />
           </div>
+          <Typography variant="body1" fontSize="16px" alignSelf="flex-start">
+          Forgot your password?
+          <Link to="/forgot-password" className={classes.link} onClick={() => handleUnclicked('login')}>
+            Reset it here.
+          </Link>
+        </Typography>
           <button type="submit" className={classes.button} style={{background:"#4B4B4B",color:"#FFF"}}>
             {loading ? 'loading' : 'Sign In'}
           </button>
@@ -91,7 +106,7 @@ const Login: React.FC = () => {
             Signin with Google
           </button>
         </Stack>
-        <Typography variant="body1" fontSize="16px">
+        <Typography variant="body1" fontSize="16px" alignSelf="flex-start">
           Dont't have an account?
           <Link to="/signup" className={classes.link} onClick={() => handleUnclicked('login')}>
             Sign up
@@ -117,6 +132,8 @@ const useStyles = makeStyles({
     zIndex: 50,
   },
   main: {
+    maxWidth: "500px",
+    width: "90%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -124,14 +141,11 @@ const useStyles = makeStyles({
     padding: "1rem 2rem",
   },
   form: {
-    width: "500px",
+    width: "100%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     gap: "1rem",
-    "@media screen and (max-width: 768px)": {
-      width: "70%",
-    }
   },
   input: {
     width: "440px",
@@ -173,14 +187,14 @@ const useStyles = makeStyles({
     fontWeight: 400,
     lineHeight: "16px",
     cursor: "pointer",
-    margin: "2rem 0",
+    margin: "1rem 0 2rem",
     padding: "0 1rem",
     "@media screen and (max-width: 768px)": {
       width: "100%",
     }
   },
   subtitle: {
-    width: "468px",
+    maxWidth: "468px",
     fontSize: "20px",
     fontWeight: 400,
     margin: "12px 0 24px",

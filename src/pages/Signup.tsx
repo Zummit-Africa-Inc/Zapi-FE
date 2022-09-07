@@ -1,137 +1,201 @@
-import React, { useState } from 'react'
-import { Box, Typography, Button, Theme } from "@mui/material"
-import * as Yup from 'yup'
-import { Link } from 'react-router-dom';
-import {HomeNavbar} from '../sections';
-import {
-  Formik,
-  Form,
-  Field,
-} from 'formik';
+import React, { FormEvent } from "react";
+import { Stack, Typography, } from "@mui/material";
 import { makeStyles } from '@mui/styles';
-import googleicon from "../assets/images/googleicon.svg"
 
-const useStyles = makeStyles((theme: Theme) =>({
-  input: {
-    padding: '10px',
-    borderRadius: '5px',
-    width: '100%'
-  },
-  form: {
-    display: 'flex',
-    gap: '10px',
-    flexDirection: 'column',
-    marginTop: '120px',
-    width: '50%',
-    alignItems: 'stretch',
-    [theme.breakpoints.down("sm")]: {
-      width:'80%'
-    }
-  },
-  term: {
-    fontSize: '14px',
-    [theme.breakpoints.down("sm")]: {
-      fontSize:'10px'
-    }
-  },
-  google: {
-    float: 'left'
-  },
-  signin:{
-    display: 'flex',
-    gap: '10px',
-    flexDirection: 'column',
-    marginTop:'10px',
-    width: '50%',
-    alignItems: 'stretch',
-    [theme.breakpoints.down("sm")]: {
-      width:'80%'
-    }
-  }
-}))
+import { EMAIL_REGEX, PASSWORD_REGEX, MATCH_CHECKER }from "../utils"
+import { useContextProvider } from "../contexts/ContextProvider"
+import { useFormInputs, useHttpRequest } from "../hooks";
+import { Fallback } from "../components";
+import { HomeNavbar } from '../sections';
+import { GoogleIcon } from "../assets";
 
+const initialState = { fullName: "", email: "", password: "", confirm_password: "", terms: false };
+const url = import.meta.env.VITE_IDENTITY_URL;
 
-const ValidationSchema = Yup.object().shape({
-  email: Yup.string().email().required("Email is a required field"),
-  password: Yup.string().min(8).required("Password is a required field"),
-  confirmPassword: Yup.string().label('confirm_password').required("Comfirm Password is a required field").oneOf([Yup.ref('password'), null], 'Password must match'),
-  terms: Yup.bool().required().oneOf([true], 'You need to accept the terms and conditions')
-})
+const Signup:React.FC = () => {
+  const classes = useStyles();
+  const { inputs, bind, toggle } = useFormInputs(initialState);
+  const { fullName, email, password, confirm_password, terms } = inputs;
+  const { clearError, error, loading, sendRequest } = useHttpRequest();
+  const { handleClicked } = useContextProvider();
 
-interface ISignUpForm {
-  password: string
-  confirmPassword: string
-  email: string,
-  terms: boolean
-}
+  const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
 
-const initialValues: ISignUpForm = {
-  email: '',
-  password: '',
-  confirmPassword: '',
-  terms: false
-}
-
-
-
-function Signup() {
-  const [message, setMessage] = useState('')
-
-  const classes = useStyles()
-
+    if(!fullName || !email || !password || !confirm_password) return alert('Please fill all fields')
+    if(!EMAIL_REGEX.test(email)) return alert('Email is invalid')
+    if(!PASSWORD_REGEX.test(password)) return alert('Password is not strong enough')
+    if(!MATCH_CHECKER(password, confirm_password)) return alert('Passwords do not match')
+    if(!terms) return alert('Please read and accept the T&Cs before you can proceed')
+    const headers = { 'Content-Type': 'application/json' }
+    const payload = { fullName, email, password }
+    try {
+      const data = await sendRequest(`${url}/zapi-identity/auth/signup`, 'POST', JSON.stringify(payload), headers)
+    } catch (error) {}
+  };
 
   return (
     <>
-      <HomeNavbar />
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width:{xs:'100%',sm:'100%',lg:'70%' ,md:'70%'}, mx: {md:'auto', } }}>
-        <Formik
-          initialValues={initialValues}
-          onSubmit={(values, actions) => {
-            console.log(values)
-          }}
-          validationSchema={ValidationSchema}
-        >
-          {({ errors, touched }) => (
-            <Form className={classes.form}>
-              <h2>{message} </h2>
-              <Typography variant='h5' sx={{ textAlign: 'center', fontSize:{xs:'18px', sm:'18px', md:'28px', lg:'32px'} }}> Create a Free Account</Typography>
-              <Typography sx={{ textAlign: 'center' }}> Complete this form to register on ZAPI and start exploring our API options </Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+    {loading && <Fallback />}
+    <HomeNavbar />
+    <div className={classes.container}>
+      <div className={classes.main} onClick={(e) => e.stopPropagation()}>
+        <Typography variant="body1" fontSize="40px" fontWeight={400}>
+          Create a Free Account
+        </Typography>
 
-                <label htmlFor="email"> Email</label>
-                <Field className={classes.input} id="email" name="email" placeholder="Enter your Email" />
-                {errors.email && touched.email ? <Typography sx={{ color: 'red' }}> {errors.email} </Typography> : null}
-              </Box>
+        <p className={classes.subtitle}>
+          Complete this form to register on ZAPI and start exploring our API options 
+        </p>
 
-              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                <label htmlFor="password"> Password</label>
-                <Field type='password' className={classes.input} id="password" name="password" placeholder="Enter Password" />
-                {errors.password && touched.password ? <Typography sx={{ color: 'red' }}> {errors.password} </Typography> : null}
-              </Box>
-
-              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                <label htmlFor="confirm_password"> Confirm Password</label>
-                <Field type='password' className={classes.input} id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" />
-                {errors.confirmPassword && touched.confirmPassword ? <Typography sx={{ color: 'red' }}> {errors.confirmPassword} </Typography> : null}
-              </Box>
-
-              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
-                <Field type='checkbox' name='terms' />
-                <label htmlFor='terms'> <span className={classes.term}> I agree to ZAPI’s terms and conditions and privacy policy.</span> </label>
-              </Box>
-              {errors.terms && touched.terms ? <Typography sx={{ color: 'red' }}> {errors.terms} </Typography> : null}
-              <Button type="submit" variant="contained" sx={{ backgroundColor: '#4B4B4B', color: '#FFF', textTransform: 'none' }}> Create my account </Button>
-            </Form>
-          )}
-        </Formik>
-        <Typography variant='h6' sx={{ mt: 2 }}> OR </Typography>
-        <Box className={classes.signin}>
-          <Button onClick={() => alert('Google signup')} variant="outlined" sx={{ textTransform: 'none', display: 'flex', gap: {md:'7rem',lg:'7rem'}, justifyContent: 'start' }} ><span className={classes.google}> <img src={googleicon} alt="Google icon" /> </span> Sign up with Google</Button>
-          <Typography> Already have an account? <Link to="/login"> Sign In</Link> </Typography>
-        </Box>
-      </Box>
+        <form onSubmit={handleSubmit} className={classes.form}>
+          <div className={classes.input}>
+            <label htmlFor="fullName">Full Name</label>
+            <input type="text" name="fullName" {...bind} placeholder="Enter your full name" />
+          </div>
+          <div className={classes.input}>
+            <label htmlFor="email">Email Address</label>
+            <input type="email" name="email" {...bind} placeholder="Enter your email" />
+          </div>
+          <div className={classes.input}>
+            <label htmlFor="password">Password</label>
+            <input type="password" name="password" {...bind} placeholder="Enter a Password" />
+          </div>
+          <div className={classes.input}>
+            <label htmlFor="confirm_password">Confirm Password</label>
+            <input type="password" name="confirm_password" {...bind} placeholder="Re-enter the Password" />
+          </div>
+          <div className={classes.check_input}>
+            <input type="checkbox" name="terms" {...toggle} />
+            <label htmlFor="terms">I agree to ZAPI’s terms and conditions and privacy policy.</label>
+          </div>
+          <button type="submit" className={classes.button} style={{background:"#4B4B4B",color:"#FFF"}}>
+            {loading ? 'loading' : 'Signup'}
+          </button>
+        </form>
+        
+        <Typography>OR</Typography>
+        <Stack direction="column" alignItems="center" spacing={2}>
+          <button type="button" className={classes.button} onClick={() => {}} style={{background: "#FFF"}}>
+            <span style={{marginRight: "3rem"}}>
+              <GoogleIcon />
+            </span>
+            Signin with Google
+          </button>
+        </Stack>
+        <Typography variant="body1" fontSize="16px" alignSelf="flex-start">
+          Already have an account?
+          <span className={classes.link} onClick={() => handleClicked("login")}>
+            Sign in
+          </span>
+        </Typography>
+      </div>
+    </div>
     </>
   )
 }
+
+const useStyles = makeStyles({
+  container: {
+    width: "100%",
+    height: "100%",
+    display: "grid",
+    placeItems: "center",
+    background: "#FFF",
+  },
+  main: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    marginTop: "10rem",
+  },
+  form: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: "1rem",
+  },
+  input: {
+    width: "440px",
+    height: "72px",
+    background: "",
+    display: "flex",
+    flexDirection: "column",
+    padding: "",
+    "& input": {
+      width: "100%",
+      height: "52px",
+      borderRadius: "4px",
+      border: "1px solid #999",
+      outline: "none",
+      padding: "12px 16px 8px 12px",
+      fontWeight: 400,
+      fontSize: "14px",
+      lineHeight: "24px",
+    },
+    "& label": {
+      fontWeight: 600,
+      fontSize: "14px",
+      lineHeight: "16px",
+      marginBottom: "0.5rem"
+    },
+    "@media screen and (max-width: 768px)": {
+      width: "100%",
+    }
+  },
+  check_input: {
+    width: "90%",
+    display: "flex",
+    alignItems: "flex-start",
+    "& input": {
+      width: "16px",
+      height: "16px",
+      flex: "none",
+      order: 0,
+      flexGrow: 0,
+      margin: "0.25rem 1rem 0 0",
+      cursor: "pointer",
+    },
+    "& label": {
+      fontWeight: 400,
+      fontSize: "16px",
+      color: "#000",
+    }
+  },
+  button: {
+    width: "440px",
+    height: "52px",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: "4px",
+    fontSize: "16px",
+    fontWeight: 400,
+    lineHeight: "16px",
+    cursor: "pointer",
+    margin: "1rem 0 2rem",
+    padding: "0 1rem",
+    "@media screen and (max-width: 768px)": {
+      width: "100%",
+    }
+  },
+  subtitle: {
+    maxWidth: "468px",
+    fontSize: "20px",
+    fontWeight: 400,
+    margin: "12px 0 24px",
+    textAlign: "center",
+    "@media screen and (max-width: 500px)": {
+      width: "90%"
+    }
+  },
+  link: {
+    textDecoration: "underline",
+    marginLeft: "0.5rem",
+    cursor: "pointer",
+  }
+})
 
 export default Signup
