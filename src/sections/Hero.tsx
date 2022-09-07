@@ -80,7 +80,7 @@ const useStyles = makeStyles({
     display: "flex",
     gap: "1.5rem",
     width: "100%",
-    "@media screen and (max-width: 600px)": {
+    "@media screen and (max-width: 700px)": {
       flexDirection: "column",
     },
   },
@@ -131,7 +131,7 @@ actionBoxes: {
   display: "flex",
   gap: "2rem",
   paddingTop: "2.5rem",
-  "@media screen and (max-width: 600px)": {
+  "@media screen and (max-width: 700px)": {
     flexDirection: "column",
   },
 }
