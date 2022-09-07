@@ -83,7 +83,7 @@ const useStyles = makeStyles({
     items:{
         alignItems:'center',
         display:'flex',
-        width:'320px',
+        width:'400px',
         gap:'2rem'
     },
     icons:{

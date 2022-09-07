@@ -1,7 +1,6 @@
-import React from "react";
 import { Typography, List } from "@mui/material";
 import { makeStyles, } from '@mui/styles';
-import { MarketPlaceText } from "../testdata";
+import { MarketPlaceText } from "../assets"
 
 
 const MarketPlace = () => {
@@ -157,14 +156,23 @@ const useStyles = makeStyles({
         padding: "1.5rem 3rem",
         borderRadius:"4px",
         margin: "0 auto",
-        cursor: "pointer"
+        cursor: "pointer",
+        "@media screen and (max-width: 375px)": {
+            width: "auto",
+            gap: "1rem",
+            fontSize: "11px",
+            padding: "1rem 2rem"
+        }
     },
 
     arrow: {
         width: '13px',
         height: '13px',
-        top: '23px',
         background: '#081F4A',
+        "@media screen and (max-width: 375px)": {
+            width: "auto",
+            height: "auto"
+        }
     },
 
 })

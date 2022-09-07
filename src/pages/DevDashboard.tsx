@@ -100,7 +100,6 @@ const useStyles = makeStyles({
         height: "100%",
         width: "100vw",
         overflowX: "hidden",
-        marginTop:'2rem'
     },
     select: {
         '& select': {

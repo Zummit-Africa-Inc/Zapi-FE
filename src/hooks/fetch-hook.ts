@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import Cookies from 'universal-cookie'
 
 export const useHttpRequest = () => {
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<any>(null)
+    const cookies = new Cookies()
 
     const activeHttpRequests = useRef(<any>[])
 
-    const sendRequest = useCallback(async(url: string, method: string, body?: string, headers?:{}): Promise<any> => {
+    const sendRequest = useCallback(async(url: string, method: string, body?: string, headers={}): Promise<any> => {
         setLoading(true)
 
         const httpAbortCtrl = new AbortController()
@@ -16,7 +18,11 @@ export const useHttpRequest = () => {
             const response  = await fetch(url,{
                 method,
                 body,
-                headers,
+                headers: {
+                    'Zapi_Auth_token': cookies.get('accessToken'),
+                    'Content-Type': 'application/json',
+                    ...headers,
+                },
                 // signal: httpAbortCtrl.signal
             })
             const data = await response.json()

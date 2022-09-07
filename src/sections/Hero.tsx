@@ -10,47 +10,49 @@ const Hero: React.FC = () => {
   const [query, setQuery] = useState<string>("{}")
   const [data, setData] = useState("")
 
-  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    try {  
-      const json = JSON.parse(query); 
+    try {
+      const json = JSON.parse(query);
       const res = await fetch("https://qnanswer-api.pk25mf6178910.eu-west-3.cs.amazonlightsail.com/q_and_a", {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+          'Content-Type': 'application/json'
         },
         body: query
-    })
-    const data = await res.json() 
+      })
+      const data = await res.json()
       setData(data.answer)
-    } catch (err) {  
-      alert(err);  
+    } catch (error) {
+      alert("Input must be a JSON String");
     }
 
   }
   return (
     <div className={classes.hero}>
-        <div className={classes.heroText}>
-          <Typography gutterBottom variant="h4" sx={{fontFamily: "Space Grotesk",fontWeight: 700, fontSize: "2.25rem", lineHeight: "2.87rem", paddingBottom: "1.5rem", color: "#071B85" }}>Your one stop shop for Artificial Intelligence related APIs.</Typography>
-          <Typography gutterBottom variant="subtitle1" sx={{fontFamily: "Space Grotesk",fontWeight: 400, fontSize: "1.5rem", lineHeight: "2.5rem", paddingBottom: "2rem", color: "#071B85" }}>Emotion detection, drowsiness detection, chat bots, face recognition, <br />{''}
-            sentiment analysis, and lots more with Z-API.</Typography>
-        </div>
-        <form className={classes.form} onSubmit={handleSubmit}>
-          <select className={classes.select} value={API} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setAPI(e.target.value)}>
-            <option value="">Select an API</option>
-            {APIData?.map(api => (
-              <option key={api.id} value={api.url}>
-                {api.name}
-              </option>
-            ))}
-          </select>
-          <input type="text" className={classes.input} value={API ? API : endpoint} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEndpoint(e.target.value)} placeholder="drowsinessdetection" />
-          <button className={classes.send}>Send</button>
-        </form>
-        <div className={classes.actionBoxes}>
-         <TextField className={classes.box} value={query} onChange={(e) => setQuery(e.target.value)} fullWidth multiline rows="8.5" />
-         <TextField className={classes.box} value={data} fullWidth multiline rows="8.5" />
-        </div>
+      <div className={classes.heroText}>
+        <Typography gutterBottom variant="h4" sx={{ fontFamily: "Space Grotesk", fontWeight: 700, fontSize: "2.25rem", lineHeight: "2.87rem", paddingBottom: "1.5rem", color: "#071B85", "@media screen and (max-width:400px)": {
+          marginTop: "7rem",
+        } }}>Your one stop shop for Artificial Intelligence related APIs.</Typography>
+        <Typography gutterBottom variant="subtitle1" sx={{ fontFamily: "Space Grotesk", fontWeight: 400, fontSize: "1.5rem", lineHeight: "2.5rem", paddingBottom: "2rem", color: "#071B85" }}>Emotion detection, drowsiness detection, chat bots, face recognition, <br />{''}
+          sentiment analysis, and lots more with Z-API.</Typography>
+      </div>
+      <form className={classes.form} onSubmit={handleSubmit}>
+        <select className={classes.select} value={API} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setAPI(e.target.value)}>
+          <option value="">Select an API</option>
+          {APIData?.map(api => (
+            <option key={api.id} value={api.url}>
+              {api.name}
+            </option>
+          ))}
+        </select>
+        <input type="text" className={classes.input} value={API ? API : endpoint} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEndpoint(e.target.value)} placeholder="drowsinessdetection" />
+        <button className={classes.send}>Send</button>
+      </form>
+      <div className={classes.actionBoxes}>
+        <TextField className={classes.box} value={query} onChange={(e) => setQuery(e.target.value)} fullWidth multiline rows="8.5" />
+        <TextField className={classes.box} value={data} fullWidth multiline rows="8.5" />
+      </div>
     </div>
   )
 }
@@ -59,13 +61,16 @@ export default Hero
 
 const useStyles = makeStyles({
   hero: {
+    width: "100%",
     paddingTop: "10rem",
     background: "#FFFFFF",
     paddingRight: "5rem",
     paddingLeft: "5rem",
-        "@media screen and (max-width: 400px)": {
-            padding: "1rem .5rem"
-        },
+    "@media screen and (max-width: 400px)": {
+      width: "80%",
+      padding: "1rem .5rem",
+      margin: "auto"
+    },
   },
   heroText: {
     textAlign: "center",

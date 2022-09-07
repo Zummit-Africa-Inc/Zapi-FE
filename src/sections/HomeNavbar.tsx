@@ -127,7 +127,7 @@ const useStyles = makeStyles({
                     background: "transparent",
                     border: "none",
                     outline: "none",
-                    fontFamily: "SPace Grotesk"
+                    fontFamily: "Space Grotesk"
                 }
             }
         },
@@ -180,7 +180,7 @@ const useStyles = makeStyles({
             background: "transparent",
             border: "none",
             outline: "none",
-            fontFamily: "SPace Grotesk"
+            fontFamily: "Space Grotesk"
         }
     },
     signup: {
