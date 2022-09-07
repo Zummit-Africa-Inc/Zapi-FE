@@ -131,5 +131,8 @@ actionBoxes: {
   display: "flex",
   gap: "2rem",
   paddingTop: "2.5rem",
+  "@media screen and (max-width: 600px)": {
+    flexDirection: "column",
+  },
 }
 })
