@@ -1,6 +1,7 @@
 import React, { FormEvent } from "react";
 import { Stack, Typography, } from "@mui/material";
 import { makeStyles } from '@mui/styles';
+import { toast }  from "react-toastify";
 
 import { EMAIL_REGEX, PASSWORD_REGEX, MATCH_CHECKER }from "../utils"
 import { useContextProvider } from "../contexts/ContextProvider"
@@ -22,11 +23,11 @@ const Signup:React.FC = () => {
   const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    if(!fullName || !email || !password || !confirm_password) return alert('Please fill all fields')
-    if(!EMAIL_REGEX.test(email)) return alert('Email is invalid')
-    if(!PASSWORD_REGEX.test(password)) return alert('Password is not strong enough')
-    if(!MATCH_CHECKER(password, confirm_password)) return alert('Passwords do not match')
-    if(!terms) return alert('Please read and accept the T&Cs before you can proceed')
+    if(!fullName || !email || !password || !confirm_password) return toast.error('Please fill all fields')
+    if(!EMAIL_REGEX.test(email)) return toast.error('Email is invalid')
+    if(!PASSWORD_REGEX.test(password)) return toast.error('Password is not strong enough')
+    if(!MATCH_CHECKER(password, confirm_password)) return toast.error('Passwords do not match')
+    if(!terms) return toast.error('Please read and accept the T&Cs before you can proceed')
     const headers = { 'Content-Type': 'application/json' }
     const payload = { fullName, email, password }
     try {
