@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Menu } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
@@ -9,8 +9,10 @@ import { useMediaQuery, useTheme } from "@mui/material";
 
 const HomeNavbar: React.FC = () => {
     const classes = useStyles()
-    const [mobileScreen, setMobileScreen] = useState(false)
-    const { handleClicked, screenSize, setScreenSize } = useContextProvider()
+    const [open, setOpen] = useState(classes.mobile)
+    const theme = useTheme()
+    const isMatch = useMediaQuery(theme.breakpoints.down("md"))
+    const { handleClicked } = useContextProvider()
 
     const handleClick = () => {
         if (open === classes.mobile) {
@@ -19,17 +21,6 @@ const HomeNavbar: React.FC = () => {
             setOpen(classes.mobile)
         }
     }
-
-    useEffect(() => {
-        const handleScreenResize = () => setScreenSize(window.innerWidth)
-        window.addEventListener('resize', handleScreenResize)
-        handleScreenResize()
-        return () => window.removeEventListener('resize', handleScreenResize)
-    },[])
-
-    useEffect(() => {
-        screenSize > 800 && setMobileScreen(false)
-    },[screenSize])
 
     return (
         <>
@@ -191,10 +182,7 @@ const useStyles = makeStyles({
             border: "none",
             outline: "none",
             fontFamily: "Space Grotesk"
-        },
-        "@media screen and (min-width: 800px)": {
-            display: "none",
-        } 
+        }
     },
     signup: {
         borderRadius: "4px",
