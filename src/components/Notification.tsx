@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import { io } from 'socket.io-client';
 import { USER } from "../testdata";
-import { IsAny } from "@reduxjs/toolkit/dist/tsHelpers";
 
 interface INotificationProps {
     socket: string | any;
