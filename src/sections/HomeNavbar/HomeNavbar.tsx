@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Menu } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
@@ -13,7 +13,7 @@ import ZapiHomeLogo from "../../assets/images/ZapiHomeLogo.png";
 const HomeNavbar: React.FC = () => {
     const classes = useStyles()
     const [mobileScreen, setMobileScreen] = useState(false)
-    const { handleClicked } = useContextProvider()
+    const { handleClicked, screenSize, setScreenSize } = useContextProvider()
 
     const handleClick = () => {
         if (mobileScreen) {
@@ -22,6 +22,18 @@ const HomeNavbar: React.FC = () => {
             setMobileScreen(true)
           }
     }
+
+    useEffect(() => {
+        const handleScreenResize = () => setScreenSize(window.innerWidth)
+        window.addEventListener('resize', handleScreenResize)
+        handleScreenResize()
+        return () => window.removeEventListener('resize', handleScreenResize)
+    },[])
+
+    useEffect(() => {
+        screenSize > 800 && setMobileScreen(false)
+    },[screenSize])
+
     return (
         <>
             <div className={classes.NavBar}>
@@ -136,6 +148,7 @@ const useStyles = makeStyles({
     mobileLinks: {
         position: "absolute",
         top: "100%",
+        left: 0,
         width: "100%",
         background: "#ccc",
         padding: "2rem 2rem",
@@ -169,7 +182,10 @@ const useStyles = makeStyles({
             border: "none",
             outline: "none",
             fontFamily: "Space Grotesk"
-        }
+        },
+        "@media screen and (min-width: 800px)": {
+            display: "none",
+        } 
     },
     signup: {
         borderRadius: "4px",

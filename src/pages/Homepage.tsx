@@ -3,15 +3,16 @@ import { Education, Hero, HomeNavbar, Features, Footer, Pricing, Brand, MarketPl
 
 const Homepage: React.FC = () => {
     const classes = useStyles()
+    
   return (
     <div className={classes.homePage}>
     <HomeNavbar />
-            <Hero />
-            <Brand/>
-            <MarketPlace/>
-            <Features />
-            <Pricing />
-            <Education />  
+        <Hero />
+        <Brand/>
+        <MarketPlace/>
+        <Features />
+        <Pricing />
+        <Education />  
     <Footer />
     </div>
   )
