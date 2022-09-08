@@ -56,6 +56,7 @@ const DevDashboard: React.FC = () => {
     return (
         <>
         <DevNavbar />
+        <DevAddApi />
         <div className={classes.dashboard}>
             <Typography variant='h5' gutterBottom sx={{padding: '1rem 2rem'}}>Dashboard</Typography>
             <div className="cards">
