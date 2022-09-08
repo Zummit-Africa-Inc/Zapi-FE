@@ -7,24 +7,19 @@ import { makeStyles } from "@mui/styles";
 import { useFormInputs, useHttpRequest } from "../hooks";
 import { Fallback } from "../components";
 
-const initialState = {email: "",password: ""};
+const initialState = {name: "", description: ""};
 
 const AddApiPopup: React.FC = () => {
-  const { loading } = useHttpRequest();
-  const { bind } = useFormInputs(initialState);
+  const { loading, error, sendRequest, clearError } = useHttpRequest();
+  const { inputs, bind } = useFormInputs(initialState);
   const classes = useStyles();
 
-  const [category, setCategory] = React.useState('');
-  const [team, setTeam] = React.useState('');
-
-  const handleCategoryChange = (event: SelectChangeEvent) => {
-    setCategory(event.target.value);
+  const [dropdown, setDropdown] = React.useState('');
+ 
+  const handleDropdownChange = (event: SelectChangeEvent) => {
+    setDropdown(event.target.value);
   };
-  const handleTeamChange = (event: SelectChangeEvent) => {
-    setTeam(event.target.value);
-  };
-
-
+ 
   
   return (
     <>
@@ -46,10 +41,10 @@ const AddApiPopup: React.FC = () => {
             <div>
               <FormControl className={classes.input}>
                 <Select
-                  value={category}
+                  value={dropdown}
                   displayEmpty
                   inputProps={{ 'aria-label': 'Category' }}
-                  onChange={handleCategoryChange}
+                  onChange={handleDropdownChange}
                 >
                   <MenuItem value={10}>Technology</MenuItem>
                   <MenuItem value={20}>Sports</MenuItem>
@@ -64,8 +59,8 @@ const AddApiPopup: React.FC = () => {
             <div>
               <FormControl className={classes.input}>
                 <Select
-                  value={team}
-                  onChange={handleTeamChange}
+                  value={dropdown}
+                  onChange={handleDropdownChange}
                   displayEmpty
                    inputProps={{ 'aria-label': 'Team' }}
                 >
