@@ -8,9 +8,9 @@ import { useContextProvider } from "./contexts/ContextProvider";
 import { Fallback, Login } from "./components";
 import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify"; 
 import "react-toastify/dist/ReactToastify.css";
-
+import ErrorPage from "./pages/ErrorPage";
 
 const App:React.FC = () => {
   const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP } = useContextProvider()
@@ -59,6 +59,7 @@ const App:React.FC = () => {
           <Route path="/success-page" element={<SuccessPage />} />
           <Route path="/create-endpoint" element={<CreateEndpoint />} />
           <Route path="/endpoint" element={<EndPointPage />} />
+          <Route path="*" element={<ErrorPage /> } />
         </Routes>
         </Suspense>
         {isClicked.login && <Login />}
