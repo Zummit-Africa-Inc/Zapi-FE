@@ -5,9 +5,11 @@ import { deviceDetect } from "react-device-detect";
 
 import { CreateEndpoint, DevDashboard, EndPointPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, Analytics, SuccessPage, Configuration, EmailVerify } from "./pages";
 import { useContextProvider } from "./contexts/ContextProvider";
-import { Fallback, Login } from "./components";
+import { Fallback, Login, AddApiPopup } from "./components";
 import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 const App:React.FC = () => {
@@ -38,6 +40,7 @@ const App:React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <ToastContainer />
       <div>
       <Suspense fallback={<Fallback />}>
         <Routes>
@@ -60,6 +63,7 @@ const App:React.FC = () => {
         </Routes>
         </Suspense>
         {isClicked.login && <Login />}
+        {isClicked.addapi && <AddApiPopup />}
       </div>
     </ThemeProvider>
   )
