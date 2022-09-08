@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent, SyntheticEvent, useEffect, useState } from "react";
-import { IconButton, Stack, Tab, Tabs, Typography } from "@mui/material";
+import { IconButton, Stack, Tab, Tabs, Typography, Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { CloseOutlined } from "@mui/icons-material";
 
@@ -8,14 +8,17 @@ import { useContextProvider } from "../contexts/ContextProvider";
 import { APIS } from "../testdata";
 
 const data = ["Name","Id","Desc"]
+interface IHomeProps {
+  socket: string | any;
+};
 
-
-const Home:React.FC = () => {
+const Home:React.FC<IHomeProps> = ({socket}) => {
   const classes = useStyles();
   const [tab, setTab] = useState<number>(0);
   const [queryString, setQueryString] = useState<string>("")
   const [queryParam, setQueryParam] = useState<string>("")
   const { activeMenu, screenSize, setActiveMenu, setScreenSize } = useContextProvider();
+  const [notifications, setNotifications] = useState<string[]>([]);
 
   useEffect(() => {
     const handleScreenResize = () => setScreenSize(innerWidth)
@@ -36,6 +39,12 @@ const Home:React.FC = () => {
     e.preventDefault()
   }
 
+  const handleNotification = () => {
+    socket.emit("newSubscription", {
+      ...notifications
+    });
+  };
+
   return (
     <React.Fragment>
       {/* This is still experimental at the moment it might be moved to App.tsx */}
@@ -53,12 +62,14 @@ const Home:React.FC = () => {
       </div>
       <Navbar title="Welcome to the ZAPI Hub" subtitle="Here you will find our Collection of APIs for developers" />
       <div className={classes.App}>
+        
 
         {/* section for search */}
         <form onSubmit={handleSubmit} className={classes.search}>
           <InputSearch className={classes.formControl} type="select" name="queryParams" value={queryParam} onSelect={(e: ChangeEvent<HTMLSelectElement>) => setQueryParam(e.target.value)} placeholder="Sort by" data={data} />
           <InputSearch className={classes.formControl} type="text" name="queryString" value={queryString} onChange={(e: ChangeEvent<HTMLInputElement>) => setQueryString(e.target.value)} placeholder="I'm looking for..." />
         </form>
+          <Button onClick={() => handleNotification()}>SubScribe</Button>
         <div className={classes.root}>
           <div className={classes.sidebar}>
             <Sidebar />

@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
 import { deviceDetect } from "react-device-detect";
@@ -8,10 +8,12 @@ import { useContextProvider } from "./contexts/ContextProvider";
 import { Fallback, Login } from "./components";
 import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
+import { io } from "socket.io-client";
 
 
 const App:React.FC = () => {
   const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP } = useContextProvider()
+  const [socket, setSocket] = useState<any>("");
 
   useEffect(() => {
     const device = deviceDetect(navigator.userAgent)
@@ -26,7 +28,8 @@ const App:React.FC = () => {
         time: position.timestamp
       })
     })
-  },[])
+  }, [])
+
 
   useEffect(() => {
     const getIPAddress = async() => {
@@ -42,7 +45,7 @@ const App:React.FC = () => {
         <Suspense fallback={<Fallback />}>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/dashboard" element={<Home />} />
+            <Route path="/dashboard" element={<Home socket={ socket} />} />
 
             <Route path="/signup" element={<Signup />} />
             <Route path="/user/:id" element={<UserProfile />} />
