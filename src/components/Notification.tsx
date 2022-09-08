@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import { io } from 'socket.io-client';
 import { USER } from "../testdata";
+import { IsAny } from "@reduxjs/toolkit/dist/tsHelpers";
 
 interface INotificationProps {
     socket: string | any;
@@ -24,18 +25,24 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
 
     socket = io(import.meta.env.VITE_SOCKET_URL);
     useEffect(() => {
-        socket.on(`newSubscription_${user.profileId}`, (data: any) => {
-            setNotifications([...notifications, data])
-        })
-        socket.on(`unSubscription_${user.profileId}`, (data: any) => {
-            setNotifications([...notifications, data])
-        })
-        socket.on(`apiHosted_${user.profileId}`, (data: any) => {
-            setNotifications([...notifications, data])
-        })
-        socket.on(`apiDown_${user.profileId}`, (data: any) => {
-            setNotifications([...notifications, data])
-        })
+        if(socket.connected){
+            socket.on(`newSubscription_${user.profileId}`, (data: any) => {
+                setNotifications([...notifications, data])
+            })
+            socket.on(`unSubscription_${user.profileId}`, (data: any) => {
+                setNotifications([...notifications, data])
+            })
+            socket.on(`apiHosted_${user.profileId}`, (data: any) => {
+                setNotifications([...notifications, data])
+            })
+            socket.on(`apiDown_${user.profileId}`, (data: any) => {
+                setNotifications([...notifications, data])
+            })
+        }
+        else {
+            socket.on("connect_error", () => {
+              });
+        }
     }, [socket]);
 
 
@@ -86,12 +93,11 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
                         {notifications.length > 0 ?
                             <>
                                 {notifications.map((n: any) => displayNotification(n))}
-                                <span className={classes.nButton} onClick={handleRead}>Mark as read</span>
+                                <span className={classes.nButton} style={{ background: "#081F4A", color:"#FF5C00" }} onClick={handleRead}>Mark as read</span>
                             </>
                             :
                             <>
                                 <span className={classes.notification}>No new notification</span>
-                                <Button type="button" className={classes.button} style={{ background: "#081F4A", color:"#FF5C00" }} onClick={handleRead}>Mark as read</Button>
                             </>
                         }
                     </div>
