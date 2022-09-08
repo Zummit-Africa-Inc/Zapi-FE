@@ -2,8 +2,16 @@ import GoogleIcon from "./icons/GoogleIcon";
 import LinkedInIcon from "./images/linkedin.png";
 import TwitterIcon from "./images/twitter.png";
 import YoutubeIcon from "./images/youtube.png";
+import ZapiDevLogo from './images/zp.svg';
+import ZapiWidget from './images/widgets.svg';
+import ZapiDash from './images/developer_board.svg';
+import ZapiApps from './images/apps.svg';
+import ZapiHelp from './images/help.svg';
+import ZapiArrow from './images/arrow_drop_down.svg';
+import ZapiPic from './images/pic.svg';
+import Frame from "./images/frame.svg"
 
-export { GoogleIcon, LinkedInIcon, TwitterIcon, YoutubeIcon }
+export { GoogleIcon, LinkedInIcon, TwitterIcon, YoutubeIcon, ZapiDevLogo, ZapiWidget, ZapiDash, ZapiApps, ZapiHelp, ZapiArrow, ZapiPic }
 
 export const FOOTER_LINKS = [
     {
@@ -76,5 +84,30 @@ export const FOOTER_LINKS = [
                 link: ''
             },
         ]
+    }
+]
+
+export const MarketPlaceText = [
+    {
+    title: "Safety",
+    subtitle: "A few of our safety related APIs:",
+    apis: [
+        {
+            image: Frame,
+            name: "Drowsiness detection",
+        },
+        {
+            image: Frame,
+            name: "Drowsiness detection",
+        },
+        {
+            image: Frame,
+            name: "Drowsiness detection",
+        },
+        {
+            image: Frame,
+            name: "Drowsiness detection",
+        },
+    ]
     }
 ]
