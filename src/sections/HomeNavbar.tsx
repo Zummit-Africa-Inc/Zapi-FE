@@ -2,26 +2,26 @@ import React, { useState } from "react";
 import { Menu } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
-
-import { useContextProvider } from "../../contexts/ContextProvider";
-import Vector from "../../assets/images/Vector.png";
-import "./HomeNavbar.css";
-
-//images
-import ZapiHomeLogo from "../../assets/images/ZapiHomeLogo.png";
+import { useContextProvider } from "../contexts/ContextProvider";
+import Vector from "../assets/images/vector.png";
+import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 const HomeNavbar: React.FC = () => {
     const classes = useStyles()
-    const [mobileScreen, setMobileScreen] = useState(false)
+    const [open, setOpen] = useState(classes.mobile)
+    const theme = useTheme()
+    const isMatch = useMediaQuery(theme.breakpoints.down("md"))
     const { handleClicked } = useContextProvider()
 
     const handleClick = () => {
-        if (mobileScreen) {
-            setMobileScreen(false)
-          } else {
-            setMobileScreen(true)
-          }
+        if (open === classes.mobile) {
+           setOpen(classes.mobileLinks)
+        } else {
+            setOpen(classes.mobile)
+        }
     }
+
     return (
         <>
             <div className={classes.NavBar}>
@@ -30,19 +30,34 @@ const HomeNavbar: React.FC = () => {
                     <span className={classes.zapi}>Z-API</span>
                     <img className={classes.vector} src={Vector} alt="vector-img" />
                 </div>
-                <div className={mobileScreen ? classes.mobileLinks : classes.links}>
-                    <ul>
-                        <li className={classes.active}><Link to="/">Home</Link></li>
-                        <li><Link to="/dashboard">API hub</Link></li>
-                        <li><Link to="#">Pricing</Link></li>
-                        <li><Link to="#">Documentation</Link></li>
-                        <li><button onClick={() => handleClicked('login')}>Login</button></li>
-                    </ul>
-                    <div className={classes.signup}><Link to="/signup">Sign up</Link></div>
-                </div>
-                <div className={classes.hamburger} onClick={handleClick}>
-                    <Menu />
-                </div>
+                {isMatch ?
+                    <>
+                        <div className={open}>
+                            <ul>
+                                <li className={classes.active}><Link to="/">Home</Link></li>
+                                <li><Link to="/dashboard">API hub</Link></li>
+                                <li><Link to="#">Pricing</Link></li>
+                                <li><Link to="#">Documentation</Link></li>
+                                <li><button onClick={() => handleClicked('login')}>Login</button></li>
+                            </ul>
+                            <div className={classes.signup}><Link to="/signup">Sign up</Link></div>
+                        </div>
+                        <div className={classes.hamburger} onClick={handleClick}>
+                            <Menu />
+                        </div>
+                    </>
+                    :
+                    <div className={classes.links}>
+                        <ul>
+                            <li className={classes.active}><Link to="/">Home</Link></li>
+                            <li><Link to="#">API hub</Link></li>
+                            <li><Link to="#">Pricing</Link></li>
+                            <li><Link to="#">Documentation</Link></li>
+                            <li><button onClick={() => handleClicked('login')}>Login</button></li>
+                        </ul>
+                        <div className={classes.signup}><Link to="/signup">Sign up</Link></div>
+                    </div>
+                }
             </div>
         </>
     )
@@ -124,14 +139,11 @@ const useStyles = makeStyles({
         borderBottom: "2px solid #FFEA00"
     },
     hamburger: {
-        display: "none",
+        display: "block",
         cursor: "pointer",
         fontSize: "2rem",
         color: "#FFFFFF",
         zIndex: "1000",
-        "@media screen and (max-width: 800px)": {
-            display: "block",
-        }
     },
     mobileLinks: {
         position: "absolute",
@@ -178,6 +190,12 @@ const useStyles = makeStyles({
         fontWeight: 500,
         fontSize: "1rem",
         color: "#081F4A",
+    },
+    mobile: {
+        display: "none",
+        "& ul": {
+
+        }
     }
 
 })
