@@ -50,7 +50,7 @@ const HomeNavbar: React.FC = () => {
                     <div className={classes.links}>
                         <ul>
                             <li className={classes.active}><Link to="/">Home</Link></li>
-                            <li><Link to="/dashboard">API hub</Link></li>
+                            <li><Link to="#">API hub</Link></li>
                             <li><Link to="#">Pricing</Link></li>
                             <li><Link to="#">Documentation</Link></li>
                             <li><button onClick={() => handleClicked('login')}>Login</button></li>
