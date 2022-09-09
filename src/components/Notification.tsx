@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from 'react-redux'
 import { makeStyles } from "@mui/styles";
-import { Badge, Button, IconButton, Menu, MenuItem } from '@mui/material';
+import { Badge, Button, Menu, MenuItem } from '@mui/material';
 import { Link } from "react-router-dom";
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import { io } from 'socket.io-client';
@@ -15,44 +15,37 @@ interface INotificationProps {
 const Notification: React.FC<INotificationProps> = ({ socket }) => {
     const classes = useStyles();
     const [notifications, setNotifications] = useState<string[]>([]);
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-    // const [open, setOpen] = useState<boolean>(false);
+    const [open, setOpen] = useState<boolean>(false);
     const [user] = USER;
 
     // const profileId = USER.map(user => {
     //     { user.profileId }
     // });
 
-    socket = io("http://3.87.119.169:5000");
+    socket = io(import.meta.env.VITE_SOCKET_URL);
     useEffect(() => {
-        socket.on(`newSubscription_b77dc7ec-74df-4fa5-ba32-b50fede35785`, (data: any) => {
-            console.log(data);
-            setNotifications([...notifications, data]);
-        })
-        console.log(notifications);
-        socket.on(`unSubscription_b77dc7ec-74df-4fa5-ba32-b50fede35785`, (data: any) => {
-            setNotifications([...notifications, data])
-            console.log(data);
-        })
-        socket.on(`apiHosted_b77dc7ec-74df-4fa5-ba32-b50fede35785`, (data: any) => {
-            setNotifications([...notifications, data])
-            console.log(data);
-        })
-        socket.on(`apiDown_b77dc7ec-74df-4fa5-ba32-b50fede35785`, (data: any) => {
-            setNotifications([...notifications, data])
-            console.log(data);
-        })
+        if(socket.connected){
+            socket.on(`newSubscription_${user.profileId}`, (data: any) => {
+                setNotifications([...notifications, data])
+            })
+            socket.on(`unSubscription_${user.profileId}`, (data: any) => {
+                setNotifications([...notifications, data])
+            })
+            socket.on(`apiHosted_${user.profileId}`, (data: any) => {
+                setNotifications([...notifications, data])
+            })
+            socket.on(`apiDown_${user.profileId}`, (data: any) => {
+                setNotifications([...notifications, data])
+            })
+        }
+        else {
+            socket.on("connect_error", () => {
+              });
+        }
     }, [socket]);
 
 
-    const displayNotification = (type: number) => {
+    const displayNotification = ( type : number) => {
         let action;
 
         if (type === 1) {
@@ -82,7 +75,7 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
 
     const handleRead = () => {
         setNotifications([]);
-        setAnchorEl(null);
+        setOpen(false);
     }
 
     return (
@@ -90,106 +83,20 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
             <div>
                 {notifications.length > 0 ?
                     <Badge badgeContent={notifications.length} color="error">
-                        <span onClick={handleClick}
-                            aria-controls={open ? 'account-menu' : undefined}
-                            aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined}>
-                            <NotificationsNoneIcon color="action" />
-                        </span>
+                        <NotificationsNoneIcon color="action" onClick={() => setOpen(!open)} />
                     </Badge>
-                    :
-                    <span onClick={handleClick}
-                        aria-controls={open ? 'account-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? 'true' : undefined}>
-                        <NotificationsNoneIcon color="action" />
-                    </span>
+                    : <NotificationsNoneIcon color="action" onClick={() => setOpen(!open)} />
                 }
                 {open && (
                     <div className={classes.notifications}>
                         {notifications.length > 0 ?
                             <>
-                                <Menu
-                                    anchorEl={anchorEl}
-                                    open={open}
-                                    onClose={handleClose}
-                                    onClick={handleClose}
-                                    PaperProps={{
-                                        sx: {
-                                            overflow: 'visible',
-                                            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                                            mt: 1.5,
-                                            '& .MuiAvatar-root': {
-                                                width: 32,
-                                                height: 32,
-                                                ml: -0.5,
-                                                mr: 1,
-                                            },
-                                            '&:before': {
-                                                content: '""',
-                                                display: 'block',
-                                                position: 'absolute',
-                                                top: 0,
-                                                right: 14,
-                                                width: 10,
-                                                height: 10,
-                                                bgcolor: 'background.paper',
-                                                transform: 'translateY(-50%) rotate(45deg)',
-                                                zIndex: 0,
-                                            },
-                                        },
-                                    }}
-                                    transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                                >
-                                    <MenuItem>
-                                        {notifications.map((n: any) => displayNotification(n))}
-                                    </MenuItem>
-                                </Menu>
-                                <span className={classes.nButton} style={{ background: "#081F4A", color: "#FF5C00" }} onClick={handleRead}>Mark as read</span>
+                                {notifications.map((n: any) => displayNotification(n))}
+                                <span className={classes.nButton} style={{ background: "#081F4A", color:"#FF5C00" }} onClick={handleRead}>Mark as read</span>
                             </>
                             :
                             <>
-                                <Menu
-                                    anchorEl={anchorEl}
-                                    open={open}
-                                    onClose={handleClose}
-                                    onClick={handleClose}
-                                    PaperProps={{
-                                        sx: {
-                                            overflow: 'visible',
-                                            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                                            mt: 1.5,
-                                            '& .MuiAvatar-root': {
-                                                width: 32,
-                                                height: 32,
-                                                ml: -0.5,
-                                                mr: 1,
-                                            },
-                                            '&:before': {
-                                                content: '""',
-                                                display: 'block',
-                                                position: 'absolute',
-                                                top: 0,
-                                                right: 14,
-                                                width: 10,
-                                                height: 10,
-                                                bgcolor: 'background.paper',
-                                                transform: 'translateY(-50%) rotate(45deg)',
-                                                zIndex: 0,
-                                            },
-                                        },
-                                    }}
-                                    transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                                >
-                                    <MenuItem>
-
-                                        <span className={classes.notification}>No new notification</span>
-                                    </MenuItem>
-                                </Menu>
-
-
+                                <span className={classes.notification}>No new notification</span>
                             </>
                         }
                     </div>
@@ -214,7 +121,7 @@ const useStyles = makeStyles({
         fontSize: '1rem',
         cursor: 'default',
         '@media screen and (max-width: 450px)': {
-            width: '10rem',
+            width: '100%',
         }
     },
     notifications: {
@@ -227,10 +134,9 @@ const useStyles = makeStyles({
         display: 'flex',
         flexDirection: 'column',
         padding: '10px',
-        zIndex: "9999",
     },
     nButton: {
-        width: '100%',
+        width: '10rem',
         height: '3rem',
         background: '#081F4A',
         borderRadius: '15px',
@@ -242,10 +148,28 @@ const useStyles = makeStyles({
         fontSize: '1rem',
         cursor: 'pointer',
         marginTop: '10px',
-        '@media screen and (max-width: 750px)': {
+        '@media screen and (max-width: 450px)': {
             width: '100%',
         }
     },
+    button: {
+        width: "440px",
+        height: "52px",
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: "4px",
+        fontSize: "16px",
+        fontWeight: 400,
+        lineHeight: "16px",
+        cursor: "pointer",
+        margin: "2rem 0",
+        padding: "0 1rem",
+        "@media screen and (max-width: 768px)": {
+            width: "100%",
+        }
+    }
 
 })
 

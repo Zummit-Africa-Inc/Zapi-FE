@@ -12,10 +12,9 @@ interface INavProps {
 const Navbar: React.FC<INavProps> = () => {
   const classes = useStyles();
   const [socket, setSocket] = useState<any>("");
-  
 
   useEffect(() => { 
-    setSocket(io("http://3.87.119.169:5000"));
+    setSocket(io(import.meta.env.VITE_SOCKET_URL));
   }, []);
 
   return (
@@ -28,9 +27,9 @@ const Navbar: React.FC<INavProps> = () => {
             <IconButton color="primary">
                <InsertDriveFileOutlined />
             </IconButton>
-            <div>
+            <IconButton color="primary">
             <Notification socket={socket}/>
-            </div>
+            </IconButton>
             <IconButton color="primary">
               <AccountCircleOutlined />
             </IconButton>
