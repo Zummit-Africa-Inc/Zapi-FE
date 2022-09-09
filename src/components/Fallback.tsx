@@ -6,8 +6,10 @@ const Fallback: React.FC = () => {
 
   return (
     <div className={classes.container}>
-        <div className={classes.loader}>
-          Fallback
+        <div className="loader">
+          <div></div>
+          <div></div>
+          <div></div>
         </div>
     </div>
   )
@@ -26,7 +28,6 @@ const useStyles = makeStyles({
         backdropFilter: "blur(2px)",
         zIndex: 70,
     },
-    loader: {}
 })
 
 export default Fallback

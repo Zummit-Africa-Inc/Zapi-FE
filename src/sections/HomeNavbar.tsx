@@ -148,6 +148,7 @@ const useStyles = makeStyles({
     mobileLinks: {
         position: "absolute",
         top: "100%",
+        left: 0,
         width: "100%",
         background: "#ccc",
         padding: "2rem 2rem",
