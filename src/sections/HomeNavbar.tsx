@@ -3,7 +3,7 @@ import { Menu } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
 import { useContextProvider } from "../contexts/ContextProvider";
-import Vector from "../assets/images/Vector.png";
+import Vector from "../assets/images/vector.png";
 import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png";
 import { useMediaQuery, useTheme } from "@mui/material";
 
