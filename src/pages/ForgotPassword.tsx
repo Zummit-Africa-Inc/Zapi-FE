@@ -1,10 +1,12 @@
-import React, { FormEvent } from "react";
+import React, { FormEvent, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { Navbar } from "../components";
 import { useFormInputs } from "../hooks/form-hook";
 import { PASSWORD_REGEX } from "../utils";
 import { useHttpRequest } from '../hooks/fetch-hook'
+import axios from "axios";
+
 
 import { Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
@@ -12,15 +14,31 @@ import { makeStyles } from "@mui/styles";
 import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png"
 
 
-const initialState = {
-  email: "",
-}
+const identity_url = import.meta.env.VITE_IDENTITY_URL;
+
 
 const ForgotPassword: React.FC = () => {
-    const { inputs, bind } = useFormInputs(initialState)
-  const { email } = inputs
-  const { loading, error, sendRequest, clearError } = useHttpRequest()
+  const navigate = useNavigate();
+
+  const [email, setEmail] = React.useState<string>('');
+
   const classes = useStyles()
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const userData = { email: email}
+    try{
+      const url = `${identity_url}/zapi-identity/auth/forgot`;
+      const res = await axios.post(url, userData);
+      console.log(res);
+      navigate("/");
+
+    } catch (error: any){
+      if(!error.response.data.success){
+        console.log(error.response.data.message);
+    }
+    }
+  }
 
 
   return (
@@ -32,7 +50,7 @@ const ForgotPassword: React.FC = () => {
           <Typography variant='body1' className={classes.sub} gutterBottom>No need to worry, we'll send you an email with instructions to reset.</Typography>
 
           <form className={classes.form}>
-            <input required type="email" name="email" {...bind} placeholder="Enter Your Email" />
+            <input required type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter Your Email" />
             <button type="submit">Submit</button>
           </form>
           

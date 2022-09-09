@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
 import { deviceDetect } from "react-device-detect";
 
-import { CreateEndpoint, DevDashboard, EndPointPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, Analytics, SuccessPage, Configuration } from "./pages";
+import { CreateEndpoint, DevDashboard, EndPointPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, Analytics, SuccessPage, Configuration, EmailVerify } from "./pages";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { Fallback, Login, AddApiPopup } from "./components";
 import { getDeviceIP } from "./utils";
@@ -59,6 +59,7 @@ const App:React.FC = () => {
           <Route path="/success-page" element={<SuccessPage />} />
           <Route path="/create-endpoint" element={<CreateEndpoint />} />
           <Route path="/endpoint" element={<EndPointPage />} />
+          <Route path="/users/verify/:token" element={<EmailVerify />} />
         </Routes>
         </Suspense>
         {isClicked.login && <Login />}

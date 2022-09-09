@@ -16,7 +16,7 @@ const SuccessPage = () => {
        sx={{ width: '100vw', height:'100vh'}}
     >
         <img src='/images/success.png' alt="sucess" className={classes.logo} />
-        <Typography variant="h5" sx={{textAlign: 'center'}}>You have Succesfully Submitted Your OTP</Typography>
+        <Typography variant="h5" sx={{textAlign: 'center'}}>You have Succesfully Verified Your Email</Typography>
         <Typography variant='body1' mt={6}>
             <Link to='/login'>
                 &larr; Back to log in.
