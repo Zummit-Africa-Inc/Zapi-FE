@@ -5,6 +5,7 @@ import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { toast }  from "react-toastify";
+import { css, keyframes } from "@emotion/react";
 
 import { useContextProvider } from "../contexts/ContextProvider";
 import { useFormInputs, useHttpRequest } from "../hooks";
@@ -12,8 +13,6 @@ import { EMAIL_REGEX, PASSWORD_REGEX } from "../utils";
 import { login } from "../redux/slices/userSlice";
 import { Fallback } from "../components";
 import { GoogleIcon } from "../assets";
-
-
 
 const initialState = {email: "",password: ""};
 const url = import.meta.env.VITE_IDENTITY_URL;
@@ -47,8 +46,7 @@ const Login: React.FC = () => {
       const data = await sendRequest(`${url}/zapi-identity/auth/signin`, 'POST', JSON.stringify(payload), headers);
       if(!data || data === undefined) return;
       const { data: {access, email, fullName, profileId, refresh, userId}} = data;
-      console.log(data)
-      const user = { email, fullName };
+      const user = { email, fullName, profileId };
       dispatch(login(user));
       cookies.set('accessToken', access);
       cookies.set('refreshToken', refresh);
@@ -139,6 +137,7 @@ const useStyles = makeStyles({
     alignItems: "center",
     background: "#FFF",
     padding: "1rem 2rem",
+    boxShadow: "2px 2px 7px 3px #CECECE",
   },
   form: {
     width: "100%",

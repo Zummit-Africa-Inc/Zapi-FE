@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { APIResponseType } from "../../types";
 
-const url = ""
+const url = import.meta.env.VITE_BASE_URL
 
 interface ApiState {
     apis: APIResponseType[]
