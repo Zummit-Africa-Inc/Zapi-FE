@@ -1,4 +1,4 @@
-import React, { FormEvent } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { Stack, Typography, } from "@mui/material";
 import { makeStyles } from '@mui/styles';
 import { toast }  from "react-toastify";
@@ -19,6 +19,7 @@ const Signup:React.FC = () => {
   const { fullName, email, password, confirm_password, terms } = inputs;
   const { clearError, error, loading, sendRequest } = useHttpRequest();
   const { handleClicked } = useContextProvider();
+  const [message, setMessage] = useState<string>("")
 
   const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -32,11 +33,14 @@ const Signup:React.FC = () => {
     const payload = { fullName, email, password }
     try {
       const data = await sendRequest(`${url}/zapi-identity/auth/signup`, 'POST', JSON.stringify(payload), headers)
-    } catch (error) {}
+      setMessage(data?.data)
+    } catch (error) {};
   };
-
+  
   return (
     <>
+    {error && toast.error(`${error}`)}
+    {message && toast.success(`${message}`)}
     {loading && <Fallback />}
     <HomeNavbar />
     <div className={classes.container}>

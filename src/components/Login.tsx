@@ -55,17 +55,10 @@ const Login: React.FC = () => {
       handleUnclicked('login')
     } catch (error) {};
   };
-  
-  useEffect(() => {
-    const timeOut = setTimeout(() => {
-      clearError()
-    },5000)
-    return () => clearTimeout(timeOut)
-  },[error])
 
   return (
     <>
-    {error && <Alert severity="error" onClose={() => clearError}>{error.message}</Alert>}
+    {error && toast.error(`${error}`)}
     {loading && <Fallback />}
     <div className={classes.container} onClick={() => handleUnclicked('login')}>
       <div className={classes.main} onClick={(e) => e.stopPropagation()}>
