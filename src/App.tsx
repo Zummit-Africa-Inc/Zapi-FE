@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
 import { deviceDetect } from "react-device-detect";
 
-import { CreateEndpoint, DevDashboard, EndPointPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, Analytics, SuccessPage, Configuration, EmailVerify } from "./pages";
+import { CreateEndpoint, DevDashboard, DeveloperApiPage, EndPointPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, Analytics, SuccessPage, Configuration, EmailVerify } from "./pages";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { Fallback, Login, AddApiPopup } from "./components";
 import { getDeviceIP } from "./utils";
@@ -52,6 +52,7 @@ const App:React.FC = () => {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/otp" element={<Otp />} />
           <Route path="/developers/dashboard/" element={<DevDashboard />} />
+          <Route path="/developers/" element={<DeveloperApiPage />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/api/:id" element={<APIPage />} />
           <Route path="/configuration" element={<Configuration />} />
