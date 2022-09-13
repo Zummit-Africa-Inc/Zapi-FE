@@ -1,5 +1,10 @@
 import blueFire from "./assets/images/blueFire.png"
 import purpleFire from "./assets/images/purpleFire.png"
+import ControlCameraIcon from '@mui/icons-material/ControlCamera';
+import ScienceOutlinedIcon from '@mui/icons-material/Science';
+import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import { Analytics, EndPointPage } from "./pages";
 
 
 export const APIS = [
@@ -311,3 +316,59 @@ export const APIData = [
       name: "Text Summarizer"
     }
   ]
+
+  export const DEVELOPERSLINKS = [
+    {
+        image: <ControlCameraIcon />,
+        text: "Request",
+        link: "#"
+    },
+    {
+        image: <ScienceOutlinedIcon />,
+        text: "Tests",
+        link: "/"
+    },
+    {
+        image: <LanguageOutlinedIcon />,
+        text: "Hub Listing",
+        link: "/"
+    },
+    {
+        image: <EditOutlinedIcon />,
+        text: "Settings",
+        link: "/"
+    },
+]
+
+export const DEVSNAVBAR = [
+    {
+        name: "General",
+        link: "#",
+        page: ''
+    },
+    {
+        name: "Endpoints",
+        link: "/endpoints",
+        page: <EndPointPage />
+    },
+    {
+        name: "Gateway",
+        link: "/",
+        page: ''
+    },
+    {
+        name: "Community",
+        link: "/",
+        page: ''
+    },
+    {
+        name: "Monetize",
+        link: "/",
+        page: ""
+    },
+    {
+        name: "Analytics",
+        link: "/analytics",
+        page: <Analytics />
+    },
+]

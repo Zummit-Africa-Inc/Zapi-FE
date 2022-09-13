@@ -16,3 +16,4 @@ export { default as TabPanel } from "./TabPanel";
 export { default as UserProSideBar } from "./UserProSideBar";
 export { default as Widget } from "./Widget";
 export { default as ApiPageSidebar } from "./ApiPageSidebar"
+export { default as ApiPageLayout } from "./ApiPageLayout"
