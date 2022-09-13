@@ -1,7 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@mui/styles'
-import { ApiSidebar } from '../components';
-import { DevNavbar } from '../components'
+import { ApiPageLayout, DevNavbar } from '../components'
 
 const DeveloperApiPage:React.FC = () => {
     const classes = useStyles();
@@ -11,11 +10,12 @@ const DeveloperApiPage:React.FC = () => {
         <div className={classes.subRoot}>
             <div className={classes.minRoot}>
                 <DevNavbar />
-                <div className={classes.mainWrap}>
+                <ApiPageLayout />
+                {/* <div className={classes.mainWrap}>
                     <div className={classes.main}>
                     <ApiSidebar />
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     </div>

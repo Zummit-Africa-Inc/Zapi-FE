@@ -1,5 +1,9 @@
 import blueFire from "./assets/images/blueFire.png"
 import purpleFire from "./assets/images/purpleFire.png"
+import ControlCameraIcon from '@mui/icons-material/ControlCamera';
+import ScienceOutlinedIcon from '@mui/icons-material/Science';
+import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 
 export const APIS = [
@@ -311,3 +315,26 @@ export const APIData = [
       name: "Text Summarizer"
     }
   ]
+
+  export const DEVELOPERSLINKS = [
+    {
+        image: <ControlCameraIcon />,
+        text: "Request",
+        link: "#"
+    },
+    {
+        image: <ScienceOutlinedIcon />,
+        text: "Tests",
+        link: "/"
+    },
+    {
+        image: <LanguageOutlinedIcon />,
+        text: "Hub Listing",
+        link: "/"
+    },
+    {
+        image: <EditOutlinedIcon />,
+        text: "Settings",
+        link: "/"
+    },
+]
