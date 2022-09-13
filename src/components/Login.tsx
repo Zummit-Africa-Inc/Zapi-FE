@@ -1,5 +1,5 @@
-import React, { FormEvent, useEffect } from "react";
-import { Alert, Stack, Typography } from "@mui/material";
+import React, { FormEvent, useEffect, } from "react";
+import { Stack, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
@@ -13,8 +13,6 @@ import { login } from "../redux/slices/userSlice";
 import { Fallback } from "../components";
 import { GoogleIcon } from "../assets";
 
-
-
 const initialState = {email: "",password: ""};
 const url = import.meta.env.VITE_IDENTITY_URL;
 
@@ -26,11 +24,9 @@ const Login: React.FC = () => {
   const classes = useStyles();
   const cookies = new Cookies();
 
-  //I Will rewrite this code (Taiwo Akindele).
-  // const {from} = (location.state || {from:{pathname:"/"}}) as {from:{pathname:string}}
   const handleLogin = async(e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    
     const { email, password } = inputs;
     if(!email || !EMAIL_REGEX.test(email)) return toast.error('Invalid email address');
     if(!password || !PASSWORD_REGEX.test(password)) return toast.error('Invalid password');
@@ -47,8 +43,7 @@ const Login: React.FC = () => {
       const data = await sendRequest(`${url}/zapi-identity/auth/signin`, 'POST', JSON.stringify(payload), headers);
       if(!data || data === undefined) return;
       const { data: {access, email, fullName, profileId, refresh, userId}} = data;
-      console.log(data)
-      const user = { email, fullName };
+      const user = { email, fullName, profileId };
       dispatch(login(user));
       cookies.set('accessToken', access);
       cookies.set('refreshToken', refresh);
@@ -57,17 +52,13 @@ const Login: React.FC = () => {
       handleUnclicked('login')
     } catch (error) {};
   };
-  
-  useEffect(() => {
-    const timeOut = setTimeout(() => {
-      clearError()
-    },5000)
-    return () => clearTimeout(timeOut)
-  },[error])
 
+  useEffect(() => {
+    {error && toast.error(`${error}`)}
+  },[error])
+  
   return (
     <>
-    {error && <Alert severity="error" onClose={() => clearError}>{error.message}</Alert>}
     {loading && <Fallback />}
     <div className={classes.container} onClick={() => handleUnclicked('login')}>
       <div className={classes.main} onClick={(e) => e.stopPropagation()}>
@@ -92,7 +83,7 @@ const Login: React.FC = () => {
             Reset it here.
           </Link>
         </Typography>
-          <button type="submit" className={classes.button} style={{background:"#4B4B4B",color:"#FFF"}}>
+          <button type="submit" className={classes.button} style={{background:"#4B4B4B",color:"#FFF"}} disabled={loading}>
             {loading ? 'loading' : 'Sign In'}
           </button>
         </form>
@@ -139,6 +130,7 @@ const useStyles = makeStyles({
     alignItems: "center",
     background: "#FFF",
     padding: "1rem 2rem",
+    boxShadow: "2px 2px 7px 3px #CECECE",
   },
   form: {
     width: "100%",
