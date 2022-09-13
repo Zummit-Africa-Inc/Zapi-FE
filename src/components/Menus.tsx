@@ -1,15 +1,12 @@
 import React from 'react'
 import { makeStyles } from "@mui/styles";
-import { Avatar, Fade, Menu, MenuItem, Button } from '@mui/material'
+import { Avatar, Fade, Menu, MenuItem, Button, Typography } from '@mui/material'
 
 //images
 import { ZapiDash, ZapiApps, ZapiHelp, ZapiArrow, ZapiPic } from '../assets'
 
-interface Mobile {
-    className?: string
-}
 
-const Menus: React.FC<Mobile> = ({ className }) => {
+const Menus: React.FC = () => {
     const classes = useStyles()
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -24,9 +21,9 @@ const Menus: React.FC<Mobile> = ({ className }) => {
 
 
   return (
-     <div className={className}>
-            <Button sx={{ width:'450px' }} id="fade-button" aria-controls={open ? 'fade-menu' : undefined} aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleClick}>
-                All Projects <img src={ZapiArrow} alt='zapi-arrow' style={{ color:'#00000', marginLeft:'0.4rem' }}/>
+     <div className={classes.items}>
+            <Button  id="fade-button" aria-controls={open ? 'fade-menu' : undefined} aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleClick}>
+                <div className={classes.root}>All Projects</div><img src={ZapiArrow} alt='zapi-arrow' style={{ color:'#00000', marginLeft:'0.4rem' }}/>
             </Button>
             <Menu id="fade-menu" MenuListProps={{ 'aria-labelledby': 'fade-button', }} anchorEl={anchorEl} open={open} onClose={handleClose} TransitionComponent={Fade}>
                 <MenuItem onClick={handleClose}>Zapi</MenuItem>
@@ -38,9 +35,9 @@ const Menus: React.FC<Mobile> = ({ className }) => {
                 <img src={ZapiApps} alt='zapi-apps' style={{ color:'#00000' }}/>
                 <img src={ZapiHelp} alt='zapi-help' style={{ color:'#00000' }}/>
             </div>
-                <div>
+               
                     <Avatar src={ZapiPic} alt='zapi-pic' />
-                </div>
+                
             </div>
 
   )
@@ -54,6 +51,19 @@ const useStyles = makeStyles({
         justifyContent:'space-between',
         width:"inherit"
     },
+    items:{
+        alignItems:'center',
+        display:'flex',
+        width:'350px',
+        gap:'2rem'
+    },
+
+    root:{
+        width:'450px',
+        textTransform: 'none',
+        fontSize:'16px',
+        color: '#00000',
+    }
 })
 
 export default Menus
