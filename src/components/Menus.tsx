@@ -25,7 +25,7 @@ const Menus: React.FC<Mobile> = ({ className }) => {
 
   return (
      <div className={className}>
-            <Button sx={{ width:'450px' }} id="fade-button" aria-controls={open ? 'fade-menu' : undefined} aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleClick}>
+            <Button className={classes.root} id="fade-button" aria-controls={open ? 'fade-menu' : undefined} aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleClick}>
                 All Projects <img src={ZapiArrow} alt='zapi-arrow' style={{ color:'#00000', marginLeft:'0.4rem' }}/>
             </Button>
             <Menu id="fade-menu" MenuListProps={{ 'aria-labelledby': 'fade-button', }} anchorEl={anchorEl} open={open} onClose={handleClose} TransitionComponent={Fade}>
@@ -54,6 +54,14 @@ const useStyles = makeStyles({
         justifyContent:'space-between',
         width:"inherit"
     },
+
+    root:{
+        width:'450px',
+        "& .MuiButtonBase-root, &.MuiButton-root":{
+            color: '#00000',
+            textTransform: 'none'
+        }
+    }
 })
 
 export default Menus
