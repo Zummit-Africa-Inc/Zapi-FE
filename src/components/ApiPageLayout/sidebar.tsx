@@ -3,7 +3,7 @@ import { makeStyles } from '@mui/styles'
 import { NavLink } from 'react-router-dom';
 
 import KeyboardDoubleArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowLeftOutlined';
-import { Typography } from '@mui/material';
+import { Tab, Tabs, Typography } from '@mui/material';
 import { DEVELOPERSLINKS } from '../../testdata';
 
 const Sidebar: React.FC = () => {
@@ -17,7 +17,6 @@ const Sidebar: React.FC = () => {
                         isActive ? {
                             color: "#FFF",
                             background: "#9999CC",
-                            padding: "10px",
                             borderRadius: "15px"
                         }
                         : 
@@ -26,6 +25,9 @@ const Sidebar: React.FC = () => {
                         {link.image}
                         <Typography>{link.text}</Typography>
                     </NavLink>
+                    // <Tabs key={i} className={classes.link}>
+                    //     <Tab icon={link.image} iconPosition="start" component={NavLink} to={link.link} label={link.text} />
+                    // </Tabs>
                 ))}
             </div>
             <div className={classes.collapse}>
@@ -38,13 +40,16 @@ const Sidebar: React.FC = () => {
 
 const useStyles = makeStyles({
     sidebar: {
-        position: "relative",
+        position: "sticky",
+        top: "0rem",
+        left:'0rem',
+        right:'0rem',
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
         padding: "2rem 2rem",
         width: "300px",
-        height: "calc(100vh - 70px)",
+        height: "calc(100vh - 98px)",
         borderRight: "1px solid #000"
     },
     sidebarLinks: {

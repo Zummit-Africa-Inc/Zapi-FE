@@ -36,6 +36,8 @@ const DevNavbar: React.FC = () => {
 
 const useStyles = makeStyles({
     NavBar: {
+        position: "sticky",
+        top: "0",
         left:'0rem',
         right:'0rem',
         zIndex: 30,

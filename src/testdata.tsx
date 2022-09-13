@@ -4,6 +4,7 @@ import ControlCameraIcon from '@mui/icons-material/ControlCamera';
 import ScienceOutlinedIcon from '@mui/icons-material/Science';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import { Analytics, EndPointPage } from "./pages";
 
 
 export const APIS = [
@@ -336,5 +337,38 @@ export const APIData = [
         image: <EditOutlinedIcon />,
         text: "Settings",
         link: "/"
+    },
+]
+
+export const DEVSNAVBAR = [
+    {
+        name: "General",
+        link: "#",
+        page: ''
+    },
+    {
+        name: "Endpoints",
+        link: "/endpoints",
+        page: <EndPointPage />
+    },
+    {
+        name: "Gateway",
+        link: "/",
+        page: ''
+    },
+    {
+        name: "Community",
+        link: "/",
+        page: ''
+    },
+    {
+        name: "Monetize",
+        link: "/",
+        page: ""
+    },
+    {
+        name: "Analytics",
+        link: "/analytics",
+        page: <Analytics />
     },
 ]
