@@ -25,10 +25,8 @@ const DevNavbar: React.FC = () => {
                 <img src={ZapiWidget} alt='Zapi-widget' />
                 <Link to='#' className={classes.api}>API Projects</Link>
             </div>
-            <div>
-                <Menus className={classes.items}/>
-            
-            </div>
+
+                <Menus />
         </div>
     </>
   )
@@ -46,7 +44,7 @@ const useStyles = makeStyles({
         flexDirection: 'row',
         justifyContent:'space-between',
         background:'#C4C4C4',
-        height:  '96px',
+        height:  '90px',
         fontFamily:'Space Grotesk',
         "@media screen and (max-width: 1024px)": {
             padding: "1rem 2rem"
@@ -72,7 +70,8 @@ const useStyles = makeStyles({
         color:'#1C1B1F',
         gap:'1rem',
         display:'flex',
-        alignItems:'center'
+        alignItems:'center',
+        marginLeft: '200px'
     },
     api:{
         fontWeight:'400',
@@ -80,12 +79,7 @@ const useStyles = makeStyles({
         textDecoration:'none',
         color:'#000000'
     },
-    items:{
-        alignItems:'center',
-        display:'flex',
-        width:'350px',
-        gap:'2rem'
-    },
+
     icons:{
         alignItems:'center',
         display:'flex',
