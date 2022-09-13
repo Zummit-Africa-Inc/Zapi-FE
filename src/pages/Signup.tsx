@@ -36,11 +36,17 @@ const Signup:React.FC = () => {
       setMessage(data?.data)
     } catch (error) {};
   };
+
+  useEffect(() => {
+    {error && toast.error(`${error}`)}
+  },[error])
+
+  useEffect(() => {
+    {message && toast.success(`${message}`)}
+  },[message])
   
   return (
     <>
-    {error && toast.error(`${error}`)}
-    {message && toast.success(`${message}`)}
     {loading && <Fallback />}
     <HomeNavbar />
     <div className={classes.container}>
@@ -74,7 +80,7 @@ const Signup:React.FC = () => {
             <input type="checkbox" name="terms" {...toggle} />
             <label htmlFor="terms">I agree to ZAPI’s terms and conditions and privacy policy.</label>
           </div>
-          <button type="submit" className={classes.button} style={{background:"#4B4B4B",color:"#FFF"}}>
+          <button type="submit" className={classes.button} style={{background:"#4B4B4B",color:"#FFF"}} disabled={loading}>
             {loading ? 'loading' : 'Signup'}
           </button>
         </form>

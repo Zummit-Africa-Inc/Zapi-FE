@@ -1,11 +1,10 @@
-import React, { FormEvent, useEffect } from "react";
-import { Alert, Stack, Typography } from "@mui/material";
+import React, { FormEvent, useEffect, } from "react";
+import { Stack, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { toast }  from "react-toastify";
-import { css, keyframes } from "@emotion/react";
 
 import { useContextProvider } from "../contexts/ContextProvider";
 import { useFormInputs, useHttpRequest } from "../hooks";
@@ -25,11 +24,9 @@ const Login: React.FC = () => {
   const classes = useStyles();
   const cookies = new Cookies();
 
-  //I Will rewrite this code (Taiwo Akindele).
-  // const {from} = (location.state || {from:{pathname:"/"}}) as {from:{pathname:string}}
   const handleLogin = async(e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    
     const { email, password } = inputs;
     if(!email || !EMAIL_REGEX.test(email)) return toast.error('Invalid email address');
     if(!password || !PASSWORD_REGEX.test(password)) return toast.error('Invalid password');
@@ -56,9 +53,12 @@ const Login: React.FC = () => {
     } catch (error) {};
   };
 
+  useEffect(() => {
+    {error && toast.error(`${error}`)}
+  },[error])
+  
   return (
     <>
-    {error && toast.error(`${error}`)}
     {loading && <Fallback />}
     <div className={classes.container} onClick={() => handleUnclicked('login')}>
       <div className={classes.main} onClick={(e) => e.stopPropagation()}>
@@ -83,7 +83,7 @@ const Login: React.FC = () => {
             Reset it here.
           </Link>
         </Typography>
-          <button type="submit" className={classes.button} style={{background:"#4B4B4B",color:"#FFF"}}>
+          <button type="submit" className={classes.button} style={{background:"#4B4B4B",color:"#FFF"}} disabled={loading}>
             {loading ? 'loading' : 'Sign In'}
           </button>
         </form>
