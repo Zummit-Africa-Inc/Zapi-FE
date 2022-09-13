@@ -66,7 +66,7 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
             return (
                 <>
                     <img src="/images/zapi-logo.png" alt="zapi-logo" width="30ch" />
-                    <span className={classes.notification}><Link to="/">{'Someone UnSubscribed from your api'}</Link></span>
+                    <span className={classes.notification}><Link to="/">{'Someone Subscribed To your api'}</Link></span>
                 </>
             )
         } else if (type === 2) {
