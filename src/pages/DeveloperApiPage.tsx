@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@mui/styles'
 import { ApiSidebar } from '../components';
-import {  DevNavbar } from '../components'
+import { DevNavbar } from '../components'
 
 const DeveloperApiPage:React.FC = () => {
     const classes = useStyles();

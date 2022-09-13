@@ -6,11 +6,13 @@ import ScienceOutlinedIcon from '@mui/icons-material/Science';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
-const ApiSidebar = () => {
+import { Collapse } from '../components'
+
+const ApiSidebar:React.FC = () => {
     const classes = useStyles();
 
   return (
-    <div>
+    <>
       <Link to={'/'} className={classes.side}>
         <div className={classes.wrap}>
           <div className={classes.box}>
@@ -43,7 +45,9 @@ const ApiSidebar = () => {
           Settings
         </div>
       </Link>
-    </div>
+      <span className={classes.span}></span>
+      <Collapse />
+    </>
   )
 }
 
@@ -93,6 +97,10 @@ const useStyles = makeStyles({
       marginRight: '6px',
       boxSizing: 'border-box',
       color: 'rgba(73, 69, 69, 0.6)'
+    },
+
+    span:{
+      marginTop: 'auto' 
     }
 })
 
