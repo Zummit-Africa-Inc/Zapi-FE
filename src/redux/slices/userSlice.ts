@@ -11,12 +11,14 @@ interface UserState {
     user: UserProfileType
     loading: "idle" | "pending" | "fulfilled" | "rejected"
     error?: any
+    isLoggedIn: boolean
 }
 
 const initialState = {
     user: {},
     loading: "idle",
-    error: null
+    error: null,
+    isLoggedIn: false
 } as UserState
 
 export const getUserProfile = createAsyncThunk("user/getuserprofile", async(_, thunkAPI) => {
@@ -37,12 +39,12 @@ const userSlice = createSlice({
             state.loading = "pending"
         }),
         builder.addCase(getUserProfile.fulfilled, (state, { payload }) => {
-            state.user = payload
             state.loading = "fulfilled"
+            state.user = payload
         }),
         builder.addCase(getUserProfile.rejected, (state, { payload }) => {
-            state.error = payload
             state.loading = "rejected"
+            state.error = payload
         })
     },
     reducers: {
@@ -51,9 +53,12 @@ const userSlice = createSlice({
         },
         login: (state, { payload }) => {
             state.user = payload
+            state.isLoggedIn = true
+            localStorage.setItem("zapi_user", JSON.stringify(payload))
         },
         logout: state => {
             state.user = initialState.user
+            localStorage.removeItem("zapi_user")
         }
     },
 })

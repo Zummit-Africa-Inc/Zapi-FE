@@ -24,7 +24,7 @@ const EmailVerify: React.FC = () => {
 			}
 		};
 		verifyEmailUrl();
-	}, [param]);
+	}, []);
 
   return (
     <>

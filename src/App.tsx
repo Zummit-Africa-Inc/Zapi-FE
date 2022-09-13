@@ -1,24 +1,28 @@
 import React, { Suspense, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { ThemeProvider } from "@mui/material";
 import { deviceDetect } from "react-device-detect";
+import { ToastContainer } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+import "react-toastify/dist/ReactToastify.min.css";
 
 import { CreateEndpoint, DevDashboard, DeveloperApiPage, EndPointPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, Analytics, SuccessPage, Configuration, EmailVerify } from "./pages";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { Fallback, Login, AddApiPopup } from "./components";
+import { login } from "./redux/slices/userSlice";
 import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 
 const App:React.FC = () => {
   const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP } = useContextProvider()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const device = deviceDetect(navigator.userAgent)
     setDeviceInfo(device)
-  },[])
+  },[]);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -28,15 +32,25 @@ const App:React.FC = () => {
         time: position.timestamp
       })
     })
-  },[])
+  },[]);
+
+  // useEffect(() => {
+  //   const getIPAddress = async() => {
+  //     const data = await getDeviceIP()
+  //     setDeviceIP(data)
+  //   }
+  //   getIPAddress()
+  // },[])
 
   useEffect(() => {
-    const getIPAddress = async() => {
-      const data = await getDeviceIP()
-      setDeviceIP(data)
+    const loginUser = () => {
+      const item = localStorage.getItem("zapi_user")
+      if(!item) return
+      const user = JSON.parse(item)
+      dispatch(login(user))
     }
-    getIPAddress()
-  },[])
+    loginUser()
+  },[]);
 
   return (
     <ThemeProvider theme={theme}>
