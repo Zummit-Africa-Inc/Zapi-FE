@@ -22,7 +22,7 @@ const DevAddApi: React.FC = () => {
         <div className={classes.body}>
             <div className={classes.widget1}>
                 <form onSubmit={handleSubmit} className={classes.search}>
-                <InputSearch className={classes.formControl} type="text" name="queryString" value={queryString} onChange={(e: ChangeEvent<HTMLInputElement>) => setQueryString(e.target.value)} placeholder="Search API Projects" />
+                <InputSearch className={classes.formControl} type="text" name="queryString" value={queryString} onChange={(e: ChangeEvent<HTMLInputElement>) => setQueryString(e.target.value)} placeholder="Search API Projects"/>
                 </form>
             </div>
 
@@ -42,7 +42,7 @@ const DevAddApi: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <button className={classes.button} onClick={() => handleClicked('addapi')}>
+            <button className={classes.button} onClick={() => handleClicked('addapi')} style={{height: "46px"}}>
                     <AddIcon />
                     <Typography>Add API Project</Typography>
             </button>
