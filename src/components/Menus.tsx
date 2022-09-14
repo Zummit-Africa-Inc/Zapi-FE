@@ -22,8 +22,8 @@ const Menus: React.FC = () => {
 
   return (
      <div className={classes.items}>
-            <Button  id="fade-button" aria-controls={open ? 'fade-menu' : undefined} aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleClick}>
-                <div className={classes.root}>All Projects</div><img src={ZapiArrow} alt='zapi-arrow' style={{ color:'#00000', marginLeft:'0.4rem' }}/>
+            <Button className={classes.root} id="fade-button" aria-controls={open ? 'fade-menu' : undefined} aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleClick}>
+                All Projects<img src={ZapiArrow} alt='zapi-arrow' style={{ color:'#00000', marginLeft:'0.4rem' }}/>
             </Button>
             <Menu id="fade-menu" MenuListProps={{ 'aria-labelledby': 'fade-button', }} anchorEl={anchorEl} open={open} onClose={handleClose} TransitionComponent={Fade}>
                 <MenuItem onClick={handleClose}>Zapi</MenuItem>
@@ -60,9 +60,13 @@ const useStyles = makeStyles({
 
     root:{
         width:'450px',
-        textTransform: 'none',
-        fontSize:'16px',
-        color: '#00000',
+        "&.MuiButton-text": {
+            color: "black"
+          },
+        "&.MuiButton-root": {
+            textTransform: 'none',
+            fontSize:'16px',
+        }
     }
 })
 
