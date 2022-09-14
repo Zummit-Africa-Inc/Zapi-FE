@@ -197,7 +197,7 @@ const GeneralTab: React.FC = () => {
 
   const useStyles = makeStyles({
     container: {
-        background: '#fff',
+        background: '#F3F4F6',
         width: '100%',
         height: '2600px',
         padding: '20px'
@@ -227,7 +227,7 @@ const GeneralTab: React.FC = () => {
       bottom: 0,
       padding: '20px',
       zIndex: 100,
-      backgroundColor: 'white'
+      backgroundColor: '#F3F4F6'
     },
     saveBtn:{
       padding: '10px 20px',
