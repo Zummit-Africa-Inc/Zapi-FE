@@ -1,55 +1,65 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@mui/styles'
 import { NavLink } from 'react-router-dom';
 
 import KeyboardDoubleArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowLeftOutlined';
 import { Tab, Tabs, Typography } from '@mui/material';
 import { DEVELOPERSLINKS } from '../../testdata';
+import { Menu } from '@mui/icons-material';
 
 const Sidebar: React.FC = () => {
     const classes = useStyles();
+    const [isOpen, setIsOpen] = useState<boolean>(true)
+
+    const handleCollapse = () => setIsOpen(!isOpen)
 
     return (
-        <div className={classes.sidebar}>
-            <div className={classes.sidebarLinks}>
-                {DEVELOPERSLINKS.map((link, i) => (
-                    <NavLink key={i} to={link.link} className={classes.link} style={({isActive}) => (
-                        isActive ? {
-                            color: "#FFF",
-                            background: "#9999CC",
-                            borderRadius: "15px"
-                        }
-                        : 
-                        {}
-                    )}>
-                        {link.image}
-                        <Typography>{link.text}</Typography>
-                    </NavLink>
-                    // <Tabs key={i} className={classes.link}>
-                    //     <Tab icon={link.image} iconPosition="start" component={NavLink} to={link.link} label={link.text} />
-                    // </Tabs>
-                ))}
+        <div className={classes.container}>
+            <div className={isOpen ? classes.sidebar : classes.hide}>
+                <div className={classes.sidebarLinks}>
+                    {DEVELOPERSLINKS.map((link, i) => (
+                        <NavLink key={i} to={link.link} className={classes.link} style={({ isActive }) => (
+                            isActive ? {
+                                color: "#FFF",
+                                background: "#9999CC",
+                                borderRadius: "15px"
+                            }
+                                :
+                                {}
+                        )}>
+                            {link.image}
+                            <Typography>{link.text}</Typography>
+                        </NavLink>
+                        // <Tabs key={i} className={classes.link}>
+                        //     <Tab icon={link.image} iconPosition="start" component={NavLink} to={link.link} label={link.text} />
+                        // </Tabs>
+                    ))}
+                </div>
             </div>
-            <div className={classes.collapse}>
+            <div className={classes.collapse} onClick={handleCollapse}>
                 <KeyboardDoubleArrowLeftOutlinedIcon />
-                <Typography>Collapse Sidebar</Typography>
+                {isOpen === true ? <Typography sx={{ fontSize: "16px" }}>Collapse Sidebar</Typography> : <Typography sx={{ fontSize: "16px" }}>Open Sidebar</Typography>}
             </div>
         </div>
     )
 }
 
 const useStyles = makeStyles({
+    container: {
+        display: "flex",
+        flexDirection: "column",
+    },
     sidebar: {
         position: "sticky",
         top: "0rem",
-        left:'0rem',
-        right:'0rem',
+        left: '0rem',
+        right: '0rem',
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
         padding: "2rem 2rem",
         width: "300px",
-        height: "calc(100vh - 98px)",
+        height: "calc(100vh - 120px)",
         borderRight: "1px solid #000"
     },
     sidebarLinks: {
@@ -64,14 +74,18 @@ const useStyles = makeStyles({
         color: "#000000",
         padding: "10px",
         "&:hover": {
-                            background: "#CCC",
-                            borderRadius: "15px"
+            background: "#CCC",
+            borderRadius: "15px"
         }
     },
     collapse: {
         display: "flex",
         alignItems: "center",
-        gap: "1rem"
+        gap: ".5rem",
+        cursor: "pointer"
+    },
+    hide: {
+        display: "none"
     },
     active: {
         color: "#000FFF",
