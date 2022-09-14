@@ -125,7 +125,7 @@ const useStyles = makeStyles({
     background: "#FFF",
     borderRadius: "8px",
     padding: "40px 40px",
-    marginTop: "50px",
+    marginTop: "110px",
 
   },
   form: {
