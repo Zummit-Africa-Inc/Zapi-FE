@@ -98,8 +98,8 @@ const AddApiPopup: React.FC = () => {
                 <Typography>Add API Project</Typography>
             </div>
         </div>
+        </div>
       </div>
-    </div>
     </>
   );
 };
@@ -111,6 +111,7 @@ const useStyles = makeStyles({
     display: "grid",
     placeItems: "center",
     position: "fixed",
+    overflow: "scroll",
     top: 0,
     left: 0,
     background: "rgba(225, 225, 225, 0.3)",
@@ -122,7 +123,10 @@ const useStyles = makeStyles({
     flexDirection: "column",
     alignItems: "flex-start",
     background: "#FFF",
+    borderRadius: "8px",
     padding: "40px 40px",
+    marginTop: "50px",
+
   },
   form: {
     width: "500px",
