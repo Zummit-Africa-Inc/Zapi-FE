@@ -318,20 +318,20 @@ export const APIData = [
   ]
 
   export const DEVELOPERSLINKS = [
-    {
-        image: <ControlCameraIcon />,
-        text: "Request",
-        link: "#"
-    },
-    {
-        image: <ScienceOutlinedIcon />,
-        text: "Tests",
-        link: "/"
-    },
+    // {
+    //     image: <ControlCameraIcon />,
+    //     text: "Request",
+    //     link: "#"
+    // },
+    // {
+    //     image: <ScienceOutlinedIcon />,
+    //     text: "Tests",
+    //     link: "/"
+    // },
     {
         image: <LanguageOutlinedIcon />,
         text: "Hub Listing",
-        link: "/"
+        link: "#"
     },
     {
         image: <EditOutlinedIcon />,
@@ -344,31 +344,31 @@ export const DEVSNAVBAR = [
     {
         name: "General",
         link: "#",
-        page: ''
+        page: 'General'
     },
     {
         name: "Endpoints",
         link: "/endpoints",
-        page: <EndPointPage />
+        page: "Endpoints"
     },
     {
         name: "Gateway",
         link: "/",
-        page: ''
+        page: 'Gateway'
     },
     {
         name: "Community",
         link: "/",
-        page: ''
+        page: 'Community'
     },
     {
         name: "Monetize",
         link: "/",
-        page: ""
+        page: "Monetize"
     },
     {
         name: "Analytics",
         link: "/analytics",
-        page: <Analytics />
+        page: "analytics"
     },
 ]

@@ -1,9 +1,15 @@
 import { Tab, Tabs, Typography } from '@mui/material'
-import { makeStyles } from '@mui/styles'
+import { makeStyles, styled } from '@mui/styles'
 import { SyntheticEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DEVSNAVBAR } from '../../testdata'
 import TabPanel from '../TabPanel';
+
+const CustomTab = styled(Tab)({
+    "&.MuiTab-root": {
+    textTransform: "none"
+}
+  })
 
 const Navbar = () => {
     const classes = useStyles()
@@ -15,9 +21,9 @@ const Navbar = () => {
     return (
         <div className={classes.navbar}>
             <div className="">
-                <Tabs value={tab} onChange={handleTabChange}>
+                <Tabs variant="fullWidth" className={classes.Tabs} value={tab} onChange={handleTabChange}>
                     {DEVSNAVBAR.map((nav, i) => (
-                        <Tab key={i} label={nav.name} />
+                        <CustomTab disableRipple key={i} label={nav.name} />
                     ))}
                 </Tabs>
                 {DEVSNAVBAR.map((nav, i) => (
@@ -45,8 +51,11 @@ const useStyles = makeStyles({
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        borderBottom: "1px solid #000",
         width: "100vw",
-        height: "50px"
+        height: "45px"
     },
+    Tabs: {
+        width: "800px",
+        textTransform: "none"
+    }
 })
