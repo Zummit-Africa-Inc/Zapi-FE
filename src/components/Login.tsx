@@ -116,6 +116,7 @@ const useStyles = makeStyles({
     display: "grid",
     placeItems: "center",
     position: "fixed",
+    overflow: "scroll",
     top: 0,
     left: 0,
     background: "rgba(225, 225, 225, 0.3)",
