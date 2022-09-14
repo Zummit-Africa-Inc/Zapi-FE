@@ -5,6 +5,7 @@ import ScienceOutlinedIcon from '@mui/icons-material/Science';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { Analytics, EndPointPage } from "./pages";
+import GeneralTab from "./components/GeneralTab";
 
 
 export const APIS = [
@@ -343,8 +344,8 @@ export const APIData = [
 export const DEVSNAVBAR = [
     {
         name: "General",
-        link: "#",
-        page: ''
+        link: "/general-tab",
+        page: <GeneralTab />
     },
     {
         name: "Endpoints",
