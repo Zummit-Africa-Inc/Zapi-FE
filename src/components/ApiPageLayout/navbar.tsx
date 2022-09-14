@@ -32,8 +32,8 @@ const Navbar = () => {
                     </TabPanel>
                 ))}
             </div>
-            <Link to="/api/:id" className="">
-                <Typography>View in Hub</Typography>
+            <Link to="/api/:id">
+                <Typography sx={{marginTop: "-1.5rem"}}>View in Hub</Typography>
             </Link>
         </div>
     )
