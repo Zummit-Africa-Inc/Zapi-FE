@@ -9,8 +9,8 @@ import "react-toastify/dist/ReactToastify.min.css";
 
 import { CreateEndpoint, DevDashboard, DeveloperApiPage, EndPointPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, Analytics, SuccessPage, Configuration, EmailVerify } from "./pages";
 import { useContextProvider } from "./contexts/ContextProvider";
-import { Fallback, Login, AddApiPopup } from "./components";
 import { login } from "./redux/slices/userSlice";
+import { Fallback, Login, AddApiPopup, GeneralTab } from "./components";
 import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
 
@@ -75,6 +75,8 @@ const App:React.FC = () => {
           <Route path="/create-endpoint" element={<CreateEndpoint />} />
           <Route path="/endpoint" element={<EndPointPage />} />
           <Route path="/users/verify/:token" element={<EmailVerify />} />
+          <Route path="/general-tab" element={<GeneralTab />} />
+
         </Routes>
         </Suspense>
         {isClicked.login && <Login />}

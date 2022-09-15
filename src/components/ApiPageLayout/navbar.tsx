@@ -28,7 +28,9 @@ const Navbar = () => {
                 </Tabs>
                 {DEVSNAVBAR.map((nav, i) => (
                     <TabPanel key={i} value={tab} index={i}>
-                        {nav.page}
+                        <div className={classes.tabPanelStyle}>
+                            {nav.page}
+                        </div>
                     </TabPanel>
                 ))}
             </div>
@@ -53,6 +55,10 @@ const useStyles = makeStyles({
         justifyContent: "space-between",
         width: "100vw",
         height: "45px"
+    },
+    tabPanelStyle: {
+        position: "absolute",
+        marginTop: "10px"
     },
     Tabs: {
         width: "800px",
