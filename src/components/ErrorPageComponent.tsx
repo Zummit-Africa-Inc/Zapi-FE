@@ -1,8 +1,8 @@
 import React from 'react'
 import { makeStyles } from '@mui/styles';
-import HomeNavbar from '../sections/HomeNavbar/HomeNavbar';
 import { useNavigate} from "react-router-dom";
 import { Theme } from '@mui/material/styles';
+import { HomeNavbar } from '../sections';
 
 interface Details {
   title?: string,

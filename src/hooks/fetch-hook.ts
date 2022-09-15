@@ -20,7 +20,6 @@ export const useHttpRequest = () => {
                 body,
                 headers: {
                     'Zapi_Auth_token': cookies.get('accessToken'),
-                    'Content-Type': 'application/json',
                     ...headers,
                 },
                 // signal: httpAbortCtrl.signal

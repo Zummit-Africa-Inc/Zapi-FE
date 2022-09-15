@@ -1,5 +1,11 @@
 import blueFire from "./assets/images/blueFire.png"
 import purpleFire from "./assets/images/purpleFire.png"
+import ControlCameraIcon from '@mui/icons-material/ControlCamera';
+import ScienceOutlinedIcon from '@mui/icons-material/Science';
+import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import { Analytics, EndPointPage } from "./pages";
+import GeneralTab from "./components/GeneralTab";
 
 
 export const APIS = [
@@ -311,3 +317,59 @@ export const APIData = [
       name: "Text Summarizer"
     }
   ]
+
+  export const DEVELOPERSLINKS = [
+    // {
+    //     image: <ControlCameraIcon />,
+    //     text: "Request",
+    //     link: "#"
+    // },
+    // {
+    //     image: <ScienceOutlinedIcon />,
+    //     text: "Tests",
+    //     link: "/"
+    // },
+    {
+        image: <LanguageOutlinedIcon />,
+        text: "Hub Listing",
+        link: "#"
+    },
+    {
+        image: <EditOutlinedIcon />,
+        text: "Settings",
+        link: "/"
+    },
+]
+
+export const DEVSNAVBAR = [
+    {
+        name: "General",
+        link: "/general-tab",
+        page: <GeneralTab />
+    },
+    {
+        name: "Endpoints",
+        link: "/endpoints",
+        page: "Endpoints"
+    },
+    {
+        name: "Gateway",
+        link: "/",
+        page: 'Gateway'
+    },
+    {
+        name: "Community",
+        link: "/",
+        page: 'Community'
+    },
+    {
+        name: "Monetize",
+        link: "/",
+        page: "Monetize"
+    },
+    {
+        name: "Analytics",
+        link: "/analytics",
+        page: "analytics"
+    },
+]

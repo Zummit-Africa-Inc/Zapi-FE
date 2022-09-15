@@ -1,6 +1,7 @@
-import React, { FormEvent } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { Stack, Typography, } from "@mui/material";
 import { makeStyles } from '@mui/styles';
+import { toast }  from "react-toastify";
 
 import { EMAIL_REGEX, PASSWORD_REGEX, MATCH_CHECKER }from "../utils"
 import { useContextProvider } from "../contexts/ContextProvider"
@@ -18,22 +19,32 @@ const Signup:React.FC = () => {
   const { fullName, email, password, confirm_password, terms } = inputs;
   const { clearError, error, loading, sendRequest } = useHttpRequest();
   const { handleClicked } = useContextProvider();
+  const [message, setMessage] = useState<string>("")
 
   const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    if(!fullName || !email || !password || !confirm_password) return alert('Please fill all fields')
-    if(!EMAIL_REGEX.test(email)) return alert('Email is invalid')
-    if(!PASSWORD_REGEX.test(password)) return alert('Password is not strong enough')
-    if(!MATCH_CHECKER(password, confirm_password)) return alert('Passwords do not match')
-    if(!terms) return alert('Please read and accept the T&Cs before you can proceed')
+    if(!fullName || !email || !password || !confirm_password) return toast.error('Please fill all fields')
+    if(!EMAIL_REGEX.test(email)) return toast.error('Email is invalid')
+    if(!PASSWORD_REGEX.test(password)) return toast.error('Password is not strong enough')
+    if(!MATCH_CHECKER(password, confirm_password)) return toast.error('Passwords do not match')
+    if(!terms) return toast.error('Please read and accept the T&Cs before you can proceed')
     const headers = { 'Content-Type': 'application/json' }
     const payload = { fullName, email, password }
     try {
       const data = await sendRequest(`${url}/zapi-identity/auth/signup`, 'POST', JSON.stringify(payload), headers)
-    } catch (error) {}
+      setMessage(data?.data)
+    } catch (error) {};
   };
 
+  useEffect(() => {
+    {error && toast.error(`${error}`)}
+  },[error])
+
+  useEffect(() => {
+    {message && toast.success(`${message}`)}
+  },[message])
+  
   return (
     <>
     {loading && <Fallback />}
@@ -69,7 +80,7 @@ const Signup:React.FC = () => {
             <input type="checkbox" name="terms" {...toggle} />
             <label htmlFor="terms">I agree to ZAPI’s terms and conditions and privacy policy.</label>
           </div>
-          <button type="submit" className={classes.button} style={{background:"#4B4B4B",color:"#FFF"}}>
+          <button type="submit" className={classes.button} style={{background:"#4B4B4B",color:"#FFF"}} disabled={loading}>
             {loading ? 'loading' : 'Signup'}
           </button>
         </form>
