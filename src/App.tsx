@@ -14,7 +14,7 @@ import { Fallback, Login, AddApiPopup, GeneralTab } from "./components";
 import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
 import "react-toastify/dist/ReactToastify.css";
-// import ErrorPageSample from "./pages/ErrorPage";
+import ErrorPageSample from "./pages/ErrorPage";
 
 
 const App:React.FC = () => {
