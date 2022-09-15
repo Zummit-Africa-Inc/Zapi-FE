@@ -1,12 +1,15 @@
-import React from 'react'
+import React from 'react';
 
-import ErrorPageComponent from '../components/ErrorPageComponent'
-function ErrorPage() {
-  return (
-    <div>
-      <ErrorPageComponent />
-      </div>
-  )
-}
+import ErrorPageComponent from '../components/ErrorPageComponent';
 
-export default ErrorPage
+function ErrorPageSample ()  {
+ 
+
+return (
+  <div>
+     <ErrorPageComponent />
+    </div>
+);
+};
+
+export default ErrorPageSample;
