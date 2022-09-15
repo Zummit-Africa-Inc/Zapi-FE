@@ -9,13 +9,13 @@ import { Menu } from '@mui/icons-material';
 
 const Sidebar: React.FC = () => {
     const classes = useStyles();
-    const [isOpen, setIsOpen] = useState<boolean>(true)
+    // const [isOpen, setIsOpen] = useState<boolean>(true)
 
-    const handleCollapse = () => setIsOpen(!isOpen)
+    // const handleCollapse = () => setIsOpen(!isOpen)
 
     return (
         <div className={classes.container}>
-            <div className={isOpen ? classes.sidebar : classes.hide}>
+            <div className={classes.sidebar}>
                 <div className={classes.sidebarLinks}>
                     {DEVELOPERSLINKS.map((link, i) => (
                         <NavLink key={i} to={link.link} className={classes.link} style={({ isActive }) => (
@@ -36,10 +36,10 @@ const Sidebar: React.FC = () => {
                     ))}
                 </div>
             </div>
-            <div className={classes.collapse} onClick={handleCollapse}>
+            {/* <div className={classes.collapse} onClick={handleCollapse}>
                 <KeyboardDoubleArrowLeftOutlinedIcon />
                 {isOpen === true ? <Typography sx={{ fontSize: "16px" }}>Collapse Sidebar</Typography> : <Typography sx={{ fontSize: "16px" }}>Open Sidebar</Typography>}
-            </div>
+            </div> */}
         </div>
     )
 }
@@ -48,18 +48,16 @@ const useStyles = makeStyles({
     container: {
         display: "flex",
         flexDirection: "column",
+        position: "fixed",
+        marginTop: "70px"
     },
     sidebar: {
-        position: "sticky",
-        top: "0rem",
-        left: '0rem',
-        right: '0rem',
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
         padding: "2rem 2rem",
-        width: "300px",
-        height: "calc(100vh - 120px)",
+        width: "250px",
+        height: "100vh",
         borderRight: "1px solid #000"
     },
     sidebarLinks: {

@@ -35,7 +35,7 @@ const Navbar = () => {
                 ))}
             </div>
             <Link to="/api/:id">
-                <Typography sx={{marginTop: "-1.5rem"}}>View in Hub</Typography>
+                <Typography sx={{position: "fixed", marginTop: "60px", marginRight: "800px", width: "150px"}}>View in Hub</Typography>
             </Link>
         </div>
     )
@@ -45,23 +45,26 @@ export default Navbar
 
 const useStyles = makeStyles({
     navbar: {
-        position: "sticky",
-        top: "7rem",
-        left: '0rem',
-        right: '0rem',
-        padding: "1rem 2rem",
+        marginLeft: "250px",
+        // padding: "1rem 4rem",
+        paddingTop: "1rem",
+        paddingBottom: "1rem",
+        paddingLeft: "2rem",
+        paddingRight: "6rem",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
         width: "100vw",
-        height: "45px"
+        height: "45px",
     },
     tabPanelStyle: {
         position: "absolute",
-        marginTop: "10px"
+        marginTop: "100px"
     },
     Tabs: {
+        position: "fixed",
+        top: "4.3rem",
+        zIndex: "99",
         width: "800px",
-        textTransform: "none"
     }
 })
