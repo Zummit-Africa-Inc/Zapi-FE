@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Menu } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
@@ -6,6 +7,8 @@ import { useContextProvider } from "../contexts/ContextProvider";
 import Vector from "../assets/images/Vector.png";
 import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png";
 import { useMediaQuery, useTheme } from "@mui/material";
+import { logout } from "../redux/slices/userSlice";
+import { useDispatch } from "react-redux";
 
 const HomeNavbar: React.FC = () => {
     const classes = useStyles()
@@ -13,6 +16,8 @@ const HomeNavbar: React.FC = () => {
     const theme = useTheme()
     const isMatch = useMediaQuery(theme.breakpoints.down("md"))
     const { handleClicked } = useContextProvider()
+ const { isLoggedIn } = useSelector((state: any) => state.user);
+ const dispatch = useDispatch();
 
     const handleClick = () => {
         if (open === classes.mobile) {
@@ -53,9 +58,12 @@ const HomeNavbar: React.FC = () => {
                             <li><Link to="#">API hub</Link></li>
                             <li><Link to="#">Pricing</Link></li>
                             <li><Link to="#">Documentation</Link></li>
-                            <li><button onClick={() => handleClicked('login')}>Login</button></li>
+                            {!isLoggedIn && <li><button onClick={() => handleClicked('login')}>Login</button></li>}   
                         </ul>
-                        <div className={classes.signup}><Link to="/signup">Sign up</Link></div>
+                         {!isLoggedIn ? 
+<div className={classes.signup}><Link to="/signup">Sign up</Link></div> : <button className={classes.signup} onClick={() => dispatch( logout())}>LogOut</button>
+
+                       } 
                     </div>
                 }
             </div>
