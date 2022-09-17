@@ -39,7 +39,7 @@ const Pricing: React.FC = () => {
                                 <div style={{ display: 'flex', alignItems:'center', textAlign:'center', marginInlineEnd:'auto', gap:'1rem' }}>
                                     <CheckCircleIcon sx={{ color:'#B8D4EF'}} />
                                     <Stack direction='column' sx={{textAlign:'start', gap:'0.5rem' }}>
-                                        <Typography variant='h5' sx={{ fontFamily:'Space Grotesk', fontWeight: 700, fontSize:'24px', lineHeight: '31px' }}>Premium</Typography>
+                                        <Typography variant='h5' sx={{ fontFamily:'Space Grotesk', fontWeight: 700, fontSize:'24px', lineHeight: '31px' }}>Basic</Typography>
                                         <Typography variant='h6' sx={{ fontFamily:'Space Grotesk', fontWeight: 500, fontSize:'16px', lineHeight: '20px' }}>5,000 requests</Typography>
                                     </Stack>
                                 </div>
@@ -51,20 +51,17 @@ const Pricing: React.FC = () => {
                             </div>
                         </div>
                     </div>
-                    <div className={classes.col}>
+                    <div className={classes.coll}>
                             <div className={classes.content}>
-                                <div className={classes.discount}>
-                                    <Typography variant='h5' sx={{ fontFamily:'Space Grotesk', fontWeight: 700, fontSize:'14px', lineHeight: '18px', color: '#0A9A18', textAlign: 'center', alignItem:'center', flex:'none' }}>SAVE 30%</Typography> 
-                                </div>
                                 <div style={{ display: 'flex', alignItems:'center', textAlign:'center', marginInlineEnd:'auto', gap:'1rem'}}>
-                                    <CheckCircleIcon sx={{ color:'#1331CA'}} />
+                                <CheckCircleIcon sx={{ color:'#B8D4EF'}} />
                                     <Stack direction='column' sx={{textAlign:'start', gap:'0.5rem' }}>
-                                        <Typography variant='h5' sx={{ fontFamily:'Space Grotesk', fontWeight: 700, fontSize:'24px', lineHeight: '31px' }}>Premium - silver</Typography>
-                                        <Typography variant='h6' sx={{ fontFamily:'Space Grotesk', fontWeight: 500, fontSize:'16px', lineHeight: '20px' }}>100,000 requests</Typography>
+                                        <Typography variant='h5' sx={{ fontFamily:'Space Grotesk', fontWeight: 700, fontSize:'24px', lineHeight: '31px' }}>Premium</Typography>
+                                        <Typography variant='h6' sx={{ fontFamily:'Space Grotesk', fontWeight: 500, fontSize:'16px', lineHeight: '20px' }}>5,000 requests</Typography>
                                     </Stack>
                                 </div>
                                 <Stack direction='row' sx={{ textAlign:'start' }}>
-                                    <Typography variant='h1' sx={{ fontFamily:'Space Grotesk', fontWeight: 700, fontSize:'36px', lineHeight: '46px', color:'#071B85' }}>$100</Typography>
+                                    <Typography variant='h1' sx={{ fontFamily:'Space Grotesk', fontWeight: 700, fontSize:'36px', lineHeight: '46px', color:'#071B85' }}>$5</Typography>
                                     <Typography variant='h6' sx={{ fontFamily:'Space Grotesk', fontWeight: 500, fontSize:'20px', lineHeight: '26px', color:'#071B85'}}>/month</Typography>
                                 </Stack>
                                 
@@ -75,12 +72,12 @@ const Pricing: React.FC = () => {
                                 <div style={{ display: 'flex', alignItems:'center', textAlign:'center', marginInlineEnd:'auto', gap:'1rem' }}>
                                     <CheckCircleIcon sx={{ color:'#B8D4EF'}} />
                                     <Stack direction='column' sx={{textAlign:'start', gap:'0.5rem' }}>
-                                        <Typography variant='h5' sx={{ fontFamily:'Space Grotesk', fontWeight: 700, fontSize:'24px', lineHeight: '31px' }}>Premium - gold</Typography>
-                                        <Typography variant='h6' sx={{ fontFamily:'Space Grotesk', fontWeight: 500, fontSize:'16px', lineHeight: '20px' }}>500,000 requests</Typography>
+                                        <Typography variant='h5' sx={{ fontFamily:'Space Grotesk', fontWeight: 700, fontSize:'24px', lineHeight: '31px' }}>Mega</Typography>
+                                        <Typography variant='h6' sx={{ fontFamily:'Space Grotesk', fontWeight: 500, fontSize:'16px', lineHeight: '20px' }}>5,000 requests</Typography>
                                     </Stack>
                                 </div>
                                 <Stack direction='row' sx={{ textAlign:'start' }}>
-                                    <Typography variant='h1' sx={{ fontFamily:'Space Grotesk', fontWeight: 700, fontSize:'36px', lineHeight: '46px', color:'#071B85'}}>$200</Typography>
+                                    <Typography variant='h1' sx={{ fontFamily:'Space Grotesk', fontWeight: 700, fontSize:'36px', lineHeight: '46px', color:'#071B85'}}>$5</Typography>
                                     <Typography variant='h6' sx={{ fontFamily:'Space Grotesk', fontWeight: 500, fontSize:'20px', lineHeight: '26px', color:'#071B85'}}>/month</Typography>
                                 </Stack>
                                 
@@ -91,12 +88,12 @@ const Pricing: React.FC = () => {
                                 <div style={{ display: 'flex', alignItems:'center', textAlign:'center', marginInlineEnd:'auto', gap:'1rem' }}>
                                     <CheckCircleIcon sx={{ color:'#B8D4EF'}} />
                                     <Stack direction='column' sx={{textAlign:'start', gap:'0.5rem' }}>
-                                        <Typography variant='h5' sx={{ fontFamily:'Space Grotesk', fontWeight: 700, fontSize:'24px', lineHeight: '31px' }}>Premium - platinum</Typography>
-                                        <Typography variant='h6' sx={{ fontFamily:'Space Grotesk', fontWeight: 500, fontSize:'16px', lineHeight: '20px' }}>Unlimited requests</Typography>
+                                        <Typography variant='h5' sx={{ fontFamily:'Space Grotesk', fontWeight: 700, fontSize:'24px', lineHeight: '31px' }}>Entreprise</Typography>
+                                        <Typography variant='h6' sx={{ fontFamily:'Space Grotesk', fontWeight: 500, fontSize:'16px', lineHeight: '20px' }}>5,000 requests</Typography>
                                     </Stack>
                                 </div>
                                 <Stack direction='row' sx={{ textAlign:'start' }}>
-                                    <Typography variant='h1' sx={{ fontFamily:'Space Grotesk', fontWeight: 700, fontSize:'36px', lineHeight: '46px', color:'#071B85'}}>$500</Typography>
+                                    <Typography variant='h1' sx={{ fontFamily:'Space Grotesk', fontWeight: 700, fontSize:'36px', lineHeight: '46px', color:'#071B85'}}>$5</Typography>
                                     <Typography variant='h6' sx={{ fontFamily:'Space Grotesk', fontWeight: 500, fontSize:'20px', lineHeight: '26px', color:'#071B85'}}>/month</Typography>
                                 </Stack>
                                 

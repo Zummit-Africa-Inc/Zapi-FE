@@ -5,6 +5,7 @@ import ScienceOutlinedIcon from '@mui/icons-material/Science';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { Analytics, EndPointPage } from "./pages";
+import GeneralTab from "./components/GeneralTab";
 
 
 export const APIS = [
@@ -318,20 +319,20 @@ export const APIData = [
   ]
 
   export const DEVELOPERSLINKS = [
-    {
-        image: <ControlCameraIcon />,
-        text: "Request",
-        link: "#"
-    },
-    {
-        image: <ScienceOutlinedIcon />,
-        text: "Tests",
-        link: "/"
-    },
+    // {
+    //     image: <ControlCameraIcon />,
+    //     text: "Request",
+    //     link: "#"
+    // },
+    // {
+    //     image: <ScienceOutlinedIcon />,
+    //     text: "Tests",
+    //     link: "/"
+    // },
     {
         image: <LanguageOutlinedIcon />,
         text: "Hub Listing",
-        link: "/"
+        link: "#"
     },
     {
         image: <EditOutlinedIcon />,
@@ -343,32 +344,32 @@ export const APIData = [
 export const DEVSNAVBAR = [
     {
         name: "General",
-        link: "#",
-        page: ''
+        link: "/general-tab",
+        page: <GeneralTab />
     },
     {
         name: "Endpoints",
         link: "/endpoints",
-        page: <EndPointPage />
+        page: "Endpoints"
     },
     {
         name: "Gateway",
         link: "/",
-        page: ''
+        page: 'Gateway'
     },
     {
         name: "Community",
         link: "/",
-        page: ''
+        page: 'Community'
     },
     {
         name: "Monetize",
         link: "/",
-        page: ""
+        page: "Monetize"
     },
     {
         name: "Analytics",
         link: "/analytics",
-        page: <Analytics />
+        page: "analytics"
     },
 ]

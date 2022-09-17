@@ -1,41 +1,31 @@
-import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import axios from "axios";
-import { Stack, Typography } from '@mui/material';
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+
+import { useHttpRequest } from "../hooks";
 import SuccessPage from "./SuccessPage";
+import ErrorPage from "./ErrorPage";
+import { Fallback } from "../components";
 
-const identity_url = import.meta.env.VITE_IDENTITY_URL;
+const url = import.meta.env.VITE_IDENTITY_URL;
 
+const EmailVerify = () => {
+	const { error, loading, sendRequest } = useHttpRequest();
+	const { token } = useParams();
 
-const EmailVerify: React.FC = () => {
-    const [validUrl, setValidUrl] = useState(true);
-	const param = useParams();
+	const verifyEmailUrl = async () => {
+		try {
+			const data = await sendRequest(`${url}/zapi-identity/email-verification/${token}`, 'GET')
+			console.log(data)
+		} catch (error) {}
+	};
 
 	useEffect(() => {
-		const verifyEmailUrl = async () => {
-			try {
-				const url = `${identity_url}/zapi-identity/email-verification/${param.token}`;
-				const { data } = await axios.get(url);
-				console.log(data);
-				setValidUrl(true);
-			} catch (error) {
-				console.log(error);
-				setValidUrl(false);
-			}
-		};
-		verifyEmailUrl();
-	}, []);
+		verifyEmailUrl()
+	},[]);
 
-  return (
-    <>
-      {validUrl ? (
-          <SuccessPage/>
-      ):(
-        <Typography variant="h1" sx={{textAlign: 'center'}}>Page Not Found</Typography>
+	if(loading) return <Fallback />
 
-      )}
-    </>
-  );
+  return error ? <ErrorPage error={error?.message} /> : <SuccessPage />
 };
 
 export default EmailVerify;

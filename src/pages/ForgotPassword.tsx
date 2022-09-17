@@ -1,11 +1,7 @@
-import React, { FormEvent, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-
-import { Navbar } from "../components";
-import { useFormInputs } from "../hooks/form-hook";
-import { PASSWORD_REGEX } from "../utils";
-import { useHttpRequest } from '../hooks/fetch-hook'
+import React, { FormEvent} from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast }  from "react-toastify";
 
 
 import { Typography } from "@mui/material";
@@ -30,13 +26,17 @@ const ForgotPassword: React.FC = () => {
     try{
       const url = `${identity_url}/zapi-identity/auth/forgot`;
       const res = await axios.post(url, userData);
-      console.log(res);
-      navigate("/");
+      toast.success(res.data.message);
+      setTimeout(() => {
+        navigate("/");  
+      }, 5000);
 
     } catch (error: any){
-      if(!error.response.data.success){
-        console.log(error.response.data.message);
-    }
+      if (error.request.status === 400) {
+        return toast.error(error.response.data.message);
+      } else {
+        return toast.error(error.message)
+      }
     }
   }
 
@@ -49,7 +49,7 @@ const ForgotPassword: React.FC = () => {
           <Typography variant='h4' className={classes.title} gutterBottom>Forgot Password?</Typography>
           <Typography variant='body1' className={classes.sub} gutterBottom>No need to worry, we'll send you an email with instructions to reset.</Typography>
 
-          <form className={classes.form}>
+          <form className={classes.form} onSubmit={handleSubmit}>
             <input required type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter Your Email" />
             <button type="submit">Submit</button>
           </form>
