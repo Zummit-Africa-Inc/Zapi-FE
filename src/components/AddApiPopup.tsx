@@ -1,8 +1,9 @@
 import React from "react";
-import { Typography, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, MenuItem } from "@mui/material";
+import { Typography, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, MenuItem, Stack, Modal} from "@mui/material";
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { makeStyles } from "@mui/styles";
 
+import { useContextProvider } from "../contexts/ContextProvider";
 
 import { useFormInputs, useHttpRequest } from "../hooks";
 import { Fallback } from "../components";
@@ -15,7 +16,11 @@ const AddApiPopup: React.FC = () => {
   const classes = useStyles();
 
   const [dropdown, setDropdown] = React.useState('');
- 
+  const [close, setClose] = React.useState(true);
+  const handleClose = () => {
+    setClose(false);
+  };
+  
   const handleDropdownChange = (event: SelectChangeEvent) => {
     setDropdown(event.target.value);
   };
@@ -24,82 +29,86 @@ const AddApiPopup: React.FC = () => {
   return (
     <>
     {loading && <Fallback />}
-    <div className={classes.container}>
-      <div className={classes.main} onClick={(e) => e.stopPropagation()}>
-        <Typography variant="body1" fontSize="24px" lineHeight="30px" fontWeight={700} mb={3}>Add API Project</Typography>
-        <form className={classes.form}>
-          <div className={classes.input}>
-            <label>Name</label>
-            <input type="text" {...bind} placeholder="Add API Name" />
-          </div>
-          <div className={classes.input}>
-            <label>Description</label>
-            <input type="text" name="description" {...bind} placeholder="Add API Description" />
-          </div>
-          <div className={classes.input}>
-            <label>Category</label>
-            <div>
-              <FormControl className={classes.input}>
-                <Select
-                  value={dropdown}
-                  displayEmpty
-                  inputProps={{ 'aria-label': 'Category' }}
-                  onChange={handleDropdownChange}
-                >
-                  <MenuItem value={10}>Technology</MenuItem>
-                  <MenuItem value={20}>Sports</MenuItem>
-                  <MenuItem value={30}>Health</MenuItem>
-                </Select>
-              </FormControl>
+    {close ? (
+    <div>
+      <div className={classes.container}>
+        <div className={classes.main} onClick={(e) => e.stopPropagation()}>
+          <Typography variant="body1" fontSize="24px" lineHeight="30px" fontWeight={700} mb={3}>Add API Project</Typography>
+          <form className={classes.form}>
+            <div className={classes.input}>
+              <label>Name</label>
+              <input type="text" {...bind} placeholder="Add API Name" />
             </div>
-          </div>
+            <div className={classes.input}>
+              <label>Description</label>
+              <input type="text" name="description" {...bind} placeholder="Add API Description" />
+            </div>
+            <div className={classes.input}>
+              <label>Category</label>
+              <div>
+                <FormControl className={classes.input}>
+                  <Select
+                    value={dropdown}
+                    displayEmpty
+                    inputProps={{ 'aria-label': 'Category' }}
+                    onChange={handleDropdownChange}
+                  >
+                    <MenuItem value={10}>Technology</MenuItem>
+                    <MenuItem value={20}>Sports</MenuItem>
+                    <MenuItem value={30}>Health</MenuItem>
+                  </Select>
+                </FormControl>
+              </div>
+            </div>
 
-          <div className={classes.input}>
-            <label>Team</label>
-            <div>
-              <FormControl className={classes.input}>
-                <Select
-                  value={dropdown}
-                  onChange={handleDropdownChange}
-                  displayEmpty
-                   inputProps={{ 'aria-label': 'Team' }}
-                >
-                  <MenuItem value={10}>Personal</MenuItem>
-                </Select>
-              </FormControl>
+            <div className={classes.input}>
+              <label>Team</label>
+              <div>
+                <FormControl className={classes.input}>
+                  <Select
+                    value={dropdown}
+                    onChange={handleDropdownChange}
+                    displayEmpty
+                    inputProps={{ 'aria-label': 'Team' }}
+                  >
+                    <MenuItem value={10}>Personal</MenuItem>
+                  </Select>
+                </FormControl>
+              </div>
             </div>
+
+          </form>
+      
+          {/* Radio Buttons */}
+          <FormControl>
+              <FormLabel id="demo-radio-buttons-group-label" sx={{fontSize: "16px", fontWeight: "500", lineHeight: "24px", color: "#000000", marginBottom: "10px", marginTop: "10px"}}>Import data from</FormLabel>
+
+              <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  defaultValue="female"
+                  name="radio-buttons-group"
+              >
+                  <FormControlLabel value="Do not Import" control={<Radio />} label="Do not Import" />
+                  <FormControlLabel value="Open API" control={<Radio />} label="Open API" />
+                  <FormControlLabel value="Rapid API" control={<Radio />} label="Rapid API" />
+                  <FormControlLabel value="Postman Collection" control={<Radio />} label="Postman Collection" />
+              </RadioGroup>
+          </FormControl>
+          {/* Divider */}
+          <div className={classes.divider} />
+          {/* Add and Cancel Buttons */}
+          <div style={{top: "600px", left: "325px", gap: "40px", display: "flex", flexDirection: "row", alignItems: "flex-start", width: "275px", marginBottom: "20PX", marginLeft: "235PX"}}>
+              <button className={classes.cancelBtn} onClick={handleClose}>
+                  <Typography>Cancel</Typography>
+              </button>
+              <div className={classes.addBtn}>
+                  <Typography>Add API Project</Typography>
+              </div>
           </div>
-
-        </form>
-     
-         {/* Radio Buttons */}
-         <FormControl>
-            <FormLabel id="demo-radio-buttons-group-label" sx={{fontSize: "16px", fontWeight: "500", lineHeight: "24px", color: "#000000", marginBottom: "10px", marginTop: "10px"}}>Import data from</FormLabel>
-
-            <RadioGroup
-                aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue="female"
-                name="radio-buttons-group"
-            >
-                <FormControlLabel value="Do not Import" control={<Radio />} label="Do not Import" />
-                <FormControlLabel value="Open API" control={<Radio />} label="Open API" />
-                <FormControlLabel value="Rapid API" control={<Radio />} label="Rapid API" />
-                <FormControlLabel value="Postman Collection" control={<Radio />} label="Postman Collection" />
-            </RadioGroup>
-        </FormControl>
-        {/* Divider */}
-        <div className={classes.divider} />
-        {/* Add and Cancel Buttons */}
-        <div style={{top: "600px", left: "325px", gap: "40px", display: "flex", flexDirection: "row", alignItems: "flex-start", width: "275px", marginBottom: "20PX", marginLeft: "235PX"}}>
-            <div className={classes.cancelBtn}>
-                <Typography>Cancel</Typography>
-            </div>
-            <div className={classes.addBtn}>
-                <Typography>Add API Project</Typography>
-            </div>
-        </div>
+          </div>
         </div>
       </div>
+      ) : null }
     </>
   );
 };
@@ -202,6 +211,7 @@ const useStyles = makeStyles({
     gap: "16px",
     width: "150px", 
     height: "46px", 
+    cursor: "pointer",
     background: "#white",
     color: "#1D1D1D", 
     border: "1px solid #1D1D1D",
