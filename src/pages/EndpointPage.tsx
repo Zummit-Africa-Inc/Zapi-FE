@@ -49,6 +49,7 @@ export default EndpointPage
 const useStyles = makeStyles({
     topSection: {
         padding: "2rem 5rem",
+        // marginTop: "300px"
     },
     pageHeading: {
         padding: "1rem 0",
@@ -101,3 +102,26 @@ const useStyles = makeStyles({
         color: "#000"
     }
 })
+
+
+
+// import { makeStyles } from "@mui/styles"
+
+
+// const EndpointPage: React.FC = () => {
+//     const classes = useStyles()
+//     return (
+//         <div>
+//             Endpoints lets go
+//         </div>
+//     )
+// }
+
+// export default EndpointPage
+
+// const useStyles = makeStyles({
+ 
+// })
+
+
+
