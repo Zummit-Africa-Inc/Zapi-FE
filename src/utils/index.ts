@@ -2,6 +2,8 @@ export const PASSWORD_REGEX = /^(?=.*[a-zA-Z0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9
 
 export const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=_{|}~-]+@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*$/
 
+export const SPECIAL_CHAR = /[ `!@#$%^&*()_+\-=\]{};':"\\|,.<>?~]/
+
 export const MATCH_CHECKER = (value: any, checker: any) => {
     if(value === checker) return true;
     else false

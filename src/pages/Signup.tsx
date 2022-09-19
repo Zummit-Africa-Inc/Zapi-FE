@@ -1,9 +1,10 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import { Stack, Typography, } from "@mui/material";
 import { makeStyles } from '@mui/styles';
-import { toast }  from "react-toastify";
+import { toast } from "react-toastify";
+import {CheckCircle, Cancel} from '@mui/icons-material';
 
-import { EMAIL_REGEX, PASSWORD_REGEX, MATCH_CHECKER }from "../utils"
+import { EMAIL_REGEX, PASSWORD_REGEX, MATCH_CHECKER, SPECIAL_CHAR }from "../utils"
 import { useContextProvider } from "../contexts/ContextProvider"
 import { useFormInputs, useHttpRequest } from "../hooks";
 import { Fallback } from "../components";
@@ -20,6 +21,17 @@ const Signup:React.FC = () => {
   const { clearError, error, loading, sendRequest } = useHttpRequest();
   const { handleClicked } = useContextProvider();
   const [message, setMessage] = useState<string>("")
+
+  const [validLength, setValidLength] = useState(false);
+  const [hasNumber, setHasNumber] = useState(false);
+  const [upperCase, setUpperCase] = useState(false);
+  const [lowerCase, setLowerCase] = useState(false);
+  const [specialChar, setSpecialChar] = useState(false);
+  const [match, setMatch] = useState(false);
+  const [requiredLength, setRequiredLength] = useState(8)
+
+  
+  
 
   const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -44,6 +56,16 @@ const Signup:React.FC = () => {
   useEffect(() => {
     {message && toast.success(`${message}`)}
   },[message])
+
+  useEffect(() => {
+    setValidLength(password.length >= requiredLength ? true : false);
+    setUpperCase(password.toLowerCase() !== password);
+    setLowerCase(password.toUpperCase() !== password);
+    setHasNumber(/\d/.test(password));
+    setMatch(!!password && password === confirm_password);
+    setSpecialChar(SPECIAL_CHAR.test(password));
+
+  }, [password, requiredLength]);
   
   return (
     <>
@@ -71,11 +93,34 @@ const Signup:React.FC = () => {
           <div className={classes.input}>
             <label htmlFor="password">Password</label>
             <input type="password" name="password" {...bind} placeholder="Enter a Password" />
-          </div>
+            </div>
+            <div className={classes.check_input}>
+            <ul>
+              <p>
+                {validLength ? <span> <CheckCircle sx={{ fontSize: 15, marginRight:1  }} color="success"/> At least 8 characters long</span> : <span><Cancel sx={{ fontSize: 15, marginRight:1  }}  color="error"/> At least 8 characters long</span>}
+              </p>
+              
+              <p>{upperCase ? <span><CheckCircle sx={{ fontSize: 15, marginRight:1  }} color="success"/>Contains uppercase letter</span> : <span><Cancel sx={{ fontSize: 15, marginRight:1  }}  color="error"/> Contains uppercase letter</span>}
+              </p>
+              <p>
+              {lowerCase ? <span><CheckCircle sx={{ fontSize: 15, marginRight:1 }} color="success"/>Contains lowercase letter</span> : <span><Cancel sx={{ fontSize: 15, marginRight:1  }}  color="error"/> Contains lowercase letter</span>}
+              </p>
+              <p>{specialChar ? <span><CheckCircle sx={{ fontSize: 15, marginRight:1  }} color="success"/>Contains Special character</span> : <span><Cancel sx={{ fontSize: 15, marginRight:1  }}  color="error"/> Contains Special character</span>}
+                </p>
+                <p>
+                {hasNumber ? <span><CheckCircle sx={{ fontSize: 15, marginRight:1  }} color="success"/>Contains number</span> : <span><Cancel sx={{ fontSize: 15, marginRight:1  }}  color="error"/> Contains number</span>}
+              </p>
+            </ul>
+            </div>
           <div className={classes.input}>
             <label htmlFor="confirm_password">Confirm Password</label>
             <input type="password" name="confirm_password" {...bind} placeholder="Re-enter the Password" />
-          </div>
+            </div>
+            <div className={classes.check_input}>
+            <ul>
+              <p>{MATCH_CHECKER(password, confirm_password) ? <span><CheckCircle sx={{ fontSize: 15, marginRight:1  }} color="success"/>Password match</span> : <span><Cancel sx={{ fontSize: 15, marginRight:1  }}  color="error"/> Password match</span>}</p>
+            </ul>
+            </div>
           <div className={classes.check_input}>
             <input type="checkbox" name="terms" {...toggle} />
             <label htmlFor="terms">I agree to ZAPI’s terms and conditions and privacy policy.</label>
