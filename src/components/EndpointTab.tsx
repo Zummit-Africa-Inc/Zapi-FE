@@ -42,7 +42,7 @@ const EndpointTab: React.FC = () => {
                             </div>
                         </div>
                     </div><br/><br/>
-                    
+
                     {/* EndpointTable */}
                     <EndpointTable />
             </div>
@@ -109,3 +109,4 @@ const useStyles = makeStyles({
         color: "#000"
     }
 })
+
