@@ -83,8 +83,8 @@ const useStyles = makeStyles({
         width:'100%',
         display: 'flex',
         alignItems: 'center',
-        padding: '110px 112px',
-        paddingBottom: "70px",
+        marginTop: '80px',
+        padding: '24px 112px',
         flexDirection: 'row',
         justifyContent:'space-between',
         background:'white',
@@ -229,7 +229,9 @@ const useStyles = makeStyles({
         margin: "0 auto", 
     },
     addApiDesc: {
-        paddingBottom: "180px",
+        marginTop: "20px",
+        paddingBottom: "80px",
+
     }
 })
 export default DevAddApi
