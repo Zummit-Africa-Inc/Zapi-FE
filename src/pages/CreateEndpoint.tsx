@@ -2,7 +2,8 @@ import { Typography } from '@mui/material'
 import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react'
 import { makeStyles } from '@mui/styles'
 //components
-import { InputSearch, ApiPageSidebar, Navbar } from '../components'
+import { InputSearch, DevNavbar } from '../components'
+import  Sidebar  from '../components/ApiPageLayout/sidebar'
 //data
 import { METHOD, DATATYPE } from '../testdata'
 
@@ -55,49 +56,50 @@ const CreateEndpoint: React.FC = () => {
   }
   return (
     <>
-    <Navbar />
+     <DevNavbar />
+      <Sidebar />
     <div className={classes.createEndpointPage}>
-    {/* <ApiPageSidebar /> */}
-    <div className={classes.addEndpoint}>
-      <form onSubmit={addEndpoint}>
-        <div className={classes.topForm}>
-          <Typography variant="h6" gutterBottom className={classes.pageHeading}>Add Endpoint</Typography>
-          <div className={classes.actionButtons}>
-            <button className={classes.cancelButton} onClick={handleCancel}>Cancel</button>
-            <button type="submit" className={classes.addButton}>Save</button>
+      {/* <ApiPageSidebar /> */}
+      <div className={classes.addEndpoint}>
+        <form onSubmit={addEndpoint}>
+          <div className={classes.topForm}>
+            <Typography variant="h6" gutterBottom className={classes.pageHeading}>Add Endpoint</Typography>
+            <div className={classes.actionButtons}>
+              <button className={classes.cancelButton} onClick={handleCancel}>Cancel</button>
+              <button type="submit" className={classes.addButton}>Save</button>
+            </div>
           </div>
-        </div>
-        <div className={classes.inputForm}>
-          <div className={classes.input}>
-            <label>Name</label>
-            <input required type='text' name='name' value={name} onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)} placeholder='Name your endpoint' />
+          <div className={classes.inputForm}>
+            <div className={classes.input}>
+              <label>Name</label>
+              <input required type='text' name='name' value={name} onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)} placeholder='Name your endpoint' />
+            </div>
+            <div className={classes.input}>
+              <label>Description</label>
+              <textarea required rows={5} name='description' value={description} onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setDescription(e.target.value)} placeholder='Describe what this endpoint does'></textarea>
+            </div>
+            <div className={classes.endpointRoute}>
+              <InputSearch className={classes.select} type="select" name="method" value={method} onSelect={(e: ChangeEvent<HTMLSelectElement>) => setMethod(e.target.value)} data={METHOD} />
+              <input className={classes.route} required type='text' name='route' value={route} onChange={(e: ChangeEvent<HTMLInputElement>) => setRoute(e.target.value)} />
+            </div>
           </div>
-          <div className={classes.input}>
-            <label>Description</label>
-            <textarea required rows={5} name='description' value={description} onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setDescription(e.target.value)} placeholder='Describe what this endpoint does'></textarea>
-          </div>
-          <div className={classes.endpointRoute}>
-            <InputSearch className={classes.select} type="select" name="method" value={method} onSelect={(e: ChangeEvent<HTMLSelectElement>) => setMethod(e.target.value)} data={METHOD} />
-            <input className={classes.route} required type='text' name='route' value={route} onChange={(e: ChangeEvent<HTMLInputElement>) => setRoute(e.target.value)} />
-          </div>
-        </div>
-        {showPostComponent && (
-          <div className={classes.postForm}>
-            {requestBody.map((element, index) => (
-              <div key={index} className={classes.formFields}>
-                <input type="text" name="payload" placeholder="Payload Name" value={element.payload || ""} onChange={e => handleChange(e, index)} />
-                <InputSearch type="select" name="dataType" value={element.dataType || ""} onSelect={e => handleSelect(index, e)} data={DATATYPE} placeholder="Data Type" />
-                <div className={classes.actionButtons}>
-                  <button disabled={index === 0} onClick={removeFormField}>-</button>
-                  <button onClick={addFormField}>+</button>
+          {showPostComponent && (
+            <div className={classes.postForm}>
+              {requestBody.map((element, index) => (
+                <div key={index} className={classes.formFields}>
+                  <input type="text" name="payload" placeholder="Payload Name" value={element.payload || ""} onChange={e => handleChange(e, index)} />
+                  <InputSearch type="select" name="dataType" value={element.dataType || ""} onSelect={e => handleSelect(index, e)} data={DATATYPE} placeholder="Data Type" />
+                  <div className={classes.actionButtons}>
+                    <button disabled={index === 0} onClick={removeFormField}>-</button>
+                    <button onClick={addFormField}>+</button>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </form>
+              ))}
+            </div>
+          )}
+        </form>
+      </div>
     </div>
-        </div>
         </>
   )
 }
@@ -106,6 +108,8 @@ export default CreateEndpoint
 
 const useStyles = makeStyles({
   createEndpointPage: {
+    paddingLeft: "250px",
+    paddingTop: "70px",
     background: "#fff",
     width: "100vw",
     display: "flex",

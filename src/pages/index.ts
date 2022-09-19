@@ -7,7 +7,6 @@ const APIPage = React.lazy(() => import("./APIPage"));
 const Configuration = React.lazy(() => import("./Configuration"));
 const DevDashboard = React.lazy(() => import("./DevDashboard"));
 const DeveloperApiPage = React.lazy(() => import("./DeveloperApiPage"));
-const EndPointPage = React.lazy(() => import("./EndpointPage"));
 const ForgotPassword = React.lazy(() => import("./ForgotPassword"));
 const Home = React.lazy(() => import("./Home"));
 const HomePage = React.lazy(() => import("./Homepage"));

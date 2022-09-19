@@ -10,18 +10,20 @@ const MarketPlace = () => {
         <>
             <div className={classes.marketPlace}>
                 <div className={classes.marketplaceText}>
-                    <Typography gutterBottom variant="subtitle1" sx=
+                    <Typography gutterBottom variant="h2" sx=
                         {{
                             color: "#071B85", fontFamily: "Space Grotesk", fontWeight: 700, fontSize: "36px",
                             lineHeight: "45.94px", textAlign: "center", marginTop: "116px"
-                        }}>Explore the marketplace
+                        }}>Explore API hub
                     </Typography>
 
-                    <Typography gutterBottom variant="subtitle1" sx={{
+                    <Typography gutterBottom variant="h3" sx={{ padding: "0 19rem",
                         color: "#071B85", fontFamily: "Space Grotesk", fontStyle: "normal", fontWeight: 400,
-                        fontSize: "24px", lineHeight: "40px", textAlign: "center", marginTop: "28px"
-                    }}>Production ready, fast, scalable and reliable APIs for your <br />{""}
-                        A.I deployments.
+                        fontSize: "24px", lineHeight: "40px", textAlign: "center", marginTop: "28px",
+                        "@media screen and (max-width:800px)": {
+                            padding: "0 2rem", fontSize: "16px"
+                        }
+                    }}>Best Artificial Intelligence and Machine learning API hub. Featuring APISs for various use cases in the industry
                     </Typography>
                 </div>
                 <div className={classes.marketApi}>
@@ -41,42 +43,10 @@ const MarketPlace = () => {
                             </div>
                         ))}
                     </div>
-                    <div className={classes.column}>
-                        {MarketPlaceText.map((market, index) => (
-                            <div key={index} className={classes.columnText}>
-                                <>
-                                    <Typography gutterBottom variant="subtitle1" sx={{ color: "#071B85", fontFamily: "Space Grotesk", fontStyle: "normal", fontWeight: 700, fontSize: "24px", lineHeight: "30.62px" }}>{market.title}</Typography>
-                                    <Typography gutterBottom variant="subtitle1" sx={{ color: "#071B85", fontFamily: "Space Grotesk", fontStyle: "normal", fontWeight: 400, fontSize: "20px", lineHeight: "26px" }}>{market.subtitle}</Typography>
-                                    {market.apis.map((api, index) => (
-                                        <div key={index} className={classes.api}>
-                                            <img src={api.image} alt={api.name} />
-                                            <Typography variant="subtitle1" sx={{ color: "#071B85", fontFamily: "Space Grotesk", fontStyle: "normal", fontWeight: 400, fontSize: "20px", }}>{api.name}</Typography>
-                                        </div>
-                                    ))}
-                                </>
-                            </div>
-                        ))}
-                    </div>
-                    <div className={classes.column}>
-                        {MarketPlaceText.map((market, index) => (
-                            <div key={index} className={classes.columnText}>
-                                <>
-                                    <Typography gutterBottom variant="subtitle1" sx={{ color: "#071B85", fontFamily: "Space Grotesk", fontStyle: "normal", fontWeight: 700, fontSize: "24px", lineHeight: "30.62px" }}>{market.title}</Typography>
-                                    <Typography gutterBottom variant="subtitle1" sx={{ color: "#071B85", fontFamily: "Space Grotesk", fontStyle: "normal", fontWeight: 400, fontSize: "20px", lineHeight: "26px" }}>{market.subtitle}</Typography>
-                                    {market.apis.map((api, index) => (
-                                        <div key={index} className={classes.api}>
-                                            <img src={api.image} alt={api.name} />
-                                            <Typography variant="subtitle1" sx={{ color: "#071B85", fontFamily: "Space Grotesk", fontStyle: "normal", fontWeight: 400, fontSize: "20px", }}>{api.name}</Typography>
-                                        </div>
-                                    ))}
-                                </>
-                            </div>
-                        ))}
-                    </div>
                 </div>
             <button className={classes.button}>
                     <Typography>Explore the marketplace</Typography>
-                    <img className={classes.arrow} src="images/arrow.svg" />
+                    <img className={classes.arrow} src="images/arrow.jpg" />
             </button>
             </div>
         </>
@@ -99,23 +69,6 @@ const useStyles = makeStyles({
         display: "flex",
         flexDirection: "column",
         gap: "2rem",
-    },
-    marketApi: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        gap: "2rem",
-        paddingTop: "3rem",
-        paddingBottom: "5rem",
-        margin: "0 auto",
-        "@media screen and (max-width:800px)": {
-            flexDirection: "column",
-        }
-    },
-    column: {
-        display: "flex",
-        flexDirection: "column",
-        gap: "2.25rem",
         padding: "24px 48px 40px 24px",
         "&:nth-child(1)": {
             borderRight: "1px solid rgba(19, 50, 159, 0.45)",
@@ -134,6 +87,25 @@ const useStyles = makeStyles({
             "@media screen and (max-width:800px)": {
                 borderTop: "1px solid rgba(19, 50, 159, 0.45)",
             }
+        }
+    },
+    marketApi: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: "2rem",
+        paddingTop: "3rem",
+        paddingBottom: "5rem",
+        margin: "0 auto",
+        "@media screen and (max-width:800px)": {
+            flexDirection: "column",
+        }
+    },
+    column: {
+        display: "flex",
+        gap: "2.25rem",
+        "@media screen and (max-width:800px)": {
+            flexDirection: "column",
         }
     },
     api: {

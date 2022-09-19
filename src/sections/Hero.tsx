@@ -31,11 +31,12 @@ const Hero: React.FC = () => {
   return (
     <div className={classes.hero}>
       <div className={classes.heroText}>
-        <Typography gutterBottom variant="h4" sx={{ fontFamily: "Space Grotesk", fontWeight: 700, fontSize: "2.25rem", lineHeight: "2.87rem", paddingBottom: "1.5rem", color: "#071B85", "@media screen and (max-width:400px)": {
+        <Typography gutterBottom variant="h1" sx={{ fontFamily: "Space Grotesk", fontWeight: 700, fontSize: "2.25rem", lineHeight: "2.87rem", paddingBottom: "1.5rem", color: "#071B85", "@media screen and (max-width:400px)": {
           marginTop: "7rem",
-        } }}>Your one stop shop for Artificial Intelligence related APIs.</Typography>
-        <Typography gutterBottom variant="subtitle1" sx={{ fontFamily: "Space Grotesk", fontWeight: 400, fontSize: "1.5rem", lineHeight: "2.5rem", paddingBottom: "2rem", color: "#071B85" }}>Emotion detection, drowsiness detection, chat bots, face recognition, <br />{''}
-          sentiment analysis, and lots more with Z-API.</Typography>
+        } }}>The Artificial Intelligence (AI) API Marketplace</Typography>
+        <Typography gutterBottom variant="h2" sx={{ padding: "0 4rem", fontFamily: "Space Grotesk", fontWeight: 400, fontSize: "1.5rem", lineHeight: "2.5rem", paddingBottom: "2rem", color: "#071B85", "@media screen and (max-width:600px)": {
+          padding: "0rem", fontSize: ".9rem",
+        } }}>Z-API allows you to harness the power of AI on your applications without stress. Use powerful AI APIs developed by genius machine learning engineers</Typography>
       </div>
       <form className={classes.form} onSubmit={handleSubmit}>
         <select className={classes.select} value={API} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setAPI(e.target.value)}>

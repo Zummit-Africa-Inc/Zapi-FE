@@ -2,7 +2,8 @@
 export { default as APICard } from "./APICard";
 export { default as AddApiPopup } from "./AddApiPopup";
 export { default as BaseButton } from "./Button";
-export { default as DataTable } from "./DataTable"
+export { default as DataTable } from "./DataTable";
+export { default as EndpointTable } from "./EndpointTable";
 export { default as DevAddApi } from "./DevAddApi"
 export { default as Fallback } from "./Fallback";
 export { default as InputSearch } from "./InputSearch";
@@ -17,3 +18,5 @@ export { default as UserProSideBar } from "./UserProSideBar";
 export { default as Widget } from "./Widget";
 export { default as ApiPageSidebar } from "./ApiPageSidebar"
 export { default as ApiPageLayout } from "./ApiPageLayout"
+export { default as GeneralTab } from "./GeneralTab"
+export { default as EndpointTab } from "./EndpointTab"

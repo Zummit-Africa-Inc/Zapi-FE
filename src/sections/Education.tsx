@@ -7,8 +7,9 @@ const Education: React.FC = () => {
     const classes = useStyles()
     return (
         <div className={classes.Education}>
-            <Typography variant="h5" sx={{fontWeight: 400, fontSize: "16px", lineHeight: "20px", letterSpacing: "-0.006em", color: "#0671E0" }}>A.I EDUCATION</Typography>
-            <Typography variant="h5" sx={{fontWeight: 500, fontSize: "24px", lineHeight: "30px", letterSpacing: "-0.006em", color: "#071B85" }}>LEARN WITH US AT ZUMMIT ACADEMY</Typography>
+            <Typography variant="h1" sx={{fontWeight: 400, fontSize: "16px", lineHeight: "20px", letterSpacing: "-0.006em", color: "#0671E0" }}>A.I EDUCATION</Typography>
+            <Typography variant="h2" sx={{fontWeight: 500, fontSize: "24px", lineHeight: "30px", letterSpacing: "-0.006em", color: "#071B85" }}>Learn how to build your AI applications and APIs (CTA) 
+</Typography>
             <div className={classes.EdBoxes}>
                 <Widget className={classes.smallBox} />
                 <div className={classes.midBoxes}>

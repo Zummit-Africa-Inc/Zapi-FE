@@ -4,8 +4,10 @@ import InputSearch from './InputSearch';
 import { Typography } from '@mui/material';
 
 import { useContextProvider } from "../contexts/ContextProvider";
-import StarIcon from '@mui/icons-material/Star';
 import AddIcon from '@mui/icons-material/Add';
+// Images
+import StarRate  from '../assets/images/star_rate.svg';
+
 
 const DevAddApi: React.FC = () => { 
   const classes = useStyles();
@@ -20,7 +22,7 @@ const DevAddApi: React.FC = () => {
         <div className={classes.body}>
             <div className={classes.widget1}>
                 <form onSubmit={handleSubmit} className={classes.search}>
-                <InputSearch className={classes.formControl} type="text" name="queryString" value={queryString} onChange={(e: ChangeEvent<HTMLInputElement>) => setQueryString(e.target.value)} placeholder="Search API Projects" />
+                <InputSearch className={classes.formControl} type="text" name="queryString" value={queryString} onChange={(e: ChangeEvent<HTMLInputElement>) => setQueryString(e.target.value)} placeholder="Search API Projects"/>
                 </form>
             </div>
 
@@ -31,7 +33,7 @@ const DevAddApi: React.FC = () => {
                     </Typography>
 
                     <div className={classes.rightText}>
-                        <StarIcon />
+                        <img src={StarRate} alt="Star-Rate" style={{height: "20px", width: "20px", left: "2px", marginTop: "4px"}}/>
                         <span>
                         <Typography variant="subtitle2" mt={-2.5} ml={4.5}>
                             Favorites
@@ -40,7 +42,7 @@ const DevAddApi: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <button className={classes.button} onClick={() => handleClicked('addapi')}>
+            <button className={classes.button} onClick={() => handleClicked('addapi')} style={{height: "46px"}}>
                     <AddIcon />
                     <Typography>Add API Project</Typography>
             </button>
@@ -81,11 +83,12 @@ const useStyles = makeStyles({
         width:'100%',
         display: 'flex',
         alignItems: 'center',
+        marginTop: '80px',
         padding: '24px 112px',
         flexDirection: 'row',
         justifyContent:'space-between',
         background:'white',
-        height:  '96px',
+        height:  '100px',
         fontFamily:'Space Grotesk',
         "@media screen and (max-width: 1024px)": {
             padding: "1rem 2rem",
@@ -102,6 +105,7 @@ const useStyles = makeStyles({
     },
     bodyColor: {
         background:'#FFFFFF',
+        paddingTop: '15px'
     },
     widget1:{
         display:'flex',
@@ -136,7 +140,7 @@ const useStyles = makeStyles({
         flexDirection: "column",
         alignItems: "flex-start",
         padding: "8px 16px",
-        margin: "-34.5px 30px",
+        margin: "-35px 30px",
         width: "130px",
         height: "46px",
         background: "#FFFFFF",
@@ -182,6 +186,9 @@ const useStyles = makeStyles({
             outline: "none",
             border: "none",
         },
+        "& ::placeHolder": {
+            fontFamily: 'Space Grotesk',
+        },
         "@media screen and (max-width: 900px)": {
           marginTop: "1rem",
         }
@@ -222,7 +229,9 @@ const useStyles = makeStyles({
         margin: "0 auto", 
     },
     addApiDesc: {
+        marginTop: "20px",
         paddingBottom: "80px",
+
     }
 })
 export default DevAddApi

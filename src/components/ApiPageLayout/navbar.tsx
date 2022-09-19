@@ -1,9 +1,15 @@
 import { Tab, Tabs, Typography } from '@mui/material'
-import { makeStyles } from '@mui/styles'
+import { makeStyles, styled } from '@mui/styles'
 import { SyntheticEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DEVSNAVBAR } from '../../testdata'
 import TabPanel from '../TabPanel';
+
+const CustomTab = styled(Tab)({
+    "&.MuiTab-root": {
+    textTransform: "none"
+}
+  })
 
 const Navbar = () => {
     const classes = useStyles()
@@ -15,19 +21,21 @@ const Navbar = () => {
     return (
         <div className={classes.navbar}>
             <div className="">
-                <Tabs value={tab} onChange={handleTabChange}>
+                <Tabs variant="fullWidth" className={classes.Tabs} value={tab} onChange={handleTabChange}>
                     {DEVSNAVBAR.map((nav, i) => (
-                        <Tab key={i} label={nav.name} />
+                        <CustomTab disableRipple key={i} label={nav.name} />
                     ))}
                 </Tabs>
                 {DEVSNAVBAR.map((nav, i) => (
                     <TabPanel key={i} value={tab} index={i}>
-                        {nav.page}
+                        <div className={classes.tabPanelStyle}>
+                            {nav.page}
+                        </div>
                     </TabPanel>
                 ))}
             </div>
-            <Link to="/api/:id" className="">
-                <Typography>View in Hub</Typography>
+            <Link to="/api/:id">
+                <Typography sx={{position: "fixed", marginTop: "60px", marginRight: "800px", width: "150px"}}>View in Hub</Typography>
             </Link>
         </div>
     )
@@ -37,16 +45,26 @@ export default Navbar
 
 const useStyles = makeStyles({
     navbar: {
-        position: "sticky",
-        top: "7rem",
-        left: '0rem',
-        right: '0rem',
-        padding: "1rem 2rem",
+        marginLeft: "250px",
+        // padding: "1rem 4rem",
+        paddingTop: "1rem",
+        paddingBottom: "1rem",
+        paddingLeft: "2rem",
+        paddingRight: "6rem",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        borderBottom: "1px solid #000",
         width: "100vw",
-        height: "50px"
+        height: "45px",
     },
+    tabPanelStyle: {
+        position: "absolute",
+        marginTop: "100px"
+    },
+    Tabs: {
+        position: "fixed",
+        top: "4.3rem",
+        zIndex: "99",
+        width: "800px",
+    }
 })
