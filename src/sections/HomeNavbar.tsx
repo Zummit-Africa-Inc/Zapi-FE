@@ -31,7 +31,9 @@ const HomeNavbar: React.FC = () => {
         <>
             <div className={classes.NavBar}>
                 <div className={classes.logo}>
+                    <a href='/'>
                     <img src={ZapiHomeLogo} alt="zapi-Home" />
+                    </a>
                     <span className={classes.zapi}>Z-API</span>
                     <img className={classes.vector} src={Vector} alt="vector-img" />
                 </div>
@@ -55,7 +57,7 @@ const HomeNavbar: React.FC = () => {
                     <div className={classes.links}>
                         <ul>
                             <li className={classes.active}><Link to="/">Home</Link></li>
-                            <li><Link to="#">API hub</Link></li>
+                            <li><Link to="/dashboard">API hub</Link></li>
                             <li><Link to="#">Pricing</Link></li>
                             <li><Link to="#">Documentation</Link></li>
                             {!isLoggedIn && <li><button onClick={() => handleClicked('login')}>Login</button></li>}   
