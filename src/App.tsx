@@ -7,7 +7,7 @@ import { ToastContainer } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 import "react-toastify/dist/ReactToastify.min.css";
 
-import { CreateEndpoint, DevDashboard, DeveloperApiPage, EndPointPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, Analytics, SuccessPage, Configuration, EmailVerify } from "./pages";
+import { CreateEndpoint, DevDashboard, DeveloperApiPage, EndPointPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, Analytics, SuccessPage, Configuration, EmailVerify, TermsConditons } from "./pages";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { Fallback, Login, AddApiPopup } from "./components";
 import { login } from "./redux/slices/userSlice";
@@ -16,8 +16,8 @@ import { theme } from "./theme";
 
 
 const App:React.FC = () => {
-  const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP } = useContextProvider()
-  const dispatch = useDispatch()
+  const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP } = useContextProvider();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const device = deviceDetect(navigator.userAgent)
@@ -34,13 +34,13 @@ const App:React.FC = () => {
     })
   },[]);
 
-  // useEffect(() => {
-  //   const getIPAddress = async() => {
-  //     const data = await getDeviceIP()
-  //     setDeviceIP(data)
-  //   }
-  //   getIPAddress()
-  // },[])
+  useEffect(() => {
+    const getIPAddress = async() => {
+      const data = await getDeviceIP()
+      setDeviceIP(data)
+    }
+    getIPAddress()
+  },[])
 
   useEffect(() => {
     const loginUser = () => {
@@ -60,7 +60,7 @@ const App:React.FC = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/dashboard" element={<Home />} />
-          <Route path="/login" element={<Login />} />
+           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/user/:id" element={<UserProfile />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -75,6 +75,7 @@ const App:React.FC = () => {
           <Route path="/create-endpoint" element={<CreateEndpoint />} />
           <Route path="/endpoint" element={<EndPointPage />} />
           <Route path="/users/verify/:token" element={<EmailVerify />} />
+          <Route path="/terms" element={<TermsConditons />} />
         </Routes>
         </Suspense>
         {isClicked.login && <Login />}
