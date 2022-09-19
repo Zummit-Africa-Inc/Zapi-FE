@@ -83,6 +83,7 @@ const useStyles = makeStyles({
         width:'100%',
         display: 'flex',
         alignItems: 'center',
+        marginTop: '80px',
         padding: '24px 112px',
         flexDirection: 'row',
         justifyContent:'space-between',
@@ -228,6 +229,7 @@ const useStyles = makeStyles({
         margin: "0 auto", 
     },
     addApiDesc: {
+        marginTop: "20px",
         paddingBottom: "80px",
     }
 })
