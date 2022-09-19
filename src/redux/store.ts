@@ -8,6 +8,7 @@ export const store = configureStore({
         apis: apiReducer,
         user: userReducer,
     },
+    devTools: import.meta.env.VITE_ENV !== 'production'
 });
 
 export type RootState = ReturnType<typeof store.getState>;

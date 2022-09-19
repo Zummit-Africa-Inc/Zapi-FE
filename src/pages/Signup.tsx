@@ -51,7 +51,7 @@ const Signup:React.FC = () => {
     <HomeNavbar />
     <div className={classes.container}>
       <div className={classes.main} onClick={(e) => e.stopPropagation()}>
-        <Typography variant="body1" fontSize="40px" fontWeight={400}>
+        <Typography variant="body1" fontSize="40px" fontWeight={400} textAlign='center'>
           Create a Free Account
         </Typography>
 
@@ -94,7 +94,7 @@ const Signup:React.FC = () => {
             Signin with Google
           </button>
         </Stack>
-        <Typography variant="body1" fontSize="16px" alignSelf="flex-start">
+        <Typography variant="body1" fontSize="16px" alignSelf="flex-start" textAlign='center'>
           Already have an account?
           <span className={classes.link} onClick={() => handleClicked("login")}>
             Sign in
@@ -126,6 +126,9 @@ const useStyles = makeStyles({
     flexDirection: "column",
     alignItems: "center",
     gap: "1rem",
+    "@media screen and (max-width: 768px)": {
+      width: "80%",
+    }
   },
   input: {
     width: "440px",
