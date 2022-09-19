@@ -83,11 +83,12 @@ const useStyles = makeStyles({
         width:'100%',
         display: 'flex',
         alignItems: 'center',
-        padding: '24px 112px',
+        padding: '110px 112px',
+        paddingBottom: "70px",
         flexDirection: 'row',
         justifyContent:'space-between',
         background:'white',
-        height:  '96px',
+        height:  '100px',
         fontFamily:'Space Grotesk',
         "@media screen and (max-width: 1024px)": {
             padding: "1rem 2rem",
@@ -228,7 +229,7 @@ const useStyles = makeStyles({
         margin: "0 auto", 
     },
     addApiDesc: {
-        paddingBottom: "80px",
+        paddingBottom: "180px",
     }
 })
 export default DevAddApi
