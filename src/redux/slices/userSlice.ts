@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import Cookies from "universal-cookie";
 
 import { UserProfileType } from "../../types";
@@ -38,23 +38,23 @@ const userSlice = createSlice({
         builder.addCase(getUserProfile.pending, state => {
             state.loading = "pending"
         }),
-        builder.addCase(getUserProfile.fulfilled, (state, { payload }) => {
+        builder.addCase(getUserProfile.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = "fulfilled"
-            state.user = payload
+            state.user = action.payload
         }),
-        builder.addCase(getUserProfile.rejected, (state, { payload }) => {
+        builder.addCase(getUserProfile.rejected, (state, action: PayloadAction<any>) => {
             state.loading = "rejected"
-            state.error = payload
+            state.error = action.payload
         })
     },
     reducers: {
         clearError: state => {
             state.error = null
         },
-        login: (state, { payload }) => {
-            state.user = payload
+        login: (state, action: PayloadAction<any>) => {
+            state.user = action.payload
             state.isLoggedIn = true
-            localStorage.setItem("zapi_user", JSON.stringify(payload))
+            localStorage.setItem("zapi_user", JSON.stringify(action.payload))
         },
         logout: state => {
             state.isLoggedIn = false

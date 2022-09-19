@@ -4,10 +4,9 @@ import { useDispatch } from "react-redux";
 import { ThemeProvider } from "@mui/material";
 import { deviceDetect } from "react-device-detect";
 import { ToastContainer } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
 import "react-toastify/dist/ReactToastify.min.css";
 
-import { CreateEndpoint, DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, Analytics, SuccessPage, Configuration, EmailVerify } from "./pages";
+import { CreateEndpoint, DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, Analytics, SuccessPage, Configuration, EmailVerify, TermsConditons } from "./pages";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { login } from "./redux/slices/userSlice";
 import { Fallback, Login, AddApiPopup, GeneralTab, EndpointTab } from "./components";
@@ -15,10 +14,9 @@ import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
 import { PrivateRoutes } from "./components/routes";
 
-
-const App: React.FC = () => {
-  const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP } = useContextProvider()
-  const dispatch = useDispatch()
+const App:React.FC = () => {
+  const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP } = useContextProvider();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const device = deviceDetect(navigator.userAgent)
@@ -35,13 +33,13 @@ const App: React.FC = () => {
     })
   }, []);
 
-  // useEffect(() => {
-  //   const getIPAddress = async() => {
-  //     const data = await getDeviceIP()
-  //     setDeviceIP(data)
-  //   }
-  //   getIPAddress()
-  // },[])
+  useEffect(() => {
+    const getIPAddress = async() => {
+      const data = await getDeviceIP()
+      setDeviceIP(data)
+    }
+    getIPAddress()
+  },[])
 
   useEffect(() => {
     const loginUser = () => {
@@ -82,6 +80,7 @@ const App: React.FC = () => {
 
           </Routes>
         </Suspense>
+
         {isClicked.login && <Login />}
         {isClicked.addapi && <AddApiPopup />}
       </div>
