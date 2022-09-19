@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../hooks/redux-hook";
 import { Menu } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
@@ -8,7 +8,7 @@ import Vector from "../assets/images/Vector.png";
 import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png";
 import { useMediaQuery, useTheme } from "@mui/material";
 import { logout } from "../redux/slices/userSlice";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../hooks/redux-hook";
 
 const HomeNavbar: React.FC = () => {
     const classes = useStyles()
@@ -16,8 +16,8 @@ const HomeNavbar: React.FC = () => {
     const theme = useTheme()
     const isMatch = useMediaQuery(theme.breakpoints.down("md"))
     const { handleClicked } = useContextProvider()
- const { isLoggedIn } = useSelector((state: any) => state.user);
- const dispatch = useDispatch();
+ const { isLoggedIn } = useAppSelector((state: any) => state.user);
+ const dispatch = useAppDispatch();
 
     const handleClick = () => {
         if (open === classes.mobile) {
