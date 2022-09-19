@@ -6,8 +6,6 @@ import ScienceOutlinedIcon from '@mui/icons-material/Science';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
-import { Collapse } from '../components'
-
 const ApiSidebar:React.FC = () => {
     const classes = useStyles();
 
@@ -46,7 +44,6 @@ const ApiSidebar:React.FC = () => {
         </div>
       </Link>
       <span className={classes.span}></span>
-      <Collapse />
     </>
   )
 }
