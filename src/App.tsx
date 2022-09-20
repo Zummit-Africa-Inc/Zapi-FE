@@ -13,6 +13,7 @@ import { login } from "./redux/slices/userSlice";
 import { Fallback, Login, AddApiPopup, GeneralTab, EndpointTab } from "./components";
 import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
+import { Settings } from "./pages/Settings"
 
 
 const App:React.FC = () => {
@@ -76,6 +77,7 @@ const App:React.FC = () => {
           <Route path="/endpoint-tab" element={<EndpointTab />} />
           <Route path="/users/verify/:token" element={<EmailVerify />} />
           <Route path="/general-tab" element={<GeneralTab />} />
+          <Route path="/settings" element={<Settings/>} />
 
         </Routes>
         </Suspense>
