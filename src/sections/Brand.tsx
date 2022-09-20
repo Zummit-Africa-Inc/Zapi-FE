@@ -1,5 +1,6 @@
 import { makeStyles } from '@mui/styles';
 import { Typography } from '@mui/material';
+import { BRANDS } from '../assets';
 
 
 const Brand = () => {
@@ -12,16 +13,13 @@ const Brand = () => {
           <Typography gutterBottom variant="subtitle1" sx={{
             fontStyle: 'normal', fontColor: '#071B85', fontFamily: 'Space Grotesk', fontWeight: 500,
             fontSize: "24px", lineHeight: "30px"
-          }}>Used and trusted by developers and brands such as:</Typography>
+          }}>Supported and trusted by global brands</Typography>
         </div>
 
         <div className={classes.brandlogo}>
-          <img src="images/coinbase.svg" alt="coinbase-company-logo" />
-          <img src="images/spotify.svg" alt="spotify-company-logo" />
-          <img src="images/slack.svg" alt="slack-company-logo" />
-          <img src="images/dropbox.svg" alt="dropbox-company-logo" />
-          <img src="images/webflow.svg" alt="webflow-company-logo" />
-          <img src="images/zoom.svg" alt="zoom-company-logo" />
+          {BRANDS.map((brand, i) => (
+            <img key={i} src={brand.img} className={classes.img} alt={brand.alt} />
+          ))}
         </div>
 
       </div>
@@ -66,5 +64,10 @@ const useStyles = makeStyles({
     alignItems: 'center',
     color: '#071B85',
   },
+  img: {
+    width: "160px",
+    height: "50px",
+    objectFit: "contain"
+  }
 
 })
