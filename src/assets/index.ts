@@ -10,8 +10,11 @@ import ZapiHelp from './images/help.svg';
 import ZapiArrow from './images/arrow_drop_down.svg';
 import ZapiPic from './images/pic.svg';
 import Frame from "./images/frame.svg"
+import Code from "./images/code.png"
+import Tree from "./images/tree.jpg"
 
-export { GoogleIcon, LinkedInIcon, TwitterIcon, YoutubeIcon, ZapiDevLogo, ZapiWidget, ZapiDash, ZapiApps, ZapiHelp, ZapiArrow, ZapiPic }
+
+export { GoogleIcon, Tree,  LinkedInIcon, Code, TwitterIcon, YoutubeIcon, ZapiDevLogo, ZapiWidget, ZapiDash, ZapiApps, ZapiHelp, ZapiArrow, ZapiPic }
 
 export const FOOTER_LINKS = [
     {

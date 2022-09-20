@@ -21,41 +21,48 @@ const UserProSideBar:React.FC <UserProp> = ({email,fullName,userName,image}) => 
 
     return(
         <>
-            <div className={classes.sidebar}>
-                <Stack className={classes.avatar}>
-                    <Avatar src={image} alt='Dummy-image'  sx={{ width: 150, height: 150 }} />
-                    <div className={classes.edit}>
-                        <EditIcon className={classes.editIcon}/>
-                    </div> 
-                </Stack>
-                <Typography variant='h5' style={{ fontSize: '1rem', fontWeight: 'bold'}} >
-                    { fullName }
-                </Typography>
-                <Typography variant='h5' style={{ fontSize: '1rem'}} >
-                    { userName }
-                </Typography>
-                <Typography variant='h5' style={{ fontSize: '1rem'}} >
-                    { email }
-                </Typography>
-            
-                <Stack className={classes.note}>
-                    <Stack direction='row' spacing={2}>
-                        <NotificationsNoneIcon />
-                        <Typography variant='h6' > Notifications</Typography>
+            <div className={classes.container}>
+                <div className={classes.sidebar}>
+                    <Stack className={classes.avatar}>
+                        <Avatar src={image} alt='Dummy-image'  sx={{ width: 150, height: 150 }} />
+                        <div className={classes.edit}>
+                            <EditIcon className={classes.editIcon}/>
+                        </div> 
                     </Stack>
-                    <Stack direction='row' spacing={2}>
-                        <SettingsIcon />
-                        <Typography variant='h6' style={{ marginLeft: '1rem' }}> Settings</Typography>
+                    <Typography variant='h5' style={{ fontSize: '1rem', fontWeight: 'bold'}} >
+                        { fullName }
+                    </Typography>
+                    <Typography variant='h5' style={{ fontSize: '1rem'}} >
+                        { userName }
+                    </Typography>
+                    <Typography variant='h5' style={{ fontSize: '1rem'}} >
+                        { email }
+                    </Typography>
+                
+                    <Stack className={classes.note}>
+                        <Stack direction='row' spacing={2}>
+                            <NotificationsNoneIcon />
+                            <Typography variant='h6' > Notifications</Typography>
+                        </Stack>
+                        <Stack direction='row' spacing={2}>
+                            <SettingsIcon />
+                            <Typography variant='h6' style={{ marginLeft: '1rem' }}> Settings</Typography>
+                        </Stack>
+                        
                     </Stack>
-                    
-                </Stack>
+                </div>
             </div>
-        
         </>
     )
 };
 
 const useStyles = makeStyles({
+    container:{
+        display: 'flex',
+        flexDirection: 'column',
+        position:'fixed',
+    },
+    
     sidebar: {
         display: 'flex',
         flexDirection: 'column',
@@ -64,8 +71,8 @@ const useStyles = makeStyles({
         marginLeft: '0.2rem',
         border: '2px',
         borderRadius: '20px',
-        width: '100%',
-        height: '100% !important',
+        width: '315px',
+        height: '100vh',
         backgroundColor: 'rgba(8, 31, 74, 0.7)',
         color: '#ffffff',
         fontSize: '0.2rem',

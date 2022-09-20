@@ -17,10 +17,10 @@ const Signup = React.lazy(() => import('./Signup'));
 const SuccessPage = React.lazy(() => import("./SuccessPage"));
 const UserProfile = React.lazy(() => import("./UserProfile"));
 const CreateEndpoint = React.lazy(() => import("./CreateEndpoint"));
-// const OrgPage = React.lazy(() => import("./Orgpage"));
+const ErrPage = React.lazy(() => import("./ErrPage"));
 const EmailVerify = React.lazy(() => import("./EmailVerify"));
 
-export { Analytics, APIPage, Configuration, CreateEndpoint,DeveloperApiPage, DevDashboard, EndPointPage,
+export { Analytics, APIPage, Configuration, ErrPage, CreateEndpoint,DeveloperApiPage, DevDashboard, EndPointPage,
 ForgotPassword, Home, HomePage, LoginHistory, Otp, Signup, SuccessPage, UserProfile, EmailVerify };
 
 

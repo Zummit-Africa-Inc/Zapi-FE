@@ -41,34 +41,34 @@ const UserProfile:React.FC = () => {
                       ))}                
                 </Stack>
                 <div className={classes.main}>
-                <Stack className={classes.tabmain}>
-                  <Box sx={{ width: '100%' }}>
-                    <StyledTabs value={tab} onChange={handleTabSwitch}>
-                    <Tab  className={classes.tabs} label= {`Published APIs (${list})`} />
-                    <Tab className={classes.tabs} label='Subscribed APIs'/>
-                    <Tab className={classes.tabs} label='Followed By(0)' />
-                    <Tab className={classes.tabs} label='Following(0)'/>
-                    </StyledTabs>
-                  </Box>
-                    <Stack mt={2}>
-                    <TabPanel value={tab} index={0}>
-                    <div style={{width:"100%",display:"flex",flexWrap:"wrap",alignItems:"center",justifyContent:"center",gap:"1.5rem",overflowY:"scroll",padding:"0.5rem 0"}}>
-                        {APIS.map((api) => (
-                        <APICard key={api.id} {...api} />
-                        ))}
-                    </div>
-                    </TabPanel>
-                    <TabPanel value={tab} index={1}>
-                        No Subscription
-                    </TabPanel>
-                    <TabPanel value={tab} index={2}>
-                        Not Followed Yet
-                    </TabPanel>
-                    <TabPanel value={tab} index={3}>
-                        Not Following Yet
-                    </TabPanel>
-                    </Stack>
-                </Stack>
+                  <Stack className={classes.tabmain}>
+                    <Box sx={{ width: '100%' }}>
+                      <StyledTabs value={tab} onChange={handleTabSwitch}>
+                      <Tab  className={classes.tabs} label= {`Published APIs (${list})`} />
+                      <Tab className={classes.tabs} label='Subscribed APIs'/>
+                      <Tab className={classes.tabs} label='Followed By(0)' />
+                      <Tab className={classes.tabs} label='Following(0)'/>
+                      </StyledTabs>
+                    </Box>
+                      <Stack mt={2}>
+                      <TabPanel value={tab} index={0}>
+                      <div style={{width:"100%",display:"flex",flexWrap:"wrap",alignItems:"center",justifyContent:"center",gap:"1.5rem",overflowY:"scroll",padding:"0.5rem 0"}}>
+                          {APIS.map((api) => (
+                          <APICard key={api.id} {...api} />
+                          ))}
+                      </div>
+                      </TabPanel>
+                      <TabPanel value={tab} index={1}>
+                          No Subscription
+                      </TabPanel>
+                      <TabPanel value={tab} index={2}>
+                          Not Followed Yet
+                      </TabPanel>
+                      <TabPanel value={tab} index={3}>
+                          Not Following Yet
+                      </TabPanel>
+                      </Stack>
+                  </Stack>
                 </div>   
             </Stack>
 
@@ -105,7 +105,7 @@ const StyledTabs = styled(({  ...other }) => {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center"
-    // width:'fit-content'
+
   }
 });
 
@@ -136,7 +136,8 @@ const useStyles = makeStyles({
       },
       tabmain: {
         marginTop: "2.5rem",
-        marginLeft: "2rem"
+        marginLeft: "2rem",
+        background: "#FFF",
       },
       sidebar: {
         width: "20%",

@@ -7,7 +7,7 @@ import { ToastContainer } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 import "react-toastify/dist/ReactToastify.min.css";
 
-import { CreateEndpoint, DevDashboard, DeveloperApiPage, EndPointPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, Analytics, SuccessPage, Configuration, EmailVerify } from "./pages";
+import { CreateEndpoint, DevDashboard, DeveloperApiPage, EndPointPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, Analytics, SuccessPage, Configuration, EmailVerify, ErrPage } from "./pages";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { login } from "./redux/slices/userSlice";
 import { Fallback, Login, AddApiPopup, GeneralTab } from "./components";
@@ -76,7 +76,8 @@ const App:React.FC = () => {
           <Route path="/endpoint" element={<EndPointPage />} />
           <Route path="/users/verify/:token" element={<EmailVerify />} />
           <Route path="/general-tab" element={<GeneralTab />} />
-
+          <Route path='*' element={<ErrPage />} />
+        
         </Routes>
         </Suspense>
         {isClicked.login && <Login />}
