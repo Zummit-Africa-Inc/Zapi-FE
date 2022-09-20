@@ -18,7 +18,7 @@ const initialState = {
 
 export const getApis = createAsyncThunk("apis/getApis", async(_, thunkAPI) => {
     try {
-        const response = await fetch(`${url}/categories`)
+        const response = await fetch(`${url}/zl-core/categories`)
         const data = await response.json()
         return data.data
     } catch (error: any) {
@@ -39,7 +39,7 @@ const apiSlice = createSlice({
             state.loading = "pending"
         }),
         builder.addCase(getApis.fulfilled, (state, { payload }) => {
-            state.apis.push(payload)
+            state.apis = payload
             state.loading = "fulfilled"
         }),
         builder.addCase(getApis.rejected, (state, { payload }) => {

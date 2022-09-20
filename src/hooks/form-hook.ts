@@ -1,3 +1,4 @@
+import { SelectChangeEvent } from "@mui/material";
 import { ChangeEvent, useReducer } from "react";
 
 
@@ -31,9 +32,13 @@ export const useFormInputs = (initialState: any) => {
         dispatch({type: 'check', name: e.target.name, value: e.target.checked})
     }
 
+    const handleSelect = (e: ChangeEvent<HTMLSelectElement> | SelectChangeEvent<string>) => {
+        dispatch({type: "select", name: e.target.name, value: e.target.value})
+    }
+
     // const handleReset = () => {
     //     dispatch({type: 'reset'})
     // }
 
-    return {inputs, bind: { onChange: handleChange }, toggle: { onChange: handleToggle},};
+    return {inputs, bind: { onChange: handleChange }, toggle: { onChange: handleToggle}, select: { onChange: handleSelect}};
 };

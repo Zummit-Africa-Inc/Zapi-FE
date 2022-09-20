@@ -14,11 +14,13 @@ import { Fallback, Login, AddApiPopup, GeneralTab, EndpointTab } from "./compone
 import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
 import { PrivateRoutes } from "./components/routes";
+import { getApis } from "./redux/slices/apiSlice";
+import { useAppDispatch } from "./hooks";
 
 
 const App: React.FC = () => {
   const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP } = useContextProvider()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     const device = deviceDetect(navigator.userAgent)
@@ -51,6 +53,7 @@ const App: React.FC = () => {
       dispatch(login(user))
     }
     loginUser()
+    dispatch(getApis())
   }, []);
 
   return (
