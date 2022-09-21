@@ -38,8 +38,8 @@ const apiSlice = createSlice({
         builder.addCase(getApis.pending, (state) => {
             state.loading = "pending"
         }),
-        builder.addCase(getApis.fulfilled, (state, action: PayloadAction<any>) => {
-            state.apis.push(action.payload)
+        builder.addCase(getApis.fulfilled, (state, { payload }) => {
+            state.apis = payload
             state.loading = "fulfilled"
         }),
         builder.addCase(getApis.rejected, (state, action: PayloadAction<any>) => {
