@@ -197,7 +197,8 @@ const GeneralTab: React.FC = () => {
 
   const useStyles = makeStyles({
     container: {
-        background: '#F3F4F6',
+        background: 'inherit',
+        borderRadius: '5px',
         width: '100%',
         height: '2600px',
         padding: '20px'
