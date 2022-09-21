@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { useAppSelector } from "../hooks/redux-hook";
 import { Menu } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContextProvider } from "../contexts/ContextProvider";
 import Vector from "../assets/images/Vector.png";
 import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png";
 import { useMediaQuery, useTheme } from "@mui/material";
 import { logout } from "../redux/slices/userSlice";
 import { useAppDispatch } from "../hooks/redux-hook";
+import Cookies from "universal-cookie";
 
 const HomeNavbar: React.FC = () => {
     const classes = useStyles()
@@ -18,6 +19,8 @@ const HomeNavbar: React.FC = () => {
     const { handleClicked } = useContextProvider()
  const { isLoggedIn } = useAppSelector((state: any) => state.user);
  const dispatch = useAppDispatch();
+ const navigate = useNavigate()
+ const cookies = new Cookies()
 
     const handleClick = () => {
         if (open === classes.mobile) {
@@ -27,11 +30,20 @@ const HomeNavbar: React.FC = () => {
         }
     }
 
+    const handleLogOut = () => {
+        dispatch(logout())
+        
+        cookies.remove('accessToken')
+        navigate("/")
+    }
+
     return (
         <>
             <div className={classes.NavBar}>
                 <div className={classes.logo}>
+                    <a href='/'>
                     <img src={ZapiHomeLogo} alt="zapi-Home" />
+                    </a>
                     <span className={classes.zapi}>Z-API</span>
                     <img className={classes.vector} src={Vector} alt="vector-img" />
                 </div>
@@ -55,13 +67,13 @@ const HomeNavbar: React.FC = () => {
                     <div className={classes.links}>
                         <ul>
                             <li className={classes.active}><Link to="/">Home</Link></li>
-                            <li><Link to="#">API hub</Link></li>
+                            <li><Link to="/dashboard">API hub</Link></li>
                             <li><Link to="#">Pricing</Link></li>
                             <li><Link to="#">Documentation</Link></li>
                             {!isLoggedIn && <li><button onClick={() => handleClicked('login')}>Login</button></li>}   
                         </ul>
                          {!isLoggedIn ? 
-<div className={classes.signup}><Link to="/signup">Sign up</Link></div> : <button className={classes.signup} onClick={() => dispatch( logout())}>LogOut</button>
+<div className={classes.signup}><Link to="/signup">Sign up</Link></div> : <button className={classes.signup} onClick={handleLogOut}>LogOut</button>
 
                        } 
                     </div>

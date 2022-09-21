@@ -17,7 +17,9 @@ const DevNavbar: React.FC = () => {
     <>
         <div className={classes.NavBar}>
             <div className={classes.logo}>
+                <Link to="/dashboard">
                 <img src={ZapiDevLogo} alt='Zapi-dev' />
+                </Link>
                 <span className={classes.zapi}>Z-API</span>
             </div>
 

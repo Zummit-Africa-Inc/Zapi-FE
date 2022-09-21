@@ -1,4 +1,5 @@
 import React, { FormEvent, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Stack, Typography, } from "@mui/material";
 import { makeStyles } from '@mui/styles';
 import { toast }  from "react-toastify";
@@ -19,7 +20,8 @@ const Signup:React.FC = () => {
   const { fullName, email, password, confirm_password, terms } = inputs;
   const { clearError, error, loading, sendRequest } = useHttpRequest();
   const { handleClicked } = useContextProvider();
-  const [message, setMessage] = useState<string>("")
+  const [message, setMessage] = useState<string>("");
+  const navigate = useNavigate();
 
   const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -32,8 +34,9 @@ const Signup:React.FC = () => {
     const headers = { 'Content-Type': 'application/json' }
     const payload = { fullName, email, password }
     try {
-      const data = await sendRequest(`${url}/zapi-identity/auth/signup`, 'POST', JSON.stringify(payload), headers)
+      const data = await sendRequest(`${url}/signup`, 'POST', JSON.stringify(payload), headers)
       setMessage(data?.data)
+      navigate("/")
     } catch (error) {};
   };
 
@@ -61,40 +64,42 @@ const Signup:React.FC = () => {
 
         <form onSubmit={handleSubmit} className={classes.form}>
           <div className={classes.input}>
-            <label htmlFor="fullName">Full Name</label>
+            <label htmlFor="fullName">Full Name <span>*</span></label>
             <input type="text" name="fullName" {...bind} placeholder="Enter your full name" />
           </div>
           <div className={classes.input}>
-            <label htmlFor="email">Email Address</label>
+            <label htmlFor="email">Email Address <span>*</span></label>
             <input type="email" name="email" {...bind} placeholder="Enter your email" />
           </div>
           <div className={classes.input}>
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Password <span>*</span></label>
             <input type="password" name="password" {...bind} placeholder="Enter a Password" />
           </div>
           <div className={classes.input}>
-            <label htmlFor="confirm_password">Confirm Password</label>
+            <label htmlFor="confirm_password">Confirm Password <span>*</span></label>
             <input type="password" name="confirm_password" {...bind} placeholder="Re-enter the Password" />
           </div>
           <div className={classes.check_input}>
             <input type="checkbox" name="terms" {...toggle} />
-            <label htmlFor="terms">I agree to ZAPI’s terms and conditions and privacy policy.</label>
+            <label htmlFor="terms">I agree to ZAPI’s
+              <Link to="/terms" className={classes.link}>terms and conditions and privacy policy.</Link>
+            </label>
           </div>
-          <button type="submit" className={classes.button} style={{background:"#4B4B4B",color:"#FFF"}} disabled={loading}>
+          <button type="submit" className={classes.button} disabled={!terms}>
             {loading ? 'loading' : 'Signup'}
           </button>
         </form>
         
         <Typography>OR</Typography>
         <Stack direction="column" alignItems="center" spacing={2}>
-          <button type="button" className={classes.button} onClick={() => {}} style={{background: "#FFF"}}>
+          <button type="button" className={classes.button} onClick={() => {}} style={{background: "#FFF", color: "#081F4A"}}>
             <span style={{marginRight: "3rem"}}>
               <GoogleIcon />
             </span>
             Signin with Google
           </button>
         </Stack>
-        <Typography variant="body1" fontSize="16px" alignSelf="flex-start" textAlign='center'>
+        <Typography variant="body1" fontSize="16px" alignSelf="flex-start" textAlign="center" mt={8}>
           Already have an account?
           <span className={classes.link} onClick={() => handleClicked("login")}>
             Sign in
@@ -152,7 +157,10 @@ const useStyles = makeStyles({
       fontWeight: 600,
       fontSize: "14px",
       lineHeight: "16px",
-      marginBottom: "0.5rem"
+      marginBottom: "0.5rem",
+      "& span": {
+        color: "#C00",
+      }
     },
     "@media screen and (max-width: 768px)": {
       width: "100%",
@@ -184,13 +192,19 @@ const useStyles = makeStyles({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "#081F4A",
+    color: "#FFF",
     borderRadius: "4px",
+    border: "!px solid #000",
     fontSize: "16px",
     fontWeight: 400,
     lineHeight: "16px",
     cursor: "pointer",
     margin: "1rem 0 2rem",
     padding: "0 1rem",
+    "&:disabled": {
+      backgroundColor: "#4B4B4B",
+    },
     "@media screen and (max-width: 768px)": {
       width: "100%",
     }

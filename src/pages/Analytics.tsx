@@ -53,8 +53,7 @@ const Analytics: React.FC = () => {
         setSuccessStyle('clickTab')
     }
   return (
-    <>
-    <Navbar />
+    <div className={classes.analytics}>
     <div className="heading">
     <Typography sx={{fontSize: '1.5rem', fontWeight: 500, color: 'var(--color-primary)', padding: '2rem 2rem'}}>default-application_6350466 - Analytics</Typography>
     </div>
@@ -82,10 +81,14 @@ const Analytics: React.FC = () => {
                 <Widget className={successStyle} title='Success' subtitle={successParam} onClick={handleSuccessClick} span='0ms' />
             </div>
             <div className="table">
+                {ROWS ? 
                 <DataTable Heading={TABLEHADING} Rows={ROWS} />
+                :
+                "No data yet"
+                }
             </div>
 
-    </>
+    </div>
   )
 }
 
@@ -102,5 +105,8 @@ const useStyles = makeStyles({
         '& span': {
             fontSize: '2rem'
         }
+    },
+    analytics: {
+        width: "calc(100vw - 250px)"
     }
 })
