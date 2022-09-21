@@ -7,8 +7,7 @@ import TabPanel from '../TabPanel';
 
 const CustomTab = styled(Tab)({
     "&.MuiTab-root": {
-    textTransform: "none"
-}
+    textTransform: "none"}
   })
 
 const Navbar = () => {
@@ -18,24 +17,25 @@ const Navbar = () => {
     const handleTabChange = (e: SyntheticEvent, newValue: number) => {
         setTab(newValue)
     };
+
     return (
         <div className={classes.navbar}>
-            <div className="">
-                <Tabs variant="fullWidth" className={classes.Tabs} value={tab} onChange={handleTabChange}>
-                    {DEVSNAVBAR.map((nav, i) => (
-                        <CustomTab disableRipple key={i} label={nav.name} />
-                    ))}
-                </Tabs>
+            <>
+            <Tabs variant="fullWidth" className={classes.Tabs} value={tab} onChange={handleTabChange}>
                 {DEVSNAVBAR.map((nav, i) => (
-                    <TabPanel key={i} value={tab} index={i}>
-                        <div className={classes.tabPanelStyle}>
-                        <Paper elevation={1} className={classes.paper}>
-                            {nav.page}
-                        </Paper>
-                        </div>
-                    </TabPanel>
+                    <CustomTab disableRipple key={i} label={nav.name} />
                 ))}
-            </div>
+            </Tabs>
+            {DEVSNAVBAR.map((nav, i) => (
+                <TabPanel key={i} value={tab} index={i}>
+                    <div className={classes.tabPanelStyle}>
+                    <Paper elevation={1} className={classes.paper}>
+                        {nav.page}
+                    </Paper>
+                    </div>
+                </TabPanel>
+            ))}
+            </>
             <Link to="/api/:id">
                 <Typography sx={{position: "fixed", marginTop: "60px", marginRight: "800px", width: "150px"}}>View in Hub</Typography>
             </Link>
@@ -48,13 +48,10 @@ export default Navbar
 const useStyles = makeStyles({
     paper: {
         width: "950px",
-        marginTop: "20px",
-        //All paper heights would be inherited    
+        marginTop: "20px",   
     },
     navbar: {
         marginLeft: "250px",
-        // padding: "1rem 4rem",
-        //backgroundColor: "#F3F4F6",
         paddingTop: "1rem",
         paddingBottom: "1rem",
         paddingLeft: "2rem",
@@ -72,7 +69,8 @@ const useStyles = makeStyles({
     Tabs: {
         position: "fixed",
         top: "4.3rem",
-        zIndex: "99",
+        zIndex: 5,
         width: "800px",
+        background: "#F4F5F6",
     }
 })

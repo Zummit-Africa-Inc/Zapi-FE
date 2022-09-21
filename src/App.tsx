@@ -65,8 +65,8 @@ const App:React.FC = () => {
             <Route path="/otp" element={<Otp />} />
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
-              <Route path="/developers/dashboard/" element={<DevDashboard />} />
-              <Route path="/developers/" element={<DeveloperApiPage />} />
+              <Route path="/developers/dashboard" element={<DevDashboard />} />
+              <Route path="/developers" element={<DeveloperApiPage />} />
               <Route path="/analytics" element={<Analytics />} />
               <Route path="/api/:id" element={<APIPage />} />
               <Route path="/configuration" element={<Configuration />} />
