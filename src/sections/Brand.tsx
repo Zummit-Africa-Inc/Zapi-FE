@@ -2,7 +2,6 @@ import { makeStyles } from '@mui/styles';
 import { Typography } from '@mui/material';
 import { BRANDS } from '../assets';
 
-
 const Brand = () => {
   const classes = useStyles()
 
@@ -17,11 +16,10 @@ const Brand = () => {
         </div>
 
         <div className={classes.brandlogo}>
-          {BRANDS.map((brand, i) => (
-            <img key={i} src={brand.img} className={classes.img} alt={brand.alt} />
+          {BRANDS.map((brand: any, index: number) => (
+            <img key={index} src={brand.img} className={classes.img} alt={brand.alt} />
           ))}
         </div>
-
       </div>
     </div>
 

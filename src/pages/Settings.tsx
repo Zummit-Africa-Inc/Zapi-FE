@@ -1,8 +1,12 @@
 import { useState } from "react";
 import React from "react";
 import SearchIcon from '@mui/icons-material/Search';
+import { makeStyles } from "@mui/styles";
 
-export const Settings = () => {
+
+ const Settings = () => {
+    // const classes = useStyles()
+    
   const [status, setStatus] = useState("");
 
   function onChangeValue(event) {
@@ -65,7 +69,7 @@ export const Settings = () => {
           ) : status === "Team" ? (
             <div className="input-box-box">
               <select className="select-box">
-                <option value="" className="select-box" placeholder="Select a team...">
+                <option value="" className="select-box" placeholder="Select a team...">Select a team...
                   
                 </option>
                 <option className="none-name">None</option>
@@ -148,5 +152,36 @@ export const Settings = () => {
     </section>
   );
 };
+
+
+// const useStyles = makeStyles({
+//     setcol: {
+//         margin: "50px",
+//         padding: "0",
+//         boxSizing: "border-box"
+//     },
+//     textcol: {
+//         marginBottom: "16px",
+//         color: "rgba 0, 0, 0, 0.87",
+//         fontSize: "16px",
+//         letterSpacing: "normal",
+//         lineHeight: "24px",
+//         fontFamily: "Inter, -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir, Helvetica, sans-serif",
+//         fontWeight: "600",
+//         display: "block",
+//         boxSizing: "border-box"
+//     },
+//     colcol: {
+//         marginBottom: "16px",
+//         color: "rgba 0, 0, 0, 0.38",
+//         fontSize: "14px",
+//         letterSpacing: "normal",
+//         lineHeight: "20px",
+//         fontFamily: "Inter, -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir, Helvetica, sans-serif",
+//         display: "block",
+//         boxSizing: "border-box",
+//       },
+// })
+
 
 export default Settings;

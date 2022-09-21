@@ -18,8 +18,11 @@ const UserProfile = React.lazy(() => import("./UserProfile"));
 const CreateEndpoint = React.lazy(() => import("./CreateEndpoint"));
 // const OrgPage = React.lazy(() => import("./Orgpage"));
 const EmailVerify = React.lazy(() => import("./EmailVerify"));
+const TermsConditons = React.lazy(() => import("./Terms&Conditions"))
+const Settings = React.lazy(() => import("./Settings"))
 
-export { Analytics, APIPage, Configuration, CreateEndpoint,DeveloperApiPage, DevDashboard, ForgotPassword, Home, HomePage, LoginHistory, Otp, Signup, SuccessPage, UserProfile, EmailVerify };
+export { Analytics, APIPage, Configuration, CreateEndpoint,DeveloperApiPage, DevDashboard,
+ForgotPassword, Home, HomePage, LoginHistory, Otp, Signup, SuccessPage, UserProfile, EmailVerify, TermsConditons, Settings };
 
 
 
