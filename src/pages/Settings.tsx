@@ -35,20 +35,22 @@ import { makeStyles } from "@mui/styles";
               id="gender"
               type="radio"
               value="User"
+              className="radio"
               name="User"
               checked={status === "User"}
             />
-            <label>User</label>
+            <label className="users">User</label>
           </div>
           <div>
             <input
               id="gender"
               type="radio"
+              className="radio"
               value="Team"
               name="Team"
               checked={status === "Team"}
             />
-            <label>Team</label>
+            <label className="users">Team</label>
           </div>
 
           {status === "User" ? (
@@ -67,12 +69,13 @@ import { makeStyles } from "@mui/styles";
               </div>
             </div>
           ) : status === "Team" ? (
-            <div className="input-box-box">
-              <select className="select-box">
-                <option value="" className="select-box" placeholder="Select a team...">Select a team...
-                  
-                </option>
-                <option className="none-name">None</option>
+            <div className="form">
+              <select className="select-inputs">
+                <option value="1" disable selected hidden >
+                    Select a team...
+                  </option>
+                <option id="select-inputs" ><button id="ishidden">None</button></option>
+                
               </select>
             </div>
           ) : (
