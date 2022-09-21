@@ -200,7 +200,8 @@ export default GeneralTab;
 
 const useStyles = makeStyles({
   container: {
-    background: '#F3F4F6',
+    background: 'inherit',
+    borderRadius: '5px',
     width: '100%',
     padding: '20px'
   },
