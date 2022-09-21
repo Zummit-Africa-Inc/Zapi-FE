@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { useAppSelector } from "../hooks/redux-hook";
 import { Menu } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContextProvider } from "../contexts/ContextProvider";
 import Vector from "../assets/images/Vector.png";
 import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png";
 import { useMediaQuery, useTheme } from "@mui/material";
 import { logout } from "../redux/slices/userSlice";
 import { useAppDispatch } from "../hooks/redux-hook";
+import Cookies from "universal-cookie";
 
 const HomeNavbar: React.FC = () => {
     const classes = useStyles()
@@ -18,6 +19,8 @@ const HomeNavbar: React.FC = () => {
     const { handleClicked } = useContextProvider()
  const { isLoggedIn } = useAppSelector((state: any) => state.user);
  const dispatch = useAppDispatch();
+ const navigate = useNavigate()
+ const cookies = new Cookies()
 
     const handleClick = () => {
         if (open === classes.mobile) {
@@ -25,6 +28,13 @@ const HomeNavbar: React.FC = () => {
         } else {
             setOpen(classes.mobile)
         }
+    }
+
+    const handleLogOut = () => {
+        dispatch(logout())
+        
+        cookies.remove('accessToken')
+        navigate("/")
     }
 
     return (
@@ -63,7 +73,7 @@ const HomeNavbar: React.FC = () => {
                             {!isLoggedIn && <li><button onClick={() => handleClicked('login')}>Login</button></li>}   
                         </ul>
                          {!isLoggedIn ? 
-<div className={classes.signup}><Link to="/signup">Sign up</Link></div> : <button className={classes.signup} onClick={() => dispatch( logout())}>LogOut</button>
+<div className={classes.signup}><Link to="/signup">Sign up</Link></div> : <button className={classes.signup} onClick={handleLogOut}>LogOut</button>
 
                        } 
                     </div>

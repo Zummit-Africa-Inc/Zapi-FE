@@ -371,6 +371,6 @@ export const DEVSNAVBAR = [
     {
         name: "Analytics",
         link: "/analytics",
-        page: "analytics"
+        page: <Analytics />
     },
 ]

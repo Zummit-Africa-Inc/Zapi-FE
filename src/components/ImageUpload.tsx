@@ -50,7 +50,7 @@ const ImageUpload:React.FC<IUploadProps> = ({setImageFile}) => {
     <div className={classes.container}>
         {previewURL === null ? (
             <label className={classes.label}>
-                <p>Drag & drog or click to upload file</p>
+                <p>Drag & drop or click to upload file</p>
                 <i>.png, .jpg, .jpeg, .svg & .gif only.</i>
                 {dragActive && <p>Drop files here</p>}
                 <input type="file" draggable onChange={handleChange} onDragEnter={handleDrag} onDragLeave={handleDrop} onDragOver={handleDrag} onDrop={handleDrop} />
@@ -76,6 +76,7 @@ const useStyles = makeStyles({
         alignItems: "center",
         justifyContent: "center",
         overflow: "hidden",
+        background: "#ccc",
     },
     label: {
         width: "100%",
