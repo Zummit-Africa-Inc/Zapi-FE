@@ -1,4 +1,4 @@
-import { Tab, Tabs, Typography } from '@mui/material'
+import { Paper, Tab, Tabs, Typography } from '@mui/material'
 import { makeStyles, styled } from '@mui/styles'
 import { SyntheticEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -29,7 +29,9 @@ const Navbar = () => {
                 {DEVSNAVBAR.map((nav, i) => (
                     <TabPanel key={i} value={tab} index={i}>
                         <div className={classes.tabPanelStyle}>
+                        <Paper elevation={1} className={classes.paper}>
                             {nav.page}
+                        </Paper>
                         </div>
                     </TabPanel>
                 ))}
@@ -44,9 +46,15 @@ const Navbar = () => {
 export default Navbar
 
 const useStyles = makeStyles({
+    paper: {
+        width: "950px",
+        marginTop: "20px",
+        //All paper heights would be inherited    
+    },
     navbar: {
         marginLeft: "250px",
         // padding: "1rem 4rem",
+        //backgroundColor: "#F3F4F6",
         paddingTop: "1rem",
         paddingBottom: "1rem",
         paddingLeft: "2rem",
@@ -59,7 +67,7 @@ const useStyles = makeStyles({
     },
     tabPanelStyle: {
         position: "absolute",
-        marginTop: "100px"
+        marginTop: "100px",
     },
     Tabs: {
         position: "fixed",
