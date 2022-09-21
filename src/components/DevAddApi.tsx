@@ -88,7 +88,7 @@ const useStyles = makeStyles({
         flexDirection: 'row',
         justifyContent:'space-between',
         background:'white',
-        height:  '96px',
+        height:  '100px',
         fontFamily:'Space Grotesk',
         "@media screen and (max-width: 1024px)": {
             padding: "1rem 2rem",
@@ -231,6 +231,7 @@ const useStyles = makeStyles({
     addApiDesc: {
         marginTop: "20px",
         paddingBottom: "80px",
+
     }
 })
 export default DevAddApi
