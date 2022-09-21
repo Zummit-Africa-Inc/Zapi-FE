@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense, useEffect, useMemo } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ThemeProvider } from "@mui/material";
@@ -52,8 +52,13 @@ const App: React.FC = () => {
       dispatch(login(user))
     }
     loginUser()
-    dispatch(getApis())
   }, []);
+
+  const getCategories = useMemo(() =>  (dispatch(getApis())), [])
+  
+  useEffect(() => {
+    getCategories
+  }, [])
 
   return (
     <ThemeProvider theme={theme}>

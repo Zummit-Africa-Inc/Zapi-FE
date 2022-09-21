@@ -18,7 +18,7 @@ const initialState = {
 
 export const getApis = createAsyncThunk("apis/getApis", async(_, thunkAPI) => {
     try {
-        const response = await fetch(`${url}/zl-core/categories`)
+        const response = await fetch(`${url}/categories`)
         const data = await response.json()
         return data.data
     } catch (error: any) {

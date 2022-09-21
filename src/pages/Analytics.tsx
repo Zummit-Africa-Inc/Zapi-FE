@@ -81,7 +81,11 @@ const Analytics: React.FC = () => {
                 <Widget className={successStyle} title='Success' subtitle={successParam} onClick={handleSuccessClick} span='0ms' />
             </div>
             <div className="table">
+                {ROWS ? 
                 <DataTable Heading={TABLEHADING} Rows={ROWS} />
+                :
+                "No data yet"
+                }
             </div>
 
     </div>

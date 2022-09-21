@@ -37,7 +37,7 @@ const GeneralTab: React.FC = () => {
   useEffect(() => {
     const fetchAPI = async() => {
       try{
-        const data = await axios.get(`${url}/zl-core/api/${profileId}/myapis`)
+        const data = await axios.get(`${url}/api/${profileId}/myapis`)
         data.data.data.map((api: any) => {
           setApiId(api.id), setDescription(api.description) ,setAbout(api.about) ,setApi_website(api.api_website) ,setTerm_of_use(api.term_of_use) ,setVisibility(api.visibility) ,setCategoryId(api.categoryId)
           setBase_Url(api.base_url), setLogo_url(api.logo_url)
@@ -202,7 +202,6 @@ const useStyles = makeStyles({
   container: {
     background: '#F3F4F6',
     width: '100%',
-    height: '2600px',
     padding: '20px'
   },
   previewContainer: {
