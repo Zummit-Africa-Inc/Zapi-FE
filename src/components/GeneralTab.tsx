@@ -202,7 +202,7 @@ const useStyles = makeStyles({
     background: 'inherit',
     borderRadius: '5px',
     width: '100%',
-    height: '2600px',
+    height: '1900px',
     padding: '20px'
   },
   previewContainer: {
