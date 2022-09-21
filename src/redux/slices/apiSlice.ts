@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { APIResponseType } from "../../types";
 
@@ -42,9 +42,9 @@ const apiSlice = createSlice({
             state.apis = payload
             state.loading = "fulfilled"
         }),
-        builder.addCase(getApis.rejected, (state, { payload }) => {
+        builder.addCase(getApis.rejected, (state, action: PayloadAction<any>) => {
             state.loading = "rejected"
-            state.error = payload
+            state.error = action.payload
         })
     }
 })

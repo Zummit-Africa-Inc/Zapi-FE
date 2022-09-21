@@ -10,6 +10,7 @@ import { Box, Divider, FormControl, IconButton, InputLabel, MenuItem, Select, St
 import { useAppSelector } from '../hooks';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import ImageUpload from "./ImageUpload";
 
 const url = import.meta.env.VITE_BASE_URL
 
@@ -25,7 +26,7 @@ const GeneralTab: React.FC = () => {
   const [api_website, setApi_website] = useState("")
   const [term_of_use, setTerm_of_use] = useState("")
   const [base_url, setBase_Url] = useState<String>("");
-  const [logo_url, setLogo_url] = useState<String>("");
+  const [logo_url, setLogo_url] = useState<any>();
   const [visibility, setVisibility] = useState<String>(APIVisibility.PUBLIC)
   const [categoryId, setCategoryId] = useState<String>("");
   const { apis } = useAppSelector(store => store.apis)
@@ -38,7 +39,8 @@ const GeneralTab: React.FC = () => {
       try{
         const data = await axios.get(`${url}/zl-core/api/${profileId}/myapis`)
         data.data.data.map((api: any) => {
-          setApiId(api.id)
+          setApiId(api.id), setDescription(api.description) ,setAbout(api.about) ,setApi_website(api.api_website) ,setTerm_of_use(api.term_of_use) ,setVisibility(api.visibility) ,setCategoryId(api.categoryId)
+          setBase_Url(api.base_url), setLogo_url(api.logo_url)
         })
       }catch(err) {
         console.log(err)
@@ -53,12 +55,6 @@ const GeneralTab: React.FC = () => {
    } else {
     setVisibility(APIVisibility.PRIVATE)
    }
-  }
-
-  const handleChange = (i: number, e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    let newFormValues = [...base_url] as any;
-		newFormValues[i][e.target.name] = e.target.value;
-		setBase_Url(newFormValues);
   }
 
   const handleSubmit = async (e: any) => {
@@ -82,28 +78,14 @@ const GeneralTab: React.FC = () => {
       <div className={classes.container}>
         <Typography variant="body1" fontSize="24px"  fontWeight={800}>General Information</Typography>
         <form onSubmit={handleSubmit}>
-          <Stack direction="row" sx={{ margin:'2rem 0' }} spacing={4}>
-            {logo_url ? (
-              <div className={classes.previewContainer}>
-                <img
-                  className={classes.imgPreview}
-                  src={URL.createObjectURL(logo_url)}
-                  alt=""
-                />
-              </div>
-            ) : (
-              <div className={classes.previewContainer}>
-                <img src={Profile} alt="Logo" className={classes.imgPreview} />
-              </div>
-            )}
+          <Stack direction="row" sx={{ marginBottom:'4rem', marginTop: '2rem' }} spacing={4}>
             <Box>
               <Typography variant="body1" fontSize="16px" mb={2} fontWeight={400}>Drop file to upload or attach it (optional)</Typography>
-              <label htmlFor="filePicker" className={classes.uploadBtn}>
+              {/* <label htmlFor="filePicker" className={classes.uploadBtn}>
                 Upload Logo
-              </label>
-              <input id="filePicker" style={{ visibility: "hidden" }} type={"file"} accept="image/*"
-                onChange={(e: any) => setLogo_url(e.target.files[0])} />
-              <Typography variant="body1" fontSize="14px" mt={2}>Maximum Size: 500 x 500px, JPEG / PNG</Typography>
+              </label> */}
+              <ImageUpload setImageFile={logo_url} />
+              {/* <Typography variant="body1" fontSize="14px" mt={2}>Maximum Size: 500 x 500px, JPEG / PNG</Typography> */}
             </Box>
           </Stack>
           <Box mt={2}>
