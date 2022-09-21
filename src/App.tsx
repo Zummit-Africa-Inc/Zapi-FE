@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.min.css";
 import { CreateEndpoint, DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, Analytics, SuccessPage, Configuration, EmailVerify, TermsConditons, ErrPage } from "./pages";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { login } from "./redux/slices/userSlice";
-import { Fallback, Login, AddApiPopup, GeneralTab, EndpointTab } from "./components";
+import { Fallback, Login, AddApiPopup, GeneralTab, EndpointTab, GatewayTab } from "./components";
 import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
 import { PrivateRoutes } from "./components/routes";
@@ -63,7 +63,7 @@ const App:React.FC = () => {
             <Route path="/signup" element={<Signup />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/otp" element={<Otp />} />
-            <Route element={<PrivateRoutes />}>
+            {/* <Route element={<PrivateRoutes />}> */}
               <Route path="/user/:id" element={<UserProfile />} />
               <Route path="/developers/dashboard/" element={<DevDashboard />} />
               <Route path="/developers/" element={<DeveloperApiPage />} />
@@ -76,7 +76,8 @@ const App:React.FC = () => {
               <Route path="/endpoint-tab" element={<EndpointTab />} />
               <Route path="/users/verify/:token" element={<EmailVerify />} />
               <Route path="/general-tab" element={<GeneralTab />} />
-            </Route>
+              <Route path="/gateway-tab" element={<GatewayTab />} />
+            {/* </Route> */}
           <Route path='*' element={<ErrPage />} />
           </Routes>
         </Suspense>

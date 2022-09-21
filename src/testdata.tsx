@@ -7,6 +7,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { Analytics } from "./pages";
 import GeneralTab from "./components/GeneralTab";
 import EndpointTab from "./components/EndpointTab";
+import GatewayTab from "./components/GatewayTab";
 
 
 export const APIS = [
@@ -355,8 +356,8 @@ export const DEVSNAVBAR = [
     },
     {
         name: "Gateway",
-        link: "/",
-        page: 'Gateway'
+        link: "/gateway-tab",
+        page: <GatewayTab />
     },
     {
         name: "Community",
