@@ -58,19 +58,20 @@ const GeneralTab: React.FC = () => {
   const handleRemove = () => {}
 
   const handleAdd = () => {}
-
-  useEffect(() => {
-    const fetchAPI = async() => {
-      try{
-        const data = await axios.get(`${url}/api/${profileId}/myapis`)
-        data.data.data.map((api: any) => {
-          setApiId(api.id), setDescription(api.description) ,setAbout(api.about) ,setApi_website(api.api_website) ,setTerm_of_use(api.term_of_use) ,setVisibility(api.visibility) ,setCategoryId(api.categoryId)
-          setBase_Url(api.base_url), setLogo_url(api.logo_url)
-        })
-      }catch(err) {
-        console.log(err)
-      }
+  
+  const fetchAPI = async() => {
+    try{
+      const data = await axios.get(`${url}/api/${profileId}/myapis`)
+      data.data.data.map((api: any) => {
+        setApiId(api.id), setDescription(api.description) ,setAbout(api.about) ,setApi_website(api.api_website) ,setTerm_of_use(api.term_of_use) ,setVisibility(api.visibility) ,setCategoryId(api.categoryId)
+        setBase_Url(api.base_url), setLogo_url(api.logo_url)
+      })
+    }catch(err) {
+      console.log(err)
     }
+  }
+  
+  useEffect(() => {
     fetchAPI()
   }, [])
 
@@ -124,7 +125,7 @@ const GeneralTab: React.FC = () => {
           </Box>
           <Box width="600px" mt={2}>
             <InputLabel htmlFor="description">Short Description</InputLabel>
-            <TextField required variant="outlined" value={description} onChange={(e) => setDescription(e.target.value)} multiline id="description" rows={5} maxRows={10} fullWidth={true} helperText="Describe in few words what’s this API do" />
+            <TextField required variant="outlined" value={description} onChange={(e) => setDescription(e.target.value)} multiline id="description" maxRows={10} fullWidth={true} helperText="Describe in few words what’s this API do" />
           </Box>
           <Box width="600px" mt={2}>
             <InputLabel htmlFor="readme">Read Me (optional)</InputLabel>
