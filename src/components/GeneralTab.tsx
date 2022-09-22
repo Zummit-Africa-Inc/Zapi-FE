@@ -1,7 +1,6 @@
 import React, { ChangeEvent, useState, useEffect } from 'react'
 import { makeStyles } from "@mui/styles";
 import { Link, useParams } from 'react-router-dom';
-import Profile from '/images/avatar.png';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -36,18 +35,6 @@ const GeneralTab: React.FC = () => {
   const [formList, setFormList] = useState([{ form: "" }]);
   const [file, setFile] = useState(null);
   const [passwordVisible, setPasswordVisible] = useState(true);
-
-  const [values, setValues] = React.useState([
-    "Advertising",
-    "Business",
-    "Commerce",
-    "Data",
-    "Database",
-    "eCommerce",
-    "Education",
-    "Food",
-    "Health"
-  ]);
 
   const [selected, setSelected] = useState("");
 
@@ -179,53 +166,6 @@ const GeneralTab: React.FC = () => {
             <InputLabel htmlFor="terms">Terms of Use (optional)</InputLabel>
             <TextField variant="outlined" multiline id="terms" value={term_of_use} onChange={(e) => setTerm_of_use(e.target.value)} maxRows={10} fullWidth={true} />
           </Box>
-          <Box className={classes.fixedBottom}>
-            <Stack direction="row" spacing={2}>
-              <Box>
-                <IconButton>
-                  {passwordVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                </IconButton>
-              </Box>
-              <Box>
-                {passwordVisible ?
-                  <>
-                    <Typography fontWeight={600}>API Project is Public</Typography>
-                    <Typography>Accessible to hundreds of thousands of developers on the Hub</Typography>
-                  </>
-                  :
-                  <>
-                    <Typography fontWeight={600}>API Project is Private</Typography>
-                    <Typography>It’s not visible on the Hub and new users can’t access it</Typography>
-                  </>}
-                <Switch onChange={() => setPasswordVisible(!passwordVisible)} />
-              </Box>
-            </Stack>
-          </Box>
-          <Box width="600px" sx={{ padding: '30px', border: '1px solid black' }}>
-            <Typography variant="body1" fontSize="18px" fontWeight={600}>Base URL</Typography>
-            <Typography variant="body1" fontSize="18px" fontWeight={400}>Add a base URL, configure multiple URLs, override URLs, and select a load balancer</Typography>
-            <InputLabel htmlFor="website">URL</InputLabel>
-            {formList.map((singleForm, index) => (
-              <div key={index}>
-                <Stack direction="row">
-                  <TextField placeholder="https://" variant="outlined" id="website" fullWidth={true} />
-                  {formList.length > 1 && (
-                    <IconButton onClick={handleRemove}>
-                      <HighlightOffIcon />
-                    </IconButton>
-                  )}
-                </Stack>
-                <Divider sx={{ marginTop: '10px', marginBottom: '10px' }} />
-                {formList.length - 1 === index && (
-                    <button style={{ padding: '10px' }} onClick={handleAdd}>Add URL</button>)}
-              </div>
-            ))}
-          </Box>
-        <Box width="600px" height="300px" mt={2}>
-          <Typography variant="body1" fontSize="20px" fontWeight={800}>Additional Information</Typography>
-          <InputLabel htmlFor="terms">Terms of Use (optional)</InputLabel>
-          <TextField variant="outlined" multiline id="terms" maxRows={10} fullWidth={true} />
-        </Box>
         <Box className={classes.fixedBottom}>
           <Stack direction="row" spacing={2}>
             <button className={classes.saveBtn}>Save</button>
