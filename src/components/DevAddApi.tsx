@@ -25,13 +25,11 @@ const DevAddApi: React.FC = () => {
                 <InputSearch className={classes.formControl} type="text" name="queryString" value={queryString} onChange={(e: ChangeEvent<HTMLInputElement>) => setQueryString(e.target.value)} placeholder="Search API Projects"/>
                 </form>
             </div>
-
             <div className={classes.widget2}>
                 <div className={classes.leftText}>
                     <Typography variant="subtitle2" mt={0.5}>
                         All
                     </Typography>
-
                     <div className={classes.rightText}>
                         <img src={StarRate} alt="Star-Rate" style={{height: "20px", width: "20px", left: "2px", marginTop: "4px"}}/>
                         <span>
@@ -46,7 +44,6 @@ const DevAddApi: React.FC = () => {
                     <AddIcon />
                     <Typography>Add API Project</Typography>
             </button>
-
         </div>
             {/* Add API Description */}
             <div className={classes.addApiDesc}>
@@ -152,7 +149,6 @@ const useStyles = makeStyles({
     search: {
         width: "149px",
         height: "30px",
-
         fontFamily: 'Space Grotesk',
         fontStyle: "normal",
         fontWeight: "400",
@@ -231,7 +227,6 @@ const useStyles = makeStyles({
     addApiDesc: {
         marginTop: "20px",
         paddingBottom: "80px",
-
     }
 })
 export default DevAddApi
