@@ -17,8 +17,8 @@ const ResetPassword: React.FC = () => {
   const navigate = useNavigate();
 
     const classes = useStyles();
-    const [password, setPassword] = useState("");
-    const [passwordConfirm, setPasswordConfirm] = useState("")
+    const [password, setPassword] = useState<string>("");
+    const [passwordConfirm, setPasswordConfirm] = useState<string>("");
     const param = useParams();
 
 
@@ -29,7 +29,7 @@ const ResetPassword: React.FC = () => {
       if(!MATCH_CHECKER(password, passwordConfirm)) return toast.error('Passwords do not match')
       const userData = { password: password }
     try{
-      const url = `${identity_url}/zapi-identity/auth/reset`;
+      const url = `${identity_url}/reset`;
       const res = await axios.post(url, userData);
       toast.success(res.data.message);
       setTimeout(() => {
