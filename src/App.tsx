@@ -86,7 +86,6 @@ const App: React.FC = () => {
               <Route path="/users/verify/:token" element={<EmailVerify />} />
               <Route path="/general-tab" element={<GeneralTab />} />
             </Route>
-
           </Routes>
         </Suspense>
 
