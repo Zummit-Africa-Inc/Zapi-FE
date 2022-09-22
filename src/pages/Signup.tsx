@@ -39,6 +39,7 @@ const Signup: React.FC = () => {
     try {
       const data = await sendRequest(`${url}/auth/signup`, 'POST', JSON.stringify(payload), headers)
       setMessage(data?.data)
+      if(data.data.success) toast.success(`${message}`)
       navigate('/otp')
     } catch (error) {
     };
@@ -48,9 +49,9 @@ const Signup: React.FC = () => {
     {error && toast.error(`${error}`)}
   },[error])
 
-  useEffect(() => {
-    {message && toast.success(`${message}`)}
-  },[message])
+  // useEffect(() => {
+  //   {message && toast.success(`${message}`)}
+  // },[message])
   
   return (
     <>
