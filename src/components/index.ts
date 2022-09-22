@@ -10,6 +10,7 @@ export { default as Login } from "./Login";
 export { default as Navbar } from "./Navbar";
 export { default as DevNavbar } from "./DevNavbar";
 export { default as Pricing } from "./Pricing";
+export { default as PasswordStrengthMeter } from "./PasswordStrengthMeter";
 export { default as Sidebar } from "./Sidebar";
 export { default as SplitView } from "./SplitView";
 export { default as TabPanel } from "./TabPanel";

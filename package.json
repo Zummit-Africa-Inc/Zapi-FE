@@ -36,12 +36,14 @@
     "socket.io-client": "^4.5.1",
     "universal-cookie": "^4.0.4",
     "webpack": "^5.74.0",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
     "@types/googlemaps": "^3.43.3",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
+    "@types/zxcvbn": "^4.4.1",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
     "@vitejs/plugin-react": "^2.0.0",
