@@ -183,7 +183,7 @@ a {
   background-color: orange;
 }
 .strength-Good::-webkit-progress-value {
-  background-color: lightgreen;
+  background-color: blue;
 }
 .strength-Strong::-webkit-progress-value {
   background-color: green;

@@ -15,7 +15,7 @@ import { GoogleIcon } from "../assets";
 const initialState = { fullName: "", email: "", password: "", confirm_password: "", terms: false };
 const url = import.meta.env.VITE_IDENTITY_URL;
 
-const Signup:React.FC = () => {
+const Signup: React.FC = () => {
   const classes = useStyles();
   const { inputs, bind, toggle } = useFormInputs(initialState);
   const { fullName, email, password, confirm_password, terms } = inputs;
@@ -23,6 +23,7 @@ const Signup:React.FC = () => {
   const { handleClicked } = useContextProvider();
   const [message, setMessage] = useState<string>("");
   const navigate = useNavigate();
+  const disabled = !terms || !PASSWORD_REGEX.test(password) || !MATCH_CHECKER(password, confirm_password) ? true : false;
 
 
   const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
@@ -93,7 +94,7 @@ const Signup:React.FC = () => {
               <Link to="/terms" className={classes.link}>terms and conditions and privacy policy.</Link>
             </label>
           </div>
-          <button type="submit" className={classes.button} disabled={!terms}>
+          <button type="submit" className={classes.button} disabled={disabled}>
             {loading ? 'loading' : 'Signup'}
           </button>
         </form>
