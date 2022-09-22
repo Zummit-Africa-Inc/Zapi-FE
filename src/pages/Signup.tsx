@@ -37,19 +37,21 @@ const Signup: React.FC = () => {
     const headers = { 'Content-Type': 'application/json' }
     const payload = { fullName, email, password }
     try {
-      const data = await sendRequest(`${url}/signup`, 'POST', JSON.stringify(payload), headers)
+      const data = await sendRequest(`${url}/auth/signup`, 'POST', JSON.stringify(payload), headers)
       setMessage(data?.data)
-      navigate("/")
-    } catch (error) {};
+      if(data.data.success) toast.success(`${message}`)
+      navigate('/otp')
+    } catch (error) {
+    };
   };
 
   useEffect(() => {
     {error && toast.error(`${error}`)}
   },[error])
 
-  useEffect(() => {
-    {message && toast.success(`${message}`)}
-  },[message])
+  // useEffect(() => {
+  //   {message && toast.success(`${message}`)}
+  // },[message])
   
   return (
     <>
