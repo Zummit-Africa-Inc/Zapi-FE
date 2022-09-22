@@ -199,9 +199,10 @@ export default GeneralTab;
 
 const useStyles = makeStyles({
   container: {
-    background: '#F3F4F6',
+    background: 'inherit',
+    borderRadius: '5px',
     width: '100%',
-    height: '2600px',
+    height: '1900px',
     padding: '20px'
   },
   previewContainer: {
