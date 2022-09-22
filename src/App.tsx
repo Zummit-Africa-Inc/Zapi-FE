@@ -82,7 +82,7 @@ const App: React.FC = () => {
               <Route path="/login-history" element={<LoginHistory />} />
               <Route path="/success-page" element={<SuccessPage />} />
               <Route path="/create-endpoint" element={<CreateEndpoint />} />
-              <Route path="/endpoint-tab" element={<EndpointTab />} />
+              <Route path="/endpoints" element={<EndpointTab />} />
               <Route path="/users/verify/:token" element={<EmailVerify />} />
               <Route path="/general-tab" element={<GeneralTab />} />
             </Route>

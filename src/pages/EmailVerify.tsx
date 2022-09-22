@@ -14,7 +14,7 @@ const EmailVerify = () => {
 
 	const verifyEmailUrl = async () => {
 		try {
-			const data = await sendRequest(`${url}/zapi-identity/email-verification/${token}`, 'GET')
+			const data = await sendRequest(`${url}/email-verification/${token}`, 'GET')
 			console.log(data)
 		} catch (error) {}
 	};
