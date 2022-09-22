@@ -37,7 +37,7 @@ const Signup: React.FC = () => {
     const headers = { 'Content-Type': 'application/json' }
     const payload = { fullName, email, password }
     try {
-      const data = await sendRequest(`${url}/signup`, 'POST', JSON.stringify(payload), headers)
+      const data = await sendRequest(`${url}/auth/signup`, 'POST', JSON.stringify(payload), headers)
       setMessage(data?.data)
       navigate("/")
     } catch (error) {};
