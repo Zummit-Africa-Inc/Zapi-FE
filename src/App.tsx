@@ -15,6 +15,8 @@ import { theme } from "./theme";
 import { PrivateRoutes } from "./components/routes";
 import { getApis } from "./redux/slices/apiSlice";
 import { useAppDispatch } from "./hooks";
+import TheErrorPage from "./pages/TheErrorPage";
+import ErrorPageSample from "./pages/TheErrorPage";
 
 
 const App: React.FC = () => {
@@ -86,6 +88,7 @@ const App: React.FC = () => {
               <Route path="/users/verify/:token" element={<EmailVerify />} />
               <Route path="/general-tab" element={<GeneralTab />} />
             </Route>
+              <Route path="*" element={<ErrorPageSample /> } />
           </Routes>
         </Suspense>
 
