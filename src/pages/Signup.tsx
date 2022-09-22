@@ -39,12 +39,8 @@ const Signup: React.FC = () => {
     try {
       const data = await sendRequest(`${url}/auth/signup`, 'POST', JSON.stringify(payload), headers)
       setMessage(data?.data)
-      if(!data.data.success){
-        toast.error(data.data.message)
-      }
-      toast.success('Successful, please check your email')
+      navigate('/otp')
     } catch (error) {
-      toast.error('Oops, an error occured')
     };
   };
 
