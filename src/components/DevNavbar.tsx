@@ -3,34 +3,26 @@ import { makeStyles } from "@mui/styles";
 import { Link } from 'react-router-dom';
 
 import  Menus  from "../components/Menus";
-
-//images
 import { ZapiDevLogo, ZapiWidget } from '../assets'
 
 const DevNavbar: React.FC = () => {
     const classes = useStyles()
   
-    
-    
-
   return (
-    <>
-        <div className={classes.NavBar}>
-            <div className={classes.logo}>
-                <Link to="/dashboard">
-                <img src={ZapiDevLogo} alt='Zapi-dev' />
-                </Link>
-                <span className={classes.zapi}>Z-API</span>
-            </div>
-
-            <div className={classes.widget}>
-                <img src={ZapiWidget} alt='Zapi-widget' />
-                <Link to='#' className={classes.api}>API Projects</Link>
-            </div>
-
-                <Menus />
+    <div className={classes.NavBar}>
+        <div className={classes.logo}>
+            <Link to="/dashboard">
+            <img src={ZapiDevLogo} alt='Zapi-dev' />
+            </Link>
+            <span className={classes.zapi}>Z-API</span>
         </div>
-    </>
+
+        <div className={classes.widget}>
+            <img src={ZapiWidget} alt='Zapi-widget' />
+            <Link to='#' className={classes.api}>API Projects</Link>
+        </div>
+        <Menus />
+    </div>
   )
 }
 
