@@ -13,14 +13,10 @@ const initialState = {name: "", description: ""};
 const AddApiPopup: React.FC = () => {
   const { loading, error, sendRequest, clearError } = useHttpRequest();
   const { inputs, bind } = useFormInputs(initialState);
+  const { handleUnclicked } = useContextProvider()
+  const [dropdown, setDropdown] = React.useState('');
   const classes = useStyles();
 
-  const [dropdown, setDropdown] = React.useState('');
-  const [close, setClose] = React.useState(true);
-  const handleClose = () => {
-    setClose(false);
-  };
-  
   const handleDropdownChange = (event: SelectChangeEvent) => {
     setDropdown(event.target.value);
   };
@@ -29,7 +25,6 @@ const AddApiPopup: React.FC = () => {
   return (
     <>
     {loading && <Fallback />}
-    {close ? (
     <div>
       <div className={classes.container}>
         <div className={classes.main} onClick={(e) => e.stopPropagation()}>
@@ -98,7 +93,7 @@ const AddApiPopup: React.FC = () => {
           <div className={classes.divider} />
           {/* Add and Cancel Buttons */}
           <div style={{top: "600px", left: "325px", gap: "40px", display: "flex", flexDirection: "row", alignItems: "flex-start", width: "275px", marginBottom: "20PX", marginLeft: "235PX"}}>
-              <button className={classes.cancelBtn} onClick={handleClose}>
+              <button className={classes.cancelBtn} onClick={() => handleUnclicked('addapi')}>
                   <Typography>Cancel</Typography>
               </button>
               <div className={classes.addBtn}>
@@ -108,7 +103,6 @@ const AddApiPopup: React.FC = () => {
           </div>
         </div>
       </div>
-      ) : null }
     </>
   );
 };
