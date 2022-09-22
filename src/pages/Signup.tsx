@@ -2,25 +2,28 @@ import React, { FormEvent, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Stack, Typography, } from "@mui/material";
 import { makeStyles } from '@mui/styles';
-import { toast }  from "react-toastify";
+import { toast } from "react-toastify";
+import {Cancel} from '@mui/icons-material';
 
 import { EMAIL_REGEX, PASSWORD_REGEX, MATCH_CHECKER }from "../utils"
 import { useContextProvider } from "../contexts/ContextProvider"
 import { useFormInputs, useHttpRequest } from "../hooks";
-import { Fallback } from "../components";
+import { Fallback, PasswordStrengthMeter } from "../components";
 import { HomeNavbar } from '../sections';
 import { GoogleIcon } from "../assets";
 
 const initialState = { fullName: "", email: "", password: "", confirm_password: "", terms: false };
 const url = import.meta.env.VITE_IDENTITY_URL;
 
-const Signup:React.FC = () => {
+const Signup: React.FC = () => {
   const classes = useStyles();
   const { inputs, bind, toggle } = useFormInputs(initialState);
   const { fullName, email, password, confirm_password, terms } = inputs;
   const { error, loading, sendRequest } = useHttpRequest();
   const { handleClicked } = useContextProvider();
   const navigate = useNavigate();
+  const disabled = !terms || !PASSWORD_REGEX.test(password) || !MATCH_CHECKER(password, confirm_password) ? true : false;
+
 
   const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -75,20 +78,26 @@ const Signup:React.FC = () => {
             <input type="email" name="email" {...bind} placeholder="Enter your email" />
           </div>
           <div className={classes.input}>
-            <label htmlFor="password">Password <span>*</span></label>
-            <input type="password" name="password" {...bind} placeholder="Enter a Password" />
-          </div>
+            <label htmlFor="password">Password</label>
+              <input type="password" name="password" {...bind} placeholder="Enter a Password" />
+              <PasswordStrengthMeter password={password} />
+            </div>
           <div className={classes.input}>
-            <label htmlFor="confirm_password">Confirm Password <span>*</span></label>
-            <input type="password" name="confirm_password" {...bind} placeholder="Re-enter the Password" />
-          </div>
+              <label htmlFor="confirm_password">Confirm Password <span>*</span></label>
+                <input type="password" name="confirm_password" {...bind} placeholder="Re-enter the Password" style={
+                  !MATCH_CHECKER(password, confirm_password)
+                    ? { border: '2px solid red' }
+                    : { border: '2.5px solid green' }
+              } />
+              {MATCH_CHECKER(password, confirm_password) ? <></> : <span><Cancel sx={{ fontSize: 15, marginRight:1  }}  color="error"/> Password does not match</span>}
+            </div>
           <div className={classes.check_input}>
             <input type="checkbox" name="terms" {...toggle} />
             <label htmlFor="terms">I agree to ZAPI’s
               <Link to="/terms" className={classes.link}>terms and conditions and privacy policy.</Link>
             </label>
           </div>
-          <button type="submit" className={classes.button} disabled={!terms}>
+          <button type="submit" className={classes.button} disabled={disabled}>
             {loading ? 'loading' : 'Signup'}
           </button>
         </form>
