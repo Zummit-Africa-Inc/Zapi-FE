@@ -2,12 +2,13 @@ import React, { FormEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Stack, Typography, } from "@mui/material";
 import { makeStyles } from '@mui/styles';
-import { toast }  from "react-toastify";
+import { toast } from "react-toastify";
+import {Cancel} from '@mui/icons-material';
 
 import { EMAIL_REGEX, PASSWORD_REGEX, MATCH_CHECKER }from "../utils"
 import { useContextProvider } from "../contexts/ContextProvider"
 import { useFormInputs, useHttpRequest } from "../hooks";
-import { Fallback } from "../components";
+import { Fallback, PasswordStrengthMeter } from "../components";
 import { HomeNavbar } from '../sections';
 import { GoogleIcon } from "../assets";
 
