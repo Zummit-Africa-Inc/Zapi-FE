@@ -82,23 +82,31 @@ a {
 
 .tabs{
   display: flex;
-  width: 100vw;
+  width: calc(100vw - 250px);
   margin-bottom: 2.5rem;
   /* padding: 1rem 2rem; */
 }
 
 .tab{
-  width: 30rem;
+  width: 20rem;
   cursor: pointer;
-  padding: 1.5rem 2rem;
+  padding: 1.5rem 1rem;
+}
+
+.datatable {
+  width: calc(100vw - 350px );
 }
 
 .clickTab{
-  width: 30rem;
+  width: 20rem;
   cursor: pointer;
-  padding: 1.5rem 2rem;
-  background: rgb(139, 236, 236);
+  padding: 1.5rem 1rem;
+  background: #FFF;
   border-top: 2px solid rgb(10, 10, 10);
+}
+
+.lowerTab{
+  background: #fff;
 }
 
 .loader {

@@ -8,7 +8,7 @@ interface IChildren {
 
 const AppContext = createContext<any | null>(null);
 
-const initialState = {login: false}
+const initialState = {login: false, addapi: false}
 const initialLocation = { lat: 0, lon: 0, time: 0 } as Location
 const initialDeviceInfo = {
     browserFullVersion: "",

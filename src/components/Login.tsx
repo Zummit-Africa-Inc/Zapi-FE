@@ -7,7 +7,7 @@ import Cookies from "universal-cookie";
 import { toast }  from "react-toastify";
 
 import { useContextProvider } from "../contexts/ContextProvider";
-import { useFormInputs, useHttpRequest } from "../hooks";
+import { useAppDispatch, useFormInputs, useHttpRequest } from "../hooks";
 import { EMAIL_REGEX, PASSWORD_REGEX } from "../utils";
 import { login } from "../redux/slices/userSlice";
 import { Fallback } from "../components";
@@ -20,7 +20,7 @@ const Login: React.FC = () => {
   const { deviceInfo, deviceLocation, deviceIP, handleUnclicked } = useContextProvider();
   const { clearError, error, loading, sendRequest } = useHttpRequest();
   const { inputs, bind } = useFormInputs(initialState);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const classes = useStyles();
   const cookies = new Cookies();
 
@@ -40,7 +40,7 @@ const Login: React.FC = () => {
       }
     };
     try {
-      const data = await sendRequest(`${url}/zapi-identity/auth/signin`, 'POST', JSON.stringify(payload), headers);
+      const data = await sendRequest(`${url}/signin`, 'POST', JSON.stringify(payload), headers);
       if(!data || data === undefined) return;
       const { data: {access, email, fullName, profileId, refresh, userId}} = data;
       const user = { email, fullName, profileId };

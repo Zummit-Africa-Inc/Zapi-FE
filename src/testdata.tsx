@@ -4,8 +4,9 @@ import ControlCameraIcon from '@mui/icons-material/ControlCamera';
 import ScienceOutlinedIcon from '@mui/icons-material/Science';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import { Analytics, EndPointPage } from "./pages";
+import { Analytics } from "./pages";
 import GeneralTab from "./components/GeneralTab";
+import EndpointTab from "./components/EndpointTab";
 
 
 export const APIS = [
@@ -350,7 +351,7 @@ export const DEVSNAVBAR = [
     {
         name: "Endpoints",
         link: "/endpoints",
-        page: "Endpoints"
+        page: <EndpointTab />
     },
     {
         name: "Gateway",
@@ -370,6 +371,6 @@ export const DEVSNAVBAR = [
     {
         name: "Analytics",
         link: "/analytics",
-        page: "analytics"
+        page: <Analytics />
     },
 ]
