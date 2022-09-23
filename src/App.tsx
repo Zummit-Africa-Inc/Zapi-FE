@@ -1,3 +1,4 @@
+import './App.css';
 import React, { Suspense, useEffect, useMemo } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -6,7 +7,8 @@ import { deviceDetect } from "react-device-detect";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
-import { Analytics, CreateEndpoint, DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, EmailVerify, TermsConditons } from "./pages";
+
+import { Analytics, CreateEndpoint, Settingspage, DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, EmailVerify, TermsConditons,  } from "./pages";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { login } from "./redux/slices/userSlice";
 import { Fallback, Login, AddApiPopup, GeneralTab, EndpointTab } from "./components";
@@ -85,6 +87,7 @@ const App: React.FC = () => {
               <Route path="/endpoint-tab" element={<EndpointTab />} />
               <Route path="/users/verify/:token" element={<EmailVerify />} />
               <Route path="/general-tab" element={<GeneralTab />} />
+              <Route path="/settingspage" element={<Settingspage />} />
             </Route>
           </Routes>
         </Suspense>
