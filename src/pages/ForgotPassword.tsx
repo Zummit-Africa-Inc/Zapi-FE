@@ -24,7 +24,7 @@ const ForgotPassword: React.FC = () => {
     e.preventDefault();
     const userData = { email: email}
     try{
-      const url = `${identity_url}/forgot`;
+      const url = `${identity_url}/auth/forgot`;
       const res = await axios.post(url, userData);
       toast.success(res.data.message);
       setTimeout(() => {
