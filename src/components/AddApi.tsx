@@ -5,9 +5,14 @@ import { Stack, TextField, Select, MenuItem, Typography, Box, Button } from "@mu
 
 const AddApi: React.FC = () => { 
   const classes = useStyles();
+
+  const handleSubmit = () => {
+
+  }
+  
   return (
     <div className={classes.main}>
-      <form>
+      <form onSubmit={handleSubmit}>
         <Stack spacing={2} mx={2}>
         <Typography variant="h5">Add New API</Typography>
           <Typography className={classes.label}>API Name</Typography>
@@ -37,7 +42,7 @@ const AddApi: React.FC = () => {
             <MenuItem value="travel">Travel</MenuItem>
           </Select>
           <Typography className={classes.label}>Who Owns this API: <span className={classes.grey}>John Doe</span></Typography>
-          <Stack direction="row" alignItems="center" spacing={2}>
+          {/* <Stack direction="row" alignItems="center" spacing={2}>
             
             <Typography className={classes.label}>Specify using:</Typography>
                     <Box sx={{ display: 'flex', flexDirection: 'row' }}>
@@ -47,7 +52,7 @@ const AddApi: React.FC = () => {
                             <Button variant="outlined">GraphQL Schema</Button>
                             <Button variant="outlined">Kafka</Button>
                     </Box>
-          </Stack>
+          </Stack> */}
           <Button variant="contained" size="large" startIcon={<FileUploadIcon />} className={classes.button}>
   Upload API
 </Button>
