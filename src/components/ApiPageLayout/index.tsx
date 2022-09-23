@@ -3,8 +3,6 @@ import React, { ReactNode } from 'react'
 import Navbar from './navbar';
 import Sidebar from './sidebar';
 
-
-
 const ApiPageLayout:React.FC = () => {
     const classes = useStyles()
   return (

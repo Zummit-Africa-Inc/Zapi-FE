@@ -30,6 +30,7 @@ const ResetPassword: React.FC = () => {
       const userData = { password: password }
     try{
       const url = `${identity_url}/auth/reset/${param.token}`;
+
       const res = await axios.post(url, userData);
       toast.success(res.data.message);
       setTimeout(() => {
