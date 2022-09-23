@@ -28,15 +28,15 @@ const Otp: React.FC = () => {
       const data = await sendRequest(`${url}/email-verification/confirm`, 'POST', JSON.stringify(payload), headers)
       console.log(data)
       const { success } = data
-      // if(!success || success === false) {
-      //   return
-      // } else {
-      //   toast.success(`${data?.data}`)
-      //   const timeout = setTimeout(() => {
-      //     navigate('/')
-      //   }, 3000)
-      //   return () => clearTimeout(timeout)
-      // }
+      if(!success || success === false) {
+        return
+      } else {
+        toast.success(`${data?.message}`)
+        const timeout = setTimeout(() => {
+          navigate('/')
+        }, 3000)
+        return () => clearTimeout(timeout)
+      }
     } catch (error) {}
   }
 
