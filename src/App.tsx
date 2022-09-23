@@ -6,7 +6,7 @@ import { deviceDetect } from "react-device-detect";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
-import { CreateEndpoint, DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, Analytics, SuccessPage, Configuration, EmailVerify, ResetPassword, TermsConditons } from "./pages";
+import { Analytics, CreateEndpoint, DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, EmailVerify, TermsConditons, ResetPassword } from "./pages";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { login } from "./redux/slices/userSlice";
 import { Fallback, Login, AddApiPopup, GeneralTab, EndpointTab } from "./components";
@@ -63,7 +63,7 @@ const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <ToastContainer />
-      <div>  
+      <div>
         <Suspense fallback={<Fallback />}>
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -75,9 +75,9 @@ const App: React.FC = () => {
             <Route path="/reset-password/:token" element={<ResetPassword />} />
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
-              <Route path="/developers/dashboard/" element={<DevDashboard />} />
+              <Route path="/developers/dashboard" element={<DevDashboard />} />
+              <Route path="/developers" element={<DeveloperApiPage />} />
               <Route path="/analytics" element={<Analytics />} />
-              <Route path="/developers/" element={<DeveloperApiPage />} />
               <Route path="/api/:id" element={<APIPage />} />
               <Route path="/configuration" element={<Configuration />} />
               <Route path="/login-history" element={<LoginHistory />} />
@@ -87,7 +87,6 @@ const App: React.FC = () => {
               <Route path="/users/verify/:token" element={<EmailVerify />} />
               <Route path="/general-tab" element={<GeneralTab />} />
             </Route>
-
           </Routes>
         </Suspense>
 
