@@ -1,31 +1,46 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import Cookies from "universal-cookie";
 
-import { UserProfileType } from "../../types";
+import { UserProfileType, APIType } from "../../types";
 
-const url = ""
+const core_url = import.meta.env.VITE_BASE_URL
+const identity_url = import.meta.env.VITE_IDENTITY_URL
 const cookies = new Cookies()
 const userId = cookies.get("userId")
+const profileId = cookies.get("profileId")
 
 interface UserState {
-    user: UserProfileType
+    user: UserProfileType | Object
+    userApis: any
     loading: "idle" | "pending" | "fulfilled" | "rejected"
     error?: any
     isLoggedIn: boolean
 }
 
-const initialState = {
+const initialState: UserState = {
     user: {},
     loading: "idle",
     error: null,
-    isLoggedIn: false
-} as UserState
+    isLoggedIn: false,
+    userApis: [],
+}
 
-export const getUserProfile = createAsyncThunk("user/getuserprofile", async(_, thunkAPI) => {
+export const getUserProfile = createAsyncThunk("user/getprofile", async(_, thunkAPI) => {
     try {
-        const response = await fetch(`${url}/profile/${userId}`)
+        const response = await fetch(`${identity_url}/profile/${userId}`)
         const data = await response.json()
         return data
+    } catch (error: any) {
+        return thunkAPI.rejectWithValue(error.message)
+    }
+})
+
+export const getUserApis = createAsyncThunk("user/getapis", async(_, thunkAPI) => {
+    try {
+        const response = await fetch(`${core_url}/api/user-apis/${profileId}`)
+        const data = await response.json()
+        const apis = data?.data
+        return apis
     } catch (error: any) {
         return thunkAPI.rejectWithValue(error.message)
     }
@@ -45,6 +60,9 @@ const userSlice = createSlice({
         builder.addCase(getUserProfile.rejected, (state, action: PayloadAction<any>) => {
             state.loading = "rejected"
             state.error = action.payload
+        }),
+        builder.addCase(getUserApis.fulfilled, (state, action: PayloadAction<any>) => {
+            state.userApis = action.payload
         })
     },
     reducers: {

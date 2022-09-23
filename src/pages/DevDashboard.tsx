@@ -1,10 +1,13 @@
+import { ChangeEvent, useState } from 'react'
 import { Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import { ChangeEvent, useState } from 'react'
+
 import { Widget, InputSearch, DataTable, DevNavbar, Navbar, DevAddApi  } from '../components'
 import { DASHBOARDTEXT1, DASHBOARDTEXT2, ERROR, STATISTICS, SUCCESS, TIMERANGE, PERIOD, ZONE, TABLEHADING, ROWS } from '../testdata'
+import { useAppDispatch, useAppSelector } from '../hooks'
 
 const DevDashboard: React.FC = () => {
+    const { userApis } = useAppSelector(store => store.user)
     // const [statsParam, setStatsParam] = useState<string>(STATISTICS[0])
     // const [errorParam, setErrorParam] = useState<string>(ERROR[0])
     // const [successParam, setSuccessParam] = useState<string>(SUCCESS[0])
@@ -56,7 +59,8 @@ const DevDashboard: React.FC = () => {
     return (
         <>
         <DevNavbar />
-        <DevAddApi />
+        {userApis?.length === 0 ? 
+        <DevAddApi /> : userApis.map((api: any) => (<div>{api}</div>))}
         {/* <div className={classes.dashboard}>
             <Typography variant='h5' gutterBottom sx={{padding: '1rem 2rem'}}>Dashboard</Typography>
             <div className="cards">
