@@ -15,6 +15,11 @@ export const useFormInputs = (initialState: any) => {
                     ...state,
                     [payload.name]: payload.value
                 }
+            case 'select':
+                return {
+                        ...state,
+                        [payload.name]: payload.value
+                }
             case 'reset':
                 return initialState
             default:
