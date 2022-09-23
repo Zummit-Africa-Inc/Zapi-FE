@@ -55,9 +55,13 @@ const HomeNavbar: React.FC = () => {
                                 <li><Link to="/dashboard">API hub</Link></li>
                                 <li><Link to="#">Pricing</Link></li>
                                 <li><Link to="#">Documentation</Link></li>
-                                <li><button onClick={() => handleClicked('login')}>Login</button></li>
-                            </ul>
+                                {!isLoggedIn && <li><button onClick={() => handleClicked('login')}>Login</button></li>}   
+                        </ul>
+                         {!isLoggedIn ? 
                             <div className={classes.signup}><Link to="/signup">Sign up</Link></div>
+                             : 
+                             <button className={classes.signup} onClick={handleLogOut}>LogOut</button>
+                        } 
                         </div>
                         <div className={classes.hamburger} onClick={handleClick}>
                             <Menu />
@@ -73,9 +77,10 @@ const HomeNavbar: React.FC = () => {
                             {!isLoggedIn && <li><button onClick={() => handleClicked('login')}>Login</button></li>}   
                         </ul>
                          {!isLoggedIn ? 
-<div className={classes.signup}><Link to="/signup">Sign up</Link></div> : <button className={classes.signup} onClick={handleLogOut}>LogOut</button>
-
-                       } 
+                            <div className={classes.signup}><Link to="/signup">Sign up</Link></div>
+                             : 
+                             <button className={classes.signup} onClick={handleLogOut}>LogOut</button>
+                        } 
                     </div>
                 }
             </div>
