@@ -14,6 +14,7 @@ import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
 import { PrivateRoutes } from "./components/routes";
 import { getApis } from "./redux/slices/apiSlice";
+import { getUserApi } from "./redux/slices/userApiSlice";
 import { useAppDispatch } from "./hooks";
 
 
@@ -55,9 +56,15 @@ const App: React.FC = () => {
   }, []);
 
   const getCategories = useMemo(() =>  (dispatch(getApis())), [])
-  
-  useEffect(() => {
+
+   useEffect(() => {
     getCategories
+  }, [])
+
+  const getApi = useMemo(() =>  (dispatch(getUserApi())), [])
+
+  useEffect(() => {
+    getApi
   }, [])
 
   return (
