@@ -1,22 +1,18 @@
-import React, { useState } from 'react'
-import { SelectMulti,ProxySecret, Threat } from '../components';
+import React from 'react'
+import { SelectMulti,ProxySecret, Threat, Schema, Config, Version } from '../components';
 import { makeStyles } from "@mui/styles"
-import { Button, IconButton, Paper, Typography } from "@mui/material"
+import { Box, Stack, Typography } from "@mui/material"
 
-import ToggleOffIcon from "@mui/icons-material/ToggleOff";
-import ToggleOnIcon from "@mui/icons-material/ToggleOn";
+
+
+
 
 
 const GatewayTab: React.FC = () => {
 
     const classes = useStyles();
-    const [threatProtection, setThreatProtection] = useState<boolean>(false);
-
-    const toogleThreatProtection = () => {
-		setThreatProtection(prevState => {
-			return !prevState;
-		});
-    }
+    
+   
 
   return (
     <>
@@ -41,40 +37,16 @@ const GatewayTab: React.FC = () => {
                             <ProxySecret />
                         </div>
                         <Threat />
-                        <div className={classes.request}>
-                            <div className={classes.text}>
-                                <Typography variant='h6' style={{ fontWeight:600, color:'black',fontSize:'16px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>Request Schema Validation</Typography>
-                            </div>
-                            <div className={classes.field}>
-                                <div className={classes.subfield}>
-                                    <div className={classes.textfield}>
-                                        <Typography variant='h6' style={{ fontWeight:600, color:'black',fontSize:'16px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>
-                                            Automatically validate the path, query and header parameters on run 
-                                            time and block all invalid requests</Typography>
-                                        <Typography variant='h6' style={{ marginTop:'4px', fontWeight:'600px', color:'black',fontSize:'12px',display:'block', boxSizing:'border-box',outline:'none 0px', letterSpacing:'normal',lineHeight:'16px' }}>
-                                            This requires “Content-Type” header in requests with a body.</Typography>
-                                            {threatProtection ? (
-                                                <div className={classes.main}>
-                                                    <ToggleOnIcon
-                                                        fontSize="large"
-                                                        onClick={toogleThreatProtection}
-                                                        className={classes.pointer}
-                                                    />{" "}
-                                                </div>
-                                            ) : (
-                                                
-                                                <div className={classes.main}>
-                                                    <ToggleOffIcon
-                                                        fontSize="large"
-                                                        onClick={toogleThreatProtection}
-                                                        className={classes.pointer}
-                                                    />
-                                                </div>
-                                            )}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <Schema />
+                        <Config />
+                        <Version />
+                      
+                        <Box className={classes.fixedBottom}>
+                            <Stack direction="row" spacing={2}>
+                            <button className={classes.saveBtn}>Save</button>
+                            <button className={classes.discardBtn}>Discard</button>
+                            </Stack>
+                        </Box>
                     </form>
                 </div>
 
@@ -126,46 +98,35 @@ const useStyles = makeStyles({
         boxSizing: 'border-box',
         display: 'flex',
     },
-    request:{
-        marginTop: '32px',
-        boxSizing: 'border-box',
-    },
-    text:{
-        flexDirection: 'column',
-        boxSizing: 'border-box',
-        display: 'flex',
-    },field:{
-        marginTop: '16px',
-        width: 'fit-content',
-        height: 'fit-content',
-        borderColor: 'rgb(214, 217, 219)',
-        borderRadius: '6px',
-        borderStyle: 'solid',
-        borderWidth: '1px',
-        boxSizing: 'border-box',
-    },
-    subfield:{
-        padding: '16px',
-        webkitBoxAlign: 'center',
-        alignItems: 'center',
-        boxSizing: 'border-box',
-        display: 'flex',
-    },
-    textfield:{
-        flexDirection: 'column',
-        boxSizing:'border-box',
-        display: 'flex',
-    },
-    main: {
-		marginLeft: '16px',
-        boxSizing: 'border-box',
-        display: 'inline-flex',
-        flexDirection: 'column',
-        position: 'relative'
-    },
-    pointer: {
-		cursor: "pointer",
-	},
+    fixedBottom: {
+        width: '100%',
+        borderTop: '1px solid rgb(214, 217, 219)',
+        position: 'fixed',
+        bottom: 0,
+        padding: '20px',
+        zIndex: 100,
+        backgroundColor: '#F3F4F6'
+      },
+      saveBtn: {
+        padding: '10px 20px',
+        backgroundColor: 'rgb(74, 149, 237)',
+        color: 'white',
+        borderRadius: '10px',
+        outline: 'none',
+        border: 'none',
+        cursor: 'pointer',
+        '&:hover': {
+          backgroundColor: '#333',
+        }
+      },
+      discardBtn: {
+        padding: '10px 20px',
+        borderRadius: '10px',
+        outline: 'none',
+        backgroundColor: '#fff',
+        border: '1px solid rgb(214, 217, 219)',
+        color: 'rgba(0, 0, 0, 0.87)'
+      },
     
 })
 

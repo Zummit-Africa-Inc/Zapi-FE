@@ -63,7 +63,7 @@ const App:React.FC = () => {
             <Route path="/signup" element={<Signup />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/otp" element={<Otp />} />
-            {/* <Route element={<PrivateRoutes />}> */}
+            <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
               <Route path="/developers/dashboard/" element={<DevDashboard />} />
               <Route path="/developers/" element={<DeveloperApiPage />} />
@@ -77,7 +77,7 @@ const App:React.FC = () => {
               <Route path="/users/verify/:token" element={<EmailVerify />} />
               <Route path="/general-tab" element={<GeneralTab />} />
               <Route path="/gateway-tab" element={<GatewayTab />} />
-            {/* </Route> */}
+            </Route>
           <Route path='*' element={<ErrPage />} />
           </Routes>
         </Suspense>
