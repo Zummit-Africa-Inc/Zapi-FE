@@ -10,8 +10,8 @@ const DataTable: React.FC<TableProps> = ({Heading, Rows}) => {
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
 
-  const Keys = Object.keys(Rows[0])
-  const result = [...Rows.map(obj => Keys.map(key => obj[key]))];
+    const Keys = Object.keys(Rows[0])
+    const result = [...Rows.map(obj => Keys.map(key => obj[key]))];
 
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
     setPage(newPage);
@@ -23,7 +23,7 @@ const DataTable: React.FC<TableProps> = ({Heading, Rows}) => {
   };
   
   return (
-    <>
+    <div className='datatable'>
       <TableContainer component={Paper} className="table">
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -42,16 +42,18 @@ const DataTable: React.FC<TableProps> = ({Heading, Rows}) => {
           </TableBody>
         </Table>
       </TableContainer>
+      {Rows && 
       <TablePagination
-        rowsPerPageOptions={[5, 10, 100]}
-        component="div"
-        count={Rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
+      rowsPerPageOptions={[5, 10, 100]}
+      component="div"
+      count={Rows.length}
+      rowsPerPage={rowsPerPage}
+      page={page}
+      onPageChange={handleChangePage}
+      onRowsPerPageChange={handleChangeRowsPerPage}
       />
-    </>
+    }
+    </div>
   )
 }
 

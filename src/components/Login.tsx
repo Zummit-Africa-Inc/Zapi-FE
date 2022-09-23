@@ -40,7 +40,7 @@ const Login: React.FC = () => {
       }
     };
     try {
-      const data = await sendRequest(`${url}/zapi-identity/auth/signin`, 'POST', JSON.stringify(payload), headers);
+      const data = await sendRequest(`${url}/auth/signin`, 'POST', JSON.stringify(payload), headers);
       if(!data || data === undefined) return;
       const { data: {access, email, fullName, profileId, refresh, userId}} = data;
       const user = { email, fullName, profileId };

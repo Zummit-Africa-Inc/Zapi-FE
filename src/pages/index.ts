@@ -16,12 +16,14 @@ const Signup = React.lazy(() => import('./Signup'));
 const SuccessPage = React.lazy(() => import("./SuccessPage"));
 const UserProfile = React.lazy(() => import("./UserProfile"));
 const CreateEndpoint = React.lazy(() => import("./CreateEndpoint"));
-const ErrPage = React.lazy(() => import("./ErrPage"));
+// const OrgPage = React.lazy(() => import("./Orgpage"));
 const EmailVerify = React.lazy(() => import("./EmailVerify"));
+const ResetPassword = React.lazy(() => import("./ResetPassword"));
 const TermsConditons = React.lazy(() => import("./Terms&Conditions"))
 
-export { Analytics, APIPage, Configuration, ErrPage, CreateEndpoint,DeveloperApiPage, DevDashboard, TermsConditons,
-ForgotPassword, Home, HomePage, LoginHistory, Otp, Signup, SuccessPage, UserProfile, EmailVerify };
+
+export { Analytics, APIPage, Configuration, CreateEndpoint,DeveloperApiPage, DevDashboard,
+ForgotPassword, Home, HomePage, LoginHistory, Otp, Signup, SuccessPage, UserProfile, EmailVerify, TermsConditons, ResetPassword };
 
 
 

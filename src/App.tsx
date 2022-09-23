@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense, useEffect, useMemo } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ThemeProvider } from "@mui/material";
@@ -6,17 +6,20 @@ import { deviceDetect } from "react-device-detect";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
-import { CreateEndpoint, DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, Analytics, SuccessPage, Configuration, EmailVerify, TermsConditons, ErrPage } from "./pages";
+import { Analytics, CreateEndpoint, DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, EmailVerify, TermsConditons } from "./pages";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { login } from "./redux/slices/userSlice";
 import { Fallback, Login, AddApiPopup, GeneralTab, EndpointTab, GatewayTab } from "./components";
 import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
 import { PrivateRoutes } from "./components/routes";
+import { getApis } from "./redux/slices/apiSlice";
+import { useAppDispatch } from "./hooks";
 
-const App:React.FC = () => {
-  const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP } = useContextProvider();
-  const dispatch = useDispatch();
+
+const App: React.FC = () => {
+  const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP } = useContextProvider()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     const device = deviceDetect(navigator.userAgent)
@@ -51,6 +54,12 @@ const App:React.FC = () => {
     loginUser()
   }, []);
 
+  const getCategories = useMemo(() =>  (dispatch(getApis())), [])
+  
+  useEffect(() => {
+    getCategories
+  }, [])
+
   return (
     <ThemeProvider theme={theme}>
       <ToastContainer />
@@ -65,8 +74,8 @@ const App:React.FC = () => {
             <Route path="/otp" element={<Otp />} />
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
-              <Route path="/developers/dashboard/" element={<DevDashboard />} />
-              <Route path="/developers/" element={<DeveloperApiPage />} />
+              <Route path="/developers/dashboard" element={<DevDashboard />} />
+              <Route path="/developers" element={<DeveloperApiPage />} />
               <Route path="/analytics" element={<Analytics />} />
               <Route path="/api/:id" element={<APIPage />} />
               <Route path="/configuration" element={<Configuration />} />
@@ -78,7 +87,6 @@ const App:React.FC = () => {
               <Route path="/general-tab" element={<GeneralTab />} />
               <Route path="/gateway-tab" element={<GatewayTab />} />
             </Route>
-          <Route path='*' element={<ErrPage />} />
           </Routes>
         </Suspense>
 
