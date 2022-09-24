@@ -1,7 +1,6 @@
 import './App.css';
 import React, { Suspense, useEffect, useMemo } from "react";
 import { Routes, Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { ThemeProvider } from "@mui/material";
 import { deviceDetect } from "react-device-detect";
 import { ToastContainer } from "react-toastify";
@@ -11,16 +10,19 @@ import "react-toastify/dist/ReactToastify.min.css";
 import { Analytics, CreateEndpoint, Settingspage, DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, EmailVerify, TermsConditons,  } from "./pages";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { login } from "./redux/slices/userSlice";
+
 import { Fallback, Login, AddApiPopup, GeneralTab, EndpointTab } from "./components";
-import { getDeviceIP } from "./utils";
-import { theme } from "./theme";
+import { useContextProvider } from "./contexts/ContextProvider";
+import { getUserApis, login } from "./redux/slices/userSlice";
+import { useAppDispatch, useAppSelector } from "./hooks";
 import { PrivateRoutes } from "./components/routes";
 import { getApis } from "./redux/slices/apiSlice";
-import { useAppDispatch } from "./hooks";
-
+import { getDeviceIP } from "./utils";
+import { theme } from "./theme";
 
 const App: React.FC = () => {
   const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP } = useContextProvider()
+  const { isLoggedIn } = useAppSelector(store => store.user)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -57,10 +59,15 @@ const App: React.FC = () => {
   }, []);
 
   const getCategories = useMemo(() =>  (dispatch(getApis())), [])
+  const getApisByUser = useMemo(() => dispatch(getUserApis()),[])
   
   useEffect(() => {
     getCategories
   }, [])
+
+  useEffect(() => {
+    getApisByUser
+  },[isLoggedIn])
 
   return (
     <ThemeProvider theme={theme}>
@@ -74,6 +81,7 @@ const App: React.FC = () => {
             <Route path="/signup" element={<Signup />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/otp" element={<Otp />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
               <Route path="/developers/dashboard" element={<DevDashboard />} />
@@ -84,8 +92,7 @@ const App: React.FC = () => {
               <Route path="/login-history" element={<LoginHistory />} />
               <Route path="/success-page" element={<SuccessPage />} />
               <Route path="/create-endpoint" element={<CreateEndpoint />} />
-              <Route path="/endpoint-tab" element={<EndpointTab />} />
-              <Route path="/users/verify/:token" element={<EmailVerify />} />
+              <Route path="/endpoints" element={<EndpointTab />} />
               <Route path="/general-tab" element={<GeneralTab />} />
               <Route path="/settingspage" element={<Settingspage />} />
             </Route>

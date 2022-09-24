@@ -9,13 +9,14 @@ import ZapiApps from './images/apps.svg';
 import ZapiHelp from './images/help.svg';
 import ZapiArrow from './images/arrow_drop_down.svg';
 import ZapiPic from './images/pic.svg';
-import Frame from "./images/frame.svg"
-import Nvidia from "./images/Nvidia.png"
-import Zummit from "./images/Zummit.png"
-import ZummitInfoLabs from "./images/zummit-full.png"
-import Aws from "./images/AWS.png"
+import Frame from "./images/frame.svg";
+import Nvidia from "./images/Nvidia.png";
+import Zummit from "./images/Zummit.png";
+import ZummitInfoLabs from "./images/zummit-full.png";
+import Aws from "./images/AWS.png";
 
-export { GoogleIcon, LinkedInIcon, TwitterIcon, YoutubeIcon, ZapiDevLogo, ZapiWidget, ZapiDash, ZapiApps, ZapiHelp, ZapiArrow, ZapiPic }
+export { GoogleIcon, LinkedInIcon, TwitterIcon, YoutubeIcon, ZapiDevLogo,
+    ZapiWidget, ZapiDash, ZapiApps, ZapiHelp, ZapiArrow, ZapiPic }
 
 export const FOOTER_LINKS = [
     {

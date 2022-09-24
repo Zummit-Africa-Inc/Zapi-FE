@@ -17,7 +17,6 @@ const SuccessPage = React.lazy(() => import("./SuccessPage"));
 const UserProfile = React.lazy(() => import("./UserProfile"));
 const CreateEndpoint = React.lazy(() => import("./CreateEndpoint"));
 // const OrgPage = React.lazy(() => import("./Orgpage"));
-const EmailVerify = React.lazy(() => import("./EmailVerify"));
 const ResetPassword = React.lazy(() => import("./ResetPassword"));
 const TermsConditons = React.lazy(() => import("./Terms&Conditions"))
 const Settingspage = React.lazy(() => import ("./Settingspage"));
