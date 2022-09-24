@@ -6,8 +6,9 @@ import { ZapiDash, ZapiApps, ZapiHelp, ZapiArrow, ZapiPic } from '../assets'
 
 const Menus: React.FC = () => {
     const classes = useStyles()
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [anchorE2, setAnchorE2] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
+    const isAvatarOpen = Boolean(anchorE2);
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -15,6 +16,15 @@ const Menus: React.FC = () => {
 
     const handleClose = () => {
         setAnchorEl(null);
+    };
+    
+    
+    const handleAvatarClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorE2(event.currentTarget);
+    };
+
+    const handleAvatarClose = () => {
+        setAnchorE2(null);
     };
 
   return (
@@ -32,7 +42,14 @@ const Menus: React.FC = () => {
             <img src={ZapiApps} alt='zapi-apps' style={{ color:'#00000' }}/>
             <img src={ZapiHelp} alt='zapi-help' style={{ color:'#00000' }}/>
         </div>
-        <Avatar src={ZapiPic} alt='zapi-pic' />
+          
+        <Button id="avatar-button" aria-controls={isAvatarOpen ? 'avatar-menu' : undefined} aria-haspopup="true" aria-expanded={isAvatarOpen ? 'true' : undefined} onClick={handleAvatarClick}>
+            <Avatar src={ZapiPic} alt='zapi-pic' />
+        </Button>
+        <Menu id="avatar-menu" MenuListProps={{ 'aria-labelledby': 'avatar-button', }} anchorEl={anchorE2} open={isAvatarOpen} onClose={handleAvatarClose} TransitionComponent={Fade}>
+            <MenuItem onClick={handleAvatarClose}>LOGOUT</MenuItem>
+        </Menu>
+          
     </div>
   )
 }
