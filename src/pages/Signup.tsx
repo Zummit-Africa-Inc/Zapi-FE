@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Stack, Typography, } from "@mui/material";
 import { makeStyles } from '@mui/styles';
@@ -19,9 +19,8 @@ const Signup: React.FC = () => {
   const classes = useStyles();
   const { inputs, bind, toggle } = useFormInputs(initialState);
   const { fullName, email, password, confirm_password, terms } = inputs;
-  const { clearError, error, loading, sendRequest } = useHttpRequest();
+  const { error, loading, sendRequest } = useHttpRequest();
   const { handleClicked } = useContextProvider();
-  const [message, setMessage] = useState<string>("");
   const navigate = useNavigate();
   const disabled = !terms || !PASSWORD_REGEX.test(password) || !MATCH_CHECKER(password, confirm_password) ? true : false;
 
@@ -38,20 +37,22 @@ const Signup: React.FC = () => {
     const payload = { fullName, email, password }
     try {
       const data = await sendRequest(`${url}/auth/signup`, 'POST', JSON.stringify(payload), headers)
-      setMessage(data?.data)
-      if(data.data.success) toast.success(`${message}`)
-      navigate('/otp')
-    } catch (error) {
-    };
+      const { success } = data
+      if(!success || success === false) {
+        return
+      } else {
+        toast.success(`${data?.data}`)
+        const timeout = setTimeout(() => (
+          navigate("/otp")
+        ), 3000)
+        return () => clearTimeout(timeout)
+      }
+    } catch (error) {};
   };
 
   useEffect(() => {
     {error && toast.error(`${error}`)}
   },[error])
-
-  // useEffect(() => {
-  //   {message && toast.success(`${message}`)}
-  // },[message])
   
   return (
     <>

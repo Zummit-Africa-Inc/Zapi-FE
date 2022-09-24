@@ -19,7 +19,8 @@ import Tree from "./images/tree.jpg"
 
 
 
-export { GoogleIcon, Tree,  LinkedInIcon, Code, TwitterIcon, YoutubeIcon, ZapiDevLogo, ZapiWidget, ZapiDash, ZapiApps, ZapiHelp, ZapiArrow, ZapiPic }
+export { GoogleIcon, Tree,  LinkedInIcon, Code, TwitterIcon, YoutubeIcon, 
+    ZapiDevLogo, ZapiWidget, ZapiDash, ZapiApps, ZapiHelp, ZapiArrow, ZapiPic }
 
 export const FOOTER_LINKS = [
     {

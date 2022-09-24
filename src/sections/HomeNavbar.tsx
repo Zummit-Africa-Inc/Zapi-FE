@@ -17,10 +17,10 @@ const HomeNavbar: React.FC = () => {
     const theme = useTheme()
     const isMatch = useMediaQuery(theme.breakpoints.down("md"))
     const { handleClicked } = useContextProvider()
- const { isLoggedIn } = useAppSelector((state: any) => state.user);
- const dispatch = useAppDispatch();
- const navigate = useNavigate()
- const cookies = new Cookies()
+    const { isLoggedIn } = useAppSelector((state: any) => state.user);
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate()
+    const cookies = new Cookies()
 
     const handleClick = () => {
         if (open === classes.mobile) {
@@ -32,7 +32,6 @@ const HomeNavbar: React.FC = () => {
 
     const handleLogOut = () => {
         dispatch(logout())
-        
         cookies.remove('accessToken')
         navigate("/")
     }
@@ -72,10 +71,10 @@ const HomeNavbar: React.FC = () => {
                             <li><Link to="#">Documentation</Link></li>
                             {!isLoggedIn && <li><button onClick={() => handleClicked('login')}>Login</button></li>}   
                         </ul>
-                         {!isLoggedIn ? 
-<div className={classes.signup}><Link to="/signup">Sign up</Link></div> : <button className={classes.signup} onClick={handleLogOut}>LogOut</button>
-
-                       } 
+                            {!isLoggedIn ?
+                                <div className={classes.signup}><Link to="/signup">Sign up</Link></div> : 
+                                <button className={classes.signup} onClick={() => handleLogOut()}>Logout</button>
+                            } 
                     </div>
                 }
             </div>
@@ -211,6 +210,7 @@ const useStyles = makeStyles({
         fontWeight: 500,
         fontSize: "1rem",
         color: "#081F4A",
+        cursor: "pointer",
     },
     mobile: {
         display: "none",
