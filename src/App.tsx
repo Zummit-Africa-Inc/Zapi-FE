@@ -7,9 +7,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
 
-import { Analytics, CreateEndpoint, Settingspage, DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, EmailVerify, TermsConditons,  } from "./pages";
-import { useContextProvider } from "./contexts/ContextProvider";
-import { login } from "./redux/slices/userSlice";
+import { Analytics, CreateEndpoint, Settingspage, DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditons,  } from "./pages";
+
 
 import { Fallback, Login, AddApiPopup, GeneralTab, EndpointTab } from "./components";
 import { useContextProvider } from "./contexts/ContextProvider";
