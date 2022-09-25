@@ -61,12 +61,6 @@ const App: React.FC = () => {
     getCategories
   }, [])
 
-  const getApi = useMemo(() =>  (dispatch(getUserApi())), [])
-
-  useEffect(() => {
-    getApi
-  }, [])
-
   return (
     <ThemeProvider theme={theme}>
       <ToastContainer />
@@ -82,7 +76,7 @@ const App: React.FC = () => {
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
               <Route path="/developers/dashboard" element={<DevDashboard />} />
-              <Route path="/developers" element={<DeveloperApiPage />} />
+              <Route path="/developers/:id" element={<DeveloperApiPage />} />
               <Route path="/analytics" element={<Analytics />} />
               <Route path="/api/:id" element={<APIPage />} />
               <Route path="/configuration" element={<Configuration />} />

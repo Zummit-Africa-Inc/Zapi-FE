@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useEffect, useMemo, useState } from 'react'
 import { makeStyles } from "@mui/styles";
 import InputSearch from './InputSearch';
 import { Typography } from '@mui/material';
@@ -7,12 +7,23 @@ import { useContextProvider } from "../contexts/ContextProvider";
 import AddIcon from '@mui/icons-material/Add';
 // Images
 import StarRate  from '../assets/images/star_rate.svg';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import APICard from './APICard';
+import { getUserApi } from '../redux/slices/userApiSlice';
 
 
 const DevAddApi: React.FC = () => { 
   const classes = useStyles();
   const [queryString, setQueryString] = useState<string>("")
   const { handleClicked } = useContextProvider()
+  const { userApi } = useAppSelector(store => store.userApi)
+  const dispatch = useAppDispatch()
+
+  const getApi = useMemo(() =>  (dispatch(getUserApi())), [])
+
+  useEffect(() => {
+    getApi
+  }, [])
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
@@ -46,7 +57,15 @@ const DevAddApi: React.FC = () => {
             </button>
         </div>
             {/* Add API Description */}
-            <div className={classes.addApiDesc}>
+            <div>
+                {userApi ? 
+                    <div className={classes.apiCard}>
+                        {userApi.map((apis) => (
+                            <APICard key={apis.id} id={apis.id} name={apis.name} description={apis.description} status={apis.status} />
+                        ))}
+                    </div>
+                    :
+                    <div className={classes.addApiDesc}>
                     <Typography gutterBottom variant="subtitle1" sx=
                         {{
                             color: "#000000", fontFamily: "Space Grotesk", fontWeight: 700, fontSize: "18px",
@@ -64,10 +83,12 @@ const DevAddApi: React.FC = () => {
                     {/* Button */}
                     <div className={classes.disabledButton}>
                         <AddIcon sx={{
-                          left: "21px", top: "16px", color: "#585858",
+                            left: "21px", top: "16px", color: "#585858",
                         }} />
                         <Typography>Add API Project</Typography>
                     </div>
+    </div>
+}
             </div>
     </div>
   )
@@ -227,6 +248,16 @@ const useStyles = makeStyles({
     addApiDesc: {
         marginTop: "20px",
         paddingBottom: "80px",
+        height: "calc(100vh - 315px)"
+    },
+    apiCard: {
+        height: "calc(100vh - 315px)",
+        width: "100vw",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "1.5rem",
+        flexWrap: "wrap",
     }
 })
 export default DevAddApi

@@ -226,6 +226,7 @@ const useStyles = makeStyles({
     borderRadius: "8px",
     textAlign: "center",
     margin: "0 auto",
+    cursor: "pointer"
   }
 })
 

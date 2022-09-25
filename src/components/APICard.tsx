@@ -2,13 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Avatar, Paper, Stack, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { AccessTimeOutlined, BookmarkBorderOutlined, DoneOutlined, NewReleasesOutlined, StayCurrentLandscape, TrendingUpOutlined, VerifiedOutlined } from "@mui/icons-material";
+import { AccessTimeOutlined, BookmarkBorderOutlined, DoneOutlined, NewReleasesOutlined, TrendingUpOutlined, VerifiedOutlined } from "@mui/icons-material";
 
 interface CardProps {
     id: string
     name: string
     description: string
-    status: string
+    status: string | null
     image?: string
     latency?: number
     popularity?: number
@@ -19,7 +19,7 @@ const APICard: React.FC<CardProps> = ({id,name,description,status,image,latency,
     const classes = useStyles();
 
     return (
-        <Link to={`/api/${id}`} className={classes.card}>
+        <Link to={`/developers/${id}`} className={classes.card}>
             <Paper elevation={3} className={classes.root}>
                 <Stack direction="row" alignItems="center" justifyContent="space-between">
                     <Avatar src={image} variant="square" sx={{width:40,height:40,objectFit:"contain"}} />

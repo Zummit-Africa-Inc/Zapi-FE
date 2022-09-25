@@ -77,7 +77,7 @@ const GeneralTab: React.FC = () => {
       
       console.log(data)
       
-      const res = await axios.patch(`${url}/zl-core/api/${apiId}/?profileId=${profileId}`, data)
+      const res = await axios.patch(`${url}/api/${apiId}/?profileId=${profileId}`, data)
       console.log(res)
     }catch(err){
       console.log(err)
@@ -114,10 +114,10 @@ const GeneralTab: React.FC = () => {
             <InputLabel htmlFor="description">Short Description</InputLabel>
             <TextField required variant="outlined" value={description} onChange={(e) => setDescription(e.target.value)} multiline id="description" maxRows={10} fullWidth={true} helperText="Describe in few words what’s this API do" />
           </Box>
-          <Box width="600px" mt={2}>
+          {/* <Box width="600px" mt={2}>
             <InputLabel htmlFor="readme">Read Me (optional)</InputLabel>
             <TextField variant="outlined" multiline id="readme" maxRows={10} fullWidth={true} helperText="Describe in detail what’s API do and how it might be helpful" />
-          </Box>
+          </Box> */}
           <Box width="600px" mt={2}>
             <InputLabel htmlFor="documentation">Documentation (optional)</InputLabel>
             <TextField variant="outlined" value={about} onChange={(e) => setAbout(e.target.value)} multiline id="documentation" maxRows={10} fullWidth={true} helperText="Use this section to provide detailed documentation of your API and to highlight its benefits and features." />
