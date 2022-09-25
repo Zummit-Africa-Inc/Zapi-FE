@@ -11,7 +11,7 @@ const profileId = cookies.get("profileId")
 
 interface UserState {
     user: UserProfileType | Object
-    userApis: any
+    userApis: Array<APIType | null>
     loading: "idle" | "pending" | "fulfilled" | "rejected"
     error?: any
     isLoggedIn: boolean
