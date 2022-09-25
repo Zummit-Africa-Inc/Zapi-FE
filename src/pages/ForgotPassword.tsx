@@ -3,28 +3,22 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast }  from "react-toastify";
 
-
 import { Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-
 import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png"
-
 
 const identity_url = import.meta.env.VITE_IDENTITY_URL;
 
-
 const ForgotPassword: React.FC = () => {
   const navigate = useNavigate();
-
   const [email, setEmail] = React.useState<string>('');
-
   const classes = useStyles()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const userData = { email: email}
     try{
-      const url = `${identity_url}/forgot`;
+      const url = `${identity_url}/auth/forgot`;
       const res = await axios.post(url, userData);
       toast.success(res.data.message);
       setTimeout(() => {
@@ -73,9 +67,7 @@ const useStyles = makeStyles({
       '@media screen and (max-width: 1100px)': {
         flexDirection: 'column',
         alignItems: 'center',
-        // justifyContent: 'center',
         gap: '2rem',
-        // height: '100%',
       }
     },
     logo: {

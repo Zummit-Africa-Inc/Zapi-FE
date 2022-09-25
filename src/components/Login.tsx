@@ -1,8 +1,7 @@
 import React, { FormEvent, useEffect, } from "react";
 import { Stack, Typography } from "@mui/material";
-import { useDispatch } from "react-redux";
 import { makeStyles } from "@mui/styles";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { toast }  from "react-toastify";
 
@@ -18,9 +17,10 @@ const url = import.meta.env.VITE_IDENTITY_URL;
 
 const Login: React.FC = () => {
   const { deviceInfo, deviceLocation, deviceIP, handleUnclicked } = useContextProvider();
-  const { clearError, error, loading, sendRequest } = useHttpRequest();
+  const { error, loading, sendRequest } = useHttpRequest();
   const { inputs, bind } = useFormInputs(initialState);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const classes = useStyles();
   const cookies = new Cookies();
 
@@ -50,6 +50,7 @@ const Login: React.FC = () => {
       cookies.set('profileId', profileId);
       cookies.set('userId', userId);
       handleUnclicked('login')
+      navigate("/developers/dashboard")
     } catch (error) {};
   };
 

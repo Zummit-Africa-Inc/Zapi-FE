@@ -1,10 +1,13 @@
+import { ChangeEvent, useState } from 'react'
 import { Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import { ChangeEvent, useState } from 'react'
+
 import { Widget, InputSearch, DataTable, DevNavbar, Navbar, DevAddApi  } from '../components'
 import { DASHBOARDTEXT1, DASHBOARDTEXT2, ERROR, STATISTICS, SUCCESS, TIMERANGE, PERIOD, ZONE, TABLEHADING, ROWS } from '../testdata'
+import { useAppDispatch, useAppSelector } from '../hooks'
 
 const DevDashboard: React.FC = () => {
+    const { userApis } = useAppSelector(store => store.user)
     // const [statsParam, setStatsParam] = useState<string>(STATISTICS[0])
     // const [errorParam, setErrorParam] = useState<string>(ERROR[0])
     // const [successParam, setSuccessParam] = useState<string>(SUCCESS[0])

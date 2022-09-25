@@ -9,21 +9,15 @@ import AddIcon from '@mui/icons-material/Add';
 import StarRate  from '../assets/images/star_rate.svg';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import APICard from './APICard';
-import { getUserApi } from '../redux/slices/userApiSlice';
+import { getUserApis } from '../redux/slices/userSlice';
 
 
 const DevAddApi: React.FC = () => { 
   const classes = useStyles();
   const [queryString, setQueryString] = useState<string>("")
   const { handleClicked } = useContextProvider()
-  const { userApi } = useAppSelector(store => store.userApi)
+  const { userApis } = useAppSelector(store => store.user)
   const dispatch = useAppDispatch()
-
-  const getApi = useMemo(() =>  (dispatch(getUserApi())), [])
-
-  useEffect(() => {
-    getApi
-  }, [])
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
@@ -58,9 +52,9 @@ const DevAddApi: React.FC = () => {
         </div>
             {/* Add API Description */}
             <div>
-                {userApi ? 
+                {userApis ? 
                     <div className={classes.apiCard}>
-                        {userApi.map((apis) => (
+                        {userApis.map((apis: any) => (
                             <APICard key={apis.id} id={apis.id} name={apis.name} description={apis.description} status={apis.status} />
                         ))}
                     </div>

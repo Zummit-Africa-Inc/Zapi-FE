@@ -2,13 +2,11 @@ import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
 
 import apiReducer from "./slices/apiSlice";
 import userReducer from "./slices/userSlice";
-import userApiReducer from "./slices/userApiSlice"
 
 export const store = configureStore({
     reducer: {
         apis: apiReducer,
         user: userReducer,
-        userApi : userApiReducer,
     },
     devTools: import.meta.env.VITE_ENV !== 'production'
 });
