@@ -5,16 +5,15 @@ import { deviceDetect } from "react-device-detect";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
-import { Fallback, Login, AddApiPopup, GeneralTab, EndpointTab, GatewayTab } from "./components";
-import { getDeviceIP } from "./utils";
-import { theme } from "./theme";
 import { Analytics, CreateEndpoint, DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditons, ResetPassword } from "./pages";
+import { Fallback, Login, AddApiPopup, GeneralTab, EndpointTab } from "./components";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { getUserApis, login } from "./redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { PrivateRoutes } from "./components/routes";
 import { getApis } from "./redux/slices/apiSlice";
-
+import { getDeviceIP } from "./utils";
+import { theme } from "./theme";
 
 const App: React.FC = () => {
   const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP } = useContextProvider()
@@ -90,7 +89,6 @@ const App: React.FC = () => {
               <Route path="/create-endpoint" element={<CreateEndpoint />} />
               <Route path="/endpoints" element={<EndpointTab />} />
               <Route path="/general-tab" element={<GeneralTab />} />
-              <Route path="/gateway-tab" element={<GatewayTab />} />
             </Route>
           </Routes>
         </Suspense>
