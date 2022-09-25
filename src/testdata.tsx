@@ -7,6 +7,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { Analytics } from "./pages";
 import GeneralTab from "./components/GeneralTab";
 import EndpointTab from "./components/EndpointTab";
+import GatewayTab from "./components/GatewayTab";
 
 
 export const APIS = [
@@ -355,8 +356,8 @@ export const DEVSNAVBAR = [
     },
     {
         name: "Gateway",
-        link: "/",
-        page: 'Gateway'
+        link: "/gateway-tab",
+        page: <GatewayTab />
     },
     {
         name: "Community",
@@ -373,4 +374,51 @@ export const DEVSNAVBAR = [
         link: "/analytics",
         page: <Analytics />
     },
+]
+
+export const SCHEMA = [
+    {
+        header:"Passthrough Everything (default)",
+        label:"Passthrough Everything (default). \n If a request contains a header or query parameter not defined in the API specification; the request will not be blocked.",
+        value:"Passthrough Everything (default)"
+        
+    },
+    {
+        header:"Strip and Passthrough",
+        label:"Strip and Passthrough. \n If a request contains a header or query parameter not defined in the API specification; the parameters will be removed and the request will pass through.",
+        value:"Strip and Passthrough"
+    },
+    {
+        header:"Block",
+        label:"Block. \n If a request contains a header or query parameter not defined in the API specification; the request will be blocked.",
+        value:"Block"
+    }
+]
+
+export const AUTHENTICATION = [
+    {
+        label:"RapidAPI Auth Only",
+        value:"RapidAPI Auth Only"
+    },
+    {
+        label:"OAuth2",
+        value:"OAuth2"
+       
+    },
+    {
+        label:"Header",
+        value:"Header"
+    },
+    {
+        label:"Query",
+        value:"Query"
+    },
+    {
+        label:"Basic",
+        value:"Basic"
+    },
+    {
+        label:"No Auth",
+        value:"No Auth"
+    }
 ]
