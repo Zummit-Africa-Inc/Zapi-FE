@@ -21,7 +21,7 @@ const initialState = {
 
 export const getUserApi = createAsyncThunk("userApi/getUserApi", async(_, thunkAPI) => {
     try {
-        const response = await fetch(`${url}/api/${profileId}/myapis`)
+        const response = await fetch(`${url}/api/user-apis/${profileId}`)
         const data = await response.json()
         return data.data
     } catch (error: any) {

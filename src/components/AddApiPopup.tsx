@@ -25,10 +25,9 @@ const AddApiPopup: React.FC = () => {
   const profileId = cookies.get("profileId")
 
   const handleSubmit = async (e: any) => {
-    e.preventDefault()
     try {
-      const data = await axios.post(`${url}/api/${profileId}/new`, inputs)
-      console.log(data)
+      const data = await axios.post(`${url}/api/new/${profileId}`, inputs)
+      return data
     } catch (err) {
       console.log(err)
     }

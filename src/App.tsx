@@ -14,7 +14,6 @@ import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
 import { PrivateRoutes } from "./components/routes";
 import { getApis } from "./redux/slices/apiSlice";
-import { getUserApi } from "./redux/slices/userApiSlice";
 import { useAppDispatch } from "./hooks";
 
 
@@ -76,7 +75,7 @@ const App: React.FC = () => {
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
               <Route path="/developers/dashboard" element={<DevDashboard />} />
-              <Route path="/developers/:id" element={<DeveloperApiPage />} />
+              <Route path="/developers" element={<DeveloperApiPage />} />
               <Route path="/analytics" element={<Analytics />} />
               <Route path="/api/:id" element={<APIPage />} />
               <Route path="/configuration" element={<Configuration />} />

@@ -48,7 +48,7 @@ const GeneralTab: React.FC = () => {
   
   const fetchAPI = async() => {
     try{
-      const data = await axios.get(`${url}/api/${profileId}/myapis`)
+      const data = await axios.get(`${url}/api/user-apis/${profileId}`)
       data.data.data.map((api: any) => {
         setApiId(api.id), setDescription(api.description) ,setAbout(api.about) ,setApi_website(api.api_website) ,setTerm_of_use(api.term_of_use) ,setVisibility(api.visibility) ,setCategoryId(api.categoryId)
         setBase_Url(api.base_url), setLogo_url(api.logo_url)
