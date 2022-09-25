@@ -77,7 +77,7 @@ const App: React.FC = () => {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/otp" element={<Otp />} />
             <Route path="/reset-password/:token" element={<ResetPassword />} />
-            {/* <Route element={<PrivateRoutes />}> */}
+            <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
               <Route path="/developers/dashboard" element={<DevDashboard />} />
               <Route path="/developers" element={<DeveloperApiPage />} />
@@ -90,7 +90,7 @@ const App: React.FC = () => {
               <Route path="/endpoints" element={<EndpointTab />} />
               <Route path="/general-tab" element={<GeneralTab />} />
               <Route path="/gateway-tab" element={<GatewayTab />} />
-            {/* </Route> */}
+            </Route>
           </Routes>
         </Suspense>
 
