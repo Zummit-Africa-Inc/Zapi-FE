@@ -2,22 +2,21 @@ import React from "react";
 import { Typography, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, MenuItem } from "@mui/material";
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { makeStyles } from "@mui/styles";
+import Cookies from "universal-cookie";
+import { toast } from "react-toastify";
 
 import { useContextProvider } from "../contexts/ContextProvider";
-
 import { useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
 import { Fallback } from "../components";
-import axios from "axios";
-import Cookies from "universal-cookie";
 
-const url = import.meta.env.VITE_BASE_URL
+const core_url = import.meta.env.VITE_BASE_URL
 
-const initialState = { name: "", description: "", base_url: "", categoryId: "" };
+const initialState = { name: "", description: "", base_url: "", category: "" };
 
 const AddApiPopup: React.FC = () => {
   const { loading, error, sendRequest, clearError } = useHttpRequest();
   const { inputs, bind, select } = useFormInputs(initialState);
-  const { name, description, base_url, categoryId } = inputs
+  const { name, description, base_url, category } = inputs
   const { handleUnclicked } = useContextProvider()
   const classes = useStyles();
   const { apis } = useAppSelector(store => store.apis)
@@ -26,8 +25,12 @@ const AddApiPopup: React.FC = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
+
+    if(!name || !description || !base_url || !categories) return toast.error('Please fill all fields')
+    const payload = { name, description, base_url, category }
+    const headers = { 'Content-Type': 'application/json' }
     try {
-      const data = await axios.post(`${url}/api/${profileId}/new`, inputs)
+      const data = await sendRequest(`${core_url}/api/${profileId}/new`, 'POST', JSON.stringify(payload), headers)
       console.log(data)
     } catch (err) {
       console.log(err)
@@ -36,80 +39,64 @@ const AddApiPopup: React.FC = () => {
 
   return (
     <>
-      {loading && <Fallback />}
-      <div>
-        <div className={classes.container}>
-          <div className={classes.main} onClick={(e) => e.stopPropagation()}>
-            <Typography variant="body1" fontSize="24px" lineHeight="30px" fontWeight={700} mb={3}>Add API Project</Typography>
-            <form className={classes.form} onSubmit={handleSubmit}>
-              <div className={classes.input}>
-                <label>Name</label>
-                <input type="text" name='name' {...bind} placeholder="Add API Name" />
-              </div>
-              <div className={classes.input}>
-                <label>Description</label>
-                <input type="text" name="description" {...bind} placeholder="Add API Description" />
-              </div>
-              <div className={classes.input}>
-                <label>Category</label>
-                <div>
-                  <FormControl className={classes.input}>
-                    <Select
-                      name="categoryId"
-                      displayEmpty
-                      inputProps={{ 'aria-label': 'Category' }}
-                      {...select}
-                    >
-                      {apis.map((value) => ( value &&
-                        <MenuItem key={value.id} value={value.id}>{value.name}</MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </div>
-              </div>
-
-              <div className={classes.input}>
-                <label>Base Url</label>
-                <input type="text" name="base_url" {...bind} placeholder="Add Base Url" />
-              </div>
-
-              <div style={{ gap: "40px", display: "flex", flexDirection: "row", marginLeft: "auto" }}>
-                <button className={classes.cancelBtn} onClick={() => handleUnclicked('addapi')}>
-                  <Typography>Cancel</Typography>
-                </button>
-                <button className={classes.addBtn}>
-                  <Typography>Add API Project</Typography>
-                </button>
-
-
-              </div>
-
-            </form>
-
-            {/* Radio Buttons */}
-            {/* <FormControl>
-              <FormLabel id="demo-radio-buttons-group-label" sx={{fontSize: "16px", fontWeight: "500", lineHeight: "24px", color: "#000000", marginBottom: "10px", marginTop: "10px"}}>Import data from</FormLabel>
-
-              <RadioGroup
-                  aria-labelledby="demo-radio-buttons-group-label"
-                  defaultValue="female"
-                  name="radio-buttons-group"
-              >
-                  <FormControlLabel value="Do not Import" control={<Radio />} label="Do not Import" />
-                  <FormControlLabel value="Open API" control={<Radio />} label="Open API" />
-                  <FormControlLabel value="Rapid API" control={<Radio />} label="Rapid API" />
-                  <FormControlLabel value="Postman Collection" control={<Radio />} label="Postman Collection" />
-              </RadioGroup>
-          </FormControl> */}
-            {/* Divider */}
-            {/* <div className={classes.divider} /> */}
-            {/* Add and Cancel Buttons */}
+    {loading && <Fallback />}
+    <div className={classes.container}>
+      <div className={classes.main} onClick={(e) => e.stopPropagation()}>
+        <Typography variant="body1" fontSize="24px" lineHeight="30px" fontWeight={700} mb={3}>
+          Add API Project
+        </Typography>
+        <form className={classes.form} onSubmit={handleSubmit}>
+          <div className={classes.input}>
+            <label>Name</label>
+            <input type="text" name='name' {...bind} placeholder="Add API Name" />
           </div>
-        </div>
+          <div className={classes.input}>
+            <label>Description</label>
+            <input type="text" name="description" {...bind} placeholder="Add API Description" />
+          </div>
+          <div className={classes.input}>
+            <label>Category</label>
+            <FormControl className={classes.input}>
+              <Select name="category" value={category} displayEmpty inputProps={{'aria-label': 'Category'}} {...select}>
+                {categories.sort((a,b) => a.localeCompare(b)).map((item, index) => (
+                  <MenuItem key={index} value={item}>{item}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
+          <div className={classes.input}>
+            <label>Base Url</label>
+            <input type="text" name="base_url" {...bind} placeholder="Add Base Url" />
+          </div>
+          <div style={{ gap: "40px", display: "flex", flexDirection: "row", marginLeft: "auto" }}>
+            <button type="button" className={classes.cancelBtn} onClick={() => handleUnclicked('addapi')}>
+              Cancel
+            </button>
+            <button type="submit" className={classes.addBtn}>
+              Add API Project
+            </button>
+          </div>
+        </form>
+        {/* Radio Buttons */}
+        {/* <FormControl>
+          <FormLabel id="demo-radio-buttons-group-label" sx={{fontSize: "16px", fontWeight: "500", lineHeight: "24px", color: "#000000", marginBottom: "10px", marginTop: "10px"}}>Import data from</FormLabel>
+          <RadioGroup aria-labelledby="demo-radio-buttons-group-label" defaultValue="female" name="radio-buttons-group">
+              <FormControlLabel value="Do not Import" control={<Radio />} label="Do not Import" />
+              <FormControlLabel value="Open API" control={<Radio />} label="Open API" />
+              <FormControlLabel value="Rapid API" control={<Radio />} label="Rapid API" />
+              <FormControlLabel value="Postman Collection" control={<Radio />} label="Postman Collection" />
+          </RadioGroup>
+      </FormControl> */}
+        {/* Divider */}
+        {/* <div className={classes.divider} /> */}
+        {/* Add and Cancel Buttons */}
       </div>
+    </div>
     </>
   );
 };
+
+const categories = ['Advertising', 'Sports', 'Data Analysis', 'Artificial Intelligence', 'Business', 'Finances']
 
 const useStyles = makeStyles({
   container: {
@@ -133,6 +120,7 @@ const useStyles = makeStyles({
     borderRadius: "8px",
     padding: "40px 40px",
     marginTop: "110px",
+    boxShadow: "2px 2px 7px 3px #CECECE",
   },
   form: {
     width: "500px",
@@ -226,6 +214,7 @@ const useStyles = makeStyles({
     borderRadius: "8px",
     textAlign: "center",
     margin: "0 auto",
+    cursor: "pointer"
   }
 })
 
