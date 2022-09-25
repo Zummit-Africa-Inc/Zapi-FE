@@ -60,7 +60,7 @@ const AddApiPopup: React.FC = () => {
                       inputProps={{ 'aria-label': 'Category' }}
                       {...select}
                     >
-                      {apis.map((value) => (
+                      {apis.map((value) => ( value &&
                         <MenuItem key={value.id} value={value.id}>{value.name}</MenuItem>
                       ))}
                     </Select>

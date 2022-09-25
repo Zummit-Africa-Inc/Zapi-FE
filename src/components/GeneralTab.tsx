@@ -104,7 +104,7 @@ const GeneralTab: React.FC = () => {
             <FormControl>
               <Select required value={categoryId}onChange={(e: SelectChangeEvent<String>) => setCategoryId(e.target.value)}
               sx={{width: '320px' }} inputProps={{name: "agent", id: "age-simple"}}>
-                {apis.map((value) => (
+                {apis.map((value) => ( value &&
                   <MenuItem key={value.id} value={value.id}>{value.name}</MenuItem>
                 ))}
               </Select>
