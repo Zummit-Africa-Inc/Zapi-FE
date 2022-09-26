@@ -6,6 +6,7 @@ import { ZapiDash, ZapiApps, ZapiHelp, ZapiArrow, ZapiPic } from '../assets'
 
 const Menus: React.FC = () => {
     const classes = useStyles()
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [anchorE2, setAnchorE2] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const isAvatarOpen = Boolean(anchorE2);
@@ -49,7 +50,6 @@ const Menus: React.FC = () => {
         <Menu id="avatar-menu" MenuListProps={{ 'aria-labelledby': 'avatar-button', }} anchorEl={anchorE2} open={isAvatarOpen} onClose={handleAvatarClose} TransitionComponent={Fade}>
             <MenuItem onClick={handleAvatarClose}>LOGOUT</MenuItem>
         </Menu>
-          
     </div>
   )
 }
