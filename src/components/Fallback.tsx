@@ -6,11 +6,7 @@ const Fallback: React.FC = () => {
 
   return (
     <div className={classes.container}>
-        <div className="loader">
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
+        <div className="loader"></div>
     </div>
   )
 }
