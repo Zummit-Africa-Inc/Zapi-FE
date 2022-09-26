@@ -11,12 +11,12 @@ import { Fallback } from "../components";
 
 const core_url = import.meta.env.VITE_BASE_URL
 
-const initialState = { name: "", description: "", base_url: "", category: "" };
+const initialState = { name: "", description: "", base_url: "", categoryId: "" };
 
 const AddApiPopup: React.FC = () => {
   const { loading, error, sendRequest, clearError } = useHttpRequest();
   const { inputs, bind, select } = useFormInputs(initialState);
-  const { name, description, base_url, category } = inputs
+  const { name, description, base_url, categoryId } = inputs
   const { handleUnclicked } = useContextProvider()
   const classes = useStyles();
   const { apis } = useAppSelector(store => store.apis)
@@ -24,10 +24,9 @@ const AddApiPopup: React.FC = () => {
   const profileId = cookies.get("profileId")
 
   const handleSubmit = async (e: any) => {
-    e.preventDefault()
 
-    if(!name || !description || !base_url || !categories) return toast.error('Please fill all fields')
-    const payload = { name, description, base_url, category }
+    if(!name || !description || !base_url || !categoryId) return toast.error('Please fill all fields')
+    const payload = { name, description, base_url, categoryId }
     const headers = { 'Content-Type': 'application/json' }
     try {
       const data = await sendRequest(`${core_url}/api/new/${profileId}`, 'POST', JSON.stringify(payload), headers)
@@ -40,7 +39,7 @@ const AddApiPopup: React.FC = () => {
   return (
     <>
     {loading && <Fallback />}
-    <div className={classes.container} onClick={() => handleUnclicked('addapi')>
+    <div className={classes.container} onClick={() => handleUnclicked('addapi')}>
       <div className={classes.main} onClick={(e) => e.stopPropagation()}>
         <Typography variant="body1" fontSize="24px" lineHeight="30px" fontWeight={700} mb={3}>
           Add API Project
@@ -57,9 +56,9 @@ const AddApiPopup: React.FC = () => {
           <div className={classes.input}>
             <label>Category</label>
             <FormControl className={classes.input}>
-              <Select name="category" value={category} displayEmpty inputProps={{'aria-label': 'Category'}} {...select}>
-                {apis.map((item, index) => (
-                  <MenuItem key={index} value={item}>{item}</MenuItem>
+              <Select name="categoryId" value={categoryId} displayEmpty inputProps={{'aria-label': 'Category'}} {...select}>
+                {apis.map((item) => (
+                  <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>
                 ))}
               </Select>
             </FormControl>
