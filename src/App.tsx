@@ -54,6 +54,7 @@ const App: React.FC = () => {
   }, []);
 
   const getCategories = useMemo(() =>  (dispatch(getApis())), [])
+
   const getApisByUser = useMemo(() => dispatch(getUserApis()),[])
   
   useEffect(() => {
