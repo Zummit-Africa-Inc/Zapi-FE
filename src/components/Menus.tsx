@@ -1,6 +1,8 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { makeStyles } from "@mui/styles";
 import { Avatar, Fade, Menu, MenuItem, Button, Typography } from '@mui/material'
+import Notification from './Notification';
+import { io } from 'socket.io-client';
 
 import { ZapiDash, ZapiApps, ZapiHelp, ZapiArrow, ZapiPic } from '../assets'
 
@@ -8,6 +10,11 @@ const Menus: React.FC = () => {
     const classes = useStyles()
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
+    const [socket, setSocket] = useState<any>("");
+
+    useEffect(() => { 
+        setSocket(io(import.meta.env.VITE_SOCKET_URL));
+      }, []);
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -28,10 +35,11 @@ const Menus: React.FC = () => {
             <MenuItem onClick={handleClose}>Zapi Tools</MenuItem>
         </Menu>
         <div className={classes.icons}>
+          <Notification socket={socket}/>
             <img src={ZapiDash} alt='zapi-board' style={{ color:'#00000' }}/>
             <img src={ZapiApps} alt='zapi-apps' style={{ color:'#00000' }}/>
             <img src={ZapiHelp} alt='zapi-help' style={{ color:'#00000' }}/>
-        </div>
+          </div>
         <Avatar src={ZapiPic} alt='zapi-pic' />
     </div>
   )

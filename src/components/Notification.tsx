@@ -5,8 +5,7 @@ import { Badge, Button, IconButton, ListItemIcon, Menu, MenuItem } from '@mui/ma
 import { Link } from "react-router-dom";
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import { io } from 'socket.io-client';
-import { USER } from "../testdata";
-import { Settings } from "@mui/icons-material";
+import Cookies from 'universal-cookie';
 
 interface INotificationProps {
     socket: string | any;
@@ -15,6 +14,7 @@ interface INotificationProps {
 
 const Notification: React.FC<INotificationProps> = ({ socket }) => {
     const classes = useStyles();
+    const cookies = new Cookies();
     const [notifications, setNotifications] = useState<string[]>([]);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -24,37 +24,28 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
     const handleClose = () => {
         setAnchorEl(null);
     };
-    // const [open, setOpen] = useState<boolean>(false);
-    const [user] = USER;
     const ITEM_HEIGHT: number = 48;
-
-    // const profileId = USER.map(user => {
-    //     { user.profileId }
-    // });
+    const profileId = cookies.get("profileId")
 
     socket = io(import.meta.env.VITE_SOCKET_URL);
     useEffect(() => {
-        if (socket.connected) {
-            socket.on(`newSubscription_b77dc7ec-74df-4fa5-ba32-b50fede35785`, (data: any) => {
-                setNotifications([...notifications, data]);
-            })
-            console.log(notifications);
-            socket.on(`unSubscription_b77dc7ec-74df-4fa5-ba32-b50fede35785`, (data: any) => {
-                setNotifications([...notifications, data])
-            })
-            socket.on(`apiHosted_b77dc7ec-74df-4fa5-ba32-b50fede35785`, (data: any) => {
-                setNotifications([...notifications, data])
-            })
-            socket.on(`apiDown_b77dc7ec-74df-4fa5-ba32-b50fede35785`, (data: any) => {
-                setNotifications([...notifications, data])
-            })
-        }
-        else {
-            socket.on("connect_error", () => {
+            try {
+                socket.on(`newSubscription_${profileId}`, (data: any) => {
+                    setNotifications([...notifications, data]);
+                })
+                socket.on(`unSubscription_${profileId}`, (data: any) => {
+                    setNotifications([...notifications, data])
+                })
+                socket.on(`apiHosted_${profileId}`, (data: any) => {
+                    setNotifications([...notifications, data])
+                })
+                socket.on(`apiDown_${profileId}`, (data: any) => {
+                    setNotifications([...notifications, data])
+                })
+            }
+            catch (error) {
                 
-
-            });
-        }
+            }
     }, [socket]);
 
 
@@ -64,36 +55,36 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
         if (type === 1) {
             action = "newSubscription";
             return (
-                <>
+                <MenuItem>
                     <img src="/images/zapi-logo.png" alt="zapi-logo" width="30ch" />
-                    <span className={classes.notification}><Link to="/">{'Someone Subscribed To your api'}</Link></span>
-                </>
+                    <span className={classes.notification}>Someone Subscribed To your api</span>
+                </MenuItem>
             )
         } else if (type === 2) {
             action = "unSubscription";
             return (
-                <>
+                <MenuItem>
                     <img src="/images/zapi-logo.png" alt="zapi-logo" width="30ch" />
-                    <span className={classes.notification}><Link to="/">{'Someone UnSubscribed from your api'}</Link></span>
-                </>
+                    <span className={classes.notification}>Someone UnSubscribed from your api</span>
+                </MenuItem>
             )
         }
         else if (type === 3) {
             action = "apiHosted";
             return (
-                <>
+                <MenuItem>
                     <img src="/images/zapi-logo.png" alt="zapi-logo" width="30ch" />
-                    <span className={classes.notification}><Link to="/">{'Your Api has been Hosted'}</Link></span>
-                </>
+                    <span className={classes.notification}>Your Api has been Hosted</span>
+                </MenuItem>
             )
         }
         else {
             action = "apiDown";
             return (
-                <>
+                <MenuItem>
                     <img src="/images/zapi-logo.png" alt="zapi-logo" width="30ch" />
-                    <span className={classes.notification}><Link to="/">{'Your Api is down'}</Link></span>
-                </>
+                    <span className={classes.notification}>Your Api is down</span>
+                </MenuItem>
             )
         }
     }
@@ -133,52 +124,57 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
                     <div >
                         {notifications.length > 0 ?
                             <>
-                                <Menu
-                                    id="long-menu"
-                                    MenuListProps={{
-                                        'aria-labelledby': 'long-button',
-                                    }}
-                                    anchorEl={anchorEl}
-                                    open={open}
-                                    onClose={handleClose}
-                                    onClick={handleClose}
-                                    PaperProps={{
-                                        style: {
-                                            maxHeight: ITEM_HEIGHT * 5,
-                                            width: '30ch',
+                            <Menu
+                                id="long-menu"
+                                MenuListProps={{
+                                    'aria-labelledby': 'long-button',
+                                }}
+                                anchorEl={anchorEl}
+                                open={open}
+                                onClose={handleClose}
+                                onClick={handleClose}
+
+                                PaperProps={{
+                                    style: {
+                                        maxHeight: ITEM_HEIGHT * 5,
+                                        width: '30ch',
+                                    },
+                                    sx: {
+                                        filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                        mt: 1.5,
+                                        '& .MuiAvatar-root': {
+                                            width: 32,
+                                            height: 32,
+                                            ml: -0.5,
+                                            mr: 1,
                                         },
-                                        sx: {
-                                            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                                            mt: 1.5,
-                                            '& .MuiAvatar-root': {
-                                                width: 32,
-                                                height: 32,
-                                                ml: -0.5,
-                                                mr: 1,
-                                            },
-                                            '&:before': {
-                                                content: '""',
-                                                display: 'block',
-                                                position: 'absolute',
-                                                top: 0,
-                                                right: 14,
-                                                width: 10,
-                                                height: 10,
-                                                bgcolor: 'background.paper',
-                                                transform: 'translateY(-50%) rotate(45deg)',
-                                                zIndex: 0,
-                                            },
+                                        '&:before': {
+                                            content: '""',
+                                            display: 'block',
+                                            position: 'absolute',
+                                            top: 0,
+                                            right: 14,
+                                            width: 10,
+                                            height: 10,
+                                            bgcolor: 'background.paper',
+                                            transform: 'translateY(-50%) rotate(45deg)',
+                                            zIndex: 0,
                                         },
-                                    }}
-                                    transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                                >
-                                    <MenuItem>
+                                    },
+                                }}
+                                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                            >
                                         {notifications.map((n: any) => displayNotification(n))}
-                                    </MenuItem>
-                                </Menu>
-                                <span className={classes.nButton} style={{ background: "#081F4A", color: "#FF5C00" }} onClick={handleRead}>Mark as read</span>
-                            </>
+                                
+                                    
+                            <MenuItem>
+                                    <span className={classes.nButton} style={{ background: "#081F4A", color: "#FF5C00" }} onClick={handleRead}>Mark as read</span>
+                                </MenuItem>
+                            </Menu>
+
+
+                        </>
                             :
                             <>
                                 <Menu
