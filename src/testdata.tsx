@@ -6,6 +6,7 @@ import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { Analytics } from "./pages";
 import GeneralTab from "./components/GeneralTab";
+import Community from "./components/Community";
 import EndpointTab from "./components/EndpointTab";
 
 
@@ -360,8 +361,8 @@ export const DEVSNAVBAR = [
     },
     {
         name: "Community",
-        link: "/",
-        page: 'Community'
+        link: "/community",
+        page: <Community />
     },
     {
         name: "Monetize",

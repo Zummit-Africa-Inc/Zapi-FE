@@ -19,11 +19,10 @@ const CreateEndpoint = React.lazy(() => import("./CreateEndpoint"));
 // const OrgPage = React.lazy(() => import("./Orgpage"));
 const ResetPassword = React.lazy(() => import("./ResetPassword"));
 const TermsConditons = React.lazy(() => import("./Terms&Conditions"))
-const Community = React.lazy(()=> import("./Community"));
 
 
 export { Analytics, APIPage, Configuration, CreateEndpoint,DeveloperApiPage, DevDashboard,
-ForgotPassword, Home, HomePage, LoginHistory, Otp, Signup, SuccessPage, UserProfile, TermsConditons, ResetPassword, Community };
+ForgotPassword, Home, HomePage, LoginHistory, Otp, Signup, SuccessPage, UserProfile, TermsConditons, ResetPassword };
 
 
 
