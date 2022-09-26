@@ -32,15 +32,15 @@ const Schema:React.FC = () => {
   return (
     <div className={classes.request}>
                             <div className={classes.text}>
-                                <Typography variant='h6' style={{ fontWeight:600, color:'black',fontSize:'16px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>Request Schema Validation</Typography>
+                                <Typography variant='h6' style={{ fontWeight:800, color:'black',fontSize:'20px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>Request Schema Validation</Typography>
                             </div>
                             <div className={classes.field}>
                                 <div className={classes.subfield}>
                                     <div className={classes.textfield}>
-                                        <Typography variant='h6' style={{ fontWeight:600, color:'black',fontSize:'16px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>
+                                        <Typography variant='h6' style={{ fontWeight:800, color:'black',fontSize:'20px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>
                                             Automatically validate the path, query and header parameters on run 
                                             time and block all invalid requests</Typography>
-                                        <Typography variant='h6' style={{ marginTop:'4px', fontWeight:'600px', color:'black',fontSize:'12px',display:'block', boxSizing:'border-box',outline:'none 0px', letterSpacing:'normal',lineHeight:'16px' }}>
+                                        <Typography variant='h6' style={{ marginTop:'4px', fontWeight:'800px', color:'black',fontSize:'16px',display:'block', boxSizing:'border-box',outline:'none 0px', letterSpacing:'normal',lineHeight:'16px' }}>
                                             This requires “Content-Type” header in requests with a body.</Typography>
                                             {threatProtection ? (
                                                 <div className={classes.main}>
@@ -70,7 +70,7 @@ const Schema:React.FC = () => {
                                                             <ErrorIcon/>
                                                         </div>
                                                         <Typography variant='h6' style={{ marginLeft:'16px', color:'rgba(0, 0, 0, 0.87)', 
-                                                            fontSize:'14px', letterSpacing:'normal', lineHeight:'20px', display:'block',
+                                                            fontSize:'18px', letterSpacing:'normal', lineHeight:'20px', display:'block',
                                                             boxSizing:'border-box', outline:'none 0px' }}>
                                                                 Enabled to automatically validate the path,
                                                                 query and header parameters on run time and block all invalid requests

@@ -16,13 +16,13 @@ const Threat:React.FC = () => {
   return (
     <div className={classes.threat}>
     <div className={classes.text}>
-        <Typography variant='h6' style={{ fontWeight:600, color:'black',fontSize:'16px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>Threat Protection</Typography>
+        <Typography variant='h6' style={{ fontWeight:800, color:'black',fontSize:'20px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>Threat Protection</Typography>
     </div>
     <div className={classes.field}>
         <div className={classes.subfield}>
             <div className={classes.textfield}>
-                <Typography variant='h6' style={{ fontWeight:600, color:'black',fontSize:'14px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'20px' }}>Protects API from SQL or Javascript injection attacks</Typography>
-                <Typography variant='h6' style={{ marginTop:'4px', fontWeight:600, color:'rgba(0, 0, 0, 0.6)',fontSize:'12px',display:'block', boxSizing:'border-box',outline:'none 0px', letterSpacing:'normal',lineHeight:'16px' }}>
+                <Typography variant='h6' style={{ fontWeight:800, color:'black',fontSize:'18px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'20px' }}>Protects API from SQL or Javascript injection attacks</Typography>
+                <Typography variant='h6' style={{ marginTop:'4px', fontWeight:800, color:'rgba(0, 0, 0, 0.6)',fontSize:'16px',display:'block', boxSizing:'border-box',outline:'none 0px', letterSpacing:'normal',lineHeight:'16px' }}>
                 Automatically compare the paths, parameters, headers, and body 
                 (application/json, application/x-www-form-urlencoded, and non-binary data in multipart/form-data only) 
                 of all requests against pre-defined RegEx patterns, and block matching requests from reaching your servers
@@ -54,7 +54,7 @@ const Threat:React.FC = () => {
                                 <div className={classes.line}></div>
                                     <div className={classes.subfield}>
                                         <div className={classes.textfield}>
-                                            <Typography variant='h6' style={{ fontWeight:600, color:'black',fontSize:'16px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>
+                                            <Typography variant='h6' style={{ fontWeight:800, color:'black',fontSize:'20px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>
                                                 Threat protection requires the “Content-Type” header in requests with a body.
                                                 Requests with a body that do not specify a “Content-Type” header will be blocked.
                                             </Typography> 

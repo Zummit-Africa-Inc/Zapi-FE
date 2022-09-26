@@ -39,7 +39,7 @@ const ProxySecret:React.FC = () => {
                 </div>
                 <div className={classes.whitelist}>
                     <div className={classes.text}>
-                        <Typography variant='h6' style={{  color:'black',fontSize:'12px',display:'block', boxSizing:'border-box',outline:'none 0px', letterSpacing:'normal',lineHeight:'16px' }}>Whitelist RapidAPI IPs to allow request only from RapidAPI.</Typography>
+                        <Typography variant='h6' style={{  color:'black',fontSize:'15px',display:'block', boxSizing:'border-box',outline:'none 0px', letterSpacing:'normal',lineHeight:'16px' }}>Whitelist RapidAPI IPs to allow request only from RapidAPI.</Typography>
                     </div>
                 </div>
             </div>
@@ -90,7 +90,7 @@ const useStyles = makeStyles({
         marginRight: '8px',
         color: 'rgba(0, 0, 0, 0.87)',
         backgroundColor: 'transparent',
-        fontSize: '14px',
+        fontSize: '16px',
         letterSpacing: 'normal',
         lineHeight: '20px',
         fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir, Helvetica, sans-serif',
