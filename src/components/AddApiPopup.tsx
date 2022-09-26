@@ -40,7 +40,7 @@ const AddApiPopup: React.FC = () => {
   return (
     <>
     {loading && <Fallback />}
-    <div className={classes.container}>
+    <div className={classes.container} onClick={() => handleUnclicked('addapi')>
       <div className={classes.main} onClick={(e) => e.stopPropagation()}>
         <Typography variant="body1" fontSize="24px" lineHeight="30px" fontWeight={700} mb={3}>
           Add API Project
@@ -58,7 +58,7 @@ const AddApiPopup: React.FC = () => {
             <label>Category</label>
             <FormControl className={classes.input}>
               <Select name="category" value={category} displayEmpty inputProps={{'aria-label': 'Category'}} {...select}>
-                {categories.sort((a,b) => a.localeCompare(b)).map((item, index) => (
+                {apis.map((item, index) => (
                   <MenuItem key={index} value={item}>{item}</MenuItem>
                 ))}
               </Select>
