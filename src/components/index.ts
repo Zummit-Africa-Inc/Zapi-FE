@@ -22,3 +22,11 @@ export { default as SplitView } from "./SplitView";
 export { default as TabPanel } from "./TabPanel";
 export { default as UserProSideBar } from "./UserProSideBar";
 export { default as Widget } from "./Widget";
+export { default as GatewayTab } from "./GatewayTab"
+export { default as SelectMulti } from "./SelectMulti"
+export { default as ProxySecret } from "./ProxySecret"
+export { default as Threat } from "./Threat";
+export { default as Schema } from "./Schema";
+export { default as Config } from "./Config";
+export { default as Version } from "./Version";
+export { default as Transform } from "./Transform";

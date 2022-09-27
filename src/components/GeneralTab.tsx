@@ -23,24 +23,15 @@ const GeneralTab: React.FC = () => {
   const profileId = cookies.get("profileId")
   const classes = useStyles()
   const [image, setImage] = useState(null)
-  
-  const fetchAPI = async() => {
-    try{
-    }catch(err) {}
-  }
-  
-  useEffect(() => {
-    fetchAPI()
-  }, [])
 
   const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const payload = { category, description, baseUr, visibility, readMe, about, documentation, website, additionalInfo }
     const headers = { 'Content-Type': 'application/json' }
     try{
-      // const data = await sendRequest(`${core_url}/api/${profileId}`, 'POST', JSON.stringify(payload), headers)
+      const data = await sendRequest(`${core_url}/api/${profileId}`, 'POST', JSON.stringify(payload), headers)
       console.log(payload)
-    }catch(err){}
+    }catch(error){}
   }
 
   return (
@@ -154,15 +145,6 @@ const useStyles = makeStyles({
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, 0.05)'
     }
-  },
-  fixedBottom: {
-    width: '100%',
-    borderTop: '1px solid rgb(214, 217, 219)',
-    position: 'fixed',
-    bottom: 0,
-    padding: '20px',
-    zIndex: 100,
-    backgroundColor: '#F3F4F6'
   },
   saveBtn: {
     padding: '10px 20px',

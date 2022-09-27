@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
 import { Analytics, CreateEndpoint, DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditons, ResetPassword } from "./pages";
-import { Fallback, Login, AddApiPopup, GeneralTab, EndpointTab } from "./components";
+import { Fallback, Login, AddApiPopup, GeneralTab, EndpointTab, GatewayTab } from "./components";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { getUserApis, login } from "./redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "./hooks";
@@ -54,6 +54,7 @@ const App: React.FC = () => {
   }, []);
 
   const getCategories = useMemo(() =>  (dispatch(getApis())), [])
+
   const getApisByUser = useMemo(() => dispatch(getUserApis()),[])
   
   useEffect(() => {
@@ -87,6 +88,7 @@ const App: React.FC = () => {
               <Route path="/login-history" element={<LoginHistory />} />
               <Route path="/success-page" element={<SuccessPage />} />
               <Route path="/general-tab" element={<GeneralTab />} />
+              <Route path="/gateway-tab" element={<GatewayTab />} />
             </Route>
           </Routes>
         </Suspense>

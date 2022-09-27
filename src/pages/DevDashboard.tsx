@@ -59,8 +59,7 @@ const DevDashboard: React.FC = () => {
     return (
         <>
         <DevNavbar />
-        {userApis?.length === 0 ? 
-        <DevAddApi /> : userApis.map((api: any) => (<div>{api}</div>))}
+        <DevAddApi />
         {/* <div className={classes.dashboard}>
             <Typography variant='h5' gutterBottom sx={{padding: '1rem 2rem'}}>Dashboard</Typography>
             <div className="cards">
