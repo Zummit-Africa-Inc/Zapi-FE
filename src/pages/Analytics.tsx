@@ -52,12 +52,12 @@ const Analytics: React.FC = () => {
         setErrStyle('tab')
         setSuccessStyle('clickTab')
     }
-  return (
-    <div className={classes.analytics}>
-    <div className="heading">
-    <Typography sx={{fontSize: '1.5rem', fontWeight: 500, color: 'var(--color-primary)', padding: '2rem 2rem'}}>default-application_6350466 - Analytics</Typography>
-    </div>
-    <div className="selects">
+    return (
+        <div className={classes.analytics}>
+            <div className="heading">
+                <Typography sx={{ fontSize: '1.5rem', fontWeight: 500, color: 'var(--color-primary)', padding: '2rem 2rem' }}>default-application_6350466 - Analytics</Typography>
+            </div>
+            <div className="selects">
                 <div className="select-box">
                     <span className='select-title'>Statistics</span>
                     <InputSearch className={classes.select} type='select' name="statsParams" value={statsParam || errorParam || successParam} onSelect={handleStats} data={statsData} />
@@ -80,20 +80,22 @@ const Analytics: React.FC = () => {
                 <Widget className={errStyle} title='Errors' subtitle={errorParam} onClick={handleErrClick} span='0%' />
                 <Widget className={successStyle} title='Success' subtitle={successParam} onClick={handleSuccessClick} span='0ms' />
             </div>
-            <div className="table">
-                {ROWS ? 
-                <DataTable Heading={TABLEHADING} Rows={ROWS} />
-                :
-                "No data yet"
+            <div>
+                {ROWS ?
+                    <DataTable Heading={TABLEHADING} Rows={ROWS} />
+                    :
+                    "No data yet"
                 }
             </div>
 
-    </div>
-  )
+        </div>
+    )
 }
 
 export default Analytics
 
+
+//styles for analytics are in the index.css file.
 const useStyles = makeStyles({
     select: {
         '& select': {
@@ -107,6 +109,8 @@ const useStyles = makeStyles({
         }
     },
     analytics: {
-        width: "calc(100vw - 250px)"
+        display: "flex",
+        flexDirection: "column",
+        gap: "2rem"
     }
 })
