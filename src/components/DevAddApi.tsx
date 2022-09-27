@@ -101,8 +101,9 @@ const useStyles = makeStyles({
         }
     },
     bodyColor: {
+        minHeight: "100vh",
         background:'#FFFFFF',
-        paddingTop: '15px'
+        paddingTop: '15px',
     },
     widget1:{
         display:'flex',

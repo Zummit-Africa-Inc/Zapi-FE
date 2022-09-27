@@ -80,14 +80,12 @@ const App: React.FC = () => {
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
               <Route path="/developers/dashboard" element={<DevDashboard />} />
-              <Route path="/developers" element={<DeveloperApiPage />} />
+              <Route path="/developers/api/:id" element={<DeveloperApiPage />} />
               <Route path="/analytics" element={<Analytics />} />
               <Route path="/api/:id" element={<APIPage />} />
               <Route path="/configuration" element={<Configuration />} />
               <Route path="/login-history" element={<LoginHistory />} />
               <Route path="/success-page" element={<SuccessPage />} />
-              <Route path="/create-endpoint" element={<CreateEndpoint />} />
-              <Route path="/endpoints" element={<EndpointTab />} />
               <Route path="/general-tab" element={<GeneralTab />} />
             </Route>
           </Routes>
