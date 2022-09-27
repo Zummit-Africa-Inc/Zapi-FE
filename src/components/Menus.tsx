@@ -39,7 +39,7 @@ const Menus: React.FC = () => {
             <img src={ZapiDash} alt='zapi-board' style={{ color:'#00000' }}/>
             <img src={ZapiApps} alt='zapi-apps' style={{ color:'#00000' }}/>
             <img src={ZapiHelp} alt='zapi-help' style={{ color:'#00000' }}/>
-          </div>
+        </div>
         <Avatar src={ZapiPic} alt='zapi-pic' />
     </div>
   )
