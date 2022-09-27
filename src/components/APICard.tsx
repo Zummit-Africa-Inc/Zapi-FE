@@ -2,13 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Avatar, Paper, Stack, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { AccessTimeOutlined, BookmarkBorderOutlined, DoneOutlined, NewReleasesOutlined, StayCurrentLandscape, TrendingUpOutlined, VerifiedOutlined } from "@mui/icons-material";
+import { AccessTimeOutlined, BookmarkBorderOutlined, DoneOutlined, NewReleasesOutlined, TrendingUpOutlined, VerifiedOutlined } from "@mui/icons-material";
 
 interface CardProps {
     id: string
     name: string
     description: string
-    status: string
+    status: string | null
     image?: string
     latency?: number
     popularity?: number

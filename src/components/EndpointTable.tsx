@@ -8,15 +8,17 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { makeStyles } from '@mui/styles';
 
-const CollapsibleTable = () => {
+import { mockEndpoint } from './mockdata' // test API
+
+const CollapsibleTable:React.FC = () => {
   const classes = useStyles()
 
   const editRoute = (id: string) => {
-    console.log(`editing route ${id}`)
+    console.log(`editing route with id ${id}`)
   }
   
   const deleteRoute = (id: string) => {
-    console.log(`route deleted ${id}`)
+    console.log(`deleting route with id ${id}`)
   }
 
   return (
@@ -55,14 +57,6 @@ const CollapsibleTable = () => {
   );
 }
 
-const mockEndpoint = [
-  {id:'001', name:'Get all events', method:'GET', route:'/events/all'},
-  {id:'002', name:'Get event by name', method:'GET', route:'/events/:name'},
-  {id:'003', name:'Add event', method:'POST', route:'/events/add'},
-  {id:'004', name:'Update event', method:'PUT', route:'/events/:id'},
-  {id:'005', name:'Delete event', method:'DELETE', route:'/events/:id'},
-]
-
 const useStyles = makeStyles({
   button: {
     padding: "0.5rem 1rem",
@@ -71,6 +65,7 @@ const useStyles = makeStyles({
     borderRadius: "5px",
     color: "#FFF",
     cursor: "pointer",
+    fontFamily: "var(--body-font)",
   }
 })
 

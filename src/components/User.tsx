@@ -13,6 +13,7 @@ import {
     TableRow
 } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
+import { makeStyles } from "@mui/styles";
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -24,9 +25,12 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 
 
-const User = () =>(
-    <>
-        <div style={{ display: 'flex', position: 'relative', left: "620px", padding: "10px" }}>
+const User = () => {
+    const classes = useStyles()
+    
+    return (
+    <div className={classes.user}>
+        <div style={{ display: 'flex', alignItems: "center", justifyContent: "flex-end" }}>
             <TextField
                 InputProps={{
             startAdornment: (
@@ -40,7 +44,6 @@ const User = () =>(
                 placeholder="search username"
                 size="small" />
             <ButtonGroup
-                style={{ position: "relative", top: "10px" }}
                 sx={{
                     height: "40px",
                     "& button:focus" : {backgroundColor: "grey.300"}
@@ -72,7 +75,13 @@ const User = () =>(
                 </tr>
             </TableBody>
         </Table>
-    </>
-);
+    </div>
+)};
 
 export default User;
+
+const useStyles = makeStyles({
+    user: {
+        // width: "calc(100% - 250px)"
+    }
+})
