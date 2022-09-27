@@ -50,4 +50,11 @@ $ yarn run start:dev
 ## Notes
 
 - Commits follow the standard [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/)
-- Branches should be named as `issue-<issue no>` (e.g. [NestJs](https://github.com/EddieHubCommunity/api/issues/12) issue number is 12)
+- Branches should be named as `sections-<section no>` `issue-<issue no>` or `task`
+
+## Requirements
+
+- TypeScript
+- React
+- node
+- npm
