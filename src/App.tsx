@@ -1,8 +1,9 @@
 import './App.css';
 import React, { Suspense, useEffect, useMemo } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from  "react-router-dom";
 import { ThemeProvider } from "@mui/material";
-import { deviceDetect } from "react-device-detect";
+import { deviceDetect } from  "react-device-detect";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 

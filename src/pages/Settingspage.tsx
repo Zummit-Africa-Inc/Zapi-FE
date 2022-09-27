@@ -4,11 +4,11 @@ import SearchIcon from '@mui/icons-material/Search';
 import { makeStyles } from "@mui/styles";
 
 
- const Settingspage:React.FC = () => {
+ const Settings:React.FC = () => {
     
   const [status, setStatus] = useState("");
 
-  function onChangeValue(event) {
+  function onChangeValue(event:any) {
     setStatus(event.target.value);
   }
   console.log("okkk", status);
@@ -96,6 +96,9 @@ import { makeStyles } from "@mui/styles";
       </span>
       <br />
       <button>Delete API Project</button>
+
+
+
      
     </section>
   );
@@ -103,4 +106,4 @@ import { makeStyles } from "@mui/styles";
 
 
 
-export default Settingspage;
+export default Settings;
