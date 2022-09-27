@@ -48,7 +48,7 @@ const GeneralTab: React.FC = () => {
   
   const fetchAPI = async() => {
     try{
-      const data = await axios.get(`${url}/api/${profileId}/myapis`)
+      const data = await axios.get(`${url}/api/user-apis/${profileId}`)
       data.data.data.map((api: any) => {
         setApiId(api.id), setDescription(api.description) ,setAbout(api.about) ,setApi_website(api.api_website) ,setTerm_of_use(api.term_of_use) ,setVisibility(api.visibility) ,setCategoryId(api.categoryId)
         setBase_Url(api.base_url), setLogo_url(api.logo_url)
@@ -77,7 +77,7 @@ const GeneralTab: React.FC = () => {
       
       console.log(data)
       
-      const res = await axios.patch(`${url}/zl-core/api/${apiId}/?profileId=${profileId}`, data)
+      const res = await axios.patch(`${url}/api/${apiId}/?profileId=${profileId}`, data)
       console.log(res)
     }catch(err){
       console.log(err)
@@ -104,7 +104,7 @@ const GeneralTab: React.FC = () => {
             <FormControl>
               <Select required value={categoryId}onChange={(e: SelectChangeEvent<String>) => setCategoryId(e.target.value)}
               sx={{width: '320px' }} inputProps={{name: "agent", id: "age-simple"}}>
-                {apis.map((value) => (
+                {apis.map((value) => ( value &&
                   <MenuItem key={value.id} value={value.id}>{value.name}</MenuItem>
                 ))}
               </Select>
@@ -114,10 +114,10 @@ const GeneralTab: React.FC = () => {
             <InputLabel htmlFor="description">Short Description</InputLabel>
             <TextField required variant="outlined" value={description} onChange={(e) => setDescription(e.target.value)} multiline id="description" maxRows={10} fullWidth={true} helperText="Describe in few words what’s this API do" />
           </Box>
-          <Box width="600px" mt={2}>
+          {/* <Box width="600px" mt={2}>
             <InputLabel htmlFor="readme">Read Me (optional)</InputLabel>
             <TextField variant="outlined" multiline id="readme" maxRows={10} fullWidth={true} helperText="Describe in detail what’s API do and how it might be helpful" />
-          </Box>
+          </Box> */}
           <Box width="600px" mt={2}>
             <InputLabel htmlFor="documentation">Documentation (optional)</InputLabel>
             <TextField variant="outlined" value={about} onChange={(e) => setAbout(e.target.value)} multiline id="documentation" maxRows={10} fullWidth={true} helperText="Use this section to provide detailed documentation of your API and to highlight its benefits and features." />
@@ -161,12 +161,12 @@ const GeneralTab: React.FC = () => {
                   </Stack>
             </Box>
           </Box>
-          <Box width="600px" height="300px" mt={2}>
+          <Box width="600px" mt={2} mb={2}>
             <Typography variant="body1" fontSize="20px" fontWeight={800}>Additional Information</Typography>
             <InputLabel htmlFor="terms">Terms of Use (optional)</InputLabel>
             <TextField variant="outlined" multiline id="terms" value={term_of_use} onChange={(e) => setTerm_of_use(e.target.value)} maxRows={10} fullWidth={true} />
           </Box>
-        <Box className={classes.fixedBottom}>
+        <Box>
           <Stack direction="row" spacing={2}>
             <button className={classes.saveBtn}>Save</button>
             <button className={classes.discardBtn}>Discard</button>
@@ -204,15 +204,6 @@ const useStyles = makeStyles({
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, 0.05)'
     }
-  },
-  fixedBottom: {
-    width: '100%',
-    borderTop: '1px solid rgb(214, 217, 219)',
-    position: 'fixed',
-    bottom: 0,
-    padding: '20px',
-    zIndex: 100,
-    backgroundColor: '#F3F4F6'
   },
   saveBtn: {
     padding: '10px 20px',

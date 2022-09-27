@@ -1,5 +1,6 @@
 
 export type APIType = {
+   id: string
    name:	string
    description: string
    base_url: string

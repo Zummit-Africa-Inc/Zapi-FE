@@ -1,11 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { APIResponseType } from "../../types";
+import { APIType } from "../../types";
 
 const url = import.meta.env.VITE_BASE_URL
-
 interface ApiState {
-    apis: APIResponseType[]
+    apis: Array<APIType>
     loading: "idle" | "pending" | "fulfilled" | "rejected"
     error?: any
 }
