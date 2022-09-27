@@ -36,9 +36,6 @@ const Navbar = () => {
                 </TabPanel>
             ))}
             </>
-            <Link to="/api/:id">
-                <Typography sx={{position: "fixed", marginTop: "60px", marginRight: "800px", width: "150px"}}>View in Hub</Typography>
-            </Link>
         </div>
     )
 }
@@ -70,7 +67,7 @@ const useStyles = makeStyles({
         position: "fixed",
         top: "4.3rem",
         zIndex: 5,
-        width: "800px",
+        width: "calc(100% - 300px)",
         background: "#F4F5F6",
     }
 })

@@ -161,12 +161,12 @@ const GeneralTab: React.FC = () => {
                   </Stack>
             </Box>
           </Box>
-          <Box width="600px" height="300px" mt={2}>
+          <Box width="600px" mt={2} mb={2}>
             <Typography variant="body1" fontSize="20px" fontWeight={800}>Additional Information</Typography>
             <InputLabel htmlFor="terms">Terms of Use (optional)</InputLabel>
             <TextField variant="outlined" multiline id="terms" value={term_of_use} onChange={(e) => setTerm_of_use(e.target.value)} maxRows={10} fullWidth={true} />
           </Box>
-        <Box className={classes.fixedBottom}>
+        <Box>
           <Stack direction="row" spacing={2}>
             <button className={classes.saveBtn}>Save</button>
             <button className={classes.discardBtn}>Discard</button>
@@ -204,15 +204,6 @@ const useStyles = makeStyles({
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, 0.05)'
     }
-  },
-  fixedBottom: {
-    width: '100%',
-    borderTop: '1px solid rgb(214, 217, 219)',
-    position: 'fixed',
-    bottom: 0,
-    padding: '20px',
-    zIndex: 100,
-    backgroundColor: '#F3F4F6'
   },
   saveBtn: {
     padding: '10px 20px',

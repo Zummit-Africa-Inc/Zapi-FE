@@ -4,7 +4,7 @@ import { APIType } from "../../types";
 
 const url = import.meta.env.VITE_BASE_URL
 interface ApiState {
-    apis: Array<APIType | null>
+    apis: Array<APIType>
     loading: "idle" | "pending" | "fulfilled" | "rejected"
     error?: any
 }
