@@ -78,3 +78,15 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```-->
+
+
+## License
+
+[MIT licensed](LICENSE).
+
+<!--## Socials
+
+Join our Discord community [here](http://discord.eddiehub.org/)
+Subscribe our YouTube channel [here](https://www.youtube.com/user/eddiejaoude)-->
+
+
