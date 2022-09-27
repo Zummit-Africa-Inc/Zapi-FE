@@ -6,12 +6,25 @@ import { io } from 'socket.io-client';
 
 import { ZapiDash, ZapiApps, ZapiHelp, ZapiArrow, ZapiPic } from '../assets'
 
+
+import { useNavigate } from "react-router-dom";
+import { logout } from "../redux/slices/userSlice";
+import { useAppDispatch } from "../hooks/redux-hook";
+import Cookies from "universal-cookie";
+
+
 const Menus: React.FC = () => {
     const classes = useStyles()
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [anchorE2, setAnchorE2] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
+    const isAvatarOpen = Boolean(anchorE2);
     const [socket, setSocket] = useState<any>("");
-
+    
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate()
+    const cookies = new Cookies()
+    
     useEffect(() => { 
         setSocket(io(import.meta.env.VITE_SOCKET_URL));
       }, []);
@@ -22,6 +35,18 @@ const Menus: React.FC = () => {
 
     const handleClose = () => {
         setAnchorEl(null);
+    };
+    
+    
+    const handleAvatarClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorE2(event.currentTarget);
+    };
+
+    const handleLogout = async () => {
+        await setAnchorE2(null)
+        dispatch(logout())
+        cookies.remove('accessToken')
+        navigate("/")
     };
 
   return (
@@ -40,7 +65,13 @@ const Menus: React.FC = () => {
             <img src={ZapiApps} alt='zapi-apps' style={{ color:'#00000' }}/>
             <img src={ZapiHelp} alt='zapi-help' style={{ color:'#00000' }}/>
         </div>
-        <Avatar src={ZapiPic} alt='zapi-pic' />
+          
+        <Button id="avatar-button" aria-controls={isAvatarOpen ? 'avatar-menu' : undefined} aria-haspopup="true" aria-expanded={isAvatarOpen ? 'true' : undefined} onClick={handleAvatarClick}>
+            <Avatar src={ZapiPic} alt='zapi-pic' />
+        </Button>
+        <Menu id="avatar-menu" MenuListProps={{ 'aria-labelledby': 'avatar-button', }} anchorEl={anchorE2} open={isAvatarOpen} onClose={handleLogout} TransitionComponent={Fade}>
+            <MenuItem onClick={handleLogout}>LOGOUT</MenuItem>
+        </Menu>
     </div>
   )
 }
