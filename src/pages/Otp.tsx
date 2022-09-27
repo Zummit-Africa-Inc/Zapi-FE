@@ -33,7 +33,7 @@ const Otp: React.FC = () => {
       } else {
         toast.success(`${data?.message}`)
         const timeout = setTimeout(() => {
-          navigate('/')
+          navigate('/login')
         }, 3000)
         return () => clearTimeout(timeout)
       }
