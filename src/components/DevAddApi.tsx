@@ -50,6 +50,7 @@ const DevAddApi: React.FC = () => {
                     <Typography>Add API Project</Typography>
             </button>
         </div>
+
             {/* Add API Description */}
             <div>
                 {userApis.length !== 0 ? 
@@ -60,29 +61,29 @@ const DevAddApi: React.FC = () => {
                     </div>
                     :
                     <div className={classes.addApiDesc}>
-                    <Typography gutterBottom variant="subtitle1" sx=
-                        {{
-                            color: "#000000", fontFamily: "Space Grotesk", fontWeight: 700, fontSize: "18px",
-                            lineHeight: "30px", textAlign: "center", marginTop: "116px"
-                        }}>
-                           You do no have any API Projects
-                    </Typography>
-                    <Typography gutterBottom variant="subtitle1" sx={{
-                        color: "#000000", fontFamily: "Space Grotesk", fontStyle: "normal", fontWeight: 400,
-                        fontSize: "16px", lineHeight: "30px", textAlign: "center", marginTop: "16px"
-                    }}>Add a new API Project from scratch or use our “Project 1” 
-                        <br />{""}
-                        to explore API Projects features.
-                    </Typography>
-                    {/* Button */}
-                    <div className={classes.disabledButton}>
-                        <AddIcon sx={{
-                            left: "21px", top: "16px", color: "#585858",
-                        }} />
-                        <Typography>Add API Project</Typography>
+                        <Typography gutterBottom variant="subtitle1" sx=
+                            {{
+                                color: "#000000", fontFamily: "Space Grotesk", fontWeight: 700, fontSize: "18px",
+                                lineHeight: "30px", textAlign: "center", marginTop: "116px"
+                            }}>
+                            You do no have any API Projects
+                        </Typography>
+                        <Typography gutterBottom variant="subtitle1" sx={{
+                            color: "#000000", fontFamily: "Space Grotesk", fontStyle: "normal", fontWeight: 400,
+                            fontSize: "16px", lineHeight: "30px", textAlign: "center", marginTop: "16px"
+                        }}>Add a new API Project from scratch or use our “Project 1” 
+                            <br />{""}
+                            to explore API Projects features.
+                        </Typography>
+                        {/* Button */}
+                        <div className={classes.disabledButton}>
+                            <AddIcon sx={{
+                                left: "21px", top: "16px", color: "#585858",
+                            }} />
+                            <Typography>Add API Project</Typography>
+                        </div>
                     </div>
-    </div>
-}
+                }
             </div>
     </div>
   )
@@ -136,7 +137,6 @@ const useStyles = makeStyles({
             marginBottom: "2rem",
         }
     },
-
     leftText:{
         display: "flex",
         flexDirection: "column",
