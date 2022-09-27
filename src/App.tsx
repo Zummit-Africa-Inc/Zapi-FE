@@ -7,7 +7,7 @@ import { deviceDetect } from  "react-device-detect";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
-import { Analytics, Settingspage, CreateEndpoint, DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditons, ResetPassword } from "./pages";
+import { Analytics, Settings, CreateEndpoint, DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditons, ResetPassword } from "./pages";
 import { Fallback, Login, AddApiPopup, GeneralTab, EndpointTab, GatewayTab } from "./components";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { getUserApis, login } from "./redux/slices/userSlice";
@@ -92,7 +92,7 @@ const App: React.FC = () => {
               <Route path="/create-endpoint" element={<CreateEndpoint />} />
               <Route path="/endpoints" element={<EndpointTab />} />
               <Route path="/general-tab" element={<GeneralTab />} />
-              <Route path="/settingspage" element={<Settingspage />} />
+              <Route path="/settingspage" element={<Settings />} />
               <Route path="/gateway-tab" element={<GatewayTab />} />
             </Route>
           </Routes>

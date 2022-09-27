@@ -4,7 +4,7 @@ import ControlCameraIcon from '@mui/icons-material/ControlCamera';
 import ScienceOutlinedIcon from '@mui/icons-material/Science';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import { Analytics, Settingspage } from "./pages";
+import { Analytics, Settings } from "./pages";
 import GeneralTab from "./components/GeneralTab";
 import Community from "./components/Community";
 import EndpointTab from "./components/EndpointTab";
@@ -376,9 +376,9 @@ export const DEVSNAVBAR = [
         page: <Analytics />
     },
     {
-        name: "Settingspage",
-        link: "/settingspage",
-        page: <Settingspage/>
+        name: "Settings",
+        link: "/settings",
+        page: <Settings/>
     },
 ]
 

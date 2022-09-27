@@ -40,7 +40,7 @@ import { makeStyles } from "@mui/styles";
             />
             <label className="users">User</label>
           </div>
-          <div>
+          <div className="name-handler">
             <input
               id="gender"
               type="radio"
@@ -69,13 +69,15 @@ import { makeStyles } from "@mui/styles";
             </div>
           ) : status === "Team" ? (
             <div className="form">
+              <div className="form">
               <select className="select-inputs">
                 <option value="1" disabled selected hidden >
                     Select a team...
-                  </option>
+                </option>
                 <option id="select-inputs" ><button id="ishidden">None</button></option>
                 
               </select>
+              </div>
             </div>
           ) : (
             ""
