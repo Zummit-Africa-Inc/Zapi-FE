@@ -58,3 +58,23 @@ $ yarn run start:dev
 - React
 - node
 - npm
+
+
+
+## Swagger docs
+
+1. https://core.zapi.ai/api-doc
+2. https://identity.zapi.ai/api-doc
+
+Official docs at https://docs.nestjs.com/openapi/introduction
+
+<!--## Test-->
+
+<!--```bash
+# unit tests
+$ npm run test
+# e2e tests
+$ npm run test:e2e
+# test coverage
+$ npm run test:cov
+```-->
