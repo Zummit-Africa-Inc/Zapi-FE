@@ -1,16 +1,18 @@
+import React, { SyntheticEvent, useState } from 'react';
 import { Paper, Tab, Tabs, Typography } from '@mui/material'
 import { makeStyles, styled } from '@mui/styles'
-import { SyntheticEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { DEVSNAVBAR } from '../../testdata'
-import TabPanel from '../TabPanel';
+
+import { Analytics, Community, EndpointTab, GatewayTab, GeneralTab, Monetize, TabPanel } from "../";
 
 const CustomTab = styled(Tab)({
     "&.MuiTab-root": {
     textTransform: "none"}
   })
 
-const Navbar = () => {
+interface Props { id: string | undefined }
+
+const Navbar:React.FC<Props> = ({id}) => {
     const classes = useStyles()
     const [tab, setTab] = useState<number>(0);
 
@@ -21,20 +23,34 @@ const Navbar = () => {
     return (
         <div className={classes.navbar}>
             <>
-            <Tabs variant="fullWidth" className={classes.Tabs} value={tab} onChange={handleTabChange}>
-                {DEVSNAVBAR.map((nav, i) => (
-                    <CustomTab disableRipple key={i} label={nav.name} />
-                ))}
+            <Tabs variant="fullWidth" className={classes.tabs} value={tab} onChange={handleTabChange}>
+                <Tab label="General" />
+                <Tab label="Endpoints" />
+                <Tab label="Gateway" />
+                <Tab label="Commmunity" />
+                <Tab label="Monetize" />
+                <Tab label="Analytics" />
             </Tabs>
-            {DEVSNAVBAR.map((nav, i) => (
-                <TabPanel key={i} value={tab} index={i}>
-                    <div className={classes.tabPanelStyle}>
-                    <Paper elevation={1} className={classes.paper}>
-                        {nav.page}
-                    </Paper>
-                    </div>
+            <div className={classes.tabpanel}>
+                <TabPanel value={tab} index={0}>
+                    <GeneralTab />
                 </TabPanel>
-            ))}
+                <TabPanel value={tab} index={1}>
+                    <EndpointTab id={`${id}`} />
+                </TabPanel>
+                <TabPanel value={tab} index={2}>
+                    <GatewayTab />
+                </TabPanel>
+                <TabPanel value={tab} index={3}>
+                    <Community />
+                </TabPanel>
+                <TabPanel value={tab} index={4}>
+                    <Monetize />
+                </TabPanel>
+                <TabPanel value={tab} index={5}>
+                    <Analytics />
+                </TabPanel>
+            </div>
             </>
         </div>
     )
@@ -59,11 +75,12 @@ const useStyles = makeStyles({
         width: "100vw",
         height: "45px",
     },
-    tabPanelStyle: {
+    tabpanel: {
+        overflowY: "scroll",
         position: "absolute",
-        marginTop: "100px",
+        top: "15%",
     },
-    Tabs: {
+    tabs: {
         position: "fixed",
         top: "4.3rem",
         zIndex: 5,

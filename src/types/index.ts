@@ -1,3 +1,4 @@
+import { HeaderObject } from "../interfaces";
 
 export type APIType = {
    id: string
@@ -40,8 +41,11 @@ export type UserProfileType = {
 }
 
 export type EndpointsType = {
-   id: string | undefined
+   id?: string | undefined
    name: string
    route: string
    method: string
+   description: string
+   headers?: Array<HeaderObject>
+   requestBody?: Array<object>
 }

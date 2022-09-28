@@ -78,9 +78,39 @@ const userSlice = createSlice({
             state.isLoggedIn = false
             state.user = initialState.user
             localStorage.removeItem("zapi_user")
+        },
+        addEndpoint: (state, action: PayloadAction<any>) => {
+            const { apiId, name, method, route, description, headers, requestBody } = action.payload
+            const api = state.userApis.find(api => api?.id === apiId)
+            let newEndpoint = {name, method, route, description, headers, requestBody}
+            if(api) {
+                api.endpoints?.unshift(newEndpoint)
+            }
+        },
+        removeEndpoint: (state, action: PayloadAction<any>) => {
+            const { apiId, id } = action.payload
+            const api = state.userApis.find(api => api?.id === apiId)
+            if(api) {
+                api.endpoints = api.endpoints?.filter(endpoint => endpoint?.id !== id)
+            }
+        },
+        editEndpoint: (state, action: PayloadAction<any>) => {
+            const { apiId, id, name, method, route, description, headers, requestBody } = action.payload
+            const api = state.userApis.find(api => api?.id === apiId)
+            if(api) {
+                let endpoint = api.endpoints?.find(endpoint => endpoint?.id === id)
+                if(endpoint) {
+                    endpoint.name = name
+                    endpoint.method = method
+                    endpoint.route = route
+                    endpoint.description = description
+                    endpoint.headers = headers
+                    endpoint.requestBody = requestBody
+                }
+            }
         }
     },
 })
 
-export const { clearError, login, logout } = userSlice.actions
+export const { clearError, login, logout, addEndpoint, removeEndpoint, editEndpoint } = userSlice.actions
 export default userSlice.reducer

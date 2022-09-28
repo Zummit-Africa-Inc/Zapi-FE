@@ -11,13 +11,13 @@ import { AddApiProps } from "../interfaces";
 import ImageUpload from "./ImageUpload";
   
 const core_url = import.meta.env.VITE_BASE_URL
-const initialState = { category: "", description: "", baseUrl:"", visibility: "public",
-readMe: null, about: "", documentation: null, website: "", additionalInfo: "" } as AddApiProps
+const initialState = { name: "", category: "", description: "", base_url:"", visibility: "public",
+read_me: null, about: "", documentation: null, api_website: "", term_of_use: "" } as AddApiProps
   
 const GeneralTab: React.FC = () => {
   const { apis } = useAppSelector(store => store.apis)
   const { inputs, bind, select, toggle } = useFormInputs(initialState)
-  const { category, description, baseUr, visibility, readMe, about, documentation, website, additionalInfo } = inputs
+  const { category, description, base_url, visibility, read_me, about, documentation, api_website, term_of_use } = inputs
   const { error, loading, sendRequest } = useHttpRequest()
   const cookies = new Cookies()
   const profileId = cookies.get("profileId")
@@ -26,7 +26,7 @@ const GeneralTab: React.FC = () => {
 
   const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const payload = { category, description, baseUr, visibility, readMe, about, documentation, website, additionalInfo }
+    const payload = { category, description, base_url, visibility, read_me, about, documentation, api_website, term_of_use }
     const headers = { 'Content-Type': 'application/json' }
     try{
       const data = await sendRequest(`${core_url}/api/${profileId}`, 'POST', JSON.stringify(payload), headers)
@@ -58,16 +58,16 @@ const GeneralTab: React.FC = () => {
           <TextField required variant="outlined" name="description" {...bind} multiline id="description" maxRows={10} fullWidth={true} helperText="Describe in few words what’s this API do" />
         </Box>
         <Box width="600px" mt={2}>
-          <InputLabel htmlFor="readme">Read Me (optional)</InputLabel>
-          <TextField variant="outlined" multiline id="readMe" maxRows={10} fullWidth={true} helperText="Describe in detail what’s API do and how it might be helpful" />
+          <InputLabel htmlFor="read_me">Read Me (optional)</InputLabel>
+          <TextField variant="outlined" multiline id="read_me" maxRows={10} fullWidth={true} helperText="Describe in detail what’s API do and how it might be helpful" />
         </Box>
         <Box width="600px" mt={2}>
           <InputLabel htmlFor="documentation">Documentation (optional)</InputLabel>
           <TextField variant="outlined" name="about" {...bind} multiline id="documentation" maxRows={10} fullWidth={true} helperText="Use this section to provide detailed documentation of your API and to highlight its benefits and features." />
         </Box>
         <Box width="300px" mt={2}>
-          <InputLabel htmlFor="website">Website (optional)</InputLabel>
-          <TextField placeholder="https://" name="website" {...bind} variant="outlined" id="website" fullWidth={true} />
+          <InputLabel htmlFor="api_website">Website(optional)</InputLabel>
+          <TextField placeholder="https://" name="api_website" {...bind} variant="outlined" id="website" fullWidth={true} />
         </Box>
         <Box mt={2}>
         <Typography variant="body1" fontSize="20px" fontWeight={800}>Visibility</Typography>
@@ -98,16 +98,16 @@ const GeneralTab: React.FC = () => {
           <Typography variant="body1" fontSize="18px" fontWeight={400}>Add a base URL, configure multiple URLs, override URLs, and select a load balancer</Typography>
           <InputLabel htmlFor="website">URL</InputLabel>
           <Stack direction="row">
-            <TextField required name="baseUrl" {...bind} placeholder="https://" variant="outlined" id="website" fullWidth={true} />
+            <TextField required name="base_url" {...bind} placeholder="https://" variant="outlined" id="website" fullWidth={true} />
           </Stack>
         </Box>
         </Box>
         <Box width="600px" height="300px" mt={2}>
           <Typography variant="body1" fontSize="20px" fontWeight={800}>Additional Information</Typography>
           <InputLabel htmlFor="terms">Terms of Use (optional)</InputLabel>
-          <TextField variant="outlined" multiline name="additionalInfo" {...bind} maxRows={10} fullWidth={true} />
+          <TextField variant="outlined" multiline name="term_of_use" {...bind} maxRows={10} fullWidth={true} />
         </Box>
-        <Box className={classes.fixedBottom}>
+        <Box>
           <Stack direction="row" spacing={2}>
             <button className={classes.saveBtn}>Save</button>
             <button className={classes.discardBtn}>Discard</button>

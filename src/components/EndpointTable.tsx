@@ -9,14 +9,16 @@ import Paper from '@mui/material/Paper';
 import { makeStyles } from '@mui/styles';
 import { toast } from 'react-toastify';
 
-import { useAppDispatch, useAppSelector, useFormInputs } from "../hooks";
-import { removeEndpoint, editEndpoint } from "../redux/slices/endpointSlice";
+import { useAppDispatch, useFormInputs } from "../hooks";
+import { removeEndpoint, editEndpoint } from "../redux/slices/userSlice";
 import { EndpointProps } from "../interfaces";
+import { EndpointsType } from "../types";
 
 const initialState = { id: "", name: "", route: "", method: "" } as EndpointProps
 
-const CollapsibleTable:React.FC = () => {
-  const { endpoints } = useAppSelector(store => store.endpoints)
+interface Props { endpoints: Array<EndpointsType | null> | undefined}
+
+const CollapsibleTable:React.FC<Props> = ({endpoints}) => {
   const { inputs, bind, select } = useFormInputs(initialState)
   const [isEditing, setIsEditing] = useState<number | null>(null)
   const { name, route, method } = inputs
@@ -51,7 +53,7 @@ const CollapsibleTable:React.FC = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {endpoints.map((item, index) => (
+          {endpoints?.map((item, index) => (
             <TableRow key={item?.id}>
               <TableCell>
                 <input type="text" name="name" defaultValue={item?.name} {...bind} className={classes.input} disabled={isEditing !== index} />

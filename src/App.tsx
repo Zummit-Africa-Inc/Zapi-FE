@@ -5,8 +5,8 @@ import { deviceDetect } from "react-device-detect";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
-import { Analytics, CreateEndpoint, DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditons, ResetPassword } from "./pages";
-import { Fallback, Login, AddApiPopup, GeneralTab, EndpointTab, GatewayTab } from "./components";
+import { DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditons, ResetPassword } from "./pages";
+import { Fallback, Login, AddApiPopup, GeneralTab, GatewayTab } from "./components";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { getUserApis, login } from "./redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "./hooks";
@@ -80,9 +80,8 @@ const App: React.FC = () => {
             <Route path="/reset-password/:token" element={<ResetPassword />} />
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
-              <Route path="/developers/dashboard" element={<DevDashboard />} />
-              <Route path="/developers/api/:id" element={<DeveloperApiPage />} />
-              <Route path="/analytics" element={<Analytics />} />
+              <Route path="/developer/dashboard" element={<DevDashboard />} />
+              <Route path="/developer/api/:id" element={<DeveloperApiPage />} />
               <Route path="/api/:id" element={<APIPage />} />
               <Route path="/configuration" element={<Configuration />} />
               <Route path="/login-history" element={<LoginHistory />} />

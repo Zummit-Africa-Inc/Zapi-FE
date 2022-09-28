@@ -1,32 +1,50 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { Paper, Stack, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { toast } from "react-toastify";
 
+import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
+import { addEndpoint } from "../redux/slices/userSlice";
+// import { EndpointProps } from "../interfaces";
+import { EndpointsType } from "../types";
+import { Spinner } from "../assets";
 import { EndpointTable } from "./";
-import { useAppDispatch, useAppSelector, useFormInputs } from "../hooks";
-import { addEndpoint } from "../redux/slices/endpointSlice";
 
-const initialState = { name: '', route: '', method: 'GET' }
+const core_url = import.meta.env.VITE_BASE_URL
+const initialState = { name: '', route: '', method: 'GET', description: "", headers: [], requestBody: [] }
+interface Props { id: string | undefined }
 
-const EndpointTab: React.FC = () => {
+const EndpointTab: React.FC<Props> = ({id}) => {
+    const [endpoints, setEndpoints] = useState<Array<EndpointsType | null> | undefined>([])
     const { inputs, bind, select } = useFormInputs(initialState)
+    const { userApis } = useAppSelector(store => store.user)
     const [isAdding, setIsAdding] = useState<boolean>(false)
-    const { name, route, method } = inputs
+    const { error, loading, sendRequest } = useHttpRequest()
+    const { name, route, method, description, headers, requestBody } = inputs
     const dispatch = useAppDispatch()
     const classes = useStyles()
 
     const toggleState = () => setIsAdding(prev => !prev)
-
-    const handleSubmit = (e: FormEvent) => {
+    
+    const handleSubmit = async(e: FormEvent) => {
         e.preventDefault()
-
+        
         if(!name || !route) return toast.error("Please add a name and route")
-        const payload = { id: Math.random().toFixed(10).toString(), name, route, method }
-        // * there will be a post and background get request whenever a new endpoint is added
-        dispatch(addEndpoint(payload))
+        const payload = { name, route, method, description, headers, requestBody }
+        const req_headers = { 'Content-Type': 'application/json' }
+        try {
+            const data = await sendRequest(`${core_url}/endpoints/new/${id}`, 'POST', JSON.stringify(payload), req_headers)
+            console.log(data)
+            // if(!data || data === undefined) return
+            // dispatch(addEndpoint(data?.data))
+        } catch (error) {}
         setIsAdding(false)
     }
+    
+    // useEffect(() => {        
+    //     const api = userApis.find(api => api?.id === id)
+    //     if(api) setEndpoints(api.endpoints)
+    // },[])
 
     return (
         <Paper elevation={1} className={classes.paper}>
@@ -63,12 +81,12 @@ const EndpointTab: React.FC = () => {
                         </select>
                         <input type="text" name="route" {...bind} className={classes.inputs} placeholder="Route" />
                         <button type="submit" className={classes.button} style={{background: "#058A04",}}>
-                            Add
+                            {loading ? <Spinner /> : "ADD"}
                         </button>
                     </Stack>
                 </form>
                 )}
-            <EndpointTable />
+            <EndpointTable endpoints={endpoints} />
         </Paper>
     )
 }
