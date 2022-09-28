@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { makeStyles } from "@mui/styles";
-import { Avatar, Fade, Menu, MenuItem, Button, Typography } from '@mui/material'
+import { Avatar, Fade, Menu, MenuItem, Button,Stack, Typography } from '@mui/material'
 import Notification from './Notification';
 import { io } from 'socket.io-client';
 import {HelpOutline, AppsRounded, DeveloperBoardRounded} from '@mui/icons-material'
@@ -60,12 +60,12 @@ const Menus: React.FC = () => {
             <MenuItem onClick={handleClose}>Zummit Academy</MenuItem>
             <MenuItem onClick={handleClose}>Zapi Tools</MenuItem>
         </Menu>
-        <div className={classes.icons}>
+        <Stack direction="row" alignItems="center" justifyContent="center" spacing={2}>
             <DeveloperBoardRounded/>
             <AppsRounded/>
             <HelpOutline />
           <Notification socket={socket}/>
-        </div>
+          </Stack>
           
         <Button id="avatar-button" aria-controls={isAvatarOpen ? 'avatar-menu' : undefined} aria-haspopup="true" aria-expanded={isAvatarOpen ? 'true' : undefined} onClick={handleAvatarClick}>
             <Avatar src={ZapiPic} alt='zapi-pic' />
@@ -87,7 +87,7 @@ const useStyles = makeStyles({
     items:{
         alignItems:'center',
         display:'flex',
-        width:'350px',
+        width:'450px',
         gap:'2rem'
     },
     root:{
