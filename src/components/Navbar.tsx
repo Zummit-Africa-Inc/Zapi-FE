@@ -27,7 +27,7 @@ const Navbar: React.FC<INavProps> = () => {
             <IconButton color="primary">
                <InsertDriveFileOutlined />
             </IconButton>
-            <IconButton color="primary">
+            <IconButton color="primary" style={{marginTop:".2rem"}}>
             <Notification socket={socket}/>
             </IconButton>
             <IconButton color="primary">

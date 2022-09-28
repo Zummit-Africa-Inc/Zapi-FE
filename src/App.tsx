@@ -1,12 +1,13 @@
+import './App.css';
 import React, { Suspense, useEffect, useMemo } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from  "react-router-dom";
 import { ThemeProvider } from "@mui/material";
-import { deviceDetect } from "react-device-detect";
+import { deviceDetect } from  "react-device-detect";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-
-import { DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditons, ResetPassword } from "./pages";
-import { Fallback, Login, AddApiPopup, GeneralTab, GatewayTab } from "./components";
+import { Settings, CreateEndpoint, DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditons, ResetPassword, ComingSoon } from "./pages";
+import { Fallback, Login, AddApiPopup, GeneralTab, EndpointTab, GatewayTab } from "./components";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { getUserApis, login } from "./redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "./hooks";
@@ -77,7 +78,8 @@ const App: React.FC = () => {
             <Route path="/signup" element={<Signup />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/otp" element={<Otp />} />
-            <Route path="/reset-password/:token" element={<ResetPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/coming-soon" element={<ComingSoon />} />
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
               <Route path="/developer/dashboard" element={<DevDashboard />} />
@@ -87,6 +89,7 @@ const App: React.FC = () => {
               <Route path="/login-history" element={<LoginHistory />} />
               <Route path="/success-page" element={<SuccessPage />} />
               <Route path="/general-tab" element={<GeneralTab />} />
+              <Route path="/settingspage" element={<Settings />} />
               <Route path="/gateway-tab" element={<GatewayTab />} />
             </Route>
           </Routes>
