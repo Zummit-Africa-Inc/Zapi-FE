@@ -24,7 +24,7 @@ const Settings = React.lazy(() => import ("./Settings"));
 
 
 export { Analytics, APIPage, Configuration, Settings, CreateEndpoint,DeveloperApiPage, DevDashboard,
-ForgotPassword, Home, HomePage, LoginHistory, Otp, Signup, SuccessPage, UserProfile, TermsConditons, ResetPassword };
+ForgotPassword, Home, HomePage, LoginHistory, Otp, Signup, SuccessPage, UserProfile, TermsConditons, ResetPassword, ComingSoon };
 
 
 
