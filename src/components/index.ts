@@ -1,6 +1,7 @@
 
 export { default as AddApiPopup } from "./AddApiPopup";
 export { default as APICard } from "./APICard";
+export { default as AddAPICard } from "./AddAPICard";
 export { default as ApiPageLayout } from "./ApiPageLayout";
 export { default as ApiPageSidebar } from "./ApiPageSidebar";
 export { default as BaseButton } from "./Button";
