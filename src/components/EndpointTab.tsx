@@ -11,7 +11,7 @@ import { Spinner } from "../assets";
 import { EndpointTable } from "./";
 
 const core_url = import.meta.env.VITE_BASE_URL
-const initialState = { name: '', route: '', method: 'GET', description: "", headers: [], requestBody: [] }
+const initialState = { name: '', route: '', method: 'get', description: "", headers: [], requestBody: [] }
 interface Props { id: string | undefined }
 
 const EndpointTab: React.FC<Props> = ({id}) => {
@@ -74,10 +74,10 @@ const EndpointTab: React.FC<Props> = ({id}) => {
                     <Stack direction="row" alignItems="center" spacing={4} my={4}>
                         <input type="text" name="name" {...bind} className={classes.inputs} placeholder="Name" />
                         <select name="method" {...select} className={classes.inputs}>
-                            <option value="GET">GET</option>
-                            <option value="POST">POST</option>
-                            <option value="PUT">PUT</option>
-                            <option value="DELETE">DELETE</option>
+                            <option value="get">GET</option>
+                            <option value="post">POST</option>
+                            <option value="put">PUT</option>
+                            <option value="delete">DELETE</option>
                         </select>
                         <input type="text" name="route" {...bind} className={classes.inputs} placeholder="Route" />
                         <button type="submit" className={classes.button} style={{background: "#058A04",}}>
