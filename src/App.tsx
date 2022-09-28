@@ -1,11 +1,12 @@
+import './App.css';
 import React, { Suspense, useEffect, useMemo } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from  "react-router-dom";
 import { ThemeProvider } from "@mui/material";
-import { deviceDetect } from "react-device-detect";
+import { deviceDetect } from  "react-device-detect";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-
-import { Analytics, CreateEndpoint, DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditons, ResetPassword } from "./pages";
+import { Analytics, Settings, CreateEndpoint, DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditons, ResetPassword, ComingSoon } from "./pages";
 import { Fallback, Login, AddApiPopup, GeneralTab, EndpointTab, GatewayTab } from "./components";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { getUserApis, login } from "./redux/slices/userSlice";
@@ -54,6 +55,7 @@ const App: React.FC = () => {
   }, []);
 
   const getCategories = useMemo(() =>  (dispatch(getApis())), [])
+
   const getApisByUser = useMemo(() => dispatch(getUserApis()),[])
   
   useEffect(() => {
@@ -77,6 +79,7 @@ const App: React.FC = () => {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/otp" element={<Otp />} />
             <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/coming-soon" element={<ComingSoon />} />
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
               <Route path="/developers/dashboard" element={<DevDashboard />} />
@@ -89,6 +92,7 @@ const App: React.FC = () => {
               <Route path="/create-endpoint" element={<CreateEndpoint />} />
               <Route path="/endpoints" element={<EndpointTab />} />
               <Route path="/general-tab" element={<GeneralTab />} />
+              <Route path="/settingspage" element={<Settings />} />
               <Route path="/gateway-tab" element={<GatewayTab />} />
             </Route>
           </Routes>
