@@ -8,8 +8,8 @@ import AddIcon from '@mui/icons-material/Add';
 // Images
 import StarRate  from '../assets/images/star_rate.svg';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import APICard from './APICard';
 import { getUserApis } from '../redux/slices/userSlice';
+import AddAPICard from './AddAPICard';
 
 
 const DevAddApi: React.FC = () => { 
@@ -56,7 +56,7 @@ const DevAddApi: React.FC = () => {
                 {userApis.length !== 0 ? 
                     <div className={classes.apiCard}>
                         {userApis.map((apis: any) => (
-                            <APICard key={apis.id} id={apis.id} name={apis.name} description={apis.description} status={apis.status} />
+                            <AddAPICard key={apis.id} id={apis.id} name={apis.name} description={apis.description}/>
                         ))}
                     </div>
                     :
