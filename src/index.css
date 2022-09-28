@@ -63,9 +63,12 @@ input:-webkit-autofill {
   width: 100%;
   display: flex;
   gap: .5rem;
-  margin-left: 8rem;
+  justify-content: flex-end;
+  padding-right: 1rem;
+  /* margin-left: 8rem;
   margin-top: 2.5rem;
   margin-bottom: 2.5rem;
+  margin-right: 2rem; */
   /* padding: 1rem 1rem; */
 }
 
@@ -99,7 +102,7 @@ input:-webkit-autofill {
 }
 
 .datatable {
-  width: calc(100vw - 350px );
+  width: 100%;
 }
 
 .clickTab{
@@ -113,6 +116,8 @@ input:-webkit-autofill {
 .lowerTab{
   background: #fff;
 }
+
+/* analytics styles end */
 
 .loader {
   display: inline-block;
