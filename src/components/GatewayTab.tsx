@@ -22,16 +22,16 @@ const GatewayTab: React.FC = () => {
                     <form>
                         <div className={classes.gateway}>
                             <div className={classes.way}>
-                            <Typography variant='h6' style={{ fontWeight:800, color:'black',fontSize:'20px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>Gateway DNS</Typography>
-                            <Typography variant='h6' style={{ fontWeight:800, color:'black',fontSize:'16px',display:'block', boxSizing:'border-box',outline:'none 0px', letterSpacing:'normal',lineHeight:'16px' }}>The gateway developers use to make request to the API.</Typography>
+                            <span  style={{ fontWeight:800, color:'black',fontSize:'18px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>Gateway DNS</span>
+                            <span  style={{ fontWeight:800, color:'black',fontSize:'14px',display:'block', boxSizing:'border-box',outline:'none 0px', letterSpacing:'normal',lineHeight:'16px' }}>The gateway developers use to make request to the API.</span>
                             </div>
                             <div className={classes.dropdown}>
                                 <SelectMulti />
                             </div>
                             <div className={classes.fire}>
                                 <div className={classes.wall}>
-                                    <Typography variant='h6'style={{ fontWeight:800, color:'black',fontSize:'20px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>Firewall Settings</Typography>
-                                    <Typography variant='h6' style={{ marginTop:'8px', fontWeight:'800px', color:'black',fontSize:'16px',display:'block', boxSizing:'border-box',outline:'none 0px', letterSpacing:'normal',lineHeight:'16px' }}>Protect your API by blocking requests that are not from the RapidAPI infrastructure. RapidAPI adds the “X-RapidAPI-Proxy-Secret” header on every request. This header has a unique value for each API.</Typography>
+                                    <Typography variant='h6'style={{ fontWeight:800, color:'black',fontSize:'18px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>Firewall Settings</Typography>
+                                    <Typography variant='h6' style={{ marginTop:'8px', fontWeight:'800px', color:'rgba(0, 0, 0, 0.6)',fontSize:'16px',display:'block', boxSizing:'border-box',outline:'none 0px', letterSpacing:'normal',lineHeight:'16px' }}>Protect your API by blocking requests that are not from the RapidAPI infrastructure. RapidAPI adds the “X-RapidAPI-Proxy-Secret” header on every request. This header has a unique value for each API.</Typography>
                                 </div>
                             </div>
                             <ProxySecret />
@@ -83,7 +83,8 @@ const useStyles = makeStyles({
     way:{
         flexDirection:'column',
         boxSizing:'border-box',
-        display:'flex'
+        display:'flex',
+        gap:'1rem'
     },
     dropdown:{
         marginTop:'16px',
@@ -97,6 +98,7 @@ const useStyles = makeStyles({
         flexDirection: 'column',
         boxSizing: 'border-box',
         display: 'flex',
+        textAlign:'justify'
     },
     fixedBottom: {
         width: '100%',
