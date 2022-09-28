@@ -19,6 +19,7 @@ const CreateEndpoint = React.lazy(() => import("./CreateEndpoint"));
 // const OrgPage = React.lazy(() => import("./Orgpage"));
 const ResetPassword = React.lazy(() => import("./ResetPassword"));
 const TermsConditons = React.lazy(() => import("./Terms&Conditions"))
+const ComingSoon = React.lazy(() => import("./ComingSoon"))
 const Settings = React.lazy(() => import ("./Settings"));
 
 

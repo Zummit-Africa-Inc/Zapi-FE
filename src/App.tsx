@@ -6,8 +6,7 @@ import { deviceDetect } from  "react-device-detect";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-
-import { Analytics, Settings, CreateEndpoint, DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditons, ResetPassword } from "./pages";
+import { Analytics, Settings, CreateEndpoint, DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditons, ResetPassword, ComingSoon } from "./pages";
 import { Fallback, Login, AddApiPopup, GeneralTab, EndpointTab, GatewayTab } from "./components";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { getUserApis, login } from "./redux/slices/userSlice";
@@ -80,6 +79,7 @@ const App: React.FC = () => {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/otp" element={<Otp />} />
             <Route path="/reset-password/:token" element={<ResetPassword />} />
+            <Route path="/coming-soon" element={<ComingSoon />} />
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
               <Route path="/developers/dashboard" element={<DevDashboard />} />
