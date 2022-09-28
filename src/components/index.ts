@@ -2,6 +2,7 @@
 export { default as AddApiPopup } from "./AddApiPopup";
 export { default as Analytics } from "./Analytics";
 export { default as APICard } from "./APICard";
+export { default as DevAPICard } from "./DevAPICard";
 export { default as ApiPageLayout } from "./ApiPageLayout";
 export { default as ApiPageSidebar } from "./ApiPageSidebar";
 export { default as BaseButton } from "./Button";

@@ -6,9 +6,9 @@ import AddIcon from '@mui/icons-material/Add';
 
 import { useContextProvider } from "../contexts/ContextProvider";
 import StarRate  from '../assets/images/star_rate.svg';
-import { useAppSelector } from '../hooks';
-import APICard from './APICard';
-
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { getUserApis } from '../redux/slices/userSlice';
+import DevAPICard from './DevAPICard';
 
 const DevAddApi: React.FC = () => { 
     const { userApis } = useAppSelector(store => store.user);
