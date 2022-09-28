@@ -49,10 +49,10 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
     }, [socket]);
 
 
-    const displayNotification = (type: number) => {
+    const displayNotification = (type: string) => {
         let action;
 
-        if (type === 1) {
+        if (type === "newSubscription") {
             action = "newSubscription";
             return (
                 <MenuItem>
@@ -60,7 +60,7 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
                     <span className={classes.notification}>Someone Subscribed To your api</span>
                 </MenuItem>
             )
-        } else if (type === 2) {
+        } else if (type === "unSubscription") {
             action = "unSubscription";
             return (
                 <MenuItem>
@@ -69,7 +69,7 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
                 </MenuItem>
             )
         }
-        else if (type === 3) {
+        else if (type === "apiHosted") {
             action = "apiHosted";
             return (
                 <MenuItem>
