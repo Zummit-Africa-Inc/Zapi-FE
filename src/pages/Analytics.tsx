@@ -80,7 +80,7 @@ const Analytics: React.FC = () => {
                 <Widget className={errStyle} title='Errors' subtitle={errorParam} onClick={handleErrClick} span='0%' />
                 <Widget className={successStyle} title='Success' subtitle={successParam} onClick={handleSuccessClick} span='0ms' />
             </div>
-            <div className={classes.content}>
+            <div>
                 {ROWS ?
                     <DataTable Heading={TABLEHADING} Rows={ROWS} />
                     :
