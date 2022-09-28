@@ -15,7 +15,6 @@ const initialState = { name: '', route: '', method: 'get', description: "", head
 interface Props { id: string | undefined }
 
 const EndpointTab: React.FC<Props> = ({id}) => {
-    const [endpoints, setEndpoints] = useState<Array<EndpointsType | null> | undefined>([])
     const { inputs, bind, select } = useFormInputs(initialState)
     const { userApis } = useAppSelector(store => store.user)
     const [isAdding, setIsAdding] = useState<boolean>(false)
@@ -35,16 +34,11 @@ const EndpointTab: React.FC<Props> = ({id}) => {
         try {
             const data = await sendRequest(`${core_url}/endpoints/new/${id}`, 'POST', JSON.stringify(payload), req_headers)
             console.log(data)
-            // if(!data || data === undefined) return
-            // dispatch(addEndpoint(data?.data))
+            if(!data || data === undefined) return
+            dispatch(addEndpoint(data?.data))
         } catch (error) {}
         setIsAdding(false)
     }
-    
-    // useEffect(() => {        
-    //     const api = userApis.find(api => api?.id === id)
-    //     if(api) setEndpoints(api.endpoints)
-    // },[])
 
     return (
         <Paper elevation={1} className={classes.paper}>
@@ -86,7 +80,7 @@ const EndpointTab: React.FC<Props> = ({id}) => {
                     </Stack>
                 </form>
                 )}
-            <EndpointTable endpoints={endpoints} />
+            <EndpointTable id={`${id}`} />
         </Paper>
     )
 }

@@ -9,21 +9,22 @@ import Paper from '@mui/material/Paper';
 import { makeStyles } from '@mui/styles';
 import { toast } from 'react-toastify';
 
-import { useAppDispatch, useFormInputs } from "../hooks";
+import { useAppDispatch, useAppSelector, useFormInputs } from "../hooks";
 import { removeEndpoint, editEndpoint } from "../redux/slices/userSlice";
 import { EndpointProps } from "../interfaces";
 import { EndpointsType } from "../types";
 
 const initialState = { id: "", name: "", route: "", method: "" } as EndpointProps
 
-interface Props { endpoints: Array<EndpointsType | null> | undefined}
+interface Props { id: string | undefined }
 
-const CollapsibleTable:React.FC<Props> = ({endpoints}) => {
+const CollapsibleTable:React.FC<Props> = ({id}) => {
   const { inputs, bind, select } = useFormInputs(initialState)
   const [isEditing, setIsEditing] = useState<number | null>(null)
   const { name, route, method } = inputs
   const dispatch = useAppDispatch()
   const classes = useStyles()
+  const { userApis } = useAppSelector(store => store.user)
   
   const openEditing = (index: number) => {
     setIsEditing(index)
@@ -53,13 +54,14 @@ const CollapsibleTable:React.FC<Props> = ({endpoints}) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {endpoints?.map((item, index) => (
-            <TableRow key={item?.id}>
+          {userApis?.map((api) => (
+            api?.endpoints?.map((endpoint, index) => (
+            <TableRow key={index}>
               <TableCell>
-                <input type="text" name="name" defaultValue={item?.name} {...bind} className={classes.input} disabled={isEditing !== index} />
+                <input type="text" name="name" defaultValue={endpoint?.name} {...bind} className={classes.input} disabled={isEditing !== index} />
               </TableCell>
               <TableCell>
-                <select name="method" defaultValue={item?.method} {...select} className={classes.input} disabled={isEditing !== index}>
+                <select name="method" defaultValue={endpoint?.method} {...select} className={classes.input} disabled={isEditing !== index}>
                   <option value="GET">GET</option>
                   <option value="POST">POST</option>
                   <option value="PUT">PUT</option>
@@ -67,11 +69,11 @@ const CollapsibleTable:React.FC<Props> = ({endpoints}) => {
                 </select>
               </TableCell>
               <TableCell>
-                <input type="text" name="route" defaultValue={item?.route} {...bind} className={classes.input} disabled={isEditing !== index} />
+                <input type="text" name="route" defaultValue={endpoint?.route.toString()} {...bind} className={classes.input} disabled={isEditing !== index} />
               </TableCell>
               <TableCell>
                 {isEditing === index ? (
-                  <button onClick={() => save(item?.id)} className={classes.button} style={{background: "#081F4A"}}>
+                  <button onClick={() => save(endpoint?.id)} className={classes.button} style={{background: "#081F4A"}}>
                     DONE
                   </button>
                 ) : (
@@ -81,12 +83,14 @@ const CollapsibleTable:React.FC<Props> = ({endpoints}) => {
                 )}
               </TableCell>
               <TableCell>
-                <button onClick={() => deleteRoute(item?.id)} className={classes.button} style={{background: "#E32C08"}}>
+                <button onClick={() => deleteRoute(endpoint?.id)} className={classes.button} style={{background: "#E32C08"}}>
                   DELETE
                 </button>
               </TableCell>
-            </TableRow>
+            </TableRow>))
           ))}
+          {/* {endpoints?.map((item, index) => (
+          ))} */}
         </TableBody>
       </Table>
     </TableContainer>
