@@ -12,7 +12,7 @@ interface CardProps {
     description: string
 };
 
-const AddAPICard: React.FC<CardProps> = ({id,name,description}) => {
+const DevAPICard: React.FC<CardProps> = ({id,name,description}) => {
     const classes = useStyles();
 
    
@@ -58,7 +58,7 @@ const useStyles = makeStyles({
    
 });
 
-export default AddAPICard;
+export default DevAPICard;
 
 
 
