@@ -3,6 +3,7 @@ import { makeStyles } from "@mui/styles";
 import { Avatar, Fade, Menu, MenuItem, Button, Typography } from '@mui/material'
 import Notification from './Notification';
 import { io } from 'socket.io-client';
+import {HelpOutline, AppsRounded, DeveloperBoardRounded} from '@mui/icons-material'
 
 import { ZapiDash, ZapiApps, ZapiHelp, ZapiArrow, ZapiPic } from '../assets'
 
@@ -60,10 +61,10 @@ const Menus: React.FC = () => {
             <MenuItem onClick={handleClose}>Zapi Tools</MenuItem>
         </Menu>
         <div className={classes.icons}>
+            <DeveloperBoardRounded/>
+            <AppsRounded/>
+            <HelpOutline />
           <Notification socket={socket}/>
-            <img src={ZapiDash} alt='zapi-board' style={{ color:'#00000' }}/>
-            <img src={ZapiApps} alt='zapi-apps' style={{ color:'#00000' }}/>
-            <img src={ZapiHelp} alt='zapi-help' style={{ color:'#00000' }}/>
         </div>
           
         <Button id="avatar-button" aria-controls={isAvatarOpen ? 'avatar-menu' : undefined} aria-haspopup="true" aria-expanded={isAvatarOpen ? 'true' : undefined} onClick={handleAvatarClick}>

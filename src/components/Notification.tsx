@@ -106,7 +106,7 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
                             aria-expanded={open ? 'true' : undefined}
                             aria-haspopup="true"
                         >
-                            <NotificationsNoneIcon color="action" />
+                            <NotificationsNoneIcon style={{ cursor: "pointer", color:"black", marginTop: ".25rem"}} />
                         </span>
                     </Badge>
                     :
@@ -117,7 +117,7 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
                         aria-expanded={open ? 'true' : undefined}
                         aria-haspopup="true"
                     >
-                        <NotificationsNoneIcon color="action" />
+                        <NotificationsNoneIcon style={{ cursor: "pointer", color:"black", marginTop: ".25rem"}} />
                     </span>
                 }
                 {open && (
