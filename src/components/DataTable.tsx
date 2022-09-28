@@ -1,10 +1,34 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TablePagination } from '@mui/material';
+import { tableCellClasses } from '@mui/material/TableCell';
 import React, { useState } from 'react';
+import { styled } from '@mui/material/styles';
 
 interface TableProps {
   Heading: Array<string>
   Rows: Array<any>
 }
+
+
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}))
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
 
 const DataTable: React.FC<TableProps> = ({Heading, Rows}) => {
   const [page, setPage] = useState<number>(0);
@@ -25,19 +49,19 @@ const DataTable: React.FC<TableProps> = ({Heading, Rows}) => {
   return (
     <div className='datatable'>
       <TableContainer component={Paper} className="table">
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ minWidth: 700 }} aria-label="simple table">
           <TableHead>
             <TableRow>{Heading.map((heading) => (
-                <TableCell className="tableCell" key={heading}>{heading}</TableCell>
+                <StyledTableCell className="tableCell" key={heading}>{heading}</StyledTableCell>
             ))}
             </TableRow>
           </TableHead>
           <TableBody>
             {result.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, i) => (
-              <TableRow key={i}>{Object.values(row).map((m, i) => (
-                <TableCell className="tableCell" key={i}>{m}</TableCell>
+              <StyledTableRow key={i}>{Object.values(row).map((m, i) => (
+                <StyledTableCell className="tableCell" key={i}>{m}</StyledTableCell>
               ))}
-              </TableRow>
+              </StyledTableRow>
             ))}
           </TableBody>
         </Table>

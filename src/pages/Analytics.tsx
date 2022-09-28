@@ -80,12 +80,14 @@ const Analytics: React.FC = () => {
                 <Widget className={errStyle} title='Errors' subtitle={errorParam} onClick={handleErrClick} span='0%' />
                 <Widget className={successStyle} title='Success' subtitle={successParam} onClick={handleSuccessClick} span='0ms' />
             </div>
+            <div className={classes.content}>
             <div className="table">
                 {ROWS ? 
                 <DataTable Heading={TABLEHADING} Rows={ROWS} />
                 :
                 "No data yet"
                 }
+            </div>
             </div>
 
     </div>
@@ -107,6 +109,14 @@ const useStyles = makeStyles({
         }
     },
     analytics: {
-        width: "calc(100vw - 250px)"
+        //width: "calc(100vw - 250px)",
+        width: "100%",
+      
+    },
+    content: {
+        display: "flex",
+       alignItems: 'center',
+        justifyContent:'center',
+        
     }
 })
