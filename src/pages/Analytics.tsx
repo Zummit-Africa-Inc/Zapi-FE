@@ -53,12 +53,12 @@ const Analytics: React.FC = () => {
         setSuccessStyle('clickTab')
     }
     return (
-        <div className={classes.analytics}>
+        <Paper elevation={1} className={classes.paper}>
             <div className="heading">
                 <Typography sx={{ fontSize: '1.5rem', fontWeight: 500, color: 'var(--color-primary)', padding: '2rem 2rem' }}>default-application_6350466 - Analytics</Typography>
             </div>
-            <div className="selects">
-                <div className="select-box">
+            <div className='selects'>
+                <div className='select-box'>
                     <span className='select-title'>Statistics</span>
                     <InputSearch className={classes.select} type='select' name="statsParams" value={statsParam || errorParam || successParam} onSelect={handleStats} data={statsData} />
                 </div>
@@ -80,7 +80,7 @@ const Analytics: React.FC = () => {
                 <Widget className={errStyle} title='Errors' subtitle={errorParam} onClick={handleErrClick} span='0%' />
                 <Widget className={successStyle} title='Success' subtitle={successParam} onClick={handleSuccessClick} span='0ms' />
             </div>
-            <div className={classes.content}>
+            <div>
             <div >
                 {ROWS ?
                     <DataTable Heading={TABLEHADING} Rows={ROWS} />
@@ -89,7 +89,7 @@ const Analytics: React.FC = () => {
                 }
             </div>
             </div>
-        </div>
+        </Paper>
     )
 }
 
@@ -100,7 +100,7 @@ export default Analytics
 const useStyles = makeStyles({
     select: {
         '& select': {
-            padding: '.3rem .4rem',
+            padding: '.2rem .3rem',
         }
     },
     tabs: {
@@ -109,19 +109,19 @@ const useStyles = makeStyles({
             fontSize: '2rem'
         }
     },
-    analytics: {
+    content: {
      display: "flex",
-      flexDirection: "column",
-        gap: "2.5rem",
-          background: 'white',
+        alignItems:'center',
+       padding: '10px 10px',
+       justifyContent: 'space-between'
     },
 
-      content: {
+    paper: {
         display: "flex",
-        alignItems: 'center',
-        justifyContent:'center',
-        width: "100%",
-       padding: '0.5rem',
-
-    },
+       flexDirection: "column",
+       width: "100%",
+        marginTop: "20px",
+        padding: "2rem 2rem",
+        gap: "3rem"
+    }
 })

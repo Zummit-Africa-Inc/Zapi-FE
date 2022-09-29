@@ -80,7 +80,7 @@ const App: React.FC = () => {
             <Route path="/otp" element={<Otp />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/coming-soon" element={<ComingSoon />} />
-              <Route element={<PrivateRoutes />}>
+                <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
               <Route path="/developers/dashboard" element={<DevDashboard />} />
               <Route path="/developers" element={<DeveloperApiPage />} />
