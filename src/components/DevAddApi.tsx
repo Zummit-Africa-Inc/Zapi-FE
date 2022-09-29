@@ -8,8 +8,8 @@ import AddIcon from '@mui/icons-material/Add';
 // Images
 import StarRate  from '../assets/images/star_rate.svg';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import APICard from './APICard';
 import { getUserApis } from '../redux/slices/userSlice';
+import DevAPICard from './DevAPICard';
 
 
 const DevAddApi: React.FC = () => { 
@@ -50,39 +50,40 @@ const DevAddApi: React.FC = () => {
                     <Typography>Add API Project</Typography>
             </button>
         </div>
+
             {/* Add API Description */}
             <div>
                 {userApis.length !== 0 ? 
                     <div className={classes.apiCard}>
                         {userApis.map((apis: any) => (
-                            <APICard key={apis.id} id={apis.id} name={apis.name} description={apis.description} status={apis.status} />
+                            <DevAPICard key={apis.id} id={apis.id} name={apis.name} description={apis.description}/>
                         ))}
                     </div>
                     :
                     <div className={classes.addApiDesc}>
-                    <Typography gutterBottom variant="subtitle1" sx=
-                        {{
-                            color: "#000000", fontFamily: "Space Grotesk", fontWeight: 700, fontSize: "18px",
-                            lineHeight: "30px", textAlign: "center", marginTop: "116px"
-                        }}>
-                           You do no have any API Projects
-                    </Typography>
-                    <Typography gutterBottom variant="subtitle1" sx={{
-                        color: "#000000", fontFamily: "Space Grotesk", fontStyle: "normal", fontWeight: 400,
-                        fontSize: "16px", lineHeight: "30px", textAlign: "center", marginTop: "16px"
-                    }}>Add a new API Project from scratch or use our “Project 1” 
-                        <br />{""}
-                        to explore API Projects features.
-                    </Typography>
-                    {/* Button */}
-                    <div className={classes.disabledButton}>
-                        <AddIcon sx={{
-                            left: "21px", top: "16px", color: "#585858",
-                        }} />
-                        <Typography>Add API Project</Typography>
+                        <Typography gutterBottom variant="subtitle1" sx=
+                            {{
+                                color: "#000000", fontFamily: "Space Grotesk", fontWeight: 700, fontSize: "18px",
+                                lineHeight: "30px", textAlign: "center", marginTop: "116px"
+                            }}>
+                            You do no have any API Projects
+                        </Typography>
+                        <Typography gutterBottom variant="subtitle1" sx={{
+                            color: "#000000", fontFamily: "Space Grotesk", fontStyle: "normal", fontWeight: 400,
+                            fontSize: "16px", lineHeight: "30px", textAlign: "center", marginTop: "16px"
+                        }}>Add a new API Project from scratch or use our “Project 1” 
+                            <br />{""}
+                            to explore API Projects features.
+                        </Typography>
+                        {/* Button */}
+                        <div className={classes.disabledButton}>
+                            <AddIcon sx={{
+                                left: "21px", top: "16px", color: "#585858",
+                            }} />
+                            <Typography>Add API Project</Typography>
+                        </div>
                     </div>
-    </div>
-}
+                }
             </div>
     </div>
   )
@@ -136,7 +137,6 @@ const useStyles = makeStyles({
             marginBottom: "2rem",
         }
     },
-
     leftText:{
         display: "flex",
         flexDirection: "column",
