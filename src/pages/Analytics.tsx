@@ -1,104 +1,60 @@
-import { Box, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material'
+import { Box, FormControl, InputLabel, MenuItem, Select, Typography, SelectChangeEvent } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { ChangeEvent, useState } from 'react'
 import { Widget, InputSearch, DataTable, Navbar } from '../components'
 import { useFormInputs } from '../hooks'
 import { ERROR, STATISTICS, SUCCESS, TIMERANGE, PERIOD, ZONE, TABLEHADING, ROWS } from '../testdata'
 
-enum Statistics {
-    SUCCESS,
-    ERROR,
-    STATISTICS
-}
-
-interface Analytics {
-    statistics: Statistics,
-    timerange: String,
-    period: String,
-    timezone: String
-}
-
-const initialState = { statistics: Statistics.STATISTICS, timerange: "", period: "", timezone: "" } as Analytics
+const initialState = { statistics: "", timerange: TIMERANGE[0], period: PERIOD[0], timezone: ZONE[0] }
 
 const Analytics: React.FC = () => {
-    const [statsParams, setStatsParams] = useState<string>("")
+    const [statsParam, setStatsParam] = useState<string>("")
     const [errorParam, setErrorParam] = useState<string>("")
     const [successParam, setSuccessParam] = useState<string>("")
-    // const [statsData, setStatsData] = useState<string[]>(STATISTICS)
-    // const [queryParam, setQueryParam] = useState<string>("")
+    const [statsData, setStatsData] = useState<any>(STATISTICS)
+    const [queryParam, setQueryParam] = useState<string>("")
     const [style, setStyle] = useState('clickTab')
     const [errStyle, setErrStyle] = useState('tab')
     const [successStyle, setSuccessStyle] = useState('tab')
-    const [analytics, setAnalytics] = useState(STATISTICS)
     const classes = useStyles()
 
     const { inputs, bind, select } = useFormInputs(initialState);
     const { statistics, timerange, timezone, period } = inputs
 
-    const handleStatChange = () => {
-        setAnalytics(STATISTICS)
-    }
-    const handleErrChange = () => {
-        setAnalytics(ERROR)
-    }
-    const handleSuccChange = () => {
-        setAnalytics(SUCCESS)
-    }
+   
+    
+    console.log(inputs)
 
-    const handleSubmit = () => {
-        console.log(inputs)
+    const handleStatClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        setStatsData(STATISTICS)
+        setStyle('clickTab')
+        setErrStyle('tab')
+        setSuccessStyle('tab')
+
     }
-
-    // const handleStats = (e: ChangeEvent<HTMLSelectElement>) => {
-    //     if (statsData === STATISTICS) {
-    //         setStatsParam(e.target.value)
-    //     } else {
-    //         setStatsParam(STATISTICS[0])
-    //     }
-    //     if (statsData === ERROR) {
-    //         setErrorParam(e.target.value)
-    //     } else {
-    //         setErrorParam(ERROR[0])
-    //     }
-    //     if (statsData === SUCCESS) {
-    //         setSuccessParam(e.target.value)
-    //     } else {
-    //         setSuccessParam(SUCCESS[0])
-    //     }
-    // }
-
-    // const handleStatClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    //     setStatsData(STATISTICS)
-    //     setStyle('clickTab')
-    //     setErrStyle('tab')
-    //     setSuccessStyle('tab')
-
-    // }
-    // const handleErrClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    //     setStatsData(ERROR)
-    //     setStyle('tab')
-    //     setErrStyle('clickTab')
-    //     setSuccessStyle('tab')
-    // }
-    // const handleSuccessClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    //     setStatsData(SUCCESS)
-    //     setStyle('tab')
-    //     setErrStyle('tab')
-    //     setSuccessStyle('clickTab')
-    // }
+    const handleErrClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        setStatsData(ERROR)
+        setStyle('tab')
+        setErrStyle('clickTab')
+        setSuccessStyle('tab')
+    }
+    const handleSuccessClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        setStatsData(SUCCESS)
+        setStyle('tab')
+        setErrStyle('tab')
+        setSuccessStyle('clickTab')
+    }
     return (
         <div className={classes.analytics}>
             <div className="heading">
                 <Typography sx={{ fontSize: '1.5rem', fontWeight: 500, color: 'var(--color-primary)', padding: '2rem 2rem' }}>default-application_6350466 - Analytics</Typography>
             </div>
-            <form onSubmit={handleSubmit}>
-
-            <div className={classes.selects}>
+            {/* <div className={classes.selects}>
                 <Box sx={{ minWidth: 120 }}>
                     <FormControl fullWidth>
                         <label>Statistics</label>
                         <Select name='statistics' labelId="stats" id="stats" value={statistics} {...select}>
-                            {analytics.map((stats, index) => (
+                            {statsData.map((stats:any, index:number) => (
                                 <MenuItem key={index} value={stats.span}>{stats.query}</MenuItem>
                             ))}
                         </Select>
@@ -134,16 +90,16 @@ const Analytics: React.FC = () => {
                         </Select>
                     </FormControl>
                 </Box>
-            </div>
+            </div> */}
             <div className={classes.Tab}>
                 <div className="tabs">
-                    <Widget className={style} title='API Calls' subtitle={statsParams} onClick={handleStatChange} span={statistics} />
+                    <Widget className={style} title='API Calls' subtitle={statsParam} onClick={handleStatClick}  span="0" />
                 </div>
                 <div className="tabs">
-                    <Widget className={errStyle} title='Errors' subtitle={errorParam} onClick={handleErrChange} />
+                    <Widget className={errStyle} title='Errors' subtitle={errorParam} onClick={handleErrClick} span="0" />
                 </div>
                 <div className="tabs">
-                    <Widget className={successStyle} title='Success' subtitle={successParam} onClick={handleSuccChange} />
+                    <Widget className={successStyle} title='Success' subtitle={successParam} onClick={handleSuccessClick} span="0" />
                 </div>
             </div>
             <div>
@@ -153,8 +109,6 @@ const Analytics: React.FC = () => {
                     "No data yet"
                 }
             </div>
-
-                                </form>
         </div>
     )
 }
@@ -194,7 +148,8 @@ const useStyles = makeStyles({
         gap: "2rem"
     },
     Tab: {
+        width: "500px",
         display: "flex",
-        gap: "1rem"
+        gap: ".5rem"
     }
 })
