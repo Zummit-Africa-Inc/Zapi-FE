@@ -1,18 +1,59 @@
 import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
+import TableCell, {tableCellClasses} from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import TablePagination  from "@mui/material/TablePagination";
 import Paper from '@mui/material/Paper';
 import { makeStyles } from '@mui/styles';
+import { styled } from "@mui/material";
 
 import { mockEndpoint } from './mockdata' // test API
 
 const CollapsibleTable:React.FC = () => {
-  const classes = useStyles()
 
+ const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+
+
+
+
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
+
+
+
+  const classes = useStyles()
   const editRoute = (id: string) => {
     console.log(`editing route with id ${id}`)
   }
@@ -26,34 +67,44 @@ const CollapsibleTable:React.FC = () => {
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Method</TableCell>
-            <TableCell>Route</TableCell>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
+            <StyledTableCell>Name</StyledTableCell>
+            <StyledTableCell>Method</StyledTableCell>
+            <StyledTableCell>Route</StyledTableCell>
+            <StyledTableCell></StyledTableCell>
+            <StyledTableCell></StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {mockEndpoint.map((item) => (
-            <TableRow key={item.id}>
-              <TableCell>{item.name}</TableCell>
-              <TableCell>{item.method}</TableCell>
-              <TableCell>{item.route}</TableCell>
-              <TableCell>
+            <StyledTableRow key={item.id}>
+              <StyledTableCell>{item.name}</StyledTableCell>
+              <StyledTableCell>{item.method}</StyledTableCell>
+              <StyledTableCell>{item.route}</StyledTableCell>
+              <StyledTableCell>
                 <button onClick={() => editRoute(item.id)} className={classes.button} style={{background: "#081F4A"}}>
                   EDIT
                 </button>
-              </TableCell>
-              <TableCell>
+              </StyledTableCell>
+              <StyledTableCell>
                 <button onClick={() => deleteRoute(item.id)} className={classes.button} style={{background: "#E32C08"}}>
                   DELETE
                 </button>
-              </TableCell>
-            </TableRow>
+              </StyledTableCell>
+            </StyledTableRow>
           ))}
         </TableBody>
       </Table>
+      <TablePagination
+        rowsPerPageOptions={[5, 15, 30]}
+        component="div"
+        count={mockEndpoint.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </TableContainer>
+    
   );
 }
 
