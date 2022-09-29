@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FormEvent } from "react";
 import { Typography, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, MenuItem } from "@mui/material";
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { makeStyles } from "@mui/styles";
@@ -23,17 +23,20 @@ const AddApiPopup: React.FC = () => {
   const cookies = new Cookies()
   const profileId = cookies.get("profileId")
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
 
     if(!name || !description || !base_url || !categoryId) return toast.error('Please fill all fields')
     const payload = { name, description, base_url, categoryId }
     const headers = { 'Content-Type': 'application/json' }
     try {
       const data = await sendRequest(`${core_url}/api/new/${profileId}`, 'POST', JSON.stringify(payload), headers)
-      console.log(data)
+      const { message } = data
+      toast.success(`${message}`)
     } catch (err) {
       console.log(err)
     }
+    handleUnclicked()
   }
 
   return (
@@ -193,10 +196,11 @@ const useStyles = makeStyles({
     alignItems: "center",
     padding: "8px 16px",
     gap: "16px",
-    width: "150px",
+    // width: "150px",
+    fontFamily: "inherit",
     height: "46px",
     cursor: "pointer",
-    background: "#white",
+    background: "offwhite",
     color: "#1D1D1D",
     border: "1px solid #1D1D1D",
     borderRadius: "8px"
@@ -209,6 +213,7 @@ const useStyles = makeStyles({
     gap: "16px",
     height: "46px",
     background: "#1D1D1D",
+    fontFamily: "inherit",
     color: "white",
     borderRadius: "8px",
     textAlign: "center",

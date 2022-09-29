@@ -1,8 +1,8 @@
 import { Box, FormControl, InputLabel, MenuItem, Select, Typography, SelectChangeEvent } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { ChangeEvent, useState } from 'react'
-import { Widget, InputSearch, DataTable, Navbar } from '../components'
 import { useFormInputs } from '../hooks'
+import { Widget, InputSearch, DataTable, Navbar } from '.'
 import { ERROR, STATISTICS, SUCCESS, TIMERANGE, PERIOD, ZONE, TABLEHADING, ROWS } from '../testdata'
 
 const initialState = { statistics: "", timerange: TIMERANGE[0], period: PERIOD[0], timezone: ZONE[0] }

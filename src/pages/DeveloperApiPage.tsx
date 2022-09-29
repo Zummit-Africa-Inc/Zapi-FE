@@ -1,17 +1,19 @@
-import React from 'react'
-import { makeStyles } from '@mui/styles'
+import React, { useEffect } from "react";
+import { makeStyles } from "@mui/styles";
+import { useParams } from "react-router-dom";
 
-import { ApiPageLayout, DevNavbar } from '../components'
+import { ApiPageLayout, DevNavbar } from "../components";
 
 const DeveloperApiPage:React.FC = () => {
     const classes = useStyles();
+    const { id } = useParams()
 
   return (
     <div className={classes.root}>
         <div className={classes.subRoot}>
             <div className={classes.minRoot}>
                 <DevNavbar />
-                <ApiPageLayout />
+                <ApiPageLayout id={id} />
                 {/* <div className={classes.mainWrap}>
                     <div className={classes.main}>
                     <ApiSidebar />
