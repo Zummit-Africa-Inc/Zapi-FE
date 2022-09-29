@@ -5,7 +5,6 @@ import { Avatar, CardHeader, IconButton, Paper, Box, Card, CardContent, Typograp
 import { Animation, MoreVertRounded } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
-
 interface CardProps {
     id: string
     name: string
@@ -15,13 +14,12 @@ interface CardProps {
 const DevAPICard: React.FC<CardProps> = ({id,name,description}) => {
     const classes = useStyles();
 
-   
     return (
-        <Link to={`/api/${id}`}>
-        <Paper sx={{ width: "420px"}}>
-            <Box sx={{ width: "420px"}}>
-                <Card variant="outlined">
-                    <React.Fragment>
+        <Link to={`/developer/api/${id}`}>
+            <Paper sx={{ width: "420px"}}>
+                <Box sx={{ width: "420px"}}>
+                    <Card variant="outlined">
+                        <React.Fragment>
                         <CardContent>
                             <CardHeader
                                 avatar={
@@ -45,10 +43,10 @@ const DevAPICard: React.FC<CardProps> = ({id,name,description}) => {
                         <Typography sx={{ margin: 1.5, marginLeft: 2.5 }} color="text.secondary">
                             Updated
                         </Typography>
-                    </React.Fragment>
-                </Card>
-            </Box>
-        </Paper>
+                        </React.Fragment>
+                     </Card>
+                 </Box>
+             </Paper>
         </Link>
     );
 };
