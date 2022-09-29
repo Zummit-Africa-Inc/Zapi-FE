@@ -1,4 +1,4 @@
-import { Box, FormControl, InputLabel, MenuItem, Select, Typography, SelectChangeEvent } from '@mui/material'
+import { Box, FormControl, InputLabel, MenuItem, Select, Typography, SelectChangeEvent, Paper } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { ChangeEvent, useState } from 'react'
 import { useFormInputs } from '../hooks'
@@ -45,6 +45,7 @@ const Analytics: React.FC = () => {
         setSuccessStyle('clickTab')
     }
     return (
+        <Paper elevation={1} className={classes.paper}>
         <div className={classes.analytics}>
             <div className="heading">
                 <Typography sx={{ fontSize: '1.5rem', fontWeight: 500, color: 'var(--color-primary)', padding: '2rem 2rem' }}>default-application_6350466 - Analytics</Typography>
@@ -110,6 +111,7 @@ const Analytics: React.FC = () => {
                 }
             </div>
         </div>
+        </Paper>
     )
 }
 
@@ -131,13 +133,17 @@ const useStyles = makeStyles({
         // marginRight: "2rem",
         /* padding: 1rem 1rem; */
     },
+    paper: {
+        width: "950px",
+        marginTop: "20px",
+        padding: "2rem 2rem",
+    },
     select: {
         '& select': {
             padding: '.3rem .4rem',
         }
     },
     tabs: {
-
         '& span': {
             fontSize: '2rem'
         }

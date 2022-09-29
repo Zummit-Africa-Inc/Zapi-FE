@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { makeStyles } from "@mui/styles";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { Box, FormControl, InputLabel, MenuItem, Select, Stack, TextField, Typography, Switch, SelectChangeEvent } from '@mui/material';
+import { Box, FormControl, InputLabel, MenuItem, Select, Stack, TextField, Typography, Switch, SelectChangeEvent, Paper } from '@mui/material';
 import Cookies from 'universal-cookie';
 
 import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from '../hooks';
@@ -71,6 +71,7 @@ const GeneralTab: React.FC = () => {
 
   return (
     <>
+    <Paper elevation={1} className={classes.paper}>
     <div className={classes.container}>
       <Typography variant="body1" fontSize="24px"  fontWeight={800}>General Information</Typography>
       <form onSubmit={handleSubmit}>
@@ -150,6 +151,7 @@ const GeneralTab: React.FC = () => {
         </Box>
       </form>
     </div>
+    </Paper>
     </>
   )
 }
@@ -157,6 +159,11 @@ const GeneralTab: React.FC = () => {
 export default GeneralTab;
 
 const useStyles = makeStyles({
+  paper: {
+    width: "950px",
+    marginTop: "20px",
+    padding: "2rem 2rem",
+},
   container: {
     background: 'inherit',
     borderRadius: '5px',
