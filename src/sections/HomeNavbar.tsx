@@ -11,6 +11,7 @@ import { logout } from "../redux/slices/userSlice";
 import { useAppDispatch } from "../hooks/redux-hook";
 import Cookies from "universal-cookie";
 
+
 const HomeNavbar: React.FC = () => {
     const classes = useStyles()
     const [open, setOpen] = useState(classes.mobile)

@@ -4,6 +4,9 @@ import { Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import OtpInput from "react-otp-input";
 import { toast } from "react-toastify";
+import { showModal } from "../redux/slices/modalSlice";
+import { useAppDispatch, useAppSelector } from "../hooks/redux-hook";
+import {Login} from "../components";
 
 import { useHttpRequest } from "../hooks";
 import { Fallback, Navbar } from "../components";
@@ -15,12 +18,14 @@ const Otp: React.FC = () => {
   const [code, setCode] = useState("");
   const navigate = useNavigate();
   const classes = useStyles();
-
+  const dispatch = useAppDispatch();
+  const modalAction = useAppSelector((state) => state.modal.action);
+  const modalType = useAppSelector((state) => state.modal.type);
+  const modalDemo = useAppSelector((state) => state);
   const handleChange = (code: React.SetStateAction<string>) => setCode(code);
-
+  console.log(modalDemo)
   const handleSubmit = async(e: FormEvent) => {
     e.preventDefault()
-
     if(!code) return toast.error('Please enter the OTP');
     const payload = { otp: code }
     const headers = { 'Content-Type': 'application/json' }
@@ -33,7 +38,11 @@ const Otp: React.FC = () => {
       } else {
         toast.success(`${data?.message}`)
         const timeout = setTimeout(() => {
-          navigate('/login')
+          // navigate('/login')
+          dispatch(showModal({
+            action: "show",
+            type:'loginModal'
+          }))
         }, 3000)
         return () => clearTimeout(timeout)
       }
@@ -61,6 +70,7 @@ const Otp: React.FC = () => {
           <button type="submit">Submit</button>
         </form>
       </section>
+      {modalAction === 'show' && modalType === 'loginModal' ? <Login /> : null }
     </div>
     </>
   );

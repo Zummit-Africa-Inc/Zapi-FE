@@ -11,6 +11,8 @@ import { EMAIL_REGEX, PASSWORD_REGEX } from "../utils";
 import { login } from "../redux/slices/userSlice";
 import { Fallback } from "../components";
 import { GoogleIcon } from "../assets";
+import { showModal } from "../redux/slices/modalSlice";
+
 
 const initialState = {email: "",password: ""};
 const url = import.meta.env.VITE_IDENTITY_URL;
@@ -50,6 +52,10 @@ const Login: React.FC = () => {
       cookies.set('profileId', profileId);
       cookies.set('userId', userId);
       handleUnclicked('login')
+      dispatch(showModal({
+        action: "hide",
+        type:'loginModal'
+      }))
       navigate("/developers/dashboard")
     } catch (error) {};
   };
