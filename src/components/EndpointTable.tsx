@@ -25,6 +25,7 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
   const dispatch = useAppDispatch()
   const classes = useStyles()
   const { userApis } = useAppSelector(store => store.user)
+  const api = userApis.find(api => api?.id === id)
   
   const openEditing = (index: number) => {
     setIsEditing(index)
@@ -54,8 +55,7 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {userApis?.map((api) => (
-            api?.endpoints?.map((endpoint, index) => (
+          {api?.endpoints?.map((endpoint, index) => (
             <TableRow key={index}>
               <TableCell>
                 <input type="text" name="name" defaultValue={endpoint?.name} {...bind} className={classes.input} disabled={isEditing !== index} />
@@ -75,10 +75,10 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
                 {isEditing === index ? (
                   <button onClick={() => save(endpoint?.id)} className={classes.button} style={{background: "#081F4A"}}>
                     DONE
-                  </button>
-                ) : (
+                 </button>
+               ) : (
                   <button onClick={() => openEditing(index)} className={classes.button} style={{background: "#081F4A"}}>
-                    EDIT
+                   EDIT
                   </button>
                 )}
               </TableCell>
@@ -87,10 +87,8 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
                   DELETE
                 </button>
               </TableCell>
-            </TableRow>))
+            </TableRow>
           ))}
-          {/* {endpoints?.map((item, index) => (
-          ))} */}
         </TableBody>
       </Table>
     </TableContainer>

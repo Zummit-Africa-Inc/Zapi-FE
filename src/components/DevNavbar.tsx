@@ -19,7 +19,7 @@ const DevNavbar: React.FC = () => {
 
         <div className={classes.widget}>
             <img src={ZapiWidget} alt='Zapi-widget' />
-            <Link to='#' className={classes.api}>API Projects</Link>
+            <Link to='/developer/dashboard' className={classes.api}>API Projects</Link>
         </div>
         <Menus />
     </div>
