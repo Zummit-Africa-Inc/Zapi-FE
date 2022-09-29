@@ -24,6 +24,8 @@ const GeneralTab: React.FC = () => {
   const classes = useStyles()
   const [image, setImage] = useState(null)
 
+  console.log(apis)
+
   const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const payload = { category, description, base_url, visibility, read_me, about, documentation, api_website, term_of_use }
