@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material'
+import { Typography, Paper } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { ChangeEvent, useState } from 'react'
 import { Widget, InputSearch, DataTable, Navbar } from '../components'
@@ -80,14 +80,15 @@ const Analytics: React.FC = () => {
                 <Widget className={errStyle} title='Errors' subtitle={errorParam} onClick={handleErrClick} span='0%' />
                 <Widget className={successStyle} title='Success' subtitle={successParam} onClick={handleSuccessClick} span='0ms' />
             </div>
-            <div>
+            <div className={classes.content}>
+            <div >
                 {ROWS ?
                     <DataTable Heading={TABLEHADING} Rows={ROWS} />
                     :
                     "No data yet"
                 }
             </div>
-
+            </div>
         </div>
     )
 }
@@ -109,8 +110,18 @@ const useStyles = makeStyles({
         }
     },
     analytics: {
-       display: "flex",
-       flexDirection: "column",
+     display: "flex",
+      flexDirection: "column",
         gap: "2.5rem",
+          background: 'white',
+    },
+
+      content: {
+        display: "flex",
+        alignItems: 'center',
+        justifyContent:'center',
+        width: "100%",
+       padding: '0.5rem',
+
     },
 })
