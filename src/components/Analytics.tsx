@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { ChangeEvent, useState } from 'react'
-import { Widget, InputSearch, DataTable, Navbar } from '../components'
+import { Widget, InputSearch, DataTable, Navbar } from '.'
 import { ERROR, STATISTICS, SUCCESS, TIMERANGE, PERIOD, ZONE, TABLEHADING, ROWS } from '../testdata'
 
 const Analytics: React.FC = () => {

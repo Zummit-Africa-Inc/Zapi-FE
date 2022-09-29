@@ -4,12 +4,6 @@ import ControlCameraIcon from '@mui/icons-material/ControlCamera';
 import ScienceOutlinedIcon from '@mui/icons-material/Science';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import { Analytics, Settings } from "./pages";
-import GeneralTab from "./components/GeneralTab";
-import Community from "./components/Community";
-import EndpointTab from "./components/EndpointTab";
-import GatewayTab from "./components/GatewayTab";
-
 
 export const APIS = [
     {
@@ -341,44 +335,6 @@ export const APIData = [
         image: <EditOutlinedIcon />,
         text: "Settings",
         link: "/"
-    },
-]
-
-export const DEVSNAVBAR = [
-    {
-        name: "General",
-        link: "/general-tab",
-        page: <GeneralTab />
-    },
-    {
-        name: "Endpoints",
-        link: "/endpoints",
-        page: <EndpointTab />
-    },
-    {
-        name: "Gateway",
-        link: '/gateway-tab',
-        page: <GatewayTab />
-    },
-    {
-        name: "Community",
-        link: "/community",
-        page: <Community />
-    },
-    {
-        name: "Monetize",
-        link: "/",
-        page: "Monetize"
-    },
-    {
-        name: "Analytics",
-        link: "/analytics",
-        page: <Analytics />
-    },
-    {
-        name: "Settings",
-        link: "/settings",
-        page: <Settings/>
     },
 ]
 

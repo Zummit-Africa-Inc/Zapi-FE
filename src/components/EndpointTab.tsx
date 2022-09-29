@@ -1,30 +1,42 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { Paper, Stack, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { toast } from "react-toastify";
 
-import { EndpointTable, InputSearch } from "./";
-import { useFormInputs } from "../hooks";
-import { mockEndpoint } from './mockdata' // test API
+import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
+import { addEndpoint } from "../redux/slices/userSlice";
+// import { EndpointProps } from "../interfaces";
+import { EndpointsType } from "../types";
+import { Spinner } from "../assets";
+import { EndpointTable } from "./";
 
-const initialState = { name: '', route: '', method: 'GET' }
+const core_url = import.meta.env.VITE_BASE_URL
+const initialState = { name: '', route: '', method: 'get', description: "", headers: [], requestBody: [] }
+interface Props { id: string | undefined }
 
-const EndpointTab: React.FC = () => {
+const EndpointTab: React.FC<Props> = ({id}) => {
     const { inputs, bind, select } = useFormInputs(initialState)
-    const { name, route, method } = inputs
-    const classes = useStyles()
+    const { userApis } = useAppSelector(store => store.user)
     const [isAdding, setIsAdding] = useState<boolean>(false)
+    const { error, loading, sendRequest } = useHttpRequest()
+    const { name, route, method, description, headers, requestBody } = inputs
+    const dispatch = useAppDispatch()
+    const classes = useStyles()
 
     const toggleState = () => setIsAdding(prev => !prev)
-
-    const addEndpoint = (e: FormEvent) => {
+    
+    const handleSubmit = async(e: FormEvent) => {
         e.preventDefault()
-
+        
         if(!name || !route) return toast.error("Please add a name and route")
-        const payload = { id: Math.random().toFixed(10).toString(), name, route, method }
-        // console.log(payload)
-        // * there will be a post and background get request whenever a new endpoint is added
-        mockEndpoint.unshift(payload)
+        const payload = { name, route, method, description, headers, requestBody }
+        const req_headers = { 'Content-Type': 'application/json' }
+        try {
+            const data = await sendRequest(`${core_url}/endpoints/new/${id}`, 'POST', JSON.stringify(payload), req_headers)
+            console.log(data)
+            if(!data || data === undefined) return
+            dispatch(addEndpoint(data?.data))
+        } catch (error) {}
         setIsAdding(false)
     }
 
@@ -37,10 +49,8 @@ const EndpointTab: React.FC = () => {
             <div className={classes.pageSubHeading}>
                 <Typography variant="subtitle2" width="650px" fontWeight={400}>When publishing an API to the ZapiAPI Hub, you can either manually edit endpoint definitions, use a specification file.</Typography>
             </div>
-            {/* Endpoints */}
             <Typography variant="body1" fontSize="24px" color="rgb(123, 123, 194)" fontWeight={500} mt={2}>Endpoints</Typography>
             <Typography variant="body1" fontSize="16px" fontWeight={400} mb={1}>Changes made to the endpoints will be reflected in the Hub.</Typography>
-
             <div className={classes.pageDescription}>
                 <Typography>Add and define your API endpoints.</Typography>
             </div>
@@ -54,23 +64,23 @@ const EndpointTab: React.FC = () => {
             </div>
             </Stack>
             {isAdding && (
-                <form onSubmit={addEndpoint}>
-                <Stack direction="row" alignItems="center" spacing={4} my={4}>
-                    <input type="text" name="name" {...bind} className={classes.inputs} placeholder="Name" />
-                    <select name="method" id="" {...select} className={classes.inputs}>
-                        <option value="GET">GET</option>
-                        <option value="POST">POST</option>
-                        <option value="PUT">PUT</option>
-                        <option value="DELETE">DELETE</option>
-                    </select>
-                    <input type="text" name="route" {...bind} className={classes.inputs} placeholder="Route" />
-                    <button type="submit" className={classes.button} style={{background: "#058A04",}}>
-                        Add
-                    </button>
-                </Stack>
-            </form>
-            )}
-            <EndpointTable />
+                <form onSubmit={handleSubmit}>
+                    <Stack direction="row" alignItems="center" spacing={4} my={4}>
+                        <input type="text" name="name" {...bind} className={classes.inputs} placeholder="Name" />
+                        <select name="method" {...select} className={classes.inputs}>
+                            <option value="get">GET</option>
+                            <option value="post">POST</option>
+                            <option value="put">PUT</option>
+                            <option value="delete">DELETE</option>
+                        </select>
+                        <input type="text" name="route" {...bind} className={classes.inputs} placeholder="Route" />
+                        <button type="submit" className={classes.button} style={{background: "#058A04",}}>
+                            {loading ? <Spinner /> : "ADD"}
+                        </button>
+                    </Stack>
+                </form>
+                )}
+            <EndpointTable id={`${id}`} />
         </Paper>
     )
 }
@@ -122,6 +132,7 @@ const useStyles = makeStyles({
         lineHeight: 1.75,
         textTransform: "uppercase",
         fontFamily: "var(--body-font)",
+        transition: "0.5s all ease-in-out cubic-bezier(0.075, 0.82, 0.165, 1)",
         cursor: "pointer",
         "& disabled": {
             background: "#E0E0E0",

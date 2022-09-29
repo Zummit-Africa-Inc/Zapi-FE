@@ -1,171 +1,112 @@
-import React, { ChangeEvent, useState, useEffect } from 'react'
-import { makeStyles } from "@mui/styles";
+import React, { FormEvent, useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { makeStyles } from "@mui/styles";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { Box, Divider, FormControl, IconButton, InputLabel, MenuItem, Select, Stack, TextField, Typography, Switch, SelectChangeEvent } from '@mui/material';
-import { useAppSelector } from '../hooks';
-import axios from 'axios';
+import { Box, FormControl, InputLabel, MenuItem, Select, Stack, TextField, Typography, Switch, SelectChangeEvent } from '@mui/material';
 import Cookies from 'universal-cookie';
+
+import { useAppSelector, useFormInputs, useHttpRequest } from '../hooks';
+import { AddApiProps } from "../interfaces";
 import ImageUpload from "./ImageUpload";
   
-const url = import.meta.env.VITE_BASE_URL
-  
-enum APIVisibility {
-  PRIVATE = 'private',
-  PUBLIC = 'public'
-}
+const core_url = import.meta.env.VITE_BASE_URL
+const initialState = { name: "", category: "", description: "", base_url:"", visibility: "public",
+read_me: null, about: "", documentation: null, api_website: "", term_of_use: "" } as AddApiProps
   
 const GeneralTab: React.FC = () => {
-  const classes = useStyles()
-  const [description, setDescription] = useState("")
-  const [about, setAbout] = useState("")
-  const [api_website, setApi_website] = useState("")
-  const [term_of_use, setTerm_of_use] = useState("")
-  const [base_url, setBase_Url] = useState<String>("");
-  const [logo_url, setLogo_url] = useState<any>();
-  const [visibility, setVisibility] = useState<String>(APIVisibility.PUBLIC)
-  const [categoryId, setCategoryId] = useState<String>("");
   const { apis } = useAppSelector(store => store.apis)
-  const [apiId, setApiId] = useState("")
+  const { inputs, bind, select, toggle } = useFormInputs(initialState)
+  const { category, description, base_url, visibility, read_me, about, documentation, api_website, term_of_use } = inputs
+  const { error, loading, sendRequest } = useHttpRequest()
   const cookies = new Cookies()
   const profileId = cookies.get("profileId")
-  
-  const [formList, setFormList] = useState([{ form: "" }]);
-  const [file, setFile] = useState(null);
-  const [passwordVisible, setPasswordVisible] = useState(true);
+  const classes = useStyles()
+  const [image, setImage] = useState(null)
 
-  const [selected, setSelected] = useState("");
-
-  function handleChange(event: any) {
-    setSelected(event.target.value);
-  }
-
-  const handleRemove = () => {}
-
-  const handleAdd = () => {}
-  
-  const fetchAPI = async() => {
-    try{
-      const data = await axios.get(`${url}/api/user-apis/${profileId}`)
-      data.data.data.map((api: any) => {
-        setApiId(api.id), setDescription(api.description) ,setAbout(api.about) ,setApi_website(api.api_website) ,setTerm_of_use(api.term_of_use) ,setVisibility(api.visibility) ,setCategoryId(api.categoryId)
-        setBase_Url(api.base_url), setLogo_url(api.logo_url)
-      })
-    }catch(err) {
-      console.log(err)
-    }
-  }
-  
-  useEffect(() => {
-    fetchAPI()
-  }, [])
-
-  const handleSwitch = (e: ChangeEvent<HTMLInputElement>) => {
-   if (visibility === APIVisibility.PRIVATE) {
-    setVisibility(APIVisibility.PUBLIC)
-   } else {
-    setVisibility(APIVisibility.PRIVATE)
-   }
-  }
-
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    const payload = { category, description, base_url, visibility, read_me, about, documentation, api_website, term_of_use }
+    const headers = { 'Content-Type': 'application/json' }
     try{
-      const data = {base_url, visibility, categoryId, logo_url, description, api_website, about, term_of_use }
-      
-      console.log(data)
-      
-      const res = await axios.patch(`${url}/api/${apiId}/?profileId=${profileId}`, data)
-      console.log(res)
-    }catch(err){
-      console.log(err)
-    }
+      const data = await sendRequest(`${core_url}/api/${profileId}`, 'POST', JSON.stringify(payload), headers)
+      console.log(payload)
+    }catch(error){}
   }
 
   return (
     <>
-      <div className={classes.container}>
-        <Typography variant="body1" fontSize="24px"  fontWeight={800}>General Information</Typography>
-        <form onSubmit={handleSubmit}>
-          <Stack direction="row" sx={{ marginBottom:'4rem', marginTop: '2rem' }} spacing={4}>
+    <div className={classes.container}>
+      <Typography variant="body1" fontSize="24px"  fontWeight={800}>General Information</Typography>
+      <form onSubmit={handleSubmit}>
+        <Box sx={{width: "200px", height: "200px", margin: "0.5rem 0"}}>
+          <ImageUpload setImageFile={() => setImage} />
+          {/* <Typography variant="body1" fontSize="14px" mt={2}>Maximum Size: 500 x 500px, JPEG / PNG</Typography> */}
+        </Box>
+        <Box mt={2}>
+          <InputLabel htmlFor="category" id="category">Category</InputLabel>
+          <FormControl>
+            <Select required value={category} name="category" {...select} sx={{width: '320px' }}>
+              {apis.map((value) => ( value &&
+                <MenuItem key={value.id} value={value.id}>{value.name}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
+        <Box width="600px" mt={2}>
+          <InputLabel htmlFor="description">Short Description</InputLabel>
+          <TextField required variant="outlined" name="description" {...bind} multiline id="description" maxRows={10} fullWidth={true} helperText="Describe in few words what’s this API do" />
+        </Box>
+        <Box width="600px" mt={2}>
+          <InputLabel htmlFor="read_me">Read Me (optional)</InputLabel>
+          <TextField variant="outlined" multiline id="read_me" maxRows={10} fullWidth={true} helperText="Describe in detail what’s API do and how it might be helpful" />
+        </Box>
+        <Box width="600px" mt={2}>
+          <InputLabel htmlFor="documentation">Documentation (optional)</InputLabel>
+          <TextField variant="outlined" name="about" {...bind} multiline id="documentation" maxRows={10} fullWidth={true} helperText="Use this section to provide detailed documentation of your API and to highlight its benefits and features." />
+        </Box>
+        <Box width="300px" mt={2}>
+          <InputLabel htmlFor="api_website">Website(optional)</InputLabel>
+          <TextField placeholder="https://" name="api_website" {...bind} variant="outlined" id="website" fullWidth={true} />
+        </Box>
+        <Box mt={2}>
+        <Typography variant="body1" fontSize="20px" fontWeight={800}>Visibility</Typography>
+        <Typography variant="body1" fontSize="16px" fontWeight={400}>Switching your API visibility to Public make it searchable and accessible to everyone.</Typography>
+        <Box width="600px" sx={{ padding: '30px', border: '1px solid black', marginBottom: '20px' }}>
+          <Stack direction="row" spacing={2}>
             <Box>
-              <Typography variant="body1" fontSize="16px" mb={2} fontWeight={400}>Drop file to upload or attach it (optional)</Typography>
-              {/* <label htmlFor="filePicker" className={classes.uploadBtn}>
-                Upload Logo
-              </label> */}
-              <ImageUpload setImageFile={logo_url} />
-              {/* <Typography variant="body1" fontSize="14px" mt={2}>Maximum Size: 500 x 500px, JPEG / PNG</Typography> */}
+              {visibility ? <VisibilityIcon /> : <VisibilityOffIcon />}
+            </Box>
+            <Box>
+              {visibility ?
+                <>
+                  <Typography fontWeight={600}>API Project is Public</Typography>
+                  <Typography>Accessible to hundreds of thousands of developers on the Hub</Typography>
+                </>
+                :
+                <>
+                  <Typography fontWeight={600}>API Project is Private</Typography>
+                  <Typography>It&apos;s not visible on the Hub and new users can&apos;t access it</Typography>
+                </>
+              }
+              <Switch value={visibility} name="visibility" {...toggle} />
             </Box>
           </Stack>
-          <Box mt={2}>
-              <InputLabel htmlFor="category" id="category">Category</InputLabel>
-            <FormControl>
-              <Select required value={categoryId}onChange={(e: SelectChangeEvent<String>) => setCategoryId(e.target.value)}
-              sx={{width: '320px' }} inputProps={{name: "agent", id: "age-simple"}}>
-                {apis.map((value) => ( value &&
-                  <MenuItem key={value.id} value={value.id}>{value.name}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Box>
-          <Box width="600px" mt={2}>
-            <InputLabel htmlFor="description">Short Description</InputLabel>
-            <TextField required variant="outlined" value={description} onChange={(e) => setDescription(e.target.value)} multiline id="description" maxRows={10} fullWidth={true} helperText="Describe in few words what’s this API do" />
-          </Box>
-          {/* <Box width="600px" mt={2}>
-            <InputLabel htmlFor="readme">Read Me (optional)</InputLabel>
-            <TextField variant="outlined" multiline id="readme" maxRows={10} fullWidth={true} helperText="Describe in detail what’s API do and how it might be helpful" />
-          </Box> */}
-          <Box width="600px" mt={2}>
-            <InputLabel htmlFor="documentation">Documentation (optional)</InputLabel>
-            <TextField variant="outlined" value={about} onChange={(e) => setAbout(e.target.value)} multiline id="documentation" maxRows={10} fullWidth={true} helperText="Use this section to provide detailed documentation of your API and to highlight its benefits and features." />
-          </Box>
-          <Box width="300px" mt={2}>
-            <InputLabel htmlFor="website">Website (optional)</InputLabel>
-            <TextField placeholder="https://" value={api_website} onChange={(e) => setApi_website(e.target.value)} variant="outlined" id="website" fullWidth={true} />
-          </Box>
-          <Box mt={2}>
-            <Typography variant="body1" fontSize="20px" fontWeight={800}>Visibility</Typography>
-            <Typography variant="body1" fontSize="16px" fontWeight={400}>Switching your API visibility to Public make it searchable and accessible to everyone.</Typography>
-            <Box width="600px" sx={{ padding: '30px', border: '1px solid black', marginBottom: '20px' }}>
-              <Stack direction="row" spacing={2}>
-                <Box>
-                  <IconButton>
-                    {visibility ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                  </IconButton>
-                </Box>
-                <Box>
-                  {visibility ?
-                      <>
-                        <Typography fontWeight={600}>API Project is Public</Typography>
-                        <Typography>Accessible to hundreds of thousands of developers on the Hub</Typography>
-                      </>
-                      :
-                      <>
-                        <Typography fontWeight={600}>API Project is Private</Typography>
-                        <Typography>It’s not visible on the Hub and new users can’t access it</Typography>
-                      </>
-                  }
-                  <Switch value={visibility} onChange={handleSwitch}  />
-                </Box>
-              </Stack>
-            </Box>
-            <Box width="600px" sx={{ padding: '30px', border: '1px solid black' }}>
-              <Typography variant="body1" fontSize="18px" fontWeight={600}>Base URL</Typography>
-              <Typography variant="body1" fontSize="18px" fontWeight={400}>Add a base URL, configure multiple URLs, override URLs, and select a load balancer</Typography>
-              <InputLabel htmlFor="website">URL</InputLabel>
-                  <Stack direction="row">
-                    <TextField required name="apiUrl" placeholder="https://" value={base_url}  onChange={(e) => setBase_Url(e.target.value)} variant="outlined" id="website" fullWidth={true} />
-                  </Stack>
-            </Box>
-          </Box>
-          <Box width="600px" mt={2} mb={2}>
-            <Typography variant="body1" fontSize="20px" fontWeight={800}>Additional Information</Typography>
-            <InputLabel htmlFor="terms">Terms of Use (optional)</InputLabel>
-            <TextField variant="outlined" multiline id="terms" value={term_of_use} onChange={(e) => setTerm_of_use(e.target.value)} maxRows={10} fullWidth={true} />
-          </Box>
+        </Box>
+        <Box width="600px" sx={{ padding: '30px', border: '1px solid black' }}>
+          <Typography variant="body1" fontSize="18px" fontWeight={600}>Base URL</Typography>
+          <Typography variant="body1" fontSize="18px" fontWeight={400}>Add a base URL, configure multiple URLs, override URLs, and select a load balancer</Typography>
+          <InputLabel htmlFor="website">URL</InputLabel>
+          <Stack direction="row">
+            <TextField required name="base_url" {...bind} placeholder="https://" variant="outlined" id="website" fullWidth={true} />
+          </Stack>
+        </Box>
+        </Box>
+        <Box width="600px" height="300px" mt={2}>
+          <Typography variant="body1" fontSize="20px" fontWeight={800}>Additional Information</Typography>
+          <InputLabel htmlFor="terms">Terms of Use (optional)</InputLabel>
+          <TextField variant="outlined" multiline name="term_of_use" {...bind} maxRows={10} fullWidth={true} />
+        </Box>
         <Box>
           <Stack direction="row" spacing={2}>
             <button className={classes.saveBtn}>Save</button>
