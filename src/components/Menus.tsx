@@ -70,7 +70,7 @@ const Menus: React.FC = () => {
         <Button id="avatar-button" aria-controls={isAvatarOpen ? 'avatar-menu' : undefined} aria-haspopup="true" aria-expanded={isAvatarOpen ? 'true' : undefined} onClick={handleAvatarClick}>
             <Avatar src={ZapiPic} alt='zapi-pic' />
         </Button>
-        <Menu id="avatar-menu" MenuListProps={{ 'aria-labelledby': 'avatar-button', }} anchorEl={anchorE2} open={isAvatarOpen} onClose={handleLogout} TransitionComponent={Fade}>
+        <Menu id="avatar-menu" MenuListProps={{ 'aria-labelledby': 'avatar-button', }} anchorEl={anchorE2} open={isAvatarOpen} onClose={() => setAnchorE2(null)} TransitionComponent={Fade}>
             <MenuItem onClick={handleLogout}>LOGOUT</MenuItem>
         </Menu>
     </div>
