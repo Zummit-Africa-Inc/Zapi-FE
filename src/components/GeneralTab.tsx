@@ -142,7 +142,7 @@ const GeneralTab: React.FC = () => {
           <TextField variant="outlined" value={term_of_use} multiline name="term_of_use" onChange={(e) => setTerm_of_use(e.target.value)} maxRows={10} fullWidth={true} />
         </Box>
         <Box>
-          <Stack direction="row" spacing={2}>
+          <Stack direction="row" spacing={2} mt={5}>
             <button className={classes.saveBtn}>Save</button>
             <button className={classes.discardBtn}>Discard</button>
           </Stack>
@@ -187,10 +187,10 @@ const useStyles = makeStyles({
     }
   },
   saveBtn: {
-    padding: '10px 20px',
+    padding: '15px 25px',
     backgroundColor: 'rgb(74, 149, 237)',
     color: 'white',
-    borderRadius: '10px',
+    borderRadius: '5px',
     outline: 'none',
     border: 'none',
     cursor: 'pointer',
@@ -199,8 +199,8 @@ const useStyles = makeStyles({
     }
   },
   discardBtn: {
-    padding: '10px 20px',
-    borderRadius: '10px',
+    padding: '15px 25px',
+    borderRadius: '5px',
     outline: 'none',
     backgroundColor: '#fff',
     border: '1px solid rgb(214, 217, 219)',
