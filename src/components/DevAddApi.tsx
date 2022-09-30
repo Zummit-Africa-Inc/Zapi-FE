@@ -1,27 +1,25 @@
-import React, { ChangeEvent, FormEvent, useEffect, useMemo, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { makeStyles } from "@mui/styles";
 import InputSearch from './InputSearch';
 import { Typography } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 
 import { useContextProvider } from "../contexts/ContextProvider";
-import AddIcon from '@mui/icons-material/Add';
-// Images
 import StarRate  from '../assets/images/star_rate.svg';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import APICard from './APICard';
 import { getUserApis } from '../redux/slices/userSlice';
-
+import DevAPICard from './DevAPICard';
 
 const DevAddApi: React.FC = () => { 
-  const classes = useStyles();
-  const [queryString, setQueryString] = useState<string>("")
-  const { handleClicked } = useContextProvider()
-  const { userApis } = useAppSelector(store => store.user)
-  const dispatch = useAppDispatch()
+    const { userApis } = useAppSelector(store => store.user);
+    const [queryString, setQueryString] = useState<string>("");
+    const { handleClicked } = useContextProvider();
+    const classes = useStyles();
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
   }
+
   return (
     <div className={classes.bodyColor}>
         <div className={classes.body}>
@@ -32,61 +30,47 @@ const DevAddApi: React.FC = () => {
             </div>
             <div className={classes.widget2}>
                 <div className={classes.leftText}>
-                    <Typography variant="subtitle2" mt={0.5}>
-                        All
-                    </Typography>
+                    <Typography variant="subtitle2" mt={0.5}>All</Typography>
                     <div className={classes.rightText}>
                         <img src={StarRate} alt="Star-Rate" style={{height: "20px", width: "20px", left: "2px", marginTop: "4px"}}/>
                         <span>
-                        <Typography variant="subtitle2" mt={-2.5} ml={4.5}>
-                            Favorites
-                        </Typography>
+                        <Typography variant="subtitle2" mt={-2.5} ml={4.5}>Favorites</Typography>
                         </span>
                     </div>
                 </div>
             </div>
             <button className={classes.button} onClick={() => handleClicked('addapi')} style={{height: "46px"}}>
-                    <AddIcon />
-                    <Typography>Add API Project</Typography>
+                <AddIcon /> <Typography>Add API Project</Typography>
             </button>
         </div>
-            {/* Add API Description */}
-            <div>
-                {userApis.length !== 0 ? 
-                    <div className={classes.apiCard}>
-                        {userApis.map((apis: any) => (
-                            <APICard key={apis.id} id={apis.id} name={apis.name} description={apis.description} status={apis.status} />
-                        ))}
-                    </div>
-                    :
-                    <div className={classes.addApiDesc}>
-                    <Typography gutterBottom variant="subtitle1" sx=
-                        {{
-                            color: "#000000", fontFamily: "Space Grotesk", fontWeight: 700, fontSize: "18px",
-                            lineHeight: "30px", textAlign: "center", marginTop: "116px"
-                        }}>
-                           You do no have any API Projects
-                    </Typography>
-                    <Typography gutterBottom variant="subtitle1" sx={{
-                        color: "#000000", fontFamily: "Space Grotesk", fontStyle: "normal", fontWeight: 400,
-                        fontSize: "16px", lineHeight: "30px", textAlign: "center", marginTop: "16px"
-                    }}>Add a new API Project from scratch or use our “Project 1” 
-                        <br />{""}
-                        to explore API Projects features.
-                    </Typography>
-                    {/* Button */}
-                    <div className={classes.disabledButton}>
-                        <AddIcon sx={{
-                            left: "21px", top: "16px", color: "#585858",
-                        }} />
-                        <Typography>Add API Project</Typography>
-                    </div>
-    </div>
-}
-            </div>
+        {/* Add API Description */}
+        <div>
+            {userApis.length !== 0 ? 
+                <div className={classes.apiCard}>
+                    {userApis.map((apis: any) => (<DevAPICard key={apis.id} {...apis} />))}
+                </div>
+                :
+                <div className={classes.addApiDesc}>
+                <Typography gutterBottom variant="subtitle1" sx=
+                    {{
+                        color: "#000000", fontFamily: "Space Grotesk", fontWeight: 700, fontSize: "18px",
+                        lineHeight: "30px", textAlign: "center", marginTop: "116px"
+                    }}>
+                        You do no have any API Projects
+                </Typography>
+                <Typography gutterBottom variant="subtitle1" sx={{
+                    color: "#000000", fontFamily: "Space Grotesk", fontStyle: "normal", fontWeight: 400,
+                    fontSize: "16px", lineHeight: "30px", textAlign: "center", marginTop: "16px"
+                }}>Add a new API Project from scratch or use our “Project 1” 
+                    <br />{""}
+                    to explore API Projects features.
+                </Typography>
+            </div>}
+        </div>
     </div>
   )
 }
+
 const useStyles = makeStyles({
     body: {
         left:'0rem',
@@ -116,6 +100,7 @@ const useStyles = makeStyles({
         }
     },
     bodyColor: {
+        minHeight: "100vh",
         background:'#FFFFFF',
         paddingTop: '15px',
         height: "100vh",
@@ -136,7 +121,6 @@ const useStyles = makeStyles({
             marginBottom: "2rem",
         }
     },
-
     leftText:{
         display: "flex",
         flexDirection: "column",
@@ -255,9 +239,5 @@ const useStyles = makeStyles({
         flexWrap: "wrap",
     }
 })
+
 export default DevAddApi
-
-
-
-
- 

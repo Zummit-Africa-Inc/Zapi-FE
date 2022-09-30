@@ -1,14 +1,17 @@
-import { makeStyles } from '@mui/styles';
-import React, { ReactNode } from 'react'
-import Navbar from './navbar';
-import Sidebar from './sidebar';
+import React from "react";
+import { makeStyles } from "@mui/styles";
 
-const ApiPageLayout:React.FC = () => {
+import Navbar from "./navbar";
+import Sidebar from "./sidebar";
+
+interface Props { id: string | undefined }
+
+const ApiPageLayout:React.FC<Props> = ({id}) => {
     const classes = useStyles()
   return (
     <div className={classes.layout}>
        <Sidebar />
-       <Navbar />
+       <Navbar id={id} />
     </div>
   )
 }

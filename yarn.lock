@@ -2659,7 +2659,7 @@ randombytes@^2.1.0:
 
 react-device-detect@^2.2.2:
   version "2.2.2"
-  resolved "https://registry.npmjs.org/react-device-detect/-/react-device-detect-2.2.2.tgz"
+  resolved "https://registry.yarnpkg.com/react-device-detect/-/react-device-detect-2.2.2.tgz#dbabbce798ec359c83f574c3edb24cf1cca641a5"
   integrity sha512-zSN1gIAztUekp5qUT/ybHwQ9fmOqVT1psxpSlTn1pe0CO+fnJHKRLOWWac5nKxOxvOpD/w84hk1I+EydrJp7SA==
   dependencies:
     ua-parser-js "^1.0.2"
@@ -2749,7 +2749,7 @@ react-select@^5.4.0:
 
 react-toastify@^9.0.8:
   version "9.0.8"
-  resolved "https://registry.npmjs.org/react-toastify/-/react-toastify-9.0.8.tgz"
+  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-9.0.8.tgz#3876c89fc6211a29027b3075010b5ec39ebe4f7e"
   integrity sha512-EwM+teWt49HSHx+67qI08yLAW1zAsBxCXLCsUfxHYv1W7/R3ZLhrqKalh7j+kjgPna1h5LQMSMwns4tB4ww2yQ==
   dependencies:
     clsx "^1.1.1"
