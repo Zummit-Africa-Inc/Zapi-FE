@@ -11,6 +11,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: var(--body-font);
 }
 
 html {
@@ -58,16 +59,6 @@ input:-webkit-autofill {
   height: 9rem;
 }
 
-.selects{ 
-  width: 100%;
-  display: flex;
-  gap: .5rem;
-  margin-left: 8rem;
-  margin-top: 2.5rem;
-  margin-bottom: 2.5rem;
-  /* padding: 1rem 1rem; */
-}
-
 .select-box{
   display: flex;
   flex-direction: column;
@@ -92,13 +83,13 @@ input:-webkit-autofill {
 }
 
 .tab{
-  width: 20rem;
+  width: 18rem;
   cursor: pointer;
   padding: 1.5rem 1rem;
 }
 
 .datatable {
-  width: calc(100vw - 350px );
+  width: 100%;
 }
 
 .clickTab{
@@ -112,6 +103,8 @@ input:-webkit-autofill {
 .lowerTab{
   background: #fff;
 }
+
+/* analytics styles end */
 
 .loader {
   display: inline-block;
