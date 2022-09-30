@@ -10,7 +10,7 @@ import { useAppSelector, useFormInputs, useHttpRequest } from '../hooks';
 import { AddApiProps } from "../interfaces";
 import ImageUpload from "./ImageUpload";
   
-const core_url = import.meta.env.VITE_BASE_URL
+const core_url = import.meta.env.VITE_CORE_URL
 const initialState = { name: "", category: "", description: "", base_url:"", visibility: "public",
 read_me: null, about: "", documentation: null, api_website: "", term_of_use: "" } as AddApiProps
   

@@ -10,7 +10,7 @@ import { EndpointsType } from "../types";
 import { Spinner } from "../assets";
 import { EndpointTable } from "./";
 
-const core_url = import.meta.env.VITE_BASE_URL
+const core_url = import.meta.env.VITE_CORE_URL
 const initialState = { name: '', route: '', method: 'get', description: "", headers: [], requestBody: [] }
 interface Props { id: string | undefined }
 

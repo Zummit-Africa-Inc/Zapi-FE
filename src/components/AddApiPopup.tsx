@@ -9,7 +9,7 @@ import { useContextProvider } from "../contexts/ContextProvider";
 import { useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
 import { Fallback } from "../components";
 
-const core_url = import.meta.env.VITE_BASE_URL
+const core_url = import.meta.env.VITE_CORE_URL
 
 const initialState = { name: "", description: "", base_url: "", categoryId: "" };
 

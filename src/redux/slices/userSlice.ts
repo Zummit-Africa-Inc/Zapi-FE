@@ -3,7 +3,7 @@ import Cookies from "universal-cookie";
 
 import { UserProfileType, APIType } from "../../types";
 
-const core_url = import.meta.env.VITE_BASE_URL
+const core_url = import.meta.env.VITE_CORE_URL
 const identity_url = import.meta.env.VITE_IDENTITY_URL
 const cookies = new Cookies()
 const userId = cookies.get("userId")

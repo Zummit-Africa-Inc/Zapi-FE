@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { EndpointsType } from "../../types";
 import { mockEndpoint } from "../../components/mockdata";
 
-const core_url = import.meta.env.VITE_BASE_URL
+const core_url = import.meta.env.VITE_CORE_URL
 const apiId = ''
 
 interface Endpoints {
