@@ -11,7 +11,7 @@ const profileId = cookies.get("profileId")
 
 interface UserState {
     user: UserProfileType | Object
-    userApis: Array<APIType | null>
+    userApis: Array<APIType>
     loading: "idle" | "pending" | "fulfilled" | "rejected"
     error?: any
     isLoggedIn: boolean
@@ -108,9 +108,24 @@ const userSlice = createSlice({
                     endpoint.requestBody = requestBody
                 }
             }
+        },
+        editAPI: (state, action: PayloadAction<any>) => {
+            const {  id, description, base_url, about, categoryId, api_website, term_of_use, visibility, read_me } = action.payload
+            const api = state.userApis.find(api => api?.id === id)
+            if(api) {
+                api.description = description
+                api.base_url = base_url
+                api.about = about
+                api.categoryId = categoryId
+                api.api_website = api_website
+                api.term_of_use = term_of_use
+                api.visibility = visibility
+                api.read_me = read_me
+            }
         }
+        
     },
 })
 
-export const { clearError, login, logout, addEndpoint, removeEndpoint, editEndpoint } = userSlice.actions
+export const { clearError, login, logout, addEndpoint, removeEndpoint, editEndpoint, editAPI } = userSlice.actions
 export default userSlice.reducer

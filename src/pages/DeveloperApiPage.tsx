@@ -1,12 +1,23 @@
 import React, { useEffect } from "react";
 import { makeStyles } from "@mui/styles";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { ApiPageLayout, DevNavbar } from "../components";
+import { useAppSelector } from "../hooks";
+import ErrorPage from "./ErrorPage";
 
 const DeveloperApiPage:React.FC = () => {
     const classes = useStyles();
     const { id } = useParams()
+    const navigate = useNavigate()
+    const { userApis } = useAppSelector(store => store.user)
+    
+    const api = userApis.find(api => api?.id === id)
+    if (api === undefined) {
+        return <ErrorPage />
+    }
+
+    
 
   return (
     <div className={classes.root}>

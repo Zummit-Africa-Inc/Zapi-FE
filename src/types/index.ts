@@ -5,12 +5,13 @@ export type APIType = {
    name:	string
    description: string
    base_url: string
-   about?: string
-   categoryId?:	string
+   about: string
+   categoryId:	string
    logo_url?: string
-   api_website?: string
-   term_of_use?: string
-   visibility?: string
+   api_website: string
+   term_of_use: string
+   visibility: string
+   read_me: string
    endpoints?: Array<EndpointsType | null>
 }
 
