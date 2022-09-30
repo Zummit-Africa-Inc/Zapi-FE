@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 import { makeStyles } from '@mui/styles';
 import { toast } from 'react-toastify';
 
-import { useAppDispatch, useAppSelector, useFormInputs } from "../hooks";
+import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
 import { removeEndpoint, editEndpoint } from "../redux/slices/userSlice";
 import { EndpointProps } from "../interfaces";
 import { EndpointsType } from "../types";
@@ -17,11 +17,13 @@ import { EndpointsType } from "../types";
 const initialState = { id: "", name: "", route: "", method: "" } as EndpointProps
 
 interface Props { id: string | undefined }
+const core_url = import.meta.env.VITE_CORE_URL
 
 const CollapsibleTable:React.FC<Props> = ({id}) => {
   const { inputs, bind, select } = useFormInputs(initialState)
   const [isEditing, setIsEditing] = useState<number | null>(null)
   const { name, route, method } = inputs
+  const { error, loading, sendRequest } = useHttpRequest()
   const dispatch = useAppDispatch()
   const classes = useStyles()
   const { userApis } = useAppSelector(store => store.user)
@@ -37,8 +39,14 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
     setIsEditing(null)
   }
   
-  const deleteRoute = (id: string | undefined) => {
-    dispatch(removeEndpoint(id))
+  const deleteRoute = async (id: string | undefined) => {
+    try {
+        const data = await sendRequest(`${core_url}/endpoints/${id}`, 'DELETE')
+        console.log(data)
+        if(!data || data === undefined) return
+        toast.success("Delete Successful!")
+        dispatch(removeEndpoint(id))
+    } catch (error) {}
   }
 
   return (

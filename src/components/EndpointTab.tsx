@@ -10,8 +10,15 @@ import { EndpointsType } from "../types";
 import { Spinner } from "../assets";
 import { EndpointTable } from "./";
 
+enum METHOD {
+    GET = "get",
+    POST = "post",
+    PUT = 'put',
+    DELETE = "delete"
+}
+
 const core_url = import.meta.env.VITE_CORE_URL
-const initialState = { name: '', route: '', method: 'get', description: "", headers: [], requestBody: [] }
+const initialState = { name: '', route: '', method: METHOD, description: "", headers: [], requestBody: [] }
 interface Props { id: string | undefined }
 
 const EndpointTab: React.FC<Props> = ({id}) => {
@@ -36,6 +43,7 @@ const EndpointTab: React.FC<Props> = ({id}) => {
             console.log(data)
             if(!data || data === undefined) return
             dispatch(addEndpoint(data?.data))
+            window.location.reload()
         } catch (error) {}
         setIsAdding(false)
     }
@@ -68,10 +76,10 @@ const EndpointTab: React.FC<Props> = ({id}) => {
                     <Stack direction="row" alignItems="center" spacing={4} my={4}>
                         <input type="text" name="name" {...bind} className={classes.inputs} placeholder="Name" />
                         <select name="method" {...select} className={classes.inputs}>
-                            <option value="get">GET</option>
-                            <option value="post">POST</option>
-                            <option value="put">PUT</option>
-                            <option value="delete">DELETE</option>
+                            <option value={METHOD.GET}>GET</option>
+                            <option value={METHOD.POST}>POST</option>
+                            <option value={METHOD.PUT}>PUT</option>
+                            <option value={METHOD.DELETE}>DELETE</option>
                         </select>
                         <input type="text" name="route" {...bind} className={classes.inputs} placeholder="Route" />
                         <button type="submit" className={classes.button} style={{background: "#058A04",}}>
