@@ -14,11 +14,9 @@ enum APIVisibility {
   PRIVATE = 'private',
   PUBLIC = 'public'
 }
-
-const core_url = import.meta.env.VITE_BASE_URL
-
-
-
+  
+const core_url = import.meta.env.VITE_CORE_URL;
+  
 const GeneralTab: React.FC = () => {
   const { apis } = useAppSelector(store => store.apis)
   const [description, setDescription] = useState("")
