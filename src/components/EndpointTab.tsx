@@ -1,14 +1,14 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { Paper, Stack, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { toast } from "react-toastify";
 
 import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
 import { addEndpoint } from "../redux/slices/userSlice";
-// import { EndpointProps } from "../interfaces";
-import { EndpointsType } from "../types";
+// import { EndpointsType } from "../types";
 import { Spinner } from "../assets";
 import { EndpointTable } from "./";
+import { useContextProvider } from "../contexts/ContextProvider";
 
 const core_url = import.meta.env.VITE_BASE_URL
 const initialState = { name: '', route: '', method: 'get', description: "", headers: [], requestBody: [] }
@@ -20,6 +20,7 @@ const EndpointTab: React.FC<Props> = ({id}) => {
     const [isAdding, setIsAdding] = useState<boolean>(false)
     const { error, loading, sendRequest } = useHttpRequest()
     const { name, route, method, description, headers, requestBody } = inputs
+    const { triggerRefresh } = useContextProvider()
     const dispatch = useAppDispatch()
     const classes = useStyles()
 
@@ -33,9 +34,9 @@ const EndpointTab: React.FC<Props> = ({id}) => {
         const req_headers = { 'Content-Type': 'application/json' }
         try {
             const data = await sendRequest(`${core_url}/endpoints/new/${id}`, 'POST', JSON.stringify(payload), req_headers)
-            console.log(data)
             if(!data || data === undefined) return
             dispatch(addEndpoint(data?.data))
+            triggerRefresh()
         } catch (error) {}
         setIsAdding(false)
     }
@@ -70,7 +71,7 @@ const EndpointTab: React.FC<Props> = ({id}) => {
                         <select name="method" {...select} className={classes.inputs}>
                             <option value="get">GET</option>
                             <option value="post">POST</option>
-                            <option value="put">PUT</option>
+                            <option value="patch">PATCH</option>
                             <option value="delete">DELETE</option>
                         </select>
                         <input type="text" name="route" {...bind} className={classes.inputs} placeholder="Route" />
