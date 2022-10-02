@@ -30,13 +30,14 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
   const dispatch = useAppDispatch()
   const classes = useStyles()
   const { error, loading, sendRequest } = useHttpRequest()
+  let payload : object;
   
   const openEditing = (index: number) => {
     setIsEditing(index)
   }
 
   const save = async(id: string | undefined) => {
-    const payload = {id, name, method, route}
+    payload = {id, name, method, route}
     const headers = { 'Content-Type': 'application/json'}
     try {
       const data = await sendRequest(`${core_url}/endpoints/${id}`, 'PATCH', JSON.stringify(payload), headers)
@@ -48,6 +49,7 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
   }
   
   const deleteRoute = async(id: string | undefined) => {
+    const headers = { 'Content-Type': 'application/json'}
     try {
       const data = await sendRequest(`${core_url}/endpoints/${id}`, 'DELETE', JSON.stringify(payload), headers)
       if(!data || data === undefined) return
