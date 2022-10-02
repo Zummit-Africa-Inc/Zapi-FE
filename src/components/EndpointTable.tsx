@@ -9,36 +9,51 @@ import Paper from '@mui/material/Paper';
 import { makeStyles } from '@mui/styles';
 import { toast } from 'react-toastify';
 
-import { useAppDispatch, useAppSelector, useFormInputs } from "../hooks";
+import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
 import { removeEndpoint, editEndpoint } from "../redux/slices/userSlice";
 import { EndpointProps } from "../interfaces";
 import { EndpointsType } from "../types";
+import { useContextProvider } from '../contexts/ContextProvider';
 
+const core_url = import.meta.env.VITE_BASE_URL
 const initialState = { id: "", name: "", route: "", method: "" } as EndpointProps
 
 interface Props { id: string | undefined }
 
 const CollapsibleTable:React.FC<Props> = ({id}) => {
   const { inputs, bind, select } = useFormInputs(initialState)
-  const [isEditing, setIsEditing] = useState<number | null>(null)
   const { name, route, method } = inputs
-  const dispatch = useAppDispatch()
-  const classes = useStyles()
+  const [isEditing, setIsEditing] = useState<number | null>(null)
   const { userApis } = useAppSelector(store => store.user)
   const api = userApis.find(api => api?.id === id)
+  const { triggerRefresh } = useContextProvider()
+  const dispatch = useAppDispatch()
+  const classes = useStyles()
+  const { error, loading, sendRequest } = useHttpRequest()
   
   const openEditing = (index: number) => {
     setIsEditing(index)
   }
 
-  const save = (id: string | undefined) => {
+  const save = async(id: string | undefined) => {
     const payload = {id, name, method, route}
-    dispatch(editEndpoint(payload))
-    setIsEditing(null)
+    const headers = { 'Content-Type': 'application/json'}
+    try {
+      const data = await sendRequest(`${core_url}/endpoints/${id}`, 'PATCH', JSON.stringify(payload), headers)
+      if(!data || data === undefined) return
+      dispatch(editEndpoint(payload))
+      setIsEditing(null)
+      triggerRefresh()
+    } catch (error) {}
   }
   
-  const deleteRoute = (id: string | undefined) => {
-    dispatch(removeEndpoint(id))
+  const deleteRoute = async(id: string | undefined) => {
+    try {
+      const data = await sendRequest(`${core_url}/endpoints/${id}`, 'DELETE', JSON.stringify(payload), headers)
+      if(!data || data === undefined) return
+      dispatch(removeEndpoint(id))
+      triggerRefresh()
+    } catch (error) {}
   }
 
   return (
@@ -62,10 +77,10 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
               </TableCell>
               <TableCell>
                 <select name="method" defaultValue={endpoint?.method} {...select} className={classes.input} disabled={isEditing !== index}>
-                  <option value="GET">GET</option>
-                  <option value="POST">POST</option>
-                  <option value="PUT">PUT</option>
-                  <option value="DELETE">DELETE</option>
+                  <option value="get">GET</option>
+                  <option value="post">POST</option>
+                  <option value="patch">PATCH</option>
+                  <option value="delete">DELETE</option>
                 </select>
               </TableCell>
               <TableCell>
