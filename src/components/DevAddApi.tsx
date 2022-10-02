@@ -65,11 +65,6 @@ const DevAddApi: React.FC = () => {
                     <br />{""}
                     to explore API Projects features.
                 </Typography>
-                {/* Button */}
-                <div className={classes.disabledButton}>
-                    <AddIcon sx={{left: "21px", top: "16px", color: "#585858"}} />
-                    <Typography>Add API Project</Typography>
-                </div>
             </div>}
         </div>
     </div>

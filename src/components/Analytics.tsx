@@ -1,37 +1,29 @@
-import { Typography, Paper } from '@mui/material'
+import { Box, FormControl, InputLabel, MenuItem, Select, Typography, SelectChangeEvent, Paper } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { ChangeEvent, useState } from 'react'
+import { useFormInputs } from '../hooks'
 import { Widget, InputSearch, DataTable, Navbar } from '.'
 import { ERROR, STATISTICS, SUCCESS, TIMERANGE, PERIOD, ZONE, TABLEHADING, ROWS } from '../testdata'
 
+const initialState = { statistics: "", timerange: TIMERANGE[0], period: PERIOD[0], timezone: ZONE[0] }
+
 const Analytics: React.FC = () => {
-    const [statsParam, setStatsParam] = useState<string>(STATISTICS[0])
-    const [errorParam, setErrorParam] = useState<string>(ERROR[0])
-    const [successParam, setSuccessParam] = useState<string>(SUCCESS[0])
-    const [statsData, setStatsData] = useState<string[]>(STATISTICS)
+    const [statsParam, setStatsParam] = useState<string>("")
+    const [errorParam, setErrorParam] = useState<string>("")
+    const [successParam, setSuccessParam] = useState<string>("")
+    const [statsData, setStatsData] = useState<any>(STATISTICS)
     const [queryParam, setQueryParam] = useState<string>("")
     const [style, setStyle] = useState('clickTab')
     const [errStyle, setErrStyle] = useState('tab')
     const [successStyle, setSuccessStyle] = useState('tab')
     const classes = useStyles()
 
-    const handleStats = (e: ChangeEvent<HTMLSelectElement>) => {
-        if (statsData === STATISTICS) {
-            setStatsParam(e.target.value)
-        } else {
-            setStatsParam(STATISTICS[0])
-        }
-        if (statsData === ERROR) {
-            setErrorParam(e.target.value)
-        } else {
-            setErrorParam(ERROR[0])
-        }
-        if (statsData === SUCCESS) {
-            setSuccessParam(e.target.value)
-        } else {
-            setSuccessParam(SUCCESS[0])
-        }
-    }
+    const { inputs, bind, select } = useFormInputs(initialState);
+    const { statistics, timerange, timezone, period } = inputs
+
+   
+    
+    console.log(inputs)
 
     const handleStatClick = (e: React.MouseEvent<HTMLDivElement>) => {
         setStatsData(STATISTICS)
@@ -58,28 +50,58 @@ const Analytics: React.FC = () => {
             <div className="heading">
                 <Typography sx={{ fontSize: '1.5rem', fontWeight: 500, color: 'var(--color-primary)', padding: '2rem 2rem' }}>default-application_6350466 - Analytics</Typography>
             </div>
-            <div className="selects">
-                <div className="select-box">
-                    <span className='select-title'>Statistics</span>
-                    <InputSearch className={classes.select} type='select' name="statsParams" value={statsParam || errorParam || successParam} onSelect={handleStats} data={statsData} />
+            {/* <div className={classes.selects}>
+                <Box sx={{ minWidth: 120 }}>
+                    <FormControl fullWidth>
+                        <label>Statistics</label>
+                        <Select name='statistics' labelId="stats" id="stats" value={statistics} {...select}>
+                            {statsData.map((stats:any, index:number) => (
+                                <MenuItem key={index} value={stats.span}>{stats.query}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </Box>
+                <Box sx={{ minWidth: 120 }}>
+                    <FormControl fullWidth>
+                        <label>Time Range</label>
+                        <Select name='timerange' labelId="time range" id="time range" value={timerange} {...select}>
+                            {TIMERANGE.map((time, index) => (
+                                <MenuItem key={index} value={time}>{time}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </Box>
+                <Box sx={{ minWidth: 120 }}>
+                    <FormControl fullWidth>
+                        <label>Period</label>
+                        <Select name="period" labelId="period" id="period" value={period} {...select}>
+                            {PERIOD.map((period, index) => (
+                                <MenuItem key={index} value={period}>{period}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </Box>
+                <Box sx={{ minWidth: 300 }}>
+                    <FormControl fullWidth>
+                        <label>Time Zone</label>
+                        <Select name='timezone' labelId="time-zone" id="timezone" value={timezone} {...select}>
+                            {ZONE.map((zone, index) => (
+                                <MenuItem key={index} value={zone}>{zone}</MenuItem>
+                                ))}
+                        </Select>
+                    </FormControl>
+                </Box>
+            </div> */}
+            <div className={classes.Tab}>
+                <div className="tabs">
+                    <Widget className={style} title='API Calls' subtitle={statsParam} onClick={handleStatClick}  span="0" />
                 </div>
-                <div className="select-box">
-                    <span className='select-title'>Time Range</span>
-                    <InputSearch className={classes.select} type='select' name="queryParams" placeholder='Time Range' value={queryParam} onSelect={(e: ChangeEvent<HTMLSelectElement>) => setQueryParam(e.target.value)} data={TIMERANGE} />
+                <div className="tabs">
+                    <Widget className={errStyle} title='Errors' subtitle={errorParam} onClick={handleErrClick} span="0" />
                 </div>
-                <div className="select-box">
-                    <span className='select-title'>Period</span>
-                    <InputSearch className={classes.select} type='select' name="queryParams" value={queryParam} onSelect={(e: ChangeEvent<HTMLSelectElement>) => setQueryParam(e.target.value)} data={PERIOD} />
+                <div className="tabs">
+                    <Widget className={successStyle} title='Success' subtitle={successParam} onClick={handleSuccessClick} span="0" />
                 </div>
-                <div className="select-box">
-                    <span className='select-title'>Time Zone</span>
-                    <InputSearch className={classes.select} type='select' name="queryParams" value={queryParam} onSelect={(e: ChangeEvent<HTMLSelectElement>) => setQueryParam(e.target.value)} data={ZONE} />
-                </div>
-            </div>
-            <div className="tabs">
-                <Widget className={style} title='API Calls' subtitle={statsParam} onClick={handleStatClick} span='0' />
-                <Widget className={errStyle} title='Errors' subtitle={errorParam} onClick={handleErrClick} span='0%' />
-                <Widget className={successStyle} title='Success' subtitle={successParam} onClick={handleSuccessClick} span='0ms' />
             </div>
             <div>
                 {ROWS ?
@@ -88,7 +110,6 @@ const Analytics: React.FC = () => {
                     "No data yet"
                 }
             </div>
-
         </div>
         </Paper>
     )
@@ -99,6 +120,19 @@ export default Analytics
 
 //styles for analytics are in the index.css file.
 const useStyles = makeStyles({
+    selects: {
+        width: "100%",
+        display: "flex",
+        gap: ".5rem",
+        alignItems: "center",
+        justifyContent: "flex-end",
+        // paddingRight: "1rem",
+        // marginLeft: "8rem",
+        // marginTop: "2.5rem",
+        // marginBottom: "2.5rem",
+        // marginRight: "2rem",
+        /* padding: 1rem 1rem; */
+    },
     paper: {
         width: "950px",
         marginTop: "20px",
@@ -110,7 +144,6 @@ const useStyles = makeStyles({
         }
     },
     tabs: {
-
         '& span': {
             fontSize: '2rem'
         }
@@ -119,5 +152,10 @@ const useStyles = makeStyles({
         display: "flex",
         flexDirection: "column",
         gap: "2rem"
+    },
+    Tab: {
+        width: "500px",
+        display: "flex",
+        gap: ".5rem"
     }
 })
