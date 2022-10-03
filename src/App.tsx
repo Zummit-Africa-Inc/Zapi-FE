@@ -56,7 +56,7 @@ const App: React.FC = () => {
 
   const getCategories = useMemo(() =>  (dispatch(getApis())), [])
 
-  const getApisByUser = useMemo(() => dispatch(getUserApis()),[])
+  const getApisByUser = useMemo(() => (dispatch(getUserApis())),[trigger,(isLoggedIn === true)])
   
   useEffect(() => {
     getCategories
@@ -64,7 +64,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     getApisByUser
-  },[isLoggedIn, trigger])
+  },[])
 
   return (
     <ThemeProvider theme={theme}>
