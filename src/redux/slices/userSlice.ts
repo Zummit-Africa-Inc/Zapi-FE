@@ -3,7 +3,7 @@ import Cookies from "universal-cookie";
 
 import { UserProfileType, APIType } from "../../types";
 
-const core_url = import.meta.env.VITE_BASE_URL
+const core_url = import.meta.env.VITE_CORE_URL
 const identity_url = import.meta.env.VITE_IDENTITY_URL
 const cookies = new Cookies()
 const userId = cookies.get("userId")
@@ -11,7 +11,7 @@ const profileId = cookies.get("profileId")
 
 interface UserState {
     user: UserProfileType | Object
-    userApis: Array<APIType | null>
+    userApis: Array<APIType>
     loading: "idle" | "pending" | "fulfilled" | "rejected"
     error?: any
     isLoggedIn: boolean
@@ -37,7 +37,7 @@ export const getUserProfile = createAsyncThunk("user/getprofile", async(_, thunk
 
 export const getUserApis = createAsyncThunk("user/getapis", async(_, thunkAPI) => {
     try {
-        const response = await fetch(`${core_url}/api/user-apis/${profileId}`)
+        const response = await fetch(`${core_url}/api/dev-platform-data/${profileId}`)
         const data = await response.json()
         const apis = data?.data
         return apis
@@ -78,9 +78,54 @@ const userSlice = createSlice({
             state.isLoggedIn = false
             state.user = initialState.user
             localStorage.removeItem("zapi_user")
+        },
+        addEndpoint: (state, action: PayloadAction<any>) => {
+            const { apiId, name, method, route, description, headers, requestBody } = action.payload
+            const api = state.userApis.find(api => api?.id === apiId)
+            let newEndpoint = {name, method, route, description, headers, requestBody}
+            if(api) {
+                api.endpoints?.unshift(newEndpoint)
+            }
+        },
+        removeEndpoint: (state, action: PayloadAction<any>) => {
+            const { apiId, id } = action.payload
+            const api = state.userApis.find(api => api?.id === apiId)
+            if(api) {
+                api.endpoints = api.endpoints?.filter(endpoint => endpoint?.id !== id)
+            }
+        },
+        editEndpoint: (state, action: PayloadAction<any>) => {
+            const { apiId, id, name, method, route, description, headers, requestBody } = action.payload
+            const api = state.userApis.find(api => api?.id === apiId)
+            if(api) {
+                let endpoint = api.endpoints?.find(endpoint => endpoint?.id === id)
+                if(endpoint) {
+                    endpoint.name = name
+                    endpoint.method = method
+                    endpoint.route = route
+                    endpoint.description = description
+                    endpoint.headers = headers
+                    endpoint.requestBody = requestBody
+                }
+            }
+        },
+        editAPI: (state, action: PayloadAction<any>) => {
+            const {  id, description, base_url, about, categoryId, api_website, term_of_use, visibility, read_me } = action.payload
+            const api = state.userApis.find(api => api?.id === id)
+            if(api) {
+                api.description = description
+                api.base_url = base_url
+                api.about = about
+                api.categoryId = categoryId
+                api.api_website = api_website
+                api.term_of_use = term_of_use
+                api.visibility = visibility
+                api.read_me = read_me
+            }
         }
+        
     },
 })
 
-export const { clearError, login, logout } = userSlice.actions
+export const { clearError, login, logout, addEndpoint, removeEndpoint, editEndpoint, editAPI } = userSlice.actions
 export default userSlice.reducer

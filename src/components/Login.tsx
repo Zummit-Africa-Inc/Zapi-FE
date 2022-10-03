@@ -50,7 +50,7 @@ const Login: React.FC = () => {
       cookies.set('profileId', profileId);
       cookies.set('userId', userId);
       handleUnclicked('login')
-      navigate("/developers/dashboard")
+      navigate("/developer/dashboard")
     } catch (error) {};
   };
 
