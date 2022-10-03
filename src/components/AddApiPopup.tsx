@@ -9,7 +9,7 @@ import { useContextProvider } from "../contexts/ContextProvider";
 import { useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
 import { Fallback } from "../components";
 
-const core_url = import.meta.env.VITE_BASE_URL
+const core_url = import.meta.env.VITE_CORE_URL
 
 const initialState = { name: "", description: "", base_url: "", categoryId: "" };
 
@@ -24,7 +24,6 @@ const AddApiPopup: React.FC = () => {
   const profileId = cookies.get("profileId")
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
 
     if(!name || !description || !base_url || !categoryId) return toast.error('Please fill all fields')
     const payload = { name, description, base_url, categoryId }
