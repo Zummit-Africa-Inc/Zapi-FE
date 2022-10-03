@@ -20,6 +20,7 @@ const App: React.FC = () => {
   const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP, trigger } = useContextProvider()
   const { isLoggedIn } = useAppSelector(store => store.user)
   const dispatch = useAppDispatch()
+  const truthy = isLoggedIn === true
 
   useEffect(() => {
     const device = deviceDetect(navigator.userAgent)
@@ -56,7 +57,9 @@ const App: React.FC = () => {
 
   const getCategories = useMemo(() =>  (dispatch(getApis())), [])
 
-  const getApisByUser = useMemo(() => dispatch(getUserApis()),[])
+  const getApisByUser = useMemo(() => {
+    dispatch(getUserApis())
+  },[])
   
   useEffect(() => {
     getCategories
@@ -64,7 +67,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     getApisByUser
-  },[isLoggedIn, trigger])
+  },[trigger, truthy])
 
   return (
     <ThemeProvider theme={theme}>
