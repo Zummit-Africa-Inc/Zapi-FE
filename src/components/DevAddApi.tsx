@@ -45,9 +45,9 @@ const DevAddApi: React.FC = () => {
         </div>
         {/* Add API Description */}
         <div>
-            {userApis.length !== 0 ? 
+            {userApis?.length !== 0 ? 
                 <div className={classes.apiCard}>
-                    {userApis.map((apis: any) => (<DevAPICard key={apis.id} {...apis} />))}
+                    {userApis?.map((apis: any) => (<DevAPICard key={apis.id} {...apis} />))}
                 </div>
                 :
                 <div className={classes.addApiDesc}>

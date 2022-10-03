@@ -6,7 +6,7 @@ import { deviceDetect } from  "react-device-detect";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-import { Settings, DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditons, ResetPassword, ComingSoon } from "./pages";
+import { DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditons, ResetPassword, Pricing, Documentation } from "./pages";
 import { Fallback, Login, AddApiPopup, } from "./components";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { getUserApis, login } from "./redux/slices/userSlice";
@@ -56,7 +56,7 @@ const App: React.FC = () => {
 
   const getCategories = useMemo(() =>  (dispatch(getApis())), [])
 
-  const getApisByUser = useMemo(() => dispatch(getUserApis()),[])
+  const getApisByUser = useMemo(() => (dispatch(getUserApis())),[trigger,(isLoggedIn === true)])
   
   useEffect(() => {
     getCategories
@@ -64,7 +64,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     getApisByUser
-  },[isLoggedIn, trigger])
+  },[])
 
   return (
     <ThemeProvider theme={theme}>
@@ -79,7 +79,8 @@ const App: React.FC = () => {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/otp" element={<Otp />} />
             <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/coming-soon" element={<ComingSoon />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/documentation" element={<Documentation />} />
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
               <Route path="/developer/dashboard" element={<DevDashboard />} />
@@ -88,7 +89,7 @@ const App: React.FC = () => {
               <Route path="/configuration" element={<Configuration />} />
               <Route path="/login-history" element={<LoginHistory />} />
               <Route path="/success-page" element={<SuccessPage />} />
-              <Route path="/settings" element={<Settings />} />
+              {/* <Route path="/settings" element={<Settings />} /> */}
             </Route>
           </Routes>
         </Suspense>

@@ -1,11 +1,37 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TablePagination } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import { tableCellClasses } from '@mui/material/TableCell';
 import React, { useState } from 'react';
 import { makeStyles } from "@mui/styles"
+
 
 interface TableProps {
   Heading: Array<string>
   Rows: Array<any>
 }
+
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
+
+
 
 const DataTable: React.FC<TableProps> = ({Heading, Rows}) => {
   const [page, setPage] = useState<number>(0);
@@ -30,16 +56,16 @@ const DataTable: React.FC<TableProps> = ({Heading, Rows}) => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead className={classes.head}>
             <TableRow>{Heading.map((heading) => (
-                <TableCell className="tableCell" key={heading}>{heading}</TableCell>
+                <StyledTableCell className="tableCell" key={heading}>{heading}</StyledTableCell>
             ))}
             </TableRow>
           </TableHead>
           <TableBody>
             {result.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, i) => (
-              <TableRow key={i}>{Object.values(row).map((m, i) => (
-                <TableCell className="tableCell" key={i}>{m}</TableCell>
+              <StyledTableRow key={i}>{Object.values(row).map((m, i) => (
+                <StyledTableCell className="tableCell" key={i}>{m}</StyledTableCell>
               ))}
-              </TableRow>
+              </StyledTableRow>
             ))}
           </TableBody>
         </Table>
