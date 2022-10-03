@@ -3,7 +3,7 @@ import { Paper, Tab, Tabs, Typography } from '@mui/material'
 import { makeStyles, styled } from '@mui/styles'
 import { Link } from 'react-router-dom';
 
-import { Analytics, Community, EndpointTab, GatewayTab, GeneralTab, Monetize, TabPanel } from "../";
+import { SettingsPage, Analytics, Community, EndpointTab, GatewayTab, GeneralTab, Monetize, TabPanel, } from "../";
 
 const CustomTab = styled(Tab)({
     "&.MuiTab-root": {
@@ -30,6 +30,7 @@ const Navbar:React.FC<Props> = ({id}) => {
                 <Tab label="Commmunity" />
                 <Tab label="Monetize" />
                 <Tab label="Analytics" />
+                <Tab label="Settings" />
             </Tabs>
             <div className={classes.tabpanel}>
                 <TabPanel value={tab} index={0}>
@@ -49,6 +50,9 @@ const Navbar:React.FC<Props> = ({id}) => {
                 </TabPanel>
                 <TabPanel value={tab} index={5}>
                     <Analytics />
+                </TabPanel>
+                <TabPanel value={tab} index={6}>
+                    <SettingsPage />
                 </TabPanel>
             </div>
             </>
