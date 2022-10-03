@@ -6,8 +6,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { tableCellClasses } from '@mui/material/TableCell';
 import { makeStyles } from '@mui/styles';
 import { toast } from 'react-toastify';
+import { styled } from '@mui/material/styles';
 
 import { useAppDispatch, useAppSelector, useFormInputs } from "../hooks";
 import { removeEndpoint, editEndpoint } from "../redux/slices/userSlice";
@@ -17,6 +19,31 @@ import { EndpointsType } from "../types";
 const initialState = { id: "", name: "", route: "", method: "" } as EndpointProps
 
 interface Props { id: string | undefined }
+
+
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
+
+
+
 
 const CollapsibleTable:React.FC<Props> = ({id}) => {
   const { inputs, bind, select } = useFormInputs(initialState)
@@ -41,37 +68,40 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
     dispatch(removeEndpoint(id))
   }
 
+
+
+  
   return (
     <>
     <TableContainer component={Paper} >
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Method</TableCell>
-            <TableCell>Route</TableCell>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
+            <StyledTableCell>Name</StyledTableCell>
+            <StyledTableCell>Method</StyledTableCell>
+            <StyledTableCell>Route</StyledTableCell>
+            <StyledTableCell></StyledTableCell>
+            <StyledTableCell></StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {api?.endpoints?.map((endpoint, index) => (
-            <TableRow key={index}>
-              <TableCell>
+            <StyledTableRow key={index}>
+              <StyledTableCell>
                 <input type="text" name="name" defaultValue={endpoint?.name} {...bind} className={classes.input} disabled={isEditing !== index} />
-              </TableCell>
-              <TableCell>
+              </StyledTableCell>
+              <StyledTableCell>
                 <select name="method" defaultValue={endpoint?.method} {...select} className={classes.input} disabled={isEditing !== index}>
                   <option value="GET">GET</option>
                   <option value="POST">POST</option>
                   <option value="PUT">PUT</option>
                   <option value="DELETE">DELETE</option>
                 </select>
-              </TableCell>
-              <TableCell>
+              </StyledTableCell>
+              <StyledTableCell>
                 <input type="text" name="route" defaultValue={endpoint?.route.toString()} {...bind} className={classes.input} disabled={isEditing !== index} />
-              </TableCell>
-              <TableCell>
+              </StyledTableCell>
+              <StyledTableCell>
                 {isEditing === index ? (
                   <button onClick={() => save(endpoint?.id)} className={classes.button} style={{background: "#081F4A"}}>
                     DONE
@@ -81,13 +111,13 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
                    EDIT
                   </button>
                 )}
-              </TableCell>
-              <TableCell>
+              </StyledTableCell>
+              <StyledTableCell>
                 <button onClick={() => deleteRoute(endpoint?.id)} className={classes.button} style={{background: "#E32C08"}}>
                   DELETE
                 </button>
-              </TableCell>
-            </TableRow>
+              </StyledTableCell>
+            </StyledTableRow>
           ))}
         </TableBody>
       </Table>
