@@ -17,7 +17,7 @@ import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
 
 const App: React.FC = () => {
-  const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP } = useContextProvider()
+  const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP, trigger } = useContextProvider()
   const { isLoggedIn } = useAppSelector(store => store.user)
   const dispatch = useAppDispatch()
 
@@ -64,7 +64,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     getApisByUser
-  },[isLoggedIn])
+  },[isLoggedIn, trigger])
 
   return (
     <ThemeProvider theme={theme}>
