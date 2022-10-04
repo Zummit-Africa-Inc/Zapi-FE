@@ -96,7 +96,7 @@ input:-webkit-autofill {
   width: 20rem;
   cursor: pointer;
   padding: 1.5rem 1rem;
-  background: #FFF;
+  background: var(--color-grey);
   border-top: 2px solid rgb(10, 10, 10);
 }
 

@@ -1,14 +1,30 @@
 import React, { ChangeEvent, FormEvent, SyntheticEvent, useState } from 'react'
-import { makeStyles } from "@mui/styles";
+import { makeStyles, styled } from "@mui/styles";
 import InputSearch from './InputSearch';
 import { Tab, Tabs, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
 import { useContextProvider } from "../contexts/ContextProvider";
-import StarRate  from '../assets/images/star_rate.svg';
 import TabPanel from './TabPanel';
 import APILayout from './APILayout';
 import Subscription from './Subscription';
+import { Grade, Loyalty } from '@mui/icons-material';
+
+const CustomTabs = styled(Tabs)({
+      '& .MuiTabs-indicator': {
+        display: "none"
+      },
+  })
+
+const CustomTab = styled(Tab)({
+   "&.MuiTab-wrapper": {
+    height: "45px"
+   },
+'&.Mui-selected': {
+    backgroundColor: '#ccc',
+    borderRadius: "10px",
+  }
+  })
 
 const DevAddApi: React.FC = () => { 
     const [queryString, setQueryString] = useState<string>("");
@@ -32,28 +48,24 @@ const DevAddApi: React.FC = () => {
                 <InputSearch className={classes.formControl} type="text" name="queryString" value={queryString} onChange={(e: ChangeEvent<HTMLInputElement>) => setQueryString(e.target.value)} placeholder="Search API Projects"/>
                 </form>
             </div>
-            <div className={classes.widget2}>
+            {/* <div className={classes.widget2}> */}
                 <div className={classes.leftText}>
-                    <Tabs value={tab} onChange={handleTabChange}>
-                        <Tab label="All"/>
-                        <Tab label="Favourites"/>
-                        <Tab label="Subscribed APIS" />
-                    </Tabs>
+                    <CustomTabs value={tab} onChange={handleTabChange}>
+                        <CustomTab icon={<Loyalty />} iconPosition="start" label="Subscribed APIS"/>
+                        <CustomTab icon={<Grade />} iconPosition="start" label="My APIS"/>
+                    </CustomTabs>
                 </div>
-            </div>
+            {/* </div> */}
             <button className={classes.button} onClick={() => handleClicked('addapi')} style={{height: "46px"}}>
                 <AddIcon /> <Typography>Add API Project</Typography>
             </button>
         </div>
         <div>
                 <TabPanel value={tab} index={0}>
-                    <APILayout />
+                    <Subscription />
                 </TabPanel>
                 <TabPanel value={tab} index={1}>
                     <APILayout />
-                </TabPanel>
-                <TabPanel value={tab} index={2}>
-                    <Subscription />
                 </TabPanel>
             </div>
     </div>
@@ -114,8 +126,7 @@ const useStyles = makeStyles({
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-start",
-        height: "46px",
-        background: "#C4C4C4",
+        background: "#FFFFFF",
         border: "1px solid #8C8C8C",
         borderRadius: "10px"
     },
