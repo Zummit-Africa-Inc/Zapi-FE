@@ -12,6 +12,7 @@ const profileId = cookies.get("profileId")
 interface UserState {
     user: UserProfileType | Object
     userApis: Array<APIType>
+    subscribedApis: Array<APIType>
     loading: "idle" | "pending" | "fulfilled" | "rejected"
     error?: any
     isLoggedIn: boolean
@@ -23,6 +24,7 @@ const initialState: UserState = {
     error: null,
     isLoggedIn: false,
     userApis: [],
+    subscribedApis: []
 }
 
 export const getUserProfile = createAsyncThunk("user/getprofile", async(_, thunkAPI) => {
@@ -46,6 +48,17 @@ export const getUserApis = createAsyncThunk("user/getapis", async(_, thunkAPI) =
     }
 })
 
+export const getSubscribedApis = createAsyncThunk("user/getsubscribed", async(_, thunkAPI) => {
+    try {
+        const response = await fetch(`${core_url}/subscription/user-subscription/${profileId}`)
+        const data = await response.json()
+        const subscribed = data?.data
+        return subscribed
+    } catch (error: any) {
+        return thunkAPI.rejectWithValue(error.message)
+    }
+})
+
 const userSlice = createSlice({
     name: "user",
     initialState,
@@ -63,6 +76,9 @@ const userSlice = createSlice({
         }),
         builder.addCase(getUserApis.fulfilled, (state, action: PayloadAction<any>) => {
             state.userApis = action.payload
+        })
+        builder.addCase(getSubscribedApis.fulfilled, (state, action: PayloadAction<any>) => {
+            state.subscribedApis = action.payload
         })
     },
     reducers: {

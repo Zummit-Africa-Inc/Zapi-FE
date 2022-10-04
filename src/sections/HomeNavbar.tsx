@@ -57,6 +57,7 @@ const HomeNavbar: React.FC = () => {
                                 <ul>
                                     <li><Link to="/">Home</Link></li>
                                     <li><Link to="/dashboard">API hub</Link></li>
+                                    <li><Link to="/developer/dashboard">Dashboard</Link></li>
                                     <li className={classes.active}><Link to="/pricing">Pricing</Link></li>
                                     <li><Link to="/documentation">Documentation</Link></li>
                                     <li><button onClick={() => handleClicked('login')}>Login</button></li>
@@ -66,6 +67,7 @@ const HomeNavbar: React.FC = () => {
                                 <ul>
                                     <li><Link to="/">Home</Link></li>
                                     <li><Link to="/dashboard">API hub</Link></li>
+                                    <li><Link to="/developer/dashboard">Dashboard</Link></li>
                                     <li><Link to="/pricing">Pricing</Link></li>
                                     <li className={classes.active}><Link to="/documentation">Documentation</Link></li>
                                     <li><button onClick={() => handleClicked('login')}>Login</button></li>
@@ -74,6 +76,7 @@ const HomeNavbar: React.FC = () => {
                                 <ul>
                                     <li className={classes.active}><Link to="/">Home</Link></li>
                                     <li><Link to="/dashboard">API hub</Link></li>
+                                    <li><Link to="/developer/dashboard">Dashboard</Link></li>
                                     <li><Link to="/pricing">Pricing</Link></li>
                                     <li><Link to="/documentation">Documentation</Link></li>
                                     <li><button onClick={() => handleClicked('login')}>Login</button></li>
@@ -92,6 +95,7 @@ const HomeNavbar: React.FC = () => {
                             <ul>
                                 <li><Link to="/">Home</Link></li>
                                 <li><Link to="/dashboard">API hub</Link></li>
+                                <li><Link to="/developer/dashboard">Dashboard</Link></li>
                                 <li className={classes.active}><Link to="/pricing">Pricing</Link></li>
                                 <li><Link to="/documentation">Documentation</Link></li>
                                 {!isLoggedIn && <li><button onClick={() => handleClicked('login')}>Login</button></li>}  
@@ -101,6 +105,7 @@ const HomeNavbar: React.FC = () => {
                             <ul>
                                 <li><Link to="/">Home</Link></li>
                                 <li><Link to="/dashboard">API hub</Link></li>
+                                <li><Link to="/developer/dashboard">Dashboard</Link></li>
                                 <li><Link to="/pricing">Pricing</Link></li>
                                 <li className={classes.active}><Link to="/documentation">Documentation</Link></li>
                                 {!isLoggedIn && <li><button onClick={() => handleClicked('login')}>Login</button></li>}  
@@ -109,6 +114,7 @@ const HomeNavbar: React.FC = () => {
                             <ul>
                                 <li className={classes.active}><Link to="/">Home</Link></li>
                                 <li><Link to="/dashboard">API hub</Link></li>
+                                <li><Link to="/developer/dashboard">Dashboard</Link></li>
                                 <li><Link to="/pricing">Pricing</Link></li>
                                 <li><Link to="/documentation">Documentation</Link></li>
                                 {!isLoggedIn && <li><button onClick={() => handleClicked('login')}>Login</button></li>}  
