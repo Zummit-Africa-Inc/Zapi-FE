@@ -1,7 +1,7 @@
 import React from 'react'
 import { SelectMulti,ProxySecret, Threat, Schema, Config, Version } from '../components';
 import { makeStyles } from "@mui/styles"
-import { Box, Stack, Typography } from "@mui/material"
+import { Box, Stack, Typography, Paper } from "@mui/material"
 
 
 
@@ -16,6 +16,7 @@ const GatewayTab: React.FC = () => {
 
   return (
     <>
+    <Paper elevation={1} className={classes.paper}>
         <div className={classes.container}>
             <div className={classes.box}>
                 <div className={classes.con}>
@@ -53,11 +54,17 @@ const GatewayTab: React.FC = () => {
             </div>
 
         </div>
+        </Paper>
     </>
   )
 
 }
 const useStyles = makeStyles({
+    paper: {
+        width: "950px",
+        marginTop: "20px",
+        padding: "2rem 2rem",
+    },
     container:{
         overflow:'auto',
         flex:'1 1 0%',

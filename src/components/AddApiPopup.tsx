@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FormEvent } from "react";
 import { Typography, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, MenuItem } from "@mui/material";
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { makeStyles } from "@mui/styles";
@@ -9,38 +9,39 @@ import { useContextProvider } from "../contexts/ContextProvider";
 import { useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
 import { Fallback } from "../components";
 
-const core_url = import.meta.env.VITE_BASE_URL
+const core_url = import.meta.env.VITE_CORE_URL
 
-const initialState = { name: "", description: "", base_url: "", category: "" };
+const initialState = { name: "", description: "", base_url: "", categoryId: "" };
 
 const AddApiPopup: React.FC = () => {
   const { loading, error, sendRequest, clearError } = useHttpRequest();
   const { inputs, bind, select } = useFormInputs(initialState);
-  const { name, description, base_url, category } = inputs
+  const { name, description, base_url, categoryId } = inputs
   const { handleUnclicked } = useContextProvider()
   const classes = useStyles();
   const { apis } = useAppSelector(store => store.apis)
   const cookies = new Cookies()
   const profileId = cookies.get("profileId")
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault()
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 
-    if(!name || !description || !base_url || !categories) return toast.error('Please fill all fields')
-    const payload = { name, description, base_url, category }
+    if(!name || !description || !base_url || !categoryId) return toast.error('Please fill all fields')
+    const payload = { name, description, base_url, categoryId }
     const headers = { 'Content-Type': 'application/json' }
     try {
-      const data = await sendRequest(`${core_url}/api/${profileId}/new`, 'POST', JSON.stringify(payload), headers)
-      console.log(data)
+      const data = await sendRequest(`${core_url}/api/new/${profileId}`, 'POST', JSON.stringify(payload), headers)
+      const { message } = data
+      toast.success(`${message}`)
     } catch (err) {
       console.log(err)
     }
+    handleUnclicked()
   }
 
   return (
     <>
     {loading && <Fallback />}
-    <div className={classes.container}>
+    <div className={classes.container} onClick={() => handleUnclicked('addapi')}>
       <div className={classes.main} onClick={(e) => e.stopPropagation()}>
         <Typography variant="body1" fontSize="24px" lineHeight="30px" fontWeight={700} mb={3}>
           Add API Project
@@ -57,9 +58,9 @@ const AddApiPopup: React.FC = () => {
           <div className={classes.input}>
             <label>Category</label>
             <FormControl className={classes.input}>
-              <Select name="category" value={category} displayEmpty inputProps={{'aria-label': 'Category'}} {...select}>
-                {categories.sort((a,b) => a.localeCompare(b)).map((item, index) => (
-                  <MenuItem key={index} value={item}>{item}</MenuItem>
+              <Select name="categoryId" value={categoryId} displayEmpty inputProps={{'aria-label': 'Category'}} {...select}>
+                {apis.map((item) => (
+                  <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -194,10 +195,11 @@ const useStyles = makeStyles({
     alignItems: "center",
     padding: "8px 16px",
     gap: "16px",
-    width: "150px",
+    // width: "150px",
+    fontFamily: "inherit",
     height: "46px",
     cursor: "pointer",
-    background: "#white",
+    background: "offwhite",
     color: "#1D1D1D",
     border: "1px solid #1D1D1D",
     borderRadius: "8px"
@@ -210,6 +212,7 @@ const useStyles = makeStyles({
     gap: "16px",
     height: "46px",
     background: "#1D1D1D",
+    fontFamily: "inherit",
     color: "white",
     borderRadius: "8px",
     textAlign: "center",
