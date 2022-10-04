@@ -36,3 +36,4 @@ export { default as Version } from "./Version";
 export { default as Widget } from "./Widget";
 export { default as APILayout } from "./APILayout"
 export { default as Subscription } from "./Subscription"
+export { default as SettingsPage } from "./SettingsPage"

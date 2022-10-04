@@ -35,7 +35,7 @@ const useStyles = makeStyles({
         padding: '5rem 8rem 0 8rem',
         fontColor: '#071B85',
         width: '100%',
-        height: '630px',
+        height: '100vh',
         "@media screen and (max-width: 1200px)": {
             padding: '5rem 5rem 0 5rem',
         },

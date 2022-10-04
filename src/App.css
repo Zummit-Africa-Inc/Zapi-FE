@@ -1,7 +1,9 @@
 .set-col {
-    margin: 10px;
-    padding: 40px;
+    margin: 0;
+    padding: 50px;
     box-sizing: border-box;
+    background-color: #fff;
+    min-width: 200vh;
   }
   .text-col{
     margin-bottom: 16px;
@@ -290,19 +292,18 @@
 
   }
   .del-main {
-  padding: 5px 24px 0px;
+  padding: 15px 24px 0px;
   background-color: #ddd;
-  width: 330px;
-  height: 400px;
+  width: 450px;
+  height: 350px;
   justify-content: center;
-  min-height: 100px;
   box-shadow: rgb(0 0 0 / 8%) 0px 1px 4px;
   box-sizing: border-box;
   border-radius: 10px;
   position: absolute;
   z-index: 2;
-  top: 50%;
-  left: 50%;
+  top: 40%;
+  left: 40%;
   transform: translate(-50%, -50%);
     
   
@@ -380,7 +381,7 @@
     font-size: 14px;
     box-sizing: border-box;
     margin: 10px;
-    left: 140px;
+    left: 240px;
     transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s, background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s;
     opacity: 0.2;
   }
