@@ -35,14 +35,14 @@ const ApiSidebar:React.FC = () => {
           Hub Listing
         </div>
       </Link>
-      <Link to={'/'} className={classes.side}>
+      {/* <Link to={'/'} className={classes.side}>
         <div className={classes.wrap}>
           <div className={classes.box}>
             <EditOutlinedIcon sx={{display: 'block' }}/>
           </div>
           Settings
         </div>
-      </Link>
+      </Link> */}
       <span className={classes.span}></span>
     </>
   )
