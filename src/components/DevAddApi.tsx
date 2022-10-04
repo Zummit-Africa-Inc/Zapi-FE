@@ -48,14 +48,12 @@ const DevAddApi: React.FC = () => {
                 <InputSearch className={classes.formControl} type="text" name="queryString" value={queryString} onChange={(e: ChangeEvent<HTMLInputElement>) => setQueryString(e.target.value)} placeholder="Search API Projects"/>
                 </form>
             </div>
-            {/* <div className={classes.widget2}> */}
-                <div className={classes.leftText}>
-                    <CustomTabs value={tab} onChange={handleTabChange}>
-                        <CustomTab icon={<Loyalty />} iconPosition="start" label="Subscribed APIS"/>
+            <div className={classes.widget2}>
+                    <CustomTabs sx={{height: "46px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "10px"}} value={tab} onChange={handleTabChange}>
+                        <CustomTab icon={<Loyalty />} iconPosition="start" label="Subscriptions"/>
                         <CustomTab icon={<Grade />} iconPosition="start" label="My APIS"/>
                     </CustomTabs>
-                </div>
-            {/* </div> */}
+            </div>
             <button className={classes.button} onClick={() => handleClicked('addapi')} style={{height: "46px"}}>
                 <AddIcon /> <Typography>Add API Project</Typography>
             </button>
@@ -115,20 +113,8 @@ const useStyles = makeStyles({
         }
     },
     widget2:{
-        gap:'1rem',
-        display:'flex',
-        alignItems:'center',
-        "@media screen and (max-width: 1024px)": {
-            marginBottom: "2rem",
-        }
-    },
-    leftText:{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-start",
-        background: "#FFFFFF",
-        border: "1px solid #8C8C8C",
-        borderRadius: "10px"
+       border: "1px solid #C4C4C4",
+       borderRadius: "10px",
     },
     rightText:{
         display: "flex",
