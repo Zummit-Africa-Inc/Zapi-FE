@@ -14,8 +14,9 @@ import Nvidia from "./images/Nvidia.png";
 import Zummit from "./images/Zummit.png";
 import ZummitInfoLabs from "./images/zummit-full.png";
 import Aws from "./images/AWS.png";
+import Spinner from "./icons/Spinner";
 
-export { GoogleIcon, LinkedInIcon, TwitterIcon, YoutubeIcon, ZapiDevLogo,
+export { GoogleIcon, LinkedInIcon, Spinner, TwitterIcon, YoutubeIcon, ZapiDevLogo,
     ZapiWidget, ZapiDash, ZapiApps, ZapiHelp, ZapiArrow, ZapiPic }
 
 export const FOOTER_LINKS = [

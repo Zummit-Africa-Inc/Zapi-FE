@@ -19,7 +19,7 @@ const APICard: React.FC<CardProps> = ({id,name,description,status,image,latency,
     const classes = useStyles();
 
     return (
-        <Link to={`/api/${id}`} className={classes.card}>
+        <Link to={`/developer/api/${id}`} className={classes.card}>
             <Paper elevation={3} className={classes.root}>
                 <Stack direction="row" alignItems="center" justifyContent="space-between">
                     <Avatar src={image} variant="square" sx={{width:40,height:40,objectFit:"contain"}} />

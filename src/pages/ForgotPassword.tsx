@@ -22,7 +22,7 @@ const ForgotPassword: React.FC = () => {
       const res = await axios.post(url, userData);
       toast.success(res.data.message);
       setTimeout(() => {
-        navigate("/");  
+        navigate("/reset-password");  
       }, 5000);
 
     } catch (error: any){

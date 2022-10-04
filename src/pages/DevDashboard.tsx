@@ -93,7 +93,7 @@ const DevDashboard: React.FC = () => {
                 <DataTable Heading={TABLEHADING} Rows={ROWS} />
             </div>
         </div> */}
-</>
+        </>
     )
 }
 

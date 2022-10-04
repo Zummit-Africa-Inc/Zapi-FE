@@ -1,17 +1,15 @@
 import React, {useState, useEffect} from 'react'
-import { makeStyles } from "@mui/styles";
-import { Avatar, Fade, Menu, MenuItem, Button, Typography } from '@mui/material'
-import Notification from './Notification';
-import { io } from 'socket.io-client';
-
-import { ZapiDash, ZapiApps, ZapiHelp, ZapiArrow, ZapiPic } from '../assets'
-
-
 import { useNavigate } from "react-router-dom";
-import { logout } from "../redux/slices/userSlice";
-import { useAppDispatch } from "../hooks/redux-hook";
+import { Avatar, Fade, Menu, MenuItem, Button, Paper, Stack, Typography } from '@mui/material'
+import {HelpOutline, AppsRounded, DeveloperBoardRounded} from '@mui/icons-material'
+import { makeStyles } from "@mui/styles";
+import { io } from 'socket.io-client';
 import Cookies from "universal-cookie";
 
+import { ZapiDash, ZapiApps, ZapiHelp, ZapiArrow, ZapiPic } from '../assets'
+import { useAppDispatch } from "../hooks/redux-hook";
+import { logout } from "../redux/slices/userSlice";
+import Notification from './Notification';
 
 const Menus: React.FC = () => {
     const classes = useStyles()
@@ -36,7 +34,10 @@ const Menus: React.FC = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
-    
+
+    const handleClose2 = () => {
+        setAnchorE2(null)
+    }
     
     const handleAvatarClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorE2(event.currentTarget);
@@ -59,18 +60,18 @@ const Menus: React.FC = () => {
             <MenuItem onClick={handleClose}>Zummit Academy</MenuItem>
             <MenuItem onClick={handleClose}>Zapi Tools</MenuItem>
         </Menu>
-        <div className={classes.icons}>
+        <Stack direction="row" alignItems="center" justifyContent="center" spacing={2}>
+            <DeveloperBoardRounded/>
+            <AppsRounded/>
+            <HelpOutline />
           <Notification socket={socket}/>
-            <img src={ZapiDash} alt='zapi-board' style={{ color:'#00000' }}/>
-            <img src={ZapiApps} alt='zapi-apps' style={{ color:'#00000' }}/>
-            <img src={ZapiHelp} alt='zapi-help' style={{ color:'#00000' }}/>
-        </div>
+        </Stack>
           
-        <Button id="avatar-button" aria-controls={isAvatarOpen ? 'avatar-menu' : undefined} aria-haspopup="true" aria-expanded={isAvatarOpen ? 'true' : undefined} onClick={handleAvatarClick}>
+        <Button aria-controls={isAvatarOpen ? 'avatar-menu' : undefined} aria-haspopup="true" aria-expanded={isAvatarOpen ? 'true' : undefined} onClick={handleAvatarClick}>
             <Avatar src={ZapiPic} alt='zapi-pic' />
         </Button>
-        <Menu id="avatar-menu" MenuListProps={{ 'aria-labelledby': 'avatar-button', }} anchorEl={anchorE2} open={isAvatarOpen} onClose={handleLogout} TransitionComponent={Fade}>
-            <MenuItem onClick={handleLogout}>LOGOUT</MenuItem>
+        <Menu anchorEl={anchorE2} open={isAvatarOpen} onClose={handleClose2} TransitionComponent={Fade}>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </Menu>
     </div>
   )
@@ -86,7 +87,7 @@ const useStyles = makeStyles({
     items:{
         alignItems:'center',
         display:'flex',
-        width:'350px',
+        width:'450px',
         gap:'2rem'
     },
     root:{
