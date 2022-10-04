@@ -3,9 +3,21 @@ import { makeStyles } from "@mui/styles"
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Typography } from "@mui/material"
+// import { useAppSelector } from "../hooks";
+// import Cookies from "universal-cookie";
 
 const ProxySecret:React.FC = () => {
     const classes = useStyles();
+    // const cookies = new Cookies()
+    // const secretKey = cookies.get("secretKey")
+    // console.log(secretKey)
+   
+    // const { user } = useAppSelector(store => store.user)
+    // console.log(user)
+
+    // const secretKey = user.secretKey
+
+    
 
     const [proxySecret, setProxySecret] = useState<boolean>(false);
 
@@ -23,7 +35,7 @@ const ProxySecret:React.FC = () => {
                 </Typography>
                 <div className={classes.border}>
                     <div className={classes.input} >{" "}
-                    {proxySecret ? proxySecret : "•••••••••••••••••••••••••"}</div>
+                    {proxySecret ? proxySecret : "**********************" }</div>
 
                     {proxySecret ? (
                     <VisibilityOffIcon

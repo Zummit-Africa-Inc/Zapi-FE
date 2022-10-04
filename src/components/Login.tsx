@@ -42,13 +42,14 @@ const Login: React.FC = () => {
     try {
       const data = await sendRequest(`${url}/auth/signin`, 'POST', JSON.stringify(payload), headers);
       if(!data || data === undefined) return;
-      const { data: {access, email, fullName, profileId, refresh, userId}} = data;
-      const user = { email, fullName, profileId };
+      const { data: {access, email, fullName, profileId, refresh, userId, secretKey}} = data;
+      const user = { email, fullName, profileId, secretKey };
       dispatch(login(user));
       cookies.set('accessToken', access);
       cookies.set('refreshToken', refresh);
       cookies.set('profileId', profileId);
       cookies.set('userId', userId);
+      cookies.set('secretKey', secretKey);
       handleUnclicked('login')
       navigate("/developer/dashboard")
     } catch (error) {};

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { SelectMulti,ProxySecret, Threat, Schema, Config, Version } from '../components';
 import { makeStyles } from "@mui/styles"
 import { Box, Stack, Typography, Paper } from "@mui/material"
@@ -9,6 +9,7 @@ import { Box, Stack, Typography, Paper } from "@mui/material"
 
 
 const GatewayTab: React.FC = () => {
+    const [disabled, setDisabled] = useState<boolean>(true);
 
     const classes = useStyles();
     
@@ -22,11 +23,17 @@ const GatewayTab: React.FC = () => {
                 <div className={classes.con}>
                     <form>
                         <div className={classes.gateway}>
-                            <div className={classes.way}>
+                            <div className={classes.way} style={{
+                                opacity: disabled ? 0.25 : 1,
+                                pointerEvents: disabled ? "none" : "initial"
+                                }}>
                             <span  style={{ fontWeight:800, color:'black',fontSize:'18px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>Gateway DNS</span>
                             <span  style={{ fontWeight:800, color:'black',fontSize:'14px',display:'block', boxSizing:'border-box',outline:'none 0px', letterSpacing:'normal',lineHeight:'16px' }}>The gateway developers use to make request to the API.</span>
                             </div>
-                            <div className={classes.dropdown}>
+                            <div className={classes.dropdown} style={{
+                                opacity: disabled ? 0.25 : 1,
+                                pointerEvents: disabled ? "none" : "initial"
+                                }}>
                                 <SelectMulti />
                             </div>
                             <div className={classes.fire}>
@@ -38,14 +45,14 @@ const GatewayTab: React.FC = () => {
                             <ProxySecret />
                         </div>
                         <Threat />
-                        <Schema />
-                        <Config />
-                        <Version />
+                        {/* <Schema /> */}
+                        {/* <Config />
+                        <Version /> */}
                       
-                        <Box className={classes.fixedBottom}>
-                            <Stack direction="row" spacing={2}>
-                            <button className={classes.saveBtn}>Save</button>
-                            <button className={classes.discardBtn}>Discard</button>
+                        <Box>
+                            <Stack direction="row" spacing={2} mt={5}>
+                                <button className={classes.saveBtn}>Save</button>
+                                <button className={classes.discardBtn}>Discard</button>
                             </Stack>
                         </Box>
                     </form>
@@ -117,10 +124,10 @@ const useStyles = makeStyles({
         backgroundColor: '#F3F4F6'
       },
       saveBtn: {
-        padding: '10px 20px',
+        padding: '15px 25px',
         backgroundColor: 'rgb(74, 149, 237)',
         color: 'white',
-        borderRadius: '10px',
+        borderRadius: '5px',
         outline: 'none',
         border: 'none',
         cursor: 'pointer',
@@ -129,13 +136,13 @@ const useStyles = makeStyles({
         }
       },
       discardBtn: {
-        padding: '10px 20px',
-        borderRadius: '10px',
+        padding: '15px 25px',
+        borderRadius: '5px',
         outline: 'none',
         backgroundColor: '#fff',
         border: '1px solid rgb(214, 217, 219)',
         color: 'rgba(0, 0, 0, 0.87)'
-      },
+      }
     
 })
 
