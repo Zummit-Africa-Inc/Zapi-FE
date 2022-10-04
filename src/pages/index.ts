@@ -22,6 +22,5 @@ const TermsConditons = React.lazy(() => import("./Terms&Conditions"))
 const Pricing = React.lazy(() => import("./Pricing"))
 const Documentation = React.lazy(() => import("./Documentation"))
 
-
 export { APIPage, Configuration, CreateEndpoint,DeveloperApiPage, DevDashboard,
 ForgotPassword, Home, HomePage, LoginHistory, Otp, Signup, SuccessPage, UserProfile, TermsConditons, ResetPassword, Pricing, Documentation };
