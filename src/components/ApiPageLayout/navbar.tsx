@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { SettingsPage, Analytics, Community, EndpointTab, GatewayTab, GeneralTab, Monetize, TabPanel, } from "../";
 
+
 const CustomTab = styled(Tab)({
     "&.MuiTab-root": {
     textTransform: "none"}
@@ -28,7 +29,7 @@ const Navbar:React.FC<Props> = ({id}) => {
                 <Tab label="Endpoints" />
                 <Tab label="Gateway" />
                 <Tab label="Commmunity" />
-                <Tab label="Monetize" />
+                {/* <Tab label="Monetize" /> */}
                 <Tab label="Analytics" />
                 <Tab label="Settings" />
             </Tabs>
@@ -45,9 +46,9 @@ const Navbar:React.FC<Props> = ({id}) => {
                 <TabPanel value={tab} index={3}>
                     <Community />
                 </TabPanel>
-                <TabPanel value={tab} index={4}>
+                {/* <TabPanel value={tab} index={4}>
                     <Monetize />
-                </TabPanel>
+                </TabPanel> */}
                 <TabPanel value={tab} index={5}>
                     <Analytics />
                 </TabPanel>
@@ -78,6 +79,10 @@ const useStyles = makeStyles({
         justifyContent: "space-between",
         width: "100vw",
         height: "45px",
+        "@media screen and (max-width: 1024px)": {
+            marginLeft: "0",
+            paddingLeft: "0",
+        },
     },
     tabpanel: {
         overflowY: "scroll",
@@ -90,5 +95,8 @@ const useStyles = makeStyles({
         zIndex: 5,
         width: "calc(100% - 300px)",
         background: "#F4F5F6",
+        "@media screen and (max-width: 1024px)": {
+            width: "99%",
+        },
     }
 })
