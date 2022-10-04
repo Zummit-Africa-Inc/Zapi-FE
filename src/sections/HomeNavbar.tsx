@@ -11,6 +11,7 @@ import { logout } from "../redux/slices/userSlice";
 import { useAppDispatch } from "../hooks/redux-hook";
 import Cookies from "universal-cookie";
 
+import { useLocation } from 'react-router-dom'; 
 
 const HomeNavbar: React.FC = () => {
     const classes = useStyles()
@@ -37,6 +38,8 @@ const HomeNavbar: React.FC = () => {
         navigate("/")
     }
 
+    const location = useLocation();
+
     return (
         <>
             <div className={classes.NavBar}>
@@ -50,18 +53,34 @@ const HomeNavbar: React.FC = () => {
                 {isMatch ?
                     <>
                         <div className={open}>
-                            <ul>
-                                <li className={classes.active}><Link to="/">Home</Link></li>
-                                <li><Link to="/dashboard">API hub</Link></li>
-                                <li><Link to="#">Pricing</Link></li>
-                                <li><Link to="#">Documentation</Link></li>
-                                {!isLoggedIn && <li><button onClick={() => handleClicked('login')}>Login</button></li>}   
-                        </ul>
-                         {!isLoggedIn ? 
+                            {(location.pathname.indexOf('pricing') != -1) ? 
+                                <ul>
+                                    <li><Link to="/">Home</Link></li>
+                                    <li><Link to="/dashboard">API hub</Link></li>
+                                    <li className={classes.active}><Link to="/pricing">Pricing</Link></li>
+                                    <li><Link to="/documentation">Documentation</Link></li>
+                                    <li><button onClick={() => handleClicked('login')}>Login</button></li>
+                                </ul>
+                                :
+                                (location.pathname.indexOf('documentation') != -1) ? 
+                                <ul>
+                                    <li><Link to="/">Home</Link></li>
+                                    <li><Link to="/dashboard">API hub</Link></li>
+                                    <li><Link to="/pricing">Pricing</Link></li>
+                                    <li className={classes.active}><Link to="/documentation">Documentation</Link></li>
+                                    <li><button onClick={() => handleClicked('login')}>Login</button></li>
+                                </ul>
+                                :
+                                <ul>
+                                    <li className={classes.active}><Link to="/">Home</Link></li>
+                                    <li><Link to="/dashboard">API hub</Link></li>
+                                    <li><Link to="/pricing">Pricing</Link></li>
+                                    <li><Link to="/documentation">Documentation</Link></li>
+                                    <li><button onClick={() => handleClicked('login')}>Login</button></li>
+                                </ul>
+                                
+                            }
                             <div className={classes.signup}><Link to="/signup">Sign up</Link></div>
-                             : 
-                             <button className={classes.signup} onClick={handleLogOut}>LogOut</button>
-                        } 
                         </div>
                         <div className={classes.hamburger} onClick={handleClick}>
                             <Menu />
@@ -69,17 +88,38 @@ const HomeNavbar: React.FC = () => {
                     </>
                     :
                     <div className={classes.links}>
-                        <ul>
-                            <li className={classes.active}><Link to="/">Home</Link></li>
-                            <li><Link to="/dashboard">API hub</Link></li>
-                            <li><Link to="#">Pricing</Link></li>
-                            <li><Link to="#">Documentation</Link></li>
-                            {!isLoggedIn && <li><button onClick={() => handleClicked('login')}>Login</button></li>}   
-                        </ul>
-                            {!isLoggedIn ?
-                                <div className={classes.signup}><Link to="/signup">Sign up</Link></div> : 
-                                <button className={classes.signup} onClick={() => handleLogOut()}>Logout</button>
-                            } 
+                        {(location.pathname.indexOf('pricing') != -1) ? 
+                            <ul>
+                                <li><Link to="/">Home</Link></li>
+                                <li><Link to="/dashboard">API hub</Link></li>
+                                <li className={classes.active}><Link to="/pricing">Pricing</Link></li>
+                                <li><Link to="/documentation">Documentation</Link></li>
+                                {!isLoggedIn && <li><button onClick={() => handleClicked('login')}>Login</button></li>}  
+                            </ul>
+                            :
+                            (location.pathname.indexOf('documentation') != -1) ? 
+                            <ul>
+                                <li><Link to="/">Home</Link></li>
+                                <li><Link to="/dashboard">API hub</Link></li>
+                                <li><Link to="/pricing">Pricing</Link></li>
+                                <li className={classes.active}><Link to="/documentation">Documentation</Link></li>
+                                {!isLoggedIn && <li><button onClick={() => handleClicked('login')}>Login</button></li>}  
+                            </ul>
+                            :
+                            <ul>
+                                <li className={classes.active}><Link to="/">Home</Link></li>
+                                <li><Link to="/dashboard">API hub</Link></li>
+                                <li><Link to="/pricing">Pricing</Link></li>
+                                <li><Link to="/documentation">Documentation</Link></li>
+                                {!isLoggedIn && <li><button onClick={() => handleClicked('login')}>Login</button></li>}  
+                            </ul>
+                            
+                        }
+                        
+                        {!isLoggedIn ?
+                            <div className={classes.signup}><Link to="/signup">Sign up</Link></div> : 
+                            <button className={classes.signup} onClick={() => handleLogOut()}>Logout</button>
+                        } 
                     </div>
                 }
             </div>

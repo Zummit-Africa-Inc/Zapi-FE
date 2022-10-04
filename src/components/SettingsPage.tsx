@@ -2,12 +2,26 @@ import { useState } from "react";
 import React from "react";
 import SearchIcon from '@mui/icons-material/Search';
 import { makeStyles } from "@mui/styles";
+import { removeEndpoint } from "../redux/slices/userSlice";
+import { toast } from "react-toastify";
+import { useHttpRequest } from "../hooks";
+import { useNavigate, useParams } from "react-router-dom";
+import Cookies from "universal-cookie";
 
+const core_url = import.meta.env.VITE_CORE_URL
 
- const Settings:React.FC = () => {
+ const SettingsPage:React.FC = () => {
     
   const [status, setStatus] = useState("");
   const [popup, setPop] = useState(false);
+  const { error, loading, sendRequest } = useHttpRequest()
+  const {id} = useParams()
+  const navigate = useNavigate()
+
+
+  const cookies = new Cookies
+  const profileId = cookies.get("profileId")
+  // const [delete, setDelete] = useState("")
 
   const handleClickDelete = () => {
     setPop(!popup);
@@ -17,13 +31,23 @@ import { makeStyles } from "@mui/styles";
   const closePopup = () => {
     setPop(false);
   }
-
-  
-
   function onChangeValue(event:any) {
     setStatus(event.target.value);
   }
   console.log("okkk", status);
+
+
+  const handleDeleteApi = async (e: any) => {
+    e.preventDefault()
+    try {
+      const data = await sendRequest(`${core_url}/api/${id}?profileId=${profileId}`, 'DELETE')
+      console.log(data)
+      if(!data || data === undefined)return
+     
+      toast.success("Delete Successful!")
+       navigate("/developer/dashboard")
+    } catch (error) {}
+  }
 
   return (
     <section className="set-col">
@@ -145,20 +169,12 @@ import { makeStyles } from "@mui/styles";
                   Any data from RapidAPI Requests (previously known as Paw)
                 </li>
               </ul>
-              <div className="paw-paw">
-                <span className="paw-name">
-                  Type this API project name "Bayo" to confirm the deletion:
-                </span>
-                <br />
-                <div className="spell-col">
-                  <input className="spells" placeholder="Bayo" />
-                </div>
-              </div>
+              
             </span>
           </div>
           <hr />
 
-          <button className="buttons-1">Delete API Project</button>
+          <button onClick={handleDeleteApi} className="buttons-1">Delete API Project</button>
         </form>
         :""}
 
@@ -171,4 +187,4 @@ import { makeStyles } from "@mui/styles";
 
 
 
-export default Settings;
+export default SettingsPage;
