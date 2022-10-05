@@ -1,74 +1,42 @@
 import React, { ChangeEvent, FormEvent, SyntheticEvent, useState } from 'react'
-import { makeStyles, styled } from "@mui/styles";
+import { makeStyles } from "@mui/styles";
 import InputSearch from './InputSearch';
 import { Tab, Tabs, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import { useAppSelector } from '../hooks';
+import DevAPICard from './DevAPICard';
 
-import { useContextProvider } from "../contexts/ContextProvider";
-import TabPanel from './TabPanel';
-import APILayout from './APILayout';
-import Subscription from './Subscription';
-import { Grade, Loyalty } from '@mui/icons-material';
-
-const CustomTabs = styled(Tabs)({
-      '& .MuiTabs-indicator': {
-        display: "none"
-      },
-  })
-
-const CustomTab = styled(Tab)({
-   "&.MuiTab-wrapper": {
-    height: "45px"
-   },
-'&.Mui-selected': {
-    backgroundColor: '#ccc',
-    borderRadius: "10px",
-  }
-  })
-
-const DevAddApi: React.FC = () => { 
-    const [queryString, setQueryString] = useState<string>("");
-    const { handleClicked } = useContextProvider();
-    const [tab, setTab] = useState<number>(0);
+const APILayout: React.FC = () => {
+    const { userApis } = useAppSelector(store => store.user);
     const classes = useStyles();
-
-    const handleTabChange = (e: SyntheticEvent, newValue: number) => {
-        setTab(newValue)
-    };
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault()
-  }
-
   return (
-    <div className={classes.bodyColor}>
-        <div className={classes.body}>
-            <div className={classes.widget1}>
-                <form onSubmit={handleSubmit} className={classes.search}>
-                <InputSearch className={classes.formControl} type="text" name="queryString" value={queryString} onChange={(e: ChangeEvent<HTMLInputElement>) => setQueryString(e.target.value)} placeholder="Search API Projects"/>
-                </form>
-            </div>
-            <div className={classes.widget2}>
-                    <CustomTabs sx={{height: "46px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "10px"}} value={tab} onChange={handleTabChange}>
-                        <CustomTab icon={<Loyalty />} iconPosition="start" label="Subscriptions"/>
-                        <CustomTab icon={<Grade />} iconPosition="start" label="My APIS"/>
-                    </CustomTabs>
-            </div>
-            <button className={classes.button} onClick={() => handleClicked('addapi')} style={{height: "46px"}}>
-                <AddIcon /> <Typography>Add API Project</Typography>
-            </button>
-        </div>
-        <div>
-                <TabPanel value={tab} index={0}>
-                    <Subscription />
-                </TabPanel>
-                <TabPanel value={tab} index={1}>
-                    <APILayout />
-                </TabPanel>
-            </div>
+    <div>
+         {userApis.length !== 0 ? 
+                <div className={classes.apiCard}>
+                    {userApis.map((apis: any) => (<DevAPICard key={apis.id} {...apis} />))}
+                </div>
+                :
+                <div className={classes.addApiDesc}>
+                <Typography gutterBottom variant="subtitle1" sx=
+                    {{
+                        color: "#000000", fontFamily: "Space Grotesk", fontWeight: 700, fontSize: "18px",
+                        lineHeight: "30px", textAlign: "center", marginTop: "116px"
+                    }}>
+                        You do no have any API Projects
+                </Typography>
+                <Typography gutterBottom variant="subtitle1" sx={{
+                    color: "#000000", fontFamily: "Space Grotesk", fontStyle: "normal", fontWeight: 400,
+                    fontSize: "16px", lineHeight: "30px", textAlign: "center", marginTop: "16px"
+                }}>Add a new API Project from scratch or use our “Project 1” 
+                    <br />{""}
+                    to explore API Projects features.
+                </Typography>
+            </div>}
     </div>
   )
 }
+
+export default APILayout
 
 const useStyles = makeStyles({
     body: {
@@ -113,8 +81,21 @@ const useStyles = makeStyles({
         }
     },
     widget2:{
-       border: "1px solid #C4C4C4",
-       borderRadius: "10px",
+        gap:'1rem',
+        display:'flex',
+        alignItems:'center',
+        "@media screen and (max-width: 1024px)": {
+            marginBottom: "2rem",
+        }
+    },
+    leftText:{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start",
+        height: "46px",
+        background: "#C4C4C4",
+        border: "1px solid #8C8C8C",
+        borderRadius: "10px"
     },
     rightText:{
         display: "flex",
@@ -192,6 +173,34 @@ const useStyles = makeStyles({
             marginBottom: "2rem",
         }
     },
+    disabledButton: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        textAlign: "center",
+        marginTop: "32px",
+        gap: "16px",
+        color: "#585858",
+        justifyContent: "center",
+        
+        width: "190px",
+        height: "46px",
+        background: "#DFDFDF",
+        borderRadius: "8px",
+        margin: "0 auto", 
+    },
+    addApiDesc: {
+        marginTop: "20px",
+        paddingBottom: "80px",
+        height: "calc(100vh - 315px)"
+    },
+    apiCard: {
+        height: "calc(100vh - 315px)",
+        width: "100vw",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "1.5rem",
+        flexWrap: "wrap",
+    }
 })
-
-export default DevAddApi
