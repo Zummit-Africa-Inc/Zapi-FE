@@ -2,6 +2,7 @@ import React from "react";
 
 // ! Please add all pages as exotic components as below
 
+// const Analytics = React.lazy(() => import("./Analytics"));
 const APIPage = React.lazy(() => import("./APIPage"));
 const Configuration = React.lazy(() => import("./Configuration"));
 const DevDashboard = React.lazy(() => import("./DevDashboard"));
@@ -18,8 +19,12 @@ const CreateEndpoint = React.lazy(() => import("./CreateEndpoint"));
 // const OrgPage = React.lazy(() => import("./Orgpage"));
 const ResetPassword = React.lazy(() => import("./ResetPassword"));
 const TermsConditons = React.lazy(() => import("./Terms&Conditions"))
-const ComingSoon = React.lazy(() => import("./ComingSoon"))
+
 const ErrorPage = React.lazy(() => import ("./ErrorPage"))
+const Pricing = React.lazy(() => import("./Pricing"))
+const Documentation = React.lazy(() => import("./Documentation"))
+
+
 
 export { APIPage, Configuration, CreateEndpoint,DeveloperApiPage, DevDashboard,
-ForgotPassword, Home, HomePage, LoginHistory, Otp, Signup, SuccessPage, UserProfile, TermsConditons, ResetPassword, ComingSoon, ErrorPage };
+ForgotPassword, Home, HomePage, LoginHistory, Otp, Signup, SuccessPage, UserProfile, TermsConditons, ResetPassword, Pricing, Documentation };

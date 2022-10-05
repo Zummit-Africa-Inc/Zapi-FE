@@ -72,7 +72,7 @@ const core_url = import.meta.env.VITE_CORE_URL
               value="User"
               className="radio"
               name="User"
-              disabled={true}
+              
               checked={status === "User"}
             />
             <label className="users">User</label>
@@ -84,7 +84,7 @@ const core_url = import.meta.env.VITE_CORE_URL
               className="radio"
               value="Team"
               name="Team"
-              disabled={true}
+              
               checked={status === "Team"}
             />
             <label className="users">Team</label>
@@ -107,21 +107,22 @@ const core_url = import.meta.env.VITE_CORE_URL
             </div>
           ) : status === "Team" ? (
             <div className="form">
-              <div className="form">
+              <span>
               <select className="select-inputs">
-                <option value="1" disabled selected hidden >
+                <option value="1"  >
                     Select a team...
                 </option>
                 <option id="select-inputs" disabled={true} ><button id="ishidden">None</button></option>
                 
               </select>
-              </div>
+              </span>
             </div>
           ) : (
             ""
           )}
         </div>
       </div>
+      
 
       <button className="button-1">Transfer Ownership</button>
 
@@ -149,27 +150,25 @@ const core_url = import.meta.env.VITE_CORE_URL
             <span onClick={closePopup} className='xlm'> X </span>
           </div>
 
-          <div className="del-del">
-            <span className="sue-del">
-              Are you sure you want to permanentely delete this API Project?
+          <div>
+            <span className="sue201">
+              Are you sure you want to permanentely delete <br/> 
+              this API Project?
               <br />
               This action CANNOT be undone.
             </span>
           </div>
         
           <div className="lose-del">
-            <span className="sue-del">
-              You will permanentely lose:
+            <h3 className="may-del">You will permanentely lose:</h3>
+            <span className="sue-del"> 
               <ul className="ul-num">
                 <li>Your API subscribers (1)</li>
                 <li>Your API data & analysis</li>
                 <li>Your API documentation</li>
-                <li>Any data from RapidAPI Testing</li>
-                <li>
-                  Any data from RapidAPI Requests (previously known as Paw)
-                </li>
+                <li>Any data from ZapiAPI Testing</li>
+                <li>Any data from ZapiAPI Requests (previously known as Paw)</li>
               </ul>
-              
             </span>
           </div>
           <hr />
