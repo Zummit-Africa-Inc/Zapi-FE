@@ -331,11 +331,11 @@ export const APIData = [
         text: "Hub Listing",
         link: "#"
     },
-    {
-        image: <EditOutlinedIcon />,
-        text: "Settings",
-        link: "/"
-    },
+    // {
+    //     image: <EditOutlinedIcon />,
+    //     text: "Settings",
+    //     link: "/"
+    // },
 ]
 
 export const SCHEMA = [
