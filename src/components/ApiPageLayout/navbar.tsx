@@ -29,7 +29,6 @@ const Navbar:React.FC<Props> = ({id}) => {
                 <Tab label="Endpoints" />
                 <Tab label="Gateway" />
                 <Tab label="Commmunity" />
-                {/* <Tab label="Monetize" /> */}
                 <Tab label="Analytics" />
                 <Tab label="Settings" />
             </Tabs>
@@ -46,13 +45,10 @@ const Navbar:React.FC<Props> = ({id}) => {
                 <TabPanel value={tab} index={3}>
                     <Community />
                 </TabPanel>
-                {/* <TabPanel value={tab} index={4}>
-                    <Monetize />
-                </TabPanel> */}
-                <TabPanel value={tab} index={5}>
+                <TabPanel value={tab} index={4}>
                     <Analytics />
                 </TabPanel>
-                <TabPanel value={tab} index={6}>
+                <TabPanel value={tab} index={5}>
                     <SettingsPage />
                 </TabPanel>
             </div>
