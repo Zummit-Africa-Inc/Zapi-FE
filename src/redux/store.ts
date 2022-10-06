@@ -3,12 +3,14 @@ import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
 import apiReducer from "./slices/apiSlice";
 import userReducer from "./slices/userSlice";
 import endpointReducer from "./slices/endpointSlice";
+import analyticReducer from "./slices/analyticSlice";  
 
 export const store = configureStore({
     reducer: {
         apis: apiReducer,
         user: userReducer,
-        endpoints: endpointReducer
+        endpoints: endpointReducer,
+        analytics: analyticReducer
     },
     devTools: import.meta.env.VITE_ENV !== 'production'
 });
