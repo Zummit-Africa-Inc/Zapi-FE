@@ -103,6 +103,8 @@ const useStyles = makeStyles({
         flexDirection: 'column',
         boxSizing:'border-box',
         display: 'flex',
+        textAlign:'justify',
+        verticalAlign:'1rem'
 
     },
     main: {

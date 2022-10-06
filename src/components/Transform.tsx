@@ -26,7 +26,7 @@ const Transform:React.FC = () => {
                         boxSizing:'border-box',outline:'none 0px', 
                         letterSpacing:'normal',lineHeight:'20px', textAlign:"center" }}>This feature is not yet available in 
                         this beta version</span>
-                        <span style={{ marginBottom:'12px', color:'rgba(0, 0, 0, 0.38)',fontSize:'18px',display:'block', 
+                        <span style={{ marginBottom:'12px', color:'rgba(0, 0, 0, 0.38)',fontSize:'16px',display:'block', 
                         boxSizing:'border-box',outline:'none 0px', 
                         letterSpacing:'normal',lineHeight:'20px', textAlign:"center" }}>You can use this feature in the previous version</span>
                     </div>

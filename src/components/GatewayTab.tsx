@@ -90,7 +90,8 @@ const useStyles = makeStyles({
     way:{
         flexDirection:'column',
         boxSizing:'border-box',
-        display:'flex'
+        display:'flex',
+        gap:'1rem'
     },
     dropdown:{
         marginTop:'16px',
@@ -104,6 +105,7 @@ const useStyles = makeStyles({
         flexDirection: 'column',
         boxSizing: 'border-box',
         display: 'flex',
+        textAlign:'justify'
     },
     fixedBottom: {
         width: '100%',
