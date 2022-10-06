@@ -17,6 +17,7 @@ const CustomTabs = styled(Tabs)({
   })
 
 const CustomTab = styled(Tab)({
+    width: "190px",
    "&.MuiTab-wrapper": {
     height: "45px"
    },
@@ -49,23 +50,23 @@ const DevAddApi: React.FC = () => {
                 </form>
             </div>
             <div className={classes.widget2}>
-                    <CustomTabs sx={{height: "46px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "10px"}} value={tab} onChange={handleTabChange}>
-                        <CustomTab icon={<Loyalty />} iconPosition="start" label="Subscriptions"/>
-                        <CustomTab icon={<Grade />} iconPosition="start" label="My APIS"/>
-                    </CustomTabs>
+                <CustomTabs sx={{height: "46px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "10px"}} value={tab} onChange={handleTabChange}>
+                    <CustomTab icon={<Grade />} iconPosition="start" label="My APIS" />
+                    <CustomTab icon={<Loyalty />} iconPosition="start" label="Subscriptions"/>
+                </CustomTabs>
             </div>
             <button className={classes.button} onClick={() => handleClicked('addapi')} style={{height: "46px"}}>
                 <AddIcon /> <Typography>Add API Project</Typography>
             </button>
         </div>
         <div>
-                <TabPanel value={tab} index={0}>
-                    <Subscription />
-                </TabPanel>
-                <TabPanel value={tab} index={1}>
-                    <APILayout />
-                </TabPanel>
-            </div>
+            <TabPanel value={tab} index={0}>
+                <APILayout />
+            </TabPanel>
+            <TabPanel value={tab} index={1}>
+                <Subscription />
+            </TabPanel>
+        </div>
     </div>
   )
 }
@@ -78,6 +79,7 @@ const useStyles = makeStyles({
         width:'100%',
         display: 'flex',
         alignItems: 'center',
+        gap:'1rem',
         marginTop: '80px',
         padding: '24px 112px',
         flexDirection: 'row',
@@ -131,7 +133,7 @@ const useStyles = makeStyles({
         borderRadius: "0px 8px 8px 0px",
     },
     search: {
-        width: "149px",
+        // width: "149px",
         height: "30px",
         fontFamily: 'Space Grotesk',
         fontStyle: "normal",
