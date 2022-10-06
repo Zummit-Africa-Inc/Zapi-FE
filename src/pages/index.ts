@@ -21,6 +21,7 @@ const ResetPassword = React.lazy(() => import("./ResetPassword"));
 const TermsConditons = React.lazy(() => import("./Terms&Conditions"))
 const Pricing = React.lazy(() => import("./Pricing"))
 const Documentation = React.lazy(() => import("./Documentation"))
+const Notifications = React.lazy(() => import("./Notifications"))
 
 export { APIPage, Configuration, CreateEndpoint,DeveloperApiPage, DevDashboard,
-ForgotPassword, Home, HomePage, LoginHistory, Otp, Signup, SuccessPage, UserProfile, TermsConditons, ResetPassword, Pricing, Documentation };
+ForgotPassword, Home, HomePage, LoginHistory, Otp, Signup, SuccessPage, UserProfile, TermsConditons, ResetPassword, Pricing, Documentation, Notifications };

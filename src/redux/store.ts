@@ -1,6 +1,7 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
 
 import apiReducer from "./slices/apiSlice";
+import notificationReducer from "./slices/notificationSlice";
 import userReducer from "./slices/userSlice";
 import endpointReducer from "./slices/endpointSlice";
 
@@ -8,7 +9,8 @@ export const store = configureStore({
     reducer: {
         apis: apiReducer,
         user: userReducer,
-        endpoints: endpointReducer
+        endpoints: endpointReducer,
+        notifications: notificationReducer,
     },
     devTools: import.meta.env.VITE_ENV !== 'production'
 });

@@ -38,7 +38,6 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
         if (notifications) {
             setNotifications(notifications);
 		}
-        // console.log(item)
       }, []);
     useEffect(() => {
             try {
@@ -237,6 +236,9 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
                                 >
                                     <MenuItem>
                                         <span className={classes.notification}>No new notification</span>
+                                    </MenuItem>
+                                    <MenuItem>
+                                        <span className={classes.notification}><Link to="/notifications">View all notifications</Link></span>
                                     </MenuItem>
                                 </Menu>
 

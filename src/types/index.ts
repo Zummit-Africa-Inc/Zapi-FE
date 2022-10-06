@@ -24,6 +24,12 @@ export type UserResponseType = {
    email: string
 }
 
+export type NotificationType = {
+   profileId: string
+   content: string | null
+   isRead: boolean | null
+}
+
 export type UserProfileType = {
    id: string
    createdOn: string | Date | null
