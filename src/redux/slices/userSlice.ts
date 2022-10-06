@@ -41,7 +41,7 @@ export const getUserApis = createAsyncThunk("user/getapis", async(_, thunkAPI) =
     try {
         const response = await fetch(`${core_url}/api/dev-platform-data/${profileId}`)
         const data = await response.json()
-        const apis = data?.data
+        const apis = data?.data.apis
         return apis
     } catch (error: any) {
         return thunkAPI.rejectWithValue(error.message)
