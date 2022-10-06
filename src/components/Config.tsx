@@ -9,7 +9,7 @@ const Config:React.FC = () => {
   return (
     <div className={classes.config}>
         <div className={classes.text}>
-            <Typography variant='h6' style={{ fontWeight:800, color:'black',fontSize:'20px',display:'block',
+            <Typography variant='h6' style={{ fontWeight:600, color:'black',fontSize:'16px',display:'block',
             boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal',
             lineHeight:'24px' }}>
             Request Configurations
@@ -17,7 +17,7 @@ const Config:React.FC = () => {
         </div>
         <div className={classes.subconfig}>
             <div className={classes.small}>
-                <Typography variant='h6' style={{ fontWeight:800, color:'black',fontSize:'18px',display:'block',
+                <Typography variant='h6' style={{ fontWeight:600, color:'black',fontSize:'14px',display:'block',
                 boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal',
                 lineHeight:'20px' }}>
                 Request Size Limit
@@ -42,7 +42,7 @@ const Config:React.FC = () => {
                     />
                 <div className={classes.max}>
                     <div className={classes.submax}>
-                        <span style={{ color:'rgba(0, 0, 0, 0.38)',fontSize:'14px',display:'block',
+                        <span style={{ color:'rgba(0, 0, 0, 0.38)',fontSize:'12px',display:'block',
                         boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal',
                         lineHeight:'16px' }}>Max value is 50 MB</span>
                     </div>
@@ -51,12 +51,12 @@ const Config:React.FC = () => {
         </div>
         <div className={classes.subconfig}>
             <div className={classes.small}>
-                <Typography variant='h6' style={{ fontWeight:800, color:'black',fontSize:'18px',display:'block',
+                <Typography variant='h6' style={{ fontWeight:600, color:'black',fontSize:'14px',display:'block',
                 boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal',
                 lineHeight:'20px' }}>
                 Proxy Timeout Setting
                 </Typography>
-                <Typography variant='h6' style={{ marginTop:'4px', color:'black',fontSize:'16px',display:'block',
+                <Typography variant='h6' style={{ marginTop:'4px', color:'black',fontSize:'12px',display:'block',
                 boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal',
                 lineHeight:'16px' }}>
                 Configure the timeout between the proxy and the target endpoints
@@ -76,7 +76,7 @@ const Config:React.FC = () => {
                     />
                 <div className={classes.max}>
                     <div className={classes.submax}>
-                        <span style={{ color:'rgba(0, 0, 0, 0.38)',fontSize:'14px',display:'block',
+                        <span style={{ color:'rgba(0, 0, 0, 0.38)',fontSize:'12px',display:'block',
                         boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal',
                         lineHeight:'16px' }}>Max value is 180 Sec</span>
                     </div>
