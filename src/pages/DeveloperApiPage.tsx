@@ -12,6 +12,7 @@ const DeveloperApiPage:React.FC = () => {
     const navigate = useNavigate()
     const { userApis } = useAppSelector(store => store.user)
     
+    console.log(userApis)
     const api = userApis.find(api => api?.id === id)
     if (api === undefined) {
         return <ErrorPage />

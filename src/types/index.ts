@@ -50,3 +50,36 @@ export type EndpointsType = {
    headers?: Array<HeaderObject>
    requestBody?: Array<object>
 }
+
+export type AnalyticsType = {
+   id: string,
+    createdOn: string | Date | null,
+    createdBy: string | null,
+    updatedOn: string | Date | null,
+    updatedBy: string | null,
+    deletedOn: string | Date | null,
+    deletedBy: string | null,
+    totalLatency: number,
+    averageLatency: number,
+    apiId: string,
+    successful_calls: number,
+    total_calls: number,
+    total_errors: number
+}
+
+export type AnalyticsLog = {
+   id: string,
+   createdOn: string | Date | null,
+   createdBy: string | null,
+   updatedOn: string | Date | null,
+   updatedBy: string | null,
+   deletedOn: string | Date | null,
+   deletedBy: string | null,
+   latency: number,
+   profileId: string,
+   errorMessage: null,
+   status: number,
+   apiId: string,
+   endpoint: string,
+   method: string
+}

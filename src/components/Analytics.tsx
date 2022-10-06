@@ -1,9 +1,10 @@
 import { Box, FormControl, InputLabel, MenuItem, Select, Typography, SelectChangeEvent, Paper } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import { ChangeEvent, useState } from 'react'
-import { useFormInputs } from '../hooks'
+import { ChangeEvent, useState, useEffect, useMemo } from 'react'
+import { useAppDispatch, useFormInputs } from '../hooks'
 import { Widget, InputSearch, DataTable, Navbar } from '.'
 import { ERROR, STATISTICS, SUCCESS, TIMERANGE, PERIOD, ZONE, TABLEHADING, ROWS } from '../testdata'
+import { getAnalytics, getAnalyticsLog } from '../redux/slices/analyticSlice'
 
 const initialState = { statistics: "", timerange: TIMERANGE[0], period: PERIOD[0], timezone: ZONE[0] }
 
@@ -17,9 +18,18 @@ const Analytics: React.FC = () => {
     const [errStyle, setErrStyle] = useState('tab')
     const [successStyle, setSuccessStyle] = useState('tab')
     const classes = useStyles()
+    const dispatch = useAppDispatch()
 
     const { inputs, bind, select } = useFormInputs(initialState);
     const { statistics, timerange, timezone, period } = inputs
+  
+//   useEffect(() => {
+//     dispatch(getAnalytics())
+//   }, [])
+  
+//   useEffect(() => {
+//     dispatch(getAnalyticsLog())
+//   }, [])
 
    
     
@@ -50,48 +60,6 @@ const Analytics: React.FC = () => {
             <div className="heading">
                 <Typography sx={{ fontSize: '1.5rem', fontWeight: 500, color: 'var(--color-primary)', padding: '2rem 2rem' }}>default-application_6350466 - Analytics</Typography>
             </div>
-            {/* <div className={classes.selects}>
-                <Box sx={{ minWidth: 120 }}>
-                    <FormControl fullWidth>
-                        <label>Statistics</label>
-                        <Select name='statistics' labelId="stats" id="stats" value={statistics} {...select}>
-                            {statsData.map((stats:any, index:number) => (
-                                <MenuItem key={index} value={stats.span}>{stats.query}</MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </Box>
-                <Box sx={{ minWidth: 120 }}>
-                    <FormControl fullWidth>
-                        <label>Time Range</label>
-                        <Select name='timerange' labelId="time range" id="time range" value={timerange} {...select}>
-                            {TIMERANGE.map((time, index) => (
-                                <MenuItem key={index} value={time}>{time}</MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </Box>
-                <Box sx={{ minWidth: 120 }}>
-                    <FormControl fullWidth>
-                        <label>Period</label>
-                        <Select name="period" labelId="period" id="period" value={period} {...select}>
-                            {PERIOD.map((period, index) => (
-                                <MenuItem key={index} value={period}>{period}</MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </Box>
-                <Box sx={{ minWidth: 300 }}>
-                    <FormControl fullWidth>
-                        <label>Time Zone</label>
-                        <Select name='timezone' labelId="time-zone" id="timezone" value={timezone} {...select}>
-                            {ZONE.map((zone, index) => (
-                                <MenuItem key={index} value={zone}>{zone}</MenuItem>
-                                ))}
-                        </Select>
-                    </FormControl>
-                </Box>
-            </div> */}
             <div className={classes.Tab}>
                 <div className="tabs">
                     <Widget className={style} title='API Calls' subtitle={statsParam} onClick={handleStatClick}  span="0" />
@@ -104,11 +72,7 @@ const Analytics: React.FC = () => {
                 </div>
             </div>
             <div>
-                {ROWS ?
                     <DataTable Heading={TABLEHADING} Rows={ROWS} />
-                    :
-                    "No data yet"
-                }
             </div>
         </div>
         </Paper>
@@ -159,3 +123,48 @@ const useStyles = makeStyles({
         gap: ".5rem"
     }
 })
+
+
+
+ {/* <div className={classes.selects}>
+                <Box sx={{ minWidth: 120 }}>
+                    <FormControl fullWidth>
+                        <label>Statistics</label>
+                        <Select name='statistics' labelId="stats" id="stats" value={statistics} {...select}>
+                            {statsData.map((stats:any, index:number) => (
+                                <MenuItem key={index} value={stats.span}>{stats.query}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </Box>
+                <Box sx={{ minWidth: 120 }}>
+                    <FormControl fullWidth>
+                        <label>Time Range</label>
+                        <Select name='timerange' labelId="time range" id="time range" value={timerange} {...select}>
+                            {TIMERANGE.map((time, index) => (
+                                <MenuItem key={index} value={time}>{time}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </Box>
+                <Box sx={{ minWidth: 120 }}>
+                    <FormControl fullWidth>
+                        <label>Period</label>
+                        <Select name="period" labelId="period" id="period" value={period} {...select}>
+                            {PERIOD.map((period, index) => (
+                                <MenuItem key={index} value={period}>{period}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </Box>
+                <Box sx={{ minWidth: 300 }}>
+                    <FormControl fullWidth>
+                        <label>Time Zone</label>
+                        <Select name='timezone' labelId="time-zone" id="timezone" value={timezone} {...select}>
+                            {ZONE.map((zone, index) => (
+                                <MenuItem key={index} value={zone}>{zone}</MenuItem>
+                                ))}
+                        </Select>
+                    </FormControl>
+                </Box>
+            </div> */}
