@@ -64,5 +64,10 @@ const useStyles = makeStyles({
         width: "950px",
         marginTop: "20px",
         padding: "2rem 2rem",
+        ['@media (max-width:450px)']:{
+            width:"100%",
+            padding: "0.5rem"
+        }
     },
+
 });
