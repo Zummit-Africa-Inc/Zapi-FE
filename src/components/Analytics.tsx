@@ -1,12 +1,42 @@
 import { Box, FormControl, InputLabel, MenuItem, Select, Typography, SelectChangeEvent, Paper } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { ChangeEvent, useState, useEffect, useMemo } from 'react'
-import { useAppDispatch, useFormInputs } from '../hooks'
+import { useAppDispatch, useAppSelector, useFormInputs } from '../hooks'
 import { Widget, InputSearch, DataTable, Navbar } from '.'
 import { ERROR, STATISTICS, SUCCESS, TIMERANGE, PERIOD, ZONE, TABLEHADING, ROWS } from '../testdata'
 import { getAnalytics, getAnalyticsLog } from '../redux/slices/analyticSlice'
+import { useParams } from 'react-router-dom'
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TablePagination from '@mui/material/TablePagination';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import { tableCellClasses } from '@mui/material/TableCell';
+import { styled } from '@mui/material/styles';
 
 const initialState = { statistics: "", timerange: TIMERANGE[0], period: PERIOD[0], timezone: ZONE[0] }
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: theme.palette.common.black,
+      color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: 14,
+    },
+  }));
+  
+  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    '&:last-child td, &:last-child th': {
+      border: 0,
+    },
+  }));
 
 const Analytics: React.FC = () => {
     const [statsParam, setStatsParam] = useState<string>("")
@@ -19,21 +49,28 @@ const Analytics: React.FC = () => {
     const [successStyle, setSuccessStyle] = useState('tab')
     const classes = useStyles()
     const dispatch = useAppDispatch()
+    const { analytics, analyticsLog } = useAppSelector(store => store.analytics)
+    const { id } = useParams()
 
-    const { inputs, bind, select } = useFormInputs(initialState);
-    const { statistics, timerange, timezone, period } = inputs
-  
-//   useEffect(() => {
-//     dispatch(getAnalytics())
-//   }, [])
-  
-//   useEffect(() => {
-//     dispatch(getAnalyticsLog())
-//   }, [])
+    const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
-   
-    
-    console.log(inputs)
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+  
+  useEffect(() => {
+    dispatch(getAnalytics(id))
+  }, [id])
+  
+  useEffect(() => {
+    dispatch(getAnalyticsLog())
+  }, [])
 
     const handleStatClick = (e: React.MouseEvent<HTMLDivElement>) => {
         setStatsData(STATISTICS)
@@ -62,17 +99,65 @@ const Analytics: React.FC = () => {
             </div>
             <div className={classes.Tab}>
                 <div className="tabs">
-                    <Widget className={style} title='API Calls' subtitle={statsParam} onClick={handleStatClick}  span="0" />
+                    <Widget className={style} title='API Calls' subtitle={statsParam} onClick={handleStatClick}  span={analytics.total_calls} />
                 </div>
                 <div className="tabs">
-                    <Widget className={errStyle} title='Errors' subtitle={errorParam} onClick={handleErrClick} span="0" />
+                    <Widget className={errStyle} title='Errors' subtitle={errorParam} onClick={handleErrClick} span={analytics.total_errors} />
                 </div>
                 <div className="tabs">
-                    <Widget className={successStyle} title='Success' subtitle={successParam} onClick={handleSuccessClick} span="0" />
+                    <Widget className={successStyle} title='Success' subtitle={successParam} onClick={handleSuccessClick} span={analytics.successful_calls} />
                 </div>
             </div>
             <div>
-                    <DataTable Heading={TABLEHADING} Rows={ROWS} />
+            <Table aria-label="collapsible table">
+        <TableHead>
+          <TableRow>
+            <StyledTableCell>Time</StyledTableCell>
+            <StyledTableCell>API Version</StyledTableCell>
+            <StyledTableCell>Endpoint</StyledTableCell>
+            <StyledTableCell>Method</StyledTableCell>
+            <StyledTableCell>Location</StyledTableCell>
+            <StyledTableCell>Response Status</StyledTableCell>
+            <StyledTableCell>Latency</StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {analyticsLog?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)?.map((logs, index) => (
+            <StyledTableRow key={index}>
+              <StyledTableCell>
+                {logs.createdOn}
+              </StyledTableCell>
+              <StyledTableCell>
+                {logs.version}
+              </StyledTableCell>
+              <StyledTableCell>
+                {logs.endpoint}
+              </StyledTableCell>
+              <StyledTableCell>
+                {logs.method}
+              </StyledTableCell>
+              <StyledTableCell>
+                {logs.location}
+              </StyledTableCell>
+              <StyledTableCell>
+                {logs.status}
+              </StyledTableCell>
+              <StyledTableCell>
+                {logs.latency}
+              </StyledTableCell>
+            </StyledTableRow>
+          ))}
+        </TableBody>
+      </Table>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 20]}
+        component="div"
+        count={analyticsLog.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
             </div>
         </div>
         </Paper>

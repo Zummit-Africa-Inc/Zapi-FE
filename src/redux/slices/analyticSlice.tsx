@@ -4,22 +4,22 @@ import { AnalyticsLog, AnalyticsType } from "../../types";
 const core_url = import.meta.env.VITE_CORE_URL
 
 interface AnalyticState {
-    analytics: AnalyticsType | object
-    analyticsLog: AnalyticsLog | object
+    analytics: AnalyticsType | any
+    analyticsLog: Array<AnalyticsLog>
     isLoading: Boolean
     error?: any
 }
 
 const initialState: AnalyticState = {
     analytics: {},
-    analyticsLog: {},
+    analyticsLog: [],
     isLoading: false,
     error: null
 }
 
-export const getAnalytics = createAsyncThunk('analytics/getAnalytics', async(_, thunkAPI) => {
+export const getAnalytics = createAsyncThunk('analytics/getAnalytics', async(apiId: any, thunkAPI) => {
     try {
-        const response = await fetch(`${core_url}/analytics/api/03ee4d07-23ad-4fb7-b859-1ff6b5cfa9b0`)
+        const response = await fetch(`${core_url}/analytics/api/${apiId}`)
         const data = await response.json()
         return data.data
     } catch (error: any) {
@@ -31,6 +31,7 @@ export const getAnalyticsLog = createAsyncThunk('analyticsLog/getAnalyticsLog', 
     try {
         const response = await fetch(`${core_url}/analytics/logs`)
         const data = await response.json()
+        console.log(data.data)
         return data.data
     } catch (error: any) {
         return thunkAPI.rejectWithValue(error.message)

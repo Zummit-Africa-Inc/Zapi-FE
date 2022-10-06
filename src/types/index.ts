@@ -69,17 +69,14 @@ export type AnalyticsType = {
 
 export type AnalyticsLog = {
    id: string,
-   createdOn: string | Date | null,
-   createdBy: string | null,
-   updatedOn: string | Date | null,
-   updatedBy: string | null,
-   deletedOn: string | Date | null,
-   deletedBy: string | null,
+   createdOn: string,
    latency: number,
    profileId: string,
    errorMessage: null,
    status: number,
    apiId: string,
    endpoint: string,
-   method: string
+   method: string,
+   version: string | null,
+   location: string | null,
 }
