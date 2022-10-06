@@ -1,16 +1,18 @@
+import { HeaderObject } from "../interfaces";
 
 export type APIType = {
    id: string
    name:	string
    description: string
    base_url: string
-   about?: string
-   categoryId?:	string
+   about: string
+   categoryId:	string
    logo_url?: string
-   api_website?: string
-   term_of_use?: string
-   visibility?:	string
-
+   api_website: string
+   term_of_use: string
+   visibility: string
+   read_me: string
+   endpoints?: Array<EndpointsType | null>
 }
 
 export type UserResponseType = {
@@ -37,4 +39,14 @@ export type UserProfileType = {
    followers?: string[] | []
    followering?: string[] | []
    picture: object | string | null
+}
+
+export type EndpointsType = {
+   id?: string | undefined
+   name: string
+   route: string
+   method: string
+   description: string
+   headers?: Array<HeaderObject>
+   requestBody?: Array<object>
 }

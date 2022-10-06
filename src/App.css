@@ -1,7 +1,9 @@
 .set-col {
-    margin: 10px;
-    padding: 40px;
+    margin: 0;
+    padding: 50px;
     box-sizing: border-box;
+    background-color: #fff;
+    min-width: 200vh;
   }
   .text-col{
     margin-bottom: 16px;
@@ -192,12 +194,6 @@
     color: rgba(255, 255, 255, 0.87);
     opacity: 0.2;
   }
-  
-  /* .search-col{
-    top: 0;
-    margin-left: 15px;
-  } */
-  
   .name-col{
     margin-bottom: 16px;
       color: rgba(0, 0, 0, 0.87);
@@ -236,6 +232,8 @@
     border: none;
     border-radius: 5px;
   }
+
+
   button{
     margin: 0px;
     padding: 0px 12px;
@@ -280,7 +278,7 @@
   }
   .sue-del{
     color: rgba(0, 0, 0, 0.38);
-    font-size: 14px;
+    font-size: 12px;
     letter-spacing: normal;
     line-height: 20px;
     font-family: Inter, -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir, Helvetica, sans-serif;
@@ -288,6 +286,28 @@
     box-sizing: border-box;
     outline: none 0px;
   }
+  .ul-num{
+    padding: 0px 45px;
+    font-size: 10px;
+
+  }
+  .del-main {
+  padding: 15px 24px 0px;
+  background-color: #ddd;
+  width: 450px;
+  height: 350px;
+  justify-content: center;
+  box-shadow: rgb(0 0 0 / 8%) 0px 1px 4px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  position: absolute;
+  z-index: 2;
+  top: 40%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+    
+  
+}
   .del-col {
     padding: 16px 24px;
       margin: 80px 0px 0px;
@@ -322,8 +342,6 @@
     margin-top: 8px;
       margin-bottom: 8px;
       padding: 0px;
-      /* color: rgba(0, 0, 0, 0.87); */
-      /* background-color: transparent; */
       font-size: 12px;
       letter-spacing: normal;
       line-height: 20px;
@@ -331,7 +349,6 @@
       display: block;
       width: 50%;
       box-sizing: border-box;
-      
       align-items: center;
       
   }
@@ -341,44 +358,30 @@
     border-radius: 15px;
     border-style: solid;
     border-width: 2px;
-    /* box-sizing: content-box; */
-    /* content: ""; */
     margin: auto;
     position: relative;
     transition: opacity 0.2s ease 0s, border-color 0.2s ease 0s;
     z-index: 1;
     inset: 0px;
   }
-  
+  .del-con1{
+    display: flex;
+    justify-content: space-between;
+    
+    
+  }
+  .xlm{
+    font-size: 13px;
+    margin: 10px 0px 0px 25px;
+    cursor: pointer;
+    
+  }
   .buttons-1{
-    margin-top: 20px;
-    padding: 0px 15px;
     font-family: Inter, -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir, Helvetica, sans-serif;
     font-size: 14px;
-    letter-spacing: normal;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
-    appearance: none;
-    border-radius: 6px;
-    border-style: solid;
-    border-width: 1px;
     box-sizing: border-box;
-    color-scheme: light;
-    cursor: pointer;
-    left: 210px;
-    justify-content: flex-end;
-    font-weight: normal;
-    height: 36px;
-    outline: none 0px;
-    
-    line-height: 20px;
+    margin: 10px;
+    left: 240px;
     transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s, background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s;
-    user-select: none;
-    vertical-align: middle;
-    background-color: rgb(235, 76, 76);
-    border-color: rgb(235, 76, 76);
-    color: rgba(255, 255, 255, 0.87);
     opacity: 0.2;
   }

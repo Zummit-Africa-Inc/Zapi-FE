@@ -4,12 +4,6 @@ import ControlCameraIcon from '@mui/icons-material/ControlCamera';
 import ScienceOutlinedIcon from '@mui/icons-material/Science';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import { Analytics, Settings } from "./pages";
-import GeneralTab from "./components/GeneralTab";
-import Community from "./components/Community";
-import EndpointTab from "./components/EndpointTab";
-import GatewayTab from "./components/GatewayTab";
-
 
 export const APIS = [
     {
@@ -144,27 +138,27 @@ export const DASHBOARDTEXT2 = {
 }
 
 export const STATISTICS = [
-    "Total API Calls (Default)",
-    "Average API Calls",
-    "Calls per second",
-    "Max API Calls",
-    "Min API Calls"
+    {query: "Total API Calls (Default)", span: "10"},
+   {query: "Average API Calls", span: "5"},
+   {query: "Calls per second", span: "1"},
+    {query: "Max API Calls", span: "5"},
+   {query: "Min API Calls", span: "1"}
 ]
 
 export const ERROR = [
-    "Average Error Rate (Default)",
-    "Median Error Rate",
-    "Max Error Rate",
-    "Min Error Rate",
-    "Total Error Rate",
+  {query: "Average Error Rate (Default)", span: "6"},
+   {query: "Median Error Rate", span: "3"},
+   {query: "Max Error Rate", span: "6"},
+   {query: "Min Error Rate", span: "1"},
+   {query: "Total Error Rate", span: "6"},
 ]
 
 export const SUCCESS = [
-    "Average Success Rate (Default)",
-    "Median Success Rate",
-    "Max Success Rate",
-    "Min Success Rate",
-    "Total Success Rate",
+   {query:"Average Success Rate (Default)", span: "4"},
+   {query:"Median Success Rate", span: "2"},
+   {query:"Max Success Rate", span: "4"},
+   {query:"Min Success Rate", span: "1"},
+   {query:"Total Success Rate", span: "4"},
 ]
 
 export const TIMERANGE = [
@@ -337,49 +331,11 @@ export const APIData = [
         text: "Hub Listing",
         link: "#"
     },
-    {
-        image: <EditOutlinedIcon />,
-        text: "Settings",
-        link: "/"
-    },
-]
-
-export const DEVSNAVBAR = [
-    {
-        name: "General",
-        link: "/general-tab",
-        page: <GeneralTab />
-    },
-    {
-        name: "Endpoints",
-        link: "/endpoints",
-        page: <EndpointTab />
-    },
-    {
-        name: "Gateway",
-        link: '/gateway-tab',
-        page: <GatewayTab />
-    },
-    {
-        name: "Community",
-        link: "/community",
-        page: <Community />
-    },
-    {
-        name: "Monetize",
-        link: "/",
-        page: "Monetize"
-    },
-    {
-        name: "Analytics",
-        link: "/analytics",
-        page: <Analytics />
-    },
-    {
-        name: "Settings",
-        link: "/settings",
-        page: <Settings/>
-    },
+    // {
+    //     image: <EditOutlinedIcon />,
+    //     text: "Settings",
+    //     link: "/"
+    // },
 ]
 
 export const SCHEMA = [

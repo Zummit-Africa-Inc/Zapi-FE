@@ -6,8 +6,9 @@ import { deviceDetect } from  "react-device-detect";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-import { Analytics, Settings, CreateEndpoint, DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditons, ResetPassword, ComingSoon } from "./pages";
-import { Fallback, Login, AddApiPopup, GeneralTab, EndpointTab, GatewayTab } from "./components";
+
+import { DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditons, ResetPassword, Pricing, Documentation } from "./pages";
+import { Fallback, Login, AddApiPopup, } from "./components";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { getUserApis, login } from "./redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "./hooks";
@@ -17,7 +18,7 @@ import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
 
 const App: React.FC = () => {
-  const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP } = useContextProvider()
+  const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP, trigger } = useContextProvider()
   const { isLoggedIn } = useAppSelector(store => store.user)
   const dispatch = useAppDispatch()
 
@@ -56,7 +57,7 @@ const App: React.FC = () => {
 
   const getCategories = useMemo(() =>  (dispatch(getApis())), [])
 
-  const getApisByUser = useMemo(() => dispatch(getUserApis()),[])
+  const getApisByUser = useMemo(() => (dispatch(getUserApis())),[trigger,(isLoggedIn === true)])
   
   useEffect(() => {
     getCategories
@@ -64,7 +65,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     getApisByUser
-  },[isLoggedIn])
+  },[])
 
   return (
     <ThemeProvider theme={theme}>
@@ -79,21 +80,16 @@ const App: React.FC = () => {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/otp" element={<Otp />} />
             <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/coming-soon" element={<ComingSoon />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/documentation" element={<Documentation />} />
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
-              <Route path="/developers/dashboard" element={<DevDashboard />} />
-              <Route path="/developers" element={<DeveloperApiPage />} />
-              <Route path="/analytics" element={<Analytics />} />
+              <Route path="/developer/dashboard" element={<DevDashboard />} />
+              <Route path="/developer/api/:id" element={<DeveloperApiPage />} />
               <Route path="/api/:id" element={<APIPage />} />
               <Route path="/configuration" element={<Configuration />} />
               <Route path="/login-history" element={<LoginHistory />} />
               <Route path="/success-page" element={<SuccessPage />} />
-              <Route path="/create-endpoint" element={<CreateEndpoint />} />
-              <Route path="/endpoints" element={<EndpointTab />} />
-              <Route path="/general-tab" element={<GeneralTab />} />
-              <Route path="/settingspage" element={<Settings />} />
-              <Route path="/gateway-tab" element={<GatewayTab />} />
             </Route>
           </Routes>
         </Suspense>

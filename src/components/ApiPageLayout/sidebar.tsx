@@ -5,7 +5,8 @@ import { NavLink } from 'react-router-dom';
 import KeyboardDoubleArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowLeftOutlined';
 import { Tab, Tabs, Typography } from '@mui/material';
 import { DEVELOPERSLINKS } from '../../testdata';
-import { Menu } from '@mui/icons-material';
+import { Menu, MenuOpenRounded } from '@mui/icons-material';
+
 
 const Sidebar: React.FC = () => {
     const classes = useStyles();
@@ -15,7 +16,7 @@ const Sidebar: React.FC = () => {
 
     return (
         <div className={classes.container}>
-            <div className={classes.sidebar}>
+        <div className={classes.sidebar}>
                 <div className={classes.sidebarLinks}>
                     {DEVELOPERSLINKS.map((link, i) => (
                         <NavLink key={i} to={link.link} className={classes.link} style={({ isActive }) => (
@@ -58,7 +59,10 @@ const useStyles = makeStyles({
         padding: "2rem 2rem",
         width: "250px",
         height: "100vh",
-        borderRight: "1px solid #000"
+        borderRight: "1px solid #000",
+        "@media screen and (max-width: 1024px)": {
+            display: "none",
+        },
     },
     sidebarLinks: {
         display: "flex",
