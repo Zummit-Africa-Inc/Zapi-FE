@@ -1,4 +1,4 @@
-import { Box, FormControl, InputLabel, MenuItem, Select, Typography, SelectChangeEvent, Paper } from '@mui/material'
+import { Box, FormControl, InputLabel, MenuItem, Select, Typography, SelectChangeEvent, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TablePagination } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { ChangeEvent, useState, useEffect, useMemo } from 'react'
 import { useAppDispatch, useAppSelector, useFormInputs } from '../hooks'
@@ -6,13 +6,6 @@ import { Widget, InputSearch, DataTable, Navbar } from '.'
 import { ERROR, STATISTICS, SUCCESS, TIMERANGE, PERIOD, ZONE, TABLEHADING, ROWS } from '../testdata'
 import { getAnalytics, getAnalyticsLog } from '../redux/slices/analyticSlice'
 import { useParams } from 'react-router-dom'
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TablePagination from '@mui/material/TablePagination';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
 import { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 
