@@ -8,6 +8,7 @@ const Threat:React.FC = () => {
     const classes = useStyles();
     const [threatProtection, setThreatProtection] = useState<boolean>(false);
     const [countDisabled, setCountDisabled] = useState<boolean>(false);
+    const [disabled, setDisabled] = useState<boolean>(true);
 
     // const toogleThreatProtection = () => {
 	// 	setThreatProtection(prevState => {
@@ -20,7 +21,10 @@ const Threat:React.FC = () => {
         setCountDisabled(!countDisabled);
       };
   return (
-    <div className={classes.threat}>
+    <div className={classes.threat} style={{
+        opacity: disabled ? 0.25 : 1,
+        pointerEvents: disabled ? "none" : "initial"
+        }}>
     <div className={classes.text}>
         <Typography variant='h6' style={{ fontWeight:800, color:'black',fontSize:'18px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>Threat Protection</Typography>
     </div>

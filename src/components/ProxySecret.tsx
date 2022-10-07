@@ -3,19 +3,20 @@ import { makeStyles } from "@mui/styles"
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Typography } from "@mui/material"
-// import { useAppSelector } from "../hooks";
-// import Cookies from "universal-cookie";
+import { useAppSelector } from "../hooks";
+import { useNavigate, useParams } from "react-router-dom";
+
 
 const ProxySecret:React.FC = () => {
     const classes = useStyles();
-    // const cookies = new Cookies()
-    // const secretKey = cookies.get("secretKey")
-    // console.log(secretKey)
-   
-    // const { user } = useAppSelector(store => store.user)
-    // console.log(user)
+    const { id } = useParams()
+    const { userApis } = useAppSelector(store => store.user)
 
-    // const secretKey = user.secretKey
+    const api = userApis.find(api => api?.id === id)
+    
+    
+
+
 
     
 
@@ -33,29 +34,34 @@ const ProxySecret:React.FC = () => {
                 <Typography>
                 X-RapidAPI-Proxy-Secret
                 </Typography>
+                
                 <div className={classes.border}>
-                    <div className={classes.input} >{" "}
-                    {proxySecret ? proxySecret : "**********************" }</div>
-
-                    {proxySecret ? (
-                    <VisibilityOffIcon
-                        onClick={toogleProxySecret}
-                        className={classes.pointer}
-                    />
-                    ) : (
-                        <VisibilityIcon
+                    <>
+                        <div className={classes.input} >{" "}
+                        {proxySecret ? proxySecret : api?.secretKey }</div>
+                    
+                        {proxySecret ? (
+                        <VisibilityOffIcon
                             onClick={toogleProxySecret}
                             className={classes.pointer}
                         />
-                    )}
+                        ) : (
+                            <VisibilityIcon
+                                onClick={toogleProxySecret}
+                                className={classes.pointer}
+                            />
+                        )}
+                    </>
                 </div>
                 <div className={classes.whitelist}>
                     <div className={classes.text}>
-                        <Typography variant='h6' style={{  color:'black',fontSize:'14px',display:'block', boxSizing:'border-box',outline:'none 0px', letterSpacing:'normal',lineHeight:'16px' }}>Whitelist RapidAPI IPs to allow request only from RapidAPI.</Typography>
+                        <Typography variant='h6' style={{  color:'black',fontSize:'14px',display:'block',
+                         boxSizing:'border-box',outline:'none 0px',
+                        letterSpacing:'normal',lineHeight:'16px' }}>Whitelist RapidAPI IPs to allow request only from RapidAPI.</Typography>
                     </div>
                 </div>
             </div>
-            <button className={classes.button}>
+            <button className={classes.button} onClick={() =>  navigator.clipboard.writeText('Copy this text to clipboard')}>
                 <div className={classes.copy}>Copy</div>
             </button>           
         </div>
@@ -137,25 +143,16 @@ const useStyles = makeStyles({
         fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir, Helvetica, sans-serif',
         fontSize: '14px',
         letterSpacing: 'normal',
-        // -webkit-box-pack: center;
         justifyContent: 'center',
-        // -webkit-box-align: center;
         alignItems: 'center',
-        appearance: 'none',
         borderRadius: '6px',
         borderStyle: 'solid',
         borderWidth: '1px',
         boxSizing:'border-box',
-        colorScheme: 'light',
-        cursor: 'pointer',
         display: 'inline-flex',
         fontWeight: 'normal',
         height: '36px',
-        outline:' none 0px',
-        position: 'relative',
-        lineHeight: '20px',
-        transition:' color 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s, background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s',
-        userSelect: 'none',
+        position: 'relative', 
         verticalAlign: 'middle',
         backgroundColor: 'rgb(255, 255, 255)',
         borderColor: 'rgb(214, 217, 219)',
@@ -169,7 +166,7 @@ const useStyles = makeStyles({
         webkitBoxPack: 'center',
         justifyContent: 'center',
         position: 'relative',
-        whiteSpace: 'nowrap',
+        
     }
 })
 export default ProxySecret
