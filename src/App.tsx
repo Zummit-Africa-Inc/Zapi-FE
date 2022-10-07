@@ -7,10 +7,10 @@ import { deviceDetect } from  "react-device-detect";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
-import { DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditons, ResetPassword, Pricing, Documentation } from "./pages";
+import { DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditions, ResetPassword, Pricing, Documentation } from "./pages";
 import { Fallback, Login, AddApiPopup, } from "./components";
 import { useContextProvider } from "./contexts/ContextProvider";
-import { getUserApis, login } from "./redux/slices/userSlice";
+import { login } from "./redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { PrivateRoutes } from "./components/routes";
 import { getApis } from "./redux/slices/apiSlice";
@@ -18,8 +18,7 @@ import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
 
 const App: React.FC = () => {
-  const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP, trigger } = useContextProvider()
-  const { isLoggedIn } = useAppSelector(store => store.user)
+  const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP } = useContextProvider()
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -57,15 +56,9 @@ const App: React.FC = () => {
 
   const getCategories = useMemo(() =>  (dispatch(getApis())), [])
 
-  const getApisByUser = useMemo(() => (dispatch(getUserApis())),[trigger,(isLoggedIn === true)])
-  
   useEffect(() => {
     getCategories
   }, [])
-
-  useEffect(() => {
-    getApisByUser
-  },[])
 
   return (
     <ThemeProvider theme={theme}>
@@ -82,6 +75,8 @@ const App: React.FC = () => {
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/documentation" element={<Documentation />} />
+            <Route path="/terms" element={<TermsConditions />} />
+
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
               <Route path="/developer/dashboard" element={<DevDashboard />} />
