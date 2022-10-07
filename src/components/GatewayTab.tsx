@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { SelectMulti,ProxySecret, Threat, Schema, Config, Version } from '../components';
 import { makeStyles } from "@mui/styles"
 import { Box, Stack, Typography, Paper } from "@mui/material"
@@ -9,6 +9,7 @@ import { Box, Stack, Typography, Paper } from "@mui/material"
 
 
 const GatewayTab: React.FC = () => {
+    const [disabled, setDisabled] = useState<boolean>(true);
 
     const classes = useStyles();
     
@@ -22,30 +23,36 @@ const GatewayTab: React.FC = () => {
                 <div className={classes.con}>
                     <form>
                         <div className={classes.gateway}>
-                            <div className={classes.way}>
-                            <Typography variant='h6' style={{ fontWeight:600, color:'black',fontSize:'16px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>Gateway DNS</Typography>
-                            <Typography variant='h6' style={{ fontWeight:600, color:'black',fontSize:'12px',display:'block', boxSizing:'border-box',outline:'none 0px', letterSpacing:'normal',lineHeight:'16px' }}>The gateway developers use to make request to the API.</Typography>
+                            <div className={classes.way} style={{
+                                opacity: disabled ? 0.25 : 1,
+                                pointerEvents: disabled ? "none" : "initial"
+                                }}>
+                            <span  style={{ fontWeight:600, color:'black',fontSize:'16px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>Gateway DNS</span>
+                            <span  style={{ fontWeight:600, color:'black',fontSize:'12px',display:'block', boxSizing:'border-box',outline:'none 0px', letterSpacing:'normal',lineHeight:'16px' }}>The gateway developers use to make request to the API.</span>
                             </div>
-                            <div className={classes.dropdown}>
+                            <div className={classes.dropdown} style={{
+                                opacity: disabled ? 0.25 : 1,
+                                pointerEvents: disabled ? "none" : "initial"
+                                }}>
                                 <SelectMulti />
                             </div>
                             <div className={classes.fire}>
                                 <div className={classes.wall}>
                                     <Typography variant='h6'style={{ fontWeight:600, color:'black',fontSize:'16px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>Firewall Settings</Typography>
-                                    <Typography variant='h6' style={{ marginTop:'8px', fontWeight:'600px', color:'black',fontSize:'12px',display:'block', boxSizing:'border-box',outline:'none 0px', letterSpacing:'normal',lineHeight:'16px' }}>Protect your API by blocking requests that are not from the RapidAPI infrastructure. RapidAPI adds the “X-RapidAPI-Proxy-Secret” header on every request. This header has a unique value for each API.</Typography>
+                                    <Typography variant='h6' style={{ marginTop:'8px', fontWeight:'600px', color:'rgba(0, 0, 0, 0.6)',fontSize:'12px',display:'block', boxSizing:'border-box',outline:'none 0px', letterSpacing:'normal',lineHeight:'16px' }}>Protect your API by blocking requests that are not from the RapidAPI infrastructure. RapidAPI adds the “X-RapidAPI-Proxy-Secret” header on every request. This header has a unique value for each API.</Typography>
                                 </div>
                             </div>
                             <ProxySecret />
                         </div>
                         <Threat />
-                        <Schema />
-                        <Config />
-                        <Version />
+                        {/* <Schema /> */}
+                        {/* <Config />
+                        <Version /> */}
                       
-                        <Box className={classes.fixedBottom}>
-                            <Stack direction="row" spacing={2}>
-                            <button className={classes.saveBtn}>Save</button>
-                            <button className={classes.discardBtn}>Discard</button>
+                        <Box>
+                            <Stack direction="row" spacing={2} mt={5}>
+                                <button className={classes.saveBtn}>Save</button>
+                                <button className={classes.discardBtn}>Discard</button>
                             </Stack>
                         </Box>
                     </form>
@@ -90,7 +97,8 @@ const useStyles = makeStyles({
     way:{
         flexDirection:'column',
         boxSizing:'border-box',
-        display:'flex'
+        display:'flex',
+        gap:'1rem'
     },
     dropdown:{
         marginTop:'16px',
@@ -104,6 +112,7 @@ const useStyles = makeStyles({
         flexDirection: 'column',
         boxSizing: 'border-box',
         display: 'flex',
+        textAlign:'justify'
     },
     fixedBottom: {
         width: '100%',
@@ -115,10 +124,10 @@ const useStyles = makeStyles({
         backgroundColor: '#F3F4F6'
       },
       saveBtn: {
-        padding: '10px 20px',
+        padding: '15px 25px',
         backgroundColor: 'rgb(74, 149, 237)',
         color: 'white',
-        borderRadius: '10px',
+        borderRadius: '5px',
         outline: 'none',
         border: 'none',
         cursor: 'pointer',
@@ -127,13 +136,13 @@ const useStyles = makeStyles({
         }
       },
       discardBtn: {
-        padding: '10px 20px',
-        borderRadius: '10px',
+        padding: '15px 25px',
+        borderRadius: '5px',
         outline: 'none',
         backgroundColor: '#fff',
         border: '1px solid rgb(214, 217, 219)',
         color: 'rgba(0, 0, 0, 0.87)'
-      },
+      }
     
 })
 
