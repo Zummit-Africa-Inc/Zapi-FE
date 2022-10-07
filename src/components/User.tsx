@@ -6,6 +6,7 @@ import {
     InputAdornment,
     TextField,
     Table,
+    TableContainer,
     TableHead,
     TableBody,
     TableCell,
@@ -48,16 +49,18 @@ const User = () => {
                     height: "40px",
                     "& button:focus" : {backgroundColor: "grey.300"}
                 }}>
-                <Button>Paid Users(0)</Button>
-                <Button>Free Users(1)</Button>
+                <Button sx={{lineHeight: 1}}>Paid Users(0)</Button>
+                <Button sx={{lineHeight: 1}}>Free Users(1)</Button>
             </ButtonGroup>
         </div>
+        <TableContainer className={classes.tableContainer}>
         <Table sx={{
             border:1,
             borderColor: "grey.300",
             borderRadius: "10px",
-            height: "300px"
-        }}>
+            height: "300px",
+        }}
+        stickyHeader>
             <TableHead>
                 <TableRow>
                     <StyledTableCell><strong>Username</strong></StyledTableCell>
@@ -75,6 +78,7 @@ const User = () => {
                 </tr>
             </TableBody>
         </Table>
+        </TableContainer>
     </div>
 )};
 
@@ -83,5 +87,10 @@ export default User;
 const useStyles = makeStyles({
     user: {
         // width: "calc(100% - 250px)"
+    },
+    tableContainer: {
+        ['@media (max-width:450px)']:{
+            maxWidth:'320px'
+        }
     }
 })
