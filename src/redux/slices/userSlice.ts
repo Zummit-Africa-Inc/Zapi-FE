@@ -37,9 +37,9 @@ export const getUserProfile = createAsyncThunk("user/getprofile", async(_, thunk
     }
 })
 
-export const getUserApis = createAsyncThunk("user/getapis", async(_, thunkAPI) => {
+export const getUserApis = createAsyncThunk("user/getapis", async(id: any, thunkAPI) => {
     try {
-        const response = await fetch(`${core_url}/api/dev-platform-data/${profileId}`)
+        const response = await fetch(`${core_url}/api/dev-platform-data/${id}`)
         const data = await response.json()
         const apis = data?.data.apis
         return apis
