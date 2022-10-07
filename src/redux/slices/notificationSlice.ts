@@ -5,7 +5,7 @@ import { NotificationType } from "../../types";
 
 const cookies = new Cookies()
 const profileId = cookies.get("profileId")
-const core_url = import.meta.env.VITE_CORE_URL
+const socket_url = import.meta.env.VITE_SOCKET_URL
 
 interface NotificationState {
     notifications: Array<NotificationType>
@@ -15,16 +15,17 @@ interface NotificationState {
 
 const initialState: NotificationState = {
     content: null,
-    notifications: [{profileId: "1jjdj12", content: "newSub", isRead: true}],
+    notifications: [{profileId: "1jjdj12", content: "unSubscription", isRead: true, createdOn: new Date()}],
     isRead: false,
 }
-
 export const getNotifications = createAsyncThunk('/getNotifications', async(_, thunkAPI) => {
     try {
-        const response = await fetch(`https://notification.zapi.ai/v1/notification/readNotifications/${profileId}`)
+        const response = await fetch(`${socket_url}/allNotifications/${profileId}`)
         const data = await response.json()
         const notification = data?.data
-        return data
+        console.log(notification + "yo");
+        
+        return notification
     } catch (error) {
         return thunkAPI.rejectWithValue(error)
     }
