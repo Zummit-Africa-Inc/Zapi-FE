@@ -38,7 +38,7 @@ const ProxySecret:React.FC = () => {
                 <div className={classes.border}>
                     <>
                         <div className={classes.input} >{" "}
-                        {proxySecret ? proxySecret : api?.secretKey }</div>
+                        {proxySecret ?  api?.secretKey : "****************************" }</div>
                     
                         {proxySecret ? (
                         <VisibilityOffIcon
@@ -61,7 +61,7 @@ const ProxySecret:React.FC = () => {
                     </div>
                 </div>
             </div>
-            <button className={classes.button} onClick={() =>  navigator.clipboard.writeText('Copy this text to clipboard')}>
+            <button className={classes.button}>
                 <div className={classes.copy}>Copy</div>
             </button>           
         </div>

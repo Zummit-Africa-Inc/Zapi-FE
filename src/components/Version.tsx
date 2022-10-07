@@ -24,24 +24,24 @@ const Version:React.FC = () => {
             <div className={classes.icon}>
                 <ErrorIcon />        
             </div>
-            <span style={{ marginLeft: '8px',fontWeight:800, color:'rgba(0, 0, 0, 0.87)',fontSize:'16px',display:'block',
+            <span style={{ marginLeft: '8px',fontWeight:600, color:'rgba(0, 0, 0, 0.87)',fontSize:'14px',display:'block',
                 boxSizing:'border-box',outline:'none 0px',
                 letterSpacing:'normal', lineHeight:'20px' }}>Version Specific</span>
-            <span style={{ marginLeft: '4px', marginRight: '4px',fontWeight:800, color:'rgba(0, 0, 0, 0.6)',fontSize:'16px',display:'block',
+            <span style={{ marginLeft: '4px', marginRight: '4px',fontWeight:600, color:'rgba(0, 0, 0, 0.6)',fontSize:'14px',display:'block',
                 boxSizing:'border-box',outline:'none 0px',
                 letterSpacing:'normal', lineHeight:'20px' }}>Changes will apply only to</span>
         </div>
         <div className={classes.access}>
             <div className={classes.control}>
-                <span style={{ fontWeight:800, color:'rgba(0, 0, 0, 0.87)',fontSize:'18px',display:'block',
+                <span style={{ fontWeight:600, color:'rgba(0, 0, 0, 0.87)',fontSize:'16px',display:'block',
                     boxSizing:'border-box',outline:'none 0px',
                     letterSpacing:'normal', lineHeight:'24px' }}>Access Control</span>
             </div>
             <div className={classes.key}>
-                <span style={{ fontWeight:800, color:'rgba(0, 0, 0, 0.87)',fontSize:'18px',display:'block',
+                <span style={{ fontWeight:600, color:'rgba(0, 0, 0, 0.87)',fontSize:'12px',display:'block',
                     boxSizing:'border-box',outline:'none 0px',
                     letterSpacing:'normal', lineHeight:'24px' }}>Key Authentication Set</span>
-                <span style={{ marginTop: '8px',fontWeight:800, color:'rgba(0, 0, 0, 0.6)',fontSize:'16px',display:'block',
+                <span style={{ marginTop: '8px',fontWeight:600, color:'rgba(0, 0, 0, 0.6)',fontSize:'12px',display:'block',
                     boxSizing:'border-box',outline:'none 0px',
                     letterSpacing:'normal', lineHeight:'16px' }}>Zapi implements a single secret key per developer application across all
                     APIs to minimize friction in testing and implementing APIs</span>

@@ -8,10 +8,10 @@ const Transform:React.FC = () => {
   return (
       <div className={classes.trans}>
             <div className={classes.transform}>
-                <span style={{ fontWeight:800, color:'black',fontSize:'18px',display:'block', 
+                <span style={{ fontWeight:600, color:'black',fontSize:'16px',display:'block', 
                 boxSizing:'border-box',outline:'none 0px', 
                 letterSpacing:'normal',lineHeight:'24px' }}>Transformations</span>
-                <span style={{ marginTop:'8px', fontWeight:800, color:'rgba(0, 0, 0, 0.6)',fontSize:'14px',display:'block', 
+                <span style={{ marginTop:'8px', fontWeight:600, color:'rgba(0, 0, 0, 0.6)',fontSize:'12px',display:'block', 
                 boxSizing:'border-box',outline:'none 0px', 
                 letterSpacing:'normal',lineHeight:'16px' }}>Transformations can be used to remove, remap or
                 add parameters in a request or a response</span>
@@ -22,11 +22,11 @@ const Transform:React.FC = () => {
                         <ErrorOutlineIcon />
                     </div>
                     <div className={classes.feature}>
-                        <span style={{ marginBottom:'12px', fontWeight:800, color:'rgba(0, 0, 0, 0.87)',fontSize:'16px',display:'block', 
+                        <span style={{ marginBottom:'12px', fontWeight:600, color:'rgba(0, 0, 0, 0.87)',fontSize:'14px',display:'block', 
                         boxSizing:'border-box',outline:'none 0px', 
                         letterSpacing:'normal',lineHeight:'20px', textAlign:"center" }}>This feature is not yet available in 
                         this beta version</span>
-                        <span style={{ marginBottom:'12px', color:'rgba(0, 0, 0, 0.38)',fontSize:'16px',display:'block', 
+                        <span style={{ marginBottom:'12px', color:'rgba(0, 0, 0, 0.38)',fontSize:'14px',display:'block', 
                         boxSizing:'border-box',outline:'none 0px', 
                         letterSpacing:'normal',lineHeight:'20px', textAlign:"center" }}>You can use this feature in the previous version</span>
                     </div>
@@ -80,7 +80,7 @@ const useStyles = makeStyles({
         margin: '0px',
         padding:'0px 12px',
         fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir, Helvetica, sans-serif',
-        fontSize: '18px',
+        fontSize: '14px',
         letterSpacing: 'normal',
         webkitBoxPack: 'center',
         justifyContent: 'center',
