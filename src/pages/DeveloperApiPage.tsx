@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { makeStyles } from "@mui/styles";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -11,10 +11,12 @@ const DeveloperApiPage:React.FC = () => {
     const { id } = useParams()
     const navigate = useNavigate()
     const { userApis } = useAppSelector(store => store.user)
-    const api = userApis.find(api => api?.id === id)
-    if (api === undefined) {
-        return <ErrorPage />
-    }
+    useMemo(() => {
+        const api = userApis.find(api => api?.id === id)
+        if (api === undefined) {
+            return <ErrorPage />
+        }
+    }, [id])
 
     
 
