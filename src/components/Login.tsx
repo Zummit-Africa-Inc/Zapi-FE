@@ -57,7 +57,7 @@ const Login: React.FC = () => {
         action: "hide",
         type:'loginModal'
       }))
-      navigate("/developers/dashboard")
+      navigate("/developer/dashboard")
     } catch (error) {};
   };
 
