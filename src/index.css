@@ -93,7 +93,7 @@ input:-webkit-autofill {
 }
 
 .clickTab{
-  width: 20rem;
+  width: 18rem;
   cursor: pointer;
   padding: 1.5rem 1rem;
   background: var(--color-grey);

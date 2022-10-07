@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@mui/styles";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -11,14 +11,11 @@ const DeveloperApiPage:React.FC = () => {
     const { id } = useParams()
     const navigate = useNavigate()
     const { userApis } = useAppSelector(store => store.user)
-    useMemo(() => {
-        const api = userApis.find(api => api?.id === id)
-        if (api === undefined) {
-            return <ErrorPage />
-        }
-    }, [id])
-
+    const api = userApis.find(api => api?.id === id)   
     
+    if (api === undefined) {
+        return <ErrorPage />
+    }
 
   return (
     <div className={classes.root}>
@@ -26,11 +23,6 @@ const DeveloperApiPage:React.FC = () => {
             <div className={classes.minRoot}>
                 <DevNavbar />
                 <ApiPageLayout id={id} />
-                {/* <div className={classes.mainWrap}>
-                    <div className={classes.main}>
-                    <ApiSidebar />
-                    </div>
-                </div> */}
             </div>
         </div>
     </div>
