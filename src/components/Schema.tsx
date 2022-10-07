@@ -69,8 +69,8 @@ const Schema:React.FC = () => {
                                                         <div className={classes.icon}>
                                                             <ErrorIcon/>
                                                         </div>
-                                                        <Typography variant='h6' style={{ marginLeft:'16px', color:'rgba(0, 0, 0, 0.87)', 
-                                                            fontSize:'14px', letterSpacing:'normal', lineHeight:'20px', display:'block',
+                                                        <Typography variant='h6' style={{ marginLeft:'14px', color:'rgba(0, 0, 0, 0.87)', 
+                                                            fontSize:'18px', letterSpacing:'normal', lineHeight:'20px', display:'block',
                                                             boxSizing:'border-box', outline:'none 0px' }}>
                                                                 Enabled to automatically validate the path,
                                                                 query and header parameters on run time and block all invalid requests

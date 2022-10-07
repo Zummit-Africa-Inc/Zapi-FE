@@ -41,6 +41,7 @@ export interface ApiProps {
     api_website?: string
     term_of_use?: string
     visibility?: string
+    secretKey?: string
     endpoints?: Array<EndpointProps | null>
 }
 
