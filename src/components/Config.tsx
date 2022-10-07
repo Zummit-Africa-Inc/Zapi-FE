@@ -51,7 +51,7 @@ const Config:React.FC = () => {
         </div>
         <div className={classes.subconfig}>
             <div className={classes.small}>
-                <Typography variant='h6' style={{ fontWeight:600, color:'black',fontSize:'14px',display:'block',
+                <Typography variant='h6' style={{ fontWeight:800, color:'black',fontSize:'14px',display:'block',
                 boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal',
                 lineHeight:'20px' }}>
                 Proxy Timeout Setting
