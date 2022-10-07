@@ -22,7 +22,7 @@ const Config:React.FC = () => {
                 lineHeight:'20px' }}>
                 Request Size Limit
                 </Typography>
-                <Typography variant='h6' style={{ marginTop:'4px', color:'black',fontSize:'12px',display:'block',
+                <Typography variant='h6' style={{ marginTop:'4px', color:'black',fontSize:'16px',display:'block',
                 boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal',
                 lineHeight:'16px' }}>
                 Configure the request message size
