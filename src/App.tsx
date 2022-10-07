@@ -7,11 +7,7 @@ import { deviceDetect } from  "react-device-detect";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
-<<<<<<< HEAD
 import { DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditons, ResetPassword, Pricing, Documentation, Notifications } from "./pages";
-=======
-import { DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditions, ResetPassword, Pricing, Documentation } from "./pages";
->>>>>>> c89ab490304cb3afb17a1f90f58af9280294ec68
 import { Fallback, Login, AddApiPopup, } from "./components";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { login } from "./redux/slices/userSlice";
@@ -80,8 +76,6 @@ const App: React.FC = () => {
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/documentation" element={<Documentation />} />
-            <Route path="/terms" element={<TermsConditions />} />
-
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
               <Route path="/developer/dashboard" element={<DevDashboard />} />

@@ -12,10 +12,9 @@ const ErrorPage:React.FC<IErrorType> = ({error}) => {
     <div className={classes.container}>
         <div className={classes.wrapper}>
             <FiAlertCircle className={classes.icon} />
-            <h3 className={classes.textError}>Error 404</h3>
-            <p>The page you requested was not found.</p>
+            <p>{error}</p>
         </div>
-        <Link to='/'>&larr; Go back to Homepage</Link>
+        <Link to='/'>&larr; Go Home</Link>
     </div>
   )
 }
@@ -42,10 +41,6 @@ const useStyles = makeStyles({
         fontSize: "12rem",
         color: "red",
     },
-    textError: {
-        color: "#333",
-        fontSize: "35px"
-    }
 })
 
 export default ErrorPage

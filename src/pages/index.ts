@@ -18,14 +18,10 @@ const UserProfile = React.lazy(() => import("./UserProfile"));
 const CreateEndpoint = React.lazy(() => import("./CreateEndpoint"));
 // const OrgPage = React.lazy(() => import("./Orgpage"));
 const ResetPassword = React.lazy(() => import("./ResetPassword"));
-const TermsConditions = React.lazy(() => import("./TermsConditions"))
+const TermsConditons = React.lazy(() => import("./Terms&Conditions"))
 const Pricing = React.lazy(() => import("./Pricing"))
 const Documentation = React.lazy(() => import("./Documentation"))
 const Notifications = React.lazy(() => import("./Notifications"))
 
 export { APIPage, Configuration, CreateEndpoint,DeveloperApiPage, DevDashboard,
-<<<<<<< HEAD
 ForgotPassword, Home, HomePage, LoginHistory, Otp, Signup, SuccessPage, UserProfile, TermsConditons, ResetPassword, Pricing, Documentation, Notifications };
-=======
-ForgotPassword, Home, HomePage, LoginHistory, Otp, Signup, SuccessPage, UserProfile, TermsConditions, ResetPassword, Pricing, Documentation };
->>>>>>> c89ab490304cb3afb17a1f90f58af9280294ec68

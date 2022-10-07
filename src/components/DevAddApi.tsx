@@ -44,44 +44,20 @@ const DevAddApi: React.FC = () => {
   return (
     <div className={classes.bodyColor}>
         <div className={classes.body}>
-            
-            <div className={classes.switch1}>
-                <div className={classes.widget1}>
-                    <form onSubmit={handleSubmit} className={classes.search}>
-                    <InputSearch className={classes.formControl} type="text" name="queryString" value={queryString} onChange={(e: ChangeEvent<HTMLInputElement>) => setQueryString(e.target.value)} placeholder="Search API Projects"/>
-                    </form>
-                </div>
-                <div className={classes.widget2}>
-                    <CustomTabs sx={{height: "46px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "10px"}} value={tab} onChange={handleTabChange}>
-                        <CustomTab icon={<Grade />} iconPosition="start" label="My APIS" />
-                        <CustomTab icon={<Loyalty />} iconPosition="start" label="Subscriptions"/>
-                    </CustomTabs>
-                </div>
-                <div>
-                    <button className={classes.button} onClick={() => handleClicked('addapi')} style={{height: "46px"}}>
-                        <AddIcon /> <Typography>Add API Project</Typography>
-                    </button>
-                </div>
+            <div className={classes.widget1}>
+                <form onSubmit={handleSubmit} className={classes.search}>
+                <InputSearch className={classes.formControl} type="text" name="queryString" value={queryString} onChange={(e: ChangeEvent<HTMLInputElement>) => setQueryString(e.target.value)} placeholder="Search API Projects"/>
+                </form>
             </div>
-
-            <div className={classes.switch2}>
-                <div className={classes.widget1}>
-                    <form onSubmit={handleSubmit} className={classes.search}>
-                    <InputSearch className={classes.formControl} type="text" name="queryString" value={queryString} onChange={(e: ChangeEvent<HTMLInputElement>) => setQueryString(e.target.value)} placeholder="Search API Projects"/>
-                    </form>
-                </div>
-                <div>
-                    <button className={classes.button} onClick={() => handleClicked('addapi')} style={{height: "46px"}}>
-                        <AddIcon /> <Typography>Add API Project</Typography>
-                    </button>
-                </div>
-                <div className={classes.widget2}>
-                    <CustomTabs sx={{ height: "46px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "10px"}} value={tab} onChange={handleTabChange}>
-                        <CustomTab icon={<Grade />} iconPosition="start" label="My APIS" />
-                        <CustomTab icon={<Loyalty />} iconPosition="start" label="Subscriptions"/>
-                    </CustomTabs>
-                </div>
+            <div className={classes.widget2}>
+                <CustomTabs sx={{height: "46px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "10px"}} value={tab} onChange={handleTabChange}>
+                    <CustomTab icon={<Grade />} iconPosition="start" label="My APIS" />
+                    <CustomTab icon={<Loyalty />} iconPosition="start" label="Subscriptions"/>
+                </CustomTabs>
             </div>
+            <button className={classes.button} onClick={() => handleClicked('addapi')} style={{height: "46px"}}>
+                <AddIcon /> <Typography>Add API Project</Typography>
+            </button>
         </div>
         <div>
             <TabPanel value={tab} index={0}>
@@ -101,26 +77,27 @@ const useStyles = makeStyles({
         right:'0rem',
         zIndex: 30,
         width:'100%',
+        display: 'flex',
+        alignItems: 'center',
+        gap:'1rem',
         marginTop: '80px',
         padding: '24px 112px',
+        flexDirection: 'row',
+        justifyContent:'space-between',
         background:'white',
         height:  '100px',
         fontFamily:'Space Grotesk',
         "@media screen and (max-width: 1024px)": {
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            gap:'1rem',
-            paddingTop: '140px',
-            scale: 0.95
-        },
-        "@media screen and (max-width: 375px)": {
-            padding: "1rem",
+            padding: "1rem 2rem",
             display: "grid",
             justifyContent: "center",
-            gap:'1rem',
-            marginTop: '80px',
+            gap: 0,
+        },
+        "@media screen and (max-width: 375px)": {
+            padding: "1rem 1rem",
+            display: "grid",
+            justifyContent: "center",
+            gap: 0,
         }
     },
     bodyColor: {
@@ -134,27 +111,7 @@ const useStyles = makeStyles({
         alignItems:'center',
         gap:'1rem',
         "@media screen and (max-width: 1024px)": {
-            marginBottom: "1rem",
-        }
-    },
-    switch1:{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent:'space-between',
-        alignItems: 'center',
-        gap:'1rem',
-        "@media screen and (max-width: 1024px)": {
-            display: "none",
-        }
-    },
-    switch2:{
-        display: "none",
-        "@media screen and (max-width: 1024px)": {
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent:'space-between',
-            alignItems: 'center',
-            gap:'1rem',
+            marginBottom: "2rem",
         }
     },
     widget2:{
@@ -186,7 +143,7 @@ const useStyles = makeStyles({
         display: "flex",
         alignItems: "center",
         color: "#8B8B8C",
-        backgroundColor: "#fff",
+        background: "#E1E1E2",
       },
     formControl: {
         display: "flex",
@@ -203,7 +160,7 @@ const useStyles = makeStyles({
             height: "100%",
             outline: "none",
             border: "none",
-            backgroundColor: "rgba(255, 255, 255, 0)",
+            background: "#E1E1E2",
         },
         "& select": {
             width: 100,
@@ -214,11 +171,8 @@ const useStyles = makeStyles({
         "& ::placeHolder": {
             fontFamily: 'Space Grotesk',
         },
-        "@media screen and (max-width: 1024px)": {
-            width: "385px",
-        },
-        "@media screen and (max-width: 500px)": {
-            width: "100%",
+        "@media screen and (max-width: 900px)": {
+          marginTop: "1rem",
         }
     },
     button: {
@@ -237,11 +191,7 @@ const useStyles = makeStyles({
         fontWeight: '500',
         fontSize: '16px',
         "@media screen and (max-width: 1024px)": {
-            marginBottom: "1rem",
-            width: "385px",
-        },
-        "@media screen and (max-width: 500px)": {
-            // width: "100%",
+            marginBottom: "2rem",
         }
     },
 })

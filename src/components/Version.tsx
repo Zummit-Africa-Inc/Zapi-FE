@@ -38,7 +38,7 @@ const Version:React.FC = () => {
                     letterSpacing:'normal', lineHeight:'24px' }}>Access Control</span>
             </div>
             <div className={classes.key}>
-                <span style={{ fontWeight:600, color:'rgba(0, 0, 0, 0.87)',fontSize:'12px',display:'block',
+                <span style={{ fontWeight:600, color:'rgba(0, 0, 0, 0.87)',fontSize:'16px',display:'block',
                     boxSizing:'border-box',outline:'none 0px',
                     letterSpacing:'normal', lineHeight:'24px' }}>Key Authentication Set</span>
                 <span style={{ marginTop: '8px',fontWeight:600, color:'rgba(0, 0, 0, 0.6)',fontSize:'12px',display:'block',

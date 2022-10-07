@@ -11,7 +11,6 @@ export type APIType = {
    api_website: string
    term_of_use: string
    visibility: string
-   secretKey: string
    read_me: string
    endpoints?: Array<EndpointsType | null>
 }
@@ -56,34 +55,4 @@ export type EndpointsType = {
    description: string
    headers?: Array<HeaderObject>
    requestBody?: Array<object>
-}
-
-export type AnalyticsType = {
-   id: string,
-    createdOn: string | Date | null,
-    createdBy: string | null,
-    updatedOn: string | Date | null,
-    updatedBy: string | null,
-    deletedOn: string | Date | null,
-    deletedBy: string | null,
-    totalLatency: number,
-    averageLatency: number,
-    apiId: string,
-    successful_calls: number,
-    total_calls: number,
-    total_errors: number
-}
-
-export type AnalyticsLog = {
-   id: string,
-   createdOn: string,
-   latency: number,
-   profileId: string,
-   errorMessage: null,
-   status: number,
-   apiId: string,
-   endpoint: string,
-   method: string,
-   version: string | null,
-   location: string | null,
 }

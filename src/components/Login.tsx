@@ -11,8 +11,6 @@ import { EMAIL_REGEX, PASSWORD_REGEX } from "../utils";
 import { login } from "../redux/slices/userSlice";
 import { Fallback } from "../components";
 import { GoogleIcon } from "../assets";
-import { showModal } from "../redux/slices/modalSlice";
-
 
 const initialState = {email: "",password: ""};
 const url = import.meta.env.VITE_IDENTITY_URL;
@@ -44,19 +42,14 @@ const Login: React.FC = () => {
     try {
       const data = await sendRequest(`${url}/auth/signin`, 'POST', JSON.stringify(payload), headers);
       if(!data || data === undefined) return;
-      const { data: {access, email, fullName, profileId, refresh, userId, secretKey}} = data;
-      const user = { email, fullName, profileId, secretKey };
+      const { data: {access, email, fullName, profileId, refresh, userId}} = data;
+      const user = { email, fullName, profileId };
       dispatch(login(user));
       cookies.set('accessToken', access);
       cookies.set('refreshToken', refresh);
       cookies.set('profileId', profileId);
       cookies.set('userId', userId);
-      cookies.set('secretKey', secretKey);
       handleUnclicked('login')
-      dispatch(showModal({
-        action: "hide",
-        type:'loginModal'
-      }))
       navigate("/developer/dashboard")
     } catch (error) {};
   };
