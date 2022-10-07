@@ -5,7 +5,7 @@ import { makeStyles } from '@mui/styles';
 import { toast } from "react-toastify";
 import {Cancel} from '@mui/icons-material';
 
-import { EMAIL_REGEX, PASSWORD_REGEX, MATCH_CHECKER }from "../utils"
+import { EMAIL_REGEX, PASSWORD_REGEX, MATCH_CHECKER, SPECIAL_CHAR }from "../utils"
 import { useContextProvider } from "../contexts/ContextProvider"
 import { useFormInputs, useHttpRequest } from "../hooks";
 import { Fallback, PasswordStrengthMeter } from "../components";
@@ -22,7 +22,7 @@ const Signup: React.FC = () => {
   const { error, loading, sendRequest } = useHttpRequest();
   const { handleClicked } = useContextProvider();
   const navigate = useNavigate();
-  const disabled = !terms || !PASSWORD_REGEX.test(password) || !MATCH_CHECKER(password, confirm_password) ? true : false;
+  const disabled = !terms || (!PASSWORD_REGEX.test(password)) || !SPECIAL_CHAR.test(password) || !MATCH_CHECKER(password, confirm_password);
 
 
   const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
@@ -31,6 +31,7 @@ const Signup: React.FC = () => {
     if(!fullName || !email || !password || !confirm_password) return toast.error('Please fill all fields')
     if(!EMAIL_REGEX.test(email)) return toast.error('Email is invalid')
     if(!PASSWORD_REGEX.test(password)) return toast.error('Password is not strong enough')
+    if(!SPECIAL_CHAR.test(password)) return toast.error('Password does not contain special characters')
     if(!MATCH_CHECKER(password, confirm_password)) return toast.error('Passwords do not match')
     if(!terms) return toast.error('Please read and accept the T&Cs before you can proceed')
     const headers = { 'Content-Type': 'application/json' }
