@@ -2,11 +2,11 @@ import { HeaderObject } from "../interfaces";
 
 export type APIType = {
    id: string
-   name:	string
+   name: string
    description: string
    base_url: string
    about: string
-   categoryId:	string
+   categoryId: string
    logo_url?: string
    api_website: string
    term_of_use: string
@@ -24,6 +24,12 @@ export type UserResponseType = {
    email: string
 }
 
+export type NotificationType = {
+   profileId: string
+   content: string | null
+   createdOn: string | Date | null
+   isRead: boolean | null
+}
 
 export type UserProfileType = {
    id: string
