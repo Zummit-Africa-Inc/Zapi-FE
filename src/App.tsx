@@ -7,18 +7,24 @@ import { deviceDetect } from  "react-device-detect";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
-import { DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditons, ResetPassword, Pricing, Documentation } from "./pages";
+import { DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditions, ResetPassword, Pricing, Documentation } from "./pages";
 import { Fallback, Login, AddApiPopup, } from "./components";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { login } from "./redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { PrivateRoutes } from "./components/routes";
+import { getUserApis } from "./redux/slices/userSlice";
 import { getApis } from "./redux/slices/apiSlice";
 import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
+import Cookies from 'universal-cookie';
 
 const App: React.FC = () => {
   const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP } = useContextProvider()
+  const { isLoggedIn } = useAppSelector(store => store.user)
+  const { trigger } = useContextProvider()
+  const cookies = new Cookies()
+const profileId = cookies.get("profileId")
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -58,7 +64,14 @@ const App: React.FC = () => {
 
   useEffect(() => {
     getCategories
-  }, [])
+  }, []) 
+  
+
+  
+  useEffect(() => {
+    if (profileId === undefined) return 
+    dispatch(getUserApis(profileId))
+  },[(isLoggedIn === true), trigger, profileId])
 
   return (
     <ThemeProvider theme={theme}>
@@ -75,6 +88,8 @@ const App: React.FC = () => {
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/documentation" element={<Documentation />} />
+            <Route path="/terms" element={<TermsConditions />} />
+
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
               <Route path="/developer/dashboard" element={<DevDashboard />} />
