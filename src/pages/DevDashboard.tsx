@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Cookies from "universal-cookie";
 
 import { useContextProvider } from "../contexts/ContextProvider";
 import { useAppDispatch, useAppSelector } from "../hooks";
@@ -10,8 +11,11 @@ const DevDashboard:React.FC = () => {
     const { trigger } = useContextProvider()
     const dispatch = useAppDispatch()
 
+    const cookies = new Cookies()
+    const profileId = cookies.get("profileId")
+
     useEffect(() => {
-        dispatch(getUserApis())
+        dispatch(getUserApis(`${profileId}`))
     },[(isLoggedIn === true),trigger])
 
     return (
