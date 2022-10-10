@@ -140,7 +140,7 @@ const core_url = import.meta.env.VITE_CORE_URL
         <br />
         <div>
 
-        <button className='button-1' onClick={handleClickDelete} data-selected={false} type="button" >
+        <button className='button-1' onClick={handleClickDelete} data-selected={false} type="button">
           Delete API Project
         </button>
 
