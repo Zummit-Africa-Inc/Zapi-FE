@@ -1,20 +1,22 @@
-import { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
+import Cookies from "universal-cookie";
 
 import { useContextProvider } from "../contexts/ContextProvider";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { getUserApis } from "../redux/slices/userSlice";
 import { DevNavbar, DevAddApi  } from "../components";
 
-const DevDashboard: React.FC = () => {
+const DevDashboard:React.FC = () => {
     const { isLoggedIn } = useAppSelector(store => store.user)
     const { trigger } = useContextProvider()
     const dispatch = useAppDispatch()
 
-    const getApis = useMemo(() => dispatch(getUserApis()),[])
+    const cookies = new Cookies()
+    const profileId = cookies.get("profileId")
 
     useEffect(() => {
-        getApis
-    },[(isLoggedIn === true), trigger])
+        dispatch(getUserApis(`${profileId}`))
+    },[(isLoggedIn === true),trigger])
 
     return (
         <>

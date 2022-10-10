@@ -93,7 +93,7 @@ input:-webkit-autofill {
 }
 
 .clickTab{
-  width: 20rem;
+  width: 18rem;
   cursor: pointer;
   padding: 1.5rem 1rem;
   background: var(--color-grey);
@@ -143,7 +143,7 @@ input:-webkit-autofill {
 .password-strength-meter-progress {
   -webkit-appearance: none;
   appearance: none;
-  width: 85%;
+  width: 80%;
   height: 5px;
   margin-bottom: .3rem;
 }

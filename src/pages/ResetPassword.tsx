@@ -4,8 +4,10 @@ import OtpInput from "react-otp-input";
 
 import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png"
 import { Typography } from "@mui/material";
+import {Cancel} from '@mui/icons-material';
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { PasswordStrengthMeter } from "../components";
 
 import { PASSWORD_REGEX, MATCH_CHECKER }from "../utils"
 import { toast }  from "react-toastify";
@@ -79,11 +81,17 @@ const ResetPassword: React.FC = () => {
                 <>
                 <div className={classes.input}>
                     <label htmlFor="password">Enter New Password</label>
-                    <input type="password" name="password" value={password} required onChange={(e)=>setPassword(e.target.value)} placeholder="Enter a Password" />
+                <input type="password" name="password" value={password} required onChange={(e) => setPassword(e.target.value)} placeholder="Enter a Password" />
+                <PasswordStrengthMeter password={password} />
                 </div>
                  <div className={classes.input}>
                     <label htmlFor="confirm_password">Confirm New Password</label>
-                    <input type="password" name="confirm_password" value={passwordConfirm} required onChange={(e)=>setPasswordConfirm(e.target.value)}  placeholder="Re-enter the Password" />
+                <input type="password" name="confirm_password" value={passwordConfirm} required onChange={(e) => setPasswordConfirm(e.target.value)} placeholder="Re-enter the Password" style={
+                  !MATCH_CHECKER(password, passwordConfirm)
+                    ? { border: '2px solid red' }
+                    : { border: '2.5px solid green' }
+              }  />
+                {MATCH_CHECKER(password, passwordConfirm) ? <></> : <span><Cancel sx={{ fontSize: 15, marginRight:1  }}  color="error"/> Password does not match</span>}
                 </div>
                 </>
             }

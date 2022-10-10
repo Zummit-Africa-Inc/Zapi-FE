@@ -45,6 +45,12 @@ const Analytics: React.FC = () => {
     const { analytics, analyticsLog } = useAppSelector(store => store.analytics)
     const { id } = useParams()
 
+    const { userApis } = useAppSelector(store => store.user)
+    const api = userApis.find(api => api?.id === id)
+
+    useMemo(() => {api}, [id])
+      
+
     const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -88,7 +94,7 @@ const Analytics: React.FC = () => {
         <Paper elevation={1} className={classes.paper}>
         <div className={classes.analytics}>
             <div className="heading">
-                <Typography sx={{ fontSize: '1.5rem', fontWeight: 500, color: 'var(--color-primary)', padding: '2rem 2rem' }}>default-application_6350466 - Analytics</Typography>
+                <Typography sx={{ fontSize: '1.5rem', fontWeight: 500, color: 'var(--color-primary)', padding: '2rem 2rem' }}>{api!.name} API - Analytics</Typography>
             </div>
             <div className={classes.Tab}>
                 <div className="tabs">
@@ -109,7 +115,6 @@ const Analytics: React.FC = () => {
             <StyledTableCell>API Version</StyledTableCell>
             <StyledTableCell>Endpoint</StyledTableCell>
             <StyledTableCell>Method</StyledTableCell>
-            <StyledTableCell>Location</StyledTableCell>
             <StyledTableCell>Response Status</StyledTableCell>
             <StyledTableCell>Latency</StyledTableCell>
           </TableRow>
@@ -128,9 +133,6 @@ const Analytics: React.FC = () => {
               </StyledTableCell>
               <StyledTableCell>
                 {logs.method}
-              </StyledTableCell>
-              <StyledTableCell>
-                {logs.location}
               </StyledTableCell>
               <StyledTableCell>
                 {logs.status}

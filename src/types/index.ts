@@ -11,6 +11,7 @@ export type APIType = {
    api_website: string
    term_of_use: string
    visibility: string
+   secretKey: string
    read_me: string
    endpoints?: Array<EndpointsType | null>
 }

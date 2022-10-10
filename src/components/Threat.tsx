@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, FormEvent } from 'react'
 import { Typography } from "@mui/material"
 import { makeStyles } from "@mui/styles"
 import ToggleOffIcon from "@mui/icons-material/ToggleOff";
@@ -7,14 +7,24 @@ import ToggleOnIcon from "@mui/icons-material/ToggleOn";
 const Threat:React.FC = () => {
     const classes = useStyles();
     const [threatProtection, setThreatProtection] = useState<boolean>(false);
+    const [countDisabled, setCountDisabled] = useState<boolean>(false);
+    const [disabled, setDisabled] = useState<boolean>(true);
 
-    const toogleThreatProtection = () => {
-		setThreatProtection(prevState => {
-			return !prevState;
-		});
-	}
+    // const toogleThreatProtection = () => {
+	// 	setThreatProtection(prevState => {
+	// 		return !prevState;
+	// 	});
+	// }
+
+    const disableClick = (e: FormEvent) => {
+        e.preventDefault();
+        setCountDisabled(!countDisabled);
+      };
   return (
-    <div className={classes.threat}>
+    <div className={classes.threat} style={{
+        opacity: disabled ? 0.25 : 1,
+        pointerEvents: disabled ? "none" : "initial"
+        }}>
     <div className={classes.text}>
         <Typography variant='h6' style={{ fontWeight:600, color:'black',fontSize:'16px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>Threat Protection</Typography>
     </div>
@@ -32,8 +42,9 @@ const Threat:React.FC = () => {
                         <div className={classes.main}>
                             <ToggleOnIcon
                                 fontSize="large"
-                                onClick={toogleThreatProtection}
+                                onClick={disableClick}
                                 className={classes.pointer}
+                                
                             />{" "}
                         </div>
                     ) : (
@@ -41,7 +52,7 @@ const Threat:React.FC = () => {
                         <div className={classes.main}>
                             <ToggleOffIcon
                                 fontSize="large"
-                                onClick={toogleThreatProtection}
+                                onClick={disableClick}
                                 className={classes.pointer}
                             />
                         </div>
@@ -103,6 +114,8 @@ const useStyles = makeStyles({
         flexDirection: 'column',
         boxSizing:'border-box',
         display: 'flex',
+        textAlign:'justify',
+        verticalAlign:'1rem'
 
     },
     main: {

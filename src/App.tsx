@@ -12,12 +12,18 @@ import { useContextProvider } from "./contexts/ContextProvider";
 import { login } from "./redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { PrivateRoutes } from "./components/routes";
+import { getUserApis } from "./redux/slices/userSlice";
 import { getApis } from "./redux/slices/apiSlice";
 import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
+import Cookies from 'universal-cookie';
 
 const App: React.FC = () => {
   const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP } = useContextProvider()
+  const { isLoggedIn } = useAppSelector(store => store.user)
+  const { trigger } = useContextProvider()
+  const cookies = new Cookies()
+const profileId = cookies.get("profileId")
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -57,7 +63,14 @@ const App: React.FC = () => {
 
   useEffect(() => {
     getCategories
-  }, [])
+  }, []) 
+  
+
+  
+  useEffect(() => {
+    if (profileId === undefined) return 
+    dispatch(getUserApis(profileId))
+  },[(isLoggedIn === true), trigger, profileId])
 
   return (
     <ThemeProvider theme={theme}>

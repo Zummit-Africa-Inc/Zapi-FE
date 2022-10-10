@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { makeStyles } from '@mui/styles'
 import { FiAlertCircle } from 'react-icons/fi'
+import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png";
+
 
 interface IErrorType { error?: any }
 
@@ -11,9 +13,9 @@ const ErrorPage:React.FC<IErrorType> = ({error}) => {
   return (
     <div className={classes.container}>
         <div className={classes.wrapper}>
-            <FiAlertCircle className={classes.icon} />
+            <div className={classes.zapiContainer}><img src={ZapiHomeLogo} alt="zapi-Home" /><span className={classes.zapi}>Z-API</span></div>
             <h3 className={classes.textError}>Error 404</h3>
-            <p>The page you requested was not found.</p>
+            <p className={classes.paragraph}>The page you requested was not found.</p>
         </div>
         <Link to='/'>&larr; Go back to Homepage</Link>
     </div>
@@ -35,7 +37,6 @@ const useStyles = makeStyles({
         padding: "0 2rem",
         "& p": {
             fontSize: "2rem",
-            color: "red",
         }
     },
     icon: {
@@ -45,6 +46,18 @@ const useStyles = makeStyles({
     textError: {
         color: "#333",
         fontSize: "35px"
+    },
+    zapiContainer:{
+        display: "flex",
+        alignItems: "center",
+    },
+    zapi: {
+        color: "#081F4A",
+        fontWeight: 700,
+        fontSize: "1.75rem"
+    },
+    paragraph: {
+        color: "#081F4A"
     }
 })
 

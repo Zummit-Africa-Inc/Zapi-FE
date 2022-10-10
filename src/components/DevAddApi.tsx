@@ -113,7 +113,14 @@ const useStyles = makeStyles({
             alignItems: "center",
             gap:'1rem',
             paddingTop: '140px',
-            scale: 0.95
+            scale: 0.95,
+            marginBottom: "8rem"
+        },
+        "@media screen and (max-width: 500px)": {
+            scale: .9
+        },
+        "@media screen and (max-width: 400px)": {
+            scale: .8
         },
         "@media screen and (max-width: 375px)": {
             padding: "1rem",
@@ -218,7 +225,7 @@ const useStyles = makeStyles({
             width: "385px",
         },
         "@media screen and (max-width: 500px)": {
-            width: "100%",
+            // width: "100%",
         }
     },
     button: {

@@ -1,6 +1,7 @@
 import React from "react";
 import '../../src/index.css'
 import zxcvbn from 'zxcvbn';
+import { EMAIL_REGEX, PASSWORD_REGEX, MATCH_CHECKER, SPECIAL_CHAR }from "../utils" 
 
 interface IPasswordStrengthMeterProps {
     password: string | any;
@@ -23,7 +24,7 @@ const PasswordStrengthMeter: React.FC<IPasswordStrengthMeterProps> = ({password}
             return 'Weak';
         }
     }
-    const testedResult = zxcvbn(password);
+  const testedResult = zxcvbn(password);
 
   return (
     <div className="password-strength-meter">
