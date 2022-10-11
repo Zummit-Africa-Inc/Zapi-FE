@@ -80,7 +80,6 @@ const profileId = cookies.get("profileId")
         <Suspense fallback={<Fallback />}>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/dashboard" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
