@@ -41,6 +41,7 @@ export const getUserApis = createAsyncThunk("user/getapis", async(id: any, thunk
     try {
         const response = await fetch(`${core_url}/api/dev-platform-data/${id}`)
         const data = await response.json()
+        console.log(data)
         const apis = data?.data.apis
         return apis
     } catch (error: any) {
@@ -48,11 +49,11 @@ export const getUserApis = createAsyncThunk("user/getapis", async(id: any, thunk
     }
 })
 
-export const getSubscribedApis = createAsyncThunk("user/getsubscribed", async(_, thunkAPI) => {
+export const getSubscribedApis = createAsyncThunk("user/getsubscribed", async(id: any, thunkAPI) => {
     try {
-        const response = await fetch(`${core_url}/subscription/user-subscription/${profileId}`)
+        const response = await fetch(`${core_url}/api/dev-platform-data/${id}`)
         const data = await response.json()
-        const subscribed = data?.data
+        const subscribed = data?.data.userSubscriptions
         return subscribed
     } catch (error: any) {
         return thunkAPI.rejectWithValue(error.message)
