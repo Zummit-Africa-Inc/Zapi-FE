@@ -53,46 +53,14 @@ const HomeNavbar: React.FC = () => {
                 {isMatch ?
                     <>
                         <div className={open}>
-                            {(location.pathname.indexOf('pricing') != -1) ? 
                                 <ul>
                                     <li><Link to="/">Home</Link></li>
                                     <li><Link to="/api-hub">API hub</Link></li>
-                                    <li><Link to="/developer/dashboard">Dashboard</Link></li>
+                                  {isLoggedIn && (<li><Link to="/developer/dashboard">Dashboard</Link></li>)}
                                     <li className={classes.active}><Link to="/pricing">Pricing</Link></li>
                                     <li><Link to="/documentation">Documentation</Link></li>
                                     <li><button onClick={() => handleClicked('login')}>Login</button></li>
                                 </ul>
-                                :
-                                (location.pathname.indexOf('documentation') != -1) ? 
-                                <ul>
-                                    <li><Link to="/">Home</Link></li>
-                                    <li><Link to="/api-hub">API hub</Link></li>
-                                    <li><Link to="/developer/dashboard">Dashboard</Link></li>
-                                    <li><Link to="/pricing">Pricing</Link></li>
-                                    <li className={classes.active}><Link to="/documentation">Documentation</Link></li>
-                                    <li><button onClick={() => handleClicked('login')}>Login</button></li>
-                                </ul>
-                                :
-                                (location.pathname.indexOf('api-hub') != -1) ? 
-                                <ul>
-                                    <li><Link to="/">Home</Link></li>
-                                    <li className={classes.active}><Link to="/api-hub">API hub</Link></li>
-                                    <li><Link to="/developer/dashboard">Dashboard</Link></li>
-                                    <li><Link to="/pricing">Pricing</Link></li>
-                                    <li><Link to="/documentation">Documentation</Link></li>
-                                    <li><button onClick={() => handleClicked('login')}>Login</button></li>
-                                </ul>
-                                :
-                                <ul>
-                                    <li className={classes.active}><Link to="/">Home</Link></li>
-                                    <li><Link to="/api-hub">API hub</Link></li>
-                                    <li><Link to="/developer/dashboard">Dashboard</Link></li>
-                                    <li><Link to="/pricing">Pricing</Link></li>
-                                    <li><Link to="/documentation">Documentation</Link></li>
-                                    <li><button onClick={() => handleClicked('login')}>Login</button></li>
-                                </ul>
-                                
-                            }
                             <div className={classes.signup}><Link to="/signup">Sign up</Link></div>
                         </div>
                         <div className={classes.hamburger} onClick={handleClick}>
@@ -101,47 +69,14 @@ const HomeNavbar: React.FC = () => {
                     </>
                     :
                     <div className={classes.links}>
-                        {(location.pathname.indexOf('pricing') != -1) ? 
                             <ul>
                                 <li><Link to="/">Home</Link></li>
                                 <li><Link to="/api-hub">API hub</Link></li>
-                                <li><Link to="/developer/dashboard">Dashboard</Link></li>
+                               {isLoggedIn && (<li><Link to="/developer/dashboard">Dashboard</Link></li>)}
                                 <li className={classes.active}><Link to="/pricing">Pricing</Link></li>
                                 <li><Link to="/documentation">Documentation</Link></li>
                                 {!isLoggedIn && <li><button onClick={() => handleClicked('login')}>Login</button></li>}  
                             </ul>
-                            :
-                            (location.pathname.indexOf('documentation') != -1) ? 
-                            <ul>
-                                <li><Link to="/">Home</Link></li>
-                                <li><Link to="/api-hub">API hub</Link></li>
-                                <li><Link to="/developer/dashboard">Dashboard</Link></li>
-                                <li><Link to="/pricing">Pricing</Link></li>
-                                <li className={classes.active}><Link to="/documentation">Documentation</Link></li>
-                                {!isLoggedIn && <li><button onClick={() => handleClicked('login')}>Login</button></li>}  
-                            </ul>
-                            :
-                            (location.pathname.indexOf('api-hub') != -1) ? 
-                            <ul>
-                                <li><Link to="/">Home</Link></li>
-                                <li className={classes.active}><Link to="/api-hub">API hub</Link></li>
-                                <li><Link to="/developer/dashboard">Dashboard</Link></li>
-                                <li><Link to="/pricing">Pricing</Link></li>
-                                <li><Link to="/documentation">Documentation</Link></li>
-                                {!isLoggedIn && <li><button onClick={() => handleClicked('login')}>Login</button></li>}  
-                            </ul>
-                            :
-                            <ul>
-                                <li className={classes.active}><Link to="/">Home</Link></li>
-                                <li><Link to="/api-hub">API hub</Link></li>
-                                <li><Link to="/developer/dashboard">Dashboard</Link></li>
-                                <li><Link to="/pricing">Pricing</Link></li>
-                                <li><Link to="/documentation">Documentation</Link></li>
-                                {!isLoggedIn && <li><button onClick={() => handleClicked('login')}>Login</button></li>}  
-                            </ul>
-                            
-                        }
-                        
                         {!isLoggedIn ?
                             <div className={classes.signup}><Link to="/signup">Sign up</Link></div> : 
                             <button className={classes.signup} onClick={() => handleLogOut()}>Logout</button>

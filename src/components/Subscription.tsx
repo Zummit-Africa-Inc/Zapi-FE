@@ -80,7 +80,8 @@ export default Subscription
 
 const useStyles = makeStyles({
     subTable: {
-       marginTop: "2rem"
+       marginTop: "2rem",
+       padding: "0 112px"
     },
     Link: {
         padding: "10px",
@@ -94,13 +95,4 @@ const useStyles = makeStyles({
         paddingBottom: "80px",
         height: "calc(100vh - 315px)"
     },
-    // apiCard: {
-    //     height: "calc(100vh - 315px)",
-    //     width: "100vw",
-    //     display: "flex",
-    //     alignItems: "center",
-    //     justifyContent: "center",
-    //     gap: "1.5rem",
-    //     flexWrap: "wrap",
-    // }
 })
