@@ -56,7 +56,7 @@ const HomeNavbar: React.FC = () => {
                             {(location.pathname.indexOf('pricing') != -1) ? 
                                 <ul>
                                     <li><Link to="/">Home</Link></li>
-                                    <li><Link to="/dashboard">API hub</Link></li>
+                                    <li><Link to="/api-hub">API hub</Link></li>
                                     <li><Link to="/developer/dashboard">Dashboard</Link></li>
                                     <li className={classes.active}><Link to="/pricing">Pricing</Link></li>
                                     <li><Link to="/documentation">Documentation</Link></li>
@@ -66,16 +66,26 @@ const HomeNavbar: React.FC = () => {
                                 (location.pathname.indexOf('documentation') != -1) ? 
                                 <ul>
                                     <li><Link to="/">Home</Link></li>
-                                    <li><Link to="/dashboard">API hub</Link></li>
+                                    <li><Link to="/api-hub">API hub</Link></li>
                                     <li><Link to="/developer/dashboard">Dashboard</Link></li>
                                     <li><Link to="/pricing">Pricing</Link></li>
                                     <li className={classes.active}><Link to="/documentation">Documentation</Link></li>
                                     <li><button onClick={() => handleClicked('login')}>Login</button></li>
                                 </ul>
                                 :
+                                (location.pathname.indexOf('api-hub') != -1) ? 
+                                <ul>
+                                    <li><Link to="/">Home</Link></li>
+                                    <li className={classes.active}><Link to="/api-hub">API hub</Link></li>
+                                    <li><Link to="/developer/dashboard">Dashboard</Link></li>
+                                    <li><Link to="/pricing">Pricing</Link></li>
+                                    <li><Link to="/documentation">Documentation</Link></li>
+                                    <li><button onClick={() => handleClicked('login')}>Login</button></li>
+                                </ul>
+                                :
                                 <ul>
                                     <li className={classes.active}><Link to="/">Home</Link></li>
-                                    <li><Link to="/dashboard">API hub</Link></li>
+                                    <li><Link to="/api-hub">API hub</Link></li>
                                     <li><Link to="/developer/dashboard">Dashboard</Link></li>
                                     <li><Link to="/pricing">Pricing</Link></li>
                                     <li><Link to="/documentation">Documentation</Link></li>
@@ -94,7 +104,7 @@ const HomeNavbar: React.FC = () => {
                         {(location.pathname.indexOf('pricing') != -1) ? 
                             <ul>
                                 <li><Link to="/">Home</Link></li>
-                                <li><Link to="/dashboard">API hub</Link></li>
+                                <li><Link to="/api-hub">API hub</Link></li>
                                 <li><Link to="/developer/dashboard">Dashboard</Link></li>
                                 <li className={classes.active}><Link to="/pricing">Pricing</Link></li>
                                 <li><Link to="/documentation">Documentation</Link></li>
@@ -104,16 +114,26 @@ const HomeNavbar: React.FC = () => {
                             (location.pathname.indexOf('documentation') != -1) ? 
                             <ul>
                                 <li><Link to="/">Home</Link></li>
-                                <li><Link to="/dashboard">API hub</Link></li>
+                                <li><Link to="/api-hub">API hub</Link></li>
                                 <li><Link to="/developer/dashboard">Dashboard</Link></li>
                                 <li><Link to="/pricing">Pricing</Link></li>
                                 <li className={classes.active}><Link to="/documentation">Documentation</Link></li>
                                 {!isLoggedIn && <li><button onClick={() => handleClicked('login')}>Login</button></li>}  
                             </ul>
                             :
+                            (location.pathname.indexOf('api-hub') != -1) ? 
+                            <ul>
+                                <li><Link to="/">Home</Link></li>
+                                <li className={classes.active}><Link to="/api-hub">API hub</Link></li>
+                                <li><Link to="/developer/dashboard">Dashboard</Link></li>
+                                <li><Link to="/pricing">Pricing</Link></li>
+                                <li><Link to="/documentation">Documentation</Link></li>
+                                {!isLoggedIn && <li><button onClick={() => handleClicked('login')}>Login</button></li>}  
+                            </ul>
+                            :
                             <ul>
                                 <li className={classes.active}><Link to="/">Home</Link></li>
-                                <li><Link to="/dashboard">API hub</Link></li>
+                                <li><Link to="/api-hub">API hub</Link></li>
                                 <li><Link to="/developer/dashboard">Dashboard</Link></li>
                                 <li><Link to="/pricing">Pricing</Link></li>
                                 <li><Link to="/documentation">Documentation</Link></li>
