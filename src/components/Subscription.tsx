@@ -1,51 +1,106 @@
 import { makeStyles } from "@mui/styles";
-import { Typography } from '@mui/material';
-import DevAPICard from './DevAPICard';
+import { TableBody, TableHead, TableCell, TableRow, Typography, Table, Button } from '@mui/material';
 import { useAppSelector } from '../hooks'
+import { tableCellClasses } from '@mui/material/TableCell';
+import { styled } from '@mui/material/styles';
+import { Link } from "react-router-dom";
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+        backgroundColor: theme.palette.common.black,
+        color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+        fontSize: 14,
+    },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    '&:last-child td, &:last-child th': {
+        border: 0,
+    },
+}));
 
 const Subscription: React.FC = () => {
-  const { subscribedApis } = useAppSelector(store => store.user)
-  const classes = useStyles();
-  return (
-    <div>
-       {subscribedApis.length !== 0 ? 
-                <div className={classes.apiCard}>
-                    {subscribedApis.map((apis: any) => (<DevAPICard key={apis.id} {...apis} />))}
+    const { subscribedApis } = useAppSelector(store => store.user)
+    const classes = useStyles();
+    return (
+        <div>
+            {subscribedApis.length !== 0 ?
+                <div className={classes.subTable}>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell>Name</StyledTableCell>
+                                <StyledTableCell>Token</StyledTableCell>
+                                <StyledTableCell></StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {subscribedApis?.map((api, index) => (
+                                <StyledTableRow key={index}>
+                                    <StyledTableCell>
+                                        {api.name}
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        {api.secretKey}
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        <Link to="#" className={classes.Link}>View</Link>
+                                    </StyledTableCell>
+                                </StyledTableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
                 </div>
                 :
                 <div className={classes.addApiDesc}>
-                <Typography gutterBottom variant="subtitle1" sx=
-                    {{
-                        color: "#000000", fontFamily: "Space Grotesk", fontWeight: 700, fontSize: "18px",
-                        lineHeight: "30px", textAlign: "center", marginTop: "116px"
-                    }}>
+                    <Typography gutterBottom variant="subtitle1" sx=
+                        {{
+                            color: "#000000", fontFamily: "Space Grotesk", fontWeight: 700, fontSize: "18px",
+                            lineHeight: "30px", textAlign: "center", marginTop: "116px"
+                        }}>
                         You have not subscribed to any API Project
-                </Typography>
-                <Typography gutterBottom variant="subtitle1" sx={{
-                    color: "#000000", fontFamily: "Space Grotesk", fontStyle: "normal", fontWeight: 400,
-                    fontSize: "16px", lineHeight: "30px", textAlign: "center", marginTop: "16px"
-                }}>Visit the Hub to subscribe to an API
-                </Typography>
-            </div>}
-    </div>
-  )
+                    </Typography>
+                    <Typography gutterBottom variant="subtitle1" sx={{
+                        color: "#000000", fontFamily: "Space Grotesk", fontStyle: "normal", fontWeight: 400,
+                        fontSize: "16px", lineHeight: "30px", textAlign: "center", marginTop: "16px"
+                    }}>Visit the Hub to subscribe to an API
+                    </Typography>
+                </div>}
+        </div>
+    )
 }
 
 export default Subscription
 
 const useStyles = makeStyles({
-  addApiDesc: {
-      marginTop: "20px",
-      paddingBottom: "80px",
-      height: "calc(100vh - 315px)"
-  },
-  apiCard: {
-      height: "calc(100vh - 315px)",
-      width: "100vw",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: "1.5rem",
-      flexWrap: "wrap",
-  }
+    subTable: {
+       marginTop: "2rem"
+    },
+    Link: {
+        padding: "10px",
+        borderRadius: "5px",
+        background: "#00008B",
+        color: "red",
+        pointer: "cursor"
+    },
+    addApiDesc: {
+        marginTop: "20px",
+        paddingBottom: "80px",
+        height: "calc(100vh - 315px)"
+    },
+    // apiCard: {
+    //     height: "calc(100vh - 315px)",
+    //     width: "100vw",
+    //     display: "flex",
+    //     alignItems: "center",
+    //     justifyContent: "center",
+    //     gap: "1.5rem",
+    //     flexWrap: "wrap",
+    // }
 })

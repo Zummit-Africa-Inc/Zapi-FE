@@ -3,7 +3,7 @@ import Cookies from "universal-cookie";
 
 import { useContextProvider } from "../contexts/ContextProvider";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { getUserApis } from "../redux/slices/userSlice";
+import { getUserApis, getSubscribedApis } from "../redux/slices/userSlice";
 import { DevNavbar, DevAddApi  } from "../components";
 
 const DevDashboard:React.FC = () => {
@@ -16,6 +16,10 @@ const DevDashboard:React.FC = () => {
 
     useEffect(() => {
         dispatch(getUserApis(`${profileId}`))
+    },[(isLoggedIn === true),trigger])
+
+    useEffect(() => {
+        dispatch(getSubscribedApis(`${profileId}`))
     },[(isLoggedIn === true),trigger])
 
     return (
