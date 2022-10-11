@@ -7,8 +7,8 @@ import { io } from 'socket.io-client';
 import Cookies from "universal-cookie";
 
 import { ZapiDash, ZapiApps, ZapiHelp, ZapiArrow, ZapiPic } from '../assets'
-import { useAppDispatch } from "../hooks/redux-hook";
-import { logout } from "../redux/slices/userSlice";
+import { useAppDispatch, useAppSelector } from "../hooks/redux-hook";
+import { getUserApis, logout } from "../redux/slices/userSlice";
 import Notification from './Notification';
 
 const Menus: React.FC = () => {
@@ -22,6 +22,7 @@ const Menus: React.FC = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate()
     const cookies = new Cookies()
+    const { userApis } = useAppSelector(store => store.user)
     
     useEffect(() => { 
         setSocket(io(import.meta.env.VITE_SOCKET_URL));
@@ -56,9 +57,9 @@ const Menus: React.FC = () => {
             All Projects<img src={ZapiArrow} alt='zapi-arrow' style={{ color:'#00000', marginLeft:'0.4rem' }}/>
         </Button>
         <Menu id="fade-menu" MenuListProps={{ 'aria-labelledby': 'fade-button', }} anchorEl={anchorEl} open={open} onClose={handleClose} TransitionComponent={Fade}>
-            <MenuItem onClick={handleClose}>Zapi</MenuItem>
-            <MenuItem onClick={handleClose}>Zummit Academy</MenuItem>
-            <MenuItem onClick={handleClose}>Zapi Tools</MenuItem>
+        {userApis.map((api, index) => (
+            <MenuItem key={index}>{api.name}</MenuItem>
+        ))}
         </Menu>
         <Stack direction="row" alignItems="center" justifyContent="center" spacing={2}>
             <DeveloperBoardRounded/>

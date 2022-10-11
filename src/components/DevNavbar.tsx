@@ -7,18 +7,18 @@ import  Menus  from "../components/Menus";
 import { ZapiDevLogo, ZapiWidget } from '../assets'
 
 import { Menu } from "@mui/icons-material";
-import { useAppDispatch } from "../hooks/redux-hook";
+import { useAppDispatch, useAppSelector } from "../hooks/redux-hook";
 import { logout } from "../redux/slices/userSlice";
 import Cookies from "universal-cookie";
 
 import { ZapiArrow } from '../assets';
-import { Avatar, Fade, MenuItem, Button, Paper, Stack, Typography } from '@mui/material'
+import { Avatar, Fade, MenuItem, Button, Paper, Stack, Typography, ListItem } from '@mui/material'
 
 const DevNavbar: React.FC = () => {
     const classes = useStyles()
     const [isOpen, setIsOpen] = useState(false);
     const [isShow, setIsShow] = useState(false);
-
+    const { userApis } = useAppSelector(store => store.user)
     
     const handleClick = () => {
         if(isOpen) {
@@ -83,9 +83,9 @@ const DevNavbar: React.FC = () => {
                         
                         {isShow ?
                             <div className={classes.projectListContainer}>
-                                <Button className={classes.projectListItems}>Zapi</Button>
-                                <Button className={classes.projectListItems}>Zummit Academy</Button>
-                                <Button className={classes.projectListItems}>Zapi Tools</Button>
+                               {userApis.map((api, index) => (
+                                <ListItem key={index}>{api.name}</ListItem>
+                               ))}
                             </div>
                             :
                             <></>
