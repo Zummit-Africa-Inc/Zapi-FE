@@ -75,7 +75,7 @@ const core_url = import.meta.env.VITE_CORE_URL
                 value="User"
                 className="radio"
                 name="User"
-                disabled={true}
+                
                 checked={status === "User"}
               />
               <label className="users">User</label>
@@ -87,7 +87,7 @@ const core_url = import.meta.env.VITE_CORE_URL
                 className="radio"
                 value="Team"
                 name="Team"
-                disabled={true}
+                
                 checked={status === "Team"}
               />
               <label className="users">Team</label>
@@ -98,7 +98,7 @@ const core_url = import.meta.env.VITE_CORE_URL
                 <div className="container">
                   <div className="form">
                     <span className="icon">
-                      <SearchIcon className="icon2" />{" "}
+                      <SearchIcon className="icon2" />
                     </span>
                     <input
                       id="input-input"
