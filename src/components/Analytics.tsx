@@ -68,8 +68,8 @@ const Analytics: React.FC = () => {
   }, [id])
   
   useEffect(() => {
-    dispatch(getAnalyticsLog())
-  }, [])
+    dispatch(getAnalyticsLog(id))
+  }, [id])
 
     const handleStatClick = (e: React.MouseEvent<HTMLDivElement>) => {
         setStatsData(STATISTICS)
