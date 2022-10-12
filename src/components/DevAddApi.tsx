@@ -112,8 +112,162 @@ const useStyles = makeStyles({
             justifyContent: "center",
             alignItems: "center",
             gap:'1rem',
+            paddingTop: '140px',
+            scale: 0.95,
+            marginBottom: "8rem"
+        },
+        "@media screen and (max-width: 500px)": {
+            scale: .9
+        },
+        "@media screen and (max-width: 400px)": {
+            scale: .8
+        },
+        "@media screen and (max-width: 375px)": {
+            padding: "1rem",
+            display: "grid",
+            justifyContent: "center",
+            gap:'1rem',
+            marginTop: '80px',
+        }
+    },
+    bodyColor: {
+        minHeight: "100vh",
+        background:'#FFFFFF',
+        paddingTop: '15px',
+        height: "100vh",
+    },
+    widget1:{
+        display:'flex',
+        alignItems:'center',
+        gap:'1rem',
+        "@media screen and (max-width: 1024px)": {
+            marginBottom: "1rem",
+        }
+    },
+    switch1:{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent:'space-between',
+        alignItems: 'center',
+        gap:'1rem',
+        "@media screen and (max-width: 1024px)": {
+            display: "none",
+        }
+    },
+    switch2:{
+        display: "none",
+        "@media screen and (max-width: 1024px)": {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent:'space-between',
+            alignItems: 'center',
+            gap:'1rem',
+        }
+    },
+    widget2:{
+       border: "1px solid #C4C4C4",
+       borderRadius: "10px",
+    },
+    rightText:{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start",
+        padding: "8px 16px",
+        margin: "-35px 30px",
+        width: "130px",
+        height: "46px",
+        background: "#FFFFFF",
+        borderTop: "1px solid #8C8C8C",
+        borderBottom: "1px solid #8C8C8C",
+        borderRight: "1px solid #8C8C8C",
+        borderRadius: "0px 8px 8px 0px",
+    },
+    search: {
+        // width: "149px",
+        height: "30px",
+        fontFamily: 'Space Grotesk',
+        fontStyle: "normal",
+        fontWeight: "400",
+        fontSize: "16px",
+        lineHeight: "30px",
+        display: "flex",
+        alignItems: "center",
+        color: "#8B8B8C",
+        backgroundColor: "#fff",
+      },
+    formControl: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        padding: "8px 64px 8px 16px",
+        gap: "16px",
+        width: "269px",
+        height: "46px",
+        background: "#E1E1E2",
+        borderRadius: "8px",
+        "& input": {
+            width: 250,
+            height: "100%",
+            outline: "none",
+            border: "none",
+            backgroundColor: "rgba(255, 255, 255, 0)",
+        },
+        "& select": {
+            width: 100,
+            height: "100%",
+            outline: "none",
+            border: "none",
+        },
+        "& ::placeHolder": {
+            fontFamily: 'Space Grotesk',
+        },
+        "@media screen and (max-width: 1024px)": {
+            width: "385px",
+        },
+        "@media screen and (max-width: 500px)": {
+            // width: "100%",
+        }
+    },
+    button: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        padding: "8px 16px",
+        gap: "16px",
+        width: "190px",
+        lineHeight: "46px",
+        background: "#1D1D1D",
+        borderRadius:"8px",
+        cursor: "pointer",
+        color: "#FFFFFF",
+        border: "none",
+        fontWeight: '500',
+        fontSize: '16px',
+        "@media screen and (max-width: 1024px)": {
+            marginBottom: "1rem",
+            width: "385px",
+        },
+        "@media screen and (max-width: 500px)": {
+            // width: "100%",
+        }
+    },
+})
+
+export default DevAddApi
+
+<<<<<<< HEAD
             padding: '140px 16px 0',
             scale: 0.95
+=======
+            paddingTop: '140px',
+            scale: 0.95,
+            marginBottom: "8rem"
+        },
+        "@media screen and (max-width: 500px)": {
+            scale: .9
+        },
+        "@media screen and (max-width: 400px)": {
+            scale: .8
         },
         "@media screen and (max-width: 375px)": {
             padding: "1rem",
@@ -218,7 +372,7 @@ const useStyles = makeStyles({
             width: "385px",
         },
         "@media screen and (max-width: 500px)": {
-            width: "100%",
+            // width: "100%",
         }
     },
     button: {

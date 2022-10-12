@@ -22,7 +22,7 @@ const Signup: React.FC = () => {
   const { error, loading, sendRequest } = useHttpRequest();
   const { handleClicked } = useContextProvider();
   const navigate = useNavigate();
-  const disabled = !terms || !PASSWORD_REGEX.test(password) || !MATCH_CHECKER(password, confirm_password) ? true : false;
+  const disabled = !terms || (!PASSWORD_REGEX.test(password)) || !MATCH_CHECKER(password, confirm_password);
 
 
   const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {

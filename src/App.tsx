@@ -7,7 +7,7 @@ import { deviceDetect } from  "react-device-detect";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
-import { DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditions, ResetPassword, Pricing, Documentation } from "./pages";
+import { DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditions, ResetPassword, Pricing, Documentation, APIHub } from "./pages";
 import { Fallback, Login, AddApiPopup, } from "./components";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { login } from "./redux/slices/userSlice";
@@ -77,7 +77,6 @@ const App: React.FC = () => {
         <Suspense fallback={<Fallback />}>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/dashboard" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -86,6 +85,7 @@ const App: React.FC = () => {
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/documentation" element={<Documentation />} />
             <Route path="/terms" element={<TermsConditions />} />
+            <Route path="/api-hub" element={<APIHub />} />
 
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />

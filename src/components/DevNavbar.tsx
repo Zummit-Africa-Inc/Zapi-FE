@@ -1,52 +1,109 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react';
+import { Avatar, Fade, MenuItem, Button, Paper, Stack, Typography, ListItem } from '@mui/material'
+import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import { Link } from 'react-router-dom';
 import { IconButton } from "@mui/material";
 import { FiMenu, FiX } from "react-icons/fi"
+import { Menu } from "@mui/icons-material";
+import Cookies from "universal-cookie";
 
+import { useAppDispatch, useAppSelector } from "../hooks/redux-hook";
 import { useContextProvider } from '../contexts/ContextProvider';
 import { ZapiDevLogo, ZapiWidget } from '../assets';
+import { logout } from "../redux/slices/userSlice";
 import  Menus  from "../components/Menus";
+import { ZapiArrow } from '../assets';
 
 const DevNavbar: React.FC = () => {
     const { screenSize, setScreenSize } = useContextProvider()
     const classes = useStyles()
+    const [isOpen, setIsOpen] = useState(false);
+    const [isShow, setIsShow] = useState(false);
+    const { userApis } = useAppSelector(store => store.user)
+    
+    const handleClick = () => {
+        if(isOpen) {
+            setIsOpen(false);
+        } else {
+            setIsOpen(true);
+        }
+    }
 
-    useEffect(() => {
-        const handleScreenResize = () => setScreenSize(innerWidth)
-        addEventListener("resize", handleScreenResize)
-        handleScreenResize()
-        return () => removeEventListener("resize", handleScreenResize)
-    },[])
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate()
+    const cookies = new Cookies()
+    
+    const handleLogout = async () => {
+        await setIsOpen(true);
+        dispatch(logout())
+        cookies.remove('accessToken')
+        navigate("/")
+    };
+
+    const handleProjectList = () => {
+        if(isShow) {
+            setIsShow(false);
+        } else {
+            setIsShow(true);
+        }
+    };
   
   return (
-    <div className={classes.NavBar}>
-        <div className={classes.logo}>
-            <Link to="/dashboard">
-            <img src={ZapiDevLogo} alt='Zapi-dev' />
-            </Link>
-            <span className={classes.zapi}>Z-API</span>
-        </div>
-        {screenSize > 768 &&
-        <div className={classes.widget}>
-            <img src={ZapiWidget} alt='Zapi-widget' />
-            <Link to='/developer/dashboard' className={classes.api}>API Projects</Link>
-        </div>}
-        {screenSize <= 900 ? <Menu /> : <Menus />}
-    </div>
-  )
-}
+    <>
+        <div className={classes.NavBar}>
+            <div className={classes.logo}>
+                <Link to="/dashboard">
+                <img src={ZapiDevLogo} alt='Zapi-dev' />
+                </Link>
+                <span className={classes.zapi}>Z-API</span>
+            </div>
 
-const Menu:React.FC = () => {
-    const { activeMenu, setActiveMenu } = useContextProvider()
-    const toggle = () => setActiveMenu((prev: boolean) => !prev)
-    return activeMenu ?
-    <IconButton onClick={() => toggle()}>
-        <FiX />
-    </IconButton> :
-    <IconButton onClick={() => toggle()}>
-        <FiMenu />
-    </IconButton>
+            <div className={classes.widget}>
+                <img src={ZapiWidget} alt='Zapi-widget' />
+                <Link to='/developer/dashboard' className={classes.api}>API Projects</Link>
+            </div>
+            
+            
+            <div className={classes.menus}>
+                <Menus />
+            </div>
+
+            <div className={classes.hamburger} onClick={handleClick}>
+                <Menu />
+            </div>
+            
+        </div>
+        <div>
+            {isOpen ?
+                <>
+                    <div className={classes.responsiveMenu}>
+                        <Button className={classes.allProjects} onClick={handleProjectList}>
+                            All Projects<img src={ZapiArrow} alt='zapi-arrow' style={{ color:'#00000', marginLeft:'0.4rem' }}/>
+                        </Button>
+                        
+                        {isShow ?
+                            <div className={classes.projectListContainer}>
+                               {userApis.map((api, index) => (
+                                <ListItem key={index}>{api.name}</ListItem>
+                               ))}
+                            </div>
+                            :
+                            <></>
+                        }
+                        <div>Developer Board</div>
+                        <div>Apps</div>
+                        <div>Help</div>
+                        <div>Notification</div>
+                        <button className={classes.logout} onClick={handleLogout}>Logout</button>
+                    </div>
+                </>
+                :
+                <></>
+            }
+        </div>
+    </>
+  )
 }
 
 const useStyles = makeStyles({
@@ -68,14 +125,17 @@ const useStyles = makeStyles({
         "@media screen and (max-width: 1024px)": {
             padding: "1rem 2rem"
         },
-        "@media screen and (max-width: 375px)": {
+        "@media screen and (max-width: 500px)": {
             padding: "1rem 1rem"
         }
     },
     logo:{
         display:'flex',
         alignItems:'center',
-        gap:'1rem'
+        gap:'1rem',
+        "@media screen and (max-width: 900px)": {
+            scale: .9
+        }
     },
     zapi:{
         fontWeight:'700',
@@ -83,14 +143,21 @@ const useStyles = makeStyles({
         lineHeight:'30px',
         color:'#000000',
         alignItems:'center',
-        display:'flex'
+        display:'flex',
+        "@media screen and (max-width: 900px)": {
+            scale: .9
+        }
     },
     widget:{
         color:'#1C1B1F',
         gap:'1rem',
         display:'flex',
         alignItems:'center',
-        marginLeft: '200px'
+        marginLeft: '200px',
+        "@media screen and (max-width: 900px)": {
+            marginLeft: '-10%',
+            scale: .9
+        }
     },
     api:{
         fontWeight:'400',
@@ -103,6 +170,82 @@ const useStyles = makeStyles({
         display:'flex',
         justifyContent:'space-between',
         width:"inherit"
+    },
+    menus: {
+        "@media screen and (max-width: 900px)": {
+            display: "none"
+        }
+    },
+    hamburger: {
+        cursor: "pointer",
+        fontSize: "2rem",
+        color: "#000",
+        zIndex: "1000",
+        display: "none",
+        "@media screen and (max-width: 900px)": {
+            display: "block"
+        }
+    },
+    responsiveMenu: {
+        position: "fixed",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        marginTop:  '70px',
+        backgroundColor: "#fff",
+        padding: "6rem",
+        fontSize: "17px",
+        lineHeight: "2.5rem",
+        width: "100%",
+        height: "100%",
+        zIndex: "1000",
+        "@media screen and (max-width: 900px)": {
+            display: "flex"
+        },
+        "@media screen and (min-width: 900px)": {
+            display: "none"
+        },
+        "@media screen and (max-width: 500px)": {
+            padding: "4rem",
+        },
+    },
+    allProjects: {
+        "&.MuiButton-text": {
+            fontWeight: "normal",
+            color: "#000"
+          },
+        "&.MuiButton-root": {
+            textTransform: 'none',
+            fontSize:'17px',
+            width: "150px"
+        }
+    },
+    projectListContainer: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        marginBottom: "10px",
+        textAlign: "center",
+        lineHeight: "2rem",
+        width: "100%",
+    },
+    projectListItems: {
+        "&.MuiButton-text": {
+            fontWeight: "normal",
+            color: "#000"
+          },
+        "&.MuiButton-root": {
+            textTransform: 'none',
+            fontSize: "15px",
+            color: "#909090",
+            width: "150px"
+        }
+    },
+    logout: {
+        border: "unset",
+        marginTop: "10px",
+        backgroundColor: "#000",
+        width: "150px"
     },
 })
 export default DevNavbar
