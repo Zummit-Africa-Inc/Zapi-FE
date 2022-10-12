@@ -27,10 +27,11 @@ export const getAnalytics = createAsyncThunk('analytics/getAnalytics', async(api
     }
 })
 
-export const getAnalyticsLog = createAsyncThunk('analyticsLog/getAnalyticsLog', async(_, thunkAPI) => {
+export const getAnalyticsLog = createAsyncThunk('analyticsLog/getAnalyticsLog', async(id: any, thunkAPI) => {
     try {
-        const response = await fetch(`${core_url}/analytics/logs`)
+        const response = await fetch(`${core_url}/analytics/logs?page=1&limit=5&filter.apiId=${id}`)
         const data = await response.json()
+        console.log(data)
         return data.data
     } catch (error: any) {
         return thunkAPI.rejectWithValue(error.message)

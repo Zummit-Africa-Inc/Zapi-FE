@@ -41,7 +41,6 @@ export const getUserApis = createAsyncThunk("user/getapis", async(id: any, thunk
     try {
         const response = await fetch(`${core_url}/api/dev-platform-data/${id}`)
         const data = await response.json()
-        console.log(data)
         const apis = data?.data.apis
         return apis
     } catch (error: any) {

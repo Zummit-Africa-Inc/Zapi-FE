@@ -4,6 +4,7 @@ import { useAppSelector } from '../hooks'
 import { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 import { Link } from "react-router-dom";
+import { ContentCopy } from "@mui/icons-material";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -47,7 +48,7 @@ const Subscription: React.FC = () => {
                                         {api.name}
                                     </StyledTableCell>
                                     <StyledTableCell>
-                                        {api.token.slice(0, 25) +  "..."}
+                                        {api.token.slice(0, 25) +  "..."} <Button onClick={() => navigator.clipboard.writeText(api.token)}><ContentCopy /></Button>
                                     </StyledTableCell>
                                     <StyledTableCell>
                                         <Link to="#" className={classes.Link}>View</Link>
