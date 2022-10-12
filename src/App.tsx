@@ -21,10 +21,9 @@ import Cookies from 'universal-cookie';
 
 const App: React.FC = () => {
   const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP } = useContextProvider()
-  const { isLoggedIn } = useAppSelector(store => store.user)
   const { trigger } = useContextProvider()
   const cookies = new Cookies()
-const profileId = cookies.get("profileId")
+  const profileId = cookies.get("profileId")
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -66,12 +65,10 @@ const profileId = cookies.get("profileId")
     getCategories
   }, []) 
   
-
-  
   useEffect(() => {
     if (profileId === undefined) return 
     dispatch(getUserApis(profileId))
-  },[(isLoggedIn === true), trigger, profileId])
+  },[trigger, profileId])
 
   return (
     <ThemeProvider theme={theme}>

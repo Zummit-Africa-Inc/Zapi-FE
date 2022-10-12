@@ -48,7 +48,7 @@ const GatewayTab: React.FC = () => {
                         {/* <Schema /> */}
                         {/* <Config />
                         <Version /> */}
-                      
+
                         <Box>
                             <Stack direction="row" spacing={2} mt={5}>
                                 <button className={classes.saveBtn}>Save</button>

@@ -5,10 +5,12 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Box, FormControl, InputLabel, MenuItem, Select, Stack, TextField, Typography, Switch, SelectChangeEvent, Paper } from '@mui/material';
 import Cookies from 'universal-cookie';
+import { toast } from "react-toastify";
 
 import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from '../hooks';
 import ImageUpload from "./ImageUpload";
 import { editAPI } from '../redux/slices/userSlice';
+import { Spinner } from '../assets';
 
 enum APIVisibility {
   PRIVATE = 'private',
@@ -51,7 +53,7 @@ const GeneralTab: React.FC = () => {
     } else {
      setVisibility(APIVisibility.PUBLIC)
     }
-   }
+  }
 
   const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -143,7 +145,7 @@ const GeneralTab: React.FC = () => {
         </Box>
         <Box>
           <Stack direction="row" spacing={2} mt={5}>
-            <button className={classes.saveBtn}>Save</button>
+            <button className={classes.saveBtn}>{loading ? <Spinner /> : "Save"}</button>
             <button className={classes.discardBtn}>Discard</button>
           </Stack>
         </Box>

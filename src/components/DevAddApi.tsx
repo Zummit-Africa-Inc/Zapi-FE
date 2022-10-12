@@ -112,7 +112,7 @@ const useStyles = makeStyles({
             justifyContent: "center",
             alignItems: "center",
             gap:'1rem',
-            paddingTop: '140px',
+            padding: '140px 16px 0',
             scale: 0.95
         },
         "@media screen and (max-width: 375px)": {
@@ -155,6 +155,7 @@ const useStyles = makeStyles({
             justifyContent:'space-between',
             alignItems: 'center',
             gap:'1rem',
+            padding: "0 1rem"
         }
     },
     widget2:{
@@ -176,7 +177,6 @@ const useStyles = makeStyles({
         borderRadius: "0px 8px 8px 0px",
     },
     search: {
-        // width: "149px",
         height: "30px",
         fontFamily: 'Space Grotesk',
         fontStyle: "normal",
@@ -240,8 +240,8 @@ const useStyles = makeStyles({
             marginBottom: "1rem",
             width: "385px",
         },
-        "@media screen and (max-width: 500px)": {
-            // width: "100%",
+        "@media screen and (max-width: 768px)": {
+            width: "100%",
         }
     },
 })
