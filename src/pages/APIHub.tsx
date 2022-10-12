@@ -1,18 +1,19 @@
 import React from 'react'
 
-import { HomeNavbar, APIHubHeader, Footer } from '../sections'
+import { HomeNavbar, APIHubHeader, Footer, APIHubTab } from '../sections'
 
 
-const Pricing:React.FC = () => {
+const APIHub:React.FC = () => {
 
     return (
         <>
             <HomeNavbar />
             <APIHubHeader />
+            <APIHubTab/>
             <Footer />
         </>
     )
 }
 
 
-export default Pricing;
+export default APIHub;
