@@ -90,6 +90,7 @@ const profileId = cookies.get("profileId")
             <Route path="/terms" element={<TermsConditions />} />
             <Route path="/api-hub" element={<APIHub />} />
 
+
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
               <Route path="/developer/dashboard" element={<DevDashboard />} />
