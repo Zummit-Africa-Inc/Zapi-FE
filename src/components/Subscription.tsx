@@ -47,7 +47,7 @@ const Subscription: React.FC = () => {
                                         {api.name}
                                     </StyledTableCell>
                                     <StyledTableCell>
-                                        {api.token.slice(0, 25) + "..."}
+                                        {api.token.slice(0, 25) +  "..."}
                                     </StyledTableCell>
                                     <StyledTableCell>
                                         <Link to="#" className={classes.Link}>View</Link>

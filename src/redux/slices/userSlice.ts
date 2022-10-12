@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import Cookies from "universal-cookie";
 
-import { UserProfileType, APIType } from "../../types";
+import { UserProfileType, APIType, SubscriptionType } from "../../types";
 
 const core_url = import.meta.env.VITE_CORE_URL
 const identity_url = import.meta.env.VITE_IDENTITY_URL
@@ -12,7 +12,7 @@ const profileId = cookies.get("profileId")
 interface UserState {
     user: UserProfileType | Object
     userApis: Array<APIType>
-    subscribedApis: Array<APIType>
+    subscribedApis: Array<SubscriptionType>
     loading: "idle" | "pending" | "fulfilled" | "rejected"
     error?: any
     isLoggedIn: boolean
