@@ -12,7 +12,6 @@ const APIHubHeader:React.FC = () => {
     )
 }
 
-
 const useStyles = makeStyles({
     root:{
         display: 'flex',

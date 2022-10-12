@@ -13,7 +13,11 @@ const APIGrid = () => {
         <div className={classes.box}>
           {/* {apis.map((api) => ())} */}
         </div>
-        <div className={classes.grid}></div>
+        <div className={classes.grid}>
+            <div>
+                <p></p>
+            </div>
+        </div>
     </div>
   )
 }
