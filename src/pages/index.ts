@@ -8,7 +8,6 @@ const Configuration = React.lazy(() => import("./Configuration"));
 const DevDashboard = React.lazy(() => import("./DevDashboard"));
 const DeveloperApiPage = React.lazy(() => import("./DeveloperApiPage"));
 const ForgotPassword = React.lazy(() => import("./ForgotPassword"));
-const Home = React.lazy(() => import("./Home"));
 const HomePage = React.lazy(() => import("./Homepage"));
 const LoginHistory = React.lazy(() => import("./LoginHistory"));
 const Otp = React.lazy(() => import("./Otp"));
@@ -24,4 +23,4 @@ const Documentation = React.lazy(() => import("./Documentation"))
 const APIHub = React.lazy(() => import("./APIHub"))
 
 export { APIPage, Configuration, CreateEndpoint,DeveloperApiPage, DevDashboard,
-ForgotPassword, Home, HomePage, LoginHistory, Otp, Signup, SuccessPage, UserProfile, TermsConditions, ResetPassword, Pricing, Documentation, APIHub };
+ForgotPassword, HomePage, LoginHistory, Otp, Signup, SuccessPage, UserProfile, TermsConditions, ResetPassword, Pricing, Documentation, APIHub };

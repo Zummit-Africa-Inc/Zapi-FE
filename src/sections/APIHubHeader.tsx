@@ -1,19 +1,14 @@
 import React from 'react'
 import { makeStyles } from '@mui/styles'
 
-
 const APIHubHeader:React.FC = () => {
     const classes = useStyles();
 
     return (
-        
         <div className={classes.root}>
-            
             <h1 className={classes.header}>Welcome to the Z-API hub</h1>
             <p className={classes.paragraph}>Discover and connect to hundreds of APIs</p>
-
         </div>
-        
     )
 }
 
@@ -29,6 +24,7 @@ const useStyles = makeStyles({
         textAlign: "center",
         width: '100%',
         height: "auto",
+        boxShadow: "0px 4px 4px rgba(6, 113, 224, 0.05)",
         "@media screen and (max-width: 900px)": {
             scale: .9
         },
@@ -38,7 +34,6 @@ const useStyles = makeStyles({
         "@media screen and (max-width: 400px)": {
             scale: .75
         },
-        
     },
     header: {
         fontSize: "36px",
@@ -47,10 +42,10 @@ const useStyles = makeStyles({
     paragraph: {
         fontSize: "24px",
         color: "#071B85",
+        margin: "0 0 68px",
         "@media screen and (max-width: 500px)": {
             lineHeight: "40px",
         },
-
     },
 })
 
