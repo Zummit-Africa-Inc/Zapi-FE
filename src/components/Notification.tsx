@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from 'react-redux'
 import { makeStyles } from "@mui/styles";
 import { Badge, Menu, MenuItem } from '@mui/material';
 import { Link } from "react-router-dom";
