@@ -79,7 +79,7 @@ const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
             
             
             <div className={classes.menus}>
-                <Menus />
+                <Menus id={id}/>
             </div>
 
             <div className={classes.right_container}>
