@@ -91,8 +91,9 @@ const useStyles = makeStyles({
         zIndex: 5,
         width: "calc(100% - 300px)",
         background: "#F4F5F6",
-        "@media screen and (max-width: 1024px)": {
-            width: "99%",
+        "@media screen and (max-width: 900px)": {
+            width: "auto",
+            fontSize: "1.5rem"
         },
     }
 })

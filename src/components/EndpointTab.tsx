@@ -41,6 +41,7 @@ const EndpointTab: React.FC<Props> = ({id}) => {
         setIsAdding(false)
     }
 
+
     return (
         <Paper elevation={1} className={classes.paper}>
             <Stack direction="column" mb={8}>
@@ -55,10 +56,11 @@ const EndpointTab: React.FC<Props> = ({id}) => {
             <div className={classes.pageDescription}>
                 <Typography>Add and define your API endpoints.</Typography>
             </div>
+            {/* Add Endpoint */}
             <div className={classes.pageActions}>
                 <input type="text" name="search" className={classes.inputs} placeholder="Search..." />
                 <div>
-                    <button onClick={toggleState} className={classes.button} style={{background: isAdding ? "#E32C08" : "#058A04",}}>
+                    <button onClick={toggleState} className={classes.button} style={{background: isAdding ? "#E32C08" : "#058A04"}}>
                         {isAdding ? 'Cancel' : 'Create Endpoint'}
                     </button>
                 </div>

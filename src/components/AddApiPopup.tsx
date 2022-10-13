@@ -78,19 +78,6 @@ const AddApiPopup: React.FC = () => {
             </button>
           </div>
         </form>
-        {/* Radio Buttons */}
-        {/* <FormControl>
-          <FormLabel id="demo-radio-buttons-group-label" sx={{fontSize: "16px", fontWeight: "500", lineHeight: "24px", color: "#000000", marginBottom: "10px", marginTop: "10px"}}>Import data from</FormLabel>
-          <RadioGroup aria-labelledby="demo-radio-buttons-group-label" defaultValue="female" name="radio-buttons-group">
-              <FormControlLabel value="Do not Import" control={<Radio />} label="Do not Import" />
-              <FormControlLabel value="Open API" control={<Radio />} label="Open API" />
-              <FormControlLabel value="Rapid API" control={<Radio />} label="Rapid API" />
-              <FormControlLabel value="Postman Collection" control={<Radio />} label="Postman Collection" />
-          </RadioGroup>
-      </FormControl> */}
-        {/* Divider */}
-        {/* <div className={classes.divider} /> */}
-        {/* Add and Cancel Buttons */}
       </div>
     </div>
     </>
@@ -195,7 +182,6 @@ const useStyles = makeStyles({
     alignItems: "center",
     padding: "8px 16px",
     gap: "16px",
-    // width: "150px",
     fontFamily: "inherit",
     height: "46px",
     cursor: "pointer",

@@ -16,6 +16,19 @@ export type APIType = {
    endpoints?: Array<EndpointsType | null>
 }
 
+export type SubscriptionType = {
+   id: string
+   name: string
+   token: string
+}
+
+export type NotificationType = {
+   profileId: string
+   content: string | null
+   createdOn: string | Date | null
+   isRead: boolean | null
+}
+
 export type UserResponseType = {
    access: string
    refresh: string

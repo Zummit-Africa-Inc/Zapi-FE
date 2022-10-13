@@ -87,26 +87,26 @@ const GeneralTab: React.FC = () => {
             </Select>
           </FormControl>
         </Box>
-        <Box width="600px" mt={2}>
+        <Box mt={2}>
           <InputLabel htmlFor="description">Short Description</InputLabel>
           <TextField required value={description} variant="outlined" name="description" onChange={(e) => setDescription(e.target.value)} multiline id="description" maxRows={10} fullWidth={true} helperText="Describe in few words what’s this API do" />
         </Box>
-        <Box width="600px" mt={2}>
+        <Box mt={2}>
           <InputLabel htmlFor="read_me">Read Me (optional)</InputLabel>
           <TextField value={read_me} variant="outlined" name="read_me" onChange={(e) => setRead_me(e.target.value)} multiline id="read_me" maxRows={10} fullWidth={true} helperText="Describe in detail what’s API do and how it might be helpful" />
         </Box>
-        <Box width="600px" mt={2}>
+        <Box mt={2}>
           <InputLabel htmlFor="documentation">Documentation (optional)</InputLabel>
           <TextField variant="outlined" value={about} name="about" onChange={(e) => setAbout(e.target.value)} multiline id="documentation" maxRows={10} fullWidth={true} helperText="Use this section to provide detailed documentation of your API and to highlight its benefits and features." />
         </Box>
-        <Box width="300px" mt={2}>
+        <Box mt={2}>
           <InputLabel htmlFor="api_website">Website(optional)</InputLabel>
           <TextField placeholder="https://" value={api_website} name="api_website" onChange={(e) => setApi_website(e.target.value)} variant="outlined" id="website" fullWidth={true} />
         </Box>
         <Box mt={2}>
         <Typography variant="body1" fontSize="20px" fontWeight={800}>Visibility</Typography>
         <Typography variant="body1" fontSize="16px" fontWeight={400}>Switching your API visibility to Public make it searchable and accessible to everyone.</Typography>
-        <Box width="600px" sx={{ padding: '30px', border: '1px solid black', marginBottom: '20px' }}>
+        <Box sx={{ padding: '30px', border: '1px solid black', marginBottom: '20px' }}>
           <Stack direction="row" spacing={2}>
             <Box>
               {visibility ? <VisibilityIcon /> : <VisibilityOffIcon />}
@@ -127,7 +127,7 @@ const GeneralTab: React.FC = () => {
             </Box>
           </Stack>
         </Box>
-        <Box width="600px" sx={{ padding: '30px', border: '1px solid black' }}>
+        <Box sx={{ padding: '30px', border: '1px solid black' }}>
           <Typography variant="body1" fontSize="18px" fontWeight={600}>Base URL</Typography>
           <Typography variant="body1" fontSize="18px" fontWeight={400}>Add a base URL, configure multiple URLs, override URLs, and select a load balancer</Typography>
           <InputLabel htmlFor="website">URL</InputLabel>
@@ -136,7 +136,7 @@ const GeneralTab: React.FC = () => {
           </Stack>
         </Box>
         </Box>
-        <Box width="600px" mt={2}>
+        <Box mt={2}>
           <Typography variant="body1" fontSize="20px" fontWeight={800}>Additional Information</Typography>
           <InputLabel htmlFor="terms">Terms of Use (optional)</InputLabel>
           <TextField variant="outlined" value={term_of_use} multiline name="term_of_use" onChange={(e) => setTerm_of_use(e.target.value)} maxRows={10} fullWidth={true} />
@@ -165,8 +165,11 @@ const useStyles = makeStyles({
   container: {
     background: 'inherit',
     borderRadius: '5px',
-    width: '100%',
-    padding: '20px'
+    width: '600px',
+    padding: '20px',
+    "@media screen and (max-width: 900px)": {
+      width: "auto",
+    }
   },
   previewContainer: {
     position: 'relative'

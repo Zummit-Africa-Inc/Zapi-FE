@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from 'react-redux'
 import { makeStyles } from "@mui/styles";
-import { Badge, Button, IconButton, ListItemIcon, Menu, MenuItem } from '@mui/material';
+import { Badge, Menu, MenuItem } from '@mui/material';
 import { Link } from "react-router-dom";
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import { io } from 'socket.io-client';
@@ -24,35 +23,54 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const handleRead = () => {
+        setNotifications([]);
+        setAnchorEl(null);
+    }
     const ITEM_HEIGHT: number = 48;
     const profileId = cookies.get("profileId")
+    // notifications.push("apiHosted")
 
     socket = io(import.meta.env.VITE_SOCKET_URL);
+    useEffect(() => {
+        const item = localStorage.getItem("notifications")
+        if (notifications) {
+            setNotifications(notifications);
+        }
+      }, []);
     useEffect(() => {
             try {
                 socket.on(`newSubscription_${profileId}`, (data: any) => {
                     setNotifications([...notifications, data]);
+                    notifications.unshift(data);
                 })
                 socket.on(`unSubscription_${profileId}`, (data: any) => {
-                    setNotifications([...notifications, data])
+                    setNotifications([...notifications, data]);
+                    notifications.unshift(data);
                 })
                 socket.on(`apiHosted_${profileId}`, (data: any) => {
-                    setNotifications([...notifications, data])
+                    setNotifications([...notifications, data]);
+                    notifications.unshift(data);
                 })
                 socket.on(`apiDown_${profileId}`, (data: any) => {
-                    setNotifications([...notifications, data])
+                    setNotifications([...notifications, data]);
+                    notifications.unshift(data);
                 })
+                localStorage.setItem("notifications", JSON.stringify([...notifications]))
             }
             catch (error) {
                 
             }
-    }, [socket]);
+    }, [socket, notifications]);
+    
+    
 
-
-    const displayNotification = (type: number) => {
+    // console.log(notifications);
+    
+    const displayNotification = (type: string) => {
         let action;
 
-        if (type === 1) {
+        if (type === "newSubscription") {
             action = "newSubscription";
             return (
                 <MenuItem>
@@ -60,7 +78,7 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
                     <span className={classes.notification}>Someone Subscribed To your api</span>
                 </MenuItem>
             )
-        } else if (type === 2) {
+        } else if (type === "unSubscription") {
             action = "unSubscription";
             return (
                 <MenuItem>
@@ -69,7 +87,7 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
                 </MenuItem>
             )
         }
-        else if (type === 3) {
+        else if (type === "apiHosted") {
             action = "apiHosted";
             return (
                 <MenuItem>
@@ -78,7 +96,7 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
                 </MenuItem>
             )
         }
-        else {
+        else if (type === "apiDown") {
             action = "apiDown";
             return (
                 <MenuItem>
@@ -89,10 +107,7 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
         }
     }
 
-    const handleRead = () => {
-        setNotifications([]);
-        setAnchorEl(null);
-    }
+    
 
     return (
         <>
@@ -137,7 +152,7 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
                                 PaperProps={{
                                     style: {
                                         maxHeight: ITEM_HEIGHT * 5,
-                                        width: '30ch',
+                                        width: '35ch',
                                     },
                                     sx: {
                                         filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
@@ -220,6 +235,9 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
                                 >
                                     <MenuItem>
                                         <span className={classes.notification}>No new notification</span>
+                                    </MenuItem>
+                                    <MenuItem>
+                                        <span className={classes.notification}><Link to="/notifications">View all notifications</Link></span>
                                     </MenuItem>
                                 </Menu>
 
