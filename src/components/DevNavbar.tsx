@@ -17,7 +17,7 @@ import { Button, ListItem } from '@mui/material'
 import { io } from 'socket.io-client';
 import Notification from './Notification';
 interface NavbarProps {
-    id: string
+    id?: string
 };
 
 const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
@@ -76,7 +76,7 @@ const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
             </div>
     
             <div className={classes.menus}>
-                <Menus id={id}/>
+                <Menus />
             </div>
 
             <div className={classes.right_container}>
