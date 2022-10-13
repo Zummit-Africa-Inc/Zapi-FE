@@ -10,7 +10,6 @@ interface Props { endpoints: Array<EndpointsType | null> | undefined }
 const APIPageEndpoints:React.FC<Props> = ({endpoints}) => {
     const [tab, setTab] = useState<number>(0)
     const classes = useStyles()
-    console.log(endpoints)
 
     const handleTabChange = (e: SyntheticEvent, value: number) => setTab(value)
 

@@ -2,13 +2,13 @@ import React, { SyntheticEvent, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Tab, Tabs } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { AccessTimeOutlined, DoneOutlined, TrendingUpOutlined } from "@mui/icons-material";
 
 import { TabPanel } from "../components";
 import { useAppSelector } from "../hooks";
 import { Footer, HomeNavbar } from "../sections";
 import APIPageHeader from "../components/APIPageHeader";
 import APIPageEndpoints from "../components/APIPageEndpoints";
+import APIPagePricing from "../components/APIPagePricing";
 
 const APIPage: React.FC = () => {
   const { id } = useParams()
@@ -35,7 +35,7 @@ const APIPage: React.FC = () => {
         </Tabs>
         <div className={classes.tabpanel}>
           <TabPanel value={tab} index={0}>
-            Pricing
+            <APIPagePricing id={id} />
           </TabPanel>
           <TabPanel value={tab} index={1}>
             <APIPageEndpoints endpoints={endpoints} />
