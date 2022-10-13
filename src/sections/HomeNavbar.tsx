@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useAppSelector } from "../hooks/redux-hook";
 import { Menu } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useContextProvider } from "../contexts/ContextProvider";
 import Vector from "../assets/images/Vector.png";
 import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png";
@@ -52,38 +52,25 @@ const HomeNavbar: React.FC = () => {
                 </div>
                 {isMatch ?
                     <>
-                        <div className={open}>
-                            {(location.pathname.indexOf('pricing') != -1) ? 
-                                <ul>
-                                    <li><Link to="/">Home</Link></li>
-                                    <li><Link to="/dashboard">API hub</Link></li>
-                                    <li><Link to="/developer/dashboard">Dashboard</Link></li>
-                                    <li className={classes.active}><Link to="/pricing">Pricing</Link></li>
-                                    <li><Link to="/documentation">Documentation</Link></li>
-                                    <li><button onClick={() => handleClicked('login')}>Login</button></li>
-                                </ul>
-                                :
-                                (location.pathname.indexOf('documentation') != -1) ? 
-                                <ul>
-                                    <li><Link to="/">Home</Link></li>
-                                    <li><Link to="/dashboard">API hub</Link></li>
-                                    <li><Link to="/developer/dashboard">Dashboard</Link></li>
-                                    <li><Link to="/pricing">Pricing</Link></li>
-                                    <li className={classes.active}><Link to="/documentation">Documentation</Link></li>
-                                    <li><button onClick={() => handleClicked('login')}>Login</button></li>
-                                </ul>
-                                :
-                                <ul>
-                                    <li className={classes.active}><Link to="/">Home</Link></li>
-                                    <li><Link to="/dashboard">API hub</Link></li>
-                                    <li><Link to="/developer/dashboard">Dashboard</Link></li>
-                                    <li><Link to="/pricing">Pricing</Link></li>
-                                    <li><Link to="/documentation">Documentation</Link></li>
-                                    <li><button onClick={() => handleClicked('login')}>Login</button></li>
-                                </ul>
-                                
+                    {/* <NavLink key={i} to={link.link} className={classes.link} style={({ isActive }) => (
+                            isActive ? {
+                                color: "#FFF",
+                                background: "#9999CC",
+                                borderRadius: "15px"
                             }
-                            <div className={classes.signup}><Link to="/signup">Sign up</Link></div>
+                                :
+                                {}
+                        )}></NavLink> */}
+                        <div className={open}>
+                                <ul>
+                                    <li><NavLink to="/" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>Home</NavLink></li>
+                                    <li><NavLink to="/api-hub" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>API hub</NavLink></li>
+                                  {isLoggedIn && (<li><NavLink to="/developer/dashboard" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>Dashboard</NavLink></li>)}
+                                    <li><NavLink to="/pricing" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>Pricing</NavLink></li>
+                                    <li><NavLink to="/documentation" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>Documentation</NavLink></li>
+                                    <li><button onClick={() => handleClicked('login')}>Login</button></li>
+                                </ul>
+                            <div className={classes.signup}><NavLink to="/signup">Sign up</NavLink></div>
                         </div>
                         <div className={classes.hamburger} onClick={handleClick}>
                             <Menu />
@@ -91,39 +78,16 @@ const HomeNavbar: React.FC = () => {
                     </>
                     :
                     <div className={classes.links}>
-                        {(location.pathname.indexOf('pricing') != -1) ? 
                             <ul>
-                                <li><Link to="/">Home</Link></li>
-                                <li><Link to="/dashboard">API hub</Link></li>
-                                <li><Link to="/developer/dashboard">Dashboard</Link></li>
-                                <li className={classes.active}><Link to="/pricing">Pricing</Link></li>
-                                <li><Link to="/documentation">Documentation</Link></li>
+                                <li><NavLink to="/" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>Home</NavLink></li>
+                                <li><NavLink to="/api-hub" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>API hub</NavLink></li>
+                               {isLoggedIn && (<li><NavLink to="/developer/dashboard" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>Dashboard</NavLink></li>)}
+                                <li><NavLink to="/pricing" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>Pricing</NavLink></li>
+                                <li><NavLink to="/documentation" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>Documentation</NavLink></li>
                                 {!isLoggedIn && <li><button onClick={() => handleClicked('login')}>Login</button></li>}  
                             </ul>
-                            :
-                            (location.pathname.indexOf('documentation') != -1) ? 
-                            <ul>
-                                <li><Link to="/">Home</Link></li>
-                                <li><Link to="/dashboard">API hub</Link></li>
-                                <li><Link to="/developer/dashboard">Dashboard</Link></li>
-                                <li><Link to="/pricing">Pricing</Link></li>
-                                <li className={classes.active}><Link to="/documentation">Documentation</Link></li>
-                                {!isLoggedIn && <li><button onClick={() => handleClicked('login')}>Login</button></li>}  
-                            </ul>
-                            :
-                            <ul>
-                                <li className={classes.active}><Link to="/">Home</Link></li>
-                                <li><Link to="/dashboard">API hub</Link></li>
-                                <li><Link to="/developer/dashboard">Dashboard</Link></li>
-                                <li><Link to="/pricing">Pricing</Link></li>
-                                <li><Link to="/documentation">Documentation</Link></li>
-                                {!isLoggedIn && <li><button onClick={() => handleClicked('login')}>Login</button></li>}  
-                            </ul>
-                            
-                        }
-                        
                         {!isLoggedIn ?
-                            <div className={classes.signup}><Link to="/signup">Sign up</Link></div> : 
+                            <div className={classes.signup}><NavLink to="/signup">Sign up</NavLink></div> : 
                             <button className={classes.signup} onClick={() => handleLogOut()}>Logout</button>
                         } 
                     </div>
