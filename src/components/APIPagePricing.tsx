@@ -1,16 +1,37 @@
-import React from "react";
+import React, { SyntheticEvent } from "react";
 import {} from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { toast } from "react-toastify";
+import Cookies from "universal-cookie";
 
 import { useAppSelector, useHttpRequest } from "../hooks";
+
+const core_url = import.meta.env.VITE_CORE_URL
 
 const APIPagePricing:React.FC<{id: string | undefined}> = ({id}) => {
     const { error, loading, sendRequest } = useHttpRequest()
     const { subscribedApis } = useAppSelector(store => store.user)
     const classes = useStyles()
+    const cookies = new Cookies()
+    const profileId = cookies.get("profileId")
 
     const isSubscribed = subscribedApis.find(api => api.id === id)
+
+    const handleSubscription = async(e: SyntheticEvent) => {
+        e.preventDefault()
+        e.persist()
+
+        const headers = { 'Content-type': "application/json" }
+        if(isSubscribed){
+            try {
+                const data = await sendRequest(`${core_url}`, 'POST')
+            } catch (error) {}
+        } else {
+            try {
+                const data = await sendRequest(`${core_url}/subscription/subscribe/${id}/${profileId}`, 'POST', JSON.stringify({}), headers)
+            } catch (error) {}
+        }
+    }
 
   return (
     <div className={classes.container}>
