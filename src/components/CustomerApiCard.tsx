@@ -5,7 +5,7 @@ import { makeStyles } from '@mui/styles';
 import { Box, Stack } from '@mui/material';
 
 
-const ApiCard = () => {
+const CustomerApiCard = () => {
 
   const classes = useStyles();
 
@@ -469,7 +469,7 @@ const ApiCard = () => {
   );
 }
 
-export default ApiCard;
+export default CustomerApiCard;
 
 const useStyles = makeStyles({
   container:{

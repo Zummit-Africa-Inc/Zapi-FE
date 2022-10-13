@@ -7,6 +7,7 @@ import Teacher from '../assets/images/teacher.svg';
 import Secure from '../assets/images/secure.svg';
 import Message from '../assets/images/messages-3.svg';
 import Apps from '../assets/images/apps1.svg';
+import { PopularApICard, SafetyApiCard, EducationalApiCard, SecurityApiCard, CustomerApiCard, AllApiCard } from '../components';
 
 
 interface TabPanelProps {
@@ -91,21 +92,27 @@ const APIHubTab:React.FC = () => {
         </Tabs>
         <TabPanel value={value} index={0} className={classes.tabBody}>
         <h1>Popular APIs</h1>
+         <PopularApICard />
         </TabPanel>
         <TabPanel value={value} index={1} className={classes.tabBody}>
             <h1>Safety Apis</h1>
+            <SafetyApiCard />
         </TabPanel>
         <TabPanel value={value} index={2} className={classes.tabBody}>
             <h1>Educational Apis</h1>
+            <EducationalApiCard />
         </TabPanel>
         <TabPanel value={value} index={3} className={classes.tabBody}>
             <h1>Security Apis</h1>
+            <SecurityApiCard />
         </TabPanel>
         <TabPanel value={value} index={4} className={classes.tabBody}>
             <h1>Customer Service Apis</h1>
+            <CustomerApiCard />
         </TabPanel>
         <TabPanel value={value} index={5} className={classes.tabBody}>
             <h1>All Apis</h1>
+            <AllApiCard />
         </TabPanel>
         
         </Box>
@@ -124,7 +131,9 @@ const useStyles = makeStyles({
       },
     tabBody:{
         background: '#EDF5FD', 
-        width:'100%'
+        width:'100%',
+        height: '100%',
+        overflow: 'auto'
     },
     tabLabel:{
         fontSize: '18px',
