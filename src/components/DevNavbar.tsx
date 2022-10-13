@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { Avatar, Fade, MenuItem, Button, Paper, Stack, Typography, ListItem } from '@mui/material'
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import { Link } from 'react-router-dom';
 import { IconButton } from "@mui/material";
 import { FiMenu, FiX } from "react-icons/fi"
 import { Menu } from "@mui/icons-material";
+import { useAppDispatch, useAppSelector } from "../hooks/redux-hook";
+import { logout } from "../redux/slices/userSlice";
 import Cookies from "universal-cookie";
 
-import { useAppDispatch, useAppSelector } from "../hooks/redux-hook";
-import { useContextProvider } from '../contexts/ContextProvider';
-import { ZapiDevLogo, ZapiWidget } from '../assets';
-import { logout } from "../redux/slices/userSlice";
-import  Menus  from "../components/Menus";
 import { ZapiArrow } from '../assets';
+import { Button, ListItem } from '@mui/material'
+
+import { io } from 'socket.io-client';
+import Notification from './Notification';
+
 
 const DevNavbar: React.FC = () => {
     const { screenSize, setScreenSize } = useContextProvider()
@@ -21,6 +22,7 @@ const DevNavbar: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isShow, setIsShow] = useState(false);
     const { userApis } = useAppSelector(store => store.user)
+
     
     const handleClick = () => {
         if(isOpen) {
@@ -48,7 +50,13 @@ const DevNavbar: React.FC = () => {
             setIsShow(true);
         }
     };
+
+    const [socket, setSocket] = useState<any>("");
   
+    useEffect(() => { 
+        setSocket(io(import.meta.env.VITE_SOCKET_URL));
+    }, []);
+
   return (
     <>
         <div className={classes.NavBar}>
@@ -69,11 +77,16 @@ const DevNavbar: React.FC = () => {
                 <Menus />
             </div>
 
-            <div className={classes.hamburger} onClick={handleClick}>
-                <Menu />
+            <div className={classes.right_container}>
+                <Notification socket={socket}/>
+                <div className={classes.hamburger} onClick={handleClick}>
+                    <Menu />
+                </div>
             </div>
             
         </div>
+
+
         <div>
             {isOpen ?
                 <>
@@ -84,8 +97,8 @@ const DevNavbar: React.FC = () => {
                         
                         {isShow ?
                             <div className={classes.projectListContainer}>
-                               {userApis.map((api, index) => (
-                                <ListItem key={index}>{api.name}</ListItem>
+                                {userApis.map((api, index) => (
+                                <ListItem className={classes.projectListItems} key={index}>{api.name}</ListItem>
                                ))}
                             </div>
                             :
@@ -94,7 +107,6 @@ const DevNavbar: React.FC = () => {
                         <div>Developer Board</div>
                         <div>Apps</div>
                         <div>Help</div>
-                        <div>Notification</div>
                         <button className={classes.logout} onClick={handleLogout}>Logout</button>
                     </div>
                 </>
@@ -135,6 +147,9 @@ const useStyles = makeStyles({
         gap:'1rem',
         "@media screen and (max-width: 900px)": {
             scale: .9
+        },
+        "@media screen and (max-width: 420px)": {
+            scale: .8
         }
     },
     zapi:{
@@ -146,6 +161,9 @@ const useStyles = makeStyles({
         display:'flex',
         "@media screen and (max-width: 900px)": {
             scale: .9
+        },
+        "@media screen and (max-width: 420px)": {
+            scale: .8
         }
     },
     widget:{
@@ -155,8 +173,11 @@ const useStyles = makeStyles({
         alignItems:'center',
         marginLeft: '200px',
         "@media screen and (max-width: 900px)": {
-            marginLeft: '-10%',
+            marginLeft: '-8%',
             scale: .9
+        },
+        "@media screen and (max-width: 420px)": {
+            scale: .8
         }
     },
     api:{
@@ -171,6 +192,19 @@ const useStyles = makeStyles({
         justifyContent:'space-between',
         width:"inherit"
     },
+    right_container: {
+        display: "none",
+        "@media screen and (max-width: 900px)": {
+            display: "flex",
+            flexDirection: "row",
+            alignItems:'center',
+            gap: "1rem",
+        },
+        "@media screen and (max-width: 420px)": {
+            scale: .9
+        }
+
+    },
     menus: {
         "@media screen and (max-width: 900px)": {
             display: "none"
@@ -180,14 +214,11 @@ const useStyles = makeStyles({
         cursor: "pointer",
         fontSize: "2rem",
         color: "#000",
-        zIndex: "1000",
-        display: "none",
-        "@media screen and (max-width: 900px)": {
-            display: "block"
-        }
+        zIndex: "1000"
     },
     responsiveMenu: {
         position: "fixed",
+        overflow: "hidden",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -198,7 +229,7 @@ const useStyles = makeStyles({
         lineHeight: "2.5rem",
         width: "100%",
         height: "100%",
-        zIndex: "1000",
+        zIndex: "10",
         "@media screen and (max-width: 900px)": {
             display: "flex"
         },
@@ -208,6 +239,10 @@ const useStyles = makeStyles({
         "@media screen and (max-width: 500px)": {
             padding: "4rem",
         },
+        "@media screen and (max-width: 420px)": {
+            marginTop:  '50px',
+            fontSize: "15px",
+        }
     },
     allProjects: {
         "&.MuiButton-text": {
@@ -217,7 +252,10 @@ const useStyles = makeStyles({
         "&.MuiButton-root": {
             textTransform: 'none',
             fontSize:'17px',
-            width: "150px"
+            width: "150px",
+            "@media screen and (max-width: 420px)": {
+                fontSize: "15px",
+            }
         }
     },
     projectListContainer: {
@@ -238,14 +276,24 @@ const useStyles = makeStyles({
             textTransform: 'none',
             fontSize: "15px",
             color: "#909090",
-            width: "150px"
+            width: "150px",
+            "@media screen and (max-width: 420px)": {
+                fontSize: "13px",
+            }
         }
     },
     logout: {
         border: "unset",
         marginTop: "10px",
         backgroundColor: "#000",
-        width: "150px"
+        padding: "8px",
+        fontSize: "15px",
+        width: "150px",
+        "@media screen and (max-width: 420px)": {
+            padding: "6px",
+            fontSize: "13px",
+            width: "140px",
+        }
     },
 })
 export default DevNavbar

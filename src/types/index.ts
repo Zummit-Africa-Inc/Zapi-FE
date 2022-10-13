@@ -22,6 +22,13 @@ export type SubscriptionType = {
    token: string
 }
 
+export type NotificationType = {
+   profileId: string
+   content: string | null
+   createdOn: string | Date | null
+   isRead: boolean | null
+}
+
 export type UserResponseType = {
    access: string
    refresh: string

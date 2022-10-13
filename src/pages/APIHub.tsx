@@ -1,20 +1,18 @@
 import React from 'react'
 
-import { HomeNavbar, APIHubHeader, Footer } from '../sections'
-import APIGrid from "../components/APIGrid";
+import { HomeNavbar, APIHubHeader, Footer, APIHubTab } from '../sections'
 
-
-const Pricing:React.FC = () => {
+const APIHub:React.FC = () => {
 
     return (
     <div style={{background: "#FFF",width: "100%",minHeight: "100vh"}}>
         <HomeNavbar />
         <APIHubHeader />
-        <APIGrid />
+        <APIHubTab/>
         <Footer />
     </div>
     )
 }
 
 
-export default Pricing;
+export default APIHub;
