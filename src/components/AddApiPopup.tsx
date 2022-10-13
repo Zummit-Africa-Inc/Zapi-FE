@@ -19,7 +19,7 @@ const AddApiPopup: React.FC = () => {
   const { name, description, base_url, categoryId } = inputs
   const { handleUnclicked } = useContextProvider()
   const classes = useStyles();
-  const { apis } = useAppSelector(store => store.apis)
+  const { categories } = useAppSelector(store => store.apis)
   const cookies = new Cookies()
   const profileId = cookies.get("profileId")
 
@@ -59,7 +59,7 @@ const AddApiPopup: React.FC = () => {
             <label>Category</label>
             <FormControl className={classes.input}>
               <Select name="categoryId" value={categoryId} displayEmpty inputProps={{'aria-label': 'Category'}} {...select}>
-                {apis.map((item) => (
+                {categories.map((item) => (
                   <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>
                 ))}
               </Select>

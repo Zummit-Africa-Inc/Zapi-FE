@@ -28,6 +28,9 @@ export interface EndpointProps {
     name: string
     route: string
     method: string
+    description?: string
+    headers?: Array<string>
+    requestBody?: Array<string>
 }
 
 export interface ApiProps {
@@ -54,4 +57,14 @@ export interface HeaderObject {
     value: string
 }
 
-// export interface RequestBody {}
+export interface APIHeaderProps {
+    id?: string
+    name?: string
+    base_url?: string
+    description?: string
+    logo_url?: string
+    status?: string
+    rating?: number
+    service_level?: number
+    latency?: number
+}

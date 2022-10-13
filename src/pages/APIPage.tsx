@@ -1,122 +1,78 @@
 import React, { SyntheticEvent, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Avatar, Tab, Tabs } from "@mui/material";
+import { Tab, Tabs } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { AccessTimeOutlined, DoneOutlined, TrendingUpOutlined } from "@mui/icons-material";
 
-import { Navbar, TabPanel, SplitView } from "../components";
-import { APIS } from "../testdata";
+import { TabPanel } from "../components";
+import { useAppSelector } from "../hooks";
+import { Footer, HomeNavbar } from "../sections";
+import APIPageHeader from "../components/APIPageHeader";
+import APIPageEndpoints from "../components/APIPageEndpoints";
 
 const APIPage: React.FC = () => {
-  const id = useParams().id
+  const { id } = useParams()
   const classes = useStyles()
   const [tab, setTab] = useState<number>(0)
-  const api = APIS.find(api => api.id === id)
+  const [endpoints, setendpoints] = useState<Array<any>>([])
+  const { apis } = useAppSelector(store => store.apis)
+  const api = apis.find(api => api.id === id)
+  if(api?.endpoints) setendpoints(api.endpoints)
 
-  const handleChange = (e: SyntheticEvent, newValue: number) => setTab(newValue)
+  const handleTabChange = (e: SyntheticEvent, newValue: number) => setTab(newValue)
 
   return (
-    <div>
-      <Navbar />
-      <div className={classes.container}>
-        <div className={classes.flex}>
-          <div><Avatar src={api?.image} variant="square" />{api?.name}</div>
-          <div>Popularity {api?.popularity}/10</div>
-          <div>Service Level {api?.service_level}%</div>
-          <div>Latency {api?.latency}ms</div>
-        </div>
-        <div className={classes.tabs}>
-          <Tabs value={tab} onChange={handleChange}>
-            <Tab label="Documentations" />
-            <Tab label="About" />
-            <Tab label="Tutorials" />
-            <Tab label="Discussions" />
-            <Tab label="Pricing" />
-          </Tabs>
-        </div>
+    <>
+    <HomeNavbar />
+    <div className={classes.container}>
+      <APIPageHeader {...api} />
+      <div className={classes.wrapper}>
+        <Tabs value={tab} onChange={handleTabChange} className={classes.tabs}>
+          <Tab label="Pricing" />
+          <Tab label="Endpoints" />
+          <Tab label="Documentation" />
+          <Tab label="Tutorials" />
+        </Tabs>
         <div className={classes.tabpanel}>
-          <TabPanel index={0} value={tab}>
-            <div className={classes.content}>
-              <h4>{api?.name} Documentation</h4>
-              <p>{api?.description}</p>
-              <SplitView />
-            </div>
+          <TabPanel value={tab} index={0}>
+            Pricing
           </TabPanel>
-          <TabPanel index={1} value={tab}>
-            <div className={classes.content}>
-              <p>About</p>
-            </div>
+          <TabPanel value={tab} index={1}>
+            <APIPageEndpoints endpoints={endpoints} />
           </TabPanel>
-          <TabPanel index={2} value={tab}>
-            <div className={classes.content}>
-              <p>Tutorials</p>
-            </div>
+          <TabPanel value={tab} index={2}>
+            Documentation
           </TabPanel>
-          <TabPanel index={3} value={tab}>
-            <div className={classes.content}>
-              <p>Discussions</p>
-            </div>
-          </TabPanel>
-          <TabPanel index={4} value={tab}>
-            <div className={classes.content}>
-              <p>Pricing</p>
-            </div>
+          <TabPanel value={tab} index={3}>
+            Tutorials
           </TabPanel>
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   )
 }
 
 const useStyles = makeStyles({
   container: {
     width: "100%",
-    display: "grid",
-    placeItems: "center",
-    padding: "1rem 2rem 0",
+    display: "flex",
+    flexDirection: "column",
+    padding: "112px 0 0",
     background: "#FFF",
   },
-  flex: {
-    width: "100%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    "& div": {
-      display: "flex",
-      alignItems: "center",
-      gap: "0.5rem",
-      fontSize: "1.5rem",
-    }
-  },
-  tabs: {
-    width: "100%",
-    display: "grid",
-    placeItems: "center",
-    background: "#CECECE",
-    margin: "2rem 0 0",
-    "& button": {
-      textTransform: "capitalize",
-      fontSize: "1rem"
-    },
-  },
-  tabpanel: {
+  wrapper: {
     width: "100%",
     height: "100%",
     minHeight: "67vh",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    background: "#FFF",
-    margin: "0.5rem 0",
+    background: "#EDF5FD",
   },
-  content: {
+  tabs: {
     width: "100%",
-    textAlign: "left",
-    "& h4": {
-      letterSpacing: "1px",
-      margin: "1rem 0"
-    }
-  }
+    margin: "0 0 1rem",
+  },
+  tabpanel: {}
 })
 
 export default APIPage

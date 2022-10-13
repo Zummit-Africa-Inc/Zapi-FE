@@ -20,7 +20,7 @@ enum APIVisibility {
 const core_url = import.meta.env.VITE_CORE_URL;
   
 const GeneralTab: React.FC = () => {
-  const { apis } = useAppSelector(store => store.apis)
+  const { categories } = useAppSelector(store => store.apis)
   const [description, setDescription] = useState("")
   const [about, setAbout] = useState("")
   const [api_website, setApi_website] = useState("")
@@ -83,7 +83,7 @@ const GeneralTab: React.FC = () => {
           <InputLabel htmlFor="category" id="category">Category</InputLabel>
           <FormControl>
             <Select required value={categoryId} name="categoryId" onChange={(e) => setCategoryId(e.target.value)} sx={{width: '320px' }}>
-              {apis.map((value) => ( value &&
+              {categories.map((value) => ( value &&
                 <MenuItem key={value.id} value={value.id}>{value.name}</MenuItem>
               ))}
             </Select>

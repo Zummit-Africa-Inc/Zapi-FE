@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 import { SettingsPage, Analytics, Community, EndpointTab, GatewayTab, GeneralTab, Monetize, TabPanel, } from "../";
 
-
 const CustomTab = styled(Tab)({
     "&.MuiTab-root": {
     textTransform: "none"}

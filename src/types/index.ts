@@ -50,12 +50,12 @@ export type UserProfileType = {
 
 export type EndpointsType = {
    id?: string | undefined
-   name: string
-   route: string
-   method: string
-   description: string
-   headers?: Array<HeaderObject>
-   requestBody?: Array<object>
+   name?: string
+   route?: string
+   method?: string
+   description?: string
+   headers?: Array<string>
+   requestBody?: Array<string>
 }
 
 export type AnalyticsType = {
