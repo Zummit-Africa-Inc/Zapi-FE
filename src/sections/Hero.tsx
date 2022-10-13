@@ -1,20 +1,39 @@
 import { TextField, Typography } from "@mui/material"
 import { makeStyles } from "@mui/styles"
-import React, { useState } from "react"
-import { APIData } from "../testdata"
+import React, { useEffect, useState } from "react"
+import { useAppDispatch, useAppSelector } from "../hooks"
+import { getFreeApis } from "../redux/slices/freeApiSlice"
+
+const core_url = import.meta.env.VITE_CORE_URL
 
 const Hero: React.FC = () => {
   const classes = useStyles()
-  const [API, setAPI] = useState<string>("")
-  const [endpoint, setEndpoint] = useState<string>(`https://zapi.com/${API}`)
+  const [apiId, setApiId] = useState<string>("")
   const [query, setQuery] = useState<string>("{}")
   const [data, setData] = useState("")
+  const dispatch = useAppDispatch()
+  const { freeApis } = useAppSelector(store => store.freeApis)
+  const [apiName, setApiName] = useState<string>("")
+
+  // to get the name of the selected api
+  useEffect(() => {
+    const api = freeApis.find(api => api.id === apiId)
+    if(!api) return
+      setApiName(api.name)
+  }, [apiId]) 
+
+  // to remove any spacing in the api name and convert to lowercase
+  const pathName = apiName.replace(/ /g, "").toLowerCase()
+
+  useEffect(() => {
+    dispatch(getFreeApis())
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
       const json = JSON.parse(query);
-      const res = await fetch("https://qnanswer-api.pk25mf6178910.eu-west-3.cs.amazonlightsail.com/q_and_a", {
+      const res = await fetch(`${core_url}/subscription/free-request/${apiId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -39,15 +58,15 @@ const Hero: React.FC = () => {
         } }}>Z-API allows you to harness the power of AI on your applications without stress. Use powerful AI APIs developed by genius machine learning engineers</Typography>
       </div>
       <form className={classes.form} onSubmit={handleSubmit}>
-        <select className={classes.select} value={API} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setAPI(e.target.value)}>
+        <select className={classes.select} value={apiId} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {setApiId(e.target.value)}}>
           <option value="">Select an API</option>
-          {APIData?.map(api => (
-            <option key={api.id} value={api.url}>
+          {freeApis?.map(api => (
+            <option key={api.id} value={api.id}>
               {api.name}
             </option>
           ))}
         </select>
-        <input type="text" className={classes.input} value={API ? API : endpoint} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEndpoint(e.target.value)} placeholder="drowsinessdetection" />
+        <input type="text" className={classes.input} value={"https://zapi.com/" + pathName} placeholder="drowsinessdetection" />
         <button className={classes.send}>Send</button>
       </form>
       <div className={classes.actionBoxes}>
