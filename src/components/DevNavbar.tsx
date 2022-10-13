@@ -16,9 +16,11 @@ import { Button, ListItem } from '@mui/material'
 
 import { io } from 'socket.io-client';
 import Notification from './Notification';
+interface NavbarProps {
+    id: string
+};
 
-
-const DevNavbar: React.FC = () => {
+const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
     const classes = useStyles()
     const [isOpen, setIsOpen] = useState(false);
     const [isShow, setIsShow] = useState(false);
@@ -72,10 +74,9 @@ const DevNavbar: React.FC = () => {
                 <img src={ZapiWidget} alt='Zapi-widget' />
                 <Link to='/developer/dashboard' className={classes.api}>API Projects</Link>
             </div>
-            
-            
+    
             <div className={classes.menus}>
-                <Menus />
+                <Menus id={id}/>
             </div>
 
             <div className={classes.right_container}>
@@ -86,7 +87,6 @@ const DevNavbar: React.FC = () => {
             </div>
             
         </div>
-
 
         <div>
             {isOpen ?
@@ -99,7 +99,11 @@ const DevNavbar: React.FC = () => {
                         {isShow ?
                             <div className={classes.projectListContainer}>
                                 {userApis.map((api, index) => (
-                                <ListItem className={classes.projectListItems} key={index}>{api.name}</ListItem>
+                                <ListItem className={classes.projectListItems} key={index}>
+                                    <Link to={`/developer/api/${api.id}`}>
+                                        {api.name}
+                                    </Link>
+                                </ListItem>
                                ))}
                             </div>
                             :
@@ -114,8 +118,7 @@ const DevNavbar: React.FC = () => {
                 </>
                 :
                 <></>
-            }
-            
+            } 
         </div>
     </>
   )
