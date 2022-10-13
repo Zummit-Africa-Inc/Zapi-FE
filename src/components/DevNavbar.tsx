@@ -98,12 +98,9 @@ const DevNavbar: React.FC = () => {
                         
                         {isShow ?
                             <List className={classes.projectListContainer}>
-                                {/* {userApis.map((api, index) => (
+                                {userApis.map((api, index) => (
                                 <ListItem className={classes.projectListItems} key={index}>{api.name}</ListItem>
-                               ))} */}
-                               <ListItem className={classes.projectListItems}>ZAPI</ListItem>
-                               <ListItem className={classes.projectListItems}>ZAPI ACADEMY</ListItem>
-                               <ListItem className={classes.projectListItems}>ZUMMIT</ListItem>
+                               ))}
                             </List>
                             :
                             <></>
