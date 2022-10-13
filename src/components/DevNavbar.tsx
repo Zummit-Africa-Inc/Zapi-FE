@@ -8,13 +8,11 @@ import { Menu } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hook";
 import { logout } from "../redux/slices/userSlice";
 import Cookies from "universal-cookie";
+import { io } from 'socket.io-client';
 
 import { ZapiArrow } from '../assets';
 import { Button, ListItem } from '@mui/material'
-
-import { io } from 'socket.io-client';
 import Notification from './Notification';
-
 
 const DevNavbar: React.FC = () => {
     const { screenSize, setScreenSize } = useContextProvider()
@@ -22,20 +20,12 @@ const DevNavbar: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isShow, setIsShow] = useState(false);
     const { userApis } = useAppSelector(store => store.user)
-
-    
-    const handleClick = () => {
-        if(isOpen) {
-            setIsOpen(false);
-        } else {
-            setIsOpen(true);
-        }
-    }
-
     const dispatch = useAppDispatch();
     const navigate = useNavigate()
     const cookies = new Cookies()
-    
+
+    const handleClick = () => isOpen ? setIsOpen(false) : setIsOpen(true)
+
     const handleLogout = async () => {
         await setIsOpen(true);
         dispatch(logout())
@@ -43,13 +33,7 @@ const DevNavbar: React.FC = () => {
         navigate("/")
     };
 
-    const handleProjectList = () => {
-        if(isShow) {
-            setIsShow(false);
-        } else {
-            setIsShow(true);
-        }
-    };
+    const handleProjectList = () => isShow ? setIsShow(false) : setIsShow(true)
 
     const [socket, setSocket] = useState<any>("");
   
