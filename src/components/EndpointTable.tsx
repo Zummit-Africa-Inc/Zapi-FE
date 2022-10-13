@@ -22,8 +22,6 @@ const initialState = { id: "", name: "", route: "", method: "" } as EndpointProp
 
 interface Props { id: string | undefined }
 
-
-
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -43,9 +41,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
-
-
-
 
 const CollapsibleTable:React.FC<Props> = ({id}) => {
   const { inputs, bind, select } = useFormInputs(initialState)
@@ -84,9 +79,6 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
       triggerRefresh()
     } catch (error) {}
   }
-
-
-
   
   return (
     <>
@@ -116,7 +108,7 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
                 </select>
               </StyledTableCell>
               <StyledTableCell>
-                <input type="text" name="route" defaultValue={endpoint?.route.toString()} {...bind} className={classes.input} disabled={isEditing !== index} />
+                <input type="text" name="route" defaultValue={endpoint?.route?.toString()} {...bind} className={classes.input} disabled={isEditing !== index} />
               </StyledTableCell>
               <StyledTableCell>
                 {isEditing === index ? (

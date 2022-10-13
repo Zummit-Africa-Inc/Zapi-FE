@@ -46,10 +46,13 @@ const useStyles = makeStyles({
         },
         "& a": {
             fontSize: "0.8rem",
-            color: "#845EC2",
+            color: "#081F4A",
             cursor: "pointer",
             transition: "0.5s all ease",
             "&:hover": {
+                color: "#845EC2",
+            },
+            "&:active": {
                 color: "#E32C08",
             }
         }
@@ -63,7 +66,9 @@ const useStyles = makeStyles({
         margin: "1rem 0",
         "& span": {
             fontSize: "1rem",
-            textTransform: "capitalize",
+            "&:nth-child(1)": {
+                textTransform: "capitalize",
+            }
         }
     },
     col: {

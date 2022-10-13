@@ -1,5 +1,5 @@
 import React, { SyntheticEvent, useState } from "react";
-import { Tab, Tabs } from "@mui/material";
+import { Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tabs } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
 import { EndpointsType } from "../types";
@@ -15,6 +15,9 @@ const APIPageEndpoints:React.FC<Props> = ({endpoints}) => {
 
   return (
     <div className={classes.container}>
+        <TableContainer className="">
+            <Table></Table>
+        </TableContainer>
         <div>
             <Tabs orientation="vertical" variant="scrollable" value={tab} onChange={handleTabChange} className={classes.tabs}>
                 <Tab label="Endpoint 1" />
@@ -47,6 +50,9 @@ const APIPageEndpoints:React.FC<Props> = ({endpoints}) => {
 const useStyles = makeStyles({
     container: {
         display: "flex",
+    },
+    table: {
+        width: "100%",
     },
     views: {
         flex: 1,

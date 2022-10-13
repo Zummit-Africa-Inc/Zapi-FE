@@ -110,10 +110,14 @@ const useStyles = makeStyles({
         outline: "none",
         borderRadius: "5px",
         background: "#081F4A",
-        color: "#FFF",
+        color: "#FFEA00",
         cursor: "pointer",
         fontFamily: "var(--body-font)",
         textTransform: "uppercase",
+        transition: "0.5s all ease",
+        "&:hover": {
+            transform: "scale(0.97)",
+        }
     }
 })
 
