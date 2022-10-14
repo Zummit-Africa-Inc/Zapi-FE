@@ -34,7 +34,7 @@ const EndpointTab: React.FC<Props> = ({id}) => {
         const payload = { name, route, method, description, headers, requestBody }
         const req_headers = { 'Content-Type': 'application/json' }
         try {
-            const data = await sendRequest(`/endpoints/new/${id}`, 'post', core_url, JSON.stringify(payload), req_headers)
+            const data = await sendRequest(`/endpoints/new/${id}`, 'post', core_url, payload, req_headers)
             if(!data || data === undefined) return
             dispatch(addEndpoint(data?.data))
             triggerRefresh()

@@ -43,7 +43,7 @@ const Login: React.FC = () => {
       }
     };
     try {
-      const data = await sendRequest(`/auth/signin`, 'post', url,  JSON.stringify(payload), headers);
+      const data = await sendRequest(`/auth/signin`, 'post', url, payload, headers);
       if(!data || data === undefined) return;
       const {access, email, fullName, profileId, refresh, userId, secretKey} = data;
       const user = { email, fullName, profileId, secretKey };

@@ -59,7 +59,7 @@ const GeneralTab: React.FC = () => {
     const payload = { categoryId, description, base_url, visibility, read_me, about, api_website, term_of_use }
     const headers = { 'Content-Type': 'application/json' }
     try{
-      const data = await sendRequest(`/api/${id}?profileId=${profileId}`, 'patch', core_url, JSON.stringify(payload), headers)
+      const data = await sendRequest(`/api/${id}?profileId=${profileId}`, 'patch', core_url, payload, headers)
       if (data === undefined) return
       dispatch(editAPI(payload))
       navigate("/developer/dashboard")

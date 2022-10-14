@@ -30,7 +30,7 @@ const AddApiPopup: React.FC = () => {
     const payload = { name, description, base_url, categoryId }
     const headers = { 'Content-Type': 'application/json' }
     try {
-      const data = await sendRequest(`/api/new/${profileId}`, 'post', core_url, JSON.stringify(payload), headers)
+      const data = await sendRequest(`/api/new/${profileId}`, 'post', core_url, payload, headers)
       const { message } = data
       toast.success(`${message}`)
     } catch (err) {

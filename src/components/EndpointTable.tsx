@@ -68,7 +68,7 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
     payload = {id, name, method, route}
     const headers = { 'Content-Type': 'application/json'}
     try {
-      const data = await sendRequest(`/endpoints/${id}`, 'patch', core_url, JSON.stringify(payload), headers)
+      const data = await sendRequest(`/endpoints/${id}`, 'patch', core_url, payload, headers)
       if(!data || data === undefined) return
       dispatch(editEndpoint(payload))
       setIsEditing(null)
@@ -79,7 +79,7 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
   const deleteRoute = async(id: string | undefined) => {
     const headers = { 'Content-Type': 'application/json'}
     try {
-      const data = await sendRequest(`/endpoints/${id}`, 'del', core_url, JSON.stringify(payload), headers)
+      const data = await sendRequest(`/endpoints/${id}`, 'del', core_url, payload, headers)
       if(!data || data === undefined) return
       dispatch(removeEndpoint(id))
       triggerRefresh()

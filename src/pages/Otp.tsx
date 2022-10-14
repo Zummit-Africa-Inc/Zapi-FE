@@ -31,7 +31,7 @@ const Otp: React.FC = () => {
     const payload = { otp: code }
     const headers = { 'Content-Type': 'application/json' }
     try {
-      const data = await sendRequest(`/email-verification/confirm`, 'post', url, JSON.stringify(payload), headers)
+      const data = await sendRequest(`/email-verification/confirm`, 'post', url, payload, headers)
       console.log(data)
       const { success } = data
       if(!success || success === false) {
