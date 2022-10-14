@@ -104,7 +104,7 @@ const useStyles = makeStyles({
   },
   grid: {
     width: "100%",
-    height: "90%",
+    height: "1150px",
     display: "flex",
     flexWrap: "wrap",
     gap: "1rem",
