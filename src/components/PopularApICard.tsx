@@ -6,15 +6,13 @@ import { Box, Stack } from '@mui/material';
 
 
 const ApiCard = () => {
-
   const classes = useStyles();
 
   return (
     <>
     <div style={{width: '100%', height: '100%', overflowY: 'auto'}}>
     <Box className={classes.container}>
-    <Card 
-    className={classes.cardContainer}>
+    <Card className={classes.cardContainer}>
       <div className={classes.img}></div>
       <div className={classes.content}>
         <Typography gutterBottom variant="h5" component="div" color="#071B85">
@@ -40,28 +38,11 @@ const ApiCard = () => {
         </div>
         <br></br>
         <div className={classes.big_yellow_box}>
-          <Box sx={{
-            background: "#FFEA00",
-            height: "18px",
-            width: "70px",
-            borderRadius: "8px"
-          }}></Box>
-          <Box sx={{
-            background: "#FFEA00",
-            height: "18px",
-            width: "70px",
-            borderRadius: "8px"
-          }}></Box>
-          <Box sx={{
-            background: "#FFEA00",
-            height: "18px",
-            width: "37px",
-            borderRadius: "8px"
-          }}></Box>
-
+          <Box sx={{background: "#FFEA00",height: "18px",width: "70px",borderRadius: "8px"}}></Box>
+          <Box sx={{background: "#FFEA00",height: "18px",width: "70px",borderRadius: "8px"}}></Box>
+          <Box sx={{background: "#FFEA00",height: "18px",width: "37px",borderRadius: "8px"}}></Box>
         </div>
       </div>
-
     </Card >
 
 <Card className={classes.cardContainer}>

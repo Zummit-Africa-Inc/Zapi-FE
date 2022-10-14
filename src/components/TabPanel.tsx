@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 
 interface ITabPanel {
     children: React.ReactNode
-    className?: ""
+    className?: string
     value: number
     index: number
 };
