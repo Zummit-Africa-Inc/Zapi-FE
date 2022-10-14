@@ -7,6 +7,16 @@ export default defineConfig({
   define : {
     global: {}
   },
+  build: {
+    rollupOptions : {
+      external: "jss-plugin-{}"
+    }
+  },
+  resolve: {
+    alias: {
+      './runtimeConfig': './runtimeConfig.browser',
+    },
+  },
   server: {
     hmr: {
       overlay: false,
