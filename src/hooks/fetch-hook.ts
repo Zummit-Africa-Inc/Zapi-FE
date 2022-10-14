@@ -11,20 +11,19 @@ export const useHttpRequest = () => {
 
     const activeHttpRequests = useRef(<any>[])
 
-    const sendRequest = useCallback(async(url: string, method: MethodTypes, apiName:string, body?: string, headers={}): Promise<any> => {
+    const sendRequest = useCallback(async(url: string, method: MethodTypes, apiName:string, body?: object, headers={}): Promise<any> => {
         setLoading(true)
 
         const httpAbortCtrl = new AbortController()
         activeHttpRequests.current.push(httpAbortCtrl)
 
         try {
-            let payload = body ? {...JSON.parse(body)} : {}
             let requestExtraParams = {
                 headers: {
                     'Zapi_Auth_token': cookies.get('accessToken'),
                     ...headers,
                 },
-                body : { ...payload}
+                body
             }
             const response = await API[`${method}`](apiName, url, requestExtraParams)
             const data = await response.data
