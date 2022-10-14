@@ -13,8 +13,11 @@ import { io } from 'socket.io-client';
 import { ZapiArrow } from '../assets';
 import { Button, ListItem } from '@mui/material'
 import Notification from './Notification';
-
-const DevNavbar: React.FC = () => {
+interface NavbarProps {
+    id?: string
+};
+    
+const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
     const { screenSize, setScreenSize } = useContextProvider()
     const classes = useStyles()
     const [isOpen, setIsOpen] = useState(false);
@@ -55,8 +58,7 @@ const DevNavbar: React.FC = () => {
                 <img src={ZapiWidget} alt='Zapi-widget' />
                 <Link to='/developer/dashboard' className={classes.api}>API Projects</Link>
             </div>
-            
-            
+    
             <div className={classes.menus}>
                 <Menus />
             </div>
@@ -70,7 +72,6 @@ const DevNavbar: React.FC = () => {
             
         </div>
 
-
         <div>
             {isOpen ?
                 <>
@@ -82,7 +83,11 @@ const DevNavbar: React.FC = () => {
                         {isShow ?
                             <div className={classes.projectListContainer}>
                                 {userApis.map((api, index) => (
-                                <ListItem className={classes.projectListItems} key={index}>{api.name}</ListItem>
+                                <ListItem className={classes.projectListItems} key={index}>
+                                    <Link to={`/developer/api/${api.id}`}>
+                                        {api.name}
+                                    </Link>
+                                </ListItem>
                                ))}
                             </div>
                             :
