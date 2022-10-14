@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Cookies from 'universal-cookie'
+import { API } from "aws-amplify";
 
+type MethodTypes = "get" | "post" | "patch" | "del" | "put";
+// type MethodTypes = "GET" | "POST" | "PATCH" | "DEL" | "PUT";
 export const useHttpRequest = () => {
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<any>(null)
@@ -8,27 +11,26 @@ export const useHttpRequest = () => {
 
     const activeHttpRequests = useRef(<any>[])
 
-    const sendRequest = useCallback(async(url: string, method: string, body?: string, headers={}): Promise<any> => {
+    const sendRequest = useCallback(async(url: string, method: MethodTypes, apiName:string, body: object={}, headers={}): Promise<any> => {
         setLoading(true)
 
         const httpAbortCtrl = new AbortController()
         activeHttpRequests.current.push(httpAbortCtrl)
 
         try {
-            const response  = await fetch(url,{
-                method,
-                body,
+            let requestExtraParams = {
                 headers: {
                     'Zapi_Auth_token': cookies.get('accessToken'),
                     ...headers,
                 },
-                // signal: httpAbortCtrl.signal
-            })
-            const data = await response.json()
+                body
+            }
+            const response = await API[`${method}`](apiName, url, requestExtraParams)
+            const data = await response.data
             activeHttpRequests.current = activeHttpRequests.current.filter((reqCtrl: any) => {
                 reqCtrl !== httpAbortCtrl
             })
-            if(!response.ok) {
+            if(!response.success) {
                 throw new Error(data.message)
             }
             setLoading(false)

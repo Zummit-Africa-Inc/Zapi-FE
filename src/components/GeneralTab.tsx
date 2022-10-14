@@ -15,7 +15,8 @@ enum APIVisibility {
   PUBLIC = 'public'
 }
   
-const core_url = import.meta.env.VITE_CORE_URL;
+// const core_url = import.meta.env.VITE_CORE_URL;
+const core_url = "VITE_CORE_URL";
   
 const GeneralTab: React.FC = () => {
   const { apis } = useAppSelector(store => store.apis)
@@ -58,7 +59,7 @@ const GeneralTab: React.FC = () => {
     const payload = { categoryId, description, base_url, visibility, read_me, about, api_website, term_of_use }
     const headers = { 'Content-Type': 'application/json' }
     try{
-      const data = await sendRequest(`${core_url}/api/${id}?profileId=${profileId}`, 'PATCH', JSON.stringify(payload), headers)
+      const data = await sendRequest(`/api/${id}?profileId=${profileId}`, 'patch', core_url, payload, headers)
       if (data === undefined) return
       dispatch(editAPI(payload))
       navigate("/developer/dashboard")
