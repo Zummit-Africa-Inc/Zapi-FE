@@ -13,7 +13,8 @@ import { HomeNavbar } from '../sections';
 import { GoogleIcon } from "../assets";
 
 const initialState = { fullName: "", email: "", password: "", confirm_password: "", terms: false };
-const url = import.meta.env.VITE_IDENTITY_URL;
+// const url = import.meta.env.VITE_IDENTITY_URL;
+const url = "VITE_IDENTITY_URL";
 
 const Signup: React.FC = () => {
   const classes = useStyles();
@@ -36,7 +37,7 @@ const Signup: React.FC = () => {
     const headers = { 'Content-Type': 'application/json' }
     const payload = { fullName, email, password }
     try {
-      const data = await sendRequest(`${url}/auth/signup`, 'POST', JSON.stringify(payload), headers)
+      const data = await sendRequest(`/auth/signup`, 'post', url, JSON.stringify(payload), headers)
       const { success } = data
       if(!success || success === false) {
         return

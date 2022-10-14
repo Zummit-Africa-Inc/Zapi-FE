@@ -11,7 +11,8 @@ import {Login} from "../components";
 import { useHttpRequest } from "../hooks";
 import { Fallback, Navbar } from "../components";
 
-const url = import.meta.env.VITE_IDENTITY_URL
+// const url = import.meta.env.VITE_IDENTITY_URL
+const url = "VITE_IDENTITY_URL"
 
 const Otp: React.FC = () => {
   const { loading, error, sendRequest } = useHttpRequest()
@@ -30,7 +31,7 @@ const Otp: React.FC = () => {
     const payload = { otp: code }
     const headers = { 'Content-Type': 'application/json' }
     try {
-      const data = await sendRequest(`${url}/email-verification/confirm`, 'POST', JSON.stringify(payload), headers)
+      const data = await sendRequest(`/email-verification/confirm`, 'post', url, JSON.stringify(payload), headers)
       console.log(data)
       const { success } = data
       if(!success || success === false) {

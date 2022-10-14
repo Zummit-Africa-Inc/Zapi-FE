@@ -15,7 +15,8 @@ import { showModal } from "../redux/slices/modalSlice";
 
 
 const initialState = {email: "",password: ""};
-const url = import.meta.env.VITE_IDENTITY_URL;
+// const url = import.meta.env.VITE_IDENTITY_URL;
+const url = "VITE_IDENTITY_URL";
 
 const Login: React.FC = () => {
   const { deviceInfo, deviceLocation, deviceIP, handleUnclicked } = useContextProvider();
@@ -42,9 +43,9 @@ const Login: React.FC = () => {
       }
     };
     try {
-      const data = await sendRequest(`${url}/auth/signin`, 'POST', JSON.stringify(payload), headers);
+      const data = await sendRequest(`/auth/signin`, 'post', url,  JSON.stringify(payload), headers);
       if(!data || data === undefined) return;
-      const { data: {access, email, fullName, profileId, refresh, userId, secretKey}} = data;
+      const {access, email, fullName, profileId, refresh, userId, secretKey} = data;
       const user = { email, fullName, profileId, secretKey };
       dispatch(login(user));
       cookies.set('accessToken', access);
