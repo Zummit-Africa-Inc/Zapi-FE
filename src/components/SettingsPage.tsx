@@ -177,7 +177,7 @@ const core_url = import.meta.env.VITE_CORE_URL
             </div>
             <hr />
 
-            <button onClick={handleDeleteApi} className="buttons-1">Delete API Project</button>
+            <button onClick={()=> handleDeleteApi ('profileId')} className="buttons-1">Delete API Project</button>
           </form>
           :""}
 
