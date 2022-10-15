@@ -9,7 +9,8 @@ import { useContextProvider } from "../contexts/ContextProvider";
 import { useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
 import { Fallback } from "../components";
 
-const core_url = import.meta.env.VITE_CORE_URL
+// const core_url = import.meta.env.VITE_CORE_URL
+const core_url = "VITE_CORE_URL"
 
 const initialState = { name: "", description: "", base_url: "", categoryId: "" };
 
@@ -29,7 +30,7 @@ const AddApiPopup: React.FC = () => {
     const payload = { name, description, base_url, categoryId }
     const headers = { 'Content-Type': 'application/json' }
     try {
-      const data = await sendRequest(`${core_url}/api/new/${profileId}`, 'POST', JSON.stringify(payload), headers)
+      const data = await sendRequest(`/api/new/${profileId}`, 'post', core_url, payload, headers)
       const { message } = data
       toast.success(`${message}`)
     } catch (err) {
