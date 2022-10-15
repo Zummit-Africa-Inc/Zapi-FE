@@ -18,12 +18,11 @@ const core_url = import.meta.env.VITE_CORE_URL
   const { error, loading, sendRequest } = useHttpRequest()
   const {id} = useParams()
   const navigate = useNavigate()
-  
-
-
   const cookies = new Cookies
   const profileId = cookies.get("profileId")
   // const [delete, setDelete] = useState("")
+
+  console.log(id)
 
   const handleClickDelete = () => {
     setPop(!popup);
@@ -38,14 +37,15 @@ const core_url = import.meta.env.VITE_CORE_URL
   }
   console.log("okkk", status);
 
-
+  
   const handleDeleteApi = async (e: any) => {
     e.preventDefault()
+    
     try {
       const data = await sendRequest(`${core_url}/api/${id}?profileId=${profileId}`, 'DELETE')
       console.log(data)
-      if(!data || data === undefined)return
-     
+      if(!data || data === undefined)
+     return 
       toast.success("Delete Successful!")
        navigate("/developer/dashboard")
     } catch (error) {}
@@ -177,7 +177,7 @@ const core_url = import.meta.env.VITE_CORE_URL
             </div>
             <hr />
 
-            <button onClick={()=> handleDeleteApi ('profileId')} className="buttons-1">Delete API Project</button>
+            <button onClick={ handleDeleteApi } className="buttons-1">Delete API Project</button>
           </form>
           :""}
 
