@@ -8,7 +8,8 @@ import { addEndpoint, getUserApis } from "../redux/slices/userSlice";
 import { Spinner } from "../assets";
 import { EndpointTable } from "./";
 
-const core_url = import.meta.env.VITE_CORE_URL
+// const core_url = import.meta.env.VITE_CORE_URL
+const core_url = "VITE_CORE_URL"
 const initialState = { name: '', route: '', method: 'get', description: "", headers: [], requestBody: [] }
 interface Props { id: string | undefined }
 
@@ -30,7 +31,7 @@ const EndpointTab: React.FC<Props> = ({id}) => {
         const payload = { name, route, method, description, headers, requestBody }
         const req_headers = { 'Content-Type': 'application/json' }
         try {
-            const data = await sendRequest(`${core_url}/endpoints/new/${id}`, 'POST', JSON.stringify(payload), req_headers)
+            const data = await sendRequest(`/endpoints/new/${id}`, 'post', core_url, payload, req_headers)
             if(!data || data === undefined) return
             dispatch(addEndpoint(data?.data))
             dispatch(getUserApis())
