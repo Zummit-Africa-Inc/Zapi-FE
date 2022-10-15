@@ -118,6 +118,7 @@ const useStyles = makeStyles({
     },
   },
   send: {
+    height: "55px",
     background: "#081F4A",
     borderRadius: "4px",
     padding: "1.12rem 2rem",
@@ -132,11 +133,11 @@ const useStyles = makeStyles({
     background: "#FFFFFF",
     boxShadow: "0px 1px 15px rgba(6, 113, 224, 0.2)",
     borderRadius: "4px",
-},
-actionBoxes: {
-  display: "flex",
-  gap: "2rem",
-  paddingTop: "2.5rem",
+  },
+  actionBoxes: {
+    display: "flex",
+    gap: "2rem",
+    paddingTop: "2.5rem",
   "@media screen and (max-width: 700px)": {
     flexDirection: "column",
   },

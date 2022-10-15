@@ -12,10 +12,9 @@ import { toast } from 'react-toastify';
 import { styled } from '@mui/material/styles';
 
 import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
-import { removeEndpoint, editEndpoint } from "../redux/slices/userSlice";
+import { removeEndpoint, editEndpoint, getUserApis } from "../redux/slices/userSlice";
 import { EndpointProps } from "../interfaces";
 import { EndpointsType } from "../types";
-import { useContextProvider } from '../contexts/ContextProvider';
 
 const core_url = import.meta.env.VITE_BASE_URL
 const initialState = { id: "", name: "", route: "", method: "" } as EndpointProps
@@ -36,7 +35,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
     backgroundColor: theme.palette.action.hover,
   },
-  // hide last border
   '&:last-child td, &:last-child th': {
     border: 0,
   },
@@ -48,7 +46,6 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
   const [isEditing, setIsEditing] = useState<number | null>(null)
   const { userApis } = useAppSelector(store => store.user)
   const api = userApis.find(api => api?.id === id)
-  const { triggerRefresh } = useContextProvider()
   const dispatch = useAppDispatch()
   const classes = useStyles()
   const { error, loading, sendRequest } = useHttpRequest()
@@ -66,7 +63,7 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
       if(!data || data === undefined) return
       dispatch(editEndpoint(payload))
       setIsEditing(null)
-      triggerRefresh()
+      dispatch(getUserApis())
     } catch (error) {}
   }
   
@@ -76,7 +73,7 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
       const data = await sendRequest(`${core_url}/endpoints/${id}`, 'DELETE', JSON.stringify(payload), headers)
       if(!data || data === undefined) return
       dispatch(removeEndpoint(id))
-      triggerRefresh()
+      dispatch(getUserApis())
     } catch (error) {}
   }
   

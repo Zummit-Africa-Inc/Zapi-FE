@@ -4,11 +4,9 @@ import { makeStyles } from "@mui/styles";
 import { toast } from "react-toastify";
 
 import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
-import { addEndpoint } from "../redux/slices/userSlice";
-// import { EndpointsType } from "../types";
+import { addEndpoint, getUserApis } from "../redux/slices/userSlice";
 import { Spinner } from "../assets";
 import { EndpointTable } from "./";
-import { useContextProvider } from "../contexts/ContextProvider";
 
 const core_url = import.meta.env.VITE_CORE_URL
 const initialState = { name: '', route: '', method: 'get', description: "", headers: [], requestBody: [] }
@@ -20,7 +18,6 @@ const EndpointTab: React.FC<Props> = ({id}) => {
     const [isAdding, setIsAdding] = useState<boolean>(false)
     const { error, loading, sendRequest } = useHttpRequest()
     const { name, route, method, description, headers, requestBody } = inputs
-    const { triggerRefresh } = useContextProvider()
     const dispatch = useAppDispatch()
     const classes = useStyles()
 
@@ -36,7 +33,7 @@ const EndpointTab: React.FC<Props> = ({id}) => {
             const data = await sendRequest(`${core_url}/endpoints/new/${id}`, 'POST', JSON.stringify(payload), req_headers)
             if(!data || data === undefined) return
             dispatch(addEndpoint(data?.data))
-            triggerRefresh()
+            dispatch(getUserApis())
         } catch (error) {}
         setIsAdding(false)
     }

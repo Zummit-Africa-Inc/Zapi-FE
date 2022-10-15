@@ -2,8 +2,8 @@ import React, { SyntheticEvent, useState } from "react";
 import { Tab, Tabs } from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
 
-import { useAppSelector } from "../hooks";
 import NewAPICard from "../components/NewAPICard";
+import { useAppSelector } from "../hooks";
 import { TabPanel } from "../components";
 
 const APIHubTab:React.FC = ({}) => {
@@ -23,7 +23,7 @@ const APIHubTab:React.FC = ({}) => {
       <div className={classes.col}>
         <div>
           {categories.map((category, index) => (
-            <TabPanel value={tab} index={index}>
+            <TabPanel key={index} value={tab} index={index}>
               <>
               <div className={classes.header}>
                 <h2>{category.name}</h2>

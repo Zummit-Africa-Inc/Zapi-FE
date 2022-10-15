@@ -1,6 +1,5 @@
 
 export { default as AddApiPopup } from "./AddApiPopup";
-export { default as AllApiCard } from "./AllApiCard"
 export { default as Analytics } from "./Analytics";
 export { default as APICard } from "./APICard";
 export { default as APILayout } from "./APILayout";
@@ -10,12 +9,10 @@ export { default as ApiPageSidebar } from "./ApiPageSidebar";
 export { default as BaseButton } from "./Button";
 export { default as Community } from "./Community";
 export { default as Config } from "./Config";
-export { default as CustomerApiCard } from "./CustomerApiCard"
 export { default as DataTable } from "./DataTable";
 export { default as DevAddApi } from "./DevAddApi";
 export { default as DevNavbar } from "./DevNavbar";
 export { default as EndpointTab } from "./EndpointTab";
-export { default as EducationalApiCard } from "./EducationalApiCard"
 export { default as EndpointTable } from "./EndpointTable";
 export { default as Fallback } from "./Fallback";
 export { default as GatewayTab } from "./GatewayTab"
@@ -26,13 +23,10 @@ export { default as Login } from "./Login";
 export { default as Monetize } from "./Monetize";
 export { default as Navbar } from "./Navbar";
 export { default as PasswordStrengthMeter } from "./PasswordStrengthMeter";
-export { default as PopularApICard } from "./PopularApICard"
 export { default as Pricing } from "./Pricing";
 export { default as ProxySecret } from "./ProxySecret";
 export { default as Sidebar } from "./Sidebar";
-export { default as SafetyApiCard } from "./SafetyApiCard"
 export { default as Schema } from "./Schema";
-export { default as SecurityApiCard } from "./SecurityApiCard"
 export { default as SelectMulti } from "./SelectMulti";
 export { default as SettingsPage } from "./SettingsPage";
 export { default as SplitView } from "./SplitView";

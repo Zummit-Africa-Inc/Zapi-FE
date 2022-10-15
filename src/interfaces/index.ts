@@ -68,3 +68,11 @@ export interface APIHeaderProps {
     service_level?: number
     latency?: number
 }
+
+export interface CardProps {
+    id?: string
+    name?: string
+    description?: string
+    rating?: number
+    latency?: number
+}

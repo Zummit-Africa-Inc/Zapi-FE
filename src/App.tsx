@@ -73,7 +73,7 @@ const App: React.FC = () => {
   useEffect(() => {
     if (profileId === undefined) return 
     dispatch(getUserApis(profileId))
-  },[trigger, profileId])
+  },[profileId])
 
   return (
     <ThemeProvider theme={theme}>
