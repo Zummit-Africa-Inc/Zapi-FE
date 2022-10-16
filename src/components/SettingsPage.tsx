@@ -1,7 +1,7 @@
 import { useState } from "react";
 import React from "react";
 import SearchIcon from '@mui/icons-material/Search';
-import { makeStyles } from "@mui/styles";
+
 import { removeEndpoint } from "../redux/slices/userSlice";
 import { toast } from "react-toastify";
 import { useHttpRequest } from "../hooks";
