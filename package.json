@@ -39,6 +39,7 @@
     "socket.io": "^4.5.1",
     "socket.io-client": "^4.5.1",
     "universal-cookie": "^4.0.4",
+    "vite-tsconfig-paths": "^3.5.1",
     "webpack": "^5.74.0",
     "yup": "^0.32.11",
     "zxcvbn": "^4.4.2"
