@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import { Button, ListItem } from '@mui/material'
+import { Button, List, ListItem } from '@mui/material'
 import { makeStyles } from "@mui/styles";
 import { io } from 'socket.io-client';
 import Cookies from "universal-cookie";
 import { MdMenu } from "react-icons/md";
 
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hook";
-import { ZapiDevLogo, ZapiWidget } from '../assets';
+import { ZapiArrow, ZapiDevLogo, ZapiWidget } from '../assets';
 import { logout } from "../redux/slices/userSlice";
 import  Menus  from "../components/Menus";
 import Notification from './Notification';
-import { ZapiArrow } from '../assets';
 
 interface NavbarProps {
     id?: string
@@ -93,7 +92,7 @@ const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
                         </Button>
                         
                         {isShow ?
-                            <div className={classes.projectListContainer}>
+                            <List className={classes.projectListContainer}>
                                 {userApis.map((api, index) => (
                                 <ListItem className={classes.projectListItems} key={index}>
                                     <Link to={`/developer/api/${api.id}`}>
@@ -101,7 +100,7 @@ const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
                                     </Link>
                                 </ListItem>
                                ))}
-                            </div>
+                            </List>
                             :
                             <></>
                         }
@@ -251,7 +250,7 @@ const useStyles = makeStyles({
         "&.MuiButton-text": {
             fontWeight: "normal",
             color: "#000"
-          },
+        },
         "&.MuiButton-root": {
             textTransform: 'none',
             fontSize:'17px',
@@ -262,28 +261,36 @@ const useStyles = makeStyles({
         }
     },
     projectListContainer: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        marginBottom: "10px",
-        textAlign: "center",
-        lineHeight: "2rem",
-        width: "100%",
+        "&.MuiList-root": {
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            marginBottom: "10px",
+            textAlign: "center",
+            lineHeight: "2rem",
+            width: "100%",
+        }
     },
     projectListItems: {
-        "&.MuiButton-text": {
-            fontWeight: "normal",
-            color: "#000"
-          },
-        "&.MuiButton-root": {
-            textTransform: 'none',
+        "&.MuiListItemText": {
+            textTransform: "lowercase",
+        },
+        "&.MuiListItem-root": {
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
             fontSize: "15px",
+            fontWeight: "normal",
+            textTransform: "capitalize",
+            lineHeight: "25px",
             color: "#909090",
             width: "150px",
             "@media screen and (max-width: 420px)": {
                 fontSize: "13px",
             }
-        }
+            
+        },
     },
     logout: {
         border: "unset",
