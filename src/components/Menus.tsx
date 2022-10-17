@@ -1,20 +1,19 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect} from "react"
 import { Link, useNavigate } from "react-router-dom";
-import { Avatar, Fade, Menu, MenuItem, Button, Paper, Stack, Typography } from '@mui/material'
-import {HelpOutline, AppsRounded, DeveloperBoardRounded} from '@mui/icons-material'
-import { blueGrey } from '@mui/material/colors';
-import { styled } from '@mui/material/styles';
-import Badge from '@mui/material/Badge';
+import { Avatar, Fade, Menu, MenuItem, Button, Paper, Stack, Typography } from "@mui/material"
+import {HelpOutline, AppsRounded, DeveloperBoardRounded} from "@mui/icons-material"
+import { blueGrey } from "@mui/material/colors";
+import { styled } from "@mui/material/styles";
+import Badge from "@mui/material/Badge";
 import { makeStyles } from "@mui/styles";
-import { io } from 'socket.io-client';
+import { io } from "socket.io-client";
 import Cookies from "universal-cookie";
 
 
-import { ZapiDash, ZapiApps, ZapiHelp, ZapiArrow} from '../assets'
+import { ZapiDash, ZapiApps, ZapiHelp, ZapiArrow} from "../assets"
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hook";
 import { getUserApis, logout } from "../redux/slices/userSlice";
 import Notification from './Notification';
-
 interface MenuProps {
     id: string
 };
