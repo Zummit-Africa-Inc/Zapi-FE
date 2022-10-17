@@ -1,8 +1,6 @@
-import React, { ChangeEvent, FormEvent, SyntheticEvent, useState } from "react";
+import React from "react";
 import { makeStyles } from "@mui/styles";
-import InputSearch from "./InputSearch";
-import { Tab, Tabs, Typography } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
+import { Typography } from "@mui/material";
 import { useAppSelector } from "../hooks";
 import DevAPICard from "./DevAPICard";
 
