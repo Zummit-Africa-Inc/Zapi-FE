@@ -2,9 +2,13 @@ import React, {useState, useEffect} from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import { Avatar, Fade, Menu, MenuItem, Button, Paper, Stack, Typography } from '@mui/material'
 import {HelpOutline, AppsRounded, DeveloperBoardRounded} from '@mui/icons-material'
+import { blueGrey } from '@mui/material/colors';
+import { styled } from '@mui/material/styles';
+import Badge from '@mui/material/Badge';
 import { makeStyles } from "@mui/styles";
 import { io } from 'socket.io-client';
 import Cookies from "universal-cookie";
+
 
 import { ZapiDash, ZapiApps, ZapiHelp, ZapiArrow} from '../assets'
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hook";
@@ -77,7 +81,13 @@ const Menus: React.FC<MenuProps> = ({ id }) => {
         </Stack>
           
         <Button aria-controls={isAvatarOpen ? 'avatar-menu' : undefined} aria-haspopup="true" aria-expanded={isAvatarOpen ? 'true' : undefined} onClick={handleAvatarClick}>
-            <Avatar alt='zapi-pic' />
+            <StyledBadge
+                overlap="circular"
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                variant="dot"
+            >
+                <Avatar  sx={{ bgcolor: blueGrey[500] }} alt='zapi-pic' />
+            </StyledBadge>
         </Button>
         <Menu anchorEl={anchorE2} open={isAvatarOpen} onClose={handleClose2} TransitionComponent={Fade}>
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
@@ -110,5 +120,34 @@ const useStyles = makeStyles({
         }
     }
 })
+
+const StyledBadge = styled(Badge)(({ theme }) => ({
+    '& .MuiBadge-badge': {
+      backgroundColor: '#44b700',
+      color: '#44b700',
+      boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+      '&::after': {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        borderRadius: '50%',
+        animation: 'ripple 1.2s infinite ease-in-out',
+        border: '1px solid currentColor',
+        content: '""',
+      },
+    },
+    '@keyframes ripple': {
+      '0%': {
+        transform: 'scale(.8)',
+        opacity: 1,
+      },
+      '100%': {
+        transform: 'scale(2.4)',
+        opacity: 0,
+      },
+    },
+  }));
 
 export default Menus
