@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import { Link } from 'react-router-dom';
 
 import  Menus  from "../components/Menus";
-import { ZapiDevLogo, ZapiWidget } from '../assets'
+import { ZapiDevLogo, ZapiWidget } from "../assets";
 
 import { Menu } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hook";
 import { logout } from "../redux/slices/userSlice";
 import Cookies from "universal-cookie";
 
-import { ZapiArrow } from '../assets';
-import { Button, ListItem } from '@mui/material'
+import { ZapiArrow } from "../assets";
+import { Button, ListItem } from "@mui/material";
 
-import { io } from 'socket.io-client';
-import Notification from './Notification';
+import { io } from "socket.io-client";
+import Notification from "./Notification";
 interface NavbarProps {
     id: string
 };
@@ -84,8 +84,7 @@ const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
                 <div className={classes.hamburger} onClick={handleClick}>
                     <Menu />
                 </div>
-            </div>
-            
+            </div> 
         </div>
 
         <div>
@@ -128,18 +127,18 @@ const useStyles = makeStyles({
     NavBar: {
         position: "fixed",
         top: "0",
-        left:'0rem',
-        right:'0rem',
+        left:"0rem",
+        right:"0rem",
         zIndex: 30,
-        width:'100%',
-        display: 'flex',
-        alignItems: 'center',
-        padding: '24px 112px',
-        flexDirection: 'row',
-        justifyContent:'space-between',
-        background:'#C4C4C4',
-        height:  '70px',
-        fontFamily:'Space Grotesk',
+        width:"100%",
+        display: "flex",
+        alignItems: "center",
+        padding: "24px 112px",
+        flexDirection: "row",
+        justifyContent:"space-between",
+        background:"#C4C4C4",
+        height:  "70px",
+        fontFamily:"Space Grotesk",
         "@media screen and (max-width: 1024px)": {
             padding: "1rem 2rem"
         },
@@ -148,9 +147,9 @@ const useStyles = makeStyles({
         }
     },
     logo:{
-        display:'flex',
-        alignItems:'center',
-        gap:'1rem',
+        display:"flex",
+        alignItems:"center",
+        gap:"1rem",
         "@media screen and (max-width: 900px)": {
             scale: .9
         },
@@ -159,12 +158,12 @@ const useStyles = makeStyles({
         }
     },
     zapi:{
-        fontWeight:'700',
-        fontSize: '24px',
-        lineHeight:'30px',
-        color:'#000000',
-        alignItems:'center',
-        display:'flex',
+        fontWeight:"700",
+        fontSize: "24px",
+        lineHeight:"30px",
+        color:"#000000",
+        alignItems:"center",
+        display:"flex",
         "@media screen and (max-width: 900px)": {
             scale: .9
         },
@@ -187,16 +186,16 @@ const useStyles = makeStyles({
         }
     },
     api:{
-        fontWeight:'400',
-        fontSize:'16px',
-        textDecoration:'none',
-        color:'#000000'
+        fontWeight:"400",
+        fontSize:"16px",
+        textDecoration:"none",
+        color:"#000000"
     },
 
     icons:{
-        alignItems:'center',
-        display:'flex',
-        justifyContent:'space-between',
+        alignItems:"center",
+        display:"flex",
+        justifyContent:"space-between",
         width:"inherit"
     },
     right_container: {
@@ -204,7 +203,7 @@ const useStyles = makeStyles({
         "@media screen and (max-width: 900px)": {
             display: "flex",
             flexDirection: "row",
-            alignItems:'center',
+            alignItems: "center",
             gap: "1rem",
         },
         "@media screen and (max-width: 420px)": {
@@ -247,7 +246,7 @@ const useStyles = makeStyles({
             padding: "4rem",
         },
         "@media screen and (max-width: 420px)": {
-            marginTop:  '50px',
+            marginTop:  "50px",
             fontSize: "15px",
         }
     },
@@ -257,8 +256,8 @@ const useStyles = makeStyles({
             color: "#000"
           },
         "&.MuiButton-root": {
-            textTransform: 'none',
-            fontSize:'17px',
+            textTransform: "none",
+            fontSize: "17px",
             width: "150px",
             "@media screen and (max-width: 420px)": {
                 fontSize: "15px",
@@ -280,7 +279,7 @@ const useStyles = makeStyles({
             color: "#000"
           },
         "&.MuiButton-root": {
-            textTransform: 'none',
+            textTransform: "none",
             fontSize: "15px",
             color: "#909090",
             width: "150px",
