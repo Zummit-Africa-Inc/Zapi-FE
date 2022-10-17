@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
-import { makeStyles } from "@mui/styles";
-import { Link } from 'react-router-dom';
-
-import  Menus  from "../components/Menus";
-import { ZapiDevLogo, ZapiWidget } from '../assets'
-
-import { Menu } from "@mui/icons-material";
-import { useAppDispatch, useAppSelector } from "../hooks/redux-hook";
-import { logout } from "../redux/slices/userSlice";
-import Cookies from "universal-cookie";
-
-import { ZapiArrow } from '../assets';
+import { Link, useNavigate } from "react-router-dom";
 import { Button, ListItem } from '@mui/material'
-
+import { makeStyles } from "@mui/styles";
 import { io } from 'socket.io-client';
+import Cookies from "universal-cookie";
+import { MdMenu } from "react-icons/md";
+
+import { useAppDispatch, useAppSelector } from "../hooks/redux-hook";
+import { ZapiDevLogo, ZapiWidget } from '../assets';
+import { logout } from "../redux/slices/userSlice";
+import  Menus  from "../components/Menus";
 import Notification from './Notification';
+import { ZapiArrow } from '../assets';
+
 interface NavbarProps {
     id?: string
 };
@@ -26,7 +23,6 @@ const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
     const [isShow, setIsShow] = useState(false);
     const { userApis } = useAppSelector(store => store.user)
 
-    
     const handleClick = () => {
         if(isOpen) {
             setIsOpen(false);
@@ -82,7 +78,7 @@ const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
             <div className={classes.right_container}>
                 <Notification socket={socket}/>
                 <div className={classes.hamburger} onClick={handleClick}>
-                    <Menu />
+                    <MdMenu />
                 </div>
             </div>
             

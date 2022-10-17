@@ -1,8 +1,7 @@
-import React, { useState, FormEvent } from 'react'
+import React, { useState, FormEvent } from "react";
 import { Typography } from "@mui/material"
 import { makeStyles } from "@mui/styles"
-import ToggleOffIcon from "@mui/icons-material/ToggleOff";
-import ToggleOnIcon from "@mui/icons-material/ToggleOn";
+import { MdToggleOff, MdToggleOn } from "react-icons/md";
 
 const Threat:React.FC = () => {
     const classes = useStyles();
@@ -10,16 +9,13 @@ const Threat:React.FC = () => {
     const [countDisabled, setCountDisabled] = useState<boolean>(false);
     const [disabled, setDisabled] = useState<boolean>(true);
 
-    // const toogleThreatProtection = () => {
-	// 	setThreatProtection(prevState => {
-	// 		return !prevState;
-	// 	});
-	// }
+    // const toogleThreatProtection = () => setThreatProtection((prevState: boolean) => !prevState);
 
     const disableClick = (e: FormEvent) => {
         e.preventDefault();
         setCountDisabled(!countDisabled);
       };
+
   return (
     <div className={classes.threat} style={{
         opacity: disabled ? 0.25 : 1,
@@ -40,43 +36,27 @@ const Threat:React.FC = () => {
                 <>
                     {threatProtection ? (
                         <div className={classes.main}>
-                            <ToggleOnIcon
-                                fontSize="large"
-                                onClick={disableClick}
-                                className={classes.pointer}
-                                
-                            />{" "}
+                            <MdToggleOn fontSize="large" onClick={disableClick} />{" "}
                         </div>
                     ) : (
-
                         <div className={classes.main}>
-                            <ToggleOffIcon
-                                fontSize="large"
-                                onClick={disableClick}
-                                className={classes.pointer}
-                            />
+                            <MdToggleOff fontSize="large" onClick={disableClick} className={classes.pointer} />
                         </div>
                     )}
-
-
-                        {threatProtection && 
-
-                            <>
-                                <div className={classes.line}></div>
-                                    <div className={classes.subfield}>
-                                        <div className={classes.textfield}>
-                                            <Typography variant='h6' style={{ fontWeight:600, color:'black',fontSize:'16px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>
-                                                Threat protection requires the “Content-Type” header in requests with a body.
-                                                Requests with a body that do not specify a “Content-Type” header will be blocked.
-                                            </Typography> 
-                                        </div>
-                                    </div>
-                            </>
-                        }
-
+                    {threatProtection && 
+                    <>
+                    <div className={classes.line}></div>
+                    <div className={classes.subfield}>
+                        <div className={classes.textfield}>
+                            <Typography variant='h6' style={{ fontWeight:600, color:'black',fontSize:'16px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>
+                                Threat protection requires the “Content-Type” header in requests with a body.
+                                Requests with a body that do not specify a “Content-Type” header will be blocked.
+                            </Typography> 
+                        </div>
+                    </div>
+                    </>}
                 </>
             </div>
-
         </div>   
     </div>
 </div>

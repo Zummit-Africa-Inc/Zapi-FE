@@ -1,44 +1,32 @@
-import { useState } from "react";
-import React from "react";
-import SearchIcon from '@mui/icons-material/Search';
+import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
-import { removeEndpoint } from "../redux/slices/userSlice";
-import { toast } from "react-toastify";
-import { useHttpRequest } from "../hooks";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "universal-cookie";
+import { toast } from "react-toastify";
 import { Paper } from "@mui/material";
+import { MdSearch } from "react-icons/md";
 
-// const core_url = import.meta.env.VITE_CORE_URL
+import { removeEndpoint } from "../redux/slices/userSlice";
+import { useHttpRequest } from "../hooks";
+
 const core_url = "VITE_CORE_URL"
 
  const SettingsPage:React.FC = () => {
-    
   const [status, setStatus] = useState("");
   const [popup, setPop] = useState(false);
   const { error, loading, sendRequest } = useHttpRequest()
-  const {id} = useParams()
+  const { id } = useParams()
   const navigate = useNavigate()
   const classes = useStyles()
-
-
   const cookies = new Cookies
   const profileId = cookies.get("profileId")
-  // const [delete, setDelete] = useState("")
 
-  const handleClickDelete = () => {
-    setPop(!popup);
+  const handleClickDelete = () => setPop(false)
 
-  }
+  const closePopup = () => setPop(false)
 
-  const closePopup = () => {
-    setPop(false);
-  }
-  function onChangeValue(event:any) {
-    setStatus(event.target.value);
-  }
+  const onChangeValue = (event:any) => setStatus(event.target.value)
   console.log("okkk", status);
-
 
   const handleDeleteApi = async (e: any) => {
     e.preventDefault()
@@ -98,7 +86,7 @@ const core_url = "VITE_CORE_URL"
                 <div className="container">
                   <div className="form">
                     <span className="icon">
-                      <SearchIcon className="icon2" />{" "}
+                      <MdSearch className="icon2" />{" "}
                     </span>
                     <input
                       id="input-input"
@@ -116,18 +104,13 @@ const core_url = "VITE_CORE_URL"
                       Select a team...
                   </option>
                   <option id="select-inputs" disabled={true} ><button id="ishidden">None</button></option>
-                  
                 </select>
                 </div>
               </div>
-            ) : (
-              ""
-            )}
+            ) : ("")}
           </div>
         </div>
-
         <button className="button-1">Transfer Ownership</button>
-
         <div className="name-pro">
           <h3 className="name-col">Delete API Project</h3>
         </div>

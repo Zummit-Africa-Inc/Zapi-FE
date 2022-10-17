@@ -1,20 +1,18 @@
-import React, { useState, FormEvent, useEffect} from 'react';
+import React, { useState, FormEvent, useEffect} from "react";
 import { makeStyles } from "@mui/styles";
-import OtpInput from "react-otp-input";
-
-import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png"
-import { Typography } from "@mui/material";
-import {Cancel} from '@mui/icons-material';
-import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { PasswordStrengthMeter } from "../components";
+import { Typography } from "@mui/material";
+import OtpInput from "react-otp-input";
+import axios from "axios";
+import { MdCancel } from "react-icons/md";
 
-import { PASSWORD_REGEX, MATCH_CHECKER }from "../utils"
+import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png";
+import { PASSWORD_REGEX, MATCH_CHECKER }from "../utils";
+import { PasswordStrengthMeter } from "../components";
 import { toast }  from "react-toastify";
 
 
 const identity_url = import.meta.env.VITE_IDENTITY_URL;
-
 
 const ResetPassword: React.FC = () => {
   const navigate = useNavigate();
@@ -91,7 +89,7 @@ const ResetPassword: React.FC = () => {
                     ? { border: '2px solid red' }
                     : { border: '2.5px solid green' }
               }  />
-                {MATCH_CHECKER(password, passwordConfirm) ? <></> : <span><Cancel sx={{ fontSize: 15, marginRight:1  }}  color="error"/> Password does not match</span>}
+                {MATCH_CHECKER(password, passwordConfirm) ? <></> : <span><MdCancel style={{ fontSize: 15, marginRight:1  }}  color="error"/> Password does not match</span>}
                 </div>
                 </>
             }

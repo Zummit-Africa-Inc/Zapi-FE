@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@mui/styles";
 import { Badge, Menu, MenuItem } from '@mui/material';
 import { Link } from "react-router-dom";
-import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import { MdNotificationsNone } from "react-icons/md";
 import { io } from 'socket.io-client';
 import Cookies from 'universal-cookie';
 
@@ -63,10 +63,6 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
             }
     }, [socket, notifications]);
     
-    
-
-    // console.log(notifications);
-    
     const displayNotification = (type: string) => {
         let action;
 
@@ -121,7 +117,7 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
                             aria-expanded={open ? 'true' : undefined}
                             aria-haspopup="true"
                         >
-                            <NotificationsNoneIcon style={{ cursor: "pointer", color:"black", marginTop: ".25rem"}} />
+                            <MdNotificationsNone style={{ cursor: "pointer", color:"black", marginTop: ".25rem"}} />
                         </span>
                     </Badge>
                     :
@@ -132,7 +128,7 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
                         aria-expanded={open ? 'true' : undefined}
                         aria-haspopup="true"
                     >
-                        <NotificationsNoneIcon style={{ cursor: "pointer", color:"black", marginTop: ".25rem"}} />
+                        <MdNotificationsNone style={{ cursor: "pointer", color:"black", marginTop: ".25rem"}} />
                     </span>
                 }
                 {open && (

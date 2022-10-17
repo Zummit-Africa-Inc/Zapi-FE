@@ -1,10 +1,7 @@
-import React from 'react'
+import React from "react";
 import { makeStyles } from '@mui/styles'
 import { Link } from 'react-router-dom';
-import ControlCameraIcon from '@mui/icons-material/ControlCamera';
-import ScienceOutlinedIcon from '@mui/icons-material/Science'; 
-import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import { MdControlCamera, MdOutlineEdit, MdOutlineLanguage, MdOutlineScience } from "react-icons/md";
 
 const ApiSidebar:React.FC = () => {
     const classes = useStyles();
@@ -14,7 +11,7 @@ const ApiSidebar:React.FC = () => {
       <Link to={'/'} className={classes.side}>
         <div className={classes.wrap}>
           <div className={classes.box}>
-            <ControlCameraIcon sx={{display: 'block' }}/>
+            <MdControlCamera style={{display:'block'}}/>
           </div>
           Requests
         </div>
@@ -22,7 +19,7 @@ const ApiSidebar:React.FC = () => {
       <Link to={'/'} className={classes.side}>
         <div className={classes.wrap}>
           <div className={classes.box}>
-            <ScienceOutlinedIcon sx={{display: 'block' }}/>
+            <MdOutlineScience style={{display:'block'}}/>
           </div>
           Tests
         </div>
@@ -30,7 +27,7 @@ const ApiSidebar:React.FC = () => {
       <Link to={'/'} className={classes.side}>
         <div className={classes.wrap}>
           <div className={classes.box}>
-            <LanguageOutlinedIcon sx={{display: 'block' }}/>
+            <MdOutlineLanguage style={{display:'block'}}/>
           </div>
           Hub Listing
         </div>
@@ -38,7 +35,7 @@ const ApiSidebar:React.FC = () => {
       {/* <Link to={'/'} className={classes.side}>
         <div className={classes.wrap}>
           <div className={classes.box}>
-            <EditOutlinedIcon sx={{display: 'block' }}/>
+            <MdOutlineEdit style={{display:'block'}}/>
           </div>
           Settings
         </div>

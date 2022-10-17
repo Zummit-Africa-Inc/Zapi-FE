@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import { makeStyles } from '@mui/styles'
 import { NavLink } from 'react-router-dom';
-
-import KeyboardDoubleArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowLeftOutlined';
 import { Tab, Tabs, Typography } from '@mui/material';
-import { DEVELOPERSLINKS } from '../../testdata';
-import { Menu, MenuOpenRounded } from '@mui/icons-material';
+import { MdMenu, MdMenuOpen } from "react-icons/md";
+import { FiChevronsLeft } from "react-icons/fi";
 
+import { DEVELOPERSLINKS } from '../../testdata';
 
 const Sidebar: React.FC = () => {
     const classes = useStyles();
@@ -16,18 +15,11 @@ const Sidebar: React.FC = () => {
 
     return (
         <div className={classes.container}>
-        <div className={classes.sidebar}>
+            <div className={classes.sidebar}>
                 <div className={classes.sidebarLinks}>
                     {DEVELOPERSLINKS.map((link, i) => (
                         <NavLink key={i} to={link.link} className={classes.link} style={({ isActive }) => (
-                            isActive ? {
-                                color: "#FFF",
-                                background: "#9999CC",
-                                borderRadius: "15px"
-                            }
-                                :
-                                {}
-                        )}>
+                            isActive ? {color: "#FFF", background: "#9999CC", borderRadius: "15px"} : {} )}>
                             {link.image}
                             <Typography>{link.text}</Typography>
                         </NavLink>
@@ -38,7 +30,7 @@ const Sidebar: React.FC = () => {
                 </div>
             </div>
             {/* <div className={classes.collapse} onClick={handleCollapse}>
-                <KeyboardDoubleArrowLeftOutlinedIcon />
+                <FiChevronsLeft />
                 {isOpen === true ? <Typography sx={{ fontSize: "16px" }}>Collapse Sidebar</Typography> : <Typography sx={{ fontSize: "16px" }}>Open Sidebar</Typography>}
             </div> */}
         </div>

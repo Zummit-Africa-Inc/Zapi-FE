@@ -1,43 +1,44 @@
-import React from 'react'
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import { makeStyles } from "@mui/styles"
+import React from "react";
+import { makeStyles } from "@mui/styles";
+import { MdOutlineError } from "react-icons/md";
 
 const Transform:React.FC = () => {
     const classes = useStyles();
 
   return (
-      <div className={classes.trans}>
-            <div className={classes.transform}>
-                <span style={{ fontWeight:600, color:'black',fontSize:'16px',display:'block', 
-                boxSizing:'border-box',outline:'none 0px', 
-                letterSpacing:'normal',lineHeight:'24px' }}>Transformations</span>
-                <span style={{ marginTop:'8px', fontWeight:600, color:'rgba(0, 0, 0, 0.6)',fontSize:'12px',display:'block', 
-                boxSizing:'border-box',outline:'none 0px', 
-                letterSpacing:'normal',lineHeight:'16px' }}>Transformations can be used to remove, remap or
-                add parameters in a request or a response</span>
-            </div>
-            <div className={classes.wrap}>
-                <div className={classes.wrapper}>
-                    <div className={classes.error}>
-                        <ErrorOutlineIcon />
-                    </div>
-                    <div className={classes.feature}>
-                        <span style={{ marginBottom:'12px', fontWeight:600, color:'rgba(0, 0, 0, 0.87)',fontSize:'14px',display:'block', 
-                        boxSizing:'border-box',outline:'none 0px', 
-                        letterSpacing:'normal',lineHeight:'20px', textAlign:"center" }}>This feature is not yet available in 
-                        this beta version</span>
-                        <span style={{ marginBottom:'12px', color:'rgba(0, 0, 0, 0.38)',fontSize:'18px',display:'block', 
-                        boxSizing:'border-box',outline:'none 0px', 
-                        letterSpacing:'normal',lineHeight:'20px', textAlign:"center" }}>You can use this feature in the previous version</span>
-                    </div>
-                    <button className={classes.btn}>
-                        View in Previous Version
-                    </button>
+    <div className={classes.trans}>
+        <div className={classes.transform}>
+            <span style={{ fontWeight:600, color:'black',fontSize:'16px',display:'block', 
+            boxSizing:'border-box',outline:'none 0px', 
+            letterSpacing:'normal',lineHeight:'24px' }}>Transformations</span>
+            <span style={{ marginTop:'8px', fontWeight:600, color:'rgba(0, 0, 0, 0.6)',fontSize:'12px',display:'block', 
+            boxSizing:'border-box',outline:'none 0px', 
+            letterSpacing:'normal',lineHeight:'16px' }}>Transformations can be used to remove, remap or
+            add parameters in a request or a response</span>
+        </div>
+        <div className={classes.wrap}>
+            <div className={classes.wrapper}>
+                <div className={classes.error}>
+                    <MdOutlineError />
                 </div>
+                <div className={classes.feature}>
+                    <span style={{ marginBottom:'12px', fontWeight:600, color:'rgba(0, 0, 0, 0.87)',fontSize:'14px',display:'block', 
+                    boxSizing:'border-box',outline:'none 0px', 
+                    letterSpacing:'normal',lineHeight:'20px', textAlign:"center" }}>This feature is not yet available in 
+                    this beta version</span>
+                    <span style={{ marginBottom:'12px', color:'rgba(0, 0, 0, 0.38)',fontSize:'18px',display:'block', 
+                    boxSizing:'border-box',outline:'none 0px', 
+                    letterSpacing:'normal',lineHeight:'20px', textAlign:"center" }}>You can use this feature in the previous version</span>
+                </div>
+                <button className={classes.btn}>
+                    View in Previous Version
+                </button>
             </div>
         </div>
+    </div>
   )
 }
+
 const useStyles = makeStyles({
     trans:{
         marginTop: '32px',
@@ -106,7 +107,6 @@ const useStyles = makeStyles({
         borderColor: 'rgb(214, 217, 219)',
         color: 'rgba(0, 0, 0, 0.87)'
     }
-
 })
 
 export default Transform

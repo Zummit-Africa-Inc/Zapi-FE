@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Avatar, Fade, Menu, MenuItem, Button, Paper, Stack, Typography } from '@mui/material'
-import {HelpOutline, AppsRounded, DeveloperBoardRounded} from '@mui/icons-material'
+import { MdApps, MdDeveloperBoard, MdOutlineHelp } from "react-icons/md";
 import { makeStyles } from "@mui/styles";
 import { io } from 'socket.io-client';
 import Cookies from "universal-cookie";
@@ -70,9 +70,9 @@ const Menus: React.FC<MenuProps> = () => {
         ))}
         </Menu>
         <Stack direction="row" alignItems="center" justifyContent="center" spacing={2}>
-            <DeveloperBoardRounded/>
-            <AppsRounded/>
-            <HelpOutline />
+            <MdDeveloperBoard />
+            <MdApps />
+            <MdOutlineHelp />
           <Notification socket={socket}/>
         </Stack>
           

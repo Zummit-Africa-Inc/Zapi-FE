@@ -1,11 +1,9 @@
-import React, { useState } from 'react'
-import { makeStyles } from "@mui/styles"
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import React, { useState } from "react";
+import { makeStyles } from "@mui/styles";
 import { Typography } from "@mui/material"
 import { useAppSelector } from "../hooks";
 import { useNavigate, useParams } from "react-router-dom";
-
+import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 
 const ProxySecret:React.FC = () => {
     const classes = useStyles();
@@ -14,12 +12,6 @@ const ProxySecret:React.FC = () => {
 
     const api = userApis.find(api => api?.id === id)
     
-    
-
-
-
-    
-
     const [proxySecret, setProxySecret] = useState<boolean>(false);
 
     const toogleProxySecret= () => {
@@ -37,20 +29,14 @@ const ProxySecret:React.FC = () => {
                 
                 <div className={classes.border}>
                     <>
-                        <div className={classes.input} >{" "}
-                        {proxySecret ?  api?.secretKey : "****************************" }</div>
-                    
-                        {proxySecret ? (
-                        <VisibilityOffIcon
-                            onClick={toogleProxySecret}
-                            className={classes.pointer}
-                        />
-                        ) : (
-                            <VisibilityIcon
-                                onClick={toogleProxySecret}
-                                className={classes.pointer}
-                            />
-                        )}
+                    <div className={classes.input} >{" "}
+                    {proxySecret ?  api?.secretKey : "****************************" }</div>
+                
+                    {proxySecret ? (
+                    <MdVisibilityOff onClick={toogleProxySecret} className={classes.pointer} />
+                    ) : (
+                        <MdVisibility onClick={toogleProxySecret} className={classes.pointer} />
+                    )}
                     </>
                 </div>
                 <div className={classes.whitelist}>

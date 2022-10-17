@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FormEvent, SyntheticEvent, useEffect, useState } from "react";
 import { IconButton, Stack, Tab, Tabs, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { CloseOutlined } from "@mui/icons-material";
+import { MdOutlineClose } from "react-icons/md";
 
 import { APICard, InputSearch, Navbar, Sidebar, TabPanel, Pricing } from "../components";
 import { useContextProvider } from "../contexts/ContextProvider";
@@ -46,7 +46,7 @@ const Home:React.FC = () => {
             <img src="/images/zapi-logo.png" alt="zapi-logo" style={{width:30}} />
           </div>
           <IconButton onClick={() => setActiveMenu(false)}>
-            <CloseOutlined />
+            <MdOutlineClose />
           </IconButton>
         </Stack>
         <Sidebar />

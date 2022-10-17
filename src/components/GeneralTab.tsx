@@ -1,10 +1,9 @@
-import React, {ChangeEvent, FormEvent, useState, useEffect } from 'react'
+import React, {ChangeEvent, FormEvent, useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { makeStyles } from "@mui/styles";
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Box, FormControl, InputLabel, MenuItem, Select, Stack, TextField, Typography, Switch, SelectChangeEvent, Paper } from '@mui/material';
 import Cookies from 'universal-cookie';
+import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 
 import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from '../hooks';
 import ImageUpload from "./ImageUpload";
@@ -110,7 +109,7 @@ const GeneralTab: React.FC = () => {
         <Box sx={{ padding: '30px', border: '1px solid black', marginBottom: '20px' }}>
           <Stack direction="row" spacing={2}>
             <Box>
-              {visibility ? <VisibilityIcon /> : <VisibilityOffIcon />}
+              {visibility ? <MdVisibility /> : <MdVisibilityOff />}
             </Box>
             <Box>
               {visibility ?

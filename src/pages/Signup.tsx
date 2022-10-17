@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Stack, Typography, } from "@mui/material";
 import { makeStyles } from '@mui/styles';
 import { toast } from "react-toastify";
-import {Cancel} from '@mui/icons-material';
+import { MdCancel } from "react-icons/md";
 
 import { EMAIL_REGEX, PASSWORD_REGEX, MATCH_CHECKER }from "../utils"
 import { useContextProvider } from "../contexts/ContextProvider"
@@ -13,7 +13,6 @@ import { HomeNavbar } from '../sections';
 import { GoogleIcon } from "../assets";
 
 const initialState = { fullName: "", email: "", password: "", confirm_password: "", terms: false };
-// const url = import.meta.env.VITE_IDENTITY_URL;
 const url = "VITE_IDENTITY_URL";
 
 const Signup: React.FC = () => {
@@ -24,7 +23,6 @@ const Signup: React.FC = () => {
   const { handleClicked } = useContextProvider();
   const navigate = useNavigate();
   const disabled = !terms || (!PASSWORD_REGEX.test(password)) || !MATCH_CHECKER(password, confirm_password);
-
 
   const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -64,11 +62,9 @@ const Signup: React.FC = () => {
         <Typography variant="body1" fontSize="40px" fontWeight={400} textAlign='center'>
           Create a Free Account
         </Typography>
-
         <p className={classes.subtitle}>
           Complete this form to register on ZAPI and start exploring our API options 
         </p>
-
         <form onSubmit={handleSubmit} className={classes.form}>
           <div className={classes.input}>
             <label htmlFor="fullName">Full Name <span>*</span></label>
@@ -90,7 +86,7 @@ const Signup: React.FC = () => {
                     ? { border: '2px solid red' }
                     : { border: '2.5px solid green' }
               } />
-              {MATCH_CHECKER(password, confirm_password) ? <></> : <span><Cancel sx={{ fontSize: 15, marginRight:1  }}  color="error"/> Password does not match</span>}
+              {MATCH_CHECKER(password, confirm_password) ? <></> : <span><MdCancel style={{ fontSize: 15, marginRight:1  }}  color="error"/> Password does not match</span>}
             </div>
           <div className={classes.check_input}>
             <input type="checkbox" name="terms" {...toggle} />

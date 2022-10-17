@@ -2,13 +2,14 @@ import React, { SyntheticEvent, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Avatar, Tab, Tabs } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { AccessTimeOutlined, DoneOutlined, TrendingUpOutlined } from "@mui/icons-material";
+import { MdOutlineAccessTime, MdOutlineDone, MdOutlineTrendingUp } from "react-icons/md";
 
 import { Navbar, TabPanel, SplitView } from "../components";
+import { useAppSelector } from "../hooks";
 import { APIS } from "../testdata";
 
 const APIPage: React.FC = () => {
-  const id = useParams().id
+  const { id } = useParams()
   const classes = useStyles()
   const [tab, setTab] = useState<number>(0)
   const api = APIS.find(api => api.id === id)
