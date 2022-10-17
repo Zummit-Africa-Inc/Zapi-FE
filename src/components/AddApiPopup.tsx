@@ -1,12 +1,13 @@
 import React, { FormEvent } from "react";
 import { Typography, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, MenuItem } from "@mui/material";
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { makeStyles } from "@mui/styles";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
 
+import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
 import { useContextProvider } from "../contexts/ContextProvider";
-import { useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
+import { getUserApis } from "../redux/slices/userSlice";
 import { Fallback } from "../components";
 
 // const core_url = import.meta.env.VITE_CORE_URL
@@ -23,6 +24,7 @@ const AddApiPopup: React.FC = () => {
   const { categories } = useAppSelector(store => store.apis)
   const cookies = new Cookies()
   const profileId = cookies.get("profileId")
+  const dispatch = useAppDispatch()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 
@@ -33,6 +35,7 @@ const AddApiPopup: React.FC = () => {
       const data = await sendRequest(`/api/new/${profileId}`, 'post', core_url, payload, headers)
       const { message } = data
       toast.success(`${message}`)
+      dispatch(getUserApis(profileId))
     } catch (err) {
       console.log(err)
     }

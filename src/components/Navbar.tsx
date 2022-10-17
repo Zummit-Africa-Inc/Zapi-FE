@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from "react";
 import { Box, IconButton, Stack, Toolbar,} from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { AccountCircleOutlined, InsertDriveFileOutlined, NotificationsOutlined } from "@mui/icons-material";
+import { MdOutlineAccountCircle, MdOutlineInsertDriveFile, MdOutlineNotifications } from "react-icons/md";
+import { io } from "socket.io-client";
+
 import Notification from './Notification';
-import { io } from 'socket.io-client';
+
 interface INavProps {
   title?: string
   subtitle?: string
@@ -25,13 +27,13 @@ const Navbar: React.FC<INavProps> = () => {
         <Stack className={classes.bar}>
           <Stack direction="row" alignItems="center" justifyContent="center" spacing={2} mb={1}>
             <IconButton color="primary">
-               <InsertDriveFileOutlined />
+               <MdOutlineInsertDriveFile />
             </IconButton>
             <IconButton color="primary" style={{marginTop:".2rem"}}>
-            <Notification socket={socket}/>
+              <Notification socket={socket}/>
             </IconButton>
             <IconButton color="primary">
-              <AccountCircleOutlined />
+              <MdOutlineAccountCircle />
             </IconButton>
           </Stack>
         </Stack>

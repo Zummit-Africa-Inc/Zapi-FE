@@ -4,14 +4,13 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-import ErrorIcon from '@mui/icons-material/Error';
+import { MdError } from "react-icons/md";
+
 import { AUTHENTICATION } from '../testdata'
 import { Transform } from '../components';
 
-
 const Version:React.FC = () => {
     const classes = useStyles();
-
     const [value, setValue] = useState(AUTHENTICATION[0].label);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +21,7 @@ const Version:React.FC = () => {
     <div className={classes.version}>
         <div className={classes.spec}>
             <div className={classes.icon}>
-                <ErrorIcon />        
+                <MdError />        
             </div>
             <span style={{ marginLeft: '8px',fontWeight:600, color:'rgba(0, 0, 0, 0.87)',fontSize:'14px',display:'block',
                 boxSizing:'border-box',outline:'none 0px',
@@ -67,6 +66,7 @@ const Version:React.FC = () => {
     </div>
   )
 }
+
 const useStyles = makeStyles({
     version:{
         padding: '0px',

@@ -10,6 +10,7 @@ import { tableCellClasses } from '@mui/material/TableCell';
 import { makeStyles } from '@mui/styles';
 import { toast } from 'react-toastify';
 import { styled } from '@mui/material/styles';
+import Cookies from "universal-cookie";
 
 import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
 import { removeEndpoint, editEndpoint, getUserApis } from "../redux/slices/userSlice";
@@ -51,6 +52,8 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
   const classes = useStyles()
   const { error, loading, sendRequest } = useHttpRequest()
   let payload : object;
+  const cookies = new Cookies()
+  const profileId = cookies.get("profileId")
   
   const openEditing = (index: number) => {
     setIsEditing(index)
@@ -64,7 +67,7 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
       if(!data || data === undefined) return
       dispatch(editEndpoint(payload))
       setIsEditing(null)
-      dispatch(getUserApis())
+      dispatch(getUserApis(profileId))
     } catch (error) {}
   }
   
@@ -74,7 +77,7 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
       const data = await sendRequest(`/endpoints/${id}`, 'del', core_url, payload, headers)
       if(!data || data === undefined) return
       dispatch(removeEndpoint(id))
-      dispatch(getUserApis())
+      dispatch(getUserApis(profileId))
     } catch (error) {}
   }
   

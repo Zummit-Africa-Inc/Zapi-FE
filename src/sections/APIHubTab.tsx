@@ -1,6 +1,7 @@
 import React, { SyntheticEvent, useState } from "react";
 import { Tab, Tabs } from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
+import { MdApps, MdBuild } from "react-icons/md";
 
 import NewAPICard from "../components/NewAPICard";
 import { useAppSelector } from "../hooks";
@@ -17,7 +18,8 @@ const APIHubTab:React.FC = ({}) => {
     <div className={classes.container}>
       <div className={classes.list}>
         <StyledTabs orientation="vertical" value={tab} onChange={handleTabChange}>
-          {categories.map((category, index) =>  <StyledTab key={index} label={category.name} />)}
+          {categories.map((category, index) =>  <StyledTab key={index} label={category.name} iconPosition="start" icon={<MdBuild />} />)}
+          <StyledTab label="All APIs" iconPosition="start" icon={<MdApps />} />
         </StyledTabs>
       </div>
       <div className={classes.col}>
@@ -30,13 +32,22 @@ const APIHubTab:React.FC = ({}) => {
                 <p>{category.description}</p>
               </div>
               <div className={classes.grid}>
-              {apis.filter((api => api.categoryId === category.id)).map((api) => (
-                <NewAPICard key={api.id} {...api} />
-                ))}
+                {apis.filter((api => api.categoryId === category.id)).map((api) => <NewAPICard key={api.id} {...api} />)}
               </div>
               </>
             </TabPanel>
           ))}
+          <TabPanel value={tab} index={categories.length}>
+            <>
+            <div className={classes.header}>
+              <h2>All APIs</h2>
+              <p>List of all public APIs on ZAPI</p>
+            </div>
+            <div className={classes.grid}>
+              {apis.map((api) => <NewAPICard key={api.id} {...api} />)}
+            </div>
+            </>
+          </TabPanel>
         </div>
       </div>
     </div>
@@ -50,24 +61,28 @@ const StyledTabs = styled(Tabs)({
   "& .MuiTabs-indicator": {
     display: "none",
   },
-  "&.MuiTabs-wrapper": {
-    height: "56px",
-  },
 })
 
 const StyledTab = styled(Tab)({
   width: "100%",
+  height: "56px",
   display: "flex",
   padding: "16px 28px 16px 40px",
-  gap: "20px",
+  gap: "16px",
   "&.Mui-selected": {
     background: "#98CDFE",
   },
   "&.MuiButtonBase-root": {
+    minHeight: "56px",
     display: "flex",
-    alignItems: "flex-start",
+    justifyContent: "flex-start",
     textTransform: "capitalize",
     borderRadius: "8px 0px 0px 8px",
+    padding: "0 0 0 40px"
+  },
+  "& svg": {
+    width: "24px",
+    height: "24px",
   }
 })
 

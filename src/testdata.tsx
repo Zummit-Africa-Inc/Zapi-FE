@@ -1,9 +1,6 @@
 import blueFire from "./assets/images/blueFire.png"
 import purpleFire from "./assets/images/purpleFire.png"
-import ControlCameraIcon from '@mui/icons-material/ControlCamera';
-import ScienceOutlinedIcon from '@mui/icons-material/Science';
-import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import { MdControlCamera, MdOutlineEdit, MdOutlineLanguage, MdOutlineScience } from "react-icons/md";
 
 export const APIS = [
     {
@@ -317,22 +314,22 @@ export const APIData = [
 
   export const DEVELOPERSLINKS = [
     // {
-    //     image: <ControlCameraIcon />,
+    //     image: <MdCameraControl />,
     //     text: "Request",
     //     link: "#"
     // },
     // {
-    //     image: <ScienceOutlinedIcon />,
+    //     image: <MdOutlineScience />,
     //     text: "Tests",
     //     link: "/"
     // },
     {
-        image: <LanguageOutlinedIcon />,
+        image: <MdOutlineLanguage />,
         text: "Hub Listing",
         link: "#"
     },
     // {
-    //     image: <EditOutlinedIcon />,
+    //     image: <MdOutlineEdit />,
     //     text: "Settings",
     //     link: "/"
     // },

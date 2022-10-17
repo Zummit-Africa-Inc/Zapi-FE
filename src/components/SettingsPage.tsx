@@ -1,27 +1,24 @@
-import { useState } from "react";
-import React from "react";
-import SearchIcon from '@mui/icons-material/Search';
+import React, { useState } from "react";
+import { Paper } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { removeEndpoint } from "../redux/slices/userSlice";
 import { toast } from "react-toastify";
-import { useHttpRequest } from "../hooks";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "universal-cookie";
-import { Paper } from "@mui/material";
+import { MdSearch } from "react-icons/md";
+
+import { removeEndpoint } from "../redux/slices/userSlice";
+import { useHttpRequest } from "../hooks";
 
 // const core_url = import.meta.env.VITE_CORE_URL
 const core_url = "VITE_CORE_URL"
 
  const SettingsPage:React.FC = () => {
-    
   const [status, setStatus] = useState("");
   const [popup, setPop] = useState(false);
   const { error, loading, sendRequest } = useHttpRequest()
   const {id} = useParams()
   const navigate = useNavigate()
   const classes = useStyles()
-
-
   const cookies = new Cookies
   const profileId = cookies.get("profileId")
   // const [delete, setDelete] = useState("")
@@ -34,11 +31,12 @@ const core_url = "VITE_CORE_URL"
   const closePopup = () => {
     setPop(false);
   }
+
   function onChangeValue(event:any) {
     setStatus(event.target.value);
   }
-  console.log("okkk", status);
 
+  console.log("okkk", status);
 
   const handleDeleteApi = async (e: any) => {
     e.preventDefault()
@@ -46,9 +44,8 @@ const core_url = "VITE_CORE_URL"
       const data = await sendRequest(`/api/${id}?profileId=${profileId}`, 'del', core_url)
       console.log(data)
       if(!data || data === undefined)return
-     
       toast.success("Delete Successful!")
-       navigate("/developer/dashboard")
+      navigate("/developer/dashboard")
     } catch (error) {}
   }
 
@@ -58,47 +55,27 @@ const core_url = "VITE_CORE_URL"
           <h3>Transfer Ownership</h3>
         </div>
         <div className="col-col">
-          <span>
-            Transfer ownership of this API to another RapidAPI user or team
-          </span>
+          <span>Transfer ownership of this API to another RapidAPI user or team</span>
         </div>
         <div className="col-4">
           <h3>Transfer to</h3>
         </div>
-
         <div>
           <div onChange={onChangeValue}>
             <div className="name-handler">
-              <input
-                id="gender"
-                type="radio"
-                value="User"
-                className="radio"
-                name="User"
-                disabled={true}
-                checked={status === "User"}
-              />
+              <input id="gender" type="radio" value="User" className="radio" name="User" disabled={true} checked={status === "User"} />
               <label className="users">User</label>
             </div>
             <div className="name-handler">
-              <input
-                id="gender"
-                type="radio"
-                className="radio"
-                value="Team"
-                name="Team"
-                disabled={true}
-                checked={status === "Team"}
-              />
+              <input id="gender" type="radio" className="radio" value="Team" name="Team" disabled={true} checked={status === "Team"} />
               <label className="users">Team</label>
             </div>
-
             {status === "User" ? (
               <div className="form-outer">
                 <div className="container">
                   <div className="form">
                     <span className="icon">
-                      <SearchIcon className="icon2" />{" "}
+                      <MdSearch className="icon2" />{" "}
                     </span>
                     <input
                       id="input-input"
@@ -125,9 +102,7 @@ const core_url = "VITE_CORE_URL"
             )}
           </div>
         </div>
-
         <button className="button-1">Transfer Ownership</button>
-
         <div className="name-pro">
           <h3 className="name-col">Delete API Project</h3>
         </div>
@@ -139,12 +114,9 @@ const core_url = "VITE_CORE_URL"
         </span>
         <br />
         <div>
-
         <button onClick={handleClickDelete} data-selected={false} type="button" className='kvng1'>
           <div className='kin101'>Delete API Project</div>
         </button>
-
-
       {popup?
         <form className="del-main">
             <div className="del-con1">
@@ -180,7 +152,6 @@ const core_url = "VITE_CORE_URL"
             <button onClick={handleDeleteApi} className="buttons-1">Delete API Project</button>
           </form>
           :""}
-
       </div>
     </Paper>
     

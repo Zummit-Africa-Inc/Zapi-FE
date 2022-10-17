@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Avatar, Paper, Stack, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { AccessTimeOutlined, BookmarkBorderOutlined, DoneOutlined, NewReleasesOutlined, TrendingUpOutlined, VerifiedOutlined } from "@mui/icons-material";
+import { MdBookmarkBorder, MdNewReleases, MdOutlineAccessTime, MdOutlineBookmarkBorder, MdOutlineDone, MdOutlineNewReleases, MdOutlineTrendingUp, MdOutlineVerified } from "react-icons/md";
 
 interface CardProps {
     id: string
@@ -23,7 +23,7 @@ const APICard: React.FC<CardProps> = ({id,name,description,status,image,latency,
             <Paper elevation={3} className={classes.root}>
                 <Stack direction="row" alignItems="center" justifyContent="space-between">
                     <Avatar src={image} variant="square" sx={{width:40,height:40,objectFit:"contain"}} />
-                    <BookmarkBorderOutlined />
+                    <MdBookmarkBorder />
                 </Stack>
                 <Typography variant="h6" color="primary" my={2}>
                     {name}
@@ -39,24 +39,24 @@ const APICard: React.FC<CardProps> = ({id,name,description,status,image,latency,
                     <Typography variant="subtitle2">
                         Status: Verified 
                     </Typography> 
-                    <VerifiedOutlined fontSize="small" color="success" />
+                    <MdOutlineVerified fontSize="small" color="success" />
                     </>:
                     <>
                     <Typography variant="subtitle2">
                         Status: Unverified 
                     </Typography>
-                    <NewReleasesOutlined fontSize="small" color="error" />
+                    <MdNewReleases fontSize="small" color="error" />
                     </>}
                 </Stack>
                 <Stack direction="row" alignItems="center" justifyContent="space-between">
                     <Typography variant="caption" className={classes.span}>
-                        <TrendingUpOutlined /> {popularity}
+                        <MdOutlineTrendingUp /> {popularity}
                     </Typography>
                     <Typography variant="caption" className={classes.span}>
-                        <AccessTimeOutlined /> {latency}ms
+                        <MdOutlineAccessTime /> {latency}ms
                     </Typography>
                     <Typography variant="caption" className={classes.span}>
-                        <DoneOutlined /> {service_level}%
+                        <MdOutlineDone /> {service_level}%
                     </Typography>
                 </Stack>
             </Paper>

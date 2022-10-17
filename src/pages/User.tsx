@@ -1,19 +1,7 @@
 import React from "react";
 import { styled } from '@mui/material/styles';
-import {
-    Button,
-    ButtonGroup,
-    InputAdornment,
-    TextField,
-    Table,
-    TableHead,
-    TableBody,
-    TableCell,
-    tableCellClasses,
-    TableRow
-} from "@mui/material";
-import SearchIcon from '@mui/icons-material/Search';
-
+import { Button, ButtonGroup, InputAdornment, TextField, Table, TableHead, TableBody, TableCell, tableCellClasses, TableRow } from "@mui/material";
+import { MdSearch } from "react-icons/md";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -22,8 +10,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     }
 }));
 
-
-
 const User = () =>(
     <>
         <div style={{ display: 'flex', position: 'relative', left: "620px", padding: "10px" }}>
@@ -31,7 +17,7 @@ const User = () =>(
                 InputProps={{
             startAdornment: (
                 <InputAdornment position="start">
-                <SearchIcon />
+                <MdSearch />
                 </InputAdornment>
             ),
             }}

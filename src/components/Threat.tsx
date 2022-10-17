@@ -1,8 +1,7 @@
 import React, { useState, FormEvent } from 'react'
 import { Typography } from "@mui/material"
 import { makeStyles } from "@mui/styles"
-import ToggleOffIcon from "@mui/icons-material/ToggleOff";
-import ToggleOnIcon from "@mui/icons-material/ToggleOn";
+import { MdToggleOff, MdToggleOn } from "react-icons/md";
 
 const Threat:React.FC = () => {
     const classes = useStyles();
@@ -38,42 +37,27 @@ const Threat:React.FC = () => {
                 of all requests against pre-defined RegEx patterns, and block matching requests from reaching your servers
                 </Typography>
                 <>
-                    {threatProtection ? (
-                        <div className={classes.main}>
-                            <ToggleOnIcon
-                                fontSize="large"
-                                onClick={disableClick}
-                                className={classes.pointer}
-                                
-                            />{" "}
-                        </div>
-                    ) : (
-
-                        <div className={classes.main}>
-                            <ToggleOffIcon
-                                fontSize="large"
-                                onClick={disableClick}
-                                className={classes.pointer}
-                            />
-                        </div>
-                    )}
-
-
-                        {threatProtection && 
-
-                            <>
-                                <div className={classes.line}></div>
-                                    <div className={classes.subfield}>
-                                        <div className={classes.textfield}>
-                                            <Typography variant='h6' style={{ fontWeight:600, color:'black',fontSize:'16px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>
-                                                Threat protection requires the “Content-Type” header in requests with a body.
-                                                Requests with a body that do not specify a “Content-Type” header will be blocked.
-                                            </Typography> 
-                                        </div>
-                                    </div>
-                            </>
-                        }
-
+                {threatProtection ? (
+                    <div className={classes.main}>
+                        <MdToggleOn fontSize="large" onClick={disableClick} className={classes.pointer} />{" "}
+                    </div>
+                ) : (
+                    <div className={classes.main}>
+                        <MdToggleOff fontSize="large" onClick={disableClick} className={classes.pointer} />
+                    </div>
+                )}
+                {threatProtection && 
+                    <>
+                    <div className={classes.line}></div>
+                    <div className={classes.subfield}>
+                        <div className={classes.textfield}>
+                            <Typography variant='h6' style={{ fontWeight:600, color:'black',fontSize:'16px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>
+                                    Threat protection requires the “Content-Type” header in requests with a body.
+                                    Requests with a body that do not specify a “Content-Type” header will be blocked.
+                            </Typography> 
+                    </div>
+                    </div>
+                    </>}
                 </>
             </div>
 

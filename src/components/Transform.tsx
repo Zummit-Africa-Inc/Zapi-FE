@@ -1,6 +1,6 @@
 import React from 'react'
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { makeStyles } from "@mui/styles"
+import { MdOutlineError } from "react-icons/md";
 
 const Transform:React.FC = () => {
     const classes = useStyles();
@@ -19,7 +19,7 @@ const Transform:React.FC = () => {
             <div className={classes.wrap}>
                 <div className={classes.wrapper}>
                     <div className={classes.error}>
-                        <ErrorOutlineIcon />
+                        <MdOutlineError />
                     </div>
                     <div className={classes.feature}>
                         <span style={{ marginBottom:'12px', fontWeight:600, color:'rgba(0, 0, 0, 0.87)',fontSize:'14px',display:'block', 

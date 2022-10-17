@@ -2,29 +2,28 @@ import React, { ChangeEvent, FormEvent, SyntheticEvent, useState } from 'react'
 import { makeStyles, styled } from "@mui/styles";
 import InputSearch from './InputSearch';
 import { Tab, Tabs, Typography } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
+import { MdAdd, MdGrade, MdLoyalty } from "react-icons/md";
 
 import { useContextProvider } from "../contexts/ContextProvider";
 import TabPanel from './TabPanel';
 import APILayout from './APILayout';
 import Subscription from './Subscription';
-import { Grade, Loyalty } from '@mui/icons-material';
 
 const CustomTabs = styled(Tabs)({
-      '& .MuiTabs-indicator': {
+    '& .MuiTabs-indicator': {
         display: "none"
-      },
+    },
   })
 
 const CustomTab = styled(Tab)({
     width: "190px",
-   "&.MuiTab-wrapper": {
-    height: "45px"
-   },
-'&.Mui-selected': {
-    backgroundColor: '#ccc',
-    borderRadius: "10px",
-  }
+    "&.MuiTab-wrapper": {
+        height: "45px"
+    },
+    '&.Mui-selected': {
+        backgroundColor: '#ccc',
+        borderRadius: "10px",
+    }
   })
 
 const DevAddApi: React.FC = () => { 
@@ -38,13 +37,12 @@ const DevAddApi: React.FC = () => {
     };
 
   const handleSubmit = (e: FormEvent) => {
-    e.preventDefault()
-  }
+        e.preventDefault()
+    }
 
   return (
     <div className={classes.bodyColor}>
         <div className={classes.body}>
-            
             <div className={classes.switch1}>
                 <div className={classes.widget1}>
                     <form onSubmit={handleSubmit} className={classes.search}>
@@ -53,13 +51,13 @@ const DevAddApi: React.FC = () => {
                 </div>
                 <div className={classes.widget2}>
                     <CustomTabs sx={{height: "46px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "10px"}} value={tab} onChange={handleTabChange}>
-                        <CustomTab icon={<Grade />} iconPosition="start" label="My APIS" />
-                        <CustomTab icon={<Loyalty />} iconPosition="start" label="Subscriptions"/>
+                        <CustomTab icon={<MdGrade />} iconPosition="start" label="My APIS" />
+                        <CustomTab icon={<MdLoyalty />} iconPosition="start" label="Subscriptions"/>
                     </CustomTabs>
                 </div>
                 <div>
                     <button className={classes.button} onClick={() => handleClicked('addapi')} style={{height: "46px"}}>
-                        <AddIcon /> <Typography>Add API Project</Typography>
+                        <MdAdd /> <Typography>Add API Project</Typography>
                     </button>
                 </div>
             </div>
@@ -72,13 +70,13 @@ const DevAddApi: React.FC = () => {
                 </div>
                 <div>
                     <button className={classes.button} onClick={() => handleClicked('addapi')} style={{height: "46px"}}>
-                        <AddIcon /> <Typography>Add API Project</Typography>
+                        <MdAdd /> <Typography>Add API Project</Typography>
                     </button>
                 </div>
                 <div className={classes.widget2}>
                     <CustomTabs sx={{ height: "46px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "10px"}} value={tab} onChange={handleTabChange}>
-                        <CustomTab icon={<Grade />} iconPosition="start" label="My APIS" />
-                        <CustomTab icon={<Loyalty />} iconPosition="start" label="Subscriptions"/>
+                        <CustomTab icon={<MdGrade />} iconPosition="start" label="My APIS" />
+                        <CustomTab icon={<MdLoyalty />} iconPosition="start" label="Subscriptions"/>
                     </CustomTabs>
                 </div>
             </div>
@@ -134,7 +132,7 @@ const useStyles = makeStyles({
         minHeight: "100vh",
         background:'#FFFFFF',
         paddingTop: '15px',
-        height: "100vh",
+        height: "auto",
     },
     widget1:{
         display:'flex',

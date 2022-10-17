@@ -3,25 +3,23 @@ import React, { Suspense, useEffect, useMemo } from "react";
 import { Routes, Route } from  "react-router-dom";
 import { ThemeProvider } from "@mui/material";
 import { deviceDetect } from  "react-device-detect";
-
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import Cookies from 'universal-cookie';
 
 import { DevDashboard, DeveloperApiPage, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditions, ResetPassword, Pricing, Documentation, APIHub, Notifications } from "./pages";
 import { Fallback, Login, AddApiPopup, } from "./components";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { login } from "./redux/slices/userSlice";
-import { useAppDispatch, useAppSelector } from "./hooks";
+import { useAppDispatch } from "./hooks";
 import { PrivateRoutes } from "./components/routes";
 import { getUserApis } from "./redux/slices/userSlice";
 import { getApis, getApiCategories } from "./redux/slices/apiSlice";
 import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
-import Cookies from 'universal-cookie';
 
 const App: React.FC = () => {
   const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP } = useContextProvider()
-  const { trigger } = useContextProvider()
   const cookies = new Cookies()
   const profileId = cookies.get("profileId")
   const dispatch = useAppDispatch()
@@ -92,8 +90,6 @@ const App: React.FC = () => {
             <Route path="/documentation" element={<Documentation />} />
             <Route path="/terms" element={<TermsConditions />} />
             <Route path="/api-hub" element={<APIHub />} />
-
-
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
               <Route path="/developer/dashboard" element={<DevDashboard />} />

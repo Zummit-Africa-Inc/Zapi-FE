@@ -1,9 +1,7 @@
 import React from 'react'
 import { makeStyles } from "@mui/styles"
 import { Typography, Stack } from '@mui/material'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-
-
+import { MdCheckCircle } from "react-icons/md";
 
 const Pricing: React.FC = () => {
     const classes = useStyles()
@@ -19,9 +17,8 @@ const Pricing: React.FC = () => {
                     <div className={classes.columns}>
                         <div className={classes.column}>
                             <div className={classes.content}>
-                                
                                 <div style={{ display: 'flex', alignItems:'center', textAlign:'center', marginInlineEnd:'auto', gap:'1rem' }}>
-                                    <CheckCircleIcon sx={{ color:'#B8D4EF'}} />
+                                    <MdCheckCircle style={{ color:'#B8D4EF'}} />
                                     <Stack direction='column' sx={{textAlign:'start', gap:'0.5rem' }}>
                                         <Typography variant='h6' sx={{ fontFamily:'Space Grotesk', fontWeight: 700, fontSize:'24px', lineHeight: '31px'  }}>Freemium</Typography>
                                         <Typography variant='h6' sx={{ fontFamily:'Space Grotesk', fontWeight: 500, fontSize:'16px', lineHeight: '20px' }}>100 requests</Typography>
@@ -31,13 +28,12 @@ const Pricing: React.FC = () => {
                                     <Typography variant='h1' sx={{ fontFamily:'Space Grotesk', fontWeight: 700, fontSize:'36px', lineHeight: '46px', color:'#071B85' }}>$0</Typography>
                                     <Typography variant='h6' sx={{ fontFamily:'Space Grotesk', fontWeight: 500, fontSize:'20px', lineHeight: '26px', color:'#071B85'}}>/ 7 days trial</Typography>
                                 </Stack>
-                                
                             </div>
                         </div>
                         <div className={classes.column}>
                             <div className={classes.content}>
                                 <div style={{ display: 'flex', alignItems:'center', textAlign:'center', marginInlineEnd:'auto', gap:'1rem' }}>
-                                    <CheckCircleIcon sx={{ color:'#B8D4EF'}} />
+                                    <MdCheckCircle style={{ color:'#B8D4EF'}} />
                                     <Stack direction='column' sx={{textAlign:'start', gap:'0.5rem' }}>
                                         <Typography variant='h5' sx={{ fontFamily:'Space Grotesk', fontWeight: 700, fontSize:'24px', lineHeight: '31px' }}>Basic</Typography>
                                         <Typography variant='h6' sx={{ fontFamily:'Space Grotesk', fontWeight: 500, fontSize:'16px', lineHeight: '20px' }}>5,000 requests</Typography>
@@ -47,14 +43,13 @@ const Pricing: React.FC = () => {
                                     <Typography variant='h1' sx={{ fontFamily:'Space Grotesk', fontWeight: 700, fontSize:'36px', lineHeight: '46px', color:'#071B85' }}>$5</Typography>
                                     <Typography variant='h6' sx={{ fontFamily:'Space Grotesk', fontWeight: 500, fontSize:'20px', lineHeight: '26px', color:'#071B85'}}>/month</Typography>
                                 </Stack>
-                                
                             </div>
                         </div>
                     </div>
                     <div className={classes.coll}>
                             <div className={classes.content}>
                                 <div style={{ display: 'flex', alignItems:'center', textAlign:'center', marginInlineEnd:'auto', gap:'1rem'}}>
-                                <CheckCircleIcon sx={{ color:'#B8D4EF'}} />
+                                <MdCheckCircle style={{ color:'#B8D4EF'}} />
                                     <Stack direction='column' sx={{textAlign:'start', gap:'0.5rem' }}>
                                         <Typography variant='h5' sx={{ fontFamily:'Space Grotesk', fontWeight: 700, fontSize:'24px', lineHeight: '31px' }}>Premium</Typography>
                                         <Typography variant='h6' sx={{ fontFamily:'Space Grotesk', fontWeight: 500, fontSize:'16px', lineHeight: '20px' }}>5,000 requests</Typography>
@@ -64,13 +59,12 @@ const Pricing: React.FC = () => {
                                     <Typography variant='h1' sx={{ fontFamily:'Space Grotesk', fontWeight: 700, fontSize:'36px', lineHeight: '46px', color:'#071B85' }}>$5</Typography>
                                     <Typography variant='h6' sx={{ fontFamily:'Space Grotesk', fontWeight: 500, fontSize:'20px', lineHeight: '26px', color:'#071B85'}}>/month</Typography>
                                 </Stack>
-                                
                             </div>
                         </div>
                         <div className={classes.coll}>
                             <div className={classes.content}>
                                 <div style={{ display: 'flex', alignItems:'center', textAlign:'center', marginInlineEnd:'auto', gap:'1rem' }}>
-                                    <CheckCircleIcon sx={{ color:'#B8D4EF'}} />
+                                    <MdCheckCircle style={{ color:'#B8D4EF'}} />
                                     <Stack direction='column' sx={{textAlign:'start', gap:'0.5rem' }}>
                                         <Typography variant='h5' sx={{ fontFamily:'Space Grotesk', fontWeight: 700, fontSize:'24px', lineHeight: '31px' }}>Mega</Typography>
                                         <Typography variant='h6' sx={{ fontFamily:'Space Grotesk', fontWeight: 500, fontSize:'16px', lineHeight: '20px' }}>5,000 requests</Typography>
@@ -80,13 +74,12 @@ const Pricing: React.FC = () => {
                                     <Typography variant='h1' sx={{ fontFamily:'Space Grotesk', fontWeight: 700, fontSize:'36px', lineHeight: '46px', color:'#071B85'}}>$5</Typography>
                                     <Typography variant='h6' sx={{ fontFamily:'Space Grotesk', fontWeight: 500, fontSize:'20px', lineHeight: '26px', color:'#071B85'}}>/month</Typography>
                                 </Stack>
-                                
                             </div>
                         </div>
                         <div className={classes.coll}>
                             <div className={classes.content}>
                                 <div style={{ display: 'flex', alignItems:'center', textAlign:'center', marginInlineEnd:'auto', gap:'1rem' }}>
-                                    <CheckCircleIcon sx={{ color:'#B8D4EF'}} />
+                                    <MdCheckCircle style={{ color:'#B8D4EF'}} />
                                     <Stack direction='column' sx={{textAlign:'start', gap:'0.5rem' }}>
                                         <Typography variant='h5' sx={{ fontFamily:'Space Grotesk', fontWeight: 700, fontSize:'24px', lineHeight: '31px' }}>Entreprise</Typography>
                                         <Typography variant='h6' sx={{ fontFamily:'Space Grotesk', fontWeight: 500, fontSize:'16px', lineHeight: '20px' }}>5,000 requests</Typography>
@@ -96,7 +89,6 @@ const Pricing: React.FC = () => {
                                     <Typography variant='h1' sx={{ fontFamily:'Space Grotesk', fontWeight: 700, fontSize:'36px', lineHeight: '46px', color:'#071B85'}}>$5</Typography>
                                     <Typography variant='h6' sx={{ fontFamily:'Space Grotesk', fontWeight: 500, fontSize:'20px', lineHeight: '26px', color:'#071B85'}}>/month</Typography>
                                 </Stack>
-                                
                             </div>
                         </div>
                 </div> 

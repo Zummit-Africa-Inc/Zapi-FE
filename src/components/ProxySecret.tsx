@@ -1,25 +1,16 @@
 import React, { useState } from 'react'
-import { makeStyles } from "@mui/styles"
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { Typography } from "@mui/material"
-import { useAppSelector } from "../hooks";
 import { useNavigate, useParams } from "react-router-dom";
+import { makeStyles } from "@mui/styles";
+import { MdVisibility, MdVisibilityOff } from "react-icons/md";
+import { Typography } from "@mui/material";
 
+import { useAppSelector } from "../hooks";
 
 const ProxySecret:React.FC = () => {
     const classes = useStyles();
     const { id } = useParams()
     const { userApis } = useAppSelector(store => store.user)
-
     const api = userApis.find(api => api?.id === id)
-    
-    
-
-
-
-    
-
     const [proxySecret, setProxySecret] = useState<boolean>(false);
 
     const toogleProxySecret= () => {
@@ -27,26 +18,24 @@ const ProxySecret:React.FC = () => {
 			return !prevState;
 		});
     }
+
   return (
 
         <div className={classes.proxy}>
             <div className={classes.pro}>
-                <Typography>
-                X-RapidAPI-Proxy-Secret
-                </Typography>
-                
+                <Typography>X-RapidAPI-Proxy-Secret</Typography>                
                 <div className={classes.border}>
                     <>
                         <div className={classes.input} >{" "}
                         {proxySecret ?  api?.secretKey : "****************************" }</div>
                     
                         {proxySecret ? (
-                        <VisibilityOffIcon
+                        <MdVisibilityOff
                             onClick={toogleProxySecret}
                             className={classes.pointer}
                         />
                         ) : (
-                            <VisibilityIcon
+                            <MdVisibility
                                 onClick={toogleProxySecret}
                                 className={classes.pointer}
                             />
@@ -67,6 +56,7 @@ const ProxySecret:React.FC = () => {
         </div>
   )
 }
+
 const useStyles = makeStyles({
     proxy:{
         marginTop: '16px',
@@ -169,4 +159,5 @@ const useStyles = makeStyles({
         
     }
 })
+
 export default ProxySecret

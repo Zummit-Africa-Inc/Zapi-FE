@@ -1,16 +1,13 @@
-import React,{ useState } from 'react'
-import { makeStyles } from "@mui/styles"
-import { Typography } from "@mui/material"
-
-import ToggleOffIcon from "@mui/icons-material/ToggleOff";
-import ToggleOnIcon from "@mui/icons-material/ToggleOn";
-import ErrorIcon from '@mui/icons-material/Error';
+;import React,{ useState } from 'react'
+import { makeStyles } from "@mui/styles";
+import { Typography } from "@mui/material";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-import { SCHEMA } from '../testdata'
+import { MdError, MdToggleOff, MdToggleOn } from "react-icons/md";
 
+import { SCHEMA } from '../testdata';
 
 const Schema:React.FC = () => {
     const classes = useStyles();
@@ -23,87 +20,64 @@ const Schema:React.FC = () => {
 		});
     }
 
-
-
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue((event.target as HTMLInputElement).value);
     };
 
   return (
     <div className={classes.request}>
-                            <div className={classes.text}>
-                                <Typography variant='h6' style={{ fontWeight:600, color:'black',fontSize:'16px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>Request Schema Validation</Typography>
-                            </div>
-                            <div className={classes.field}>
-                                <div className={classes.subfield}>
-                                    <div className={classes.textfield}>
-                                        <Typography variant='h6' style={{ fontWeight:600, color:'black',fontSize:'16px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>
-                                            Automatically validate the path, query and header parameters on run 
-                                            time and block all invalid requests</Typography>
-                                        <Typography variant='h6' style={{ marginTop:'4px', fontWeight:'600px', color:'black',fontSize:'12px',display:'block', boxSizing:'border-box',outline:'none 0px', letterSpacing:'normal',lineHeight:'16px' }}>
-                                            This requires “Content-Type” header in requests with a body.</Typography>
-                                            {threatProtection ? (
-                                                <div className={classes.main}>
-                                                    <ToggleOnIcon
-                                                        fontSize="large"
-                                                        onClick={toogleThreatProtection}
-                                                        className={classes.pointer}
-                                                    />{" "}
-                                                </div>
-                                            ) : (
-
-                                                <div className={classes.main}>
-                                                    <ToggleOffIcon
-                                                        fontSize="large"
-                                                        onClick={toogleThreatProtection}
-                                                        className={classes.pointer}
-                                                    />
-                                                </div>
-                                            )}
-
-                                            {threatProtection && 
-                                            <>
-                                                <div className={classes.line}></div>
-                                                <div className={classes.subcontain}>
-                                                    <div className={classes.submain}>
-                                                        <div className={classes.icon}>
-                                                            <ErrorIcon/>
-                                                        </div>
-                                                        <Typography variant='h6' style={{ marginLeft:'14px', color:'rgba(0, 0, 0, 0.87)', 
-                                                            fontSize:'18px', letterSpacing:'normal', lineHeight:'20px', display:'block',
-                                                            boxSizing:'border-box', outline:'none 0px' }}>
-                                                                Enabled to automatically validate the path,
-                                                                query and header parameters on run time and block all invalid requests
-                                                        </Typography>
-                                                    </div>
-                                                    <div className={classes.select}>
-                                                        <FormControl>
-                                                            <RadioGroup
-                                                                aria-labelledby="demo-controlled-radio-buttons-group"
-                                                                name="controlled-radio-buttons-group"
-                                                                value={value}
-                                                                onChange={handleChange}
-                                                            >
-                                                                {SCHEMA.map((schema) => (
-                                                                    <FormControlLabel control={<Radio />} key={schema.header} {...schema} />
-                                                                ))
-
-                                                                }
-                                                            </RadioGroup>
-                                                        </FormControl>
-
-                                                    </div>
-
-                                                </div>
-
-                                            </>
-
-                                            }
-
-                                    </div>
-                                </div>
-                            </div>
+        <div className={classes.text}>
+            <Typography variant='h6' style={{ fontWeight:600, color:'black',fontSize:'16px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>Request Schema Validation</Typography>
+        </div>
+        <div className={classes.field}>
+            <div className={classes.subfield}>
+                <div className={classes.textfield}>
+                    <Typography variant='h6' style={{ fontWeight:600, color:'black',fontSize:'16px',display:'block', boxSizing:'border-box',outline:'none 0px',letterSpacing:'normal', lineHeight:'24px' }}>
+                        Automatically validate the path, query and header parameters on run 
+                        time and block all invalid requests</Typography>
+                    <Typography variant='h6' style={{ marginTop:'4px', fontWeight:'600px', color:'black',fontSize:'12px',display:'block', boxSizing:'border-box',outline:'none 0px', letterSpacing:'normal',lineHeight:'16px' }}>
+                        This requires “Content-Type” header in requests with a body.</Typography>
+                    {threatProtection ? 
+                    (<div className={classes.main}>
+                        <MdToggleOn fontSize="large" onClick={toogleThreatProtection} className={classes.pointer} />{" "}
                         </div>
+                    ) : (
+                        <div className={classes.main}>
+                            <MdToggleOff fontSize="large" onClick={toogleThreatProtection}className={classes.pointer} />
+                        </div>
+                    )}
+                    {threatProtection && 
+                    <>
+                    <div className={classes.line}></div>
+                    <div className={classes.subcontain}>
+                        <div className={classes.submain}>
+                            <div className={classes.icon}>
+                                <MdError />
+                            </div>
+                            <Typography variant='h6' style={{ marginLeft:'14px', color:'rgba(0, 0, 0, 0.87)', 
+                                fontSize:'18px', letterSpacing:'normal', lineHeight:'20px', display:'block',
+                                boxSizing:'border-box', outline:'none 0px' }}>
+                                    Enabled to automatically validate the path,
+                                    query and header parameters on run time and block all invalid requests
+                            </Typography>
+                        </div>
+                        <div className={classes.select}>
+                            <FormControl>
+                                <RadioGroup
+                                    aria-labelledby="demo-controlled-radio-buttons-group"
+                                    name="controlled-radio-buttons-group"
+                                    value={value}
+                                    onChange={handleChange}>
+                                    {SCHEMA.map((schema) => ( <FormControlLabel control={<Radio />} key={schema.header} {...schema} />))}
+                                </RadioGroup>
+                            </FormControl>
+                        </div>
+                    </div>
+                    </>}
+                </div>
+            </div>
+        </div>
+    </div>
   )
 }
 const useStyles = makeStyles({

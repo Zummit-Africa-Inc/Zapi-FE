@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import { useAppSelector } from "../hooks/redux-hook";
-import { Menu } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
-import { NavLink, useNavigate } from "react-router-dom";
-import { useContextProvider } from "../contexts/ContextProvider";
-import Vector from "../assets/images/Vector.png";
-import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useMediaQuery, useTheme } from "@mui/material";
-import { logout } from "../redux/slices/userSlice";
-import { useAppDispatch } from "../hooks/redux-hook";
 import Cookies from "universal-cookie";
+import { MdMenu } from "react-icons/md";
 
-import { useLocation } from 'react-router-dom'; 
+import { useContextProvider } from "../contexts/ContextProvider";
+import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png";
+import { useAppDispatch } from "../hooks/redux-hook";
+import { logout } from "../redux/slices/userSlice";
+import Vector from "../assets/images/Vector.png";
 
 const HomeNavbar: React.FC = () => {
     const classes = useStyles()
@@ -23,6 +22,7 @@ const HomeNavbar: React.FC = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate()
     const cookies = new Cookies()
+    const location = useLocation();
 
     const handleClick = () => {
         if (open === classes.mobile) {
@@ -38,61 +38,59 @@ const HomeNavbar: React.FC = () => {
         navigate("/")
     }
 
-    const location = useLocation();
-
     return (
         <>
-            <div className={classes.NavBar}>
-                <div className={classes.logo}>
-                    <a href='/'>
-                    <img src={ZapiHomeLogo} alt="zapi-Home" />
-                    </a>
-                    <span className={classes.zapi}>Z-API</span>
-                    <img className={classes.vector} src={Vector} alt="vector-img" />
-                </div>
-                {isMatch ?
-                    <>
-                    {/* <NavLink key={i} to={link.link} className={classes.link} style={({ isActive }) => (
-                            isActive ? {
-                                color: "#FFF",
-                                background: "#9999CC",
-                                borderRadius: "15px"
-                            }
-                                :
-                                {}
-                        )}></NavLink> */}
-                        <div className={open}>
-                                <ul>
-                                    <li><NavLink to="/" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>Home</NavLink></li>
-                                    <li><NavLink to="/api-hub" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>API hub</NavLink></li>
-                                  {isLoggedIn && (<li><NavLink to="/developer/dashboard" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>Dashboard</NavLink></li>)}
-                                    <li><NavLink to="/pricing" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>Pricing</NavLink></li>
-                                    <li><NavLink to="/documentation" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>Documentation</NavLink></li>
-                                    <li><button onClick={() => handleClicked('login')}>Login</button></li>
-                                </ul>
-                            <div className={classes.signup}><NavLink to="/signup">Sign up</NavLink></div>
-                        </div>
-                        <div className={classes.hamburger} onClick={handleClick}>
-                            <Menu />
-                        </div>
-                    </>
-                    :
-                    <div className={classes.links}>
+        <div className={classes.NavBar}>
+            <div className={classes.logo}>
+                <a href='/'>
+                <img src={ZapiHomeLogo} alt="zapi-Home" />
+                </a>
+                <span className={classes.zapi}>Z-API</span>
+                <img className={classes.vector} src={Vector} alt="vector-img" />
+            </div>
+            {isMatch ?
+                <>
+                {/* <NavLink key={i} to={link.link} className={classes.link} style={({ isActive }) => (
+                        isActive ? {
+                            color: "#FFF",
+                            background: "#9999CC",
+                            borderRadius: "15px"
+                        }
+                            :
+                            {}
+                    )}></NavLink> */}
+                    <div className={open}>
                             <ul>
                                 <li><NavLink to="/" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>Home</NavLink></li>
                                 <li><NavLink to="/api-hub" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>API hub</NavLink></li>
-                               {isLoggedIn && (<li><NavLink to="/developer/dashboard" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>Dashboard</NavLink></li>)}
+                                {isLoggedIn && (<li><NavLink to="/developer/dashboard" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>Dashboard</NavLink></li>)}
                                 <li><NavLink to="/pricing" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>Pricing</NavLink></li>
                                 <li><NavLink to="/documentation" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>Documentation</NavLink></li>
-                                {!isLoggedIn && <li><button onClick={() => handleClicked('login')}>Login</button></li>}  
+                                <li><button onClick={() => handleClicked('login')}>Login</button></li>
                             </ul>
-                        {!isLoggedIn ?
-                            <div className={classes.signup}><NavLink to="/signup">Sign up</NavLink></div> : 
-                            <button className={classes.signup} onClick={() => handleLogOut()}>Logout</button>
-                        } 
+                        <div className={classes.signup}><NavLink to="/signup">Sign up</NavLink></div>
                     </div>
-                }
-            </div>
+                    <div className={classes.hamburger} onClick={handleClick}>
+                        <MdMenu />
+                    </div>
+                </>
+                :
+                <div className={classes.links}>
+                        <ul>
+                            <li><NavLink to="/" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>Home</NavLink></li>
+                            <li><NavLink to="/api-hub" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>API hub</NavLink></li>
+                            {isLoggedIn && (<li><NavLink to="/developer/dashboard" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>Dashboard</NavLink></li>)}
+                            <li><NavLink to="/pricing" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>Pricing</NavLink></li>
+                            <li><NavLink to="/documentation" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>Documentation</NavLink></li>
+                            {!isLoggedIn && <li><button onClick={() => handleClicked('login')}>Login</button></li>}  
+                        </ul>
+                    {!isLoggedIn ?
+                        <div className={classes.signup}><NavLink to="/signup">Sign up</NavLink></div> : 
+                        <button className={classes.signup} onClick={() => handleLogOut()}>Logout</button>
+                    } 
+                </div>
+            }
+        </div>
         </>
     )
 }

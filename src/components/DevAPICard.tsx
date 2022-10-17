@@ -1,8 +1,7 @@
 import React from "react";
-import { makeStyles } from "@mui/styles";
-import { blue } from '@mui/material/colors';
 import { Avatar, CardHeader, IconButton, Paper, Box, Card, CardContent, Typography } from "@mui/material";
-import { Animation, MoreVertRounded } from "@mui/icons-material";
+import { MdAnimation, MdMoreVert } from "react-icons/md";
+import { blue } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 
 interface CardProps {
@@ -12,7 +11,6 @@ interface CardProps {
 };
 
 const DevAPICard: React.FC<CardProps> = ({id,name,description}) => {
-    const classes = useStyles();
 
     return (
         <Link to={`/developer/api/${id}`}>
@@ -24,12 +22,12 @@ const DevAPICard: React.FC<CardProps> = ({id,name,description}) => {
                             <CardHeader
                                 avatar={
                                 <Avatar sx={{ bgcolor: blue[500], mb: 1, mr: 5, ml: -2 }}>
-                                    <Animation />
+                                    <MdAnimation />
                                 </Avatar>
                                 }
                                 action={
                                 <IconButton aria-label="settings">
-                                    <MoreVertRounded />
+                                    <MdMoreVert />
                                 </IconButton>
                                 }
                             />
@@ -50,11 +48,6 @@ const DevAPICard: React.FC<CardProps> = ({id,name,description}) => {
         </Link>
     );
 };
-
-
-const useStyles = makeStyles({
-   
-});
 
 export default DevAPICard;
 

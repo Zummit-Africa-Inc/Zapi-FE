@@ -2,16 +2,7 @@ import React, { ReactNode, useState } from "react";
 import { makeStyles } from "@mui/styles";
 import { Link } from 'react-router-dom';
 import { Stack, Typography, Avatar, TextField, Tabs, Tab, Box, List, ListItemButton, ListItemIcon, ListItemText, Collapse } from "@mui/material";
-import { ExpandMore } from "@mui/icons-material";
-
-
-
-import AddIcon from '@mui/icons-material/Add';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import ConstructionIcon from '@mui/icons-material/Construction';
-import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
-import SupportAgentIcon from "@mui/icons-material/SupportAgent";
+import { MdAccountBalanceWallet, MdAdd, MdBarChart, MdConstruction, MdDashboard, MdExpandMore, MdSupportAgent } from "react-icons/md";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -86,9 +77,9 @@ const APIPage: React.FC<Props> = ({addApi}) => {
             sx={{ borderRight: 1, borderColor: 'divider', display: 'flex'}}
             >
               
-            <Tab label="Add API"{...a11yProps(0)} icon={<AddIcon />} iconPosition="start"  />
-            <Tab label="Payment Setting" {...a11yProps(1)} icon={<AccountBalanceWalletIcon />} iconPosition="start" />
-            <Tab label="Support" {...a11yProps(2)} icon={<SupportAgentIcon />} iconPosition="start" />
+            <Tab label="Add API"{...a11yProps(0)} icon={<MdAdd />} iconPosition="start"  />
+            <Tab label="Payment Setting" {...a11yProps(1)} icon={<MdAccountBalanceWallet />} iconPosition="start" />
+            <Tab label="Support" {...a11yProps(2)} icon={<MdSupportAgent />} iconPosition="start" />
           </Tabs>
           <Stack direction='row' alignItems='center'>
             <form>
@@ -102,7 +93,7 @@ const APIPage: React.FC<Props> = ({addApi}) => {
         <ListItemButton onClick={handleClick}>
             <ListItemText primary="default-application">
             </ListItemText>
-                <ExpandMore />
+                <MdExpandMore />
         </ListItemButton>
         <Collapse in={!open} timeout="auto" unmountOnExit>
             {/* Dashboard */}
@@ -110,7 +101,7 @@ const APIPage: React.FC<Props> = ({addApi}) => {
             <Link to='/developers/dashboard/' className={classes.link}>
               <ListItemButton sx={{ pl: 4 }}>
                   <ListItemIcon>
-                  <DashboardIcon  />
+                  <MdDashboard />
                   </ListItemIcon>
                   <ListItemText primary="Dashboard" />
               </ListItemButton>
@@ -121,7 +112,7 @@ const APIPage: React.FC<Props> = ({addApi}) => {
             <Link to='/configuration' className={classes.link}>
             <ListItemButton sx={{ pl: 4 }}>
                 <ListItemIcon>
-                < ConstructionIcon />
+                <MdConstruction />
                 </ListItemIcon>
                 <ListItemText primary="Configuration" />
             </ListItemButton>
@@ -132,7 +123,7 @@ const APIPage: React.FC<Props> = ({addApi}) => {
             <Link to='/analytics' className={classes.link}>
               <ListItemButton sx={{ pl: 4 }}>
                   <ListItemIcon>
-                  < BarChartIcon />
+                  <MdBarChart />
                   </ListItemIcon>
                   <ListItemText primary="Analytics" />
               </ListItemButton>

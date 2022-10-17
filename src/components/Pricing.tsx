@@ -1,6 +1,6 @@
 import React, { SyntheticEvent, useState } from "react";
 import { Avatar, Stack, Typography, List, ListItemButton, ListItemIcon, ListItemText, Collapse } from "@mui/material";
-import { LooksOne, LooksTwo, Looks3, ExpandMore } from "@mui/icons-material";
+import { MdExpandMore, MdLooks3, MdLooksOne, MdLooksTwo } from "react-icons/md";
 import { blue } from "@mui/material/colors";
 import { makeStyles } from "@mui/styles";
 import PricingTable from "./PricingTable";
@@ -12,7 +12,6 @@ import countries from "../assets/images//countries.jpg";
 import sponsors from "../assets/images/sponsors.jpg";
 import charts from "../assets/images/charts.jpg";
 
-
 const Pricing:React.FC = () => {
     const classes = useStyles()
 
@@ -21,7 +20,6 @@ const Pricing:React.FC = () => {
     const handleClick = (e: SyntheticEvent) => {
         setOpen(!open);
     };
-
 
   return (
     <div>
@@ -45,13 +43,13 @@ const Pricing:React.FC = () => {
             </ListItemIcon>
             <ListItemText primary="Personal Account">
             </ListItemText>
-                <ExpandMore />
+                <MdExpandMore />
         </ListItemButton>
         <Collapse in={!open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
             <ListItemButton sx={{ pl: 4 }}>
                 <ListItemIcon>
-                < Avatar />
+                    <Avatar />
                 </ListItemIcon>
                 <ListItemText primary="Dummy Name" />
             </ListItemButton>
@@ -173,7 +171,7 @@ const Pricing:React.FC = () => {
             <Stack alignItems="center">
                 <Stack textAlign="center" justifyContent="space-between" spacing={1} direction={{xs: "column", sm: "column", md: "row", lg: "row"}} mt={2}>
                     <Stack alignItems="center">
-                        <LooksOne sx={{ width: 65, height: 65, objectFit: "contain", color: blue[500]}}/>
+                        <MdLooksOne sx={{ width: 65, height: 65, objectFit: "contain", color: blue[500]}}/>
                         <Typography variant="h5" gutterBottom>
                             Call volume and billing
                         </Typography>
@@ -182,7 +180,7 @@ const Pricing:React.FC = () => {
                         </Typography>
                     </Stack>
                     <Stack alignItems="center">
-                        <LooksTwo sx={{ width: 65, height: 65, objectFit: "contain", color: blue[500] }}/>
+                        <MdLooksTwo sx={{ width: 65, height: 65, objectFit: "contain", color: blue[500] }}/>
                         <Typography variant="h5" gutterBottom>
                             Errors and latency
                         </Typography>
@@ -191,7 +189,7 @@ const Pricing:React.FC = () => {
                         </Typography>
                     </Stack>
                     <Stack alignItems="center">
-                        <Looks3 sx={{ width: 65, height: 65, objectFit: "contain", color: blue[500] }}/>
+                        <MdLooks3 sx={{ width: 65, height: 65, objectFit: "contain", color: blue[500] }}/>
                         <Typography variant="h5" gutterBottom>
                             Logs for your API calls
                         </Typography>

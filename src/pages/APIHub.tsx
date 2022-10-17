@@ -14,5 +14,4 @@ const APIHub:React.FC = () => {
     )
 }
 
-
 export default APIHub;

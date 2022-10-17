@@ -1,50 +1,45 @@
 import React, { useState, FormEvent, useEffect} from 'react';
 import { makeStyles } from "@mui/styles";
 import OtpInput from "react-otp-input";
-
-import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png"
 import { Typography } from "@mui/material";
-import {Cancel} from '@mui/icons-material';
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { PasswordStrengthMeter } from "../components";
+import { MdCancel } from "react-icons/md";
 
+import { PasswordStrengthMeter } from "../components";
+import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png"
 import { PASSWORD_REGEX, MATCH_CHECKER }from "../utils"
 import { toast }  from "react-toastify";
 
-
 const identity_url = import.meta.env.VITE_IDENTITY_URL;
-
 
 const ResetPassword: React.FC = () => {
   const navigate = useNavigate();
+  const classes = useStyles();
+  const [password, setPassword] = useState<string>("");
+  const [passwordConfirm, setPasswordConfirm] = useState<string>("");
+  const [code, setCode] = useState<string>("");
+  const [inputShow, setInputShow] = useState<boolean | string>(false);
+  const param = useParams();
 
-    const classes = useStyles();
-    const [password, setPassword] = useState<string>("");
-    const [passwordConfirm, setPasswordConfirm] = useState<string>("");
-    const [code, setCode] = useState<string>("");
-    const [inputShow, setInputShow] = useState<boolean | string>(false);
+  const handleChange = (code:any) => {
+    return setCode(code);
+  };
 
-    const handleChange = (code:any) => {
-      return setCode(code);
-    };
+  useEffect(() => {
+    if (code.length >= 6 ){
+        setInputShow(true);
+    } else if( code.length < 1 || code.length == 0){
+      setInputShow(false);
+    }
+  },[code])
 
-    const param = useParams();
-
-    useEffect(() => {
-      if (code.length >= 6 ){
-          setInputShow(true);
-      } else if( code.length < 1 || code.length == 0){
-        setInputShow(false);
-      }
-    },[code])
-
-    const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      if( !password || !passwordConfirm) return toast.error('Please fill all fields')
-      if(!PASSWORD_REGEX.test(password)) return toast.error('Password is not strong enough')
-      if(!MATCH_CHECKER(password, passwordConfirm)) return toast.error('Passwords do not match')
-      const userData = { password: password, otp: code }
+  const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if( !password || !passwordConfirm) return toast.error('Please fill all fields')
+    if(!PASSWORD_REGEX.test(password)) return toast.error('Password is not strong enough')
+    if(!MATCH_CHECKER(password, passwordConfirm)) return toast.error('Passwords do not match')
+    const userData = { password: password, otp: code }
     try{
       const url = `${identity_url}/auth/reset`;
       const res = await axios.post(url, userData);
@@ -52,7 +47,6 @@ const ResetPassword: React.FC = () => {
       setTimeout(() => {
         navigate("/");  
       }, 5000);
-
     } catch (error: any){
       if (error.request.status === 400) {
         return toast.error(error.response.data.message);
@@ -60,8 +54,7 @@ const ResetPassword: React.FC = () => {
         return toast.error(error.message)
       }
     }
-
-    }
+  }
 
   return (
     <>
@@ -72,11 +65,9 @@ const ResetPassword: React.FC = () => {
 
         <form  className={classes.form} onSubmit={handleSubmit}>
         <Typography variant='body1' className={classes.title} gutterBottom>Input the Otp code sent to your mail</Typography>
-
         <OtpInput value={code} onChange={handleChange} numInputs={6} separator={<span style={{width: "8px"}}></span>} isInputNum={true}
             shouldAutoFocus={true} inputStyle={{border: "1px solid #081F4A",width: "54px",height: "54px",fontSize: "12px",color: "#000",fontWeight: "400",caretColor: "blue"}}
             focusStyle={{border: "1px solid #CFD3DB",outline: "none"}} />
-            
             {inputShow &&
                 <>
                 <div className={classes.input}>
@@ -91,7 +82,7 @@ const ResetPassword: React.FC = () => {
                     ? { border: '2px solid red' }
                     : { border: '2.5px solid green' }
               }  />
-                {MATCH_CHECKER(password, passwordConfirm) ? <></> : <span><Cancel sx={{ fontSize: 15, marginRight:1  }}  color="error"/> Password does not match</span>}
+                {MATCH_CHECKER(password, passwordConfirm) ? <></> : <span><MdCancel style={{fontSize:15,marginRight:1}}  color="error"/> Password does not match</span>}
                 </div>
                 </>
             }

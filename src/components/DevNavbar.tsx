@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
-import { Link } from 'react-router-dom';
-import { IconButton } from "@mui/material";
+import { Button, IconButton, ListItem } from "@mui/material";
 import { FiMenu, FiX } from "react-icons/fi"
-import { Menu } from "@mui/icons-material";
-import { useAppDispatch, useAppSelector } from "../hooks/redux-hook";
-import { logout } from "../redux/slices/userSlice";
+import { MdMenu } from "react-icons/md";
 import Cookies from "universal-cookie";
 import { io } from 'socket.io-client';
 
-import { ZapiArrow } from '../assets';
-import { Button, ListItem } from '@mui/material'
+import { useAppDispatch, useAppSelector } from "../hooks/redux-hook";
+import { useContextProvider } from "../contexts/ContextProvider";
+import { logout } from "../redux/slices/userSlice";
 import Notification from './Notification';
+import { ZapiArrow, ZapiDevLogo, ZapiWidget } from '../assets';
+import Menus from "./Menus";
 interface NavbarProps {
     id?: string
 };
@@ -66,7 +66,7 @@ const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
             <div className={classes.right_container}>
                 <Notification socket={socket}/>
                 <div className={classes.hamburger} onClick={handleClick}>
-                    <Menu />
+                    <MdMenu />
                 </div>
             </div>
             
