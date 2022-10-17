@@ -8,7 +8,6 @@ import ZapiDash from './images/developer_board.svg';
 import ZapiApps from './images/apps.svg';
 import ZapiHelp from './images/help.svg';
 import ZapiArrow from './images/arrow_drop_down.svg';
-import ZapiPic from './images/pic.svg';
 import Frame from "./images/frame.svg";
 import Nvidia from "./images/Nvidia.png";
 import Zummit from "./images/Zummit.png";
@@ -17,7 +16,7 @@ import Aws from "./images/AWS.png";
 import Spinner from "./icons/Spinner";
 
 export { GoogleIcon, LinkedInIcon, Spinner, TwitterIcon, YoutubeIcon, ZapiDevLogo,
-    ZapiWidget, ZapiDash, ZapiApps, ZapiHelp, ZapiArrow, ZapiPic }
+    ZapiWidget, ZapiDash, ZapiApps, ZapiHelp, ZapiArrow }
 
 export const FOOTER_LINKS = [
     {
