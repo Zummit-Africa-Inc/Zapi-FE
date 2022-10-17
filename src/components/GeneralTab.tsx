@@ -15,18 +15,19 @@ enum APIVisibility {
   PUBLIC = 'public'
 }
   
-const core_url = import.meta.env.VITE_CORE_URL;
+// const core_url = import.meta.env.VITE_CORE_URL;
+const core_url = "VITE_CORE_URL";
   
 const GeneralTab: React.FC = () => {
   const { apis } = useAppSelector(store => store.apis)
-  const [description, setDescription] = useState("")
-  const [about, setAbout] = useState("")
-  const [api_website, setApi_website] = useState("")
-  const [term_of_use, setTerm_of_use] = useState("")
+  const [description, setDescription] = useState<String>("")
+  const [about, setAbout] = useState<String>("")
+  const [api_website, setApi_website] = useState<String>("")
+  const [term_of_use, setTerm_of_use] = useState<String>("")
   const [base_url, setBase_url] = useState<String>("");
   const [visibility, setVisibility] = useState<String>(APIVisibility.PUBLIC)
   const [categoryId, setCategoryId] = useState<String>("");
-  const [read_me, setRead_me] = useState("")
+  const [read_me, setRead_me] = useState<String>("")
   const { error, loading, sendRequest } = useHttpRequest()
   const cookies = new Cookies()
   const profileId = cookies.get("profileId")
@@ -58,7 +59,7 @@ const GeneralTab: React.FC = () => {
     const payload = { categoryId, description, base_url, visibility, read_me, about, api_website, term_of_use }
     const headers = { 'Content-Type': 'application/json' }
     try{
-      const data = await sendRequest(`${core_url}/api/${id}?profileId=${profileId}`, 'PATCH', JSON.stringify(payload), headers)
+      const data = await sendRequest(`/api/${id}?profileId=${profileId}`, 'patch', core_url, payload, headers)
       if (data === undefined) return
       dispatch(editAPI(payload))
       navigate("/developer/dashboard")
@@ -93,15 +94,15 @@ const GeneralTab: React.FC = () => {
         </Box>
         <Box mt={2}>
           <InputLabel htmlFor="read_me">Read Me (optional)</InputLabel>
-          <TextField value={read_me} variant="outlined" name="read_me" onChange={(e) => setRead_me(e.target.value)} multiline id="read_me" maxRows={10} fullWidth={true} helperText="Describe in detail what’s API do and how it might be helpful" />
+          <TextField value={read_me == null ? "" : read_me} variant="outlined" onChange={(e) => setRead_me(e.target.value)} multiline id="read_me" maxRows={10} fullWidth={true} helperText="Describe in detail what’s API do and how it might be helpful" />
         </Box>
         <Box mt={2}>
           <InputLabel htmlFor="documentation">Documentation (optional)</InputLabel>
-          <TextField variant="outlined" value={about} name="about" onChange={(e) => setAbout(e.target.value)} multiline id="documentation" maxRows={10} fullWidth={true} helperText="Use this section to provide detailed documentation of your API and to highlight its benefits and features." />
+          <TextField variant="outlined" value={about == null ? "" : about} name="about" onChange={(e) => setAbout(e.target.value)} multiline id="documentation" maxRows={10} fullWidth={true} helperText="Use this section to provide detailed documentation of your API and to highlight its benefits and features." />
         </Box>
         <Box mt={2}>
           <InputLabel htmlFor="api_website">Website(optional)</InputLabel>
-          <TextField placeholder="https://" value={api_website} name="api_website" onChange={(e) => setApi_website(e.target.value)} variant="outlined" id="website" fullWidth={true} />
+          <TextField placeholder="https://" value={api_website == null ? "" : api_website} name="api_website" onChange={(e) => setApi_website(e.target.value)} variant="outlined" id="website" fullWidth={true} />
         </Box>
         <Box mt={2}>
         <Typography variant="body1" fontSize="20px" fontWeight={800}>Visibility</Typography>
@@ -139,7 +140,7 @@ const GeneralTab: React.FC = () => {
         <Box mt={2}>
           <Typography variant="body1" fontSize="20px" fontWeight={800}>Additional Information</Typography>
           <InputLabel htmlFor="terms">Terms of Use (optional)</InputLabel>
-          <TextField variant="outlined" value={term_of_use} multiline name="term_of_use" onChange={(e) => setTerm_of_use(e.target.value)} maxRows={10} fullWidth={true} />
+          <TextField variant="outlined" value={term_of_use == null ? "" : term_of_use} multiline name="term_of_use" onChange={(e) => setTerm_of_use(e.target.value)} maxRows={10} fullWidth={true} />
         </Box>
         <Box>
           <Stack direction="row" spacing={2} mt={5}>

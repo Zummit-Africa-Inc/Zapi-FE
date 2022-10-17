@@ -34,13 +34,13 @@ const Footer: React.FC = () => {
           &copy; {new Date().getFullYear()} ZAPI
         </Typography>
         <Stack direction="row" alignItems="center" spacing={2}>
-          <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
+          <a href="https://twitter.com/zummitafrica" target="_blank" rel="noopener noreferrer">
             <img src={TwitterIcon} alt="twitter logo" />
           </a>
-          <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer">
+          <a href="https://linkedin.com/company/zummit-africa/" target="_blank" rel="noopener noreferrer">
             <img src={LinkedInIcon} alt="linkedin logo" />
           </a>
-          <a href="https://youtube.com/" target="_blank" rel="noopener noreferrer">
+          <a href="https://youtube.com/channel/UC64g6K2pxfFwbFufOCcTJfQ" target="_blank" rel="noopener noreferrer">
             <img src={YoutubeIcon} alt="youtube logo" />
           </a>
         </Stack>

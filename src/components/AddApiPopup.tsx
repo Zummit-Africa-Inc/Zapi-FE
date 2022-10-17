@@ -1,6 +1,14 @@
 import React, { FormEvent } from "react";
-import { Typography, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, MenuItem } from "@mui/material";
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import {
+  Typography,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormControl,
+  FormLabel,
+  MenuItem,
+} from "@mui/material";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { makeStyles } from "@mui/styles";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
@@ -9,95 +17,144 @@ import { useContextProvider } from "../contexts/ContextProvider";
 import { useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
 import { Fallback } from "../components";
 
-const core_url = import.meta.env.VITE_CORE_URL
+// const core_url = import.meta.env.VITE_CORE_URL
+const core_url = "VITE_CORE_URL";
 
-const initialState = { name: "", description: "", base_url: "", categoryId: "" };
+const initialState = {
+  name: "",
+  description: "",
+  base_url: "",
+  categoryId: "",
+};
 
 const AddApiPopup: React.FC = () => {
   const { loading, error, sendRequest, clearError } = useHttpRequest();
   const { inputs, bind, select } = useFormInputs(initialState);
-  const { name, description, base_url, categoryId } = inputs
-  const { handleUnclicked } = useContextProvider()
+  const { name, description, base_url, categoryId } = inputs;
+  const { handleUnclicked } = useContextProvider();
   const classes = useStyles();
-  const { apis } = useAppSelector(store => store.apis)
-  const cookies = new Cookies()
-  const profileId = cookies.get("profileId")
+  const { apis } = useAppSelector((store) => store.apis);
+  const cookies = new Cookies();
+  const profileId = cookies.get("profileId");
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-
-    if(!name || !description || !base_url || !categoryId) return toast.error('Please fill all fields')
-    const payload = { name, description, base_url, categoryId }
-    const headers = { 'Content-Type': 'application/json' }
+    e.preventDefault();
+    if (!name || !description || !base_url || !categoryId)
+      return toast.error("Please fill all fields");
+    const payload = { name, description, base_url, categoryId };
+    const headers = { "Content-Type": "application/json" };
     try {
-      const data = await sendRequest(`${core_url}/api/new/${profileId}`, 'POST', JSON.stringify(payload), headers)
-      const { message } = data
-      toast.success(`${message}`)
+      const data = await sendRequest(
+        `/api/new/${profileId}`,
+        "post",
+        core_url,
+        payload,
+        headers
+      );
+      if (!data || data === null) return;
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+      const { message } = data;
+      toast.success(`${message}`);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-    handleUnclicked()
-  }
+    handleUnclicked();
+  };
 
   return (
     <>
-    {loading && <Fallback />}
-    <div className={classes.container} onClick={() => handleUnclicked('addapi')}>
-      <div className={classes.main} onClick={(e) => e.stopPropagation()}>
-        <Typography variant="body1" fontSize="24px" lineHeight="30px" fontWeight={700} mb={3}>
-          Add API Project
-        </Typography>
-        <form className={classes.form} onSubmit={handleSubmit}>
-          <div className={classes.input}>
-            <label>Name</label>
-            <input type="text" name='name' {...bind} placeholder="Add API Name" />
-          </div>
-          <div className={classes.input}>
-            <label>Description</label>
-            <input type="text" name="description" {...bind} placeholder="Add API Description" />
-          </div>
-          <div className={classes.input}>
-            <label>Category</label>
-            <FormControl className={classes.input}>
-              <Select name="categoryId" value={categoryId} displayEmpty inputProps={{'aria-label': 'Category'}} {...select}>
-                {apis.map((item) => (
-                  <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </div>
-          <div className={classes.input}>
-            <label>Base Url</label>
-            <input type="text" name="base_url" {...bind} placeholder="Add Base Url" />
-          </div>
-          <div style={{ gap: "40px", display: "flex", flexDirection: "row", marginLeft: "auto" }}>
-            <button type="button" className={classes.cancelBtn} onClick={() => handleUnclicked('addapi')}>
-              Cancel
-            </button>
-            <button type="submit" className={classes.addBtn}>
-              Add API Project
-            </button>
-          </div>
-        </form>
-        {/* Radio Buttons */}
-        {/* <FormControl>
-          <FormLabel id="demo-radio-buttons-group-label" sx={{fontSize: "16px", fontWeight: "500", lineHeight: "24px", color: "#000000", marginBottom: "10px", marginTop: "10px"}}>Import data from</FormLabel>
-          <RadioGroup aria-labelledby="demo-radio-buttons-group-label" defaultValue="female" name="radio-buttons-group">
-              <FormControlLabel value="Do not Import" control={<Radio />} label="Do not Import" />
-              <FormControlLabel value="Open API" control={<Radio />} label="Open API" />
-              <FormControlLabel value="Rapid API" control={<Radio />} label="Rapid API" />
-              <FormControlLabel value="Postman Collection" control={<Radio />} label="Postman Collection" />
-          </RadioGroup>
-      </FormControl> */}
-        {/* Divider */}
-        {/* <div className={classes.divider} /> */}
-        {/* Add and Cancel Buttons */}
+      {loading && <Fallback />}
+      <div
+        className={classes.container}
+        onClick={() => handleUnclicked("addapi")}>
+        <div className={classes.main} onClick={(e) => e.stopPropagation()}>
+          <Typography
+            variant="body1"
+            fontSize="24px"
+            lineHeight="30px"
+            fontWeight={700}
+            mb={3}>
+            Add API Project
+          </Typography>
+          <form className={classes.form} onSubmit={handleSubmit}>
+            <div className={classes.input}>
+              <label>Name</label>
+              <input
+                type="text"
+                name="name"
+                {...bind}
+                placeholder="Add API Name"
+              />
+            </div>
+            <div className={classes.input}>
+              <label>Description</label>
+              <input
+                type="text"
+                name="description"
+                {...bind}
+                placeholder="Add API Description"
+              />
+            </div>
+            <div className={classes.input}>
+              <label>Category</label>
+              <FormControl className={classes.input}>
+                <Select
+                  name="categoryId"
+                  value={categoryId}
+                  displayEmpty
+                  inputProps={{ "aria-label": "Category" }}
+                  {...select}>
+                  {apis.map((item) => (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </div>
+            <div className={classes.input}>
+              <label>Base Url</label>
+              <input
+                type="text"
+                name="base_url"
+                {...bind}
+                placeholder="Add Base Url"
+              />
+            </div>
+            <div
+              style={{
+                gap: "40px",
+                display: "flex",
+                flexDirection: "row",
+                marginLeft: "auto",
+              }}>
+              <button
+                type="button"
+                className={classes.cancelBtn}
+                onClick={() => handleUnclicked("addapi")}>
+                Cancel
+              </button>
+              <button type="submit" className={classes.addBtn}>
+                Add API Project
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
     </>
   );
 };
 
-const categories = ['Advertising', 'Sports', 'Data Analysis', 'Artificial Intelligence', 'Business', 'Finances']
+const categories = [
+  "Advertising",
+  "Sports",
+  "Data Analysis",
+  "Artificial Intelligence",
+  "Business",
+  "Finances",
+];
 
 const useStyles = makeStyles({
   container: {
@@ -131,7 +188,7 @@ const useStyles = makeStyles({
     gap: "1rem",
     "@media screen and (max-width: 768px)": {
       width: "70%",
-    }
+    },
   },
   input: {
     width: "500px",
@@ -154,11 +211,11 @@ const useStyles = makeStyles({
       fontWeight: 500,
       fontSize: "16px",
       lineHeight: "16px",
-      marginBottom: "3px"
+      marginBottom: "3px",
     },
     "@media screen and (max-width: 768px)": {
       width: "100%",
-    }
+    },
   },
   button: {
     width: "440px",
@@ -176,7 +233,7 @@ const useStyles = makeStyles({
     padding: "0 1rem",
     "@media screen and (max-width: 768px)": {
       width: "100%",
-    }
+    },
   },
   link: {
     textDecoration: "underline",
@@ -187,7 +244,7 @@ const useStyles = makeStyles({
     height: "1px",
     background: "Grey",
     marginTop: "10px",
-    marginBottom: "20px"
+    marginBottom: "20px",
   },
   cancelBtn: {
     display: "flex",
@@ -195,14 +252,13 @@ const useStyles = makeStyles({
     alignItems: "center",
     padding: "8px 16px",
     gap: "16px",
-    // width: "150px",
     fontFamily: "inherit",
     height: "46px",
     cursor: "pointer",
     background: "offwhite",
     color: "#1D1D1D",
     border: "1px solid #1D1D1D",
-    borderRadius: "8px"
+    borderRadius: "8px",
   },
   addBtn: {
     display: "flex",
@@ -217,8 +273,8 @@ const useStyles = makeStyles({
     borderRadius: "8px",
     textAlign: "center",
     margin: "0 auto",
-    cursor: "pointer"
-  }
-})
+    cursor: "pointer",
+  },
+});
 
 export default AddApiPopup;

@@ -1,47 +1,45 @@
 import { TextField, Typography } from "@mui/material"
 import { makeStyles } from "@mui/styles"
 import React, { useEffect, useState } from "react"
-import { useAppDispatch, useAppSelector } from "../hooks"
+import { useAppDispatch, useAppSelector, useHttpRequest } from "../hooks"
 import { getFreeApis } from "../redux/slices/freeApiSlice"
 
-const core_url = import.meta.env.VITE_CORE_URL
+// const core_url = import.meta.env.VITE_CORE_URL
+const core_url = "VITE_CORE_URL"
+const X_ZAPI_FREE_TOKEN = import.meta.env.VITE_FREE_REQUEST_TOKEN
 
 const Hero: React.FC = () => {
   const classes = useStyles()
   const [apiId, setApiId] = useState<string>("")
-  const [query, setQuery] = useState<string>("{}")
+  const [query, setQuery] = useState<string>("")
   const [data, setData] = useState("")
   const dispatch = useAppDispatch()
   const { freeApis } = useAppSelector(store => store.freeApis)
   const [apiName, setApiName] = useState<string>("")
+  const { sendRequest } = useHttpRequest()
 
-  // to get the name of the selected api
   useEffect(() => {
     const api = freeApis.find(api => api.id === apiId)
     if(!api) return
       setApiName(api.name)
   }, [apiId]) 
 
-  // to remove any spacing in the api name and convert to lowercase
   const pathName = apiName.replace(/ /g, "").toLowerCase()
 
   useEffect(() => {
     dispatch(getFreeApis())
   }, [])
 
+  const headers = {
+    "X-ZAPI-FREE-TOKEN": X_ZAPI_FREE_TOKEN
+  }
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+   
     try {
-      const json = JSON.parse(query);
-      const res = await fetch(`${core_url}/subscription/free-request/${apiId}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: query
-      })
-      const data = await res.json()
-      setData(data.answer)
+      const res = await sendRequest(`/subscription/free-request/${apiId}`, 'post', core_url, JSON.parse(query), headers)
+      setData(res.answer)
+      setData(res[0].summary_text)
     } catch (error) {
       alert("Input must be a JSON String");
     }
@@ -66,12 +64,12 @@ const Hero: React.FC = () => {
             </option>
           ))}
         </select>
-        <input type="text" className={classes.input} value={"https://zapi.com/" + pathName} placeholder="drowsinessdetection" />
+        <TextField type="text" className={classes.input} value={"https://zapi.com/" + pathName} placeholder="drowsinessdetection" />
         <button className={classes.send}>Send</button>
       </form>
       <div className={classes.actionBoxes}>
         <TextField className={classes.box} value={query} onChange={(e) => setQuery(e.target.value)} fullWidth multiline rows="8.5" />
-        <TextField className={classes.box} value={data} fullWidth multiline rows="8.5" />
+        <TextField className={classes.box} defaultValue={data} fullWidth multiline rows="8.5" />
       </div>
     </div>
   )

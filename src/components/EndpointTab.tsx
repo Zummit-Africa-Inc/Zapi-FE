@@ -10,7 +10,8 @@ import { Spinner } from "../assets";
 import { EndpointTable } from "./";
 import { useContextProvider } from "../contexts/ContextProvider";
 
-const core_url = import.meta.env.VITE_CORE_URL
+// const core_url = import.meta.env.VITE_CORE_URL
+const core_url = "VITE_CORE_URL"
 const initialState = { name: '', route: '', method: 'get', description: "", headers: [], requestBody: [] }
 interface Props { id: string | undefined }
 
@@ -33,13 +34,13 @@ const EndpointTab: React.FC<Props> = ({id}) => {
         const payload = { name, route, method, description, headers, requestBody }
         const req_headers = { 'Content-Type': 'application/json' }
         try {
-            const data = await sendRequest(`${core_url}/endpoints/new/${id}`, 'POST', JSON.stringify(payload), req_headers)
+            const data = await sendRequest(`/endpoints/new/${id}`, 'post', core_url, payload, req_headers)
             if(!data || data === undefined) return
-            dispatch(addEndpoint(data?.data))
-            triggerRefresh()
+            dispatch(addEndpoint(payload))
         } catch (error) {}
         setIsAdding(false)
     }
+
 
     return (
         <Paper elevation={1} className={classes.paper}>
@@ -55,10 +56,11 @@ const EndpointTab: React.FC<Props> = ({id}) => {
             <div className={classes.pageDescription}>
                 <Typography>Add and define your API endpoints.</Typography>
             </div>
+            {/* Add Endpoint */}
             <div className={classes.pageActions}>
                 <input type="text" name="search" className={classes.inputs} placeholder="Search..." />
                 <div>
-                    <button onClick={toggleState} className={classes.button} style={{background: isAdding ? "#E32C08" : "#058A04",}}>
+                    <button onClick={toggleState} className={classes.button} style={{background: isAdding ? "#E32C08" : "#058A04"}}>
                         {isAdding ? 'Cancel' : 'Create Endpoint'}
                     </button>
                 </div>

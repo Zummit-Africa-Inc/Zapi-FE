@@ -9,7 +9,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { Paper } from "@mui/material";
 
-const core_url = import.meta.env.VITE_CORE_URL
+// const core_url = import.meta.env.VITE_CORE_URL
+const core_url = "VITE_CORE_URL"
 
  const SettingsPage:React.FC = () => {
     
@@ -42,7 +43,7 @@ const core_url = import.meta.env.VITE_CORE_URL
   const handleDeleteApi = async (e: any) => {
     e.preventDefault()
     try {
-      const data = await sendRequest(`${core_url}/api/${id}?profileId=${profileId}`, 'DELETE')
+      const data = await sendRequest(`/api/${id}?profileId=${profileId}`, 'del', core_url)
       console.log(data)
       if(!data || data === undefined)return
      

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Avatar, Fade, Menu, MenuItem, Button, Paper, Stack, Typography } from '@mui/material'
 import {HelpOutline, AppsRounded, DeveloperBoardRounded} from '@mui/icons-material'
 import { makeStyles } from "@mui/styles";
@@ -11,7 +11,11 @@ import { useAppDispatch, useAppSelector } from "../hooks/redux-hook";
 import { getUserApis, logout } from "../redux/slices/userSlice";
 import Notification from './Notification';
 
-const Menus: React.FC = () => {
+interface MenuProps {
+    id?: string
+};
+
+const Menus: React.FC<MenuProps> = () => {
     const classes = useStyles()
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [anchorE2, setAnchorE2] = React.useState<null | HTMLElement>(null);
@@ -58,7 +62,11 @@ const Menus: React.FC = () => {
         </Button>
         <Menu id="fade-menu" MenuListProps={{ 'aria-labelledby': 'fade-button', }} anchorEl={anchorEl} open={open} onClose={handleClose} TransitionComponent={Fade}>
         {userApis.map((api, index) => (
-            <MenuItem key={index}>{api.name}</MenuItem>
+            <MenuItem key={index}>
+                <Link to={`/developer/api/${api.id}`}>
+                    {api.name}
+                </Link>
+            </MenuItem>
         ))}
         </Menu>
         <Stack direction="row" alignItems="center" justifyContent="center" spacing={2}>
