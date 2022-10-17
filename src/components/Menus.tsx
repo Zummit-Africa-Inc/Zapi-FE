@@ -15,10 +15,10 @@ import { useAppDispatch, useAppSelector } from "../hooks/redux-hook";
 import { getUserApis, logout } from "../redux/slices/userSlice";
 import Notification from './Notification';
 interface MenuProps {
-    id: string
+    id?: string
 };
 
-const Menus: React.FC<MenuProps> = ({ id }) => {
+const Menus: React.FC<MenuProps> = () => {
     const classes = useStyles()
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [anchorE2, setAnchorE2] = React.useState<null | HTMLElement>(null);

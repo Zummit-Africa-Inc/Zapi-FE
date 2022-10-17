@@ -24,19 +24,19 @@ export const FOOTER_LINKS = [
         links: [
             {
                 name: 'Our APIs',
-                link: ''
+                link: './coming-soon'
             },
             {
                 name: 'ZAPI Tools',
-                link: ''
+                link: './coming-soon'
             },
             {
                 name: 'Zummit Africa',
-                link: ''
+                link: '/zummitafrica.com'
             },
             {
                 name: 'Zummit Africa Articles',
-                link: ''
+                link: './coming-soon'
             },
         ]
     },
@@ -45,23 +45,23 @@ export const FOOTER_LINKS = [
         links: [
             {
                 name: 'About',
-                link: ''
+                link: './coming-soon'
             },
             {
                 name: 'Help',
-                link: ''
+                link: './coming-soon'
             },
             {
                 name: 'Status',
-                link: ''
+                link: './coming-soon'
             },
             {
                 name: 'Terms & Privacy',
-                link: ''
+                link: './terms'
             },
             {
                 name: 'Cookies Policy',
-                link: ''
+                link: './coming-soon'
             },
         ]
     },
@@ -70,23 +70,23 @@ export const FOOTER_LINKS = [
         links: [
             {
                 name: 'Drowsiness Detection',
-                link: ''
+                link: './coming-soon'
             },
             {
                 name: 'Emotion Detection',
-                link: ''
+                link: './coming-soon'
             },
             {
                 name: 'Text Summarizer',
-                link: ''
+                link: './coming-soon'
             },
             {
                 name: 'Chat Bots',
-                link: ''
+                link: './coming-soon'
             },
             {
                 name: 'Sentiment Analyzer',
-                link: ''
+                link: './coming-soon'
             },
         ]
     }
@@ -188,7 +188,7 @@ export const FEATURES = [
                 text: "Preview of some AI APIs on the Homepage"
             },
             {
-                text: "Categorising APIs based on several metrics - industry use cases, etc."
+                text: "Categorizing APIs based on several metrics - industry use cases, etc."
             },
             {
                 text: "Custom pages based on the collection of APIs by developer(s)"
@@ -248,7 +248,7 @@ export const BRANDS = [
     },
     {
         img: ZummitInfoLabs,
-        alt: "ZUMMITI-INFO-LABS-LOGO"
+        alt: "ZUMMIT-INFO-LABS-LOGO"
     },
     {
         img: Zummit,

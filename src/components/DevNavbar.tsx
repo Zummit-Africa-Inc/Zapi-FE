@@ -11,13 +11,13 @@ import { useAppDispatch, useAppSelector } from "../hooks/redux-hook";
 import { logout } from "../redux/slices/userSlice";
 import Cookies from "universal-cookie";
 
-import { ZapiArrow } from "../assets";
-import { Button, ListItem } from "@mui/material";
+import { ZapiArrow } from '../assets';
+import { Button, List, ListItem } from '@mui/material'
 
 import { io } from "socket.io-client";
 import Notification from "./Notification";
 interface NavbarProps {
-    id: string
+    id?: string
 };
 
 const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
@@ -76,7 +76,7 @@ const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
             </div>
     
             <div className={classes.menus}>
-                <Menus id={id}/>
+                <Menus />
             </div>
 
             <div className={classes.right_container}>
@@ -96,7 +96,7 @@ const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
                         </Button>
                         
                         {isShow ?
-                            <div className={classes.projectListContainer}>
+                            <List className={classes.projectListContainer}>
                                 {userApis.map((api, index) => (
                                 <ListItem className={classes.projectListItems} key={index}>
                                     <Link to={`/developer/api/${api.id}`}>
@@ -104,7 +104,7 @@ const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
                                     </Link>
                                 </ListItem>
                                ))}
-                            </div>
+                            </List>
                             :
                             <></>
                         }
@@ -254,7 +254,7 @@ const useStyles = makeStyles({
         "&.MuiButton-text": {
             fontWeight: "normal",
             color: "#000"
-          },
+        },
         "&.MuiButton-root": {
             textTransform: "none",
             fontSize: "17px",
@@ -265,28 +265,36 @@ const useStyles = makeStyles({
         }
     },
     projectListContainer: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        marginBottom: "10px",
-        textAlign: "center",
-        lineHeight: "2rem",
-        width: "100%",
+        "&.MuiList-root": {
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            marginBottom: "10px",
+            textAlign: "center",
+            lineHeight: "2rem",
+            width: "100%",
+        }
     },
     projectListItems: {
-        "&.MuiButton-text": {
-            fontWeight: "normal",
-            color: "#000"
-          },
-        "&.MuiButton-root": {
-            textTransform: "none",
+        "&.MuiListItemText": {
+            textTransform: "lowercase",
+        },
+        "&.MuiListItem-root": {
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
             fontSize: "15px",
+            fontWeight: "normal",
+            textTransform: "capitalize",
+            lineHeight: "25px",
             color: "#909090",
             width: "150px",
             "@media screen and (max-width: 420px)": {
                 fontSize: "13px",
             }
-        }
+            
+        },
     },
     logout: {
         border: "unset",
