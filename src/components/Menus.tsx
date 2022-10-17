@@ -6,7 +6,7 @@ import { makeStyles } from "@mui/styles";
 import { io } from 'socket.io-client';
 import Cookies from "universal-cookie";
 
-import { ZapiDash, ZapiApps, ZapiHelp, ZapiArrow, ZapiPic } from '../assets'
+import { ZapiDash, ZapiApps, ZapiHelp, ZapiArrow} from '../assets'
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hook";
 import { getUserApis, logout } from "../redux/slices/userSlice";
 import Notification from './Notification';
@@ -77,7 +77,7 @@ const Menus: React.FC<MenuProps> = ({ id }) => {
         </Stack>
           
         <Button aria-controls={isAvatarOpen ? 'avatar-menu' : undefined} aria-haspopup="true" aria-expanded={isAvatarOpen ? 'true' : undefined} onClick={handleAvatarClick}>
-            <Avatar src={ZapiPic} alt='zapi-pic' />
+            <Avatar alt='zapi-pic' />
         </Button>
         <Menu anchorEl={anchorE2} open={isAvatarOpen} onClose={handleClose2} TransitionComponent={Fade}>
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
