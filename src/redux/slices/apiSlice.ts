@@ -29,6 +29,9 @@ const apiSlice = createSlice({
     name: "apis",
     initialState,
     reducers: {
+        addApi: (state, action: PayloadAction<any>) => {
+            state.apis.unshift(action.payload)
+        },
         clearError: (state) => {
             state.error = null
         }
@@ -48,5 +51,5 @@ const apiSlice = createSlice({
     }
 })
 
-export const { clearError } = apiSlice.actions
+export const { addApi, clearError } = apiSlice.actions
 export default apiSlice.reducer
