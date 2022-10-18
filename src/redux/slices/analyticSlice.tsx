@@ -31,7 +31,6 @@ export const getAnalyticsLog = createAsyncThunk('analyticsLog/getAnalyticsLog', 
     try {
         const response = await fetch(`${core_url}/analytics/logs?page=1&limit=5&filter.apiId=${id}`)
         const data = await response.json()
-        console.log(data)
         return data.data
     } catch (error: any) {
         return thunkAPI.rejectWithValue(error.message)
