@@ -5,7 +5,7 @@ import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
 
 import { useAppDispatch, useAppSelector, useHttpRequest } from "../hooks";
-import { getApiCagetories, getApis } from "../redux/slices/apiSlice";
+import { getApiCategories, getApis } from "../redux/slices/apiSlice";
 import { CardProps } from "../interfaces";
 import { Spinner } from "../assets";
 

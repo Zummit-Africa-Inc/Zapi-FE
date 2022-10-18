@@ -18,7 +18,7 @@ const initialState = {
     error: null
 } as ApiState
 
-export const getApiCagetories = createAsyncThunk("apis/getApiCategories", async(_, thunkAPI) => {
+export const getApiCategories = createAsyncThunk("apis/getApiCategories", async(_, thunkAPI) => {
     try {
         const response = await fetch(`${core_url}/categories`)
         const data = await response.json()
@@ -58,14 +58,14 @@ const apiSlice = createSlice({
             state.loading = "rejected"
             state.error = action.payload
         }),
-        builder.addCase(getApiCagetories.pending, (state) => {
+        builder.addCase(getApiCategories.pending, (state) => {
             state.loading = "pending"
         }),
-        builder.addCase(getApiCagetories.fulfilled, (state, action: PayloadAction<any>) => {
+        builder.addCase(getApiCategories.fulfilled, (state, action: PayloadAction<any>) => {
             state.categories = action.payload
             state.loading = "fulfilled"
         }),
-        builder.addCase(getApiCagetories.rejected, (state, action: PayloadAction<any>) => {
+        builder.addCase(getApiCategories.rejected, (state, action: PayloadAction<any>) => {
             state.loading = "rejected"
             state.error = action.payload
         })

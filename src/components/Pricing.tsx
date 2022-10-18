@@ -1,6 +1,6 @@
 import React, { SyntheticEvent, useState } from "react";
 import { Avatar, Stack, Typography, List, ListItemButton, ListItemIcon, ListItemText, Collapse } from "@mui/material";
-import { MdExpandMore, MdLooks3, MdMdLooksOne, MdLooksTwo } from "react-icons/md";
+import { MdExpandMore, MdLooks3, MdLooksOne, MdLooksTwo } from "react-icons/md";
 import { blue } from "@mui/material/colors";
 import { makeStyles } from "@mui/styles";
 import PricingTable from "./PricingTable";
@@ -168,7 +168,7 @@ const Pricing:React.FC = () => {
             <Stack alignItems="center">
                 <Stack textAlign="center" justifyContent="space-between" spacing={1} direction={{xs: "column", sm: "column", md: "row", lg: "row"}} mt={2}>
                     <Stack alignItems="center">
-                        <MdLooksOne sx={{ width: 65, height: 65, objectFit: "contain", color: blue[500]}}/>
+                        <MdLooksOne style={{ width: 65, height: 65, objectFit: "contain", color: blue[500]}}/>
                         <Typography variant="h5" gutterBottom>
                             Call volume and billing
                         </Typography>
@@ -177,7 +177,7 @@ const Pricing:React.FC = () => {
                         </Typography>
                     </Stack>
                     <Stack alignItems="center">
-                        <MdLooksTwo sx={{ width: 65, height: 65, objectFit: "contain", color: blue[500] }}/>
+                        <MdLooksTwo style={{ width: 65, height: 65, objectFit: "contain", color: blue[500] }}/>
                         <Typography variant="h5" gutterBottom>
                             Errors and latency
                         </Typography>
@@ -186,7 +186,7 @@ const Pricing:React.FC = () => {
                         </Typography>
                     </Stack>
                     <Stack alignItems="center">
-                        <MdLooks3 sx={{ width: 65, height: 65, objectFit: "contain", color: blue[500] }}/>
+                        <MdLooks3 style={{ width: 65, height: 65, objectFit: "contain", color: blue[500] }}/>
                         <Typography variant="h5" gutterBottom>
                             Logs for your API calls
                         </Typography>
