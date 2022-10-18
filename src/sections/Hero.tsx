@@ -35,6 +35,7 @@ const Hero: React.FC = () => {
     // };
     if (nameOfApi) {
       setQuery(JSON.stringify(nameOfApi.samplePayload));
+      setData("");
     }
   }, [nameOfApi]);
 
