@@ -12,6 +12,7 @@
     "lint": "npm lint:format && npm lint:fix "
   },
   "dependencies": {
+    "@aws-amplify/ui-react": "^3.5.7",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@mui/icons-material": "^5.8.4",
@@ -20,6 +21,7 @@
     "@reduxjs/toolkit": "^1.8.4",
     "@types/component-emitter": "^1.2.11",
     "@types/react-redux": "^7.1.24",
+    "aws-amplify": "^4.3.37",
     "axios": "^0.27.2",
     "formik": "^2.2.9",
     "react": "^18.2.0",
@@ -35,6 +37,7 @@
     "socket.io": "^4.5.1",
     "socket.io-client": "^4.5.1",
     "universal-cookie": "^4.0.4",
+    "vite-tsconfig-paths": "^3.5.1",
     "webpack": "^5.74.0",
     "yup": "^0.32.11",
     "zxcvbn": "^4.4.2"

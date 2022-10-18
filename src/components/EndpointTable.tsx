@@ -17,7 +17,8 @@ import { EndpointProps } from "../interfaces";
 import { EndpointsType } from "../types";
 import { useContextProvider } from '../contexts/ContextProvider';
 
-const core_url = import.meta.env.VITE_BASE_URL
+// const core_url = import.meta.env.VITE_BASE_URL
+const core_url = "VITE_CORE_URL"
 const initialState = { id: "", name: "", route: "", method: "" } as EndpointProps
 
 interface Props { id: string | undefined }
@@ -67,7 +68,7 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
     payload = {id, name, method, route}
     const headers = { 'Content-Type': 'application/json'}
     try {
-      const data = await sendRequest(`${core_url}/endpoints/${id}`, 'PATCH', JSON.stringify(payload), headers)
+      const data = await sendRequest(`/endpoints/${id}`, 'patch', core_url, payload, headers)
       if(!data || data === undefined) return
       dispatch(editEndpoint(payload))
       setIsEditing(null)
@@ -78,7 +79,7 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
   const deleteRoute = async(id: string | undefined) => {
     const headers = { 'Content-Type': 'application/json'}
     try {
-      const data = await sendRequest(`${core_url}/endpoints/${id}`, 'DELETE', JSON.stringify(payload), headers)
+      const data = await sendRequest(`/endpoints/${id}`, 'del', core_url, payload, headers)
       if(!data || data === undefined) return
       dispatch(removeEndpoint(id))
       triggerRefresh()
