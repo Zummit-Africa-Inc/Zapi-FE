@@ -414,14 +414,18 @@ export const FREEUSEAPIDATA = [
   {
     name: "question&answer",
     samplePayload: {
-      payload: { question: "what is my name?", context: "my name is mark" },
+      payload: {
+        question: "Why is Alexander the Great famous?",
+        context:
+          "Although king of ancient Macedonia for less than 13 years, Alexander the Great changed the course of history. One of the world’s greatest military generals, he created a vast empire that stretched from Macedonia to Egypt and from Greece to part of India. This allowed for Hellenistic culture to become widespread.",
+      },
     },
   },
   {
     name: "textsummerizer",
     samplePayload: {
       payload:
-        "A startup or start-up is a company or project undertaken by an entrepreneur to seek, develop, and validate a scalable business model. While entrepreneurship refers to all new businesses, including self-employment and businesses that never intend to become registered, startups refer to new businesses that intend to grow large beyond the solo founder. At the beginning, startups face high uncertainty and have high rates of failure, but a minority of them do go on to be successful and influential.",
+        "Rise to power of Genghis KhanWith powerful allies and a force of his own, Temüjin routed the Merkit, with the help of a strategy by which Temüjin was regularly to scotch the seeds of future rebellion. He tried never to leave an enemy in his rear; years later, before attacking China, he would first make sure that no nomad leader survived to stab him in the back. Not long after the destruction of the Merkit, he treated the nobility of the Jürkin clan in the same way. These princes, supposedly his allies, had profited by his absence on a raid against the Tatars to plunder his property. Temüjin exterminated the clan nobility and took the common people as his own soldiery and servants. When his power had grown sufficiently for him to risk a final showdown with the formidable Tatars, he first defeated them in battle and then slaughtered all those taller than the height of a cart axle. Presumably the children could be expected to grow up ignorant of their past identity and to become loyal followers of the Mongols. When the alliance with Toghril of the Kereit at last broke down and Temüjin had to dispose of this obstacle to supreme power, he dispersed the Kereit people among the Mongols as servants and troops. This ruthlessness was not mere wanton cruelty. Temüjin intended to leave alive none of the old, rival aristocrats, who might prove a focus of resistance; to provide himself with a fighting force; and, above all, to crush the sense of clan loyalties that favoured fragmentation and to unite all the nomads in personal obedience to his family. And when, in 1206, he was accepted as emperor of all the steppe people, he was to distribute thousands of families to the custody of his own relatives and companions, replacing the existing pattern of tribes and clans by something closer to a feudal structure.",
     },
   },
 ];
