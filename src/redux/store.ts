@@ -4,7 +4,8 @@ import apiReducer from "./slices/apiSlice";
 import userReducer from "./slices/userSlice";
 import modalReducer from "./slices/modalSlice";
 import endpointReducer from "./slices/endpointSlice";
-import analyticReducer from "./slices/analyticSlice";
+import analyticReducer from "./slices/analyticSlice";  
+import freeApiReducer from "./slices/freeApiSlice";
 import notificationReducer from "./slices/notificationSlice";
 
 export const store = configureStore({
@@ -14,6 +15,7 @@ export const store = configureStore({
         modal: modalReducer,
         endpoints: endpointReducer,
         analytics: analyticReducer,
+        freeApis: freeApiReducer,
         notifications: notificationReducer,
     },
     devTools: import.meta.env.VITE_ENV !== 'production'
