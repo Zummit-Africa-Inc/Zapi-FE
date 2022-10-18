@@ -7,7 +7,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import Cookies from 'universal-cookie';
 
-import { DevDashboard, DeveloperApiPage, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditions, ResetPassword, Pricing, Documentation, APIHub, Notifications } from "./pages";
+import { DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditions, ResetPassword, Pricing, Documentation, APIHub, Notifications, ComingSoonPage } from "./pages";
 import { Fallback, Login, AddApiPopup, } from "./components";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { login } from "./redux/slices/userSlice";
@@ -90,6 +90,8 @@ const App: React.FC = () => {
             <Route path="/documentation" element={<Documentation />} />
             <Route path="/terms" element={<TermsConditions />} />
             <Route path="/api-hub" element={<APIHub />} />
+            <Route path="/coming-soon" element={<ComingSoonPage />} />
+
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
               <Route path="/developer/dashboard" element={<DevDashboard />} />

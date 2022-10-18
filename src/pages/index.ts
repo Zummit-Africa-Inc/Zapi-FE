@@ -22,5 +22,8 @@ const Pricing = React.lazy(() => import("./Pricing"))
 const Documentation = React.lazy(() => import("./Documentation"))
 const APIHub = React.lazy(() => import("./APIHub"))
 const Notifications = React.lazy(() => import("./Notifications"))
+const ComingSoonPage = React.lazy(() => import("./ComingSoonPage"))
 
-export { APIPage, Configuration, CreateEndpoint,DeveloperApiPage, DevDashboard, ForgotPassword, HomePage, LoginHistory, Otp, Signup, SuccessPage, UserProfile, TermsConditions, ResetPassword, Pricing, Documentation, APIHub, Notifications };
+export { APIPage, Configuration, CreateEndpoint,DeveloperApiPage, DevDashboard,
+ForgotPassword, HomePage, LoginHistory, Otp, Signup, SuccessPage, UserProfile, 
+TermsConditions, ResetPassword, Pricing, Documentation, APIHub, Notifications, ComingSoonPage };
