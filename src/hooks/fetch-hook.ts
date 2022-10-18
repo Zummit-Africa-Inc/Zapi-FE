@@ -11,7 +11,7 @@ export const useHttpRequest = () => {
 
     const activeHttpRequests = useRef(<any>[])
 
-    const sendRequest = useCallback(async(url: string, method: MethodTypes, apiName:string, body: any, headers={}): Promise<any> => {
+    const sendRequest = useCallback(async(url: string, method: MethodTypes, apiName:string, body= {}, headers={}): Promise<any> => {
         setLoading(true)
 
         const httpAbortCtrl = new AbortController()
