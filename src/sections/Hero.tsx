@@ -1,28 +1,45 @@
 import { TextField, Typography } from "@mui/material"
 import { makeStyles } from "@mui/styles"
-import React, { useState } from "react"
-import { APIData } from "../testdata"
+import React, { useEffect, useState } from "react"
+import { useAppDispatch, useAppSelector, useHttpRequest } from "../hooks"
+import { getFreeApis } from "../redux/slices/freeApiSlice"
+
+// const core_url = import.meta.env.VITE_CORE_URL
+const core_url = "VITE_CORE_URL"
+const X_ZAPI_FREE_TOKEN = import.meta.env.VITE_FREE_REQUEST_TOKEN
 
 const Hero: React.FC = () => {
   const classes = useStyles()
-  const [API, setAPI] = useState<string>("")
-  const [endpoint, setEndpoint] = useState<string>(`https://zapi.com/${API}`)
-  const [query, setQuery] = useState<string>("{}")
+  const [apiId, setApiId] = useState<string>("")
+  const [query, setQuery] = useState<string>("")
   const [data, setData] = useState("")
+  const dispatch = useAppDispatch()
+  const { freeApis } = useAppSelector(store => store.freeApis)
+  const [apiName, setApiName] = useState<string>("")
+  const { sendRequest } = useHttpRequest()
 
+  useEffect(() => {
+    const api = freeApis.find(api => api.id === apiId)
+    if(!api) return
+      setApiName(api.name)
+  }, [apiId]) 
+
+  const pathName = apiName.replace(/ /g, "").toLowerCase()
+
+  useEffect(() => {
+    dispatch(getFreeApis())
+  }, [])
+
+  const headers = {
+    "X-ZAPI-FREE-TOKEN": X_ZAPI_FREE_TOKEN
+  }
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+   
     try {
-      const json = JSON.parse(query);
-      const res = await fetch("https://qnanswer-api.pk25mf6178910.eu-west-3.cs.amazonlightsail.com/q_and_a", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: query
-      })
-      const data = await res.json()
-      setData(data.answer)
+      const res = await sendRequest(`/subscription/free-request/${apiId}`, 'post', core_url, JSON.parse(query), headers)
+      setData(res.answer)
+      setData(res[0].summary_text)
     } catch (error) {
       alert("Input must be a JSON String");
     }
@@ -39,20 +56,20 @@ const Hero: React.FC = () => {
         } }}>Z-API allows you to harness the power of AI on your applications without stress. Use powerful AI APIs developed by genius machine learning engineers</Typography>
       </div>
       <form className={classes.form} onSubmit={handleSubmit}>
-        <select className={classes.select} value={API} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setAPI(e.target.value)}>
+        <select className={classes.select} value={apiId} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {setApiId(e.target.value)}}>
           <option value="">Select an API</option>
-          {APIData?.map(api => (
-            <option key={api.id} value={api.url}>
+          {freeApis?.map(api => (
+            <option key={api.id} value={api.id}>
               {api.name}
             </option>
           ))}
         </select>
-        <input type="text" className={classes.input} value={API ? API : endpoint} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEndpoint(e.target.value)} placeholder="drowsinessdetection" />
+        <TextField type="text" className={classes.input} value={"https://zapi.com/" + pathName} placeholder="drowsinessdetection" />
         <button className={classes.send}>Send</button>
       </form>
       <div className={classes.actionBoxes}>
         <TextField className={classes.box} value={query} onChange={(e) => setQuery(e.target.value)} fullWidth multiline rows="8.5" />
-        <TextField className={classes.box} value={data} fullWidth multiline rows="8.5" />
+        <TextField className={classes.box} defaultValue={data} fullWidth multiline rows="8.5" />
       </div>
     </div>
   )
