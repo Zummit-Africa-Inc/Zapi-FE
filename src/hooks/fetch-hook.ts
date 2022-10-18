@@ -35,8 +35,8 @@ export const useHttpRequest = () => {
             }
             setLoading(false)
             return data
-        } catch (error) {
-            setError(error)
+        } catch (error : any) {
+            setError(error.response.data.message)
             setLoading(false)
         }
     },[])
