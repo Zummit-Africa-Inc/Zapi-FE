@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { APIType } from "../../types";
 
 const core_url = import.meta.env.VITE_CORE_URL
+
 interface ApiState {
     apis: Array<APIType>
     categories: Array<APIType>
