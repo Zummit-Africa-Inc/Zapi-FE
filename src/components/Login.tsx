@@ -45,7 +45,7 @@ const Login: React.FC = () => {
     try {
       const data = await sendRequest(`/auth/signin`, 'post', url, payload, headers);
       if(!data || data === undefined) return;
-      const {access, email, fullName, profileId, refresh, userId, secretKey} = data;
+      const {access, email, fullName, profileId, refresh, userId, secretKey} = data.data;
       const user = { email, fullName, profileId, secretKey };
       dispatch(login(user));
       cookies.set('accessToken', access);

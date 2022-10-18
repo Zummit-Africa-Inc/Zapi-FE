@@ -1,6 +1,6 @@
-import React, { FormEvent } from "react";
-import { Typography, FormControl, MenuItem } from "@mui/material";
-import Select from "@mui/material/Select";
+import React, { FormEvent, useEffect } from "react";
+import { Typography, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, MenuItem } from "@mui/material";
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { makeStyles } from "@mui/styles";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
@@ -54,6 +54,10 @@ const AddApiPopup: React.FC = () => {
     }
     handleUnclicked();
   };
+
+  useEffect(() => {
+    {error && toast.error(`${error}`)}
+  },[error])
 
   return (
     <>
