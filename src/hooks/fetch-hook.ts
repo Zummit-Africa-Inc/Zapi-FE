@@ -26,15 +26,14 @@ export const useHttpRequest = () => {
                 body
             }
             const response = await API[`${method}`](apiName, url, requestExtraParams)
-            const data = await response.data
             activeHttpRequests.current = activeHttpRequests.current.filter((reqCtrl: any) => {
                 reqCtrl !== httpAbortCtrl
             })
             if(!response.success) {
-                throw new Error(data.message)
+                throw new Error(response.message)
             }
             setLoading(false)
-            return data
+            return response
         } catch (error : any) {
             setError(error.response.data.message)
             setLoading(false)
