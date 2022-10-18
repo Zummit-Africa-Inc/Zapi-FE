@@ -6,12 +6,11 @@ import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
 
 import { useContextProvider } from "../contexts/ContextProvider";
-import { useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
+import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
 import { Fallback } from "../components";
+import { getUserApis } from "../redux/slices/userSlice";
 
-// const core_url = import.meta.env.VITE_CORE_URL
 const core_url = "VITE_CORE_URL"
-
 const initialState = { name: "", description: "", base_url: "", categoryId: "" };
 
 const AddApiPopup: React.FC = () => {
@@ -23,9 +22,10 @@ const AddApiPopup: React.FC = () => {
   const { apis } = useAppSelector(store => store.apis)
   const cookies = new Cookies()
   const profileId = cookies.get("profileId")
+  const dispatch = useAppDispatch()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-
+    e.preventDefault()
     if(!name || !description || !base_url || !categoryId) return toast.error('Please fill all fields')
     const payload = { name, description, base_url, categoryId }
     const headers = { 'Content-Type': 'application/json' }
@@ -33,6 +33,7 @@ const AddApiPopup: React.FC = () => {
       const data = await sendRequest(`/api/new/${profileId}`, 'post', core_url, payload, headers)
       const { message } = data
       toast.success(`${message}`)
+      dispatch(getUserApis(profileId))
     } catch (err) {
       console.log(err)
     }
