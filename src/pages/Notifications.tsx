@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useContextProvider } from "../contexts/ContextProvider";
 import { Typography, Stack } from '@mui/material';
 import { useAppSelector } from '../hooks';
-import { Navbar } from "../components";
+import { DevNavbar } from "../components";
 import { makeStyles } from "@mui/styles";
 import { Link } from 'react-router-dom';
 
@@ -63,7 +63,7 @@ const Notifications: React.FC = () => {
 
     return (
         <>
-            <Navbar />
+            <DevNavbar />
             <div>
                 {notifications.length !== 0 ?
                     <div className={classes.notificationCard}>
@@ -73,26 +73,27 @@ const Notifications: React.FC = () => {
                         alignItems="center" 
                         sx={{ width: '100vw'}}
                         >
-                       
-                            
                             {notifications.map(() => displayNotification())}
                        </Stack>
                     </div>
                     :
-                    <div className={classes.noNotification}>
-                        <Typography gutterBottom variant="subtitle1" sx=
-                            {{
-                                color: "#000000", fontFamily: "Space Grotesk", fontWeight: 700, fontSize: "18px",
-                                lineHeight: "30px", textAlign: "center", marginTop: "116px"
-                            }}>
-                            You do no have any old notifications
-                        </Typography>
-                        <Typography gutterBottom variant="subtitle1" sx={{
-                            color: "#000000", fontFamily: "Space Grotesk", fontStyle: "normal", fontWeight: 400,
-                            fontSize: "16px", lineHeight: "30px", textAlign: "center", marginTop: "16px"
-                        }}><Link to="/">Go Back</Link>
-                        </Typography>
-                    </div>}
+                    <div className={classes.container}>
+                        <div className={classes.noNotification}>
+                            <Typography gutterBottom variant="subtitle1" sx=
+                                {{
+                                    color: "#000000", fontFamily: "Space Grotesk", fontWeight: 700, fontSize: "18px",
+                                    lineHeight: "30px", textAlign: "center", marginTop: "116px"
+                                }}>
+                                You do no have any old notifications
+                            </Typography>
+                            <Typography gutterBottom variant="subtitle1" sx={{
+                                color: "#000000", fontFamily: "Space Grotesk", fontStyle: "normal", fontWeight: 400,
+                                fontSize: "16px", lineHeight: "30px", textAlign: "center", marginTop: "16px"
+                            }}><Link to="/">Go Back</Link>
+                            </Typography>
+                        </div>
+                    </div>
+                }
             </div>
         </>
     );
@@ -100,6 +101,12 @@ const Notifications: React.FC = () => {
 
 
 const useStyles = makeStyles({
+    container: {
+        width: "100vw",
+        height: "100vh",
+        display: "grid",
+        placeItems: "center",
+    },
     noNotification: {
         marginTop: "200px",
         alignItems:'center',
@@ -115,6 +122,7 @@ const useStyles = makeStyles({
     },
     notificationCard: {
         height: "calc(100vh - 715px)",
+        marginTop: "100px",
         width: "100vw",
         display: "flex",
         alignItems: "center",
