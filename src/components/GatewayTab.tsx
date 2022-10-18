@@ -142,6 +142,7 @@ const useStyles = makeStyles({
         backgroundColor: '#fff',
         border: '1px solid rgb(214, 217, 219)',
         color: 'rgba(0, 0, 0, 0.87)'
+        
       }
     
 })

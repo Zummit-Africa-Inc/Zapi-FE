@@ -23,9 +23,9 @@ const AddApiPopup: React.FC = () => {
   const { apis } = useAppSelector(store => store.apis)
   const cookies = new Cookies()
   const profileId = cookies.get("profileId")
-
+  
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-
+    e.preventDefault()
     if(!name || !description || !base_url || !categoryId) return toast.error('Please fill all fields')
     const payload = { name, description, base_url, categoryId }
     const headers = { 'Content-Type': 'application/json' }
