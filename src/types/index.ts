@@ -23,7 +23,7 @@ export type SubscriptionType = {
 }
 
 export type NotificationType = {
-   profileId: string
+   // profileId: string
    content: string | null
    createdOn: string | Date | null
    isRead: boolean | null
