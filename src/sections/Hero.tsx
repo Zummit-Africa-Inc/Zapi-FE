@@ -135,6 +135,7 @@ const useStyles = makeStyles({
     },
   },
   send: {
+    height: "100%",
     background: "#081F4A",
     borderRadius: "4px",
     padding: "1.12rem 2rem",
