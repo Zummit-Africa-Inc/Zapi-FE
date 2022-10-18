@@ -34,12 +34,12 @@ const DevAPICard: React.FC<CardProps> = ({id,name,description}) => {
                         <CardHeader
                             avatar={
                             <Avatar sx={{ bgcolor: blue[500], mb: 1, mr: 5, ml: -2 }}>
-                                <Animation />
+                                <MdAnimation />
                             </Avatar>
                             }
                             action={
                             <IconButton aria-label="settings" id="menuButton" aria-controls={open ? 'cardMenu' : undefined} aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleClick}>
-                                <MoreVertRounded />
+                                <MdMoreVert />
                             </IconButton>
                             }
                         />
