@@ -2,15 +2,13 @@ import React, { FormEvent, useState } from "react";
 import { Paper, Stack, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { toast } from "react-toastify";
+import Cookies from "universal-cookie";
 
 import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
-import { addEndpoint } from "../redux/slices/userSlice";
-// import { EndpointsType } from "../types";
+import { addEndpoint, getUserApis } from "../redux/slices/userSlice";
 import { Spinner } from "../assets";
 import { EndpointTable } from "./";
-import { useContextProvider } from "../contexts/ContextProvider";
 
-// const core_url = import.meta.env.VITE_CORE_URL
 const core_url = "VITE_CORE_URL"
 const initialState = { name: '', route: '', method: 'get', description: "", headers: [], requestBody: [] }
 interface Props { id: string | undefined }
@@ -21,9 +19,10 @@ const EndpointTab: React.FC<Props> = ({id}) => {
     const [isAdding, setIsAdding] = useState<boolean>(false)
     const { error, loading, sendRequest } = useHttpRequest()
     const { name, route, method, description, headers, requestBody } = inputs
-    const { triggerRefresh } = useContextProvider()
     const dispatch = useAppDispatch()
     const classes = useStyles()
+    const cookies = new Cookies()
+    const profileId = cookies.get("profileId")
 
     const toggleState = () => setIsAdding(prev => !prev)
     
@@ -36,12 +35,10 @@ const EndpointTab: React.FC<Props> = ({id}) => {
         try {
             const data = await sendRequest(`/endpoints/new/${id}`, 'post', core_url, payload, req_headers)
             if(!data || data === undefined) return
-            dispatch(addEndpoint(data?.data))
-            triggerRefresh()
+            dispatch(getUserApis(profileId))
         } catch (error) {}
         setIsAdding(false)
     }
-
 
     return (
         <Paper elevation={1} className={classes.paper}>

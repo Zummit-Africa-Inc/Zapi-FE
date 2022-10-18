@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,20 +10,16 @@ import { tableCellClasses } from '@mui/material/TableCell';
 import { makeStyles } from '@mui/styles';
 import { toast } from 'react-toastify';
 import { styled } from '@mui/material/styles';
+import Cookies from "universal-cookie";
 
 import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
-import { removeEndpoint, editEndpoint } from "../redux/slices/userSlice";
+import { removeEndpoint, editEndpoint, getUserApis } from "../redux/slices/userSlice";
 import { EndpointProps } from "../interfaces";
 import { EndpointsType } from "../types";
-import { useContextProvider } from '../contexts/ContextProvider';
 
-// const core_url = import.meta.env.VITE_BASE_URL
 const core_url = "VITE_CORE_URL"
 const initialState = { id: "", name: "", route: "", method: "" } as EndpointProps
-
 interface Props { id: string | undefined }
-
-
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -45,20 +41,18 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-
-
-
 const CollapsibleTable:React.FC<Props> = ({id}) => {
   const { inputs, bind, select } = useFormInputs(initialState)
   const { name, route, method } = inputs
   const [isEditing, setIsEditing] = useState<number | null>(null)
   const { userApis } = useAppSelector(store => store.user)
   const api = userApis.find(api => api?.id === id)
-  const { triggerRefresh } = useContextProvider()
   const dispatch = useAppDispatch()
   const classes = useStyles()
   const { error, loading, sendRequest } = useHttpRequest()
   let payload : object;
+  const cookies = new Cookies()
+  const profileId  = cookies.get("profileId")
   
   const openEditing = (index: number) => {
     setIsEditing(index)
@@ -70,9 +64,8 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
     try {
       const data = await sendRequest(`/endpoints/${id}`, 'patch', core_url, payload, headers)
       if(!data || data === undefined) return
-      dispatch(editEndpoint(payload))
       setIsEditing(null)
-      triggerRefresh()
+      dispatch(getUserApis(profileId))
     } catch (error) {}
   }
   
@@ -81,14 +74,10 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
     try {
       const data = await sendRequest(`/endpoints/${id}`, 'del', core_url, payload, headers)
       if(!data || data === undefined) return
-      dispatch(removeEndpoint(id))
-      triggerRefresh()
+      dispatch(getUserApis(profileId))
     } catch (error) {}
   }
 
-
-
-  
   return (
     <>
     <TableContainer component={Paper} >
