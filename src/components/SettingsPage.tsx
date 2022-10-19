@@ -9,7 +9,6 @@ import Cookies from "universal-cookie";
 import { Paper } from "@mui/material";
 import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
 import { removeApi } from "../redux/slices/apiSlice";
-import { useContextProvider } from '../contexts/ContextProvider';
 
 // const core_url = import.meta.env.VITE_CORE_URL
 const core_url = "VITE_CORE_URL";
@@ -21,12 +20,12 @@ const SettingsPage: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const classes = useStyles();
-  const { triggerRefresh } = useContextProvider()
   const dispatch = useAppDispatch()
 
   const cookies = new Cookies();
   const profileId = cookies.get("profileId");
   // const [delete, setDelete] = useState("")
+  let payload : object;
 
   console.log(id)
 
@@ -43,17 +42,17 @@ const SettingsPage: React.FC = () => {
   console.log("okkk", status);
 
   const handleDeleteApi = async (e: any) => {
+    e.preventDefault();
     const headers = { 'Content-Type': 'application/json'}
     try {
       const data = await sendRequest(
         `/api/${id}?profileId=${profileId}`,
         "del",
-        core_url
+        core_url, payload, headers
       );
       if (!data || data === undefined) return;
       dispatch(removeApi(id))
       toast.success(data.data.message);
-      triggerRefresh()
       navigate("/developer/dashboard");
     } catch (error) {}
   };
