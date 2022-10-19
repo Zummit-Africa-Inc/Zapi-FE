@@ -55,7 +55,6 @@ const DevAPICard: React.FC<CardProps> = ({id,name,description}) => {
             dispatch(removeApi(id))
             toast.success(data.data.message);
             triggerRefresh()
-            navigate("/developer/dashboard");
         } catch (error) {}
       };
 
