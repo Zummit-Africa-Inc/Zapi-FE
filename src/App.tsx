@@ -13,7 +13,7 @@ import { useContextProvider } from "./contexts/ContextProvider";
 import { login } from "./redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { PrivateRoutes } from "./components/routes";
-import { getUserApis } from "./redux/slices/userSlice";
+import { getUserApis, getSubscribedApis } from "./redux/slices/userSlice";
 import { getApiCategories, getApis } from "./redux/slices/apiSlice";
 import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
@@ -69,6 +69,7 @@ const App: React.FC = () => {
   useEffect(() => {
     if (profileId === undefined) return 
     dispatch(getUserApis(profileId))
+    dispatch(getSubscribedApis(profileId))
   },[(isLoggedIn === true), trigger, profileId])
 
   return (

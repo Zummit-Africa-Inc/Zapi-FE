@@ -10,9 +10,7 @@ import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from ".
 import { Fallback } from "../components";
 import { addApi } from "../redux/slices/apiSlice";
 
-// const core_url = import.meta.env.VITE_CORE_URL
 const core_url = "VITE_CORE_URL";
-
 const initialState = {
   name: "",
   description: "",
@@ -26,7 +24,7 @@ const AddApiPopup: React.FC = () => {
   const { name, description, base_url, categoryId } = inputs;
   const { handleUnclicked } = useContextProvider();
   const classes = useStyles();
-  const { apis } = useAppSelector((store) => store.apis);
+  const { categories } = useAppSelector((store) => store.apis);
   const cookies = new Cookies();
   const profileId = cookies.get("profileId");
   const dispatch = useAppDispatch()
@@ -104,7 +102,7 @@ const AddApiPopup: React.FC = () => {
                   displayEmpty
                   inputProps={{ "aria-label": "Category" }}
                   {...select}>
-                  {apis.map((item) => (
+                  {categories.map((item) => (
                     <MenuItem key={item.id} value={item.id}>
                       {item.name}
                     </MenuItem>
