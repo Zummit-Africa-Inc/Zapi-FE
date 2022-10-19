@@ -95,7 +95,7 @@ export const FOOTER_LINKS = [
 
 export const MarketPlaceText = [
     {
-    title: "Computer Vision APIs",
+    title: "Computer Vision APIs ",
     subtitle: "",
     apis: [
         {

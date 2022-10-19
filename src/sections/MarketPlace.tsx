@@ -31,7 +31,12 @@ const MarketPlace = () => {
                         {MarketPlaceText.map((market, index) => (
                             <div key={index} className={classes.columnText}>
                                 <>
-                                    <Typography gutterBottom variant="subtitle1" sx={{ color: "#071B85", fontFamily: "Space Grotesk", fontStyle: "normal", fontWeight: 700, fontSize: "24px", lineHeight: "30.62px" }}>{market.title}</Typography>
+                                    <Typography 
+                                    gutterBottom variant="subtitle1" 
+                                    sx={{ color: "#071B85", fontFamily: "Space Grotesk", fontStyle: "normal", fontWeight: 700, fontSize: "24px", height: "30px" }}
+                                    >
+                                    {market.title}
+                                    </Typography>
                                     <Typography gutterBottom variant="subtitle1" sx={{ color: "#071B85", fontFamily: "Space Grotesk", fontStyle: "normal", fontWeight: 400, fontSize: "20px", lineHeight: "26px" }}>{market.subtitle}</Typography>
                                     {market.apis.map((api, index) => (
                                         <div key={index} className={classes.api}>
@@ -69,6 +74,7 @@ const useStyles = makeStyles({
         display: "flex",
         flexDirection: "column",
         gap: "2rem",
+        width: "400px",
         padding: "24px 48px 40px 24px",
         "&:nth-child(1)": {
             borderRight: "1px solid rgba(19, 50, 159, 0.45)",
