@@ -4,10 +4,12 @@ import SearchIcon from "@mui/icons-material/Search";
 import { makeStyles } from "@mui/styles";
 import { removeEndpoint } from "../redux/slices/userSlice";
 import { toast } from "react-toastify";
-import { useHttpRequest } from "../hooks";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { Paper } from "@mui/material";
+import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
+import { removeApi } from "../redux/slices/apiSlice";
+import { useContextProvider } from '../contexts/ContextProvider';
 
 // const core_url = import.meta.env.VITE_CORE_URL
 const core_url = "VITE_CORE_URL";
@@ -19,6 +21,8 @@ const SettingsPage: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const classes = useStyles();
+  const { triggerRefresh } = useContextProvider()
+  const dispatch = useAppDispatch()
 
   const cookies = new Cookies();
   const profileId = cookies.get("profileId");
@@ -39,7 +43,7 @@ const SettingsPage: React.FC = () => {
   console.log("okkk", status);
 
   const handleDeleteApi = async (e: any) => {
-    e.preventDefault();
+    const headers = { 'Content-Type': 'application/json'}
     try {
       const data = await sendRequest(
         `/api/${id}?profileId=${profileId}`,
@@ -47,7 +51,9 @@ const SettingsPage: React.FC = () => {
         core_url
       );
       if (!data || data === undefined) return;
+      dispatch(removeApi(id))
       toast.success(data.data.message);
+      triggerRefresh()
       navigate("/developer/dashboard");
     } catch (error) {}
   };

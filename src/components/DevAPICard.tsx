@@ -4,6 +4,12 @@ import { blue } from '@mui/material/colors';
 import { Avatar, CardHeader, IconButton, Paper, Box, Card, CardContent, Typography, Menu, MenuItem, Fade } from "@mui/material";
 import { Animation, MoreVertRounded } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import Cookies from "universal-cookie";
+import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
+import { removeApi } from "../redux/slices/apiSlice";
+import { useContextProvider } from '../contexts/ContextProvider';
 
 
 interface CardProps {
@@ -12,8 +18,18 @@ interface CardProps {
     description: string
 };
 
+// const core_url = import.meta.env.VITE_CORE_URL
+const core_url = "VITE_CORE_URL";
+
 const DevAPICard: React.FC<CardProps> = ({id,name,description}) => {
     const classes = useStyles();
+    const { error, loading, sendRequest } = useHttpRequest();
+    const navigate = useNavigate();
+    const cookies = new Cookies();
+    const profileId = cookies.get("profileId");
+    const { triggerRefresh } = useContextProvider()
+    const dispatch = useAppDispatch()
+    let payload : object;
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -25,6 +41,23 @@ const DevAPICard: React.FC<CardProps> = ({id,name,description}) => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const handleDeleteApi = async (e: any) => {
+        const headers = { 'Content-Type': 'application/json'}
+        try {
+          const data = await sendRequest(
+            `/api/${id}?profileId=${profileId}`,
+            "del",
+              core_url,
+              payload, headers
+          );
+            if (!data || data === undefined) return;
+            dispatch(removeApi(id))
+            toast.success(data.data.message);
+            triggerRefresh()
+            navigate("/developer/dashboard");
+        } catch (error) {}
+      };
 
     return (
         <Paper className={classes.paper} sx={{ width: "420px"}}>
@@ -46,7 +79,7 @@ const DevAPICard: React.FC<CardProps> = ({id,name,description}) => {
                         />
 
                         <Menu id="cardMenu" MenuListProps={{ 'aria-labelledby': 'menuButton', }} anchorEl={anchorEl} open={open} onClose={handleClose} TransitionComponent={Fade}>
-                            <MenuItem>Delete</MenuItem>
+                            <MenuItem onClick={handleDeleteApi}>Delete</MenuItem>
                         </Menu>
                         
                         <Link to={`/developer/api/${id}`}>
