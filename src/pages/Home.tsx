@@ -3,7 +3,7 @@ import { IconButton, Stack, Tab, Tabs, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { CloseOutlined } from "@mui/icons-material";
 
-import { APICard, InputSearch, Navbar, Sidebar, TabPanel, Pricing } from "../components";
+import { DevAPICard, InputSearch, Navbar, Sidebar, TabPanel, Pricing } from "../components";
 import { useContextProvider } from "../contexts/ContextProvider";
 import { APIS } from "../testdata";
 
@@ -77,7 +77,7 @@ const Home:React.FC = () => {
                   </Typography>
                   <div className={classes.tabInner}>
                     {APIS.map((api) => (
-                      <APICard key={api.id} {...api} />
+                      <DevAPICard key={api.id} {...api} />
                     ))}
                   </div>
                 </TabPanel>
