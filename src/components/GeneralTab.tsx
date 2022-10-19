@@ -60,7 +60,7 @@ const GeneralTab: React.FC = () => {
     about: api?.about,
     api_website: api?.api_website,
     base_url: api?.base_url,
-    // categoryId: api?.categoryId,
+    categoryId: api?.categoryId,
     description: api?.description,
     read_me: api?.read_me,
     term_of_use: api?.term_of_use,
@@ -92,7 +92,7 @@ const GeneralTab: React.FC = () => {
     about,
     api_website,
     base_url,
-    // categoryId,
+    categoryId,
     description,
     read_me,
     term_of_use,
@@ -292,7 +292,7 @@ const GeneralTab: React.FC = () => {
               <InputLabel htmlFor="terms">Terms of Use (optional)</InputLabel>
               <TextField
                 variant="outlined"
-                value={!term_of_use ? null : term_of_use}
+                value={term_of_use == null ? "" : term_of_use}
                 multiline
                 name="term_of_use"
                 onChange={(e) => setTerm_of_use(e.target.value)}

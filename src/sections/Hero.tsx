@@ -30,11 +30,8 @@ const Hero: React.FC = () => {
   const nameOfApi = FREEUSEAPIDATA.find((api) => api.name == pathName);
 
   useEffect(() => {
-    // const Payload = {
-    //   payload: { question: "what is my name?", context: "my name is mark" },
-    // };
     if (nameOfApi) {
-      setQuery(JSON.stringify(nameOfApi.samplePayload));
+      setQuery(JSON.stringify(nameOfApi.samplePayload, undefined, 4));
       setData("");
     }
   }, [nameOfApi]);
