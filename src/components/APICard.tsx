@@ -1,87 +1,143 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Card } from "@mui/material";
+import { makeStyles, styled } from '@mui/styles';
+import Cookies from "universal-cookie";
+import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import { Avatar, Paper, Stack, Typography } from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import { AccessTimeOutlined, BookmarkBorderOutlined, DoneOutlined, NewReleasesOutlined, TrendingUpOutlined, VerifiedOutlined } from "@mui/icons-material";
 
-interface CardProps {
-    id: string
-    name: string
-    description: string
-    status: string | null
-    image?: string
-    latency?: number
-    popularity?: number
-    service_level?: number
-};
+import { useAppDispatch, useAppSelector, useHttpRequest } from "../hooks";
+import { getApiCategories, getApis } from "../redux/slices/apiSlice";
+import { CardProps } from "../interfaces";
+import { Spinner } from "../assets";
 
-const APICard: React.FC<CardProps> = ({id,name,description,status,image,latency,popularity,service_level}) => {
+const core_url = "VITE_CORE_URL"
+
+const APICard:React.FC<CardProps> = ({id, name, description, rating, latency}) => {
+    const { error, loading, sendRequest } = useHttpRequest();
+    const { subscribedApis } = useAppSelector(store => store.user);
+    const isSubscribed = subscribedApis.find(api => api.id === id);
     const classes = useStyles();
+    const cookies = new Cookies();
+    const profileId = cookies.get("profileId");
+    const dispatch = useAppDispatch();
 
-    return (
-        <Link to={`/developer/api/${id}`} className={classes.card}>
-            <Paper elevation={3} className={classes.root}>
-                <Stack direction="row" alignItems="center" justifyContent="space-between">
-                    <Avatar src={image} variant="square" sx={{width:40,height:40,objectFit:"contain"}} />
-                    <BookmarkBorderOutlined />
-                </Stack>
-                <Typography variant="h6" color="primary" my={2}>
-                    {name}
-                </Typography>
-                <Stack height="30%">
-                    <Typography variant="body2" fontWeight="light">
-                        {description.substring(0, 150)}...
-                    </Typography>
-                </Stack>
-                <Stack direction="row" alignItems="center" spacing={2} mb={4}>
-                    {status === "verified" ? 
-                    <>
-                    <Typography variant="subtitle2">
-                        Status: Verified 
-                    </Typography> 
-                    <VerifiedOutlined fontSize="small" color="success" />
-                    </>:
-                    <>
-                    <Typography variant="subtitle2">
-                        Status: Unverified 
-                    </Typography>
-                    <NewReleasesOutlined fontSize="small" color="error" />
-                    </>}
-                </Stack>
-                <Stack direction="row" alignItems="center" justifyContent="space-between">
-                    <Typography variant="caption" className={classes.span}>
-                        <TrendingUpOutlined /> {popularity}
-                    </Typography>
-                    <Typography variant="caption" className={classes.span}>
-                        <AccessTimeOutlined /> {latency}ms
-                    </Typography>
-                    <Typography variant="caption" className={classes.span}>
-                        <DoneOutlined /> {service_level}%
-                    </Typography>
-                </Stack>
-            </Paper>
-        </Link>
-    );
-};
+    const handleSubscription = async() => {
+      const headers = { 'Content-Type': "application/json" }
+      if(!isSubscribed) {
+          try {
+              const data = await sendRequest(`/subscription/subscribe/${id}/${profileId}`, "post", core_url, undefined, headers)
+            } catch (error) {}
+          } else {
+            try {
+              const data = await sendRequest(`/subscription/subscribe/${id}/${profileId}`, "post", core_url, undefined, headers)
+          } catch (error) {}
+      }
+      return () => {
+        dispatch(getApiCategories());
+        dispatch(getApis());
+      }
+    }
+
+    useEffect(() => {
+      error && toast.error(`${error}`)
+    },[error])
+
+  return (
+    <Card className={classes.card}>
+      <div className={classes.header}></div>
+      <div className={classes.body}>
+        <div style={{height: "170px"}}>
+          <h5>{name}</h5>
+          <p>{description && description?.length > 50 ? `${String(description).substring(0, 50)}...` : description}</p>
+          <div className={classes.col}>
+            <div className={classes.row} style={{gap: "23px"}}>
+              <button style={{width: "41px"}} className={classes.btn} disabled>{rating}/10</button>
+              <button style={{width: "41px"}} className={classes.btn} disabled>{latency}ms</button>
+            </div>
+            <div className={classes.row} style={{gap: "17px"}}>
+              <button style={{width: "70px"}} className={classes.btn} disabled></button>
+              <button style={{width: "70px"}} className={classes.btn} disabled></button>
+              <button style={{width: "37px"}} className={classes.btn} disabled></button>
+            </div>
+          </div>
+        </div>
+        <div className={classes.footer}>
+          <button onClick={handleSubscription} className={classes.button}>
+            {loading ? <Spinner /> : isSubscribed ? "unsubscribe" : "subscribe"}
+          </button>
+        </div>
+      </div>
+    </Card>
+  )
+}
 
 const useStyles = makeStyles({
-    root: {
-        width: 300,
-        height: 320,
-        padding: "1rem 0.5rem",
+    card:{
+      maxWidth: 267,
+      height: 354,
+      userSelect: "none",
+      "&:hover": {
+        boxShadow: "5px 5px 15px 0px rgba(0, 0, 0, 0.6)",
+      }
     },
-    span: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "0.5rem",
+    header: {
+      width: "267px",
+      height: "97px",
+      background: "#081F4A",
     },
-    card: {
-        transition: "0.2s all ease-in-out",
-        "&:hover": {
-            transform: "scale(1.03)",
-        }
+    body: {
+      height: "257px",
+      padding: "0 16px",
+      color: "#081F4A",
+      "& h5": {
+        fontWeight: 500,
+        fontSize: "18px",
+        lineHeight: "23px",
+        margin: "16px 0",
+      },
+      "& p": {
+        fontWeight: 400,
+        fontSize: "16px",
+        margin: "0 0 16px",
+      },
+    },
+    col: {
+      display: "flex",
+      flexDirection: "column",
+      gap: "22px",
+    },
+    row: {
+      display: "flex",
+      alignItems: "center",
+    },
+    footer: {
+      margin: "20px 0 0",
+    },
+    btn: {
+      height: "18px",
+      background: "#FFEA00",
+      borderRadius: "8px",
+      border: "none",
+      outline: "none",
+      fontSize: "0.65rem",
+      fontWeight: 700,
+      color: "#081F4A",
+      fontFamily: "var(--body-font)",
+      "&:disabled": {
+          cursor: "default",
+      }
+    },
+    button: {
+      width: "100px",
+      height: "36px",
+      background: "#081F4A",
+      borderRadius: "4px",
+      border: "none",
+      outline: "none",
+      fontSize: "0.8rem",
+      textTransform: "uppercase",
+      fontFamily: "var(--body-font)",
     }
-});
+  })
 
-export default APICard;
+export default APICard

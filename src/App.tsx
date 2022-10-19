@@ -14,7 +14,7 @@ import { login } from "./redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { PrivateRoutes } from "./components/routes";
 import { getUserApis } from "./redux/slices/userSlice";
-import { getApis } from "./redux/slices/apiSlice";
+import { getApiCategories, getApis } from "./redux/slices/apiSlice";
 import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
 import Cookies from 'universal-cookie';
@@ -24,7 +24,7 @@ const App: React.FC = () => {
   const { isLoggedIn } = useAppSelector(store => store.user)
   const { trigger } = useContextProvider()
   const cookies = new Cookies()
-const profileId = cookies.get("profileId")
+  const profileId = cookies.get("profileId")
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -60,13 +60,11 @@ const profileId = cookies.get("profileId")
     loginUser()
   }, []);
 
-  const getCategories = useMemo(() =>  (dispatch(getApis())), [])
+  const fetchApis = useMemo(() =>  (dispatch(getApis())),[])
+  const fetchCategories = useMemo(() =>  (dispatch(getApiCategories())),[])
 
-  useEffect(() => {
-    getCategories
-  }, []) 
-  
-
+  useEffect(() => { fetchApis }, []) 
+  useEffect(() => { fetchCategories }, []) 
   
   useEffect(() => {
     if (profileId === undefined) return 
@@ -91,7 +89,6 @@ const profileId = cookies.get("profileId")
             <Route path="/terms" element={<TermsConditions />} />
             <Route path="/api-hub" element={<APIHub />} />
             <Route path="/coming-soon" element={<ComingSoonPage />} />
-
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
               <Route path="/developer/dashboard" element={<DevDashboard />} />
