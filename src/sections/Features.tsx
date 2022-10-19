@@ -58,6 +58,8 @@ const useStyles = makeStyles({
         fontFamily: 'Space Grotesk',
     },
     column: {
+        position: "relative",
+        left: "10px",
         width: "calc(50% - 30px)",
         backgroundColor: '#657AC526',
         color: '#071B85',
