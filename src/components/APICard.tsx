@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Card } from "@mui/material";
 import { makeStyles, styled } from '@mui/styles';
 import Cookies from "universal-cookie";
@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector, useHttpRequest } from "../hooks";
-import { getApiCategories, getApis } from "../redux/slices/apiSlice";
+import { getApis } from "../redux/slices/apiSlice";
 import { CardProps } from "../interfaces";
 import { Spinner } from "../assets";
 
@@ -15,11 +15,11 @@ const core_url = "VITE_CORE_URL"
 const APICard:React.FC<CardProps> = ({id, name, description, rating, latency}) => {
     const { error, loading, sendRequest } = useHttpRequest();
     const { subscribedApis } = useAppSelector(store => store.user);
-    const isSubscribed = subscribedApis.find(api => api.id === id);
     const classes = useStyles();
     const cookies = new Cookies();
     const profileId = cookies.get("profileId");
     const dispatch = useAppDispatch();
+    const isSubscribed = subscribedApis?.find((api) => api.id === id)
 
     const handleSubscription = async() => {
       const headers = { 'Content-Type': "application/json" }
@@ -32,10 +32,7 @@ const APICard:React.FC<CardProps> = ({id, name, description, rating, latency}) =
               const data = await sendRequest(`/subscription/subscribe/${id}/${profileId}`, "post", core_url, undefined, headers)
           } catch (error) {}
       }
-      return () => {
-        dispatch(getApiCategories());
-        dispatch(getApis());
-      }
+      dispatch(getApis());
     }
 
     useEffect(() => {
