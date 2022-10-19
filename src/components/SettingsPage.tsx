@@ -51,7 +51,6 @@ const SettingsPage: React.FC = () => {
         core_url, payload, headers
       );
       if (!data || data === undefined) return;
-      dispatch(removeApi(id))
       toast.success(data.data.message);
       navigate("/developer/dashboard");
     } catch (error) {}
