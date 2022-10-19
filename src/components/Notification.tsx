@@ -223,7 +223,7 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
                                                 top: 0,
                                                 right: 14,
                                                 width: 10,
-                                                height: 10,
+                                                height: 40,
                                                 bgcolor: 'background.paper',
                                                 transform: 'translateY(-50%) rotate(45deg)',
                                                 zIndex: 0,
@@ -236,7 +236,7 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
                                     <MenuItem>
                                         <span className={classes.notification}>No new notification</span>
                                     </MenuItem>
-                                    <MenuItem>
+                                    <MenuItem style={{height: '30px'}}>
                                         <span className={classes.notification}><Link to="/notifications">View all notifications</Link></span>
                                     </MenuItem>
                                 </Menu>

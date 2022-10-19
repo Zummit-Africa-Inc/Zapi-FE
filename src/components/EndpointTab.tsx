@@ -37,6 +37,9 @@ const EndpointTab: React.FC<Props> = ({id}) => {
             const data = await sendRequest(`/endpoints/new/${id}`, 'post', core_url, payload, req_headers)
             if(!data || data === undefined) return
             dispatch(addEndpoint(payload))
+            triggerRefresh()
+            const { message } = data;
+            toast.success(`${message}`);
         } catch (error) {}
         setIsAdding(false)
     }

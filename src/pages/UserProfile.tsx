@@ -1,10 +1,10 @@
 import React, { SyntheticEvent, useState, useEffect } from 'react'
-import { APICard, UserProSideBar, TabPanel} from '../components';
-import { useContextProvider } from "../contexts/ContextProvider";
-
-import styled from "@emotion/styled";
-import { makeStyles } from '@mui/styles';
+import { DevAPICard, UserProSideBar, TabPanel} from "../components";
 import { Stack,  Tabs, Tab, Box} from '@mui/material'
+import { makeStyles } from '@mui/styles';
+import styled from "@emotion/styled";
+
+import { useContextProvider } from "../contexts/ContextProvider";
 import { APIS, USER } from "../testdata";
 
 const UserProfile:React.FC = () => {
@@ -51,7 +51,7 @@ const UserProfile:React.FC = () => {
             <TabPanel value={tab} index={0}>
             <div style={{width:"100%",display:"flex",flexWrap:"wrap",alignItems:"center",justifyContent:"center",gap:"1.5rem",overflowY:"scroll",padding:"0.5rem 0"}}>
                 {APIS.map((api) => (
-                <APICard key={api.id} {...api} />
+                <DevAPICard key={api.id} {...api} />
                 ))}
             </div>
             </TabPanel>
