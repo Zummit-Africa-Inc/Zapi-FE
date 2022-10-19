@@ -37,7 +37,7 @@ enum APIVisibility {
 const core_url = "VITE_CORE_URL";
 
 const GeneralTab: React.FC = () => {
-  const { apis } = useAppSelector((store) => store.apis);
+  const { categories } = useAppSelector((store) => store.apis);
   const [description, setDescription] = useState<String>("");
   const [about, setAbout] = useState<String>("");
   const [api_website, setApi_website] = useState<String>("");
@@ -49,6 +49,7 @@ const GeneralTab: React.FC = () => {
   const { error, loading, sendRequest } = useHttpRequest();
   const cookies = new Cookies();
   const profileId = cookies.get("profileId");
+  const accessToken = cookies.get("accessToken");
   const classes = useStyles();
   const [image, setImage] = useState(null);
   const { userApis } = useAppSelector((store) => store.user);
@@ -104,9 +105,13 @@ const GeneralTab: React.FC = () => {
     console.log(payload);
   }, [payload]);
 
+  console.log(api);
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const headers = { "Content-Type": "application/json" };
+    const headers = {
+      "Content-Type": "application/json",
+    };
     try {
       const data = await sendRequest(
         `/api/${id}?profileId=${profileId}`,
@@ -147,7 +152,7 @@ const GeneralTab: React.FC = () => {
                   name="categoryId"
                   onChange={(e) => setCategoryId(e.target.value)}
                   sx={{ width: "320px" }}>
-                  {apis.map(
+                  {categories.map(
                     (value) =>
                       value && (
                         <MenuItem key={value.id} value={value.id}>

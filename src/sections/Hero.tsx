@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector, useHttpRequest } from "../hooks";
 import { getFreeApis } from "../redux/slices/freeApiSlice";
 import { FREEUSEAPIDATA } from "../testdata";
+import { toast } from "react-toastify";
 
 // const core_url = import.meta.env.VITE_CORE_URL
 const core_url = "VITE_CORE_URL";
@@ -56,7 +57,7 @@ const Hero: React.FC = () => {
       );
       setData(res);
     } catch (error) {
-      alert("Input must be a JSON String");
+      toast.error("Request unsuccessful");
     }
   };
   return (
