@@ -18,6 +18,7 @@ export type APIType = {
 
 export type SubscriptionType = {
    id: string
+   apiId: string
    name: string
    token: string
 }
