@@ -11,32 +11,31 @@ export const useHttpRequest = () => {
 
     const activeHttpRequests = useRef(<any>[])
 
-    const sendRequest = useCallback(async(url: string, method: MethodTypes, apiName:string, body: object={}, headers={}): Promise<any> => {
+    const sendRequest = useCallback(async(url: string, method: MethodTypes, apiName:string, body= {}, headers={}): Promise<any> => {
         setLoading(true)
 
         const httpAbortCtrl = new AbortController()
         activeHttpRequests.current.push(httpAbortCtrl)
-
+        const accessToken = cookies.get('accessToken')
         try {
             let requestExtraParams = {
                 headers: {
-                    'Zapi_Auth_token': cookies.get('accessToken'),
+                    'Zapi_Auth_token': "Bearer " + accessToken,
                     ...headers,
                 },
                 body
             }
             const response = await API[`${method}`](apiName, url, requestExtraParams)
-            const data = await response.data
             activeHttpRequests.current = activeHttpRequests.current.filter((reqCtrl: any) => {
                 reqCtrl !== httpAbortCtrl
             })
             if(!response.success) {
-                throw new Error(data.message)
+                throw new Error(response.message)
             }
             setLoading(false)
-            return data
-        } catch (error) {
-            setError(error)
+            return response
+        } catch (error : any) {
+            setError(error.response.data.message)
             setLoading(false)
         }
     },[])

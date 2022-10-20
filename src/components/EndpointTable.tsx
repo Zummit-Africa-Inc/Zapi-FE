@@ -16,6 +16,11 @@ import { removeEndpoint, editEndpoint } from "../redux/slices/userSlice";
 import { EndpointProps } from "../interfaces";
 import { EndpointsType } from "../types";
 import { useContextProvider } from '../contexts/ContextProvider';
+import { ConfirmDialog } from '../components';
+
+import ConfirmBox from "react-dialog-confirm";
+import '/node_modules/react-dialog-confirm/build/index.css';
+import { Spinner } from "../assets";
 
 // const core_url = import.meta.env.VITE_BASE_URL
 const core_url = "VITE_CORE_URL"
@@ -59,7 +64,16 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
   const classes = useStyles()
   const { error, loading, sendRequest } = useHttpRequest()
   let payload : object;
+  const [dialog, setDialog] = useState({
+    message:"",
+    isLoading:false
+  })
   
+  
+
+  
+
+
   const openEditing = (index: number) => {
     setIsEditing(index)
   }
@@ -75,18 +89,62 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
       triggerRefresh()
     } catch (error) {}
   }
+
+  const handleDialog = (message:string, isLoading:boolean) => {
+    setDialog({
+      message,
+      isLoading
+    })
+  }
+
+  const areUSureDelete = async(choose:any,id: string | undefined) =>{
+    if(choose) {
+      const headers = { 'Content-Type': 'application/json'}
+      try {
+        const data = await sendRequest(`/endpoints/${id}`, 'del', core_url, payload, headers)
+        if(!data || data === undefined) return
+        dispatch(removeEndpoint(id))
+        triggerRefresh()
+      } catch (error) {}
+      handleDialog('',false);
+    }else{
+      handleDialog('',false);
+    }
+  }
   
   const deleteRoute = async(id: string | undefined) => {
-    const headers = { 'Content-Type': 'application/json'}
-    try {
-      const data = await sendRequest(`/endpoints/${id}`, 'del', core_url, payload, headers)
-      if(!data || data === undefined) return
-      dispatch(removeEndpoint(id))
-      triggerRefresh()
-    } catch (error) {}
+    handleDialog('Are you sure you want to delete?',true);
+    
+    // setDialog({
+    //   message:'Are you sure you want to delete?',
+    //   isLoading:true
+    // })
+    // const headers = { 'Content-Type': 'application/json'}
+    // try {
+    //   const data = await sendRequest(`/endpoints/${id}`, 'del', core_url, payload, headers)
+    //   if(!data || data === undefined) return
+    //   dispatch(removeEndpoint(id))
+    //   triggerRefresh()
+    // } catch (error) {}
   }
 
 
+  const [isOpen, setIsOpen] = useState(false)
+ 
+  const handleClose = () => { setIsOpen(!isOpen) }
+ 
+  const handleConfirm = async(id: string | undefined) => { 
+    setIsOpen(true)
+    const headers = { 'Content-Type': 'application/json'}
+      try {
+        const data = await sendRequest(`/endpoints/${id}`, 'del', core_url, payload, headers)
+        if(!data || data === undefined) return
+        dispatch(removeEndpoint(id))
+        triggerRefresh()
+      } catch (error) {}
+      handleDialog('',false);
+   }
+  const handleCancel = () => { setIsOpen(false) }
 
   
   return (
@@ -131,9 +189,23 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
                 )}
               </StyledTableCell>
               <StyledTableCell>
-                <button onClick={() => deleteRoute(endpoint?.id)} className={classes.button} style={{background: "#E32C08"}}>
+                <button onClick={handleClose} className={classes.button} style={{background: "#E32C08"}}>
                   DELETE
                 </button>
+                <ConfirmBox // Note : in this example all props are required
+                      options={{
+                        // icon:"https://img.icons8.com/clouds/100/000000/vector.png",
+                        text: 'Are you sure you want to delete this element?',
+                        confirm: `${loading ? <Spinner /> : "Yes"}`,
+                        cancel: 'no',
+                        btn: true
+                      }}
+                      isOpen={isOpen}
+                      onClose={handleClose}
+                      onConfirm={() => handleConfirm(endpoint?.id)}
+                      onCancel={handleCancel}
+                    />
+                {/* { dialog.isLoading && <ConfirmDialog onClick={areUSureDelete} message={dialog.message}/> } */}
               </StyledTableCell>
             </StyledTableRow>
           ))}
