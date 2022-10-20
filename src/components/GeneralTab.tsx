@@ -27,6 +27,7 @@ import {
 } from "../hooks";
 import ImageUpload from "./ImageUpload";
 import { editAPI } from "../redux/slices/userSlice";
+import { Spinner } from "../assets";
 
 enum APIVisibility {
   PRIVATE = "private",
@@ -100,11 +101,6 @@ const GeneralTab: React.FC = () => {
   };
 
   const isChanged = JSON.stringify(payload) === JSON.stringify(userData);
-  useEffect(() => {
-    console.log(payload);
-  }, [payload]);
-
-  console.log(api);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -119,8 +115,7 @@ const GeneralTab: React.FC = () => {
         payload,
         headers
       );
-      console.log(data);
-      if (data === undefined) return;
+      if (!data.success) return;
       dispatch(editAPI(payload));
       navigate("/developer/dashboard");
     } catch (error) {
@@ -312,7 +307,7 @@ const GeneralTab: React.FC = () => {
                   variant="contained"
                   disabled={isChanged}
                   className={classes.saveBtn}>
-                  Save
+                  {loading ? <Spinner /> : "Save"}
                 </Button>
                 <Button variant="contained" className={classes.discardBtn}>
                   Discard
