@@ -38,8 +38,6 @@ const HomeNavbar: React.FC = () => {
     navigate("/");
   };
 
-  const location = useLocation();
-
   return (
     <>
       <div className={classes.NavBar}>
@@ -52,29 +50,67 @@ const HomeNavbar: React.FC = () => {
         </div>
         {isMatch ? (
           <>
-            {/* <NavLink key={i} to={link.link} className={classes.link} style={({ isActive }) => (
-                            isActive ? {
-                                color: "#FFF",
-                                background: "#9999CC",
-                                borderRadius: "15px"
-                            }
-                                :
-                                {}
-                        )}></NavLink> */}
-            {/* <div className={open}>
-                                <ul>
-                                    <li><NavLink to="/" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>Home</NavLink></li>
-                                    <li><NavLink to="/api-hub" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>API hub</NavLink></li>
-                                  {isLoggedIn && (<li><NavLink to="/developer/dashboard" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>Dashboard</NavLink></li>)}
-                                    <li><NavLink to="/pricing" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>Pricing</NavLink></li>
-                                    <li><NavLink to="/documentation" style={({ isActive }) => ( isActive ? { borderBottom: "2px solid #FFEA00" } : {} )}>Documentation</NavLink></li>
-                                    <li><button onClick={() => handleClicked('login')}>Login</button></li>
-                                </ul>
-                            <div className={classes.signup}><NavLink to="/signup">Sign up</NavLink></div>
-                        </div>
-                        <div className={classes.hamburger} onClick={handleClick}>
-                            <Menu />
-                        </div> */}
+            <div className={open}>
+              <ul>
+                <li>
+                  <NavLink
+                    end
+                    to="/"
+                    style={({ isActive }) =>
+                      isActive ? { borderBottom: "2px solid #FFEA00" } : {}
+                    }>
+                    Home
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/api-hub"
+                    style={({ isActive }) =>
+                      isActive ? { borderBottom: "2px solid #FFEA00" } : {}
+                    }>
+                    API hub
+                  </NavLink>
+                </li>
+                {isLoggedIn && (
+                  <li>
+                    <NavLink
+                      to="/developer/dashboard"
+                      style={({ isActive }) =>
+                        isActive ? { borderBottom: "2px solid #FFEA00" } : {}
+                      }>
+                      Dashboard
+                    </NavLink>
+                  </li>
+                )}
+                <li>
+                  <NavLink
+                    to="/pricing"
+                    style={({ isActive }) =>
+                      isActive ? { borderBottom: "2px solid #FFEA00" } : {}
+                    }>
+                    Pricing
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/documentation"
+                    style={({ isActive }) =>
+                      isActive ? { borderBottom: "2px solid #FFEA00" } : {}
+                    }>
+                    Documentation
+                  </NavLink>
+                </li>
+                <li>
+                  <button onClick={() => handleClicked("login")}>Login</button>
+                </li>
+              </ul>
+              <div className={classes.signup}>
+                <NavLink to="/signup">Sign up</NavLink>
+              </div>
+            </div>
+            <div className={classes.hamburger} onClick={handleClick}>
+              <Menu />
+            </div>
           </>
         ) : (
           <div className={classes.links}>

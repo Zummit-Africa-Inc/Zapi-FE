@@ -49,7 +49,6 @@ const GeneralTab: React.FC = () => {
   const { error, loading, sendRequest } = useHttpRequest();
   const cookies = new Cookies();
   const profileId = cookies.get("profileId");
-  const accessToken = cookies.get("accessToken");
   const classes = useStyles();
   const [image, setImage] = useState(null);
   const { userApis } = useAppSelector((store) => store.user);
