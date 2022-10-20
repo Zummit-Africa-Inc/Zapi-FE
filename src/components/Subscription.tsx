@@ -81,8 +81,9 @@ export default Subscription
 
 const useStyles = makeStyles({
     subTable: {
-       marginTop: "2rem",
-       padding: "0 112px"
+       margin: "2rem auto 0 auto",
+       padding: "0",
+       width: "90%"
     },
     Link: {
         padding: "10px",
