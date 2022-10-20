@@ -41,14 +41,15 @@ enum APIVisibility {
 }
 
 // const core_url = import.meta.env.VITE_CORE_URL;
+
 const core_url = "VITE_CORE_URL";
 
 const GeneralTab: React.FC = () => {
-  const { categories } = useAppSelector((store) => store.apis);
   const [description, setDescription] = useState<String>("");
   const [about, setAbout] = useState<String>("");
   const [api_website, setApi_website] = useState<String>("");
   const [term_of_use, setTerm_of_use] = useState<String>("");
+  const { apis, categories } = useAppSelector((store) => store.apis);
   const [base_url, setBase_url] = useState<String>("");
   const [visibility, setVisibility] = useState<String>(APIVisibility.PUBLIC);
   const [categoryId, setCategoryId] = useState<String>("");
