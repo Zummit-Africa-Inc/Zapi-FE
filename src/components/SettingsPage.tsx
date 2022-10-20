@@ -4,10 +4,12 @@ import SearchIcon from "@mui/icons-material/Search";
 import { makeStyles } from "@mui/styles";
 import { removeEndpoint } from "../redux/slices/userSlice";
 import { toast } from "react-toastify";
-import { useHttpRequest } from "../hooks";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { Paper } from "@mui/material";
+import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
+import { Spinner } from "../assets";
+import { removeApi } from "../redux/slices/apiSlice";
 
 // const core_url = import.meta.env.VITE_CORE_URL
 const core_url = "VITE_CORE_URL";
@@ -19,10 +21,14 @@ const SettingsPage: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const classes = useStyles();
+  const dispatch = useAppDispatch()
 
   const cookies = new Cookies();
   const profileId = cookies.get("profileId");
   // const [delete, setDelete] = useState("")
+  let payload : object;
+
+  console.log(id)
 
   const handleClickDelete = () => {
     setPop(!popup);
@@ -38,11 +44,12 @@ const SettingsPage: React.FC = () => {
 
   const handleDeleteApi = async (e: any) => {
     e.preventDefault();
+    const headers = { 'Content-Type': 'application/json'}
     try {
       const data = await sendRequest(
         `/api/${id}?profileId=${profileId}`,
         "del",
-        core_url
+        core_url, payload, headers
       );
       if (!data || data === undefined) return;
       toast.success(data.data.message);
@@ -171,9 +178,9 @@ const SettingsPage: React.FC = () => {
                   <li>Your API subscribers (1)</li>
                   <li>Your API data & analysis</li>
                   <li>Your API documentation</li>
-                  <li>Any data from RapidAPI Testing</li>
+                  <li>Any data from ZapiAPI Testing</li>
                   <li>
-                    Any data from RapidAPI Requests (previously known as Paw)
+                    Any data from ZapiAPI Requests (previously known as Paw)
                   </li>
                 </ul>
               </span>
@@ -181,7 +188,7 @@ const SettingsPage: React.FC = () => {
             <hr />
 
             <button onClick={handleDeleteApi} className="buttons-1">
-              Delete API Project
+            {loading ? <Spinner /> : "Delete API Project"}
             </button>
           </form>
         ) : (
