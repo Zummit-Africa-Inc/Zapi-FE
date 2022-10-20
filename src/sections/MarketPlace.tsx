@@ -75,7 +75,6 @@ const useStyles = makeStyles({
         flexDirection: "column",
         gap: "2rem",
         width: "400px",
-        padding: "24px 48px 40px 24px",
         "&:nth-child(1)": {
             borderRight: "1px solid rgba(19, 50, 159, 0.45)",
             "@media screen and (max-width:800px)": {
