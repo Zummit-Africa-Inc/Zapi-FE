@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Cookies from "universal-cookie";
 import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
+import { Spinner } from "../assets";
 import { removeApi } from "../redux/slices/apiSlice";
 import { useContextProvider } from '../contexts/ContextProvider';
 
@@ -77,8 +78,10 @@ const DevAPICard: React.FC<CardProps> = ({id,name,description}) => {
                             }
                         />
 
-                        <Menu id="cardMenu" MenuListProps={{ 'aria-labelledby': 'menuButton', }} anchorEl={anchorEl} open={open} onClose={handleClose} TransitionComponent={Fade}>
-                            <MenuItem onClick={handleDeleteApi}>Delete</MenuItem>
+                        <Menu id="cardMenu" MenuListProps={{ 'aria-labelledby': 'menuButton',disablePadding: true }} anchorEl={anchorEl} open={open} onClose={handleClose} TransitionComponent={Fade}>
+                                <MenuItem style={{ backgroundColor: 'red' }} onClick={handleDeleteApi}>
+                                {loading ? <Spinner /> : "Delete"}
+                            </MenuItem>
                         </Menu>
                         
                         <Link to={`/developer/api/${id}`}>

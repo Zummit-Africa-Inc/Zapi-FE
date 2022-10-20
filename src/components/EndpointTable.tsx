@@ -10,6 +10,7 @@ import { tableCellClasses } from '@mui/material/TableCell';
 import { makeStyles } from '@mui/styles';
 import { toast } from 'react-toastify';
 import { styled } from '@mui/material/styles';
+import { Spinner } from "../assets";
 
 import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
 import { removeEndpoint, editEndpoint } from "../redux/slices/userSlice";
@@ -132,7 +133,7 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
               </StyledTableCell>
               <StyledTableCell>
                 <button onClick={() => deleteRoute(endpoint?.id)} className={classes.button} style={{background: "#E32C08"}}>
-                  DELETE
+                {loading ? <Spinner /> : "DELETE"}
                 </button>
               </StyledTableCell>
             </StyledTableRow>

@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { Paper } from "@mui/material";
 import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
+import { Spinner } from "../assets";
 import { removeApi } from "../redux/slices/apiSlice";
 
 // const core_url = import.meta.env.VITE_CORE_URL
@@ -187,7 +188,7 @@ const SettingsPage: React.FC = () => {
             <hr />
 
             <button onClick={handleDeleteApi} className="buttons-1">
-              Delete API Project
+            {loading ? <Spinner /> : "Delete API Project"}
             </button>
           </form>
         ) : (
