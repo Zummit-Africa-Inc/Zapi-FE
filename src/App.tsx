@@ -1,14 +1,34 @@
-import './App.css';
+import "./App.css";
 import React, { Suspense, useEffect, useMemo } from "react";
-import { Routes, Route } from  "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
-import { deviceDetect } from  "react-device-detect";
+import { deviceDetect } from "react-device-detect";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
-import { DevDashboard, DeveloperApiPage, Home, HomePage, Signup, UserProfile, ForgotPassword, LoginHistory, Otp, APIPage, SuccessPage, Configuration, TermsConditions, ResetPassword, Pricing, Documentation, APIHub, Notifications, ComingSoonPage } from "./pages";
-import { Fallback, Login, AddApiPopup, } from "./components";
+import {
+  DevDashboard,
+  DeveloperApiPage,
+  Home,
+  HomePage,
+  Signup,
+  UserProfile,
+  ForgotPassword,
+  LoginHistory,
+  Otp,
+  APIPage,
+  SuccessPage,
+  Configuration,
+  TermsConditions,
+  ResetPassword,
+  Pricing,
+  Documentation,
+  APIHub,
+  Notifications,
+  ComingSoonPage,
+} from "./pages";
+import { Fallback, Login, AddApiPopup } from "./components";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { login } from "./redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "./hooks";
@@ -17,19 +37,20 @@ import { getUserApis, getSubscribedApis } from "./redux/slices/userSlice";
 import { getApiCategories, getApis } from "./redux/slices/apiSlice";
 import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
-import Cookies from 'universal-cookie';
+import Cookies from "universal-cookie";
 
 const App: React.FC = () => {
-  const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP } = useContextProvider()
-  const { isLoggedIn } = useAppSelector(store => store.user)
-  const { trigger } = useContextProvider()
-  const cookies = new Cookies()
-  const profileId = cookies.get("profileId")
-  const dispatch = useAppDispatch()
+  const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP } =
+    useContextProvider();
+  const { isLoggedIn } = useAppSelector((store) => store.user);
+  const { trigger } = useContextProvider();
+  const cookies = new Cookies();
+  const profileId = cookies.get("profileId");
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const device = deviceDetect(navigator.userAgent)
-    setDeviceInfo(device)
+    const device = deviceDetect(navigator.userAgent);
+    setDeviceInfo(device);
   }, []);
 
   useEffect(() => {
@@ -37,40 +58,44 @@ const App: React.FC = () => {
       setDeviceLocation({
         lat: position.coords.latitude,
         lon: position.coords.longitude,
-        time: position.timestamp
-      })
-    })
+        time: position.timestamp,
+      });
+    });
   }, []);
 
   useEffect(() => {
-    const getIPAddress = async() => {
-      const data = await getDeviceIP()
-      setDeviceIP(data)
-    }
-    getIPAddress()
-  },[])
+    const getIPAddress = async () => {
+      const data = await getDeviceIP();
+      setDeviceIP(data);
+    };
+    getIPAddress();
+  }, []);
 
   useEffect(() => {
     const loginUser = () => {
-      const item = localStorage.getItem("zapi_user")
-      if (!item) return
-      const user = JSON.parse(item)
-      dispatch(login(user))
-    }
-    loginUser()
+      const item = localStorage.getItem("zapi_user");
+      if (!item) return;
+      const user = JSON.parse(item);
+      dispatch(login(user));
+    };
+    loginUser();
   }, []);
 
-  const fetchApis = useMemo(() =>  (dispatch(getApis())),[])
-  const fetchCategories = useMemo(() =>  (dispatch(getApiCategories())),[])
+  const fetchApis = useMemo(() => dispatch(getApis()), []);
+  const fetchCategories = useMemo(() => dispatch(getApiCategories()), []);
 
-  useEffect(() => { fetchApis }, []) 
-  useEffect(() => { fetchCategories }, []) 
-  
   useEffect(() => {
-    if (profileId === undefined) return 
-    dispatch(getUserApis(profileId))
-    dispatch(getSubscribedApis(profileId))
-  },[(isLoggedIn === true), trigger, profileId])
+    fetchApis;
+  }, []);
+  useEffect(() => {
+    fetchCategories;
+  }, []);
+
+  useEffect(() => {
+    if (profileId === undefined) return;
+    dispatch(getUserApis(profileId));
+    dispatch(getSubscribedApis(profileId));
+  }, [isLoggedIn === true, trigger, profileId]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -106,7 +131,7 @@ const App: React.FC = () => {
         {isClicked.addapi && <AddApiPopup />}
       </div>
     </ThemeProvider>
-  )
-}
+  );
+};
 
-export default App
+export default App;
