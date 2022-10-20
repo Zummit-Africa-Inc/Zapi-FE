@@ -112,7 +112,7 @@ const useStyles = makeStyles({
     },
     imageContainer:{
         // backgroundColor: '#e1e1e1',
-        backgroundImage: 'url("../../public/images/Alien science-pana.svg")',
+        backgroundImage: 'url("../../images/Alien science-pana.svg")',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'contain',
         width: '100%',
