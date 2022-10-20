@@ -16,11 +16,10 @@ export const useHttpRequest = () => {
 
         const httpAbortCtrl = new AbortController()
         activeHttpRequests.current.push(httpAbortCtrl)
-        const accessToken = cookies.get('accessToken')
+
         try {
             let requestExtraParams = {
                 headers: {
-                    'Zapi_Auth_token': "Bearer " + accessToken,
                     ...headers,
                 },
                 body

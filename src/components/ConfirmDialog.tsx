@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from "@mui/styles";
 import { Spinner } from "../assets";
 import {  useHttpRequest } from "../hooks";
@@ -13,6 +13,7 @@ interface DialogProps {
 
 const ConfirmDialog:React.FC<DialogProps>= ({message,onClick}) => {
     const classes = useStyles();
+
     const { loading } = useHttpRequest()
 
   return (

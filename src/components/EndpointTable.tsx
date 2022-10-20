@@ -59,6 +59,7 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
   const [isEditing, setIsEditing] = useState<number | null>(null)
   const { userApis } = useAppSelector(store => store.user)
   const api = userApis.find(api => api?.id === id)
+  console.log(id)
   const { triggerRefresh } = useContextProvider()
   const dispatch = useAppDispatch()
   const classes = useStyles()
@@ -97,22 +98,24 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
     })
   }
 
-  const areUSureDelete = async(choose:any,id: string | undefined) =>{
-    if(choose) {
-      const headers = { 'Content-Type': 'application/json'}
-      try {
-        const data = await sendRequest(`/endpoints/${id}`, 'del', core_url, payload, headers)
-        if(!data || data === undefined) return
-        dispatch(removeEndpoint(id))
-        triggerRefresh()
-      } catch (error) {}
-      handleDialog('',false);
-    }else{
-      handleDialog('',false);
-    }
-  }
-  
+  // const areUSureDelete = async(choose:string, id: string | undefined) =>{
+  //   if(choose) {
+  //     const headers = { 'Content-Type': 'application/json'}
+  //     try {
+  //       const data = await sendRequest(`/endpoints/${id}`, 'del', core_url, payload, headers)
+  //       if(!data || data === undefined) return
+  //       dispatch(removeEndpoint(id))
+  //       triggerRefresh()
+  //     } catch (error) {}
+  //     handleDialog('',false);
+  //   }else{
+  //     handleDialog('',false);
+  //   }
+  // }
+  // console.log(id)
+
   const deleteRoute = async(id: string | undefined) => {
+    console.log(id)
     handleDialog('Are you sure you want to delete?',true);
     
     // setDialog({
@@ -131,7 +134,7 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
 
   const [isOpen, setIsOpen] = useState(false)
  
-  const handleClose = () => { setIsOpen(!isOpen) }
+  const handleClose = (id: string | undefined) => { setIsOpen(!isOpen) }
  
   const handleConfirm = async(id: string | undefined) => { 
     setIsOpen(true)
@@ -139,10 +142,11 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
       try {
         const data = await sendRequest(`/endpoints/${id}`, 'del', core_url, payload, headers)
         if(!data || data === undefined) return
+        console.log(id)
         dispatch(removeEndpoint(id))
         triggerRefresh()
       } catch (error) {}
-      handleDialog('',false);
+      // handleDialog('',false);
    }
   const handleCancel = () => { setIsOpen(false) }
 
@@ -189,12 +193,12 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
                 )}
               </StyledTableCell>
               <StyledTableCell>
-                <button onClick={handleClose} className={classes.button} style={{background: "#E32C08"}}>
+                <button onClick={() =>handleClose(endpoint?.id)} className={classes.button} style={{background: "#E32C08"}}>
                   DELETE
                 </button>
                 <ConfirmBox // Note : in this example all props are required
                       options={{
-                        // icon:"https://img.icons8.com/clouds/100/000000/vector.png",
+                        icon:"https://img.icons8.com/clouds/100/000000/vector.png",
                         text: 'Are you sure you want to delete this element?',
                         confirm: `${loading ? <Spinner /> : "Yes"}`,
                         cancel: 'no',
