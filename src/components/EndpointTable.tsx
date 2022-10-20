@@ -29,9 +29,11 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
+    width: "auto"
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
+    width: "auto"
   },
 }));
 
@@ -91,7 +93,7 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
   
   return (
     <>
-    <TableContainer component={Paper} >
+    <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
@@ -179,7 +181,7 @@ const useStyles = makeStyles({
     color: "#FFF",
     cursor: "pointer",
     fontFamily: "var(--body-font)",
-  }
+  },
 })
 
 export default CollapsibleTable
