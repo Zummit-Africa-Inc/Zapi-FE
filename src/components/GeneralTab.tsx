@@ -1,4 +1,10 @@
-import React, { ChangeEvent, FormEvent, useState, useEffect } from "react";
+import React, {
+  ChangeEvent,
+  FormEvent,
+  useState,
+  useEffect,
+  SyntheticEvent,
+} from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -102,7 +108,7 @@ const GeneralTab: React.FC = () => {
 
   const isChanged = JSON.stringify(payload) === JSON.stringify(userData);
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const headers = {
       "Content-Type": "application/json",
