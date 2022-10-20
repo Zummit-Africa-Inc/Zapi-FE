@@ -41,10 +41,10 @@ const notificationSlice = createSlice({
         addNotification: (state, action: PayloadAction<any>) => {
             state.notifications.unshift(action.payload)
         },
-        removeNotification: (state, action: PayloadAction<any>) => {
-            const profileId = action.payload
-            state.notifications = state.notifications.filter(notification => notification.profileId !== profileId)
-        },
+        // removeNotification: (state, action: PayloadAction<any>) => {
+        //     const profileId = action.payload
+        //     state.notifications = state.notifications.filter(notification => notification.profileId !== profileId)
+        // },
         markAsRead: (state, action: PayloadAction<any>) => {
             const item = state.notifications.find((item) => item.isRead = true)
         },
@@ -58,6 +58,6 @@ const notificationSlice = createSlice({
     }
 })
 
-export const { allNotification, addNotification, removeNotification, markAsRead } = notificationSlice.actions
+export const { allNotification, addNotification, markAsRead } = notificationSlice.actions
 export default notificationSlice.reducer
 
