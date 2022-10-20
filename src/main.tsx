@@ -1,3 +1,4 @@
+import "./init"
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
@@ -8,6 +9,8 @@ import "./index.css";
 import { store } from "./redux/store";
 import { ContextProvider } from "./contexts/ContextProvider";
 import { Amplify } from "aws-amplify";
+import Cookies from 'universal-cookie'
+const cookies = new Cookies()
 
 Amplify.configure({
   API: {
@@ -28,6 +31,9 @@ Amplify.configure({
       {
         name: "VITE_CORE_URL",
         endpoint: "https://core.zapi.ai/api/v1",
+        custom_header: async () => {
+          return { 'X-Zapi-Auth-Token': `Bearer ${cookies.get('accessToken')}` };
+        }
       },
     ],
   },
