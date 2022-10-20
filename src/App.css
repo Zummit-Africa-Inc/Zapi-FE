@@ -149,8 +149,8 @@
   border-radius: 6px;
   cursor: pointer;
   margin: 10px 0px 10px 0px;
-  background-color: rgb(236, 16, 16);
-  border-color: rgb(235, 76, 76);
+  background-color: rgb(241, 178, 178);
+  border-color: rgb(232, 212, 212);
   color: rgba(247, 239, 239, 0.87);
 }
 .name-col{
@@ -256,10 +256,14 @@ button{
   cursor: pointer;
 }
 .buttons-1{
-  font-family: Inter, -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir, Helvetica, sans-serif;
-  font-size: 14px;
-  box-sizing: border-box;
-  margin: 10px;
+  font-size: 16px;
+  align-items: center;
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 7px 0px 10px 0px;
+  background-color: rgb(240, 126, 126);
+  border-color: rgb(232, 212, 212);
+  color: rgba(247, 239, 239, 0.87);
   left: 200px;
 }
 

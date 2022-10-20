@@ -175,7 +175,7 @@ const SettingsPage: React.FC = () => {
               <span className="sue-del">
                 You will permanentely lose:
                 <ul className="ul-num">
-                  <li>Your API subscribers (1)</li>
+                  <li>Your API subscribers</li>
                   <li>Your API data & analysis</li>
                   <li>Your API documentation</li>
                   <li>Any data from ZapiAPI Testing</li>
