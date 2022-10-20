@@ -12,7 +12,7 @@ import { logout } from "../redux/slices/userSlice";
 import Cookies from "universal-cookie";
 
 import { ZapiArrow } from '../assets';
-import { Button, List, ListItem } from '@mui/material'
+import { Button, List, ListItem, Typography } from '@mui/material'
 
 import { io } from "socket.io-client";
 import Notification from "./Notification";
@@ -71,8 +71,10 @@ const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
             </div>
 
             <div className={classes.widget}>
-                <img src={ZapiWidget} alt='Zapi-widget' />
-                <Link to='/developer/dashboard' className={classes.api}>API Projects</Link>
+                <Link to='/developer/dashboard' className={classes.api}>
+                    <img src={ZapiWidget} alt='Zapi-widget' />
+                    <Typography className={classes.typography}>API Projects</Typography>
+                </Link>
             </div>
     
             <div className={classes.menus}>
@@ -98,11 +100,11 @@ const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
                         {isShow ?
                             <List className={classes.projectListContainer}>
                                 {userApis.map((api, index) => (
-                                <ListItem className={classes.projectListItems} key={index}>
                                     <Link to={`/developer/api/${api.id}`}>
-                                        {api.name}
+                                        <ListItem className={classes.projectListItems} key={index}>
+                                            {api.name}
+                                        </ListItem>
                                     </Link>
-                                </ListItem>
                                ))}
                             </List>
                             :
@@ -143,7 +145,10 @@ const useStyles = makeStyles({
             padding: "1rem 2rem"
         },
         "@media screen and (max-width: 500px)": {
-            padding: "1rem 1rem"
+            padding: "1rem"
+        },
+        "@media screen and (max-width: 375px)": {
+            padding: "0"
         }
     },
     logo:{
@@ -169,7 +174,7 @@ const useStyles = makeStyles({
         },
         "@media screen and (max-width: 420px)": {
             scale: .8
-        }
+        },
     },
     widget:{
         color:'#1C1B1F',
@@ -186,12 +191,20 @@ const useStyles = makeStyles({
         }
     },
     api:{
-        fontWeight:"400",
-        fontSize:"16px",
-        textDecoration:"none",
-        color:"#000000"
+        display:'flex',
+        alignItems:'center',
+        gap:'1rem',
+        fontWeight:'400',
+        fontSize:'16px',
+        textDecoration:'none',
+        color:'#000000'
     },
+    typography: {
+        "@media screen and (max-width: 380px)": {
+            display: "none"
+        }
 
+    },
     icons:{
         alignItems:"center",
         display:"flex",
@@ -277,22 +290,19 @@ const useStyles = makeStyles({
         }
     },
     projectListItems: {
-        "&.MuiListItemText": {
-            textTransform: "lowercase",
-        },
         "&.MuiListItem-root": {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             fontSize: "15px",
             fontWeight: "normal",
-            textTransform: "capitalize",
+            textAlign: "center",
             lineHeight: "25px",
             color: "#909090",
             width: "150px",
             "@media screen and (max-width: 420px)": {
                 fontSize: "13px",
-            }
+            },
             
         },
     },

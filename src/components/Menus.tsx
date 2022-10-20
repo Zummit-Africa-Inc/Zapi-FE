@@ -64,13 +64,13 @@ const Menus: React.FC<MenuProps> = () => {
             All Projects<img src={ZapiArrow} alt='zapi-arrow' style={{ color:'#00000', marginLeft:'0.4rem' }}/>
         </Button>
         <Menu id="fade-menu" MenuListProps={{ 'aria-labelledby': 'fade-button', }} anchorEl={anchorEl} open={open} onClose={handleClose} TransitionComponent={Fade}>
-        {userApis.map((api, index) => (
-            <MenuItem key={index}>
+            {userApis.map((api, index) => (
                 <Link to={`/developer/api/${api.id}`}>
-                    {api.name}
+                    <MenuItem className={classes.menuItem} key={index}>
+                        {api.name}
+                    </MenuItem>
                 </Link>
-            </MenuItem>
-        ))}
+            ))}
         </Menu>
         <Stack direction="row" alignItems="center" justifyContent="center" spacing={2}>
             <DeveloperBoardRounded/>
@@ -107,6 +107,19 @@ const useStyles = makeStyles({
         display:'flex',
         width:'450px',
         gap:'2rem'
+    },
+    menuItem: {
+        "&.MuiMenuItem-root": {
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            fontSize: "15px",
+            fontWeight: "normal",
+            textAlign: "center",
+            lineHeight: "25px",
+            color: "#303030",
+        }
+
     },
     root:{
         width:'450px',
