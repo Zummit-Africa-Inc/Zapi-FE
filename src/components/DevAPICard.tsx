@@ -54,8 +54,9 @@ const DevAPICard: React.FC<CardProps> = ({id,name,description}) => {
           );
             if (!data || data === undefined) return;
             dispatch(removeApi(id))
-            toast.success(data.data.message);
             triggerRefresh()
+            const { message } = data;
+            toast.success(`${message}`);
         } catch (error) {}
       };
 

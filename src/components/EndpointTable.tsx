@@ -74,6 +74,8 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
       dispatch(editEndpoint(payload))
       setIsEditing(null)
       triggerRefresh()
+      const { message } = data;
+      toast.success(`${message}`);
     } catch (error) {}
   }
   
