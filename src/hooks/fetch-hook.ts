@@ -20,7 +20,6 @@ export const useHttpRequest = () => {
         try {
             let requestExtraParams = {
                 headers: {
-                    'Zapi_Auth_token': cookies.get('accessToken'),
                     ...headers,
                 },
                 body
