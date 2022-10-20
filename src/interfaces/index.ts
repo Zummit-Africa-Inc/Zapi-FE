@@ -54,4 +54,10 @@ export interface HeaderObject {
     value: string
 }
 
-// export interface RequestBody {}
+export interface CardProps {
+    id?: string
+    name?: string
+    description?: string
+    rating?: number
+    latency?: number
+}

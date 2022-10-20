@@ -102,6 +102,8 @@ const useStyles = makeStyles({
         }
     },
     column: {
+        position: "relative",
+        left: "30px",
         display: "flex",
         gap: "2.25rem",
         "@media screen and (max-width:800px)": {
