@@ -1,4 +1,4 @@
-import React from "react";
+import React, { SyntheticEvent } from "react";
 import { makeStyles } from "@mui/styles";
 import { blue } from "@mui/material/colors";
 import {
@@ -59,7 +59,7 @@ const DevAPICard: React.FC<CardProps> = ({ id, name, description }) => {
     setAnchorEl(null);
   };
 
-  const handleDeleteApi = async (e: any) => {
+  const handleDeleteApi = async (e: SyntheticEvent) => {
     const headers = { "Content-Type": "application/json" };
     try {
       const data = await sendRequest(

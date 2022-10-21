@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom'
 import { makeStyles } from '@mui/styles'
 import { FiAlertCircle } from 'react-icons/fi'
 import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png";
+import { IErrorType } from '../interfaces';
 
-
-interface IErrorType { error?: any }
 
 const ErrorPage:React.FC<IErrorType> = ({error}) => {
     const classes = useStyles()
