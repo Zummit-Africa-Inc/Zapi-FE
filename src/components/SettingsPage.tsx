@@ -47,7 +47,7 @@ const SettingsPage: React.FC = () => {
     const headers = { 'Content-Type': 'application/json'}
     try {
       const data = await sendRequest(
-        `/api/${id}`,
+        `/api/${id}?profileId=${profileId}`,
         "del",
         core_url, payload, headers
       );

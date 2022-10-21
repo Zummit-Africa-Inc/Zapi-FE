@@ -17,6 +17,8 @@ import { removeEndpoint, editEndpoint } from "../redux/slices/userSlice";
 import { EndpointProps } from "../interfaces";
 import { EndpointsType } from "../types";
 import { useContextProvider } from '../contexts/ContextProvider';
+import Cookies from 'universal-cookie';
+const cookies = new Cookies()
 
 // const core_url = import.meta.env.VITE_BASE_URL
 const core_url = "VITE_CORE_URL"
@@ -84,7 +86,7 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
   const deleteRoute = async(id: string | undefined) => {
     const headers = { 'Content-Type': 'application/json'}
     try {
-      const data = await sendRequest(`/endpoints/${id}`, 'del', core_url, payload, headers)
+      const data = await sendRequest(`/endpoints/${id}?profileId=${cookies.get("profileId")}`, 'del', core_url, payload, headers)
       if(!data || data === undefined) return
       dispatch(removeEndpoint(id))
       triggerRefresh()

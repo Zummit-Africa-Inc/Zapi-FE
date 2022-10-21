@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import Cookies from "universal-cookie";
-import { headers } from "../../utils";
 
 import { UserProfileType, APIType, SubscriptionType } from "../../types";
 
@@ -29,6 +28,7 @@ const initialState: UserState = {
 }
 
 export const getUserProfile = createAsyncThunk("user/getprofile", async(_, thunkAPI) => {
+    const headers = { 'X-Zapi-Auth-Token': `Bearer ${cookies.get('accessToken')}` }
     try {
         const response = await fetch(`${identity_url}/profile/${userId}`, {headers}) //sendRequest() function needs to replace this
         const data = await response.json()
@@ -39,6 +39,7 @@ export const getUserProfile = createAsyncThunk("user/getprofile", async(_, thunk
 })
 
 export const getUserApis = createAsyncThunk("user/getapis", async(id: any, thunkAPI) => {
+    const headers = { 'X-Zapi-Auth-Token': `Bearer ${cookies.get('accessToken')}` }
     try {
         const response = await fetch(`${core_url}/api/dev-platform-data/${id}`, {headers})
         const data = await response.json()
@@ -50,6 +51,7 @@ export const getUserApis = createAsyncThunk("user/getapis", async(id: any, thunk
 })
 
 export const getSubscribedApis = createAsyncThunk("user/getsubscribed", async(id: any, thunkAPI) => {
+    const headers = { 'X-Zapi-Auth-Token': `Bearer ${cookies.get('accessToken')}` }
     try {
         const response = await fetch(`${core_url}/api/dev-platform-data/${id}`, {headers})
         const data = await response.json()
