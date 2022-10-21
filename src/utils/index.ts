@@ -1,8 +1,13 @@
+import Cookies from "universal-cookie"
+
+const cookies = new Cookies()
+
 export const PASSWORD_REGEX = /^(?=.*[a-zA-Z0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,20}$/
 
 export const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=_{|}~-]+@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*$/
 
 export const SPECIAL_CHAR = /[`!@#$%^&*()_+\-=\]{};':"\\|,.<>?~]/
+
 
 export const MATCH_CHECKER = (value: any, checker: any) => {
     if(value === checker) return true;
@@ -32,3 +37,5 @@ export const getDeviceIP = async() => {
     let data = await response.json()
     return data;
 };
+
+export const headers = { 'X-Zapi-Auth-Token': `Bearer ${cookies.get('accessToken')}` }

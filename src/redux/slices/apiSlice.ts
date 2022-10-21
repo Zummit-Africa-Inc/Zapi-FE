@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { APIType } from "../../types";
+import { headers } from "../../utils";
 
 const url = import.meta.env.VITE_CORE_URL
 interface ApiState {
@@ -19,7 +20,7 @@ const initialState = {
 
 export const getApiCategories = createAsyncThunk("apis/getApiCategories", async(_, thunkAPI) => {
     try {
-        const response = await fetch(`${url}/categories`)
+        const response = await fetch(`${url}/categories`, {headers})
         const data = await response.json()
         return data.data
     } catch (error: any) {
@@ -29,7 +30,7 @@ export const getApiCategories = createAsyncThunk("apis/getApiCategories", async(
 
 export const getApis = createAsyncThunk("apis/getApis", async(_, thunkAPI) => {
     try {
-        const response = await fetch(`${url}/api`)
+        const response = await fetch(`${url}/api`, {headers})
         const data = await response.json()
         return data.data
     } catch (error: any) {
