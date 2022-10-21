@@ -236,10 +236,10 @@ const GeneralTab: React.FC = () => {
                 }}>
                 <Stack direction="row" spacing={2}>
                   <Box>
-                    {visibility ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                    {visibility === APIVisibility.PUBLIC ? <VisibilityIcon /> : <VisibilityOffIcon />}
                   </Box>
                   <Box>
-                    {visibility ? (
+                    {visibility === APIVisibility.PUBLIC ? (
                       <>
                         <Typography fontWeight={600}>
                           API Project is Public
@@ -310,15 +310,16 @@ const GeneralTab: React.FC = () => {
               <Stack direction="row" spacing={2} mt={5}>
                 <Button
                   type="submit"
+                  style={{backgroundColor:'#4A95EC', color:'white', textTransform: 'none'}}
                   onClick={handleSubmit}
-                  variant="contained"
+                  variant="text"
                   disabled={isChanged}
+                  disableElevation
+                  disableRipple
                   className={classes.saveBtn}>
                   {loading ? <Spinner /> : "Save"}
                 </Button>
-                <Button variant="contained" className={classes.discardBtn}>
-                  Discard
-                </Button>
+                <button className={classes.discardBtn}>Discard</button>
               </Stack>
             </Box>
           </form>
