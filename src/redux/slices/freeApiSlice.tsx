@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { APIType } from "../../types";
+import { headers } from "../../utils";
 
 const core_url = import.meta.env.VITE_CORE_URL
 
@@ -17,7 +18,7 @@ const initialState: FreeApiState = {
 
 export const getFreeApis = createAsyncThunk('freeApis/getFreeApis', async(_, thunkAPI) => {
     try {
-        const response = await fetch(`${core_url}/api/free-request`)
+        const response = await fetch(`${core_url}/api/free-request`, {headers})
         const data = await response.json()
         return data.data
     } catch (error: any) {
