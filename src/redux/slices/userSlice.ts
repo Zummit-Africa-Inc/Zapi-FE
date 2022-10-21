@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import Cookies from "universal-cookie";
+import { headers } from "../../utils";
 
 import { UserProfileType, APIType, SubscriptionType } from "../../types";
 
@@ -29,7 +30,7 @@ const initialState: UserState = {
 
 export const getUserProfile = createAsyncThunk("user/getprofile", async(_, thunkAPI) => {
     try {
-        const response = await fetch(`${identity_url}/profile/${userId}`)
+        const response = await fetch(`${identity_url}/profile/${userId}`, {headers}) //sendRequest() function needs to replace this
         const data = await response.json()
         return data
     } catch (error: any) {
@@ -39,7 +40,7 @@ export const getUserProfile = createAsyncThunk("user/getprofile", async(_, thunk
 
 export const getUserApis = createAsyncThunk("user/getapis", async(id: any, thunkAPI) => {
     try {
-        const response = await fetch(`${core_url}/api/dev-platform-data/${id}`)
+        const response = await fetch(`${core_url}/api/dev-platform-data/${id}`, {headers})
         const data = await response.json()
         const apis = data?.data.apis
         return apis
@@ -50,7 +51,7 @@ export const getUserApis = createAsyncThunk("user/getapis", async(id: any, thunk
 
 export const getSubscribedApis = createAsyncThunk("user/getsubscribed", async(id: any, thunkAPI) => {
     try {
-        const response = await fetch(`${core_url}/api/dev-platform-data/${id}`)
+        const response = await fetch(`${core_url}/api/dev-platform-data/${id}`, {headers})
         const data = await response.json()
         const subscribed = data?.data.userSubscriptions
         return subscribed

@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import Cookies from "universal-cookie";
+import { headers } from "../../utils";
 
 import { NotificationType } from "../../types";
 
@@ -20,7 +21,7 @@ const initialState: NotificationState = {
 }
 export const getNotifications = createAsyncThunk('/getNotifications', async(_, thunkAPI) => {
     try {
-        const response = await fetch(`${socket_url}/allNotifications/${profileId}`)
+        const response = await fetch(`${socket_url}/allNotifications/${profileId}`, {headers})
         const data = await response.json()
         const notification = data?.data
         console.log(notification + "yo");

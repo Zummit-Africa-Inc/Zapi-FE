@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { EndpointsType } from "../../types";
 import { mockEndpoint } from "../../components/mockdata";
+import { headers } from "../../utils";
 
 const core_url = import.meta.env.VITE_CORE_URL
 const apiId = ''
@@ -16,7 +17,7 @@ const initialState = {
 
 const getEndpoints = createAsyncThunk('/getendpoints', async(_, thunkAPI) => {
     try {
-        const response = await fetch(`${core_url}/endpoints/${apiId}`)
+        const response = await fetch(`${core_url}/endpoints/${apiId}`, {headers})
         const data = await response.json()
         return data
     } catch (error) {
