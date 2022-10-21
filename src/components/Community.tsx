@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { SyntheticEvent, useState } from "react";
 import { Container, createTheme, Tabs, Tab, ThemeProvider, Paper } from "@mui/material";
 import User from "../components/User";
 import { makeStyles } from "@mui/styles"
@@ -23,7 +23,7 @@ const Community = () => {
 
     const [selectedTab, setSelectedTab] = useState(0);
     const [active, setActive] = useState(true)
-    const handleTabs = (e :any, value : number) => {
+    const handleTabs = (e : SyntheticEvent, value : number) => {
         setSelectedTab(value);
     };
 

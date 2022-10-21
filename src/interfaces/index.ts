@@ -61,3 +61,12 @@ export interface CardProps {
     rating?: number
     latency?: number
 }
+
+export interface IErrorType { 
+    error?: any 
+}
+
+export interface Ibrand {
+    img : string
+    alt : string
+  }
