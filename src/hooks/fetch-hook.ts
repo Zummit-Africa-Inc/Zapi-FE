@@ -24,7 +24,10 @@ export const useHttpRequest = () => {
                 },
                 body
             }
-            const response = await API[`${method}`](apiName, url, requestExtraParams)
+            const profileId = cookies.get("profileId");
+            // const query = ['patch', 'del'].includes(method)?`?profileId=${profileId}` : ''
+            let route = ['patch', 'del'].includes(method)? `${url}+ ?profileId=${profileId}` : url 
+            const response = await API[`${method}`](apiName, route, requestExtraParams)
             activeHttpRequests.current = activeHttpRequests.current.filter((reqCtrl: any) => {
                 reqCtrl !== httpAbortCtrl
             })
