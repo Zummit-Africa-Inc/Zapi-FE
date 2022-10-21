@@ -188,7 +188,7 @@ const SettingsPage: React.FC = () => {
             <hr />
 
             <button onClick={handleDeleteApi} className="buttons-1">
-            {loading ? <Spinner /> : "Delete API Project"}
+            {loading ? <Spinner /> : "Delete"}
             </button>
           </form>
         ) : (
