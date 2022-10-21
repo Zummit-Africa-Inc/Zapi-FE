@@ -1,4 +1,4 @@
-import Frame from "./images/frame.svg";
+import Frame from "./images/svg/frame.svg";
 import Nvidia from "./images/Nvidia.png";
 import Zummit from "./images/Zummit.png";
 import ZummitInfoLabs from "./images/zummit-full.png";

@@ -23,7 +23,7 @@ const Community = () => {
 
     const [selectedTab, setSelectedTab] = useState(0);
     const [active, setActive] = useState(true)
-    const handleTabs = (e :SyntheticEvent, value : number) => {
+    const handleTabs = (e : SyntheticEvent, value : number) => {
         setSelectedTab(value);
     };
 

@@ -1,12 +1,5 @@
 import { createSlice} from "@reduxjs/toolkit";
-
-interface ModalState {
-    loading: "idle" | "pending" | "fulfilled" | "rejected" | boolean
-    error?: any
-    action: string
-    type:string
-    modalData: string
-}
+import { ModalState } from "../../interfaces";
 
 const initialState: ModalState = {
     loading: false,
@@ -16,8 +9,6 @@ const initialState: ModalState = {
   type: "",
   modalData: ""
 }
-
-
 
 export const modalSlice = createSlice({
   name: "modal",

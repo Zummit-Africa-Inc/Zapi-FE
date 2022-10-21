@@ -1,14 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-import { EndpointsType } from "../../types";
+import { Endpoints } from "../../interfaces";
 import { mockEndpoint } from "../../components/mockdata";
 
 const core_url = import.meta.env.VITE_CORE_URL
 const apiId = ''
 
-interface Endpoints {
-    endpoints: Array<EndpointsType | null>
-}
 
 const initialState = {
     endpoints: mockEndpoint

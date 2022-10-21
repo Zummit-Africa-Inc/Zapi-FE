@@ -1,17 +1,12 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import Cookies from "universal-cookie";
 
-import { NotificationType } from "../../types";
+import { NotificationState } from "../../interfaces";
 
 const cookies = new Cookies()
 const profileId = cookies.get("profileId")
 const socket_url = import.meta.env.VITE_SOCKET_URL
 
-interface NotificationState {
-    notifications: Array<NotificationType>
-    content: "newSubscription" | "unSubscription" | "apiHosted" | "apiDown" | null
-    isRead: boolean
-}
 
 const initialState: NotificationState = {
     content: null,

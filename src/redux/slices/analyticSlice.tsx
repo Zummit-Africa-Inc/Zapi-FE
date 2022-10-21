@@ -1,14 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { AnalyticsLog, AnalyticsType } from "../../types";
+import { AnalyticState } from "../../interfaces";
 
 const core_url = import.meta.env.VITE_CORE_URL
-
-interface AnalyticState {
-    analytics: AnalyticsType | any
-    analyticsLog: Array<AnalyticsLog>
-    isLoading: Boolean
-    error?: any
-}
 
 const initialState: AnalyticState = {
     analytics: {},

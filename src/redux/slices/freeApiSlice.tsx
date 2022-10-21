@@ -1,13 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { APIType } from "../../types";
+import { FreeApiState } from "../../interfaces";
 
 const core_url = import.meta.env.VITE_CORE_URL
-
-interface FreeApiState {
-    freeApis: APIType[]
-    isLoading: Boolean
-    error?: any
-}
 
 const initialState: FreeApiState = {
     freeApis: [],
