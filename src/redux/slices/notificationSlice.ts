@@ -1,7 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import Cookies from "universal-cookie";
-import { headers } from "../../utils";
-
 import { NotificationType } from "../../types";
 
 const cookies = new Cookies();
@@ -20,13 +18,12 @@ interface NotificationState {
 }
 
 const initialState: NotificationState = {
-  content: null,
-  notifications: [],
-  isRead: false,
-};
-export const getNotifications = createAsyncThunk(
-  "/getNotifications",
-  async (_, thunkAPI) => {
+    content: null,
+    notifications: [],
+    isRead: false,
+}
+export const getNotifications = createAsyncThunk('/getNotifications', async(_, thunkAPI) => {
+    const headers = { 'X-Zapi-Auth-Token': `Bearer ${cookies.get('accessToken')}` }
     try {
       const response = await fetch(
         `${socket_url}/allNotifications/${profileId}`,
