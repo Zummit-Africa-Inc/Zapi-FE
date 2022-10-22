@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-
+// import { headers } from "./constant";
 import { EndpointsType } from "../../types";
 import { mockEndpoint } from "../../components/mockdata";
-import { headers } from "../../utils";
-
+import Cookies from "universal-cookie"
+const cookies = new Cookies()
 const core_url = import.meta.env.VITE_CORE_URL
 const apiId = ''
 
@@ -16,6 +16,7 @@ const initialState = {
 } as Endpoints
 
 const getEndpoints = createAsyncThunk('/getendpoints', async(_, thunkAPI) => {
+    const headers = { 'X-Zapi-Auth-Token': `Bearer ${cookies.get('accessToken')}` }
     try {
         const response = await fetch(`${core_url}/endpoints/${apiId}`, {headers})
         const data = await response.json()

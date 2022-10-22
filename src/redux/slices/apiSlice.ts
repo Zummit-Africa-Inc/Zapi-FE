@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { APIType } from "../../types";
-import { headers } from "../../utils";
-
+// import { headers } from "./constant";
+import Cookies from "universal-cookie"
+const cookies = new Cookies()
 const url = import.meta.env.VITE_CORE_URL
 interface ApiState {
     apis: Array<APIType>
@@ -19,6 +20,7 @@ const initialState = {
 } as ApiState
 
 export const getApiCategories = createAsyncThunk("apis/getApiCategories", async(_, thunkAPI) => {
+    const headers = { 'X-Zapi-Auth-Token': `Bearer ${cookies.get('accessToken')}` }
     try {
         const response = await fetch(`${url}/categories`, {headers})
         const data = await response.json()
@@ -29,6 +31,7 @@ export const getApiCategories = createAsyncThunk("apis/getApiCategories", async(
 })
 
 export const getApis = createAsyncThunk("apis/getApis", async(_, thunkAPI) => {
+    const headers = { 'X-Zapi-Auth-Token': `Bearer ${cookies.get('accessToken')}` }
     try {
         const response = await fetch(`${url}/api`, {headers})
         const data = await response.json()
