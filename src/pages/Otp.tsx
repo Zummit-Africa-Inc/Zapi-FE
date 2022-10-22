@@ -24,7 +24,6 @@ const Otp: React.FC = () => {
   const modalType = useAppSelector((state) => state.modal.type);
   const modalDemo = useAppSelector((state) => state);
   const handleChange = (code: React.SetStateAction<string>) => setCode(code);
-  console.log(modalDemo);
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!code) return toast.error("Please enter the OTP");
