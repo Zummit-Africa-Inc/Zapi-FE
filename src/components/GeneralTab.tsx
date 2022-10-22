@@ -21,7 +21,6 @@ import {
   Switch,
   SelectChangeEvent,
   Paper,
-  Button,
 } from "@mui/material";
 import Cookies from "universal-cookie";
 
@@ -308,17 +307,14 @@ const GeneralTab: React.FC = () => {
             </Box>
             <Box>
               <Stack direction="row" spacing={2} mt={5}>
-                <Button
+                <button
                   type="submit"
-                  style={{backgroundColor:'#4A95EC', color:'white', textTransform: 'none'}}
                   onClick={handleSubmit}
-                  variant="text"
                   disabled={isChanged}
-                  disableElevation
-                  disableRipple
+                  
                   className={classes.saveBtn}>
                   {loading ? <Spinner /> : "Save"}
-                </Button>
+                </button>
                 <button className={classes.discardBtn}>Discard</button>
               </Stack>
             </Box>
@@ -374,6 +370,12 @@ const useStyles = makeStyles({
     cursor: "pointer",
     "&:hover": {
       backgroundColor: "#333",
+    },
+    "&:disabled": {
+      backgroundColor: 'rgb(214, 217, 219)',
+      cursor:'default',
+      color: 'black',
+      opacity: "0.5",
     },
   },
   discardBtn: {
