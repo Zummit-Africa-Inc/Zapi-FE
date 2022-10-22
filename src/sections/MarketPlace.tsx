@@ -77,19 +77,19 @@ const useStyles = makeStyles({
         width: "400px",
         "&:nth-child(1)": {
             borderRight: "1px solid rgba(19, 50, 159, 0.45)",
-            "@media screen and (max-width:800px)": {
+            "@media screen and (max-width:1200px)": {
                 borderRight: "none"
             }
         },
         "&:nth-child(2)": {
             borderRight: "1px solid rgba(19, 50, 159, 0.45)",
-            "@media screen and (max-width:800px)": {
+            "@media screen and (max-width:1200px)": {
                 borderTop: "1px solid rgba(19, 50, 159, 0.45)",
                 borderRight: "none"
             }
         },
         "&:nth-child(3)": {
-            "@media screen and (max-width:800px)": {
+            "@media screen and (max-width:1200px)": {
                 borderTop: "1px solid rgba(19, 50, 159, 0.45)",
             }
         }
@@ -102,7 +102,7 @@ const useStyles = makeStyles({
         paddingTop: "3rem",
         paddingBottom: "5rem",
         margin: "0 auto",
-        "@media screen and (max-width:800px)": {
+        "@media screen and (max-width:1200px)": {
             flexDirection: "column",
         }
     },
@@ -111,7 +111,7 @@ const useStyles = makeStyles({
         left: "30px",
         display: "flex",
         gap: "2.25rem",
-        "@media screen and (max-width:800px)": {
+        "@media screen and (max-width:1200px)": {
             flexDirection: "column",
         }
     },

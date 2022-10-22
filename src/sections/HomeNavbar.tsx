@@ -71,17 +71,6 @@ const HomeNavbar: React.FC = () => {
                     API hub
                   </NavLink>
                 </li>
-                {isLoggedIn && (
-                  <li>
-                    <NavLink
-                      to="/developer/dashboard"
-                      style={({ isActive }) =>
-                        isActive ? { borderBottom: "2px solid #FFEA00" } : {}
-                      }>
-                      Dashboard
-                    </NavLink>
-                  </li>
-                )}
                 <li>
                   <NavLink
                     to="/pricing"
@@ -100,6 +89,17 @@ const HomeNavbar: React.FC = () => {
                     Documentation
                   </NavLink>
                 </li>
+                {isLoggedIn && (
+                  <li>
+                    <NavLink
+                      to="/developer/dashboard"
+                      style={({ isActive }) =>
+                        isActive ? { borderBottom: "2px solid #FFEA00" } : {}
+                      }>
+                      Dashboard
+                    </NavLink>
+                  </li>
+                )}
                 <li>
                   <button onClick={() => handleClicked("login")}>Login</button>
                 </li>
