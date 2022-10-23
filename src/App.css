@@ -1,4 +1,4 @@
-.set-col {
+/* .set-col {
   margin: 0;
   padding: 50px;
   box-sizing: border-box;
@@ -384,4 +384,4 @@ transform: translate(-50%, -50%);
   left: 240px;
   transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s, background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s;
   opacity: 0.2;
-}
+} */
