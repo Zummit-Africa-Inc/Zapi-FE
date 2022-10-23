@@ -10,12 +10,15 @@ import { tableCellClasses } from '@mui/material/TableCell';
 import { makeStyles } from '@mui/styles';
 import { toast } from 'react-toastify';
 import { styled } from '@mui/material/styles';
+import { Spinner } from "../assets";
 
 import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
 import { removeEndpoint, editEndpoint } from "../redux/slices/userSlice";
 import { EndpointProps } from "../interfaces";
 import { EndpointsType } from "../types";
 import { useContextProvider } from '../contexts/ContextProvider';
+import Cookies from 'universal-cookie';
+const cookies = new Cookies()
 
 // const core_url = import.meta.env.VITE_BASE_URL
 const core_url = "VITE_CORE_URL"
@@ -75,13 +78,15 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
       dispatch(editEndpoint(payload))
       setIsEditing(null)
       triggerRefresh()
+      const { message } = data;
+      toast.success(`${message}`);
     } catch (error) {}
   }
   
   const deleteRoute = async(id: string | undefined) => {
     const headers = { 'Content-Type': 'application/json'}
     try {
-      const data = await sendRequest(`/endpoints/${id}`, 'del', core_url, payload, headers)
+      const data = await sendRequest(`/endpoints/${id}?profileId=${cookies.get("profileId")}`, 'del', core_url, payload, headers)
       if(!data || data === undefined) return
       dispatch(removeEndpoint(id))
       triggerRefresh()
@@ -96,12 +101,12 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
-          <TableRow>
-            <StyledTableCell>Name</StyledTableCell>
-            <StyledTableCell>Method</StyledTableCell>
-            <StyledTableCell>Route</StyledTableCell>
-            <StyledTableCell></StyledTableCell>
-            <StyledTableCell></StyledTableCell>
+          <TableRow className={classes.root}>
+            <TableCell>Name</TableCell>
+            <TableCell>Method</TableCell>
+            <TableCell>Route</TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -134,7 +139,7 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
               </StyledTableCell>
               <StyledTableCell>
                 <button onClick={() => deleteRoute(endpoint?.id)} className={classes.button} style={{background: "#E32C08"}}>
-                  DELETE
+                {loading ? <Spinner /> : "DELETE"}
                 </button>
               </StyledTableCell>
             </StyledTableRow>
@@ -153,6 +158,12 @@ const useStyles = makeStyles({
     padding: "0 1rem",
     gap: "1rem",
   },
+  root:{
+        "& .MuiTableCell-head": {
+            color: "white",
+            backgroundColor: "#081f4A"
+        }
+    },
   input: {
     display: "flex",
     alignItems: "center",

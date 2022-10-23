@@ -90,7 +90,7 @@ const useStyles = makeStyles({
         top: "4.3rem",
         zIndex: 5,
         width: "calc(100% - 300px)",
-        background: "#F4F5F6",
+        background: "#FFFF",
         "@media screen and (max-width: 1024px)": {
             width: "100%",
             fontSize: "1.5rem"
