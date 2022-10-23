@@ -1,12 +1,25 @@
 import React, { FormEvent, useEffect } from "react";
-import { Typography, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, MenuItem } from "@mui/material";
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import {
+  Typography,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormControl,
+  FormLabel,
+  MenuItem,
+} from "@mui/material";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { makeStyles } from "@mui/styles";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
 
 import { useContextProvider } from "../contexts/ContextProvider";
-import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+  useFormInputs,
+  useHttpRequest,
+} from "../hooks";
 import { Fallback } from "../components";
 import { addApi } from "../redux/slices/apiSlice";
 
@@ -27,8 +40,8 @@ const AddApiPopup: React.FC = () => {
   const { categories } = useAppSelector((store) => store.apis);
   const cookies = new Cookies();
   const profileId = cookies.get("profileId");
-  const dispatch = useAppDispatch()
-  const { triggerRefresh } = useContextProvider()
+  const dispatch = useAppDispatch();
+  const { triggerRefresh } = useContextProvider();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -44,9 +57,10 @@ const AddApiPopup: React.FC = () => {
         payload,
         headers
       );
+      console.log(data);
       if (!data || data === null) return;
-      dispatch(addApi(payload))
-      triggerRefresh()
+      dispatch(addApi(payload));
+      triggerRefresh();
       const { message } = data;
       toast.success(`${message}`);
     } catch (err) {
@@ -56,8 +70,10 @@ const AddApiPopup: React.FC = () => {
   };
 
   useEffect(() => {
-    {error && toast.error(`${error}`)}
-  },[error])
+    {
+      error && toast.error(`${error}`);
+    }
+  }, [error]);
 
   return (
     <>
