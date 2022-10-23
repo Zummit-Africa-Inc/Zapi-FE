@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { AnalyticsLog, AnalyticsType } from "../../types";
-
+// import { headers } from "./constant";
+import Cookies from "universal-cookie"
+const cookies = new Cookies()
 const core_url = import.meta.env.VITE_CORE_URL
-
 interface AnalyticState {
     analytics: AnalyticsType | any
     analyticsLog: Array<AnalyticsLog>
@@ -18,8 +19,9 @@ const initialState: AnalyticState = {
 }
 
 export const getAnalytics = createAsyncThunk('analytics/getAnalytics', async(apiId: any, thunkAPI) => {
+    const headers = { 'X-Zapi-Auth-Token': `Bearer ${cookies.get('accessToken')}` }
     try {
-        const response = await fetch(`${core_url}/analytics/api/${apiId}`)
+        const response = await fetch(`${core_url}/analytics/api/${apiId}`, {headers})
         const data = await response.json()
         return data.data
     } catch (error: any) {
@@ -28,8 +30,9 @@ export const getAnalytics = createAsyncThunk('analytics/getAnalytics', async(api
 })
 
 export const getAnalyticsLog = createAsyncThunk('analyticsLog/getAnalyticsLog', async(id: any, thunkAPI) => {
+    const headers = { 'X-Zapi-Auth-Token': `Bearer ${cookies.get('accessToken')}` }
     try {
-        const response = await fetch(`${core_url}/analytics/logs?page=1&limit=5&filter.apiId=${id}`)
+        const response = await fetch(`${core_url}/analytics/logs?page=1&limit=5&filter.apiId=${id}`, {headers})
         const data = await response.json()
         return data.data
     } catch (error: any) {

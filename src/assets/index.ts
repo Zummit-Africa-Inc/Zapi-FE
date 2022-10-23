@@ -10,7 +10,6 @@ import ZapiHelp from './images/help.svg';
 import ZapiArrow from './images/arrow_drop_down.svg';
 import ZapiPic from './images/pic.svg';
 import Spinner from "./icons/Spinner";
-
 import { BRANDS, FEATURES, FOOTER_LINKS, MarketPlaceText, } from "./ui-arrays"
 
 export { GoogleIcon, LinkedInIcon, Spinner, TwitterIcon, YoutubeIcon, ZapiDevLogo,
