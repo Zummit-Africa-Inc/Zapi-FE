@@ -85,9 +85,7 @@ const HomeNavbar: React.FC = () => {
                   <li>
                     <NavLink
                       to="/developer/dashboard"
-                      style={({ isActive }) =>
-                        isActive ? { borderBottom: "2px solid #FFEA00" } : {}
-                      }>
+                      className={classes.dashboard}>
                       Dashboard
                     </NavLink>
                   </li>
@@ -163,15 +161,13 @@ const HomeNavbar: React.FC = () => {
                 </NavLink>
               </li>
               {isLoggedIn && (
-                <li>
+                <div>
                   <NavLink
                     to="/developer/dashboard"
-                    style={({ isActive }) =>
-                      isActive ? { borderBottom: "2px solid #FFEA00" } : {}
-                    }>
+                    className={classes.dashboard}>
                     Dashboard
                   </NavLink>
-                </li>
+                </div>
               )}
               {!isLoggedIn && (
                 <li>
@@ -321,6 +317,16 @@ const useStyles = makeStyles({
     borderRadius: "4px",
     padding: ".5rem 1rem",
     background: "#FFEA00",
+    fontWeight: 500,
+    fontSize: "1rem",
+    color: "#081F4A",
+    cursor: "pointer",
+  },
+  dashboard: {
+    border: "none",
+    borderRadius: "4px",
+    padding: ".5rem 1rem",
+    background: "#FFFFFF",
     fontWeight: 500,
     fontSize: "1rem",
     color: "#081F4A",
