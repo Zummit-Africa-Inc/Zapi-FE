@@ -105,6 +105,7 @@ const Hero: React.FC = () => {
         </Typography>
       </div>
       <form className={classes.form} onSubmit={handleSubmit}>
+        {/* <div className={classes.inputForm}> */}
         <select
           className={classes.select}
           value={apiId}
@@ -119,12 +120,17 @@ const Hero: React.FC = () => {
           ))}
         </select>
         <TextField
+          disabled
+          variant="standard"
           type="text"
           className={classes.input}
           value={"https://zapi.com/" + pathName}
-          placeholder="drowsinessdetection"
+          InputProps={{
+            disableUnderline: true,
+          }}
         />
-        <button className={classes.send}>
+        {/* </div> */}
+        <button type="submit" disabled={!query} className={classes.send}>
           {loading ? <Spinner /> : "Send"}
         </button>
       </form>
@@ -176,8 +182,7 @@ const useStyles = makeStyles({
   form: {
     display: "flex",
     width: "100%",
-    gap: ".5rem",
-    "@media screen and (max-width: 700px)": {
+    "@media screen and (max-width: 500px)": {
       flexDirection: "column",
     },
   },
@@ -198,14 +203,15 @@ const useStyles = makeStyles({
     borderRadius: "4px",
     flex: 1,
     border: "none",
+    height: "3.5rem",
     outline: "none",
-    padding: "1rem",
     fontFamily: "Space Grotesk",
     color: "#071B85",
+    display: "flex",
+    justifyContent: "center",
     "&::placeholder": {
       fontWeight: 400,
       fontSize: "1rem",
-      lineHeight: "1.25rem",
       fontFamily: "Space Grotesk",
       color: "#071B85",
     },
@@ -221,6 +227,12 @@ const useStyles = makeStyles({
     cursor: "pointer",
     fontFamily: "Space Grotesk",
     color: "#FFEA00",
+    "&:disabled": {
+      backgroundColor: "rgb(214, 217, 219)",
+      cursor: "default",
+      color: "black",
+      opacity: "0.5",
+    },
   },
   box: {
     background: "#FFFFFF",
@@ -233,6 +245,17 @@ const useStyles = makeStyles({
     paddingTop: "2.5rem",
     "@media screen and (max-width: 700px)": {
       flexDirection: "column",
+    },
+  },
+  inputForm: {
+    display: "flex",
+    alignItems: "center",
+    width: "100%",
+    "@media screen and (max-width: 500px)": {
+      flexDirection: "column",
+      width: "100%",
+      padding: "0",
+      margin: "0",
     },
   },
 });
