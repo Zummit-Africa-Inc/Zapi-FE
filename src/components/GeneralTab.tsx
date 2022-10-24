@@ -21,7 +21,6 @@ import {
   Switch,
   SelectChangeEvent,
   Paper,
-  Button,
 } from "@mui/material";
 import Cookies from "universal-cookie";
 
@@ -236,10 +235,10 @@ const GeneralTab: React.FC = () => {
                 }}>
                 <Stack direction="row" spacing={2}>
                   <Box>
-                    {visibility ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                    {visibility === APIVisibility.PUBLIC ? <VisibilityIcon /> : <VisibilityOffIcon />}
                   </Box>
                   <Box>
-                    {visibility ? (
+                    {visibility === APIVisibility.PUBLIC ? (
                       <>
                         <Typography fontWeight={600}>
                           API Project is Public
@@ -308,17 +307,15 @@ const GeneralTab: React.FC = () => {
             </Box>
             <Box>
               <Stack direction="row" spacing={2} mt={5}>
-                <Button
+                <button
                   type="submit"
                   onClick={handleSubmit}
-                  variant="contained"
                   disabled={isChanged}
+                  
                   className={classes.saveBtn}>
                   {loading ? <Spinner /> : "Save"}
-                </Button>
-                <Button variant="contained" className={classes.discardBtn}>
-                  Discard
-                </Button>
+                </button>
+                <button className={classes.discardBtn}>Discard</button>
               </Stack>
             </Box>
           </form>
@@ -373,6 +370,12 @@ const useStyles = makeStyles({
     cursor: "pointer",
     "&:hover": {
       backgroundColor: "#333",
+    },
+    "&:disabled": {
+      backgroundColor: 'rgb(214, 217, 219)',
+      cursor:'default',
+      color: 'black',
+      opacity: "0.5",
     },
   },
   discardBtn: {
