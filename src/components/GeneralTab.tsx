@@ -151,7 +151,7 @@ const GeneralTab: React.FC = () => {
                   value={categoryId}
                   name="categoryId"
                   onChange={(e) => setCategoryId(e.target.value)}
-                  sx={{ width: "320px" }}>
+                  sx={{ width: "320px", height:'40PX' }}>
                   {categories.map(
                     (value) =>
                       value && (
@@ -173,6 +173,7 @@ const GeneralTab: React.FC = () => {
                 onChange={(e) => setDescription(e.target.value)}
                 multiline
                 id="description"
+                rows={4}
                 maxRows={10}
                 fullWidth={true}
                 helperText="Describe in few words what’s this API do"
@@ -186,6 +187,7 @@ const GeneralTab: React.FC = () => {
                 onChange={(e) => setRead_me(e.target.value)}
                 multiline
                 id="read_me"
+                rows={4}
                 maxRows={10}
                 fullWidth={true}
                 helperText="Describe in detail what’s API do and how it might be helpful"
@@ -201,6 +203,7 @@ const GeneralTab: React.FC = () => {
                 name="about"
                 onChange={(e) => setAbout(e.target.value)}
                 multiline
+                rows={4}
                 id="documentation"
                 maxRows={10}
                 fullWidth={true}
@@ -299,6 +302,7 @@ const GeneralTab: React.FC = () => {
                 variant="outlined"
                 value={term_of_use == null ? "" : term_of_use}
                 multiline
+                rows={4}
                 name="term_of_use"
                 onChange={(e) => setTerm_of_use(e.target.value)}
                 maxRows={10}
