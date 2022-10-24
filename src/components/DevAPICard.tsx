@@ -33,7 +33,7 @@ interface CardProps {
   id: string;
   name: string;
   description: string;
-  createdOn: string;
+  createdOn?: string;
 }
 
 // const core_url = import.meta.env.VITE_CORE_URL

@@ -6,8 +6,6 @@ import { getFreeApis } from "../redux/slices/freeApiSlice";
 import { FREEUSEAPIDATA } from "../testdata";
 import { toast } from "react-toastify";
 import { Spinner } from "../assets";
-import JSONPretty from "react-json-pretty";
-import "react-json-pretty/themes/monikai.css";
 
 // const core_url = import.meta.env.VITE_CORE_URL
 const core_url = "VITE_CORE_URL";
