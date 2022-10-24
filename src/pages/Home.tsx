@@ -1,49 +1,73 @@
-import React, { ChangeEvent, FormEvent, SyntheticEvent, useEffect, useState } from "react";
+import React, {
+  ChangeEvent,
+  FormEvent,
+  SyntheticEvent,
+  useEffect,
+  useState,
+} from "react";
 import { IconButton, Stack, Tab, Tabs, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { CloseOutlined } from "@mui/icons-material";
 
-import { DevAPICard, InputSearch, Navbar, Sidebar, TabPanel, Pricing } from "../components";
+import {
+  DevAPICard,
+  InputSearch,
+  Navbar,
+  Sidebar,
+  TabPanel,
+  Pricing,
+} from "../components";
 import { useContextProvider } from "../contexts/ContextProvider";
 import { APIS } from "../testdata";
 
-const data = ["Name","Id","Desc"]
+const data = ["Name", "Id", "Desc"];
 
-
-const Home:React.FC = () => {
+const Home: React.FC = () => {
   const classes = useStyles();
   const [tab, setTab] = useState<number>(0);
-  const [queryString, setQueryString] = useState<string>("")
-  const [queryParam, setQueryParam] = useState<string>("")
-  const { activeMenu, screenSize, setActiveMenu, setScreenSize } = useContextProvider();
+  const [queryString, setQueryString] = useState<string>("");
+  const [queryParam, setQueryParam] = useState<string>("");
+  const { activeMenu, screenSize, setActiveMenu, setScreenSize } =
+    useContextProvider();
 
   useEffect(() => {
-    const handleScreenResize = () => setScreenSize(innerWidth)
-    window.addEventListener('resize', handleScreenResize)
-    handleScreenResize()
-    return () => window.removeEventListener('resize', handleScreenResize)
-  },[]);
+    const handleScreenResize = () => setScreenSize(innerWidth);
+    window.addEventListener("resize", handleScreenResize);
+    handleScreenResize();
+    return () => window.removeEventListener("resize", handleScreenResize);
+  }, []);
 
   useEffect(() => {
-    screenSize <= 900 ? setActiveMenu(false) : null
-  },[screenSize]);
+    screenSize <= 900 ? setActiveMenu(false) : null;
+  }, [screenSize]);
 
   const handleTabSwitch = (e: SyntheticEvent, newValue: number) => {
-    setTab(newValue)
+    setTab(newValue);
   };
 
   const handleSubmit = (e: FormEvent) => {
-    e.preventDefault()
-  }
+    e.preventDefault();
+  };
 
   return (
     <React.Fragment>
       {/* This is still experimental at the moment it might be moved to App.tsx */}
       {/* This is the drawer itself */}
-      <div className={classes.drawer} style={{left: activeMenu ? 0 : "-100%"}}>
-        <Stack width="100%" direction="row" alignItems="flex-end" justifyContent="space-between" p={2}>
+      <div
+        className={classes.drawer}
+        style={{ left: activeMenu ? 0 : "-100%" }}>
+        <Stack
+          width="100%"
+          direction="row"
+          alignItems="flex-end"
+          justifyContent="space-between"
+          p={2}>
           <div>
-            <img src="/images/zapi-logo.png" alt="zapi-logo" style={{width:30}} />
+            <img
+              src="/images/zapi-logo.png"
+              alt="zapi-logo"
+              style={{ width: 30 }}
+            />
           </div>
           <IconButton onClick={() => setActiveMenu(false)}>
             <CloseOutlined />
@@ -51,13 +75,34 @@ const Home:React.FC = () => {
         </Stack>
         <Sidebar />
       </div>
-      <Navbar title="Welcome to the ZAPI Hub" subtitle="Here you will find our Collection of APIs for developers" />
+      <Navbar
+        title="Welcome to the ZAPI Hub"
+        subtitle="Here you will find our Collection of APIs for developers"
+      />
       <div className={classes.App}>
-
         {/* section for search */}
         <form onSubmit={handleSubmit} className={classes.search}>
-          <InputSearch className={classes.formControl} type="select" name="queryParams" value={queryParam} onSelect={(e: ChangeEvent<HTMLSelectElement>) => setQueryParam(e.target.value)} placeholder="Sort by" data={data} />
-          <InputSearch className={classes.formControl} type="text" name="queryString" value={queryString} onChange={(e: ChangeEvent<HTMLInputElement>) => setQueryString(e.target.value)} placeholder="I'm looking for..." />
+          <InputSearch
+            className={classes.formControl}
+            type="select"
+            name="queryParams"
+            value={queryParam}
+            onSelect={(e: ChangeEvent<HTMLSelectElement>) =>
+              setQueryParam(e.target.value)
+            }
+            placeholder="Sort by"
+            data={data}
+          />
+          <InputSearch
+            className={classes.formControl}
+            type="text"
+            name="queryString"
+            value={queryString}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setQueryString(e.target.value)
+            }
+            placeholder="I'm looking for..."
+          />
         </form>
         <div className={classes.root}>
           <div className={classes.sidebar}>
@@ -73,7 +118,8 @@ const Home:React.FC = () => {
               <Stack mt={2}>
                 <TabPanel value={tab} index={0}>
                   <Typography variant="subtitle2" mb={2}>
-                    APIS curated by Z-API and recommended  based on functionality offered, performance and support
+                    APIS curated by Z-API and recommended based on functionality
+                    offered, performance and support
                   </Typography>
                   <div className={classes.tabInner}>
                     {APIS.map((api) => (
@@ -92,7 +138,9 @@ const Home:React.FC = () => {
                 </TabPanel>
                 <TabPanel value={tab} index={2}>
                   <Typography variant="subtitle2" mb={2}>
-                    If you're new to Z-API, this collection is a great place to start exploring APIs that are free to test, specifically updated for 2022.
+                    If you're new to Z-API, this collection is a great place to
+                    start exploring APIs that are free to test, specifically
+                    updated for 2022.
                   </Typography>
                   <div className={classes.tabInner}></div>
                 </TabPanel>
@@ -102,7 +150,7 @@ const Home:React.FC = () => {
         </div>
       </div>
     </React.Fragment>
-  )
+  );
 };
 
 const useStyles = makeStyles({
@@ -114,7 +162,7 @@ const useStyles = makeStyles({
     justifyContent: "center",
     "@media screen and (max-width: 768px)": {
       height: "auto",
-    }
+    },
   },
   root: {
     width: "100%",
@@ -132,13 +180,13 @@ const useStyles = makeStyles({
     "@media screen and (max-width: 768px)": {
       flexDirection: "column-reverse",
       gap: 0,
-    }
+    },
   },
   sidebar: {
     width: "20%",
     "@media screen and (max-width: 900px)": {
       display: "none",
-    }
+    },
   },
   main: {
     width: "80%",
@@ -153,54 +201,54 @@ const useStyles = makeStyles({
     top: 0,
     zIndex: 5,
     borderRight: "1px solid var(--color-primary)",
-    transition: "1s all ease"
+    transition: "1s all ease",
   },
   tabInner: {
     width: "100%",
-    height:"60vh",
-    display:"flex",
-    flexWrap:"wrap",
-    alignItems:"center",
-    justifyContent:"center",
-    gap:"1.5rem",
-    overflowY:"scroll",
-    padding:"0.5rem 0"
+    height: "60vh",
+    display: "flex",
+    flexWrap: "wrap",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "1.5rem",
+    overflowY: "scroll",
+    padding: "0.5rem 0",
   },
-     formControl: {
-        height: 45,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "1rem",
-        background: "#FFF",
-        padding: "0.25rem 1rem",
-        marginTop: "6rem",
-        borderRadius: 5,
-        "& input": {
-            width: 250,
-            height: "100%",
-            outline: "none",
-            border: "none",
-        },
-        "& select": {
-            width: 100,
-            height: "100%",
-            outline: "none",
-            border: "none",
-        },
-        "@media screen and (max-width: 900px)": {
-          marginTop: "1rem",
-        }
+  formControl: {
+    height: 45,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "1rem",
+    background: "#FFF",
+    padding: "0.25rem 1rem",
+    marginTop: "6rem",
+    borderRadius: 5,
+    "& input": {
+      width: 250,
+      height: "100%",
+      outline: "none",
+      border: "none",
     },
+    "& select": {
+      width: 100,
+      height: "100%",
+      outline: "none",
+      border: "none",
+    },
+    "@media screen and (max-width: 900px)": {
+      marginTop: "1rem",
+    },
+  },
   pricing: {
     width: "100%",
-    height:"60vh",
-    alignItems:"center",
-    justifyContent:"center",
-    gap:"1.5rem",
-    overflowY:"scroll",
-    padding:"0.5rem 0"
-  }
+    height: "60vh",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "1.5rem",
+    overflowY: "scroll",
+    padding: "0.5rem 0",
+  },
 });
 
 export default Home;
