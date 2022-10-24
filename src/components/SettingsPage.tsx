@@ -7,7 +7,12 @@ import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { Paper } from "@mui/material";
-import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+  useFormInputs,
+  useHttpRequest,
+} from "../hooks";
 import { Spinner } from "../assets";
 import { removeApi } from "../redux/slices/apiSlice";
 
@@ -21,14 +26,12 @@ const SettingsPage: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const classes = useStyles();
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   const cookies = new Cookies();
   const profileId = cookies.get("profileId");
   // const [delete, setDelete] = useState("")
-  let payload : object;
-
-  console.log(id)
+  let payload: object;
 
   const handleClickDelete = () => {
     setPop(!popup);
@@ -40,16 +43,17 @@ const SettingsPage: React.FC = () => {
   function onChangeValue(event: any) {
     setStatus(event.target.value);
   }
-  console.log("okkk", status);
 
   const handleDeleteApi = async (e: any) => {
     e.preventDefault();
-    const headers = { 'Content-Type': 'application/json'}
+    const headers = { "Content-Type": "application/json" };
     try {
       const data = await sendRequest(
         `/api/${id}?profileId=${profileId}`,
         "del",
-        core_url, payload, headers
+        core_url,
+        payload,
+        headers
       );
       if (!data || data === undefined) return;
       toast.success(data.data.message);
@@ -180,7 +184,7 @@ const SettingsPage: React.FC = () => {
               </span>
             </div>
             <hr />
-
+              
             <button onClick={handleDeleteApi} className={classes.buttn}>
             {loading ? <Spinner /> : "Delete"}
             </button>

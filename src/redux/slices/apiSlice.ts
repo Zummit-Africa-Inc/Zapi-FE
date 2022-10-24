@@ -33,7 +33,7 @@ export const getApiCategories = createAsyncThunk("apis/getApiCategories", async(
 export const getApis = createAsyncThunk("apis/getApis", async(_, thunkAPI) => {
     const headers = { 'X-Zapi-Auth-Token': `Bearer ${cookies.get('accessToken')}` }
     try {
-        const response = await fetch(`${url}/api`, {headers})
+        const response = await fetch(`${url}/api?limit=100`, {headers})
         const data = await response.json()
         return data.data
     } catch (error: any) {

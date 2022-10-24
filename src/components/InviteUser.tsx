@@ -115,6 +115,8 @@ const useStyles = makeStyles({
     }
 },
 button:{
+  backgroundColor: "#058A04",
+  border: "none",
   boxSizing: 'border-box',
   alignItems: 'center',
   display: 'flex',
@@ -122,7 +124,7 @@ button:{
   position: 'relative',
   whiteSpace: 'nowrap',
   marginLeft:'2rem',
-  height:'46px'
+  height:'46px',
 },
 header:{
   marginTop: '16px',

@@ -35,7 +35,7 @@ const Subscription: React.FC = () => {
                 <div className={classes.subTable}>
                     <Table>
                         <TableHead>
-                            <TableRow>
+                            <TableRow className={classes.root}>
                                 <StyledTableCell>Name</StyledTableCell>
                                 <StyledTableCell>Token</StyledTableCell>
                                 <StyledTableCell></StyledTableCell>
@@ -52,6 +52,9 @@ const Subscription: React.FC = () => {
                                     </StyledTableCell>
                                     <StyledTableCell>
                                         <Link to="#" className={classes.Link}>View</Link>
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        <button className={classes.button}>Revoke</button>
                                     </StyledTableCell>
                                 </StyledTableRow>
                             ))}
@@ -85,6 +88,12 @@ const useStyles = makeStyles({
        padding: "0",
        width: "90%"
     },
+    root:{
+         "& .MuiTableCell-head": {
+            color: "white",
+            backgroundColor: "#081f4A"
+        }
+    },
     Link: {
         padding: "10px",
         borderRadius: "5px",
@@ -97,4 +106,8 @@ const useStyles = makeStyles({
         paddingBottom: "80px",
         height: "calc(100vh - 315px)"
     },
+    button:{
+        background: "#E32C08",
+        color: "white"
+    }
 })

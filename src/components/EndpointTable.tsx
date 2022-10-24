@@ -101,12 +101,12 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
-          <TableRow>
-            <StyledTableCell>Name</StyledTableCell>
-            <StyledTableCell>Method</StyledTableCell>
-            <StyledTableCell>Route</StyledTableCell>
-            <StyledTableCell></StyledTableCell>
-            <StyledTableCell></StyledTableCell>
+          <TableRow className={classes.root}>
+            <TableCell>Name</TableCell>
+            <TableCell>Method</TableCell>
+            <TableCell>Route</TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -158,6 +158,12 @@ const useStyles = makeStyles({
     padding: "0 1rem",
     gap: "1rem",
   },
+  root:{
+        "& .MuiTableCell-head": {
+            color: "white",
+            backgroundColor: "#081f4A"
+        }
+    },
   input: {
     display: "flex",
     alignItems: "center",
