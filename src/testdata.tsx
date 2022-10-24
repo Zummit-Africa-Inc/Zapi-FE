@@ -16,6 +16,7 @@ export const APIS = [
     latency: 300,
     popularity: 9.9,
     service_level: 100,
+    createdOn: "2022-07-19",
   },
   {
     id: "0002",

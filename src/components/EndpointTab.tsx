@@ -52,7 +52,7 @@ const EndpointTab: React.FC<Props> = ({id}) => {
                 <Typography variant="body1" fontSize="20px" fontWeight={800}>API Definition</Typography>
             </div>
             <div className={classes.pageSubHeading}>
-                <Typography variant="subtitle2" width="650px" fontWeight={400}>When publishing an API to the ZapiAPI Hub, you can either manually edit endpoint definitions, use a specification file.</Typography>
+                <Typography variant="subtitle2" width="auto" fontWeight={400}>When publishing an API to the ZapiAPI Hub, you can either manually edit endpoint definitions, use a specification file.</Typography>
             </div>
             <Typography variant="body1" fontSize="24px" color="rgb(123, 123, 194)" fontWeight={500} mt={2}>Endpoints</Typography>
             <Typography variant="body1" fontSize="16px" fontWeight={400} mb={1}>Changes made to the endpoints will be reflected in the Hub.</Typography>
@@ -95,7 +95,7 @@ export default EndpointTab
 
 const useStyles = makeStyles({
     paper: {
-        width: "950px",
+        width: "100%",
         marginTop: "20px",
         padding: "2rem 2rem",
     },
