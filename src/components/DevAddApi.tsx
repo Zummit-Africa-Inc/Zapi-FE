@@ -24,7 +24,11 @@ const CustomTab = styled(Tab)({
   "&.Mui-selected": {
     backgroundColor: "#081f4A",
     borderRadius: "10px",
+<<<<<<< HEAD
     color: "white !important",
+=======
+    color: "white"
+>>>>>>> 6e3b2b1756f7a1650804255a2d035e6de70df466
   },
 });
 
