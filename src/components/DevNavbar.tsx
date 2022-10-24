@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import Menus from "../components/Menus";
 import { ZapiDevLogo, ZapiWidget } from "../assets";
@@ -88,46 +88,7 @@ const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
         </div>
       </div>
 
-      <div>
-        {isOpen ? (
-          <>
-            <div className={classes.responsiveMenu}>
-              <Button
-                className={classes.allProjects}
-                onClick={handleProjectList}>
-                All Projects
-                <img
-                  src={ZapiArrow}
-                  alt="zapi-arrow"
-                  style={{ color: "#00000", marginLeft: "0.4rem" }}
-                />
-              </Button>
-
-              {isShow ? (
-                <List className={classes.projectListContainer}>
-                  {userApis.map((api, index) => (
-                    <Link to={`/developer/api/${api.id}`} key={index}>
-                      <ListItem className={classes.projectListItems}>
-                        {api.name}
-                      </ListItem>
-                    </Link>
-                  ))}
-                </List>
-              ) : (
-                <></>
-              )}
-              <div>Developer Board</div>
-              <div>Apps</div>
-              <div>Help</div>
-              <button className={classes.logout} onClick={handleLogout}>
-                Logout
-              </button>
-            </div>
-          </>
-        ) : (
-          <></>
-        )}
-      </div>
+      <div></div>
     </>
   );
 };
@@ -283,32 +244,32 @@ const useStyles = makeStyles({
     },
   },
   projectListContainer: {
-    "&.MuiList-root": {
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-      marginBottom: "10px",
-      textAlign: "center",
-      lineHeight: "2rem",
-      width: "100%",
-    },
+    // "&.MuiList-root": {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: "10px",
+    textAlign: "center",
+    lineHeight: "2rem",
+    width: "100%",
+    // },
   },
   projectListItems: {
-    "&.MuiListItem-root": {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      fontSize: "15px",
-      fontWeight: "normal",
-      textAlign: "center",
-      lineHeight: "25px",
-      color: "#909090",
-      width: "150px",
-      "@media screen and (max-width: 420px)": {
-        fontSize: "13px",
-      },
+    // "&.MuiListItem-root": {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    fontSize: "15px",
+    fontWeight: "normal",
+    textAlign: "center",
+    lineHeight: "25px",
+    color: "#909090",
+    width: "150px",
+    "@media screen and (max-width: 420px)": {
+      fontSize: "13px",
     },
+    // },
   },
   logout: {
     border: "unset",
