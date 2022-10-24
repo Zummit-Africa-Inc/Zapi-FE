@@ -178,6 +178,7 @@ const useStyles = makeStyles({
   form: {
     display: "flex",
     width: "100%",
+    gap: ".5rem",
     "@media screen and (max-width: 700px)": {
       flexDirection: "column",
     },
