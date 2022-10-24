@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   Avatar,
   Fade,
@@ -92,9 +92,16 @@ const Menus: React.FC<MenuProps> = () => {
         onClose={handleClose}
         TransitionComponent={Fade}>
         {userApis.map((api, index) => (
-          <Link to={`/developer/api/${api.id}`} key={index}>
-            <MenuItem className={classes.menuItem}>{api.name}</MenuItem>
-          </Link>
+          <MenuItem className={classes.menuItem}>
+            <NavLink
+              to={`/developer/api/${api.id}`}
+              key={index}
+              style={({ isActive }) =>
+                isActive ? { color: "blue" } : { color: "#000000" }
+              }>
+              {api.name}
+            </NavLink>
+          </MenuItem>
         ))}
       </Menu>
       <Stack
@@ -148,7 +155,6 @@ const useStyles = makeStyles({
       fontWeight: "normal",
       textAlign: "center",
       lineHeight: "25px",
-      color: "#303030",
     },
   },
   root: {

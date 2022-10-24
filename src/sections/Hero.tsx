@@ -6,6 +6,8 @@ import { getFreeApis } from "../redux/slices/freeApiSlice";
 import { FREEUSEAPIDATA } from "../testdata";
 import { toast } from "react-toastify";
 import { Spinner } from "../assets";
+import JSONPretty from "react-json-pretty";
+import "react-json-pretty/themes/monikai.css";
 
 // const core_url = import.meta.env.VITE_CORE_URL
 const core_url = "VITE_CORE_URL";
@@ -175,8 +177,8 @@ const useStyles = makeStyles({
   },
   form: {
     display: "flex",
-    gap: "1.5rem",
     width: "100%",
+    gap: ".5rem",
     "@media screen and (max-width: 700px)": {
       flexDirection: "column",
     },
@@ -185,7 +187,9 @@ const useStyles = makeStyles({
     border: "none",
     outline: "none",
     padding: "1rem",
-    background: "#FFFFFF",
+    borderRadius: "5px 0px 0px 5px",
+    background: "rgba(100, 50, 159, 0.1)",
+    cursor: "pointer",
     color: "#071B85",
     fontWeight: 500,
     fontSize: "1rem",
