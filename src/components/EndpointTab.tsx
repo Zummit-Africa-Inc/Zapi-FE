@@ -78,7 +78,7 @@ const EndpointTab: React.FC<Props> = ({id}) => {
             <div className={classes.pageSubHeading}>
                 <Typography variant="subtitle2" width="auto" fontWeight={400}>When publishing an API to the ZapiAPI Hub, you can either manually edit endpoint definitions, use a specification file.</Typography>
             </div>
-            <Typography variant="body1" fontSize="24px" color="rgb(123, 123, 194)" fontWeight={500} mt={2}>Endpoints</Typography>
+            <Typography variant="body1" fontSize="24px" color="#081F4A" fontWeight={500} mt={2}>Endpoints</Typography>
             <Typography variant="body1" fontSize="16px" fontWeight={400} mb={1}>Changes made to the endpoints will be reflected in the Hub.</Typography>
             <div className={classes.pageDescription}>
                 <Typography>Add and define your API endpoints.</Typography>
