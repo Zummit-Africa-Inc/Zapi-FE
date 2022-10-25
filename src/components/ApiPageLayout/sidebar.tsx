@@ -22,7 +22,7 @@ const Sidebar: React.FC = () => {
                         <NavLink key={i} to={link.link} className={classes.link} style={({ isActive }) => (
                             isActive ? {
                                 color: "#FFF",
-                                background: "#081F4A",
+                                background: "#9999CC",
                                 borderRadius: "15px"
                             }
                                 :
