@@ -1,12 +1,25 @@
 import React, { FormEvent, useEffect } from "react";
-import { Typography, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, MenuItem } from "@mui/material";
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import {
+  Typography,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormControl,
+  FormLabel,
+  MenuItem,
+} from "@mui/material";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { makeStyles } from "@mui/styles";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
 
 import { useContextProvider } from "../contexts/ContextProvider";
-import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+  useFormInputs,
+  useHttpRequest,
+} from "../hooks";
 import { Fallback } from "../components";
 import { addApi } from "../redux/slices/apiSlice";
 
@@ -27,8 +40,8 @@ const AddApiPopup: React.FC = () => {
   const { categories } = useAppSelector((store) => store.apis);
   const cookies = new Cookies();
   const profileId = cookies.get("profileId");
-  const dispatch = useAppDispatch()
-  const { triggerRefresh } = useContextProvider()
+  const dispatch = useAppDispatch();
+  const { triggerRefresh } = useContextProvider();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -44,9 +57,10 @@ const AddApiPopup: React.FC = () => {
         payload,
         headers
       );
+      console.log(data);
       if (!data || data === null) return;
-      dispatch(addApi(payload))
-      triggerRefresh()
+      dispatch(addApi(payload));
+      triggerRefresh();
       const { message } = data;
       toast.success(`${message}`);
     } catch (err) {
@@ -56,8 +70,10 @@ const AddApiPopup: React.FC = () => {
   };
 
   useEffect(() => {
-    {error && toast.error(`${error}`)}
-  },[error])
+    {
+      error && toast.error(`${error}`);
+    }
+  }, [error]);
 
   return (
     <>
@@ -121,7 +137,7 @@ const AddApiPopup: React.FC = () => {
             </div>
             <div
               style={{
-                gap: "40px",
+                gap: "1rem",
                 display: "flex",
                 flexDirection: "row",
                 marginLeft: "auto",
@@ -243,6 +259,7 @@ const useStyles = makeStyles({
     marginBottom: "20px",
   },
   cancelBtn: {
+    outline: "none",
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
@@ -251,22 +268,24 @@ const useStyles = makeStyles({
     fontFamily: "inherit",
     height: "46px",
     cursor: "pointer",
-    background: "offwhite",
+    background: "red",
     color: "white",
-    border: "1px solid #1D1D1D",
-    borderRadius: "8px",
+    border: "none",
+    borderRadius: "4px",
   },
   addBtn: {
+    outline: "none",
+    border: "none",
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     padding: "8px 14px",
     gap: "16px",
     height: "46px",
-    background: "#1D1D1D",
+    background: "#081F4A",
     fontFamily: "inherit",
     color: "white",
-    borderRadius: "8px",
+    borderRadius: "4px",
     textAlign: "center",
     margin: "0 auto",
     cursor: "pointer",

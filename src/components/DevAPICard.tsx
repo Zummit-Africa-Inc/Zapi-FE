@@ -33,12 +33,18 @@ interface CardProps {
   id: string;
   name: string;
   description: string;
+  createdOn?: string;
 }
 
 // const core_url = import.meta.env.VITE_CORE_URL
 const core_url = "VITE_CORE_URL";
 
-const DevAPICard: React.FC<CardProps> = ({ id, name, description }) => {
+const DevAPICard: React.FC<CardProps> = ({
+  id,
+  name,
+  description,
+  createdOn,
+}) => {
   const classes = useStyles();
   const { error, loading, sendRequest } = useHttpRequest();
   const navigate = useNavigate();
@@ -112,10 +118,10 @@ const DevAPICard: React.FC<CardProps> = ({ id, name, description }) => {
                 open={open}
                 onClose={handleClose}
                 TransitionComponent={Fade}>
-                <MenuItem>
-                  <button onClick={handleDeleteApi} className={classes.button} style={{background: "#E32C08"}}>
-                    {loading ? <Spinner /> : "Delete"}
-                  </button>
+                <MenuItem
+                  style={{ backgroundColor: "red", color: "white" }}
+                  onClick={handleDeleteApi}>
+                  {loading ? <Spinner /> : "Delete"}
                 </MenuItem>
               </Menu>
 
@@ -125,9 +131,10 @@ const DevAPICard: React.FC<CardProps> = ({ id, name, description }) => {
               </Link>
             </CardContent>
             <Typography
+              variant="subtitle1"
               sx={{ margin: 1.5, marginLeft: 2.5 }}
               color="text.secondary">
-              Updated
+              {createdOn?.slice(0, 10) || "Updated"}
             </Typography>
           </React.Fragment>
         </Card>

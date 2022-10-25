@@ -175,8 +175,8 @@ const useStyles = makeStyles({
   },
   form: {
     display: "flex",
-    gap: "1.5rem",
     width: "100%",
+    gap: ".5rem",
     "@media screen and (max-width: 700px)": {
       flexDirection: "column",
     },
@@ -185,7 +185,9 @@ const useStyles = makeStyles({
     border: "none",
     outline: "none",
     padding: "1rem",
-    background: "#FFFFFF",
+    borderRadius: "5px 0px 0px 5px",
+    background: "rgba(100, 50, 159, 0.1)",
+    cursor: "pointer",
     color: "#071B85",
     fontWeight: 500,
     fontSize: "1rem",

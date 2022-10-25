@@ -6,6 +6,7 @@ import DevAPICard from "./DevAPICard";
 
 const APILayout: React.FC = () => {
   const { userApis } = useAppSelector((store) => store.user);
+  console.log(userApis);
   const classes = useStyles();
   return (
     <div>
