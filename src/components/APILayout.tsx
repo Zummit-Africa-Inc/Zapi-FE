@@ -29,7 +29,7 @@ const APILayout: React.FC = () => {
               textAlign: "center",
               marginTop: "116px",
             }}>
-            You do no have any API Projects
+            You do not have any API Projects
           </Typography>
           <Typography
             gutterBottom
@@ -214,12 +214,12 @@ const useStyles = makeStyles({
     height: "calc(100vh - 315px)",
   },
   apiCard: {
-    height: "calc(100vh - 315px)",
-    width: "100vw",
+    width: "100%",
+    height: "auto",
+    // minHeight: "",
     display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: "1.5rem",
     flexWrap: "wrap",
+    gap: "1.5rem",
+    padding: "0.5rem 1rem",
   },
 });

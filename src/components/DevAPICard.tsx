@@ -77,9 +77,9 @@ const DevAPICard: React.FC<CardProps> = ({ id, name, description }) => {
   };
 
   return (
-    <Paper className={classes.paper} sx={{ width: "420px" }}>
-      <Box sx={{ width: "420px" }}>
-        <Card variant="outlined">
+    <Paper className={classes.paper} sx={{ width: "420px", height: "250px"}}>
+      <Box sx={{width: "420px", height: "250px"}}>
+        <Card variant="outlined" sx={{width: "100%", height: "100%"}}>
           <React.Fragment>
             <CardContent>
               <CardHeader
@@ -107,28 +107,21 @@ const DevAPICard: React.FC<CardProps> = ({ id, name, description }) => {
                   "aria-labelledby": "menuButton",
                   disablePadding: true,
                 }}
+                className={classes.menu}
                 anchorEl={anchorEl}
                 open={open}
                 onClose={handleClose}
                 TransitionComponent={Fade}>
-                <MenuItem
-                  style={{ backgroundColor: "red" }}
-                  onClick={handleDeleteApi}>
-                  {loading ? <Spinner /> : "Delete"}
+                <MenuItem>
+                  <button onClick={handleDeleteApi} className={classes.button} style={{background: "#E32C08"}}>
+                    {loading ? <Spinner /> : "Delete"}
+                  </button>
                 </MenuItem>
               </Menu>
 
-              <Link to={`/developer/api/${id}`}>
-                <Typography
-                  variant="h5"
-                  component="div"
-                  sx={{ fontSize: "18px", fontWeight: "500", mb: 1 }}>
-                  {name || "👋 Onboarding Project"}
-                </Typography>
-                <Typography variant="body2" sx={{ mb: 2 }}>
-                  {description ||
-                    "This project is created by the onboarding process "}
-                </Typography>
+              <Link to={`/developer/api/${id}`} className={classes.link}>
+                <h2>{name || "👋 Onboarding Project"}</h2>
+                <p>{description.length > 90 ? `${description.substring(0, 90)}...` : description}</p>
               </Link>
             </CardContent>
             <Typography
@@ -144,16 +137,29 @@ const DevAPICard: React.FC<CardProps> = ({ id, name, description }) => {
 };
 
 const useStyles = makeStyles({
-  paper: {
-    "@media screen and (max-width: 500px)": {
-      scale: 0.87,
+  paper: {},
+  menu: {
+    padding: "1rem 0.5rem",
+  },
+  link: {
+    color: "#081F4A",
+    "& h2": {
+      fontSize: "18px",
+      fontWeight: "500",
+      margin: "0 0 0.75rem",
     },
-    "@media screen and (max-width: 400px)": {
-      scale: 0.78,
-    },
-    "@media screen and (max-width: 375px)": {
-      scale: 0.75,
-    },
+    "& p": {
+      margin: "0 0 1rem"
+    }
+  },
+  button: {
+    padding: "0.5rem 1rem",
+    border: "none",
+    outline: "none",
+    borderRadius: "5px",
+    color: "#FFF",
+    cursor: "pointer",
+    fontFamily: "var(--body-font)",
   },
 });
 
