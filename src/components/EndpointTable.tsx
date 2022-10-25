@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, SyntheticEvent } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -11,24 +11,20 @@ import { makeStyles } from '@mui/styles';
 import { toast } from 'react-toastify';
 import { styled } from '@mui/material/styles';
 
+
 import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
-import { removeEndpoint, editEndpoint } from "../redux/slices/userSlice";
-import { EndpointProps } from "../interfaces";
-import { EndpointsType } from "../types";
-import { useContextProvider } from '../contexts/ContextProvider';
+import { removeEndpoint, editEndpoint, getUserApis } from "../redux/slices/userSlice";
 import { ConfirmDialog } from '../components';
+import { EndpointProps } from "../interfaces";
+import Cookies from 'universal-cookie';
 
-import ConfirmBox from "react-dialog-confirm";
-import '/node_modules/react-dialog-confirm/build/index.css';
-import { Spinner } from "../assets";
+// ! I'm gonna be communicating through comments, wait for my comments and reply below them.
+// ! Can you hold on please?
 
-// const core_url = import.meta.env.VITE_BASE_URL
 const core_url = "VITE_CORE_URL"
 const initialState = { id: "", name: "", route: "", method: "" } as EndpointProps
 
 interface Props { id: string | undefined }
-
-
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -50,31 +46,20 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-
-
-
 const CollapsibleTable:React.FC<Props> = ({id}) => {
-  const { inputs, bind, select } = useFormInputs(initialState)
-  const { name, route, method } = inputs
-  const [isEditing, setIsEditing] = useState<number | null>(null)
-  const { userApis } = useAppSelector(store => store.user)
-  const api = userApis.find(api => api?.id === id)
-  console.log(id)
-  const { triggerRefresh } = useContextProvider()
-  const dispatch = useAppDispatch()
-  const classes = useStyles()
-  const { error, loading, sendRequest } = useHttpRequest()
+  const [isEditing, setIsEditing] = useState<number | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const { inputs, bind, select } = useFormInputs(initialState);
+  const { userApis } = useAppSelector(store => store.user);
+  const { error, loading, sendRequest } = useHttpRequest();
+  const api = userApis.find(api => api?.id === id);
+  const { name, route, method } = inputs;
+  const dispatch = useAppDispatch();
+  const classes = useStyles();
   let payload : object;
-  const [dialog, setDialog] = useState({
-    message:"",
-    isLoading:false
-  })
+  const cookies = new Cookies();
+  const profileId = cookies.get("profileId");
   
-  
-
-  
-
-
   const openEditing = (index: number) => {
     setIsEditing(index)
   }
@@ -87,72 +72,24 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
       if(!data || data === undefined) return
       dispatch(editEndpoint(payload))
       setIsEditing(null)
-      triggerRefresh()
+      dispatch(getUserApis(profileId))
     } catch (error) {}
   }
 
-  const handleDialog = (message:string, isLoading:boolean) => {
-    setDialog({
-      message,
-      isLoading
-    })
-  }
-
-  // const areUSureDelete = async(choose:string, id: string | undefined) =>{
-  //   if(choose) {
-  //     const headers = { 'Content-Type': 'application/json'}
-  //     try {
-  //       const data = await sendRequest(`/endpoints/${id}`, 'del', core_url, payload, headers)
-  //       if(!data || data === undefined) return
-  //       dispatch(removeEndpoint(id))
-  //       triggerRefresh()
-  //     } catch (error) {}
-  //     handleDialog('',false);
-  //   }else{
-  //     handleDialog('',false);
-  //   }
-  // }
-  // console.log(id)
-
-  const deleteRoute = async(id: string | undefined) => {
+  const deleteEndpoint = async(id: any ) =>{
     console.log(id)
-    handleDialog('Are you sure you want to delete?',true);
-    
-    // setDialog({
-    //   message:'Are you sure you want to delete?',
-    //   isLoading:true
-    // })
-    // const headers = { 'Content-Type': 'application/json'}
-    // try {
-    //   const data = await sendRequest(`/endpoints/${id}`, 'del', core_url, payload, headers)
-    //   if(!data || data === undefined) return
-    //   dispatch(removeEndpoint(id))
-    //   triggerRefresh()
-    // } catch (error) {}
+    const headers = { 'Content-Type': 'application/json'}
+    try {
+      const data = await sendRequest(`/endpoints/${id}`, 'del', core_url, payload, headers)
+      if(!data || data === undefined) return
+      dispatch(removeEndpoint(id))
+      dispatch(getUserApis(profileId))
+    } catch (error) {}
   }
 
-
-  const [isOpen, setIsOpen] = useState(false)
- 
-  const handleClose = (id: string | undefined) => { setIsOpen(!isOpen) }
- 
-  const handleConfirm = async(id: string | undefined) => { 
-    setIsOpen(true)
-    const headers = { 'Content-Type': 'application/json'}
-      try {
-        const data = await sendRequest(`/endpoints/${id}`, 'del', core_url, payload, headers)
-        if(!data || data === undefined) return
-        console.log(id)
-        dispatch(removeEndpoint(id))
-        triggerRefresh()
-      } catch (error) {}
-      // handleDialog('',false);
-   }
-  const handleCancel = () => { setIsOpen(false) }
-
-  
   return (
     <>
+    {isModalOpen && <ConfirmDialog message="Are you sure you want to delete this endpoint" onClose={() => setIsModalOpen(false)} loading={loading} />}
     <TableContainer component={Paper} >
       <Table aria-label="collapsible table">
         <TableHead>
@@ -193,23 +130,9 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
                 )}
               </StyledTableCell>
               <StyledTableCell>
-                <button onClick={() =>handleClose(endpoint?.id)} className={classes.button} style={{background: "#E32C08"}}>
+                <button onClick={() => setIsModalOpen(true)} className={classes.button} style={{background: "#E32C08"}}>
                   DELETE
                 </button>
-                <ConfirmBox // Note : in this example all props are required
-                      options={{
-                        icon:"https://img.icons8.com/clouds/100/000000/vector.png",
-                        text: 'Are you sure you want to delete this element?',
-                        confirm: `${loading ? <Spinner /> : "Yes"}`,
-                        cancel: 'no',
-                        btn: true
-                      }}
-                      isOpen={isOpen}
-                      onClose={handleClose}
-                      onConfirm={() => handleConfirm(endpoint?.id)}
-                      onCancel={handleCancel}
-                    />
-                {/* { dialog.isLoading && <ConfirmDialog onClick={areUSureDelete} message={dialog.message}/> } */}
               </StyledTableCell>
             </StyledTableRow>
           ))}
