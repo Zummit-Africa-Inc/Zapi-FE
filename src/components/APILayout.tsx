@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React from "react";
 import { makeStyles } from "@mui/styles";
-import { Typography,TablePagination,Pagination } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useAppSelector } from "../hooks";
 import DevAPICard from "./DevAPICard";
 
@@ -8,41 +8,14 @@ const APILayout: React.FC = () => {
   const { userApis } = useAppSelector((store) => store.user);
   console.log(userApis);
   const classes = useStyles();
-
-  const [page, setPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(6);
-
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
   return (
     <div>
       {userApis.length !== 0 ? (
-        <>
         <div className={classes.apiCard}>
-          {userApis?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((apis: any) => (
+          {userApis.map((apis: any) => (
             <DevAPICard key={apis.id} {...apis} />
-            ))}
+          ))}
         </div>
-          <TablePagination
-            rowsPerPageOptions={[]}
-            component="div"
-            className={classes.pagination}
-            count={userApis.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-          </>
-        
       ) : (
         <div className={classes.addApiDesc}>
           <Typography
@@ -57,7 +30,7 @@ const APILayout: React.FC = () => {
               textAlign: "center",
               marginTop: "116px",
             }}>
-            You do no have any API Projects
+            You do not have any API Projects
           </Typography>
           <Typography
             gutterBottom
@@ -242,16 +215,12 @@ const useStyles = makeStyles({
     height: "calc(100vh - 315px)",
   },
   apiCard: {
-    height: "calc(100vh - 315px)",
-    width: "100vw",
+    width: "100%",
+    height: "auto",
+    // minHeight: "",
     display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: "1.5rem",
     flexWrap: "wrap",
-  },
-  pagination: {
-    display: 'flex',
-    justifyContent:'center',
+    gap: "1.5rem",
+    padding: "0.5rem 1rem",
   },
 });
