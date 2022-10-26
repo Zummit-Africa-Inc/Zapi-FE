@@ -24,6 +24,7 @@ const CustomTab = styled(Tab)({
   "&.Mui-selected": {
     backgroundColor: "#081f4A",
     borderRadius: "10px",
+    color: "white !important",
   },
 });
 
@@ -67,8 +68,8 @@ const DevAddApi: React.FC = () => {
                 alignItems: "center",
                 justifyContent: "center",
                 borderRadius: "10px",
-                background: "#ACACAC",
-                color: "#fff",
+                background: "white",
+                color: "black",
               }}
               value={tab}
               indicatorColor="primary"
@@ -225,7 +226,7 @@ const useStyles = makeStyles({
     },
   },
   widget2: {
-    border: "1px solid #C4C4C4",
+    border: "1px solid whitesmoke",
     borderRadius: "10px",
   },
   rightText: {
