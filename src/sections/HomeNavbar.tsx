@@ -108,13 +108,23 @@ const HomeNavbar: React.FC = () => {
                     Documentation
                   </NavLink>
                 </li>
-                <li>
-                  <button onClick={() => handleClicked("login")}>Login</button>
-                </li>
+                {isLoggedIn ? (
+                  <>
+                    <div className={classes.signup} onClick={() => handleLogOut()}>
+                    Logout
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <li>
+                      <button onClick={() => handleClicked("login")}>Login</button>
+                    </li>
+                    <div className={classes.signup}>
+                    <NavLink to="/signup">Sign Up</NavLink>
+                    </div>
+                  </>
+                )}
               </ul>
-              <div className={classes.signup}>
-                <NavLink to="/signup">Sign up</NavLink>
-              </div>
             </div>
             <div className={classes.hamburger} onClick={handleClick}>
               <Menu />
