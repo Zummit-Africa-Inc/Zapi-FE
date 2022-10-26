@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { makeStyles } from "@mui/styles";
-import { Typography,TablePagination } from "@mui/material";
+import { Typography,TablePagination,Pagination } from "@mui/material";
 import { useAppSelector } from "../hooks";
 import DevAPICard from "./DevAPICard";
 
@@ -8,6 +8,7 @@ const APILayout: React.FC = () => {
   const { userApis } = useAppSelector((store) => store.user);
   console.log(userApis);
   const classes = useStyles();
+
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(6);
 
@@ -41,7 +42,7 @@ const APILayout: React.FC = () => {
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
           </>
-
+        
       ) : (
         <div className={classes.addApiDesc}>
           <Typography
@@ -56,7 +57,7 @@ const APILayout: React.FC = () => {
               textAlign: "center",
               marginTop: "116px",
             }}>
-            You do not have any API Projects
+            You do no have any API Projects
           </Typography>
           <Typography
             gutterBottom
