@@ -83,9 +83,9 @@ const DevAPICard: React.FC<CardProps> = ({
   };
 
   return (
-    <Paper className={classes.paper} sx={{ width: "420px", height: "250px"}}>
-      <Box sx={{width: "420px", height: "250px"}}>
-        <Card variant="outlined" sx={{width: "100%", height: "100%"}}>
+    <Paper className={classes.paper} sx={{ width: "420px" }}>
+      <Box sx={{ width: "420px" }}>
+        <Card variant="outlined">
           <React.Fragment>
             <CardContent>
               <CardHeader
@@ -113,7 +113,6 @@ const DevAPICard: React.FC<CardProps> = ({
                   "aria-labelledby": "menuButton",
                   disablePadding: true,
                 }}
-                className={classes.menu}
                 anchorEl={anchorEl}
                 open={open}
                 onClose={handleClose}
@@ -125,9 +124,17 @@ const DevAPICard: React.FC<CardProps> = ({
                 </MenuItem>
               </Menu>
 
-              <Link to={`/developer/api/${id}`} className={classes.link}>
-                <h2>{name || "👋 Onboarding Project"}</h2>
-                <p>{description.length > 90 ? `${description.substring(0, 90)}...` : description}</p>
+              <Link to={`/developer/api/${id}`}>
+                <Typography
+                  variant="h5"
+                  component="div"
+                  sx={{ fontSize: "18px", fontWeight: "500", mb: 1 }}>
+                  {name || "👋 Onboarding Project"}
+                </Typography>
+                <Typography variant="body2" sx={{ mb: 2 }}>
+                  {description ||
+                    "This project is created by the onboarding process "}
+                </Typography>
               </Link>
             </CardContent>
             <Typography
@@ -144,29 +151,16 @@ const DevAPICard: React.FC<CardProps> = ({
 };
 
 const useStyles = makeStyles({
-  paper: {},
-  menu: {
-    padding: "1rem 0.5rem",
-  },
-  link: {
-    color: "#081F4A",
-    "& h2": {
-      fontSize: "18px",
-      fontWeight: "500",
-      margin: "0 0 0.75rem",
+  paper: {
+    "@media screen and (max-width: 500px)": {
+      scale: 0.87,
     },
-    "& p": {
-      margin: "0 0 1rem"
-    }
-  },
-  button: {
-    padding: "0.5rem 1rem",
-    border: "none",
-    outline: "none",
-    borderRadius: "5px",
-    color: "#FFF",
-    cursor: "pointer",
-    fontFamily: "var(--body-font)",
+    "@media screen and (max-width: 400px)": {
+      scale: 0.78,
+    },
+    "@media screen and (max-width: 375px)": {
+      scale: 0.75,
+    },
   },
 });
 

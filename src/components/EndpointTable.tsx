@@ -26,6 +26,8 @@ const initialState = { id: "", name: "", route: "", method: "" } as EndpointProp
 
 interface Props { id: string | undefined }
 
+
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -47,6 +49,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
+
+
+
 
 const CollapsibleTable:React.FC<Props> = ({id}) => {
   const { inputs, bind, select } = useFormInputs(initialState)
@@ -88,6 +93,9 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
     } catch (error) {}
   }
 
+
+
+  
   return (
     <>
     <TableContainer component={Paper}>
