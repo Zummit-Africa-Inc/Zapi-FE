@@ -182,9 +182,14 @@ const SettingsPage: React.FC = () => {
                   </li>
                 </ul>
               </span>
+              <span className={classes.delapi}>Type this API project name "Bayo" to confirm the deletion:</span>
+              <br/>
+              <input
+              type="text"
+              className={classes.deltext}
+              />
             </div>
             <hr />
-              
             <button onClick={handleDeleteApi} className={classes.buttn}>
             {loading ? <Spinner /> : "Delete"}
             </button>
@@ -201,8 +206,8 @@ const SettingsPage: React.FC = () => {
 const useStyles = makeStyles({
   paper: {
     width: "950px",
-    marginTop: "20px",
-    padding: "2rem 2rem",
+    margin: "0",
+    padding: "50px",
     "@media screen and (max-width: 576px)": {
       paddingTop: "40px",
       paddingLeft: "20px",
@@ -218,19 +223,29 @@ const useStyles = makeStyles({
     }
   },
   textCol: {
-    padding: "0px",
+    marginBottom: "16px",
     color: "rgba(0, 0, 0, 0.87)",
-    fontSize: "28px",
+    fontSize: "16px",
+    letterSpacing: "normal",
+    lineHeight: "24px",
+    fontWeight: "600",
+    display: "block",
+    boxSizing: "border-box",
+    outline: "none 0px",
   },
   colcol: {
-    color: "rgb(130, 120, 120)",
-    paddingTop: "15px",
-    paddingBottom: "15px",
-    fontWeight: "500",
+    marginBottom: "16px",
+    color: "rgba(0, 0, 0, 0.38)",
+    lineHeight: "20px",
+    display: "block",
   },
   headcol: {
-    fontSize: "18px",
-    marginBottom: "12px"
+    marginBottom: "12px",
+    letterSpacing: "normal",
+    lineHeight: "20px",
+    display: "block",
+    boxSizing: "border-box",
+    outline: "none 0px",
   },
   radio: {
     cursor: "pointer",
@@ -305,69 +320,87 @@ const useStyles = makeStyles({
     }
   },
   btn: {
-    fontSize: "16px", 
-    boxSizing: "border-box",
-    fontWeight: "500",
-    fontFamily: "'Gill Sans', sans-serif",
-    transition: "color 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s",
+    marginTop: "20px",
+    paddingLeft: "15px",
+    paddingRight: "15px",
+    fontSize: "14px",
+    letterSpacing: "normal",
+    justifyContent: "center",
     alignItems: "center",
-    width: "auto",
-    height: "40px",
+    appearance: "none",
     borderRadius: "6px",
+    borderStyle: "solid",
+    borderWidth: "1px",
+    boxSizing: "border-box",
+    colorScheme: "light",
     cursor: "pointer",
-    marginTop: "15px",
-    padding: "5px",
-    backgroundColor: "rgb(239, 29, 29)",
-    borderColor: "rgb(243, 104, 104)",
-    opacity: "0.4",
+    display: "inline-flex",
+    fontWeight: "normal",
+    height: "36px",
+    outline: "none 0px",
+    position: "relative",
+    lineHeight: "20px",
+    transition: "color 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s, background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s",
+    userSelect: "none",
+    verticalAlign: "middle",
+    backgroundColor: "rgb(235, 76, 76)",
+    borderColor: "rgb(235, 76, 76)",
+    color: "rgba(255, 255, 255, 0.87)",
+    opacity: "0.2",
   },
   props: {
-    paddingTop: "15px",
+    paddingTop: "40px",
   },
   nameprops: {
     marginBottom: "16px",
     color: "rgba(0, 0, 0, 0.87)",
-    fontSize: "24px",
+    fontSize: "16px",
     letterSpacing: "normal",
-    lineHeight: "28px",
-    outline: "none 0px",
+    lineHeight: "24px",
+    fontWeight: "600",
+    display: "block",
+    boxSizing: "border-box",
   },
   spantext: {
-    margin: "0px",
+    marginBottom: "16px",
     color: "rgba(0, 0, 0, 0.38)",
-    fontSize: "20px",
+    fontSize: "14px",
     letterSpacing: "normal",
-    lineHeight: "40px",
+    lineHeight: "20px",
+    display: "block",
   },
   btnbtns: {
-    fontSize: "16px",
-    margin: "10px", 
-    boxSizing: "border-box",
-    fontWeight: "500",
-    fontFamily: "'Gill Sans', sans-serif",
-    transition: "color 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s",
+    margin: "0px",
+    paddingLeft: "10px",
+    paddingRight: "10px",
+    fontSize: "14px",
     alignItems: "center",
-    borderRadius: "9px",
-    width: "auto",
-    height: "40px",
-    padding: "5px",
+    borderRadius: "6px",
+    borderStyle: "solid",
+    boxSizing: "border-box",
     cursor: "pointer",
-    marginTop: "10px",
-    marginBottom: "10px",
-    backgroundColor: "rgb(239, 29, 29)",
-    borderColor: "rgb(243, 104, 104)",
-    opacity: "0.9",
+    fontWeight: "500",
+    height: "36px",
+    position: "relative",
+    backgroundColor: "rgb(235, 76, 76)",
+    borderColor: "rgb(235, 76, 76)",
+    color: "rgba(255, 255, 255, 0.87)",
   },
   delmain: {
     paddingTop: "15px",
     paddingLeft: "24px",
+    paddingRight: "24px",
     backgroundColor: "#ddd",
+    width: "450px",
+    height: "400px",
+    justifyContent: "center",
+    boxShadow: "rgb(0 0 0 / 8%) 0px 1px 4px",
     boxSizing: "border-box",
     borderRadius: "10px",
     position: "absolute",
-    width: "550px",
-    top: "38%",
-    left: "55%",
+    zIndex: "2",
+    top: "35%",
+    left: "45%",
     transform: "translate(-50%, -50%)",
     "@media screen and (max-width: 576px)": {
       top: "23%",
@@ -392,8 +425,12 @@ const useStyles = makeStyles({
   },
   docmain: {
     color: "rgba(0, 0, 0, 0.87)",
-    fontSize: "26px",
+    fontSize: "16px",
+    letterSpacing: "normal",
+    lineHeight: "24px",
     fontWeight: "600",
+    display: "block",
+    boxSizing: "border-box",
     "@media screen and (max-width: 576px)": {
       fontSize: "20px",
       paddingTop: "5px",
@@ -403,11 +440,9 @@ const useStyles = makeStyles({
     }
   },
   xlm: {
-    fontSize: "15px",
-    fontWeight: "600",
-    margin: "10px",
+    marginTop: "7px",
+    marginBottom: "5px",
     cursor: "pointer",
-    fontFamily: "Cambria, Cochin, Georgia, Times, 'Times New Roman', serif",
     "@media screen and (max-width: 576px)": {
       fontSize: "15px",
       padding: "3px",
@@ -415,7 +450,6 @@ const useStyles = makeStyles({
   },
   sctn: {
     display: "block",
-    width: "500px",
     fontSize: "18px",
     fontWeight: "500",
     "@media screen and (max-width: 576px)": {
@@ -429,7 +463,12 @@ const useStyles = makeStyles({
     }
   },
   deldel: {
-    lineHeight: "30px",
+    color: "rgba(0, 0, 0, 0.38)",
+    fontSize: "15px",
+    letterSpacing: "normal",
+    lineHeight: "20px",
+    display: "block",
+    boxSizing: "border-box",
     "@media screen and (max-width: 576px)": {
       fontSize: "17px",
       lineHeight: "25px",
@@ -437,7 +476,8 @@ const useStyles = makeStyles({
   },
   lose: {
     position: "relative",
-    paddingBottom: "40px",
+    paddingBottom: "5px",
+    color: "rgba(0, 0, 0, 0.38)",
     margin: "5px",
     textDecoration: "none",
     "@media screen and (max-width: 576px)": {
@@ -452,10 +492,9 @@ const useStyles = makeStyles({
     }
   },
   ulnum: {
-    display: "block",
-    paddingTop: "5px",
-    paddingLeft: "70px",
-    lineHeight: "30px",
+    paddingLeft: "45px",
+    paddingRight: "45px",
+    fontSize: "15px",
     "@media screen and (max-width: 576px)": {
       fontSize: "14px",
       paddingLeft: "30px",
@@ -467,24 +506,37 @@ const useStyles = makeStyles({
       paddingLeft: "38px",
       fontSize: "14px",
       lineHeight: "22px",
-
-    }
+    },
   },
+  delapi: {
+      
+    },
+    deltext: {
+    marginTop: "13px",
+    height: "35px",
+    borderColor: "#ddd",
+    backgroundColor: "#fff",
+    borderRadius: "5px",
+    borderStyle: "none",
+    fontSize: "15px",
+    width: "auto",
+    },
   buttn: {
-    boxSizing: "border-box",
-    fontSize: "20px",
-    fontWeight: "500",
-    fontFamily: "'Gill Sans', sans-serif",
-    transition: "color 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0s",
-    alignItems: "center",
-    borderRadius: "9px",
-    width: "100px",
-    height: "40px",
-    cursor: "pointer",
     marginLeft: "80%",
-    backgroundColor: "rgb(239, 29, 29)",
-    borderColor: "rgb(243, 104, 104)",
-    opacity: "0.9",
+    paddingLeft: "10px",
+    paddingRight: "10px",
+    fontSize: "14px",
+    alignItems: "center",
+    borderRadius: "6px",
+    borderStyle: "solid",
+    boxSizing: "border-box",
+    cursor: "pointer",
+    fontWeight: "500",
+    height: "36px",
+    position: "relative",
+    backgroundColor: "rgb(235, 76, 76)",
+    borderColor: "rgb(235, 76, 76)",
+    color: "rgba(255, 255, 255, 0.87)",
     "@media screen and (max-width: 576px)": {
       marginLeft: "auto",
       height: "30px",
