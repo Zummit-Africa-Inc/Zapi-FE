@@ -131,7 +131,7 @@ const EndpointTab: React.FC<Props> = ({id}) => {
                         <button type="submit" className={classes.button} style={{background: "#058A04"}}>
                             {loading ? <Spinner /> : "ADD"}
                         </button>
-                        <IconButton onClick={toggleOptions}>
+                        <IconButton onClick={toggleOptions} disabled={method === "post"}>
                             {isOptionsOpen ? <Remove /> : <Add />}
                         </IconButton>
                     </Stack>

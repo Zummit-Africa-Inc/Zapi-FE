@@ -10,23 +10,17 @@ import { tableCellClasses } from '@mui/material/TableCell';
 import { makeStyles } from '@mui/styles';
 import { toast } from 'react-toastify';
 import { styled } from '@mui/material/styles';
-import { Spinner } from "../assets";
+import Cookies from 'universal-cookie';
 
 import { useAppDispatch, useAppSelector, useFormInputs, useHttpRequest } from "../hooks";
 import { removeEndpoint, editEndpoint } from "../redux/slices/userSlice";
 import { EndpointProps } from "../interfaces";
-import { EndpointsType } from "../types";
-import { useContextProvider } from '../contexts/ContextProvider';
-import Cookies from 'universal-cookie';
-const cookies = new Cookies()
+import { Spinner } from "../assets";
 
-// const core_url = import.meta.env.VITE_BASE_URL
 const core_url = "VITE_CORE_URL"
 const initialState = { id: "", name: "", route: "", method: "" } as EndpointProps
 
 interface Props { id: string | undefined }
-
-
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -50,19 +44,16 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-
-
-
 const CollapsibleTable:React.FC<Props> = ({id}) => {
-  const { inputs, bind, select } = useFormInputs(initialState)
-  const { name, route, method } = inputs
   const [isEditing, setIsEditing] = useState<number | null>(null)
   const { userApis } = useAppSelector(store => store.user)
+  const { error, loading, sendRequest } = useHttpRequest()
+  const { inputs, bind, select } = useFormInputs(initialState)
   const api = userApis.find(api => api?.id === id)
-  const { triggerRefresh } = useContextProvider()
+  const { name, route, method } = inputs
   const dispatch = useAppDispatch()
   const classes = useStyles()
-  const { error, loading, sendRequest } = useHttpRequest()
+  const cookies = new Cookies()
   let payload : object;
   
   const openEditing = (index: number) => {
@@ -70,6 +61,11 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
   }
 
   const save = async(id: string | undefined) => {
+    if(!name || !method || !route) {
+      toast.error("No changes made")
+      setIsEditing(null)
+      return
+    }
     payload = {id, name, method, route}
     const headers = { 'Content-Type': 'application/json'}
     try {
@@ -77,7 +73,6 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
       if(!data || data === undefined) return
       dispatch(editEndpoint(payload))
       setIsEditing(null)
-      triggerRefresh()
       const { message } = data;
       toast.success(`${message}`);
     } catch (error) {}
@@ -89,13 +84,9 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
       const data = await sendRequest(`/endpoints/${id}?profileId=${cookies.get("profileId")}`, 'del', core_url, payload, headers)
       if(!data || data === undefined) return
       dispatch(removeEndpoint(id))
-      triggerRefresh()
     } catch (error) {}
   }
 
-
-
-  
   return (
     <>
     <TableContainer component={Paper}>
@@ -131,7 +122,7 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
                   <button onClick={() => save(endpoint?.id)} className={classes.button} style={{background: "#081F4A"}}>
                     DONE
                  </button>
-               ) : (
+                ) : (
                   <button onClick={() => openEditing(index)} className={classes.button} style={{background: "#081F4A"}}>
                    EDIT
                   </button>
