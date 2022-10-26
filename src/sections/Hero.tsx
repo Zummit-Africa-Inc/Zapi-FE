@@ -66,7 +66,7 @@ const Hero: React.FC = () => {
       }
     }
   };
-  
+
   return (
     <div className={classes.hero}>
       <div className={classes.heroText}>
@@ -110,21 +110,19 @@ const Hero: React.FC = () => {
       <form className={classes.form} onSubmit={handleSubmit}>
         {/* <div className={classes.inputForm}> */}
         <div >
-        <select
-          className={classes.select}
-          value={apiId}
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-            setApiId(e.target.value);
-          }}>
-          <option value="">Select an API  </option>
-          {freeApis?.map((api) => (
-            <option key={api.id} value={api.id}>
-              {api.name}
-            </option>
-          ))}
-        </select>
-            {/* <i className={classes.selecticon}><ArrowDropDownIcon/> </i> */}
-        
+          <select
+            className={classes.select}
+            value={apiId}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+              setApiId(e.target.value);
+            }}>
+            <option value="">Select an API  </option>
+            {freeApis?.map((api) => (
+              <option key={api.id} value={api.id}>
+                {api.name}
+              </option>
+            ))}
+          </select>
         </div>
         <TextField
           disabled
@@ -132,7 +130,7 @@ const Hero: React.FC = () => {
           type="text"
           className={classes.input}
           value={"https://zapi.com/" + pathName}
-          style={{paddingLeft: "1rem"}}
+          style={{ paddingLeft: "1rem" }}
           InputProps={{
             disableUnderline: true,
           }}
@@ -207,15 +205,15 @@ const useStyles = makeStyles({
     fontFamily: "Space Grotesk",
     paddingRight: "0rem",
     appearance: "none",
-    height:"100%",
-    backgroundImage:`url(${caretDown})`,
+    height: "100%",
+    backgroundImage: `url(${caretDown})`,
     backgroundSize: "10%",
     backgroundPosition: "right 10px center",
     backgroundRepeat: "no-repeat",
     "@media screen and (max-width: 500px)": {
       width: "100%"
     },
-    "& ::part(optgroup)":{
+    "& ::part(optgroup)": {
       marginButtom: "5rem"
     },
   },
