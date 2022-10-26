@@ -3,11 +3,12 @@ import { IconButton, Paper, Stack, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { toast } from "react-toastify";
 import { Add, Remove } from "@mui/icons-material";
+import Cookies from "universal-cookie";
 
 import { useAppDispatch, useFormInputs, useHttpRequest } from "../hooks";
-import { addEndpoint } from "../redux/slices/userSlice";
+import { addEndpoint, getUserApis } from "../redux/slices/userSlice";
 import { Spinner } from "../assets";
-import { EndpointTable } from "./";
+import EndpointTable from "./EndpointTable";
 
 const core_url = "VITE_CORE_URL"
 const initialState = {  name: "", route: "", method: "get", description: "", headers: "", requestBody: "", queryParams: "" }
@@ -21,6 +22,8 @@ const EndpointTab: React.FC<Props> = ({id}) => {
     const { name, route, method, description, headers, requestBody, queryParams } = inputs;
     const dispatch = useAppDispatch();
     const classes = useStyles();
+    const cookies = new Cookies();
+    const profileId = cookies.get("profileId");
 
     const [headersArray, setHeadersArray] = useState<Array<string>>([]);
     const [requestBodyArray, setRequestBodyArray] = useState<Array<string>>([]);
@@ -50,7 +53,12 @@ const EndpointTab: React.FC<Props> = ({id}) => {
 
     const removeQueryParams = (data: string) => setQueryParamsArray(current => current.filter(param => param !== data))
 
-    const toggleAdding = () => setIsAdding(prev => !prev)
+    const toggleAdding = () => {
+        setHeadersArray([])
+        setRequestBodyArray([])
+        setQueryParamsArray([])
+        setIsAdding(prev => !prev)
+    }
     const toggleOptions = () => setIsOptionsOpen(prev => !prev)
     
     const handleSubmit = async(e: FormEvent) => {
@@ -66,8 +74,11 @@ const EndpointTab: React.FC<Props> = ({id}) => {
             const { message } = data;
             toast.success(`${message}`);
         } catch (error) {}
-        console.log(payload)
-        setIsAdding(false)
+        setIsAdding(false);
+        setHeadersArray([])
+        setRequestBodyArray([])
+        setQueryParamsArray([])
+        dispatch(getUserApis(profileId));
     }
 
     useEffect(() => {
@@ -95,7 +106,7 @@ const EndpointTab: React.FC<Props> = ({id}) => {
                 </div>
                 <div>
                     <button onClick={toggleAdding} className={classes.button} style={{background: isAdding ? "#E32C08" : "#058A04"}}>
-                        {isAdding ? 'Cancel' : 'Create Endpoint'}
+                        {isAdding ? 'Cancel' : 'Add Endpoint'}
                     </button>
                 </div>
             </div>
