@@ -6,7 +6,6 @@ import { getFreeApis } from "../redux/slices/freeApiSlice";
 import { FREEUSEAPIDATA } from "../testdata";
 import { toast } from "react-toastify";
 import { Spinner } from "../assets";
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import caretDown from "../assets/images/caret-down.png";
 
 // const core_url = import.meta.env.VITE_CORE_URL
@@ -38,7 +37,10 @@ const Hero: React.FC = () => {
       setQuery(JSON.stringify(nameOfApi.samplePayload, undefined, 4));
       setData("");
     }
-  }, [nameOfApi]);
+    if (apiId.length === 0) {
+      setQuery("")
+    }
+  }, [nameOfApi, apiId]);
 
   useEffect(() => {
     dispatch(getFreeApis());
@@ -107,8 +109,8 @@ const Hero: React.FC = () => {
           learning engineers
         </Typography>
       </div>
+
       <form className={classes.form} onSubmit={handleSubmit}>
-        {/* <div className={classes.inputForm}> */}
         <div >
           <select
             className={classes.select}
@@ -123,6 +125,7 @@ const Hero: React.FC = () => {
               </option>
             ))}
           </select>
+
         </div>
         <TextField
           disabled
@@ -135,8 +138,8 @@ const Hero: React.FC = () => {
             disableUnderline: true,
           }}
         />
-        {/* </div> */}
-        <button type="submit" disabled={!query} className={classes.send}>
+
+        <button type="submit" disabled={!query || apiId.length === 0} className={classes.send}>
           {loading ? <Spinner /> : "Send"}
         </button>
       </form>
@@ -144,7 +147,8 @@ const Hero: React.FC = () => {
         <TextField
           className={classes.box}
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={
+            (e) => setQuery(e.target.value)}
           fullWidth
           multiline
           rows="8.5"
