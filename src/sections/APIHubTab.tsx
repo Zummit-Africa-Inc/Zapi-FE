@@ -8,18 +8,28 @@ import APICard from "../components/APICard";
 import { useAppSelector } from "../hooks";
 import { TabPanel } from "../components";
 
-const APIHubTab:React.FC = ({}) => {
-  const classes = useStyles()
-  const [tab, setTab] = useState<number>(0)
-  const { apis, categories } = useAppSelector(store => store.apis)
+const APIHubTab: React.FC = ({}) => {
+  const classes = useStyles();
+  const [tab, setTab] = useState<number>(0);
+  const { apis, categories } = useAppSelector((store) => store.apis);
 
-  const handleTabChange = (e: SyntheticEvent, value: number) => setTab(value)
+  const handleTabChange = (e: SyntheticEvent, value: number) => setTab(value);
 
   return (
     <div className={classes.container}>
       <div className={classes.list}>
-        <StyledTabs orientation="vertical" value={tab} onChange={handleTabChange}>
-          {categories.map((category, index) =>  <StyledTab key={index} label={category.name} iconPosition="start" icon={<Build />} />)}
+        <StyledTabs
+          orientation="vertical"
+          value={tab}
+          onChange={handleTabChange}>
+          {categories.map((category, index) => (
+            <StyledTab
+              key={index}
+              label={category.name}
+              iconPosition="start"
+              icon={<Build />}
+            />
+          ))}
           <StyledTab label="All APIs" iconPosition="start" icon={<Apps />} />
         </StyledTabs>
       </div>
@@ -28,32 +38,38 @@ const APIHubTab:React.FC = ({}) => {
           {categories.map((category, index) => (
             <TabPanel key={index} value={tab} index={index}>
               <>
-              <div className={classes.header}>
-                <h2>{category.name}</h2>
-                <p>{category.description}</p>
-              </div>
-              <div className={classes.grid}>
-                {apis.filter((api => api.categoryId === category.id)).map((api) => <APICard key={api.id} {...api} />)}
-              </div>
+                <div className={classes.header}>
+                  <h2>{category.name}</h2>
+                  <p>{category.description}</p>
+                </div>
+                <div className={classes.grid}>
+                  {apis
+                    .filter((api) => api.categoryId === category.id)
+                    .map((api) => (
+                      <APICard key={api.id} {...api} />
+                    ))}
+                </div>
               </>
             </TabPanel>
           ))}
           <TabPanel value={tab} index={categories.length}>
             <>
-            <div className={classes.header}>
-              <h2>All APIs</h2>
-              <p>List of all public APIs on ZAPI</p>
-            </div>
-            <div className={classes.grid}>
-              {apis.map((api) => <APICard key={api.id} {...api} />)}
-            </div>
+              <div className={classes.header}>
+                <h2>All APIs</h2>
+                <p>List of all public APIs on ZAPI</p>
+              </div>
+              <div className={classes.grid}>
+                {apis.map((api) => (
+                  <APICard key={api.id} {...api} />
+                ))}
+              </div>
             </>
           </TabPanel>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const StyledTabs = styled(Tabs)({
   width: "320px",
@@ -62,7 +78,7 @@ const StyledTabs = styled(Tabs)({
   "& .MuiTabs-indicator": {
     display: "none",
   },
-})
+});
 
 const StyledTab = styled(Tab)({
   width: "100%",
@@ -79,13 +95,13 @@ const StyledTab = styled(Tab)({
     justifyContent: "flex-start",
     textTransform: "capitalize",
     borderRadius: "8px 0px 0px 8px",
-    padding: "0 0 0 40px"
+    padding: "0 0 0 40px",
   },
   "& svg": {
     width: "24px",
     height: "24px",
-  }
-})
+  },
+});
 
 const useStyles = makeStyles({
   container: {
@@ -101,7 +117,7 @@ const useStyles = makeStyles({
     display: "flex",
     background: "#EDF5FD",
     boxShadow: "0px 1px 15px rgba(6, 113, 224, 0.2)",
-    padding:"28px 0 0",
+    padding: "28px 0 0",
   },
   col: {
     width: "896px",
@@ -126,7 +142,7 @@ const useStyles = makeStyles({
     gap: "1rem",
     padding: "1rem 0",
     overflowY: "scroll",
-  }
-})
+  },
+});
 
-export default APIHubTab
+export default APIHubTab;
