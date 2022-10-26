@@ -6,6 +6,8 @@ import { getFreeApis } from "../redux/slices/freeApiSlice";
 import { FREEUSEAPIDATA } from "../testdata";
 import { toast } from "react-toastify";
 import { Spinner } from "../assets";
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import caretDown from "../assets/images/caret-down.png";
 
 // const core_url = import.meta.env.VITE_CORE_URL
 const core_url = "VITE_CORE_URL";
@@ -64,6 +66,7 @@ const Hero: React.FC = () => {
       }
     }
   };
+
   return (
     <div className={classes.hero}>
       <div className={classes.heroText}>
@@ -106,25 +109,28 @@ const Hero: React.FC = () => {
       </div>
       <form className={classes.form} onSubmit={handleSubmit}>
         {/* <div className={classes.inputForm}> */}
-        <select
-          className={classes.select}
-          value={apiId}
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-            setApiId(e.target.value);
-          }}>
-          <option value="">Select an API</option>
-          {freeApis?.map((api) => (
-            <option key={api.id} value={api.id}>
-              {api.name}
-            </option>
-          ))}
-        </select>
+        <div >
+          <select
+            className={classes.select}
+            value={apiId}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+              setApiId(e.target.value);
+            }}>
+            <option value="">Select an API  </option>
+            {freeApis?.map((api) => (
+              <option key={api.id} value={api.id}>
+                {api.name}
+              </option>
+            ))}
+          </select>
+        </div>
         <TextField
           disabled
           variant="standard"
           type="text"
           className={classes.input}
           value={"https://zapi.com/" + pathName}
+          style={{ paddingLeft: "1rem" }}
           InputProps={{
             disableUnderline: true,
           }}
@@ -191,16 +197,28 @@ const useStyles = makeStyles({
     outline: "none",
     padding: "1rem",
     borderRadius: "5px 0px 0px 5px",
-    background: "rgba(100, 50, 159, 0.1)",
+    background: "#EAECED",
     cursor: "pointer",
     color: "#071B85",
     fontWeight: 500,
     fontSize: "1rem",
     fontFamily: "Space Grotesk",
+    paddingRight: "0rem",
+    appearance: "none",
+    height: "100%",
+    backgroundImage: `url(${caretDown})`,
+    backgroundSize: "10%",
+    backgroundPosition: "right 10px center",
+    backgroundRepeat: "no-repeat",
+    "@media screen and (max-width: 500px)": {
+      width: "100%"
+    },
+    "& ::part(optgroup)": {
+      marginButtom: "5rem"
+    },
   },
   input: {
     background: "rgba(19, 50, 159, 0.05)",
-    borderRadius: "4px",
     flex: 1,
     border: "none",
     height: "3.5rem",
@@ -219,7 +237,7 @@ const useStyles = makeStyles({
   send: {
     height: "100%",
     background: "#081F4A",
-    borderRadius: "4px",
+    borderRadius: "0px 4px 4px 0px",
     padding: "1.12rem 2rem",
     border: "none",
     fontWeight: 500,
