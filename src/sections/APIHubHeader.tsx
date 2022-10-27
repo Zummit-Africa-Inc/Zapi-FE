@@ -18,7 +18,7 @@ const useStyles = makeStyles({
         flexDirection: 'column',
         marginBottom: "46px",
         backgroundColor: "#F3F3F3",
-        backgroundImage: "url(../images/endless-constellation.svg)",
+        backgroundImage: "url(../../public/images/endless-constellation.svg)",
         padding: "236px 5rem 50px 5rem",
         lineHeight: "46px",
         boxShadow: "0px 4px 4px rgba(6, 113, 224, 0.05)",
