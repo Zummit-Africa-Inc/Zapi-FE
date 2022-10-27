@@ -34,7 +34,7 @@ import { login } from "./redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { PrivateRoutes } from "./components/routes";
 import { getUserApis, getSubscribedApis } from "./redux/slices/userSlice";
-import { getApiCategories, getApis } from "./redux/slices/apiSlice";
+import { getApiCategories, getApis, getPopularApis, getValidCategories } from "./redux/slices/apiSlice";
 import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
 import Cookies from "universal-cookie";
@@ -82,13 +82,21 @@ const App: React.FC = () => {
   }, []);
 
   const fetchApis = useMemo(() => dispatch(getApis()), []);
+  const fetchPopularApis = useMemo(() => dispatch(getPopularApis()), []);
   const fetchCategories = useMemo(() => dispatch(getApiCategories()), []);
+  const fetchValidCategories = useMemo(() => dispatch(getValidCategories()), []);
 
   useEffect(() => {
     fetchApis;
   }, []);
   useEffect(() => {
+    fetchPopularApis;
+  }, []);
+  useEffect(() => {
     fetchCategories;
+  }, []);
+  useEffect(() => {
+    fetchValidCategories;
   }, []);
 
   useEffect(() => {

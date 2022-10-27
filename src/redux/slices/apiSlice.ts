@@ -29,6 +29,27 @@ export const getApiCategories = createAsyncThunk("apis/getApiCategories", async(
         return thunkAPI.rejectWithValue(error.message)
     }
 })
+export const getValidCategories = createAsyncThunk("apis/getValidCategories", async(_, thunkAPI) => {
+    const headers = { 'X-Zapi-Auth-Token': `Bearer ${cookies.get('accessToken')}` }
+    try {
+        const response = await fetch(`${url}/categories/valid-categories`, {headers})
+        const data = await response.json()
+        return data.data
+    } catch (error: any) {
+        return thunkAPI.rejectWithValue(error.message)
+    }
+})
+
+export const getPopularApis = createAsyncThunk("apis/getPopularApis", async(_, thunkAPI) => {
+    const headers = { 'X-Zapi-Auth-Token': `Bearer ${cookies.get('accessToken')}` }
+    try {
+        const response = await fetch(`${url}/api/popular-apis`, {headers})
+        const data = await response.json()
+        return data.data
+    } catch (error: any) {
+        return thunkAPI.rejectWithValue(error.message)
+    }
+})
 
 export const getApis = createAsyncThunk("apis/getApis", async(_, thunkAPI) => {
     const headers = { 'X-Zapi-Auth-Token': `Bearer ${cookies.get('accessToken')}` }
@@ -76,6 +97,28 @@ const apiSlice = createSlice({
             state.loading = "fulfilled"
         }),
         builder.addCase(getApiCategories.rejected, (state, action: PayloadAction<any>) => {
+            state.loading = "rejected"
+            state.error = action.payload
+        })
+        builder.addCase(getPopularApis.pending, (state) => {
+            state.loading = "pending"
+        }),
+        builder.addCase(getPopularApis.fulfilled, (state, { payload }) => {
+            state.categories = payload
+            state.loading = "fulfilled"
+        }),
+        builder.addCase(getPopularApis.rejected, (state, action: PayloadAction<any>) => {
+            state.loading = "rejected"
+            state.error = action.payload
+        })
+        builder.addCase(getValidCategories.pending, (state) => {
+            state.loading = "pending"
+        }),
+        builder.addCase(getValidCategories.fulfilled, (state, { payload }) => {
+            state.categories = payload
+            state.loading = "fulfilled"
+        }),
+        builder.addCase(getValidCategories.rejected, (state, action: PayloadAction<any>) => {
             state.loading = "rejected"
             state.error = action.payload
         })
