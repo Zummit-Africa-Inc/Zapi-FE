@@ -7,51 +7,57 @@ import Cookies from "universal-cookie";
 
 import { useAppDispatch, useFormInputs, useHttpRequest } from "../hooks";
 import { addEndpoint, getUserApis } from "../redux/slices/userSlice";
-import { Spinner } from "../assets";
 import EndpointTable from "./EndpointTable";
+import { OptionsType } from "../types";
+import { Spinner } from "../assets";
 
 const core_url = "VITE_CORE_URL"
-const initialState = {  name: "", route: "", method: "get", description: "", headers: "", requestBody: "", queryParams: "" }
+const initialState = {  name: "", route: "", method: "get", description: "", headers: "", headerType: "string", headerIsRequired: false,
+ requestBody: "", requestBodyType: "string", requestBodyIsRequired: false, queryParams: "", queryParamType: "string", queryParamIsRequired: false }
 interface Props { id: string | undefined }
 
 const EndpointTab: React.FC<Props> = ({id}) => {
-    const { inputs, bind, select } = useFormInputs(initialState);
+    const { inputs, bind, select, toggle } = useFormInputs(initialState);
     const [isAdding, setIsAdding] = useState<boolean>(false);
     const [isOptionsOpen, setIsOptionsOpen] = useState<boolean>(false);
     const { error, loading, sendRequest } = useHttpRequest();
-    const { name, route, method, description, headers, requestBody, queryParams } = inputs;
+    const { name, route, method, description, headers, headerType, headerIsRequired, requestBody, requestBodyType,
+        requestBodyIsRequired, queryParams, queryParamType, queryParamIsRequired } = inputs;
     const dispatch = useAppDispatch();
     const classes = useStyles();
     const cookies = new Cookies();
     const profileId = cookies.get("profileId");
 
-    const [headersArray, setHeadersArray] = useState<Array<string>>([]);
-    const [requestBodyArray, setRequestBodyArray] = useState<Array<string>>([]);
-    const [queryParamsArray, setQueryParamsArray] = useState<Array<string>>([]);
+    const [headersArray, setHeadersArray] = useState<Array<OptionsType>>([]);
+    const [requestBodyArray, setRequestBodyArray] = useState<Array<OptionsType>>([]);
+    const [queryParamsArray, setQueryParamsArray] = useState<Array<OptionsType>>([]);
 
-    const addHeaders = (data: string) => {
-        if(!data) return toast.error("Add a valid string")
-        if(headersArray.includes(data)) return toast.error("Duplicate values")
-        setHeadersArray(prevHeaders => [...prevHeaders, data])
+    const addHeaders = (object: OptionsType) => {
+        const { name } = object
+        if(!name) return toast.error("Add a valid string")
+        if(headersArray.find(obj => obj.name.toLowerCase() === name.toLowerCase())) return toast.error("Duplicate values")
+        setHeadersArray(prevHeaders => [...prevHeaders, object])
     }
 
-    const removeHeader = (data: string) => setHeadersArray(current => current.filter(header => header !== data))
+    const removeHeader = (name: string) => setHeadersArray(current => current.filter(header => header.name !== name))
 
-    const addRequestBody = (data: string) => {
-        if(!data) return toast.error("Add a valid string")
-        if(requestBodyArray.includes(data)) return toast.error("Duplicate values")
-        setRequestBodyArray(reqBody => [...reqBody, data])
+    const addRequestBody = (object: OptionsType) => {
+        const { name } = object
+        if(!name) return toast.error("Add a valid string")
+        if(requestBodyArray.find(obj => obj.name.toLowerCase() === name.toLowerCase())) return toast.error("Duplicate values")
+        setRequestBodyArray(reqBody => [...reqBody, object])
     }
 
-    const removeRequestBody = (data: string) => setRequestBodyArray(current => current.filter(reqBody => reqBody !== data))
+    const removeRequestBody = (name: string) => setRequestBodyArray(current => current.filter(reqBody => reqBody.name !== name))
 
-    const addQueryParams = (data: string) => {
-        if(!data) return toast.error("Add a valid string")
-        if(queryParamsArray.includes(data)) return toast.error("Duplicate values")
-        setQueryParamsArray(param => [...param, data])
+    const addQueryParams = (object: OptionsType) => {
+        const { name } = object
+        if(!name) return toast.error("Add a valid string")
+        if(queryParamsArray.find(obj => obj.name.toLowerCase() === name.toLowerCase())) return toast.error("Duplicate values")
+        setQueryParamsArray(param => [...param, object])
     }
 
-    const removeQueryParams = (data: string) => setQueryParamsArray(current => current.filter(param => param !== data))
+    const removeQueryParams = (name: string) => setQueryParamsArray(current => current.filter(param => param.name !== name))
 
     const toggleAdding = () => {
         setHeadersArray([])
@@ -137,21 +143,67 @@ const EndpointTab: React.FC<Props> = ({id}) => {
                     </Stack>
                     {(isOptionsOpen || method === "post") && (
                         <>
-                        <Stack direction="row" alignItems="center" spacing={4}>
-                            <div className={classes.inputs}>
-                                <input type="text" name="headers" {...bind} placeholder="Headers" />
-                                <button type="button" onClick={() => addHeaders(headers)}><Add /></button>
-                            </div>
-                            <div className={classes.inputs}>
-                                <input type="text" name="requestBody" {...bind} placeholder="Request  body" />
-                                <button type="button" onClick={() => addRequestBody(requestBody)}><Add /></button>
-                            </div>
-                            <div className={classes.inputs}>
-                                <input type="text" name="queryParams" {...bind} placeholder="Query params" />
-                                <button type="button" onClick={() => addQueryParams(queryParams)}><Add /></button>
-                            </div>
-                        </Stack>
-                        <Stack mt={2} mb={2}>
+                        <Stack direction="column" spacing={1}>
+                            <Stack direction="row" spacing={2}>
+                                <div className={classes.inputs}>
+                                    <input type="text" name="headers" {...bind} placeholder="Headers" />
+                                </div>
+                                <div className={classes.inputs}>
+                                    <select name="headerType" {...select}>
+                                        <option value="string">String</option>
+                                    </select>
+                                </div>
+                                <div className={classes.inputs}>
+                                    <input type="checkbox" name="headerIsRequired" {...toggle} />
+                                </div>
+                                <div className={classes.inputs}>
+                                    <button type="button" onClick={() => addHeaders({name: headers, type: headerType, required: headerIsRequired})}>
+                                        <Add />
+                                    </button>
+                                </div>
+                            </Stack>
+                            <Stack direction="row" spacing={2}>
+                                <div className={classes.inputs}>
+                                    <input type="text" name="requestBody" {...bind} placeholder="Body" />
+                                </div>
+                                <div className={classes.inputs}>
+                                    <select name="requestBodyType" {...select}>
+                                    <option value="string">String</option>
+                                        <option value="number">Number</option>
+                                        <option value="file">File</option>
+                                        <option value="object">Object</option>
+                                        <option value="enum">Enum</option>
+                                        <option value="array">Array</option>
+                                    </select>
+                                </div>
+                                <div className={classes.inputs}>
+                                    <input type="checkbox" name="requestBodyIsRequired" {...toggle} />
+                                </div>
+                                <div className={classes.inputs}>
+                                    <button type="button" onClick={() => addRequestBody({name: requestBody, type: requestBodyType, required: requestBodyIsRequired})}>
+                                        <Add />
+                                    </button>
+                                </div>
+                            </Stack>
+                            <Stack direction="row" spacing={2}>
+                                <div className={classes.inputs}>
+                                    <input type="text" name="queryParams" {...bind} placeholder="Query" />
+                                </div>
+                                <div className={classes.inputs}>
+                                    <select name="queryParamType" {...select}>
+                                        <option value="string">String</option>
+                                        <option value="number">Number</option>
+                                    </select>
+                                </div>
+                                <div className={classes.inputs}>
+                                    <input type="checkbox" name="queryParamIsRequired" {...toggle} />
+                                </div>
+                                <div className={classes.inputs}>
+                                    <button type="button" onClick={() => addQueryParams({name: queryParams, type: queryParamType, required: queryParamIsRequired})}>
+                                        <Add />
+                                    </button>
+                                </div>
+                            </Stack>
                             <div className={classes.inputs}>
                                 <textarea name="description" {...bind} placeholder="Description" />
                             </div>
@@ -164,17 +216,17 @@ const EndpointTab: React.FC<Props> = ({id}) => {
                     <Stack direction="column" spacing={1} my={2}>
                         <ul className={classes.list}>
                             Headers: {headersArray.length > 0 && headersArray.map((header, index) => <li key={index}>
-                                {header} <button onClick={() => removeHeader(header)}><Remove /></button>
+                                {header.name}: {header.type} <button onClick={() => removeHeader(header.name)}><Remove /></button>
                             </li>)}
                         </ul>
                         <ul className={classes.list}>
                             Request Body: {requestBodyArray.length >  0 && requestBodyArray.map((req, index) => <li key={index}>
-                                {req} <button onClick={() => removeRequestBody(req)}><Remove /></button>
+                                {req.name}: {req.type} <button onClick={() => removeRequestBody(req.name)}><Remove /></button>
                             </li>)}
                         </ul>
                         <ul className={classes.list}>
                             Query Params: {queryParamsArray.length > 0 && queryParamsArray.map((param, index) => <li key={index}>
-                                {param} <button onClick={() => removeQueryParams(param)}><Remove /></button>
+                                {param.name}: {param.type} <button onClick={() => removeQueryParams(param.name)}><Remove /></button>
                             </li>)}
                         </ul>
                     </Stack>
@@ -209,33 +261,30 @@ const useStyles = makeStyles({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        borderRadius: "4px",
-        border: "1px solid #999",
-        outline: "none",
         fontSize: "14px",
         lineHeight: "24px",
         fontFamily: "var(--body-font)",
         "& input": {
             width: "100%",
             height: "40px",
-            border: "none",
-            outline: "none",
-            borderRadius: "4px",
             padding: "0 0.5rem",
+            borderRadius: "4px",
+            border: "1px solid #999",
+            outline: "none",
         },
         "& select": {
-            width: "100px",
+            minWidth: "100px",
             height: "40px",
-            border: "none",
-            outline: "none",
             borderRadius: "4px",
+            border: "1px solid #999",
+            outline: "none",
         },
         "& textarea": {
             resize: "none",
             width: "300px",
             height: "100px",
             borderRadius: "4px",
-            border: "none",
+            border: "1px solid #999",
             outline: "none",
             padding: "0.5rem",
         },
@@ -245,8 +294,12 @@ const useStyles = makeStyles({
             background: "#081F4A",
             color: "#FFF",
             border: "none",
-            borderRadius: "0 4px 4px 0",
-        }
+            borderRadius: "4px",
+        },
+        "& input[type=checkbox]": {
+            width: "15px",
+            height: "15px",
+        },
     },
     button: {
         display: "flex",
@@ -295,5 +348,5 @@ const useStyles = makeStyles({
                 fontSize: "0.75rem",
             }
         }
-    }
+    },
 })
