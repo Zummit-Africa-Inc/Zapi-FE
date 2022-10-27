@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card } from "@mui/material";
+import { Card, Tooltip } from "@mui/material";
 import { makeStyles, styled } from '@mui/styles';
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
@@ -9,6 +9,8 @@ import { useAppDispatch, useAppSelector, useHttpRequest } from "../hooks";
 import { getApis } from "../redux/slices/apiSlice";
 import { CardProps } from "../interfaces";
 import { Spinner } from "../assets";
+
+import { BookmarkAddOutlined, BookmarkRemove, StackedLineChart, TimerOutlined, Check } from "@mui/icons-material";
 
 const core_url = "VITE_CORE_URL"
 
@@ -46,101 +48,108 @@ const APICard:React.FC<CardProps> = ({id, name, description, rating, latency}) =
     },[error])
 
   return (
-    <Card className={classes.card}>
-      <div className={classes.header}></div>
-      <div className={classes.body}>
-        <div style={{height: "170px"}}>
-          <h5>{name}</h5>
-          <p>{description && description?.length > 50 ? `${String(description).substring(0, 50)}...` : description}</p>
-          <div className={classes.col}>
-            <div className={classes.row} style={{gap: "23px"}}>
-              <button style={{width: "41px"}} className={classes.btn} disabled>{rating}/10</button>
-              <button style={{width: "41px"}} className={classes.btn} disabled>{latency}ms</button>
-            </div>
-            <div className={classes.row} style={{gap: "17px"}}>
-              <button style={{width: "70px"}} className={classes.btn} disabled></button>
-              <button style={{width: "70px"}} className={classes.btn} disabled></button>
-              <button style={{width: "37px"}} className={classes.btn} disabled></button>
-            </div>
-          </div>
+    <div className={classes.card}>
+      <div>
+        <div className={classes.topBar}>
+          <div className={classes.icon}></div>
+          <Tooltip onClick={handleSubscription} title={isSubscribed ? "Unsubscribe" : "Subscribe"} placement="right" arrow>
+            {isSubscribed ? (
+                <BookmarkRemove className={classes.subscribe} />
+              ) : (
+                <BookmarkAddOutlined className={classes.subscribe} />
+              )
+            }
+          </Tooltip>
         </div>
-        <div className={classes.footer}>
-          <button onClick={handleSubscription} className={classes.button}>
-            {loading ? <Spinner /> : isSubscribed ? "unsubscribe" : "subscribe"}
-          </button>
+        <div className={classes.body}>
+            <h4>{name || "API Name"}</h4>
+            <p>{description && description?.length > 60 ? `${String(description).substring(0, 50)}...` : description || "API Description."}</p>
         </div>
       </div>
-    </Card>
+
+      <div className={classes.bottomBar}>
+        <div className={classes.item} title="no. of subscribers">
+          <StackedLineChart sx={{ width: "18px" }} className={classes.itemIcon} />
+          <p className={classes.itemTitle}>10K</p>
+        </div>
+        <div className={classes.item} title="latency">
+            <TimerOutlined sx={{ width: "18px" }} className={classes.itemIcon} />
+            <p className={classes.itemTitle}>{(latency || 0)}ms</p>
+        </div>
+        <div className={classes.item} title="rating">
+            <Check sx={{ width: "18px" }} className={classes.itemIcon} />
+            <p className={classes.itemTitle}>{((rating || 10)/10)*100}%</p>
+        </div>
+      </div>
+    </div>
   )
 }
 
 const useStyles = makeStyles({
     card:{
-      maxWidth: 267,
-      height: 354,
       userSelect: "none",
-      "&:hover": {
-        boxShadow: "5px 5px 15px 0px rgba(0, 0, 0, 0.6)",
-      }
-    },
-    header: {
-      width: "267px",
-      height: "97px",
-      background: "#081F4A",
-    },
-    body: {
-      height: "257px",
-      padding: "0 16px",
-      color: "#081F4A",
-      "& h5": {
-        fontWeight: 500,
-        fontSize: "18px",
-        lineHeight: "23px",
-        margin: "16px 0",
-      },
-      "& p": {
-        fontWeight: 400,
-        fontSize: "16px",
-        margin: "0 0 16px",
-      },
-    },
-    col: {
       display: "flex",
       flexDirection: "column",
-      gap: "22px",
+      justifyContent: "space-between",
+      boxSizing: "border-box",
+      padding: "31px 28px 33px 29px",
+      // width: "251px",
+      minHeight: "230px",
+      background: "#fff",
+      border: "1px solid #d1d1d1",
+      boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.25)",
+      borderRadius: "28px",
     },
-    row: {
+    topBar: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "flex-start",
+    },
+    icon: {
+      marginBottom: "13px",
+      backgroundColor: "#253480",
+      borderRadius: "50%",
+      width: "36px",
+      height: "36px"
+    },
+    subscribe: {
+      cursor: "pointer",
+      color: "#515D99",
+      width: "17px",
+      height: "auto",
+    },
+    body: {
+      "& h4": {
+        marginBottom: "13px",
+        fontWeight: "bold",
+        fontSize: "18px",
+        color: "#071B85",
+        width: "186px"
+      },
+      "& p": {
+        fontSize: "12px",
+        lineHeight: "22px",
+        color: "#4554A3",
+        width: "186px"
+      },
+    },
+    bottomBar: {
+      display: "flex",
+      justifyContent: "space-between",
+      marginTop: "20px",
+    },
+    item: {
       display: "flex",
       alignItems: "center",
+      gap: "2px"
     },
-    footer: {
-      margin: "20px 0 0",
+    itemIcon: {
+      color: "#515D99",
     },
-    btn: {
-      height: "18px",
-      background: "#FFEA00",
-      borderRadius: "8px",
-      border: "none",
-      outline: "none",
-      fontSize: "0.65rem",
-      fontWeight: 700,
-      color: "#081F4A",
-      fontFamily: "var(--body-font)",
-      "&:disabled": {
-          cursor: "default",
-      }
+    itemTitle: {
+      fontSize: "10px",
+      color: "#515D99",
     },
-    button: {
-      width: "100px",
-      height: "36px",
-      background: "#081F4A",
-      borderRadius: "4px",
-      border: "none",
-      outline: "none",
-      fontSize: "0.8rem",
-      textTransform: "uppercase",
-      fontFamily: "var(--body-font)",
-    }
   })
 
 export default APICard
