@@ -29,7 +29,7 @@ export const useFormInputs = (initialState: any) => {
 
     const [inputs, dispatch] = useReducer(reducer, initialState);
     
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
         dispatch({type: 'text', name: e.target.name, value: e.target.value})
     };
 
