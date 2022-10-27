@@ -1,39 +1,88 @@
-import React, { SyntheticEvent, useState } from "react";
-import { Tab, Tabs } from "@mui/material";
+import React, { SyntheticEvent, useState, useEffect } from "react";
+import { Tab, Tabs, Button, Tooltip } from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
-import { Apps, Build } from "@mui/icons-material";
+import { Apps, Build, CastForEducation, ChatBubble, Layers, Security, LibraryBooks, ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import { MdApps, MdBuild } from "react-icons/md";
 
 import APICard from "../components/APICard";
 import { useAppSelector } from "../hooks";
 import { TabPanel } from "../components";
 
-const APIHubTab: React.FC = ({}) => {
-  const classes = useStyles();
-  const [tab, setTab] = useState<number>(0);
-  const { apis, categories } = useAppSelector((store) => store.apis);
+const APIHubTab:React.FC = ({}) => {
+  const classes = useStyles()
+  const [tab, setTab] = useState<number>(0)
+  const { apis, categories } = useAppSelector(store => store.apis)
 
-  const handleTabChange = (e: SyntheticEvent, value: number) => setTab(value);
+
+  const handleTabChange = (e: SyntheticEvent, value: number) => setTab(value)
+
+  
+  const [isOpen, setIsOpen] = useState<boolean>(true);
+
+  const handleSideBarChange = () => {
+    if(isOpen) {
+      setIsOpen(false);
+    } else {
+      setIsOpen(true);
+    }
+  };
+
 
   return (
     <div className={classes.container}>
-      <div className={classes.list}>
-        <StyledTabs
-          orientation="vertical"
-          value={tab}
-          onChange={handleTabChange}>
-          {categories.map((category, index) => (
-            <StyledTab
-              key={index}
-              label={category.name}
-              iconPosition="start"
-              icon={<Build />}
-            />
-          ))}
-          <StyledTab label="All APIs" iconPosition="start" icon={<Apps />} />
-        </StyledTabs>
-      </div>
-      <div className={classes.col}>
+    
+      {isOpen ? (
+          <div className={classes.list}>
+            <StyledTabs orientation="vertical" value={tab} onChange={handleTabChange}>
+              {categories.map((category, index) => (
+                <StyledTab
+                  key={index}
+                  label={category.name}
+                  iconPosition="start"
+                  icon={<Build />}
+                />
+              ))}
+              <StyledTab label="All APIs" iconPosition="start" icon={<Apps />} />
+              
+            </StyledTabs>
+            
+            <Tooltip title="Collapse" placement="right" arrow>
+              <Button id="collapseButton" onClick={handleSideBarChange}>
+                <ArrowBackIos sx={{ marginRight: "-15px", color: "#071B85", width: "21px", height: "auto" }} />
+              </Button>
+            </Tooltip>
+            
+          </div>
+        ) : (
+          <div className={classes.list} style={{ width: "auto", }}>
+            <StyledTabs orientation="vertical" value={tab} onChange={handleTabChange}>
+              {categories.map((category, index) => (
+                <Tooltip title={category.name} placement="right" arrow>
+                  <StyledTab
+                    key={index}
+                    iconPosition="start"
+                    icon={<Build />}
+                  />
+                </Tooltip>  
+              ))}
+              
+              <Tooltip title="All APIs" placement="right" arrow>
+                <StyledTab iconPosition="start" icon={<Apps />} />
+              </Tooltip>
+
+            </StyledTabs>
+
+            <Tooltip title="Expand" placement="right" arrow>
+              <Button id="expandButton" onClick={handleSideBarChange}>
+                <ArrowForwardIos sx={{ marginLeft: "-15px", color: "#071B85", width: "21px", height: "auto" }} />
+              </Button>
+            </Tooltip>
+          </div>
+        )
+
+      }
+    
+      <div className={classes.col} style={isOpen ? { width: "70%" } : { width: "89%" } }>
         <div>
           {categories.map((category, index) => (
             <TabPanel key={index} value={tab} index={index}>
@@ -62,87 +111,118 @@ const APIHubTab: React.FC = ({}) => {
                 {apis.map((api) => (
                   <APICard key={api.id} {...api} />
                 ))}
+
               </div>
             </>
           </TabPanel>
         </div>
       </div>
+
+      
     </div>
-  );
-};
+  )
+}
 
 const StyledTabs = styled(Tabs)({
-  width: "320px",
+  width: "100%",
+  height: "100%",
   display: "flex",
   alignItems: "flex-start",
+  gap: "24px",
   "& .MuiTabs-indicator": {
     display: "none",
   },
-});
+})
 
 const StyledTab = styled(Tab)({
-  width: "100%",
-  height: "56px",
-  display: "flex",
-  padding: "16px 28px 16px 40px",
+  // width: "100%",
+  // height: "56px",
+  // display: "flex",
+  // padding: "16px 28px 16px 40px",
   gap: "16px",
   "&.Mui-selected": {
-    background: "#98CDFE",
+    backgroundColor: "#DADDE4",
+    borderLeft: "5px solid #314298",
+    color: "#071B85",
+    fontWeight: "bold",
+    "& svg": {
+      marginLeft: "-5px",
+    },
   },
   "&.MuiButtonBase-root": {
+    marginBottom: "24px",
     minHeight: "56px",
     display: "flex",
     justifyContent: "flex-start",
     textTransform: "capitalize",
-    borderRadius: "8px 0px 0px 8px",
-    padding: "0 0 0 40px",
+    borderRadius: "0 8px 8px 0",
+    paddingLeft: "40px",
+    fontSize: "18px",
+    color: "#071B85",
   },
   "& svg": {
+    color: "#071B85",
     width: "24px",
     height: "24px",
-  },
-});
+  }
+})
 
 const useStyles = makeStyles({
   container: {
-    width: "100%",
+    width: "auto",
     display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    margin: "0 0 236px",
+    gap: "32px",
+    margin: "0 0 109px 5rem",
+    "@media screen and (max-width: 1024px)": {
+      margin: "0 0 109px 2rem",
+    },
+    "@media screen and (max-width: 770px)": {
+
+    },
+    "@media screen and (max-width: 375px)": {
+      margin: "0 0 50px 1rem",
+    }
+    
   },
   list: {
     width: "320px",
-    height: "1289px",
+    height: "100%",
     display: "flex",
-    background: "#EDF5FD",
-    boxShadow: "0px 1px 15px rgba(6, 113, 224, 0.2)",
-    padding: "28px 0 0",
+    flexDirection: "column",
+    alignItems: "flex-end",
+    paddingTop:"42px",
   },
   col: {
-    width: "896px",
-    height: "1289px",
-    background: "#C5E2FC",
-    padding: "0 1rem",
+    borderLeft: "1px solid #c1c1c1",
+    padding: "0 1rem 0 37px",
+    width: "70%",
+    height: "auto",
   },
   header: {
+    // position: "fixed",
     display: "flex",
     flexDirection: "column",
     margin: "32px 0",
-    color: "#081F4A",
-    positon: "fixed",
+    color: "#071B85",
     top: 0,
     left: 0,
+    "& h1": {
+      marginBottom: "3px",
+      fontSize: "36px",
+    },
+    "& p": {
+      fontSize: "16px",
+    },
   },
   grid: {
-    width: "100%",
-    height: "1150px",
     display: "flex",
     flexWrap: "wrap",
-    gap: "1rem",
-    padding: "1rem 0",
+    gap: "20px",
+    padding: "0 10px 0 0",
+    width: "auto",
+    maxHeight: "470px",
     overflowY: "scroll",
-  },
-});
+  }
+})
 
-export default APIHubTab;
+export default APIHubTab
