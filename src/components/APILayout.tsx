@@ -6,15 +6,11 @@ import DevAPICard from "./DevAPICard";
 
 const APILayout: React.FC = () => {
   const { userApis } = useAppSelector((store) => store.user);
-  console.log(userApis);
+  const [rowsPerPage, setRowsPerPage] = useState(6);
+  const [page, setPage] = useState(0);
   const classes = useStyles();
 
-  const [page, setPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(6);
-
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
+  const handleChangePage = (event: unknown, newPage: number) => setPage(newPage);
 
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>

@@ -71,7 +71,7 @@ const EndpointTab: React.FC<Props> = ({id}) => {
         e.preventDefault()
         
         if(!name || !route) return toast.error("Please add a name and route")
-        const payload = { name, route, method, description, headers: headersArray, requestBody: requestBodyArray, queryParams: queryParamsArray }
+        const payload = { name, route, method, description, headers: headersArray, body: requestBodyArray, query: queryParamsArray }
         const headers = { 'Content-Type': 'application/json' }
         try {
             const data = await sendRequest(`/endpoints/new/${id}`, 'post', core_url, payload, headers)
@@ -171,9 +171,11 @@ const EndpointTab: React.FC<Props> = ({id}) => {
                                     <option value="string">String</option>
                                         <option value="number">Number</option>
                                         <option value="file">File</option>
+                                        <option value="boolean">Boolean</option>
                                         <option value="object">Object</option>
-                                        <option value="enum">Enum</option>
                                         <option value="array">Array</option>
+                                        <option value="date">Date</option>
+                                        <option value="enum">Enum</option>
                                     </select>
                                 </div>
                                 <div className={classes.inputs}>
