@@ -102,15 +102,23 @@ const HomeNavbar: React.FC = () => {
                     Documentation
                   </NavLink>
                 </li>
-                <li>
-                  <button onClick={() => handleClicked("login")}>Login</button>
-                </li>
+                {isLoggedIn ? (
+                  <li className={classes.signup}>
+                   <button onClick={() => handleLogOut()}>Logout</button> 
+                  </li>
+                ): (
+                  <>
+                  <li>
+                    <button onClick={() => handleClicked("login")}>Login</button> 
+                  </li>
+                  <div className={classes.signup}>
+                    <NavLink to="/signup">Sign up</NavLink>
+                  </div>
+                  </>
+                )}
               </ul>
-              <div className={classes.signup}>
-                <NavLink to="/signup">Sign up</NavLink>
-              </div>
             </div>
-            <div className={classes.hamburger} onClick={handleClick}> {/* place to style the hamburger */}
+            <div className={classes.hamburger} onClick={handleClick}>
               {menuOpen === false ? <Menu/> : <CloseIcon/>}
             </div>
           </>
