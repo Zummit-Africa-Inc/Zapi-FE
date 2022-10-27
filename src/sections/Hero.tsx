@@ -1,4 +1,4 @@
-import { TextField, Typography } from "@mui/material";
+import { TextField, Typography, InputLabel, MenuItem, FormControl, Select, SelectChangeEvent } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector, useHttpRequest } from "../hooks";
@@ -21,6 +21,10 @@ const Hero: React.FC = () => {
   const { freeApis } = useAppSelector((store) => store.freeApis);
   const [apiName, setApiName] = useState<string>("");
   const { loading, sendRequest } = useHttpRequest();
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setApiId(event.target.value);
+  };
 
   useEffect(() => {
     const api = freeApis.find((api) => api.id === apiId);
@@ -68,6 +72,20 @@ const Hero: React.FC = () => {
       }
     }
   };
+  const isValidJsonString=(query:string)=>{
+    
+    if(!(query && typeof query === "string")){
+        return false;
+    }
+
+    try{
+       JSON.parse(query);
+       return true;
+    }catch(error){
+        return false;
+    }
+
+}
 
   return (
     <div className={classes.hero}>
@@ -112,19 +130,24 @@ const Hero: React.FC = () => {
 
       <form className={classes.form} onSubmit={handleSubmit}>
         <div >
-          <select
-            className={classes.select}
-            value={apiId}
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-              setApiId(e.target.value);
-            }}>
-            <option value="">Select an API  </option>
-            {freeApis?.map((api) => (
-              <option key={api.id} value={api.id}>
-                {api.name}
-              </option>
-            ))}
-          </select>
+
+          <FormControl sx={{ minWidth: 120 }}>
+            <Select
+              className={classes.select}
+              value={apiId}
+              onChange={handleChange}
+              autoWidth
+              displayEmpty
+              inputProps={{ 'aria-label': 'Without label' }}
+            >
+              <MenuItem value="">
+                Select An Api
+              </MenuItem>
+              {freeApis?.map((api) => (
+                <MenuItem key={api.id} value={api.id}>{api.name}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
         </div>
         <TextField
@@ -139,12 +162,14 @@ const Hero: React.FC = () => {
           }}
         />
 
-        <button type="submit" disabled={!query || apiId.length === 0} className={classes.send}>
+        <button type="submit" disabled={!query || apiId.length === 0 || !isValidJsonString(query)} className={classes.send}>
           {loading ? <Spinner /> : "Send"}
         </button>
       </form>
       <div className={classes.actionBoxes}>
         <TextField
+          inputProps={{ style: { color: (!isValidJsonString(query)) ? 'red' : 'black' } }}
+          style={{backgroundColor:'#f1f8fd' }}
           className={classes.box}
           value={query}
           onChange={
@@ -199,9 +224,8 @@ const useStyles = makeStyles({
   select: {
     border: "none",
     outline: "none",
-    padding: "1rem",
+    // padding: "1rem",
     borderRadius: "5px 0px 0px 5px",
-    background: "#EAECED",
     cursor: "pointer",
     color: "#071B85",
     fontWeight: 500,
@@ -209,11 +233,6 @@ const useStyles = makeStyles({
     fontFamily: "Space Grotesk",
     paddingRight: "0rem",
     appearance: "none",
-    height: "100%",
-    backgroundImage: `url(${caretDown})`,
-    backgroundSize: "10%",
-    backgroundPosition: "right 10px center",
-    backgroundRepeat: "no-repeat",
     "@media screen and (max-width: 500px)": {
       width: "100%"
     },
@@ -257,9 +276,13 @@ const useStyles = makeStyles({
     },
   },
   box: {
-    background: "#FFFFFF",
-    boxShadow: "0px 1px 15px rgba(6, 113, 224, 0.2)",
-    borderRadius: "4px",
+    background: "#EDF5Fd",
+    // border: "1px solid #161616",
+    borderRadius: "6px",
+    "&:hover": {
+      boxShadow: "0px 0px 8px rgba(26, 32, 36, 0.32), 0px 40px 64px rgba(91, 104, 113, 0.24)",
+      // border: "2px solid #161616",
+    },
   },
   actionBoxes: {
     display: "flex",
