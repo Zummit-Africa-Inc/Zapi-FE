@@ -21,24 +21,29 @@ const APICard:React.FC<CardProps> = ({id, name, description, rating, latency}) =
     const cookies = new Cookies();
     const profileId = cookies.get("profileId");
     const dispatch = useAppDispatch();
-    const isSubscribed = subscribedApis?.find((api) => api.apiId === id)
+
+    const [isSubscribed, setIsSubscribed] = useState(subscribedApis?.find((api) => api.apiId === id) || false);
 
     const handleSubscription = async() => {
       const headers = { 'Content-Type': "application/json" }
       if(!isSubscribed) {
-          try {
-              const data = await sendRequest(`/subscription/subscribe/${id}/${profileId}`, "post", core_url, undefined, headers)
-              if(!data || data === undefined) return
-              const { message } = data
-              toast.success(`${message}`)
-            } catch (error) {}
-          } else {
-            try {
-              const data = await sendRequest(`/subscription/subscribe/${id}/${profileId}`, "post", core_url, undefined, headers)
-              if(!data || data == undefined) return
-              const { message } = data
-              toast.success(`${message}`)
-          } catch (error) {}
+        try {
+          const data = await sendRequest(`/subscription/subscribe/${id}/${profileId}`, "post", core_url, undefined, headers)
+          if(!data || data === undefined) return
+          const { message } = data
+          toast.success(`${message}`)
+
+          setIsSubscribed(true);
+        } catch (error) {}
+      } else {
+        try {
+          const data = await sendRequest(`/subscription/subscribe/${id}/${profileId}`, "post", core_url, undefined, headers)
+          if(!data || data == undefined) return
+          const { message } = data
+          toast.success(`${message}`)
+          
+          setIsSubscribed(false);
+      } catch (error) {}
       }
       dispatch(getApis());
     }
