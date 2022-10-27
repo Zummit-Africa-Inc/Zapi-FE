@@ -104,6 +104,12 @@ const useStyles = makeStyles({
       border: "1px solid #d1d1d1",
       boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.25)",
       borderRadius: "28px",
+      "@media screen and (max-width: 820px)": {
+        scale: .9
+      },
+      "@media screen and (max-width: 430px)": {
+        scale: .85
+      },
     },
     topBar: {
       display: "flex",
