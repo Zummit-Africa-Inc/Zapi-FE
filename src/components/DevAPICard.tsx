@@ -83,8 +83,8 @@ const DevAPICard: React.FC<CardProps> = ({
   };
 
   return (
-    <Paper className={classes.paper} sx={{ minWidth: "320px"}}>
-      <Box sx={{ minWidth: "320px"}}>
+    <Paper className={classes.paper} sx={{ minWidth: "395px"}}>
+      <Box sx={{ minWidth: "395px"}}>
         <Card variant="outlined">
           <React.Fragment>
             <CardContent>
