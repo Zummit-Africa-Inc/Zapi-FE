@@ -26,9 +26,10 @@ const APICard:React.FC<CardProps> = ({id, name, description, rating, latency}) =
 
     const handleSubscription = async() => {
       const headers = { 'Content-Type': "application/json" }
+      const queryStringParameters = { profileId }
       if(!isSubscribed) {
         try {
-          const data = await sendRequest(`/subscription/subscribe/${id}/${profileId}`, "post", core_url, undefined, headers)
+          const data = await sendRequest(`/subscription/subscribe/${id}`, "post", core_url, undefined, headers, queryStringParameters)
           if(!data || data === undefined) return
           const { message } = data
           toast.success(`${message}`)
@@ -37,7 +38,7 @@ const APICard:React.FC<CardProps> = ({id, name, description, rating, latency}) =
         } catch (error) {}
       } else {
         try {
-          const data = await sendRequest(`/subscription/subscribe/${id}/${profileId}`, "post", core_url, undefined, headers)
+          const data = await sendRequest(`/subscription/subscribe/${id}`, "post", core_url, undefined, headers, queryStringParameters)
           if(!data || data == undefined) return
           const { message } = data
           toast.success(`${message}`)
