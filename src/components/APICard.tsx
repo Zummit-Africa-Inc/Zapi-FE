@@ -30,8 +30,7 @@ const APICard:React.FC<CardProps> = ({id, name, description, rating, latency}) =
       if(api.apiId === id) return setIsSubscribed(true)
     })
   },[])
-
-
+  
   const handleSubscription = async() => {
     const headers = {
       'Content-Type': 'application/json',
@@ -147,9 +146,9 @@ const useStyles = makeStyles({
     },
     body: {
       "& h4": {
-        marginBottom: "13px",
+        marginBottom: "10px",
         fontWeight: "bold",
-        fontSize: "18px",
+        fontSize: "17px",
         color: "#071B85",
         width: "186px"
       },

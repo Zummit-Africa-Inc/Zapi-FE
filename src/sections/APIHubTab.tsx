@@ -1,7 +1,7 @@
 import React, { SyntheticEvent, useState, useEffect } from "react";
 import { Tab, Tabs, Button, Tooltip } from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
-import { Apps, Build, CastForEducation, ChatBubble, Layers, Security, LibraryBooks, ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
+import { Apps, Build, School, ChatBubble, Layers, Security, LibraryBooks, SportsFootball, AirplanemodeActive, AttachMoney, DataArray, ArrowBackIos, ArrowForwardIos, Science, MusicNote, FormatColorText, Cloud, Lightbulb } from "@mui/icons-material";
 import { MdApps, MdBuild } from "react-icons/md";
 
 import APICard from "../components/APICard";
@@ -41,6 +41,26 @@ const APIHubTab:React.FC = ({}) => {
     })
 
 
+  let icons: any = {
+    "Popular APIs": <LibraryBooks />,
+    "Safety APIs": <Layers/>,
+    "Security APIs": <Security/>,
+    "Customer Service APIs": <ChatBubble/>,
+    "General APIs": <Lightbulb/>,
+    "sports": <SportsFootball/>,
+    "travel": <AirplanemodeActive/>,
+    "finance": <AttachMoney/>,
+    "educational": <School/>,
+    "data": <DataArray/>,
+    "science": <Science/>,
+    "music": <MusicNote/>,
+    "tools": <Build/>,
+    "text analysis": <FormatColorText/>,
+    "weather": <Cloud/>,
+    "All APIs": <Apps/>,
+  }
+
+
   return (
     <div className={classes.container}>
     
@@ -52,16 +72,17 @@ const APIHubTab:React.FC = ({}) => {
                   key={index}
                   label={category.name}
                   iconPosition="start"
-                  icon={<Build />}
+                  icon={icons[category.name]}
                 />
               ))}
-              <StyledTab label="All APIs" iconPosition="start" icon={<Apps />} />
+
+              <StyledTab label="All APIs" iconPosition="start" icon={icons["All APIs"]} />
               
             </StyledTabs>
             
             <Tooltip title="Collapse" placement="right" arrow>
               <Button id="collapseButton" onClick={handleSideBarChange}>
-                <ArrowBackIos sx={{ color: "#071B85", width: "21px", height: "auto" }} />
+                <ArrowBackIos sx={{ color: "#071B85", width: "18px", height: "auto" }} />
               </Button>
             </Tooltip>
             
@@ -74,10 +95,11 @@ const APIHubTab:React.FC = ({}) => {
                   <StyledTab
                     key={index}
                     iconPosition="start"
-                    icon={<Build />}
+                    icon={icons[category.name]}
                   />
                 </Tooltip>  
               ))}
+              
               
               <Tooltip title="All APIs" placement="right" arrow>
                 <StyledTab iconPosition="start" icon={<Apps />} />
@@ -88,7 +110,7 @@ const APIHubTab:React.FC = ({}) => {
             <Tooltip title="Expand" placement="right" arrow>
               {isSlide ? (
                 <Button id="expandButton" onClick={handleSideBarChange} sx={{width: "100%"}}>
-                  <ArrowForwardIos sx={{ marginLeft: "12px", color: "#071B85", width: "21px", height: "auto" }} />
+                  <ArrowForwardIos sx={{ marginLeft: "12px", color: "#071B85", width: "18px", height: "auto" }} />
                 </Button>
 
                 ) : (
@@ -174,13 +196,14 @@ const StyledTab = styled(Tab)({
     textTransform: "capitalize",
     textAlign: "left",
     borderRadius: "0 8px 8px 0",
+    paddingLeft: "40px",
     fontSize: "15px",
     color: "#071B85",
     "@media screen and (max-width: 990px)": {
-      fontSize: "16px",
+      fontSize: "13px",
     },
     "@media screen and (max-width: 820px)": {
-      fontSize: "14px",
+      fontSize: "12px",
     },
     "@media screen and (max-width: 500px)": {
       justifyContent: "center",
@@ -195,19 +218,19 @@ const StyledTab = styled(Tab)({
   },
   "& svg": {
     color: "#071B85",
-    width: "24px",
-    height: "24px",
+    width: "22px",
+    height: "22px",
     "@media screen and (max-width: 990px)": {
-      width: "22px",
-      height: "22px",
-    },
-    "@media screen and (max-width: 820px)": {
       width: "20px",
       height: "20px",
     },
-    "@media screen and (max-width: 400px)": {
+    "@media screen and (max-width: 820px)": {
       width: "18px",
       height: "18px",
+    },
+    "@media screen and (max-width: 400px)": {
+      width: "16px",
+      height: "16px",
     },
   }
 })
@@ -237,13 +260,15 @@ const useStyles = makeStyles({
     
   },
   list: {
-    width: "auto",
-    height: "100%",
+    width: "320px",
+    height: "auto",
+    // maxHeight: "470px",
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-end",
     backgroundColor: "#fff",
     paddingTop:"42px",
+    overflowY: "scroll",
     "@media screen and (max-width: 500px)": {
       width: "100%",
     },
@@ -275,13 +300,13 @@ const useStyles = makeStyles({
     left: 0,
     "& h2": {
       marginBottom: "3px",
-      fontSize: "24px",
+      fontSize: "22px",
       "@media screen and (max-width: 820px)": {
         fontSize: "20px",
       },
     },
     "& p": {
-      fontSize: "16px",
+      fontSize: "14px",
       "@media screen and (max-width: 820px)": {
         fontSize: "12px",
       },
@@ -298,7 +323,7 @@ const useStyles = makeStyles({
     width: "auto",
     height: "1250px",
     overflowY: "scroll",
-    overflowZ: "hidden",
+    overflowX: "hidden",
     "@media screen and (max-width: 820px)": {
       gap: "0",
     },

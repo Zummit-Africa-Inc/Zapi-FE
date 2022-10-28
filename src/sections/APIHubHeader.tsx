@@ -24,7 +24,6 @@ const useStyles = makeStyles({
         boxShadow: "0px 4px 4px rgba(6, 113, 224, 0.05)",
         width: '100%',
         height: "auto",
-        opacity: .98,
         "& h1": {
             fontSize: "45px",
             color: "#fff",
