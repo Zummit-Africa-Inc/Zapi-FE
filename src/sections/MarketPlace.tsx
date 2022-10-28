@@ -1,4 +1,4 @@
-import { Typography, List } from "@mui/material";
+import { Typography, Link } from "@mui/material";
 import { makeStyles, } from '@mui/styles';
 import { MarketPlaceText } from "../assets"
 
@@ -50,7 +50,7 @@ const MarketPlace = () => {
                     </div>
                 </div>
             <button className={classes.button}>
-                    <Typography>Explore the marketplace</Typography>
+            <Typography><Link style={{color:'#FFEA00', textDecoration:'none'}} href="/api-hub">Explore the marketplace</Link></Typography>
                     <img className={classes.arrow} src="images/arrow.jpg" />
             </button>
             </div>
