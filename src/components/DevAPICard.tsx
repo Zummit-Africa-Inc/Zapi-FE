@@ -128,10 +128,10 @@ const DevAPICard: React.FC<CardProps> = ({
                 <Typography
                   variant="h5"
                   component="div"
-                  sx={{fontSize: "16px", fontWeight: "500", mb: 1}}>
+                  sx={{fontSize: "18px", fontWeight: "500", mb: 1}}>
                   {name || "👋 Onboarding Project"}
                 </Typography>
-                <Typography variant="body2" sx={{fontSize: "14px", mb: 2}}>
+                <Typography variant="body2" sx={{mb: 2}}>
                   {
                     description.length > 100 ? `${description.substring(0, 100)}...`
                     : description || "This project is created by the onboarding process "
