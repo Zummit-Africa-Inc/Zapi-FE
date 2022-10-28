@@ -131,9 +131,9 @@ const useStyles = makeStyles({
     },
     body: {
       "& h4": {
-        marginBottom: "13px",
+        marginBottom: "10px",
         fontWeight: "bold",
-        fontSize: "18px",
+        fontSize: "17px",
         color: "#071B85",
         width: "186px"
       },
