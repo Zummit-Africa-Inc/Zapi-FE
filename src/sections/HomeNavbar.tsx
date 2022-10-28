@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../hooks/redux-hook";
 import { Close, Menu } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
@@ -11,8 +11,8 @@ import { logout } from "../redux/slices/userSlice";
 import { useAppDispatch } from "../hooks/redux-hook";
 import Cookies from "universal-cookie";
 import CloseIcon from '@mui/icons-material/Close';
-
 import { useLocation } from "react-router-dom";
+import APIHubHeader from "./APIHubHeader";
 
 const HomeNavbar: React.FC = () => {
   const classes = useStyles();
@@ -25,6 +25,9 @@ const HomeNavbar: React.FC = () => {
   const navigate = useNavigate();
   const cookies = new Cookies();
   const [menuOpen, setMenuOpen] = useState(false)
+  const location = useLocation();
+  const [scrollPosition, setScrollPosition] = useState(0);
+
 
   const handleClick = () => {
     setMenuOpen((p) => !p)
@@ -41,18 +44,42 @@ const HomeNavbar: React.FC = () => {
     navigate("/");
   };
 
-  const location = useLocation();
+  const handleScroll = () => {
+    const position = window.pageYOffset;
+    setScrollPosition(position);
+  };
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+        window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  function bg(){
+    if(location.pathname === '/api-hub'){
+      return scrollPosition > 250 ?'#081F4A' :'transparent';
+    }else{
+      return '#081F4A'
+    }
+  }
+
+
 
   return (
     <>
-      <div className={classes.NavBar}>
-        <div className={classes.logo}>
-          <a href="/">
+      <div className={classes.NavBar} style={{background: bg()}}>
+          <div className={classes.logo}>
+                    <a href="/">
+
             <img src={ZapiHomeLogo} alt="zapi-Home" />
-          </a>
           <span className={classes.zapi}>Z-API</span>
-          <img className={classes.zapi} src={Vector} alt="vector-img" /> {/* funny looking stuff in the middle of the bar */}
+               </a>
         </div>
+    
+          <img className={classes.vector} src={Vector} alt="vector-img" /> {/* funny looking stuff in the middle of the bar */}
+
+
         {isMatch ? (
           <>
             <div className={open}>
@@ -181,6 +208,7 @@ const HomeNavbar: React.FC = () => {
           </div>
         )}
       </div>
+      {location.pathname === '/api-hub' && <APIHubHeader /> }
     </>
   );
 };
@@ -193,13 +221,14 @@ const useStyles = makeStyles({
     left: "0rem",
     right: "0rem",
     zIndex: 30,
-    height: "112px",
+    height: "5rem",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
     background: "#081F4A",
     boxShadow: "0px 1px 15px rgba(7, 27, 133, 0.15)",
     padding: "0 5rem",
+    overflow: 'hidden',
     "@media screen and (max-width: 1024px)": {
       padding: "1rem 2rem",
     },
@@ -219,7 +248,7 @@ const useStyles = makeStyles({
   },
   vector: {
     position: "absolute",
-    left: "130px",
+    left: "100px",
     top: "-2px",
     filter: "drop-shadow(0px 1px 15px rgba(0, 0, 0, 0.1))",
   },

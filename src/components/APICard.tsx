@@ -102,8 +102,14 @@ const useStyles = makeStyles({
       minHeight: "230px",
       background: "#fff",
       border: "1px solid #d1d1d1",
-      boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.25)",
-      borderRadius: "28px",
+      borderRadius: "0.5rem",
+      margin: '10px',
+      transition: 'ease-in-out all 0.3s',
+
+       "&:hover": {
+          boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.25)",
+      },
+
       "@media screen and (max-width: 820px)": {
         scale: .9
       },

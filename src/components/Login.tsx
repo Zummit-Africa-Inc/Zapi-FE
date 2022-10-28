@@ -92,14 +92,14 @@ const Login: React.FC = () => {
             Reset it here.
           </Link>
         </Typography>
-          <button type="submit" className={classes.button} style={{background:"#4B4B4B",color:"#FFF"}} disabled={loading}>
+          <button type="submit" className={classes.button} style={{background:"#a7a7a7",color:"#FFF", border:'none'}} disabled={loading}>
             {loading ? 'loading' : 'Sign In'}
           </button>
         </form>
         
         <Typography>OR</Typography>
         <Stack direction="column" alignItems="center" spacing={2}>
-          <button type="button" className={classes.button} onClick={() => {}} style={{background: "#FFF"}}>
+          <button type="button" className={classes.button} onClick={() => {}} style={{background: "#a7a7a7",  border:'none'}}>
             <span style={{marginRight: "3rem"}}>
               <GoogleIcon />
             </span>
