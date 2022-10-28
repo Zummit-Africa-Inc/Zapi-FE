@@ -44,11 +44,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-interface Props {
-  id: string;
-}
-
-const Subscription: React.FC<Props> = ({ id }) => {
+const Subscription: React.FC = () => {
   const { subscribedApis, userApis } = useAppSelector((store) => store.user);
   const classes = useStyles();
   const { error, loading, sendRequest } = useHttpRequest();
