@@ -1,7 +1,7 @@
 import React, { SyntheticEvent, useState, useEffect } from "react";
 import { Tab, Tabs, Button, Tooltip } from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
-import { Apps, Build, CastForEducation, ChatBubble, Layers, Security, LibraryBooks, SportsFootball, AirplanemodeActive, AttachMoney, DataArray, ArrowBackIos, ArrowForwardIos, Science, MusicNote, FormatColorText, Cloud, Lightbulb } from "@mui/icons-material";
+import { Apps, Build, School, ChatBubble, Layers, Security, LibraryBooks, SportsFootball, AirplanemodeActive, AttachMoney, DataArray, ArrowBackIos, ArrowForwardIos, Science, MusicNote, FormatColorText, Cloud, Lightbulb } from "@mui/icons-material";
 import { MdApps, MdBuild } from "react-icons/md";
 
 import APICard from "../components/APICard";
@@ -47,15 +47,16 @@ const APIHubTab:React.FC = ({}) => {
     "Security APIs": <Security/>,
     "Customer Service APIs": <ChatBubble/>,
     "General APIs": <Lightbulb/>,
-    "Sports APIs": <SportsFootball/>,
-    "Travel APIs": <AirplanemodeActive/>,
-    "Finance APIs": <AttachMoney/>,
-    "Data APIs": <DataArray/>,
-    "Science APIs": <Science/>,
-    "Music APIs": <MusicNote/>,
-    "Tools APIs": <Build/>,
-    "Text Analysis APIs": <FormatColorText/>,
-    "Weather APIs": <Cloud/>,
+    "sports": <SportsFootball/>,
+    "travel": <AirplanemodeActive/>,
+    "finance": <AttachMoney/>,
+    "educational": <School/>,
+    "data": <DataArray/>,
+    "science": <Science/>,
+    "music": <MusicNote/>,
+    "tools": <Build/>,
+    "text analysis": <FormatColorText/>,
+    "weather": <Cloud/>,
     "All APIs": <Apps/>,
   }
 
