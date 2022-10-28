@@ -125,7 +125,8 @@ const useStyles = makeStyles({
         borderRadius:"4px",
         boxSizing:"border-box",
         "@media screen and (max-width: 800px)": {
-            width:'100%'
+            width: '100%',
+            margin: "0 3px 30px",
         }
     },
     coll:{
