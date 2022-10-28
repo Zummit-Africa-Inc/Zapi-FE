@@ -129,27 +129,27 @@ const Hero: React.FC = () => {
       </div>
 
       <form className={classes.form} onSubmit={handleSubmit}>
-        <div >
+        <div className={classes.formGroup} >
 
-          <FormControl sx={{ minWidth: 120 }}>
+          <FormControl sx={{ minWidth: 120, '.MuiOutlinedInput-notchedOutline': { border: 0, borderRadius:0, outline:0 }, '.css-1w8tldt-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root': {border: 0, borderRadius:0, outline:'none' }, }}>
             <Select
+              sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0, borderRadius:0, outline:0 ,color:'red'} }}
               className={classes.select}
               value={apiId}
               onChange={handleChange}
               autoWidth
               displayEmpty
-              inputProps={{ 'aria-label': 'Without label' }}
+              inputProps={{ 'aria-label': 'Without label' , style:{backgroundColor:'#eaeaea', outline:'none', border:0, borderRadius:0}}}
             >
-              <MenuItem value="">
+              <MenuItem sx={{ minWidth: 120 }} value="">
                 Select An Api
               </MenuItem>
               {freeApis?.map((api) => (
-                <MenuItem key={api.id} value={api.id}>{api.name}</MenuItem>
+                <MenuItem sx={{ minWidth: 120 }} key={api.id} value={api.id}>{api.name}</MenuItem>
               ))}
             </Select>
           </FormControl>
 
-        </div>
         <TextField
           disabled
           variant="standard"
@@ -159,8 +159,10 @@ const Hero: React.FC = () => {
           style={{ paddingLeft: "1rem" }}
           InputProps={{
             disableUnderline: true,
+            style:{fontSize:'.9rem'},
           }}
-        />
+          />
+          </div>
 
         <button type="submit" disabled={!query || apiId.length === 0 || !isValidJsonString(query)} className={classes.send}>
           {loading ? <Spinner /> : "Send"}
@@ -217,29 +219,41 @@ const useStyles = makeStyles({
   form: {
     display: "flex",
     width: "100%",
-    "@media screen and (max-width: 500px)": {
+    border:'none',
+    "@media screen and (max-width: 768px)": {
       flexDirection: "column",
     },
+  },
+  formGroup: {
+    display: 'flex',
+    flexGrow: '1',
+    marginBottom:'5px',
   },
   select: {
     border: "none",
     outline: "none",
     // padding: "1rem",
-    borderRadius: "5px 0px 0px 5px",
+    // borderRadius: "5px 0px 0px 5px",
     cursor: "pointer",
+    backgroundColor:'#eaeaea',
     color: "#071B85",
     fontWeight: 500,
     fontSize: "1rem",
     fontFamily: "Space Grotesk",
     paddingRight: "0rem",
     appearance: "none",
+    borderRadius:'0px',
     "@media screen and (max-width: 500px)": {
       width: "100%"
     },
     "& ::part(optgroup)": {
       marginButtom: "5rem"
     },
+    "& .MuiSelect-select": {
+        borderRadius: '0',
+    }
   },
+  
   input: {
     background: "rgba(19, 50, 159, 0.05)",
     flex: 1,
@@ -274,11 +288,14 @@ const useStyles = makeStyles({
       color: "black",
       opacity: "0.5",
     },
+    "@media screen and (max-width: 500px)": {
+      flexDirection: "column",
+    },
   },
   box: {
     background: "#EDF5Fd",
     // border: "1px solid #161616",
-    borderRadius: "6px",
+    borderRadius: "1px",
     "&:hover": {
       boxShadow: "0px 0px 8px rgba(26, 32, 36, 0.32), 0px 40px 64px rgba(91, 104, 113, 0.24)",
       // border: "2px solid #161616",
@@ -286,9 +303,9 @@ const useStyles = makeStyles({
   },
   actionBoxes: {
     display: "flex",
-    gap: "2rem",
+    gap: "1rem",
     paddingTop: "2.5rem",
-    "@media screen and (max-width: 700px)": {
+    "@media screen and (max-width: 768px)": {
       flexDirection: "column",
     },
   },
