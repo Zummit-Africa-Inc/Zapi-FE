@@ -11,16 +11,12 @@ const APILayout: React.FC = () => {
   const PER_PAGE = 6;
   const count = Math.ceil(userApis.length / PER_PAGE);
   const _DATA = usePagination(userApis, PER_PAGE);
-
-
-
   const [page, setPage] = useState(1);
 
   const handleChange = (event: unknown, value: number) => {
     setPage(value);
     _DATA.jump(value);
   };
-
 
   return (
     <div>
