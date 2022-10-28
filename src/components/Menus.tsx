@@ -92,10 +92,9 @@ const Menus: React.FC<MenuProps> = () => {
         onClose={handleClose}
         TransitionComponent={Fade}>
         {userApis.map((api, index) => (
-          <MenuItem className={classes.menuItem}>
+          <MenuItem key={index} className={classes.menuItem}>
             <NavLink
               to={`/developer/api/${api.id}`}
-              key={index}
               style={({ isActive }) =>
                 isActive ? { color: "blue" } : { color: "#000000" }
               }>

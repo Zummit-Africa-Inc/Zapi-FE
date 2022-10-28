@@ -11,16 +11,12 @@ const APILayout: React.FC = () => {
   const PER_PAGE = 6;
   const count = Math.ceil(userApis.length / PER_PAGE);
   const _DATA = usePagination(userApis, PER_PAGE);
-
-
-
   const [page, setPage] = useState(1);
 
   const handleChange = (event: unknown, value: number) => {
     setPage(value);
     _DATA.jump(value);
   };
-
 
   return (
     <div>
@@ -245,10 +241,14 @@ const useStyles = makeStyles({
     width: "100vw",
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "left",
     gap: "1.5rem",
     flexWrap: "wrap",
     paddingBottom: '100px',
+    "@media screen and (max-width: 1024px)": {
+      justifyContent: "center",
+      marginLeft: "-1.5em"
+    },
   },
   pagination: {
     display: 'flex',

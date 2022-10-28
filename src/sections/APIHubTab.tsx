@@ -40,6 +40,7 @@ const APIHubTab:React.FC = ({}) => {
       }
     })
 
+
   let icons: any = {
     "Popular APIs": <LibraryBooks />,
     "Safety APIs": <Layers/>,
@@ -184,10 +185,10 @@ const StyledTab = styled(Tab)({
   gap: "16px",
   "&.Mui-selected": {
     backgroundColor: "#DADDE4",
-    borderLeft: "5px solid #314298",
+    borderLeft: "2px solid #314298",
     color: "#071B85",
     "& svg": {
-      marginLeft: "-5px",
+      marginLeft: "-1px",
     },
   },
   "&.MuiButtonBase-root": {
@@ -278,7 +279,7 @@ const useStyles = makeStyles({
   col: {
     borderLeft: "1px solid #c1c1c1",
     padding: "0 1rem 0 37px",
-    width: "70%",
+    width: "100%",
     height: "auto",
     "@media screen and (max-width: 900px)": {
 
