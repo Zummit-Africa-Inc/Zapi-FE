@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { HomeNavbar, Footer, APIHubTab } from '../sections'
+import { HomeNavbar, Footer, APIHubTab, APIHubHeader } from '../sections'
 
 
 const APIHub:React.FC = () => {
@@ -8,6 +8,7 @@ const APIHub:React.FC = () => {
     return (
         <>
             <HomeNavbar />
+            <APIHubHeader/>
             <APIHubTab/>
             <Footer />
         </>

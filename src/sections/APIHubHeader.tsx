@@ -29,6 +29,7 @@ const useStyles = makeStyles({
         height: "370px",
         opacity: .98,
         position:'relative',
+
         "& h1": {
             fontSize: "45px",
             color: "#fff",

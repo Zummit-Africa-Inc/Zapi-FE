@@ -79,11 +79,9 @@ const Login: React.FC = () => {
 
         <form onSubmit={handleLogin} className={classes.form}>
           <div className={classes.input}>
-            <label htmlFor="email">Email Address</label>
             <input type="email" name="email" {...bind} placeholder="Enter your Email" />
           </div>
           <div className={classes.input}>
-            <label htmlFor="password">Password</label>
             <input type="password" name="password" {...bind} placeholder="Enter a Password" />
           </div>
           <Typography variant="body1" fontSize="16px" alignSelf="flex-start">
@@ -99,7 +97,7 @@ const Login: React.FC = () => {
         
         <Typography>OR</Typography>
         <Stack direction="column" alignItems="center" spacing={2}>
-          <button type="button" className={classes.button} onClick={() => {}} style={{background: "#a7a7a7",  border:'none'}}>
+          <button type="button" className={classes.button} onClick={() => {}} style={{background: "#ffffff", border: 'solid 1px #00a6ff', color: '#6e6e6e'}}>
             <span style={{marginRight: "3rem"}}>
               <GoogleIcon />
             </span>

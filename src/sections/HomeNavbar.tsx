@@ -11,8 +11,8 @@ import { logout } from "../redux/slices/userSlice";
 import { useAppDispatch } from "../hooks/redux-hook";
 import Cookies from "universal-cookie";
 import CloseIcon from '@mui/icons-material/Close';
+
 import { useLocation } from "react-router-dom";
-import APIHubHeader from "./APIHubHeader";
 
 const HomeNavbar: React.FC = () => {
   const classes = useStyles();
@@ -26,8 +26,7 @@ const HomeNavbar: React.FC = () => {
   const cookies = new Cookies();
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation();
-  const [scrollPosition, setScrollPosition] = useState(0);
-
+  const [scrollPosition, setScrollPosition] = useState(0)
 
   const handleClick = () => {
     setMenuOpen((p) => !p)
@@ -43,6 +42,8 @@ const HomeNavbar: React.FC = () => {
     cookies.remove("accessToken");
     navigate("/");
   };
+
+ ;
 
   const handleScroll = () => {
     const position = window.pageYOffset;
@@ -69,17 +70,13 @@ const HomeNavbar: React.FC = () => {
   return (
     <>
       <div className={classes.NavBar} style={{background: bg()}}>
-          <div className={classes.logo}>
-                    <a href="/">
-
+        <div className={classes.logo}>
+          <a href="/">
             <img src={ZapiHomeLogo} alt="zapi-Home" />
+          </a>
           <span className={classes.zapi}>Z-API</span>
-               </a>
+          <img className={classes.zapi} src={Vector} alt="vector-img" /> {/* funny looking stuff in the middle of the bar */}
         </div>
-    
-          <img className={classes.vector} src={Vector} alt="vector-img" /> {/* funny looking stuff in the middle of the bar */}
-
-
         {isMatch ? (
           <>
             <div className={open}>
@@ -208,7 +205,6 @@ const HomeNavbar: React.FC = () => {
           </div>
         )}
       </div>
-      {location.pathname === '/api-hub' && <APIHubHeader /> }
     </>
   );
 };
@@ -225,10 +221,8 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    background: "#081F4A",
     boxShadow: "0px 1px 15px rgba(7, 27, 133, 0.15)",
     padding: "0 5rem",
-    overflow: 'hidden',
     "@media screen and (max-width: 1024px)": {
       padding: "1rem 2rem",
     },
@@ -248,7 +242,7 @@ const useStyles = makeStyles({
   },
   vector: {
     position: "absolute",
-    left: "100px",
+    left: "130px",
     top: "-2px",
     filter: "drop-shadow(0px 1px 15px rgba(0, 0, 0, 0.1))",
   },

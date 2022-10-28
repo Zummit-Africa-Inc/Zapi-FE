@@ -6,7 +6,6 @@ import DevAPICard from "./DevAPICard";
 
 const APILayout: React.FC = () => {
   const { userApis } = useAppSelector((store) => store.user);
-  console.log(userApis);
   const classes = useStyles();
   const PER_PAGE = 6;
   const count = Math.ceil(userApis.length / PER_PAGE);

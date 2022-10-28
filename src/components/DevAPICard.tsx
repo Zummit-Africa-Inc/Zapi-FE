@@ -83,9 +83,9 @@ const DevAPICard: React.FC<CardProps> = ({
   };
 
   return (
-    <Paper className={classes.paper} sx={{ minWidth: "395px"}}>
-      <Box sx={{ minWidth: "395px"}}>
-        <Card variant="outlined">
+    <Paper className={classes.paper} sx={{width:"395px", height:"255px"}}>
+      <Box sx={{width:"100%", height:"100%"}}>
+        <Card variant="outlined" className={classes.card}>
           <React.Fragment>
             <CardContent>
               <CardHeader
@@ -124,16 +124,16 @@ const DevAPICard: React.FC<CardProps> = ({
                 </MenuItem>
               </Menu>
 
-              <Link to={`/developer/api/${id}`}>
+              <Link to={`/developer/api/${id}`} style={{color: "#081F4A"}}>
                 <Typography
                   variant="h5"
                   component="div"
-                  sx={{ fontSize: "18px", fontWeight: "500", mb: 1 }}>
+                  sx={{fontSize: "18px", fontWeight: "500", mb: 1}}>
                   {name || "👋 Onboarding Project"}
                 </Typography>
-                <Typography variant="body2" sx={{ mb: 2 }}>
+                <Typography variant="body2" sx={{mb: 2}}>
                   {
-                    description.length > 20 ? description.split(" ").slice(0, 3).join(" ") + "..." 
+                    description.length > 100 ? `${description.substring(0, 100)}...`
                     : description || "This project is created by the onboarding process "
                   }
                 </Typography>
@@ -141,9 +141,10 @@ const DevAPICard: React.FC<CardProps> = ({
             </CardContent>
             <Typography
               variant="subtitle1"
-              sx={{ margin: 1.5, marginLeft: 2.5 }}
+              sx={{margin: 1.5, marginLeft: 2.5, fontSize: "14px"}}
               color="text.secondary">
-              {createdOn?.slice(0, 10) || "Updated"}
+                created: {createdOn && new Date(createdOn).toLocaleDateString() || "Updated"}
+                {/* or new Date(date).toDateString() : this will include the day */}
             </Typography>
           </React.Fragment>
         </Card>
@@ -154,21 +155,15 @@ const DevAPICard: React.FC<CardProps> = ({
 
 const useStyles = makeStyles({
   paper: {
-    "@media screen and (max-width: 500px)": {
-      scale: 0.87,
-    },
-    "@media screen and (max-width: 400px)": {
-      scale: 0.78,
-    },
-    "@media screen and (max-width: 375px)": {
-      scale: 0.75,
-    },
+    transition: "all 0.5s ease-in-out",
+    "&:hover": {
+      boxShadow: "5px 5px 15px 0px rgba(0, 0, 0, 0.4)",
+    }
   },
+  card: {
+    width: "100%",
+    height: "100%"
+  }
 });
 
 export default DevAPICard;
-
-
-
-        {/* //   {description ||
-                    "This project is created by the onboarding process "} */}
