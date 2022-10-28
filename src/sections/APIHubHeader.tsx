@@ -31,6 +31,9 @@ const useStyles = makeStyles({
             "@media screen and (max-width: 900px)": {
                 fontSize: "36px",
             },
+            "@media screen and (max-width: 500px)": {
+                fontSize: "28px",
+            },
         },
         "& p": {
             fontSize: "18px",
@@ -40,7 +43,8 @@ const useStyles = makeStyles({
                 fontSize: "15px",
             },
             "@media screen and (max-width: 500px)": {
-                lineHeight: "40px",
+                fontSize: "13px",
+                lineHeight: "30px",
             },
             "@media screen and (max-width: 375px)": {
                 lineHeight: "20px",

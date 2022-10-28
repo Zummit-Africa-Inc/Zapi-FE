@@ -8,24 +8,37 @@ import APICard from "../components/APICard";
 import { useAppSelector } from "../hooks";
 import { TabPanel } from "../components";
 
+
 const APIHubTab:React.FC = ({}) => {
   const classes = useStyles()
   const [tab, setTab] = useState<number>(0)
   const { apis, categories } = useAppSelector(store => store.apis)
 
-
   const handleTabChange = (e: SyntheticEvent, value: number) => setTab(value)
 
   
   const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isSlide, setIsSlide] = useState<boolean>(true);
 
   const handleSideBarChange = () => {
     if(isOpen) {
-      setIsOpen(false);
+      if(isSlide)
+        setIsOpen(false);
     } else {
-      setIsOpen(true);
+      if(isSlide)
+        setIsOpen(true);
     }
   };
+
+    window.addEventListener("resize", () => {
+      if(window.innerWidth <= 580) {
+        setIsOpen(false);
+        setIsSlide(false);
+      } else {
+        setIsOpen(false);
+        setIsSlide(true);
+      }
+    })
 
 
   return (
@@ -48,13 +61,13 @@ const APIHubTab:React.FC = ({}) => {
             
             <Tooltip title="Collapse" placement="right" arrow>
               <Button id="collapseButton" onClick={handleSideBarChange}>
-                <ArrowBackIos sx={{ marginRight: "-15px", color: "#071B85", width: "21px", height: "auto" }} />
+                <ArrowBackIos sx={{ color: "#071B85", width: "21px", height: "auto" }} />
               </Button>
             </Tooltip>
             
           </div>
         ) : (
-          <div className={classes.list} style={{ width: "auto", }}>
+          <div className={classes.list} style={{ display: "flex", alignItems: "center", width: "auto", }}>
             <StyledTabs orientation="vertical" value={tab} onChange={handleTabChange}>
               {categories.map((category, index) => (
                 <Tooltip title={category.name} placement="right" arrow>
@@ -73,9 +86,16 @@ const APIHubTab:React.FC = ({}) => {
             </StyledTabs>
 
             <Tooltip title="Expand" placement="right" arrow>
-              <Button id="expandButton" onClick={handleSideBarChange}>
-                <ArrowForwardIos sx={{ marginLeft: "-15px", color: "#071B85", width: "21px", height: "auto" }} />
-              </Button>
+              {isSlide ? (
+                <Button id="expandButton" onClick={handleSideBarChange} sx={{width: "100%"}}>
+                  <ArrowForwardIos sx={{ marginLeft: "12px", color: "#071B85", width: "21px", height: "auto" }} />
+                </Button>
+
+                ) : (
+                  <></>
+                )
+
+              }
             </Tooltip>
           </div>
         )
@@ -111,7 +131,12 @@ const APIHubTab:React.FC = ({}) => {
                 {apis.map((api) => (
                   <APICard key={api.id} {...api} />
                 ))}
-
+                <APICard />
+                <APICard />
+                <APICard />
+                <APICard />
+                <APICard />
+                <APICard />
               </div>
             </>
           </TabPanel>
@@ -132,6 +157,9 @@ const StyledTabs = styled(Tabs)({
   "& .MuiTabs-indicator": {
     display: "none",
   },
+  "@media screen and (max-width: 400px)": {
+    width: "50px",
+  },
 })
 
 const StyledTab = styled(Tab)({
@@ -144,7 +172,6 @@ const StyledTab = styled(Tab)({
     backgroundColor: "#DADDE4",
     borderLeft: "2px solid #314298",
     color: "#071B85",
-    fontWeight: "bold",
     "& svg": {
       marginLeft: "-1px",
     },
@@ -155,15 +182,44 @@ const StyledTab = styled(Tab)({
     display: "flex",
     justifyContent: "flex-start",
     textTransform: "capitalize",
+    textAlign: "left",
     borderRadius: "0 8px 8px 0",
     // paddingLeft: "10px",
     fontSize: "15px",
     color: "#071B85",
+    "@media screen and (max-width: 990px)": {
+      fontSize: "16px",
+    },
+    "@media screen and (max-width: 820px)": {
+      fontSize: "14px",
+    },
+    "@media screen and (max-width: 500px)": {
+      justifyContent: "center",
+      minHeight: "40px",
+      padding: "0",
+    },
+    "@media screen and (max-width: 400px)": {
+      justifyContent: "flex-start",
+      paddingLeft: "18px"
+    },
+    
   },
   "& svg": {
     color: "#071B85",
-    width: "15px",
-    height: "15px",
+    width: "24px",
+    height: "24px",
+    "@media screen and (max-width: 990px)": {
+      width: "22px",
+      height: "22px",
+    },
+    "@media screen and (max-width: 820px)": {
+      width: "20px",
+      height: "20px",
+    },
+    "@media screen and (max-width: 400px)": {
+      width: "18px",
+      height: "18px",
+    },
   }
 })
 
@@ -175,6 +231,13 @@ const useStyles = makeStyles({
     margin: "0 0 109px 5rem",
     "@media screen and (max-width: 1024px)": {
       margin: "0 0 109px 2rem",
+    },
+    "@media screen and (max-width: 900px)": {
+      
+    },
+    "@media screen and (max-width: 820px)": {
+      gap: "22px",
+      
     },
     "@media screen and (max-width: 770px)": {
 
@@ -190,13 +253,29 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-end",
+    backgroundColor: "#fff",
     paddingTop:"42px",
+    "@media screen and (max-width: 500px)": {
+      width: "100%",
+    },
   },
   col: {
     borderLeft: "1px solid #c1c1c1",
     padding: "0 1rem 0 37px",
     width: "100%",
     height: "auto",
+    "@media screen and (max-width: 900px)": {
+
+    },
+    "@media screen and (max-width: 820px)": {
+      padding: "0 1rem 0 22px",
+      
+    },
+    "@media screen and (max-width: 500px)": {
+      border: "unset",
+      padding: "0 1rem 0 0",
+      
+    },
   },
   header: {
     // position: "fixed",
@@ -206,22 +285,36 @@ const useStyles = makeStyles({
     color: "#071B85",
     top: 0,
     left: 0,
-    "& h1": {
+    "& h2": {
       marginBottom: "3px",
-      fontSize: "36px",
+      fontSize: "24px",
+      "@media screen and (max-width: 820px)": {
+        fontSize: "20px",
+      },
     },
     "& p": {
       fontSize: "16px",
+      "@media screen and (max-width: 820px)": {
+        fontSize: "12px",
+      },
     },
   },
   grid: {
     display: "flex",
     flexWrap: "wrap",
     gap: "20px",
+    marginLeft: "-11px",
     padding: "0 10px 0 0",
     width: "auto",
     maxHeight: "470px",
     overflowY: "scroll",
+    overflowZ: "hidden",
+    "@media screen and (max-width: 820px)": {
+      gap: "0",
+    },
+    "@media screen and (max-width: 430px)": {
+      margin: "-20px"
+    },
   }
 })
 
