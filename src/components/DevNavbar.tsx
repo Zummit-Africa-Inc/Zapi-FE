@@ -63,7 +63,7 @@ const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
     <>
       <div className={classes.NavBar}>
         <div className={classes.logo}>
-          <Link to="/dashboard">
+          <Link to="/">
             <img src={ZapiDevLogo} alt="Zapi-dev" />
           </Link>
           <span className={classes.zapi}>Z-API</span>

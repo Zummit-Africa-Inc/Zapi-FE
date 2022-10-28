@@ -142,11 +142,11 @@ const StyledTab = styled(Tab)({
   gap: "16px",
   "&.Mui-selected": {
     backgroundColor: "#DADDE4",
-    borderLeft: "5px solid #314298",
+    borderLeft: "2px solid #314298",
     color: "#071B85",
     fontWeight: "bold",
     "& svg": {
-      marginLeft: "-5px",
+      marginLeft: "-1px",
     },
   },
   "&.MuiButtonBase-root": {
@@ -156,14 +156,14 @@ const StyledTab = styled(Tab)({
     justifyContent: "flex-start",
     textTransform: "capitalize",
     borderRadius: "0 8px 8px 0",
-    paddingLeft: "40px",
-    fontSize: "18px",
+    // paddingLeft: "10px",
+    fontSize: "15px",
     color: "#071B85",
   },
   "& svg": {
     color: "#071B85",
-    width: "24px",
-    height: "24px",
+    width: "15px",
+    height: "15px",
   }
 })
 
@@ -185,7 +185,7 @@ const useStyles = makeStyles({
     
   },
   list: {
-    width: "320px",
+    width: "auto",
     height: "100%",
     display: "flex",
     flexDirection: "column",
@@ -195,7 +195,7 @@ const useStyles = makeStyles({
   col: {
     borderLeft: "1px solid #c1c1c1",
     padding: "0 1rem 0 37px",
-    width: "70%",
+    width: "100%",
     height: "auto",
   },
   header: {
