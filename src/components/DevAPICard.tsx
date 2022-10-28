@@ -83,8 +83,8 @@ const DevAPICard: React.FC<CardProps> = ({
   };
 
   return (
-    <Paper className={classes.paper} sx={{ width: "420px" }}>
-      <Box sx={{ width: "420px" }}>
+    <Paper className={classes.paper} sx={{ minWidth: "395px"}}>
+      <Box sx={{ minWidth: "395px"}}>
         <Card variant="outlined">
           <React.Fragment>
             <CardContent>
@@ -132,8 +132,10 @@ const DevAPICard: React.FC<CardProps> = ({
                   {name || "👋 Onboarding Project"}
                 </Typography>
                 <Typography variant="body2" sx={{ mb: 2 }}>
-                  {description ||
-                    "This project is created by the onboarding process "}
+                  {
+                    description.length > 20 ? description.split(" ").slice(0, 3).join(" ") + "..." 
+                    : description || "This project is created by the onboarding process "
+                  }
                 </Typography>
               </Link>
             </CardContent>
@@ -165,3 +167,8 @@ const useStyles = makeStyles({
 });
 
 export default DevAPICard;
+
+
+
+        {/* //   {description ||
+                    "This project is created by the onboarding process "} */}
