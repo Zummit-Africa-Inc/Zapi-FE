@@ -72,20 +72,20 @@ const Hero: React.FC = () => {
       }
     }
   };
-  const isValidJsonString=(query:string)=>{
-    
-    if(!(query && typeof query === "string")){
-        return false;
+  const isValidJsonString = (query: string) => {
+
+    if (!(query && typeof query === "string")) {
+      return false;
     }
 
-    try{
-       JSON.parse(query);
-       return true;
-    }catch(error){
-        return false;
+    try {
+      JSON.parse(query);
+      return true;
+    } catch (error) {
+      return false;
     }
 
-}
+  }
 
   return (
     <div className={classes.hero}>
@@ -131,38 +131,38 @@ const Hero: React.FC = () => {
       <form className={classes.form} onSubmit={handleSubmit}>
         <div className={classes.formGroup} >
 
-          <FormControl sx={{ minWidth: 120, '.MuiOutlinedInput-notchedOutline': { border: 0, borderRadius:0, outline:0 }, '.css-1w8tldt-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root': {border: 0, borderRadius:0, outline:'none' }, }}>
+          <FormControl sx={{ minWidth: 110, '.MuiOutlinedInput-notchedOutline': { border: 0, borderRadius: 0, outline: 0 }, '.css-1w8tldt-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root': { border: 0, borderRadius: 0, outline: 'none' }, }}>
             <Select
-              sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0, borderRadius:0, outline:0 ,color:'red'} }}
+              sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0, borderRadius: 0, outline: 0, color: 'red' } }}
               className={classes.select}
               value={apiId}
               onChange={handleChange}
               autoWidth
               displayEmpty
-              inputProps={{ 'aria-label': 'Without label' , style:{backgroundColor:'#eaeaea', outline:'none', border:0, borderRadius:0}}}
+              inputProps={{ 'aria-label': 'Without label', style: { backgroundColor: '#eaeaea', fontSize:'.8rem', outline: 'none', border: 0, borderRadius: 0 } }}
             >
-              <MenuItem sx={{ minWidth: 120 }} value="">
+              <MenuItem sx={{ minWidth: 120, fontSize:'.8rem' }} value="">
                 Select An Api
               </MenuItem>
               {freeApis?.map((api) => (
-                <MenuItem sx={{ minWidth: 120 }} key={api.id} value={api.id}>{api.name}</MenuItem>
+                <MenuItem sx={{ minWidth: 120, fontSize:'.8rem' }} key={api.id} value={api.id}>{api.name}</MenuItem>
               ))}
             </Select>
           </FormControl>
 
-        <TextField
-          disabled
-          variant="standard"
-          type="text"
-          className={classes.input}
-          value={"https://zapi.com/" + pathName}
-          style={{ paddingLeft: "1rem" }}
-          InputProps={{
-            disableUnderline: true,
-            style:{fontSize:'.9rem'},
-          }}
+          <TextField
+            disabled
+            variant="standard"
+            type="text"
+            className={classes.input}
+            value={"https://zapi.com/" + pathName}
+            style={{ paddingLeft: "1rem" }}
+            InputProps={{
+              disableUnderline: true,
+              style: { fontSize: '.9rem' },
+            }}
           />
-          </div>
+        </div>
 
         <button type="submit" disabled={!query || apiId.length === 0 || !isValidJsonString(query)} className={classes.send}>
           {loading ? <Spinner /> : "Send"}
@@ -171,7 +171,7 @@ const Hero: React.FC = () => {
       <div className={classes.actionBoxes}>
         <TextField
           inputProps={{ style: { color: (!isValidJsonString(query)) ? 'red' : 'black' } }}
-          style={{backgroundColor:'#f1f8fd' }}
+          style={{ backgroundColor: '#f1f8fd' }}
           className={classes.box}
           value={query}
           onChange={
@@ -201,10 +201,11 @@ const useStyles = makeStyles({
     background: "#FFFFFF",
     paddingRight: "5rem",
     paddingLeft: "5rem",
-    "@media screen and (max-width: 400px)": {
-      width: "80%",
-      padding: "1rem .5rem",
-      margin: "auto",
+    "@media screen and (max-width: 768px)": {
+      // width: "100vw",
+      // padding: "1rem 1rem",
+      padding: "1rem .5rem"
+      // margin: "auto",
     },
   },
   heroText: {
@@ -219,7 +220,7 @@ const useStyles = makeStyles({
   form: {
     display: "flex",
     width: "100%",
-    border:'none',
+    border: 'none',
     "@media screen and (max-width: 768px)": {
       flexDirection: "column",
     },
@@ -227,7 +228,7 @@ const useStyles = makeStyles({
   formGroup: {
     display: 'flex',
     flexGrow: '1',
-    marginBottom:'5px',
+    marginBottom: '5px',
   },
   select: {
     border: "none",
@@ -235,14 +236,14 @@ const useStyles = makeStyles({
     // padding: "1rem",
     // borderRadius: "5px 0px 0px 5px",
     cursor: "pointer",
-    backgroundColor:'#eaeaea',
+    backgroundColor: '#eaeaea',
     color: "#071B85",
     fontWeight: 500,
     fontSize: "1rem",
     fontFamily: "Space Grotesk",
     paddingRight: "0rem",
     appearance: "none",
-    borderRadius:'0px',
+    borderRadius: '0px',
     "@media screen and (max-width: 500px)": {
       width: "100%"
     },
@@ -250,10 +251,10 @@ const useStyles = makeStyles({
       marginButtom: "5rem"
     },
     "& .MuiSelect-select": {
-        borderRadius: '0',
+      borderRadius: '0',
     }
   },
-  
+
   input: {
     background: "rgba(19, 50, 159, 0.05)",
     flex: 1,
