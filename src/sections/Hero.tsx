@@ -6,7 +6,7 @@ import { getFreeApis } from "../redux/slices/freeApiSlice";
 import { FREEUSEAPIDATA } from "../testdata";
 import { toast } from "react-toastify";
 import { Spinner } from "../assets";
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import caretDown from "../assets/images/caret-down.png";
 
 // const core_url = import.meta.env.VITE_CORE_URL
@@ -109,14 +109,14 @@ const Hero: React.FC = () => {
       </div>
       <form className={classes.form} onSubmit={handleSubmit}>
         {/* <div className={classes.inputForm}> */}
-        <div >
+        <div>
           <select
             className={classes.select}
             value={apiId}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
               setApiId(e.target.value);
             }}>
-            <option value="">Select an API  </option>
+            <option value="">Select an API </option>
             {freeApis?.map((api) => (
               <option key={api.id} value={api.id}>
                 {api.name}
@@ -206,15 +206,16 @@ const useStyles = makeStyles({
     paddingRight: "0rem",
     appearance: "none",
     height: "100%",
+    width: "200px",
     backgroundImage: `url(${caretDown})`,
     backgroundSize: "10%",
     backgroundPosition: "right 10px center",
     backgroundRepeat: "no-repeat",
     "@media screen and (max-width: 500px)": {
-      width: "100%"
+      width: "100%",
     },
     "& ::part(optgroup)": {
-      marginButtom: "5rem"
+      marginButtom: "5rem",
     },
   },
   input: {
