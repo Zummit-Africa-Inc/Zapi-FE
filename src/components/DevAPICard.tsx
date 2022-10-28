@@ -141,9 +141,9 @@ const DevAPICard: React.FC<CardProps> = ({
             </CardContent>
             <Typography
               variant="subtitle1"
-              sx={{ margin: 1.5, marginLeft: 2.5 }}
+              sx={{margin: 1.5, marginLeft: 2.5, fontSize: "14px"}}
               color="text.secondary">
-                Created: {createdOn && new Date(createdOn).toLocaleDateString() || "Updated"}
+                created: {createdOn && new Date(createdOn).toLocaleDateString() || "Updated"}
                 {/* or new Date(date).toDateString() : this will include the day */}
             </Typography>
           </React.Fragment>
