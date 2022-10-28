@@ -82,22 +82,19 @@ const App: React.FC = () => {
   }, []);
 
   const fetchApis = useMemo(() => dispatch(getApis()), []);
-  const fetchPopularApis = useMemo(() => dispatch(getPopularApis()), []);
+  // const fetchPopularApis = useMemo(() => dispatch(getPopularApis()), []);
   const fetchCategories = useMemo(() => dispatch(getApiCategories()), []);
-  const fetchValidCategories = useMemo(() => dispatch(getValidCategories()), []);
 
   useEffect(() => {
     fetchApis;
   }, []);
-  useEffect(() => {
-    fetchPopularApis;
-  }, []);
+  // useEffect(() => {
+  //   fetchPopularApis;
+  // }, []);
   useEffect(() => {
     fetchCategories;
   }, []);
-  useEffect(() => {
-    fetchValidCategories;
-  }, []);
+
 
   useEffect(() => {
     if (profileId === undefined) return;
