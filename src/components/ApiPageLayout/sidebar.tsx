@@ -59,7 +59,7 @@ const useStyles = makeStyles({
         padding: "2rem 2rem",
         width: "250px",
         height: "100vh",
-        borderRight: "1px solid #000",
+        borderRight: "1px solid #dbdbdb",
         "@media screen and (max-width: 1024px)": {
             display: "none",
         },

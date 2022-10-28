@@ -138,7 +138,7 @@ const Hero: React.FC = () => {
         <div className={classes.formGroup}>
           <FormControl
             sx={{
-              minWidth: 120,
+              minWidth: 110,
               ".MuiOutlinedInput-notchedOutline": {
                 border: 0,
                 borderRadius: 0,
@@ -166,16 +166,20 @@ const Hero: React.FC = () => {
                 "aria-label": "Without label",
                 style: {
                   backgroundColor: "#eaeaea",
+                  fontSize: ".8rem",
                   outline: "none",
                   border: 0,
                   borderRadius: 0,
                 },
               }}>
-              <MenuItem sx={{ minWidth: 120 }} value="">
+              <MenuItem sx={{ minWidth: 120, fontSize: ".8rem" }} value="">
                 Select An Api
               </MenuItem>
               {freeApis?.map((api) => (
-                <MenuItem sx={{ minWidth: 120 }} key={api.id} value={api.id}>
+                <MenuItem
+                  sx={{ minWidth: 120, fontSize: ".8rem" }}
+                  key={api.id}
+                  value={api.id}>
                   {api.name}
                 </MenuItem>
               ))}
@@ -237,10 +241,11 @@ const useStyles = makeStyles({
     background: "#FFFFFF",
     paddingRight: "5rem",
     paddingLeft: "5rem",
-    "@media screen and (max-width: 400px)": {
-      width: "80%",
+    "@media screen and (max-width: 768px)": {
+      // width: "100vw",
+      // padding: "1rem 1rem",
       padding: "1rem .5rem",
-      margin: "auto",
+      // margin: "auto",
     },
   },
   heroText: {

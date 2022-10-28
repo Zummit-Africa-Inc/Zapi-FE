@@ -227,7 +227,7 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    marginTop: "10rem",
+    marginTop: "8rem",
   },
   form: {
     width: "100%",

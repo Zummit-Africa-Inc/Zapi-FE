@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../hooks/redux-hook";
 import { Close, Menu } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
@@ -25,6 +25,8 @@ const HomeNavbar: React.FC = () => {
   const navigate = useNavigate();
   const cookies = new Cookies();
   const [menuOpen, setMenuOpen] = useState(false)
+  const location = useLocation();
+  const [scrollPosition, setScrollPosition] = useState(0)
 
   const handleClick = () => {
     setMenuOpen((p) => !p)
@@ -41,11 +43,33 @@ const HomeNavbar: React.FC = () => {
     navigate("/");
   };
 
-  const location = useLocation();
+ ;
+
+  const handleScroll = () => {
+    const position = window.pageYOffset;
+    setScrollPosition(position);
+  };
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+        window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  function bg(){
+    if(location.pathname === '/api-hub'){
+      return scrollPosition > 250 ?'#081F4A' :'transparent';
+    }else{
+      return '#081F4A'
+    }
+  }
+
+
 
   return (
     <>
-      <div className={classes.NavBar}>
+      <div className={classes.NavBar} style={{background: bg()}}>
         <div className={classes.logo}>
           <a href="/">
             <img src={ZapiHomeLogo} alt="zapi-Home" />
@@ -193,11 +217,10 @@ const useStyles = makeStyles({
     left: "0rem",
     right: "0rem",
     zIndex: 30,
-    height: "112px",
+    height: "5rem",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    background: "#081F4A",
     boxShadow: "0px 1px 15px rgba(7, 27, 133, 0.15)",
     padding: "0 5rem",
     "@media screen and (max-width: 1024px)": {
