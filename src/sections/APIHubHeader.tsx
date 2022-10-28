@@ -18,7 +18,7 @@ const useStyles = makeStyles({
         flexDirection: 'column',
         marginBottom: "46px",
         backgroundColor: "#F3F3F3",
-        backgroundImage: "url(../Images/endless-constellation.svg)",
+        backgroundImage: "url(../../images/endless-constellation.svg)",
         padding: "236px 5rem 50px 5rem",
         lineHeight: "46px",
         boxShadow: "0px 4px 4px rgba(6, 113, 224, 0.05)",
@@ -31,6 +31,9 @@ const useStyles = makeStyles({
             "@media screen and (max-width: 900px)": {
                 fontSize: "36px",
             },
+            "@media screen and (max-width: 500px)": {
+                fontSize: "28px",
+            },
         },
         "& p": {
             fontSize: "18px",
@@ -40,7 +43,8 @@ const useStyles = makeStyles({
                 fontSize: "15px",
             },
             "@media screen and (max-width: 500px)": {
-                lineHeight: "40px",
+                fontSize: "13px",
+                lineHeight: "30px",
             },
             "@media screen and (max-width: 375px)": {
                 lineHeight: "20px",

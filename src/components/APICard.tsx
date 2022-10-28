@@ -21,24 +21,29 @@ const APICard:React.FC<CardProps> = ({id, name, description, rating, latency}) =
     const cookies = new Cookies();
     const profileId = cookies.get("profileId");
     const dispatch = useAppDispatch();
-    const isSubscribed = subscribedApis?.find((api) => api.apiId === id)
+
+    const [isSubscribed, setIsSubscribed] = useState(subscribedApis?.find((api) => api.apiId === id) || false);
 
     const handleSubscription = async() => {
       const headers = { 'Content-Type': "application/json" }
       if(!isSubscribed) {
-          try {
-              const data = await sendRequest(`/subscription/subscribe/${id}/${profileId}`, "post", core_url, undefined, headers)
-              if(!data || data === undefined) return
-              const { message } = data
-              toast.success(`${message}`)
-            } catch (error) {}
-          } else {
-            try {
-              const data = await sendRequest(`/subscription/subscribe/${id}/${profileId}`, "post", core_url, undefined, headers)
-              if(!data || data == undefined) return
-              const { message } = data
-              toast.success(`${message}`)
-          } catch (error) {}
+        try {
+          const data = await sendRequest(`/subscription/subscribe/${id}/${profileId}`, "post", core_url, undefined, headers)
+          if(!data || data === undefined) return
+          const { message } = data
+          toast.success(`${message}`)
+
+          setIsSubscribed(true);
+        } catch (error) {}
+      } else {
+        try {
+          const data = await sendRequest(`/subscription/subscribe/${id}/${profileId}`, "post", core_url, undefined, headers)
+          if(!data || data == undefined) return
+          const { message } = data
+          toast.success(`${message}`)
+          
+          setIsSubscribed(false);
+      } catch (error) {}
       }
       dispatch(getApis());
     }
@@ -99,6 +104,12 @@ const useStyles = makeStyles({
       border: "1px solid #d1d1d1",
       boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.25)",
       borderRadius: "28px",
+      "@media screen and (max-width: 820px)": {
+        scale: .9
+      },
+      "@media screen and (max-width: 430px)": {
+        scale: .85
+      },
     },
     topBar: {
       display: "flex",
