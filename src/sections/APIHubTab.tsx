@@ -131,12 +131,6 @@ const APIHubTab:React.FC = ({}) => {
                 {apis.map((api) => (
                   <APICard key={api.id} {...api} />
                 ))}
-                <APICard />
-                <APICard />
-                <APICard />
-                <APICard />
-                <APICard />
-                <APICard />
               </div>
             </>
           </TabPanel>
@@ -163,10 +157,6 @@ const StyledTabs = styled(Tabs)({
 })
 
 const StyledTab = styled(Tab)({
-  // width: "100%",
-  // height: "56px",
-  // display: "flex",
-  // padding: "16px 28px 16px 40px",
   gap: "16px",
   "&.Mui-selected": {
     backgroundColor: "#DADDE4",
@@ -184,7 +174,6 @@ const StyledTab = styled(Tab)({
     textTransform: "capitalize",
     textAlign: "left",
     borderRadius: "0 8px 8px 0",
-    // paddingLeft: "10px",
     fontSize: "15px",
     color: "#071B85",
     "@media screen and (max-width: 990px)": {
@@ -278,7 +267,6 @@ const useStyles = makeStyles({
     },
   },
   header: {
-    // position: "fixed",
     display: "flex",
     flexDirection: "column",
     margin: "32px 0",
@@ -300,13 +288,15 @@ const useStyles = makeStyles({
     },
   },
   grid: {
-    display: "flex",
-    flexWrap: "wrap",
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+    gridTemplateRows: "240px",
+    // flexWrap: "wrap",
     gap: "20px",
     marginLeft: "-11px",
     padding: "0 10px 0 0",
     width: "auto",
-    maxHeight: "470px",
+    height: "1250px",
     overflowY: "scroll",
     overflowZ: "hidden",
     "@media screen and (max-width: 820px)": {

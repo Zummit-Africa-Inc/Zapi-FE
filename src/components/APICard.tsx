@@ -4,56 +4,71 @@ import { makeStyles, styled } from '@mui/styles';
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { BookmarkAddOutlined, BookmarkRemove, StackedLineChart, TimerOutlined, Check } from "@mui/icons-material";
 
 import { useAppDispatch, useAppSelector, useHttpRequest } from "../hooks";
+import { getSubscribedApis } from "../redux/slices/userSlice";
 import { getApis } from "../redux/slices/apiSlice";
 import { CardProps } from "../interfaces";
 import { Spinner } from "../assets";
 
-import { BookmarkAddOutlined, BookmarkRemove, StackedLineChart, TimerOutlined, Check } from "@mui/icons-material";
 
 const core_url = "VITE_CORE_URL"
 
 const APICard:React.FC<CardProps> = ({id, name, description, rating, latency}) => {
-    const { error, loading, sendRequest } = useHttpRequest();
-    const { subscribedApis } = useAppSelector(store => store.user);
-    const classes = useStyles();
-    const cookies = new Cookies();
-    const profileId = cookies.get("profileId");
-    const dispatch = useAppDispatch();
+  const { error, loading, sendRequest } = useHttpRequest();
+  const { subscribedApis } = useAppSelector(store => store.user);
+  const classes = useStyles();
+  const cookies = new Cookies();
+  const profileId = cookies.get("profileId");
+  const accessToken = cookies.get("accessToken")
+  const dispatch = useAppDispatch();
+  const [isSubscribed, setIsSubscribed] = useState<boolean>(false)
 
-    const [isSubscribed, setIsSubscribed] = useState(subscribedApis?.find((api) => api.apiId === id) || false);
+  useEffect(() => {
+    subscribedApis.map((api) => {
+      if(api.apiId === id) return setIsSubscribed(true)
+    })
+  },[])
 
-    const handleSubscription = async() => {
-      const headers = { 'Content-Type': "application/json" }
-      if(!isSubscribed) {
-        try {
-          const data = await sendRequest(`/subscription/subscribe/${id}/${profileId}`, "post", core_url, undefined, headers)
-          if(!data || data === undefined) return
-          const { message } = data
-          toast.success(`${message}`)
 
-          setIsSubscribed(true);
-        } catch (error) {}
-      } else {
-        try {
-          const data = await sendRequest(`/subscription/subscribe/${id}/${profileId}`, "post", core_url, undefined, headers)
-          if(!data || data == undefined) return
-          const { message } = data
-          toast.success(`${message}`)
-          
-          setIsSubscribed(false);
-      } catch (error) {}
-      }
-      dispatch(getApis());
+  const handleSubscription = async() => {
+    const headers = {
+      'Content-Type': 'application/json',
+      'X-Zapi-Auth-Token': `Bearer ${accessToken}`
     }
+    if(!isSubscribed) {
+      try {
+        const data = await sendRequest(`/subscription/subscribe/${id}?profileId=${profileId}`, "post", core_url, undefined, headers)
+        if(!data || data === undefined) return
+        const { message } = data
+        toast.success(`${message}`)
+        // setIsSubscribed(true)
+      } catch (error) {}
+    } else {
+      try {
+        const data = await sendRequest(`/subscription/unsubscribe/${id}?profileId=${profileId}`, "post", core_url, undefined, headers)
+        if(!data || data == undefined) return
+        const { message } = data
+        toast.success(`${message}`)
+        // setIsSubscribed(false)
+      } catch (error) {}
+    }
+    dispatch(getApis());
+    dispatch(getSubscribedApis(profileId))
+  }
 
-    useEffect(() => {
-      error && toast.error(`${error}`)
-    },[error])
+  useEffect(() => {
+    error && toast.error(`${error}`)
+  },[error])
 
   return (
     <div className={classes.card}>
+      {loading && (
+        <div className={classes.spinner}>
+          <Spinner width="50px" height="50px" />
+        </div>
+      )}
       <div>
         <div className={classes.topBar}>
           <div className={classes.icon}></div>
@@ -92,14 +107,15 @@ const APICard:React.FC<CardProps> = ({id, name, description, rating, latency}) =
 
 const useStyles = makeStyles({
     card:{
+      position: "relative",
       userSelect: "none",
       display: "flex",
       flexDirection: "column",
       justifyContent: "space-between",
       boxSizing: "border-box",
       padding: "31px 28px 33px 29px",
-      // width: "251px",
-      minHeight: "230px",
+      width: "245px",
+      height: "230px",
       background: "#fff",
       border: "1px solid #d1d1d1",
       boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.25)",
@@ -161,6 +177,18 @@ const useStyles = makeStyles({
       fontSize: "10px",
       color: "#515D99",
     },
+    spinner: {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      display: "grid",
+      placeItems: "center",
+      background: "rgba(225, 225, 225, 0.5)",
+      zIndex: 2,
+      borderRadius: "28px",
+    }
   })
 
 export default APICard
