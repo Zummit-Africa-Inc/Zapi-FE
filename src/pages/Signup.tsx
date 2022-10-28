@@ -71,26 +71,22 @@ const Signup: React.FC = () => {
 
         <form onSubmit={handleSubmit} className={classes.form}>
           <div className={classes.input}>
-            <label htmlFor="fullName">Full Name <span>*</span></label>
             <input type="text" name="fullName" {...bind} placeholder="Enter your full name" />
           </div>
           <div className={classes.input}>
-            <label htmlFor="email">Email Address <span>*</span></label>
             <input type="email" name="email" {...bind} placeholder="Enter your email" />
           </div>
           <div className={classes.input}>
-            <label htmlFor="password">Password</label>
               <input type="password" name="password" {...bind} placeholder="Enter a Password" />
               <PasswordStrengthMeter password={password} />
             </div>
           <div className={classes.input}>
-              <label htmlFor="confirm_password">Confirm Password <span>*</span></label>
                 <input type="password" name="confirm_password" {...bind} placeholder="Re-enter the Password" style={
                   !MATCH_CHECKER(password, confirm_password)
                     ? { border: '2px solid red' }
                     : { border: '2.5px solid green' }
               } />
-              {MATCH_CHECKER(password, confirm_password) ? <></> : <span><Cancel sx={{ fontSize: 15, marginRight:1  }}  color="error"/> Password does not match</span>}
+              {MATCH_CHECKER(password, confirm_password) ? <></> : <span><Cancel sx={{ fontSize: 14, marginRight:1,marginTop:'5px'  }}  color="error"/> Password does not match</span>}
             </div>
           <div className={classes.check_input}>
             <input type="checkbox" name="terms" {...toggle} />
@@ -98,21 +94,21 @@ const Signup: React.FC = () => {
               <Link to="/terms" className={classes.link}>terms and conditions and privacy policy.</Link>
             </label>
           </div>
-          <button type="submit" className={classes.button} disabled={disabled}>
+          <button type="submit" className={classes.button} disabled={disabled} style={{background:"#a7a7a7",color:"#FFF", border:'none'}}>
             {loading ? 'loading' : 'Signup'}
           </button>
         </form>
         
         <Typography>OR</Typography>
         <Stack direction="column" alignItems="center" spacing={2}>
-          <button type="button" className={classes.button} onClick={() => {}} style={{background: "#FFF", color: "#081F4A"}}>
+          <button type="button" className={classes.button} onClick={() => {}} style={{background: "#FFF", color: "#081F4A", border: 'solid 1px #00a6ff'}}>
             <span style={{marginRight: "3rem"}}>
               <GoogleIcon />
             </span>
             Signin with Google
           </button>
         </Stack>
-        <Typography variant="body1" fontSize="16px" alignSelf="flex-start" textAlign="center" mt={8}>
+        <Typography variant="body1" fontSize="16px" alignSelf="center" textAlign="center" mt={0} mb={2}>
           Already have an account?
           <span className={classes.link} onClick={() => handleClicked("login")}>
             Sign in
@@ -136,7 +132,7 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    marginTop: "10rem",
+    marginTop: "8rem",
   },
   form: {
     width: "100%",

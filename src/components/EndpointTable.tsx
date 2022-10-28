@@ -119,11 +119,11 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
               </StyledTableCell>
               <StyledTableCell>
                 {isEditing === index ? (
-                  <button onClick={() => save(endpoint?.id)} className={classes.button} style={{background: "#081F4A"}}>
+                  <button onClick={() => save(endpoint?.id)} className={classes.button} style={{background: "#10c96b"}}>
                     DONE
                  </button>
                 ) : (
-                  <button onClick={() => openEditing(index)} className={classes.button} style={{background: "#081F4A"}}>
+                  <button onClick={() => openEditing(index)} className={classes.button} style={{background: "#c5c5c5"}}>
                    EDIT
                   </button>
                 )}

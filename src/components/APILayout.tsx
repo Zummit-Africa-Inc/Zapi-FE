@@ -149,7 +149,7 @@ const useStyles = makeStyles({
     background: "#FFFFFF",
     borderTop: "1px solid #8C8C8C",
     borderBottom: "1px solid #8C8C8C",
-    borderRight: "1px solid #8C8C8C",
+    borderRight: "1px solid #c5c5c5",
     borderRadius: "0px 8px 8px 0px",
   },
   search: {
