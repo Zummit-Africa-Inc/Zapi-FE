@@ -6,7 +6,6 @@ import DevAPICard from "./DevAPICard";
 
 const APILayout: React.FC = () => {
   const { userApis } = useAppSelector((store) => store.user);
-  console.log(userApis);
   const classes = useStyles();
   const PER_PAGE = 6;
   const count = Math.ceil(userApis.length / PER_PAGE);
@@ -37,7 +36,6 @@ const APILayout: React.FC = () => {
             onChange={handleChange}
           />
         </>
-
       ) : (
         <div className={classes.addApiDesc}>
           <Typography
@@ -244,16 +242,16 @@ const useStyles = makeStyles({
     justifyContent: "left",
     gap: "1.5rem",
     flexWrap: "wrap",
-    paddingBottom: '100px',
+    paddingBottom: "100px",
     "@media screen and (max-width: 1024px)": {
       justifyContent: "center",
-      marginLeft: "-1.5em"
+      marginLeft: "-1.5em",
     },
   },
   pagination: {
-    display: 'flex',
-    position: 'relative',
-    bottom: '0',
-    justifyContent: 'center',
+    display: "flex",
+    position: "relative",
+    bottom: "0",
+    justifyContent: "center",
   },
 });

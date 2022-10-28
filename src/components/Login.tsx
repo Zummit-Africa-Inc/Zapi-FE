@@ -81,7 +81,8 @@ const Login: React.FC = () => {
     flow: "auth-code",
     onSuccess: async (response) => {
       console.log(response);
-      // const token = await sendRequest()
+      // const token = await sendRequest('/endpoint/googleauth', url, "post", response.code, headers)
+      // console.log(token)
       toast.success("Login Successful!");
     },
     onError: (errorResponse) => {
@@ -240,6 +241,7 @@ const useStyles = makeStyles({
     height: "52px",
     display: "flex",
     flexDirection: "row",
+    background: "#FFF",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: "4px",
@@ -249,7 +251,7 @@ const useStyles = makeStyles({
     cursor: "pointer",
     margin: "1rem 0 2rem",
     padding: "0 1rem",
-    color: "#000000",
+    color: "#081F4A",
     "@media screen and (max-width: 768px)": {
       width: "100%",
     },

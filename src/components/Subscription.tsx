@@ -8,11 +8,19 @@ import {
   Table,
   Button,
 } from "@mui/material";
-import { useAppSelector } from "../hooks";
+import { useAppSelector, useHttpRequest } from "../hooks";
 import { tableCellClasses } from "@mui/material/TableCell";
 import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
-import { ContentCopy } from "@mui/icons-material";
+import {
+  ContentCopy,
+  ContentCopyOutlined,
+  Unsubscribe,
+} from "@mui/icons-material";
+import { SyntheticEvent, useState } from "react";
+import Cookies from "universal-cookie";
+
+const url = "VITE_IDENTITY_URL";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -37,6 +45,52 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const Subscription: React.FC = () => {
   const { subscribedApis } = useAppSelector((store) => store.user);
   const classes = useStyles();
+  const { error, loading, sendRequest } = useHttpRequest();
+  const [copied, setCopied] = useState<boolean>(false);
+  const cookies = new Cookies();
+
+  const profileId = cookies.get("profileId");
+
+  const revoke = async (e: SyntheticEvent, apiId: string) => {
+    e.preventDefault();
+
+    const headers = { "Content-Type": "application/json" };
+    try {
+      const response = await sendRequest(
+        `/subscription/revoke/${apiId}?profileId=${profileId}`,
+        "post",
+        url,
+        headers
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const unsubscribe = async (e: SyntheticEvent, apiId: string) => {
+    e.preventDefault();
+
+    const headers = { "Content-Type": "application/json" };
+    try {
+      const response = await sendRequest(
+        `/subscription/revoke/${apiId}?profileId=${profileId}`,
+        "post",
+        url,
+        headers
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const copyButton = (e: SyntheticEvent, token: string) => {
+    navigator.clipboard.writeText(token);
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
+  };
   return (
     <div>
       {subscribedApis.length !== 0 ? (
@@ -56,11 +110,14 @@ const Subscription: React.FC = () => {
                 <StyledTableRow key={index}>
                   <StyledTableCell>{api.name}</StyledTableCell>
                   <StyledTableCell>
-                    {api.token.slice(0, 25) + "..."}{" "}
-                    <Button
-                      onClick={() => navigator.clipboard.writeText(api.token)}>
-                      <ContentCopy />
-                    </Button>
+                    {"..." + api.token.slice(217, 280)}{" "}
+                    {copied === false ? (
+                      <Button onClick={(e) => copyButton(e, api.token)}>
+                        <ContentCopy />
+                      </Button>
+                    ) : (
+                      <Button>Copied!</Button>
+                    )}
                   </StyledTableCell>
                   <StyledTableCell style={{ width: 50 }}>
                     <Link to="#" className={classes.Link}>
@@ -68,10 +125,18 @@ const Subscription: React.FC = () => {
                     </Link>
                   </StyledTableCell>
                   <StyledTableCell style={{ width: 50 }}>
-                    <button className={classes.button}>Unsubscribe</button>
+                    <button
+                      className={classes.button}
+                      onClick={(e) => unsubscribe(e, api.apiId)}>
+                      Unsubscribe
+                    </button>
                   </StyledTableCell>
                   <StyledTableCell style={{ width: 50 }}>
-                    <button className={classes.button}>Revoke</button>
+                    <button
+                      className={classes.button}
+                      onClick={(e) => revoke(e, api.apiId)}>
+                      Revoke
+                    </button>
                   </StyledTableCell>
                 </StyledTableRow>
               ))}
