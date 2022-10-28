@@ -128,10 +128,10 @@ const DevAPICard: React.FC<CardProps> = ({
                 <Typography
                   variant="h5"
                   component="div"
-                  sx={{ fontSize: "18px", fontWeight: "500", mb: 1 }}>
+                  sx={{fontSize: "16px", fontWeight: "500", mb: 1}}>
                   {name || "👋 Onboarding Project"}
                 </Typography>
-                <Typography variant="body2" sx={{ mb: 2 }}>
+                <Typography variant="body2" sx={{fontSize: "14px", mb: 2}}>
                   {
                     description.length > 100 ? `${description.substring(0, 100)}...`
                     : description || "This project is created by the onboarding process "
@@ -143,7 +143,7 @@ const DevAPICard: React.FC<CardProps> = ({
               variant="subtitle1"
               sx={{ margin: 1.5, marginLeft: 2.5 }}
               color="text.secondary">
-              {createdOn && new Date(createdOn).toLocaleDateString() || "Updated"}
+                Created: {createdOn && new Date(createdOn).toLocaleDateString() || "Updated"}
                 {/* or new Date(date).toDateString() : this will include the day */}
             </Typography>
           </React.Fragment>
@@ -154,7 +154,12 @@ const DevAPICard: React.FC<CardProps> = ({
 };
 
 const useStyles = makeStyles({
-  paper: {},
+  paper: {
+    transition: "all 0.5s ease-in-out",
+    "&:hover": {
+      boxShadow: "5px 5px 15px 0px rgba(0, 0, 0, 0.4)",
+    }
+  },
   card: {
     width: "100%",
     height: "100%"
