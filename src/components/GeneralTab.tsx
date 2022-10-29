@@ -39,8 +39,6 @@ enum APIVisibility {
   PUBLIC = "public",
 }
 
-// const core_url = import.meta.env.VITE_CORE_URL;
-
 const core_url = "VITE_CORE_URL";
 
 const GeneralTab: React.FC = () => {
@@ -151,7 +149,7 @@ const GeneralTab: React.FC = () => {
                   value={categoryId}
                   name="categoryId"
                   onChange={(e) => setCategoryId(e.target.value)}
-                  sx={{ width: "320px" }}>
+                  sx={{ width: "320px", height:'40PX' }}>
                   {categories.map(
                     (value) =>
                       value && (
@@ -173,7 +171,7 @@ const GeneralTab: React.FC = () => {
                 onChange={(e) => setDescription(e.target.value)}
                 multiline
                 id="description"
-                maxRows={10}
+                rows={4}
                 fullWidth={true}
                 helperText="Describe in few words what’s this API do"
               />
@@ -186,7 +184,7 @@ const GeneralTab: React.FC = () => {
                 onChange={(e) => setRead_me(e.target.value)}
                 multiline
                 id="read_me"
-                maxRows={10}
+                rows={4}
                 fullWidth={true}
                 helperText="Describe in detail what’s API do and how it might be helpful"
               />
@@ -201,8 +199,8 @@ const GeneralTab: React.FC = () => {
                 name="about"
                 onChange={(e) => setAbout(e.target.value)}
                 multiline
+                rows={4}
                 id="documentation"
-                maxRows={10}
                 fullWidth={true}
                 helperText="Use this section to provide detailed documentation of your API and to highlight its benefits and features."
               />
@@ -299,9 +297,9 @@ const GeneralTab: React.FC = () => {
                 variant="outlined"
                 value={term_of_use == null ? "" : term_of_use}
                 multiline
+                rows={4}
                 name="term_of_use"
                 onChange={(e) => setTerm_of_use(e.target.value)}
-                maxRows={10}
                 fullWidth={true}
               />
             </Box>

@@ -22,7 +22,7 @@ const Sidebar: React.FC = () => {
                         <NavLink key={i} to={link.link} className={classes.link} style={({ isActive }) => (
                             isActive ? {
                                 color: "#FFF",
-                                background: "#9999CC",
+                                background: "#081F4A",
                                 borderRadius: "15px"
                             }
                                 :
@@ -59,7 +59,7 @@ const useStyles = makeStyles({
         padding: "2rem 2rem",
         width: "250px",
         height: "100vh",
-        borderRight: "1px solid #000",
+        borderRight: "1px solid #dbdbdb",
         "@media screen and (max-width: 1024px)": {
             display: "none",
         },

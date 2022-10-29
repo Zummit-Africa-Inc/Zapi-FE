@@ -1,4 +1,4 @@
-import { Typography, List } from "@mui/material";
+import { Typography, Link } from "@mui/material";
 import { makeStyles, } from '@mui/styles';
 import { MarketPlaceText } from "../assets"
 
@@ -33,7 +33,7 @@ const MarketPlace = () => {
                                 <>
                                     <Typography 
                                     gutterBottom variant="subtitle1" 
-                                    sx={{ color: "#071B85", fontFamily: "Space Grotesk", fontStyle: "normal", fontWeight: 700, fontSize: "24px", height: "30px" }}
+                                    sx={{ color: "#071B85", fontFamily: "Space Grotesk", fontStyle: "normal", fontWeight: 700, fontSize: "20px", height: "30px" }}
                                     >
                                     {market.title}
                                     </Typography>
@@ -50,7 +50,7 @@ const MarketPlace = () => {
                     </div>
                 </div>
             <button className={classes.button}>
-                    <Typography>Explore the marketplace</Typography>
+            <Typography><Link style={{color:'#FFEA00', textDecoration:'none'}} href="/api-hub">Explore the marketplace</Link></Typography>
                     <img className={classes.arrow} src="images/arrow.jpg" />
             </button>
             </div>
@@ -75,6 +75,9 @@ const useStyles = makeStyles({
         flexDirection: "column",
         gap: "2rem",
         width: "370px",
+        "@media screen and (max-width:768px)": {
+            width: "300px",
+        },
         "&:nth-child(1)": {
             borderRight: "1px solid rgba(19, 50, 159, 0.45)",
             "@media screen and (max-width:1200px)": {
@@ -108,7 +111,8 @@ const useStyles = makeStyles({
     },
     column: {
         position: "relative",
-        left: "30px",
+        // left: "30px",
+        padding:'20px',
         display: "flex",
         gap: "2.25rem",
         "@media screen and (max-width:1200px)": {
