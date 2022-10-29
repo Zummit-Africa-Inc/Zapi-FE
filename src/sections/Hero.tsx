@@ -175,7 +175,7 @@ const Hero: React.FC = () => {
               <MenuItem sx={{ minWidth: 120, fontSize: ".8rem" }} value="">
                 Select An Api
               </MenuItem>
-              {freeApis?.map((api) => (
+              {freeApis?.map((api: any) => (
                 <MenuItem
                   sx={{ minWidth: 120, fontSize: ".8rem" }}
                   key={api.id}
