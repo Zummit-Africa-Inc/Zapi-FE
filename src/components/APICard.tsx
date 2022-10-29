@@ -25,7 +25,7 @@ const APICard:React.FC<CardProps> = ({id, name, description, rating, latency, po
   const [isSubscribed, setIsSubscribed] = useState<boolean>(false)
 
   useEffect(() => {
-    subscribedApis.map((api) => {
+    subscribedApis.forEach((api) => {
       if(api.apiId === id) return setIsSubscribed(true)
     })
   },[])
