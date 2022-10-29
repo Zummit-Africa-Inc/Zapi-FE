@@ -235,7 +235,7 @@ const useStyles = makeStyles({
       padding: "1rem 2rem",
     },
     "@media screen and (max-width: 375px)": {
-      // padding: "1rem 1rem",
+      padding: "1rem 1rem",
     },
   },
   logo: {
@@ -248,6 +248,9 @@ const useStyles = makeStyles({
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "40% 100%",
+    "@media screen and (max-width: 495px)": {
+      width: "auto",
+    },
   },
   vector: {
     width: "200px",

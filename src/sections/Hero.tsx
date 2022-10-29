@@ -242,10 +242,10 @@ const useStyles = makeStyles({
     paddingRight: "5rem",
     paddingLeft: "5rem",
     "@media screen and (max-width: 768px)": {
-      // width: "100vw",
-      // padding: "1rem 1rem",
-      padding: "1rem .5rem",
-      // margin: "auto",
+      padding: "8rem .5rem .5rem 0rem",
+    },
+    "@media screen and (max-width: 400px)": {
+      paddingTop: "0rem",
     },
   },
   heroText: {
