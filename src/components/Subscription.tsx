@@ -8,11 +8,21 @@ import {
   Table,
   Button,
 } from "@mui/material";
-import { useAppSelector } from "../hooks";
+import { useAppDispatch, useAppSelector, useHttpRequest } from "../hooks";
 import { tableCellClasses } from "@mui/material/TableCell";
 import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
-import { ContentCopy } from "@mui/icons-material";
+import {
+  ContentCopy,
+  ContentCopyOutlined,
+  Unsubscribe,
+} from "@mui/icons-material";
+import { SyntheticEvent, useState } from "react";
+import Cookies from "universal-cookie";
+import { useContextProvider } from "../contexts/ContextProvider";
+import { toast } from "react-toastify";
+
+const core_url = "VITE_CORE_URL";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -35,8 +45,61 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const Subscription: React.FC = () => {
-  const { subscribedApis } = useAppSelector((store) => store.user);
+  const { subscribedApis, userApis } = useAppSelector((store) => store.user);
   const classes = useStyles();
+  const { error, loading, sendRequest } = useHttpRequest();
+  const [copied, setCopied] = useState<boolean>(false);
+  const cookies = new Cookies();
+  const dispatch = useAppDispatch();
+  const profileId = cookies.get("profileId");
+  const { triggerRefresh } = useContextProvider();
+
+  const revoke = async (e: SyntheticEvent, apiId: string) => {
+    e.preventDefault();
+
+    const headers = { "Content-Type": "application/json" };
+    const queryStringParameters = { profileId };
+    try {
+      const data = await sendRequest(
+        `/subscription/revoke/${apiId}`,
+        "post",
+        core_url,
+        undefined,
+        headers,
+        queryStringParameters
+      );
+      if (!data || data === undefined) return;
+      triggerRefresh();
+      const { message } = data;
+      toast.success(`${message}`);
+    } catch (error) {}
+  };
+
+  const unsubscribe = async (e: SyntheticEvent, apiId: string) => {
+    e.preventDefault();
+
+    const headers = { "Content-Type": "application/json" };
+    const queryStringParameters = { profileId };
+    try {
+      const data = await sendRequest(
+        `/subscription/unsubscribe/${apiId}`,
+        "post",
+        core_url,
+        undefined,
+        headers,
+        queryStringParameters
+      );
+      if (!data || data === undefined) return;
+      triggerRefresh();
+      const { message } = data;
+      toast.success(`${message}`);
+    } catch (error) {}
+  };
+  const copyButton = (e: SyntheticEvent, token: string) => {
+    e.preventDefault();
+    navigator.clipboard.writeText(token);
+    alert("Token Copied!");
+  };
   return (
     <div>
       {subscribedApis.length !== 0 ? (
@@ -56,9 +119,8 @@ const Subscription: React.FC = () => {
                 <StyledTableRow key={index}>
                   <StyledTableCell>{api.name}</StyledTableCell>
                   <StyledTableCell>
-                    {api.token.slice(0, 25) + "..."}{" "}
-                    <Button
-                      onClick={() => navigator.clipboard.writeText(api.token)}>
+                    {"..." + api.token.slice(217, 280)}{" "}
+                    <Button onClick={(e) => copyButton(e, api.token)}>
                       <ContentCopy />
                     </Button>
                   </StyledTableCell>
@@ -68,10 +130,18 @@ const Subscription: React.FC = () => {
                     </Link>
                   </StyledTableCell>
                   <StyledTableCell style={{ width: 50 }}>
-                    <button className={classes.button}>Unsubscribe</button>
+                    <button
+                      className={classes.button}
+                      onClick={(e) => unsubscribe(e, api.apiId)}>
+                      Unsubscribe
+                    </button>
                   </StyledTableCell>
                   <StyledTableCell style={{ width: 50 }}>
-                    <button className={classes.button}>Revoke</button>
+                    <button
+                      className={classes.button}
+                      onClick={(e) => revoke(e, api.apiId)}>
+                      Revoke
+                    </button>
                   </StyledTableCell>
                 </StyledTableRow>
               ))}

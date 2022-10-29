@@ -1,4 +1,12 @@
-import { TextField, Typography, InputLabel, MenuItem, FormControl, Select, SelectChangeEvent } from "@mui/material";
+import {
+  TextField,
+  Typography,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+  SelectChangeEvent,
+} from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector, useHttpRequest } from "../hooks";
@@ -42,7 +50,7 @@ const Hero: React.FC = () => {
       setData("");
     }
     if (apiId.length === 0) {
-      setQuery("")
+      setQuery("");
     }
   }, [nameOfApi, apiId]);
 
@@ -73,7 +81,6 @@ const Hero: React.FC = () => {
     }
   };
   const isValidJsonString = (query: string) => {
-
     if (!(query && typeof query === "string")) {
       return false;
     }
@@ -84,8 +91,7 @@ const Hero: React.FC = () => {
     } catch (error) {
       return false;
     }
-
-  }
+  };
 
   return (
     <div className={classes.hero}>
@@ -129,23 +135,53 @@ const Hero: React.FC = () => {
       </div>
 
       <form className={classes.form} onSubmit={handleSubmit}>
-        <div className={classes.formGroup} >
-
-          <FormControl sx={{ minWidth: 110, '.MuiOutlinedInput-notchedOutline': { border: 0, borderRadius: 0, outline: 0 }, '.css-1w8tldt-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root': { border: 0, borderRadius: 0, outline: 'none' }, }}>
+        <div className={classes.formGroup}>
+          <FormControl
+            sx={{
+              minWidth: 110,
+              ".MuiOutlinedInput-notchedOutline": {
+                border: 0,
+                borderRadius: 0,
+                outline: 0,
+              },
+              ".css-1w8tldt-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root":
+                { border: 0, borderRadius: 0, outline: "none" },
+            }}>
             <Select
-              sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0, borderRadius: 0, outline: 0, color: 'red' } }}
+              sx={{
+                boxShadow: "none",
+                ".MuiOutlinedInput-notchedOutline": {
+                  border: 0,
+                  borderRadius: 0,
+                  outline: 0,
+                  color: "red",
+                },
+              }}
               className={classes.select}
               value={apiId}
               onChange={handleChange}
               autoWidth
               displayEmpty
-              inputProps={{ 'aria-label': 'Without label', style: { backgroundColor: '#eaeaea', fontSize:'.8rem', outline: 'none', border: 0, borderRadius: 0 } }}
-            >
-              <MenuItem sx={{ minWidth: 120, fontSize:'.8rem' }} value="">
+              inputProps={{
+                "aria-label": "Without label",
+                style: {
+                  backgroundColor: "#eaeaea",
+                  fontSize: ".8rem",
+                  outline: "none",
+                  border: 0,
+                  borderRadius: 0,
+                },
+              }}>
+              <MenuItem sx={{ minWidth: 120, fontSize: ".8rem" }} value="">
                 Select An Api
               </MenuItem>
               {freeApis?.map((api) => (
-                <MenuItem sx={{ minWidth: 120, fontSize:'.8rem' }} key={api.id} value={api.id}>{api.name}</MenuItem>
+                <MenuItem
+                  sx={{ minWidth: 120, fontSize: ".8rem" }}
+                  key={api.id}
+                  value={api.id}>
+                  {api.name}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -159,23 +195,27 @@ const Hero: React.FC = () => {
             style={{ paddingLeft: "1rem" }}
             InputProps={{
               disableUnderline: true,
-              style: { fontSize: '.9rem' },
+              style: { fontSize: ".9rem" },
             }}
           />
         </div>
 
-        <button type="submit" disabled={!query || apiId.length === 0 || !isValidJsonString(query)} className={classes.send}>
+        <button
+          type="submit"
+          disabled={!query || apiId.length === 0 || !isValidJsonString(query)}
+          className={classes.send}>
           {loading ? <Spinner /> : "Send"}
         </button>
       </form>
       <div className={classes.actionBoxes}>
         <TextField
-          inputProps={{ style: { color: (!isValidJsonString(query)) ? 'red' : 'black' } }}
-          style={{ backgroundColor: '#f1f8fd' }}
+          inputProps={{
+            style: { color: !isValidJsonString(query) ? "red" : "black" },
+          }}
+          style={{ backgroundColor: "#f1f8fd" }}
           className={classes.box}
           value={query}
-          onChange={
-            (e) => setQuery(e.target.value)}
+          onChange={(e) => setQuery(e.target.value)}
           fullWidth
           multiline
           rows="8.5"
@@ -204,7 +244,7 @@ const useStyles = makeStyles({
     "@media screen and (max-width: 768px)": {
       // width: "100vw",
       // padding: "1rem 1rem",
-      padding: "1rem .5rem"
+      padding: "1rem .5rem",
       // margin: "auto",
     },
   },
@@ -220,15 +260,15 @@ const useStyles = makeStyles({
   form: {
     display: "flex",
     width: "100%",
-    border: 'none',
+    border: "none",
     "@media screen and (max-width: 768px)": {
       flexDirection: "column",
     },
   },
   formGroup: {
-    display: 'flex',
-    flexGrow: '1',
-    marginBottom: '5px',
+    display: "flex",
+    flexGrow: "1",
+    marginBottom: "5px",
   },
   select: {
     border: "none",
@@ -236,23 +276,23 @@ const useStyles = makeStyles({
     // padding: "1rem",
     // borderRadius: "5px 0px 0px 5px",
     cursor: "pointer",
-    backgroundColor: '#eaeaea',
+    backgroundColor: "#eaeaea",
     color: "#071B85",
     fontWeight: 500,
     fontSize: "1rem",
     fontFamily: "Space Grotesk",
     paddingRight: "0rem",
     appearance: "none",
-    borderRadius: '0px',
+    borderRadius: "0px",
     "@media screen and (max-width: 500px)": {
-      width: "100%"
+      width: "100%",
     },
     "& ::part(optgroup)": {
-      marginButtom: "5rem"
+      marginButtom: "5rem",
     },
     "& .MuiSelect-select": {
-      borderRadius: '0',
-    }
+      borderRadius: "0",
+    },
   },
 
   input: {
@@ -298,7 +338,8 @@ const useStyles = makeStyles({
     // border: "1px solid #161616",
     borderRadius: "1px",
     "&:hover": {
-      boxShadow: "0px 0px 8px rgba(26, 32, 36, 0.32), 0px 40px 64px rgba(91, 104, 113, 0.24)",
+      boxShadow:
+        "0px 0px 8px rgba(26, 32, 36, 0.32), 0px 40px 64px rgba(91, 104, 113, 0.24)",
       // border: "2px solid #161616",
     },
   },
