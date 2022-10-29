@@ -40,7 +40,6 @@ const APIHubTab:React.FC = ({}) => {
       }
     })
 
-
   let icons: any = {
     "Popular APIs": <LibraryBooks />,
     "Safety APIs": <Layers/>,
@@ -59,7 +58,6 @@ const APIHubTab:React.FC = ({}) => {
     "weather": <Cloud/>,
     "All APIs": <Apps/>,
   }
-
 
   return (
     <div className={classes.container}>

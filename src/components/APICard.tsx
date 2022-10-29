@@ -14,7 +14,7 @@ import { Spinner } from "../assets";
 
 const core_url = "VITE_CORE_URL"
 
-const APICard:React.FC<CardProps> = ({id, name, description, rating, latency}) => {
+const APICard:React.FC<CardProps> = ({id, name, description, rating, latency, popularity}) => {
   const { error, loading, sendRequest } = useHttpRequest();
   const { subscribedApis } = useAppSelector(store => store.user);
   const classes = useStyles();
@@ -93,11 +93,8 @@ const APICard:React.FC<CardProps> = ({id, name, description, rating, latency}) =
 
       <div className={classes.bottomBar}>
         <div className={classes.item} title="no. of subscribers">
-          <StackedLineChart
-            sx={{ width: "18px" }}
-            className={classes.itemIcon}
-          />
-          <p className={classes.itemTitle}>10K</p>
+          <StackedLineChart sx={{ width: "18px" }} className={classes.itemIcon} />
+          <p className={classes.itemTitle}>{popularity}</p>
         </div>
         <div className={classes.item} title="latency">
           <TimerOutlined sx={{ width: "18px" }} className={classes.itemIcon} />
@@ -105,7 +102,7 @@ const APICard:React.FC<CardProps> = ({id, name, description, rating, latency}) =
         </div>
         <div className={classes.item} title="rating">
           <Check sx={{ width: "18px" }} className={classes.itemIcon} />
-          <p className={classes.itemTitle}>{((rating || 10) / 10) * 100}%</p>
+          <p className={classes.itemTitle}>{rating}/10</p>
         </div>
       </div>
     </div>
@@ -196,9 +193,9 @@ const useStyles = makeStyles({
       height: "100%",
       display: "grid",
       placeItems: "center",
-      background: "rgba(225, 225, 225, 0.5)",
+      background: "rgba(14, 36, 78, 0.5)",
       zIndex: 2,
-      borderRadius: "28px",
+      borderRadius: "0.5rem",
     }
 });
 
