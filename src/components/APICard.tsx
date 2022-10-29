@@ -12,7 +12,6 @@ import { getApis } from "../redux/slices/apiSlice";
 import { CardProps } from "../interfaces";
 import { Spinner } from "../assets";
 
-
 const core_url = "VITE_CORE_URL"
 
 const APICard:React.FC<CardProps> = ({id, name, description, rating, latency}) => {
@@ -36,21 +35,20 @@ const APICard:React.FC<CardProps> = ({id, name, description, rating, latency}) =
       'Content-Type': 'application/json',
       'X-Zapi-Auth-Token': `Bearer ${accessToken}`
     }
+    const queryStringParameters = { profileId }
     if(!isSubscribed) {
       try {
-        const data = await sendRequest(`/subscription/subscribe/${id}?profileId=${profileId}`, "post", core_url, undefined, headers)
+        const data = await sendRequest(`/subscription/subscribe/${id}`, "post", core_url, undefined, headers, queryStringParameters)
         if(!data || data === undefined) return
         const { message } = data
         toast.success(`${message}`)
-        // setIsSubscribed(true)
       } catch (error) {}
     } else {
       try {
-        const data = await sendRequest(`/subscription/unsubscribe/${id}?profileId=${profileId}`, "post", core_url, undefined, headers)
+        const data = await sendRequest(`/subscription/unsubscribe/${id}`, "post", core_url, undefined, headers, queryStringParameters)
         if(!data || data == undefined) return
         const { message } = data
         toast.success(`${message}`)
-        // setIsSubscribed(false)
       } catch (error) {}
     }
     dispatch(getApis());
