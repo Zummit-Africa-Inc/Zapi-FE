@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Card, Tooltip } from "@mui/material";
-import { makeStyles, styled } from '@mui/styles';
+import { Tooltip } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
@@ -69,38 +69,48 @@ const APICard:React.FC<CardProps> = ({id, name, description, rating, latency}) =
       <div>
         <div className={classes.topBar}>
           <div className={classes.icon}></div>
-          <Tooltip onClick={handleSubscription} title={isSubscribed ? "Unsubscribe" : "Subscribe"} placement="right" arrow>
+          <Tooltip
+            onClick={handleSubscription}
+            title={isSubscribed ? "Unsubscribe" : "Subscribe"}
+            placement="right"
+            arrow>
             {isSubscribed ? (
-                <BookmarkRemove className={classes.subscribe} />
-              ) : (
-                <BookmarkAddOutlined className={classes.subscribe} />
-              )
-            }
+              <BookmarkRemove className={classes.subscribe} />
+            ) : (
+              <BookmarkAddOutlined className={classes.subscribe} />
+            )}
           </Tooltip>
         </div>
         <div className={classes.body}>
-            <h4>{name || "API Name"}</h4>
-            <p>{description && description?.length > 60 ? `${String(description).substring(0, 50)}...` : description || "API Description."}</p>
+          <h4>{name || "API Name"}</h4>
+          <p>
+            {description && description?.length > 60
+              ? `${String(description).substring(0, 50)}...`
+              : description || "API Description."}
+          </p>
         </div>
       </div>
 
       <div className={classes.bottomBar}>
         <div className={classes.item} title="no. of subscribers">
-          <StackedLineChart sx={{ width: "18px" }} className={classes.itemIcon} />
+          <StackedLineChart
+            sx={{ width: "18px" }}
+            className={classes.itemIcon}
+          />
           <p className={classes.itemTitle}>10K</p>
         </div>
         <div className={classes.item} title="latency">
-            <TimerOutlined sx={{ width: "18px" }} className={classes.itemIcon} />
-            <p className={classes.itemTitle}>{(latency || 0)}ms</p>
+          <TimerOutlined sx={{ width: "18px" }} className={classes.itemIcon} />
+          <p className={classes.itemTitle}>{latency || 0}ms</p>
         </div>
         <div className={classes.item} title="rating">
-            <Check sx={{ width: "18px" }} className={classes.itemIcon} />
-            <p className={classes.itemTitle}>{((rating || 10)/10)*100}%</p>
+          <Check sx={{ width: "18px" }} className={classes.itemIcon} />
+          <p className={classes.itemTitle}>{((rating || 10) / 10) * 100}%</p>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const useStyles = makeStyles({
     card:{
@@ -115,13 +125,17 @@ const useStyles = makeStyles({
       height: "230px",
       background: "#fff",
       border: "1px solid #d1d1d1",
-      boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.25)",
-      borderRadius: "28px",
+      borderRadius: "0.5rem",
+      margin: "10px",
+      transition: "ease-in-out all 0.3s",
+      "&:hover": {
+        boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.25)",
+      },
       "@media screen and (max-width: 820px)": {
-        scale: .9
+        scale: 0.9,
       },
       "@media screen and (max-width: 430px)": {
-        scale: .85
+        scale: 0.85,
       },
     },
     topBar: {
@@ -186,6 +200,6 @@ const useStyles = makeStyles({
       zIndex: 2,
       borderRadius: "28px",
     }
-  })
+});
 
-export default APICard
+export default APICard;

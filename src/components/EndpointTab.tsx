@@ -92,7 +92,7 @@ const EndpointTab: React.FC<Props> = ({id}) => {
     },[error])
 
     return (
-        <Paper elevation={1} className={classes.paper}>
+        <Paper  className={classes.paper}>
             <Stack direction="column" mb={8}>
             <div>
                 <Typography variant="body1" fontSize="20px" fontWeight={800}>API Definition</Typography>
@@ -111,7 +111,7 @@ const EndpointTab: React.FC<Props> = ({id}) => {
                     <input type="text" name="search" placeholder="Search..." />
                 </div>
                 <div>
-                    <button onClick={toggleAdding} className={classes.button} style={{background: isAdding ? "#E32C08" : "#058A04"}}>
+                    <button onClick={toggleAdding} className={classes.button} style={{background: isAdding ? "#c5c5c5" : "#081F4A"}}>
                         {isAdding ? 'Cancel' : 'Add Endpoint'}
                     </button>
                 </div>
@@ -134,7 +134,7 @@ const EndpointTab: React.FC<Props> = ({id}) => {
                         <div className={classes.inputs}>
                             <input type="text" name="route" {...bind} placeholder="Route" />
                         </div>
-                        <button type="submit" className={classes.button} style={{background: "#058A04"}}>
+                        <button type="submit" className={classes.button} style={{background: "#10c96b"}}>
                             {loading ? <Spinner /> : "ADD"}
                         </button>
                         <IconButton onClick={toggleOptions} disabled={method === "post"}>
@@ -245,7 +245,8 @@ const useStyles = makeStyles({
         width: "100%",
         minWidth: "890px",
         marginTop: "20px",
-        padding: "2rem 2rem",
+        padding: "2rem",
+        marginBottom: "2rem",
     },
     pageSubHeading: {
         paddingBottom: "1rem"

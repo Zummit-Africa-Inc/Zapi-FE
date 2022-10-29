@@ -1,13 +1,16 @@
 import React from 'react'
 import { makeStyles } from '@mui/styles'
 
+
 const APIHubHeader:React.FC = () => {
     const classes = useStyles();
 
     return (
         <div className={classes.root}>
+       <div className={classes.text}>
             <h1>Welcome to the Z-API hub</h1>
             <p>Discover and connect to hundreds of APIs</p>
+        </div>
         </div>
     )
 }
@@ -23,7 +26,10 @@ const useStyles = makeStyles({
         lineHeight: "46px",
         boxShadow: "0px 4px 4px rgba(6, 113, 224, 0.05)",
         width: '100%',
-        height: "auto",
+        height: "370px",
+        opacity: .98,
+        position:'relative',
+
         "& h1": {
             fontSize: "45px",
             color: "#fff",
@@ -62,6 +68,11 @@ const useStyles = makeStyles({
             textAlign: "center"
         },
     },
+
+    text:{
+        position: "absolute",
+        top: "40%",
+    }
 })
 
 

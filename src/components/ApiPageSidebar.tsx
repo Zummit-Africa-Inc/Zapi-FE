@@ -83,7 +83,7 @@ const APIPage: React.FC<Props> = ({addApi}) => {
             value={value}
             onChange={handleChange}
                 aria-label="Vertical tabs example"
-            sx={{ borderRight: 1, borderColor: 'divider', display: 'flex'}}
+            sx={{ borderRight: 1, borderColor: '#fff', display: 'flex'}}
             >
               
             <Tab label="Add API"{...a11yProps(0)} icon={<AddIcon />} iconPosition="start"  />

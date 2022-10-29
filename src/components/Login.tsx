@@ -1,9 +1,9 @@
-import React, { FormEvent, useEffect, } from "react";
+import React, { FormEvent, useEffect } from "react";
 import { Stack, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
-import { toast }  from "react-toastify";
+import { toast } from "react-toastify";
 
 import { useContextProvider } from "../contexts/ContextProvider";
 import { useAppDispatch, useFormInputs, useHttpRequest } from "../hooks";
@@ -12,14 +12,15 @@ import { login } from "../redux/slices/userSlice";
 import { Fallback } from "../components";
 import { GoogleIcon } from "../assets";
 import { showModal } from "../redux/slices/modalSlice";
+import { useGoogleLogin } from "@react-oauth/google";
 
-
-const initialState = {email: "",password: ""};
+const initialState = { email: "", password: "" };
 // const url = import.meta.env.VITE_IDENTITY_URL;
 const url = "VITE_IDENTITY_URL";
 
 const Login: React.FC = () => {
-  const { deviceInfo, deviceLocation, deviceIP, handleUnclicked } = useContextProvider();
+  const { deviceInfo, deviceLocation, deviceIP, handleUnclicked } =
+    useContextProvider();
   const { error, loading, sendRequest } = useHttpRequest();
   const { inputs, bind } = useFormInputs(initialState);
   const dispatch = useAppDispatch();
@@ -27,93 +28,151 @@ const Login: React.FC = () => {
   const classes = useStyles();
   const cookies = new Cookies();
 
-  const handleLogin = async(e: FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     const { email, password } = inputs;
-    if(!email || !EMAIL_REGEX.test(email)) return toast.error('Invalid email address');
-    if(!password || !PASSWORD_REGEX.test(password)) return toast.error('Invalid password');
-    const headers = { 'Content-Type': 'application/json' }
-    const payload = { email, password, userInfo: {
+    if (!email || !EMAIL_REGEX.test(email))
+      return toast.error("Invalid email address");
+    if (!password || !PASSWORD_REGEX.test(password))
+      return toast.error("Invalid password");
+    const headers = { "Content-Type": "application/json" };
+    const payload = {
+      email,
+      password,
+      userInfo: {
         login_time: deviceLocation.time,
         country: { lat: deviceLocation.lat, lon: deviceLocation.lon },
         deviceIP,
         browser_name: deviceInfo.browserName,
         os_name: deviceInfo.osName,
-      }
+      },
     };
     try {
-      const data = await sendRequest(`/auth/signin`, 'post', url, payload, headers);
-      if(!data || data === undefined) return;
-      const {access, email, fullName, profileId, refresh, userId, secretKey} = data.data;
+      const data = await sendRequest(
+        `/auth/signin`,
+        "post",
+        url,
+        payload,
+        headers
+      );
+      if (!data || data === undefined) return;
+      const { access, email, fullName, profileId, refresh, userId, secretKey } =
+        data.data;
       const user = { email, fullName, profileId, secretKey };
       dispatch(login(user));
-      cookies.set('accessToken', access);
-      cookies.set('refreshToken', refresh);
-      cookies.set('profileId', profileId);
-      cookies.set('userId', userId);
-      cookies.set('secretKey', secretKey);
-      handleUnclicked('login')
-      dispatch(showModal({
-        action: "hide",
-        type:'loginModal'
-      }))
-      navigate("/developer/dashboard")
-    } catch (error) {};
+      cookies.set("accessToken", access);
+      cookies.set("refreshToken", refresh);
+      cookies.set("profileId", profileId);
+      cookies.set("userId", userId);
+      cookies.set("secretKey", secretKey);
+      handleUnclicked("login");
+      dispatch(
+        showModal({
+          action: "hide",
+          type: "loginModal",
+        })
+      );
+      navigate("/developer/dashboard");
+    } catch (error) {}
   };
 
+  const googleAuth = useGoogleLogin({
+    flow: "auth-code",
+    onSuccess: async (response) => {
+      console.log(response);
+      // const token = await sendRequest('/endpoint/googleauth', url, "post", response.code, headers)
+      // console.log(token)
+      toast.success("Login Successful!");
+    },
+    onError: (errorResponse) => {
+      console.log(errorResponse);
+      toast.error("Login Failed, try to login with your email.");
+    },
+  });
+
   useEffect(() => {
-    {error && toast.error(`${error}`)}
-  },[error])
-  
+    {
+      error && toast.error(`${error}`);
+    }
+  }, [error]);
+
   return (
     <>
-    {loading && <Fallback />}
-    <div className={classes.container} onClick={() => handleUnclicked('login')}>
-      <div className={classes.main} onClick={(e) => e.stopPropagation()}>
-        <Typography variant="body1" fontSize="40px" fontWeight={400}>Sign In</Typography>
+      {loading && <Fallback />}
+      <div
+        className={classes.container}
+        onClick={() => handleUnclicked("login")}>
+        <div className={classes.main} onClick={(e) => e.stopPropagation()}>
+          <Typography variant="body1" fontSize="40px" fontWeight={400}>
+            Sign In
+          </Typography>
 
-        <p className={classes.subtitle}>
-          Already have a ZAPI account? Sign in to begin exploring our API options.
-        </p>
+          <p className={classes.subtitle}>
+            Already have a ZAPI account? Sign in to begin exploring our API
+            options.
+          </p>
 
-        <form onSubmit={handleLogin} className={classes.form}>
-          <div className={classes.input}>
-            <label htmlFor="email">Email Address</label>
-            <input type="email" name="email" {...bind} placeholder="Enter your Email" />
-          </div>
-          <div className={classes.input}>
-            <label htmlFor="password">Password</label>
-            <input type="password" name="password" {...bind} placeholder="Enter a Password" />
-          </div>
+          <form onSubmit={handleLogin} className={classes.form}>
+            <div className={classes.input}>
+              <label htmlFor="email">Email Address</label>
+              <input
+                type="email"
+                name="email"
+                {...bind}
+                placeholder="Enter your Email"
+              />
+            </div>
+            <div className={classes.input}>
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                name="password"
+                {...bind}
+                placeholder="Enter a Password"
+              />
+            </div>
+            <Typography variant="body1" fontSize="16px" alignSelf="flex-start">
+              Forgot your password?
+              <Link
+                to="/forgot-password"
+                className={classes.link}
+                onClick={() => handleUnclicked("login")}>
+                Reset it here.
+              </Link>
+            </Typography>
+            <button
+              type="submit"
+              className={classes.button}
+              style={{ background: "#4B4B4B", color: "#FFF" }}
+              disabled={loading}>
+              {loading ? "loading" : "Sign In"}
+            </button>
+          </form>
+
+          <Typography>OR</Typography>
+          <Stack direction="column" alignItems="center" spacing={2}>
+            <button
+              type="button"
+              className={classes.button}
+              onClick={() => googleAuth()}>
+              <span style={{ marginRight: "1rem" }}>
+                <GoogleIcon />
+              </span>
+              Signin with Google
+            </button>
+          </Stack>
           <Typography variant="body1" fontSize="16px" alignSelf="flex-start">
-          Forgot your password?
-          <Link to="/forgot-password" className={classes.link} onClick={() => handleUnclicked('login')}>
-            Reset it here.
-          </Link>
-        </Typography>
-          <button type="submit" className={classes.button} style={{background:"#4B4B4B",color:"#FFF"}} disabled={loading}>
-            {loading ? 'loading' : 'Sign In'}
-          </button>
-        </form>
-        
-        <Typography>OR</Typography>
-        <Stack direction="column" alignItems="center" spacing={2}>
-          <button type="button" className={classes.button} onClick={() => {}} style={{background: "#FFF"}}>
-            <span style={{marginRight: "3rem"}}>
-              <GoogleIcon />
-            </span>
-            Signin with Google
-          </button>
-        </Stack>
-        <Typography variant="body1" fontSize="16px" alignSelf="flex-start">
-          Dont't have an account?
-          <Link to="/signup" className={classes.link} onClick={() => handleUnclicked('login')}>
-            Sign up
-          </Link>
-        </Typography>
+            Dont't have an account?
+            <Link
+              to="/signup"
+              className={classes.link}
+              onClick={() => handleUnclicked("login")}>
+              Sign up
+            </Link>
+          </Typography>
+        </div>
       </div>
-    </div>
     </>
   );
 };
@@ -171,29 +230,31 @@ const useStyles = makeStyles({
       fontWeight: 600,
       fontSize: "14px",
       lineHeight: "16px",
-      marginBottom: "0.5rem"
+      marginBottom: "0.5rem",
     },
     "@media screen and (max-width: 768px)": {
       width: "100%",
-    }
+    },
   },
   button: {
     width: "440px",
     height: "52px",
     display: "flex",
     flexDirection: "row",
+    background: "#FFF",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: "4px",
     fontSize: "16px",
-    fontWeight: 400,
+    fontWeight: 600,
     lineHeight: "16px",
     cursor: "pointer",
     margin: "1rem 0 2rem",
     padding: "0 1rem",
+    color: "#081F4A",
     "@media screen and (max-width: 768px)": {
       width: "100%",
-    }
+    },
   },
   subtitle: {
     maxWidth: "468px",
@@ -202,13 +263,13 @@ const useStyles = makeStyles({
     margin: "12px 0 24px",
     textAlign: "center",
     "@media screen and (max-width: 500px)": {
-      width: "90%"
-    }
+      width: "90%",
+    },
   },
   link: {
     textDecoration: "underline",
     marginLeft: "0.5rem",
-  }
-})
+  },
+});
 
 export default Login;
