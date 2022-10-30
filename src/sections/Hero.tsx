@@ -242,7 +242,7 @@ const useStyles = makeStyles({
     paddingRight: "5rem",
     paddingLeft: "5rem",
     "@media screen and (max-width: 768px)": {
-      padding: "8rem .5rem .5rem 0rem",
+      padding: "8rem .5rem 0rem .5rem",
     },
     "@media screen and (max-width: 400px)": {
       paddingTop: "0rem",

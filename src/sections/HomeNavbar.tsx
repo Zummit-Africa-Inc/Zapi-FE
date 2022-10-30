@@ -40,6 +40,10 @@ const HomeNavbar: React.FC = () => {
   const handleLogOut = () => {
     dispatch(logout());
     cookies.remove("accessToken");
+    cookies.remove("refreshToken");
+    cookies.remove("profileId");
+    cookies.remove("userId");
+    cookies.remove("secretKey");
     navigate("/");
   };
 
