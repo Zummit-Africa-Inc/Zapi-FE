@@ -80,8 +80,18 @@ const Login: React.FC = () => {
   const googleAuth = useGoogleLogin({
     flow: "auth-code",
     onSuccess: async (response) => {
+      const payload = {
+        token: response.code,
+        userInfo: {
+          login_time: deviceLocation.time,
+          country: { lat: deviceLocation.lat, lon: deviceLocation.lon },
+          deviceIP,
+          browser_name: deviceInfo.browserName,
+          os_name: deviceInfo.osName,
+        },
+      };
       console.log(response);
-      const data = await sendRequest('/google', "post", url, response.code, headers)
+      const data = await sendRequest('/google', "post", url, payload, headers)
       console.log("reponse from BE", data)
       toast.success("Login Successful!");
       if (!data || data === undefined) return;
