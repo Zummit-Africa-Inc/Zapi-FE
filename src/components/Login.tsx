@@ -92,7 +92,7 @@ const Login: React.FC = () => {
       };
 
       const data = await sendRequest(
-        "auth/google",
+        "/auth/google",
         "post",
         url,
         payload,
