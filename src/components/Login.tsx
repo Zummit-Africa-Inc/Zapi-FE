@@ -90,9 +90,15 @@ const Login: React.FC = () => {
           os_name: deviceInfo.osName,
         },
       };
-      console.log(response);
-      const data = await sendRequest('/google', "post", url, payload, headers)
-      console.log("reponse from BE", data)
+
+      const data = await sendRequest(
+        "auth/google",
+        "post",
+        url,
+        payload,
+        headers
+      );
+      console.log("reponse from BE", data);
       toast.success("Login Successful!");
       if (!data || data === undefined) return;
       const { access, email, fullName, profileId, refresh, userId, secretKey } =
@@ -177,7 +183,7 @@ const Login: React.FC = () => {
               {loading ? "loading" : "Sign In"}
             </button>
           </form>
-          
+
           <Typography>OR</Typography>
           <Stack direction="column" alignItems="center" spacing={2}>
             <button
