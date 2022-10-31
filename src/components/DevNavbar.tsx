@@ -63,7 +63,7 @@ const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
     <>
       <div className={classes.NavBar}>
         <div className={classes.logo}>
-          <Link to="/dashboard">
+          <Link to="/">
             <img src={ZapiDevLogo} alt="Zapi-dev" />
           </Link>
           <span className={classes.zapi}>Z-API</span>
@@ -86,6 +86,46 @@ const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
             <Menu />
           </div>
         </div>
+      </div>
+      <div>
+        {isOpen ? (
+          <>
+            <div className={classes.responsiveMenu}>
+              <Button
+                className={classes.allProjects}
+                onClick={handleProjectList}>
+                All Projects
+                <img
+                  src={ZapiArrow}
+                  alt="zapi-arrow"
+                  style={{ color: "#00000", marginLeft: "0.4rem" }}
+                />
+              </Button>
+
+              {isShow ? (
+                <List className={classes.projectListContainer}>
+                  {userApis.map((api, index) => (
+                    <Link to={`/developer/api/${api.id}`} key={index}>
+                      <ListItem className={classes.projectListItems}>
+                        {api.name}
+                      </ListItem>
+                    </Link>
+                  ))}
+                </List>
+              ) : (
+                <></>
+              )}
+              <div>Developer Board</div>
+              <div>Apps</div>
+              <div>Help</div>
+              <button className={classes.logout} onClick={handleLogout}>
+                Logout
+              </button>
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
       </div>
 
       <div></div>

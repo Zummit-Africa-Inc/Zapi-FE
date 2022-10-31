@@ -65,6 +65,10 @@ const Menus: React.FC<MenuProps> = () => {
     await setAnchorE2(null);
     dispatch(logout());
     cookies.remove("accessToken");
+    cookies.remove("refreshToken");
+    cookies.remove("profileId");
+    cookies.remove("userId");
+    cookies.remove("secretKey");
     navigate("/");
   };
 
@@ -92,10 +96,9 @@ const Menus: React.FC<MenuProps> = () => {
         onClose={handleClose}
         TransitionComponent={Fade}>
         {userApis.map((api, index) => (
-          <MenuItem className={classes.menuItem}>
+          <MenuItem key={index} className={classes.menuItem}>
             <NavLink
               to={`/developer/api/${api.id}`}
-              key={index}
               style={({ isActive }) =>
                 isActive ? { color: "blue" } : { color: "#000000" }
               }>

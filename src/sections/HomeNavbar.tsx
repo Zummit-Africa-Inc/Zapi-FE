@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../hooks/redux-hook";
 import { Close, Menu } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
@@ -10,7 +10,7 @@ import { useMediaQuery, useTheme } from "@mui/material";
 import { logout } from "../redux/slices/userSlice";
 import { useAppDispatch } from "../hooks/redux-hook";
 import Cookies from "universal-cookie";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 
 import { useLocation } from "react-router-dom";
 
@@ -18,16 +18,18 @@ const HomeNavbar: React.FC = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(classes.mobile);
   const theme = useTheme();
-  const isMatch = useMediaQuery(theme.breakpoints.down("md"));
+  const isMatch = useMediaQuery("(max-width: 870px)");
   const { handleClicked } = useContextProvider();
   const { isLoggedIn } = useAppSelector((state: any) => state.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const cookies = new Cookies();
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+  const [scrollPosition, setScrollPosition] = useState(0);
 
   const handleClick = () => {
-    setMenuOpen((p) => !p)
+    setMenuOpen((p) => !p);
     if (open === classes.mobile) {
       setOpen(classes.mobileLinks);
     } else {
@@ -38,27 +40,51 @@ const HomeNavbar: React.FC = () => {
   const handleLogOut = () => {
     dispatch(logout());
     cookies.remove("accessToken");
+    cookies.remove("refreshToken");
+    cookies.remove("profileId");
+    cookies.remove("userId");
+    cookies.remove("secretKey");
     navigate("/");
   };
 
-  const location = useLocation();
+  const handleScroll = () => {
+    const position = window.pageYOffset;
+    setScrollPosition(position);
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  function bg() {
+    if (location.pathname === "/api-hub") {
+      return scrollPosition > 250 ? "#081F4A" : "transparent";
+    } else {
+      return "#081F4A";
+    }
+  }
 
   return (
     <>
-      <div className={classes.NavBar}>
+      <div className={classes.NavBar} style={{ background: bg() }}>
         <div className={classes.logo}>
           <a href="/">
             <img src={ZapiHomeLogo} alt="zapi-Home" />
           </a>
           <span className={classes.zapi}>Z-API</span>
-          <img className={classes.zapi} src={Vector} alt="vector-img" /> {/* funny looking stuff in the middle of the bar */}
+          {/* funny looking stuff in the middle of the bar */}
         </div>
+        {/* <div className={classes.vector}></div> */}
         {isMatch ? (
           <>
             <div className={open}>
               <ul>
                 <li>
                   <NavLink
+                    end
                     to="/"
                     style={({ isActive }) =>
                       isActive ? { borderBottom: "2px solid #FFEA00" } : {}
@@ -75,15 +101,6 @@ const HomeNavbar: React.FC = () => {
                     API hub
                   </NavLink>
                 </li>
-                {isLoggedIn && (
-                  <li>
-                    <NavLink
-                      to="/developer/dashboard"
-                      className={classes.dashboard}>
-                      Dashboard
-                    </NavLink>
-                  </li>
-                )}
                 <li>
                   <NavLink
                     to="/pricing"
@@ -93,17 +110,33 @@ const HomeNavbar: React.FC = () => {
                     Pricing
                   </NavLink>
                 </li>
+                {!isLoggedIn ? (
+                  <li>
+                    <button onClick={() => handleClicked("login")}>
+                      Login
+                    </button>
+                  </li>
+                ) : null}
+              </ul>
+              <li>
+                <NavLink
+                  to="/documentation"
+                  style={({ isActive }) =>
+                    isActive ? { borderBottom: "2px solid #FFEA00" } : {}
+                  }>
+                  Documentation
+                </NavLink>
+              </li>
+              {isLoggedIn && (
                 <li>
                   <NavLink
-                    to="/documentation"
-                    style={({ isActive }) =>
-                      isActive ? { borderBottom: "2px solid #FFEA00" } : {}
-                    }>
-                    Documentation
+                    to="/developer/dashboard"
+                    className={classes.dashboard}>
+                    Dashboard
                   </NavLink>
                 </li>
                 {isLoggedIn ? (
-                  <li  className={classes.logout}>
+                  <li className={classes.logout}>
                    <button style={{color: "black"}} onClick={() => handleLogOut()}>Logout</button> 
                   </li>
                 ): (
@@ -201,35 +234,45 @@ const useStyles = makeStyles({
     left: "0rem",
     right: "0rem",
     zIndex: 30,
-    height: "112px",
+    height: "5rem",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    background: "#081F4A",
     boxShadow: "0px 1px 15px rgba(7, 27, 133, 0.15)",
     padding: "0 5rem",
     "@media screen and (max-width: 1024px)": {
       padding: "1rem 2rem",
     },
     "@media screen and (max-width: 375px)": {
-      // padding: "1rem 1rem",
+      padding: "1rem 1rem",
     },
   },
   logo: {
     display: "flex",
     alignItems: "center",
     gap: "1rem",
+    width: "30%",
+    height: "100%",
+    backgroundImage: `url(${Vector})`,
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "40% 100%",
+    "@media screen and (max-width: 495px)": {
+      width: "auto",
+    },
+  },
+  vector: {
+    width: "200px",
+    height: "100%",
+    backgroundImage: `url(${Vector})`,
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "0px 100%",
   },
   zapi: {
     color: "#FFFFFF",
     fontWeight: 700,
     fontSize: "1.5rem",
-  },
-  vector: {
-    position: "absolute",
-    left: "130px",
-    top: "-2px",
-    filter: "drop-shadow(0px 1px 15px rgba(0, 0, 0, 0.1))",
   },
   links: {
     display: "flex",

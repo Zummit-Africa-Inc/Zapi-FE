@@ -6,21 +6,16 @@ import DevAPICard from "./DevAPICard";
 
 const APILayout: React.FC = () => {
   const { userApis } = useAppSelector((store) => store.user);
-  console.log(userApis);
   const classes = useStyles();
   const PER_PAGE = 6;
   const count = Math.ceil(userApis.length / PER_PAGE);
   const _DATA = usePagination(userApis, PER_PAGE);
-
-
-
   const [page, setPage] = useState(1);
 
   const handleChange = (event: unknown, value: number) => {
     setPage(value);
     _DATA.jump(value);
   };
-
 
   return (
     <div>
@@ -41,7 +36,6 @@ const APILayout: React.FC = () => {
             onChange={handleChange}
           />
         </>
-
       ) : (
         <div className={classes.addApiDesc}>
           <Typography
@@ -154,7 +148,7 @@ const useStyles = makeStyles({
     background: "#FFFFFF",
     borderTop: "1px solid #8C8C8C",
     borderBottom: "1px solid #8C8C8C",
-    borderRight: "1px solid #8C8C8C",
+    borderRight: "1px solid #c5c5c5",
     borderRadius: "0px 8px 8px 0px",
   },
   search: {
@@ -245,15 +239,19 @@ const useStyles = makeStyles({
     width: "100vw",
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "left",
     gap: "1.5rem",
     flexWrap: "wrap",
-    paddingBottom: '100px',
+    paddingBottom: "100px",
+    "@media screen and (max-width: 1024px)": {
+      justifyContent: "center",
+      marginLeft: "-1.5em",
+    },
   },
   pagination: {
-    display: 'flex',
-    position: 'relative',
-    bottom: '0',
-    justifyContent: 'center',
+    display: "flex",
+    position: "relative",
+    bottom: "0",
+    justifyContent: "center",
   },
 });
