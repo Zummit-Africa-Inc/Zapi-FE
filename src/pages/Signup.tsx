@@ -183,7 +183,7 @@ const Signup: React.FC = () => {
             </button>
           </form>
 
-          <Typography>OR</Typography>
+          {/* <Typography>OR</Typography>
           <Stack direction="column" alignItems="center" spacing={2}>
             <button
               type="button"
@@ -195,13 +195,14 @@ const Signup: React.FC = () => {
               </span>
               Signin with Google
             </button>
-          </Stack>
+          </Stack> */}
           <Typography
             variant="body1"
             fontSize="16px"
             alignSelf="flex-start"
             textAlign="center"
-            mt={8}>
+            // mt={8}
+          >
             Already have an account?
             <span
               className={classes.link}
