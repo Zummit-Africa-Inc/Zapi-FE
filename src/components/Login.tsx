@@ -27,6 +27,7 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
   const classes = useStyles();
   const cookies = new Cookies();
+  const headers = { "Content-Type": "application/json" };
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -36,7 +37,6 @@ const Login: React.FC = () => {
       return toast.error("Invalid email address");
     if (!password || !PASSWORD_REGEX.test(password))
       return toast.error("Invalid password");
-    const headers = { "Content-Type": "application/json" };
     const payload = {
       email,
       password,
@@ -81,9 +81,27 @@ const Login: React.FC = () => {
     flow: "auth-code",
     onSuccess: async (response) => {
       console.log(response);
-      // const token = await sendRequest('/endpoint/googleauth', url, "post", response.code, headers)
-      // console.log(token)
+      const data = await sendRequest('/google', "post", url, response.code, headers)
+      console.log("reponse from BE", data)
       toast.success("Login Successful!");
+      if (!data || data === undefined) return;
+      const { access, email, fullName, profileId, refresh, userId, secretKey } =
+        data.data;
+      const user = { email, fullName, profileId, secretKey };
+      dispatch(login(user));
+      cookies.set("accessToken", access);
+      cookies.set("refreshToken", refresh);
+      cookies.set("profileId", profileId);
+      cookies.set("userId", userId);
+      cookies.set("secretKey", secretKey);
+      handleUnclicked("login");
+      dispatch(
+        showModal({
+          action: "hide",
+          type: "loginModal",
+        })
+      );
+      navigate("/developer/dashboard");
     },
     onError: (errorResponse) => {
       console.log(errorResponse);
@@ -149,7 +167,7 @@ const Login: React.FC = () => {
               {loading ? "loading" : "Sign In"}
             </button>
           </form>
-          {/* 
+          
           <Typography>OR</Typography>
           <Stack direction="column" alignItems="center" spacing={2}>
             <button
@@ -161,7 +179,7 @@ const Login: React.FC = () => {
               </span>
               Signin with Google
             </button>
-          </Stack> */}
+          </Stack>
           <Typography variant="body1" fontSize="16px" alignSelf="flex-start">
             Dont't have an account?
             <Link
