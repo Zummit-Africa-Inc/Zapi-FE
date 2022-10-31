@@ -175,7 +175,7 @@ const Hero: React.FC = () => {
               <MenuItem sx={{ minWidth: 120, fontSize: ".8rem" }} value="">
                 Select An Api
               </MenuItem>
-              {freeApis?.map((api) => (
+              {freeApis?.map((api: any) => (
                 <MenuItem
                   sx={{ minWidth: 120, fontSize: ".8rem" }}
                   key={api.id}
@@ -242,10 +242,10 @@ const useStyles = makeStyles({
     paddingRight: "5rem",
     paddingLeft: "5rem",
     "@media screen and (max-width: 768px)": {
-      // width: "100vw",
-      // padding: "1rem 1rem",
-      padding: "1rem .5rem",
-      // margin: "auto",
+      padding: "8rem .5rem 0rem .5rem",
+    },
+    "@media screen and (max-width: 400px)": {
+      paddingTop: "0rem",
     },
   },
   heroText: {

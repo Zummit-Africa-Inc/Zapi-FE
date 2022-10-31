@@ -65,6 +65,10 @@ const Menus: React.FC<MenuProps> = () => {
     await setAnchorE2(null);
     dispatch(logout());
     cookies.remove("accessToken");
+    cookies.remove("refreshToken");
+    cookies.remove("profileId");
+    cookies.remove("userId");
+    cookies.remove("secretKey");
     navigate("/");
   };
 
