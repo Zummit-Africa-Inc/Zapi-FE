@@ -103,8 +103,8 @@ const HomeNavbar: React.FC = () => {
                   </NavLink>
                 </li>
                 {isLoggedIn ? (
-                  <li className={classes.signup}>
-                   <button onClick={() => handleLogOut()}>Logout</button> 
+                  <li  className={classes.logout}>
+                   <button style={{color: "black"}} onClick={() => handleLogOut()}>Logout</button> 
                   </li>
                 ): (
                   <>
@@ -324,6 +324,15 @@ const useStyles = makeStyles({
     color: "#081F4A",
     cursor: "pointer",
   },
+  logout: {
+    border: "none",
+    borderRadius: "4px",
+    padding: ".5rem 1rem",
+    background: "#FFEA00",
+    fontWeight: 900,
+    fontSize: "1rem",
+    cursor: "pointer",
+  }, 
   dashboard: {
     border: "none",
     borderRadius: "4px",
