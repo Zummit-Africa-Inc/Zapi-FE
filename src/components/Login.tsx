@@ -149,7 +149,7 @@ const Login: React.FC = () => {
               {loading ? "loading" : "Sign In"}
             </button>
           </form>
-
+          {/* 
           <Typography>OR</Typography>
           <Stack direction="column" alignItems="center" spacing={2}>
             <button
@@ -161,7 +161,7 @@ const Login: React.FC = () => {
               </span>
               Signin with Google
             </button>
-          </Stack>
+          </Stack> */}
           <Typography variant="body1" fontSize="16px" alignSelf="flex-start">
             Dont't have an account?
             <Link
