@@ -90,7 +90,7 @@ const Login: React.FC = () => {
           os_name: deviceInfo.osName,
         },
       };
-
+      console.log("reponse from google", response);
       const data = await sendRequest(
         "/auth/google",
         "post",
