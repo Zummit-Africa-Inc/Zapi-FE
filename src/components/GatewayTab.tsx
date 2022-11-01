@@ -9,11 +9,13 @@ import {
 } from "../components";
 import { makeStyles } from "@mui/styles";
 import { Box, Stack, Typography, Paper } from "@mui/material";
+import ReactGA from "react-ga4";
 
 const GatewayTab: React.FC = () => {
   const [disabled, setDisabled] = useState<boolean>(true);
 
   const classes = useStyles();
+  ReactGA.send({ hitType: "pageview", page: "/gatewayTab" });
 
   return (
     <>
