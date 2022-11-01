@@ -11,7 +11,6 @@ export { default as DataTable } from "./DataTable";
 export { default as DevAddApi } from "./DevAddApi";
 export { default as DevAPICard } from "./DevAPICard";
 export { default as DevNavbar } from "./DevNavbar";
-export { default as ConfirmDialog } from "./ConfirmDialog";
 export { default as EndpointTab } from "./EndpointTab";
 export { default as EndpointTable } from "./EndpointTable";
 export { default as Fallback } from "./Fallback";

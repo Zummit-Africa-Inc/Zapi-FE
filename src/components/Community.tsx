@@ -41,7 +41,7 @@ const Community = () => {
                         }}
                         sx={{
                             "& button":{borderRadius: 1},
-                            "& button.Mui-selected": {backgroundColor: "skyblue", color: "blue"}
+                            "& button.Mui-selected": {backgroundColor: "#081f4A", color: "white"}
                         }}
                     >
                         <Tab label="User" />

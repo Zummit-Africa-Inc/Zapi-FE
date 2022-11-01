@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector, useHttpRequest } from "../hooks";
 import { getFreeApis } from "../redux/slices/freeApiSlice";
 import { FREEUSEAPIDATA } from "../testdata";
+import { toast } from "react-toastify";
+import { Spinner } from "../assets";
 
 // const core_url = import.meta.env.VITE_CORE_URL
 const core_url = "VITE_CORE_URL";
@@ -17,7 +19,7 @@ const Hero: React.FC = () => {
   const dispatch = useAppDispatch();
   const { freeApis } = useAppSelector((store) => store.freeApis);
   const [apiName, setApiName] = useState<string>("");
-  const { sendRequest } = useHttpRequest();
+  const { loading, sendRequest } = useHttpRequest();
 
   useEffect(() => {
     const api = freeApis.find((api) => api.id === apiId);
@@ -30,11 +32,8 @@ const Hero: React.FC = () => {
   const nameOfApi = FREEUSEAPIDATA.find((api) => api.name == pathName);
 
   useEffect(() => {
-    // const Payload = {
-    //   payload: { question: "what is my name?", context: "my name is mark" },
-    // };
     if (nameOfApi) {
-      setQuery(JSON.stringify(nameOfApi.samplePayload));
+      setQuery(JSON.stringify(nameOfApi.samplePayload, undefined, 4));
       setData("");
     }
   }, [nameOfApi]);
@@ -48,7 +47,6 @@ const Hero: React.FC = () => {
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     try {
       const res = await sendRequest(
         `/subscription/free-request/${apiId}`,
@@ -57,9 +55,13 @@ const Hero: React.FC = () => {
         JSON.parse(query),
         headers
       );
-      setData(res);
+      setData(res.data);
     } catch (error) {
-      alert("Input must be a JSON String");
+      if (query === null || !query) {
+        toast.error("Select an API before you make a request");
+      } else {
+        toast.error("Request unsuccessful");
+      }
     }
   };
   return (
@@ -122,7 +124,9 @@ const Hero: React.FC = () => {
           value={"https://zapi.com/" + pathName}
           placeholder="drowsinessdetection"
         />
-        <button className={classes.send}>Send</button>
+        <button className={classes.send}>
+          {loading ? <Spinner /> : "Send"}
+        </button>
       </form>
       <div className={classes.actionBoxes}>
         <TextField
@@ -171,8 +175,8 @@ const useStyles = makeStyles({
   },
   form: {
     display: "flex",
-    gap: "1.5rem",
     width: "100%",
+    gap: ".5rem",
     "@media screen and (max-width: 700px)": {
       flexDirection: "column",
     },
@@ -181,7 +185,9 @@ const useStyles = makeStyles({
     border: "none",
     outline: "none",
     padding: "1rem",
-    background: "#FFFFFF",
+    borderRadius: "5px 0px 0px 5px",
+    background: "rgba(100, 50, 159, 0.1)",
+    cursor: "pointer",
     color: "#071B85",
     fontWeight: 500,
     fontSize: "1rem",

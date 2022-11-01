@@ -28,7 +28,7 @@ const Navbar:React.FC<Props> = ({id}) => {
                 <Tab label="General" />
                 <Tab label="Endpoints" />
                 <Tab label="Gateway" />
-                <Tab label="Commmunity" />
+                <Tab label="Community" />
                 <Tab label="Analytics" />
                 <Tab label="Settings" />
             </Tabs>
@@ -90,9 +90,9 @@ const useStyles = makeStyles({
         top: "4.3rem",
         zIndex: 5,
         width: "calc(100% - 300px)",
-        background: "#F4F5F6",
-        "@media screen and (max-width: 900px)": {
-            width: "auto",
+        background: "#FFFF",
+        "@media screen and (max-width: 1024px)": {
+            width: "100%",
             fontSize: "1.5rem"
         },
     }

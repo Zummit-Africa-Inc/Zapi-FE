@@ -2,6 +2,7 @@ import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow
 import { styled } from '@mui/material/styles';
 import { tableCellClasses } from '@mui/material/TableCell';
 import React, { useState } from 'react';
+import { makeStyles } from '@mui/styles';
 
 
 interface TableProps {
@@ -32,6 +33,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 
 
+
+
 const DataTable: React.FC<TableProps> = ({Heading, Rows}) => {
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
@@ -47,14 +50,16 @@ const DataTable: React.FC<TableProps> = ({Heading, Rows}) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  const classes = useStyles();
   
   return (
     <div className='datatable'>
       <TableContainer component={Paper} className="table">
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
-            <TableRow>{Heading.map((heading) => (
-                <StyledTableCell className="tableCell" key={heading}>{heading}</StyledTableCell>
+            <TableRow className={classes.root}>{Heading.map((heading) => (
+                <TableCell className="tableCell" key={heading}>{heading}</TableCell>
             ))}
             </TableRow>
           </TableHead>
@@ -82,5 +87,14 @@ const DataTable: React.FC<TableProps> = ({Heading, Rows}) => {
     </div>
   )
 }
+
+const useStyles = makeStyles({
+root:{
+  "& .MuiTableCell-head": {
+            color: "white",
+            backgroundColor: "#081f4A"
+        }
+}
+})
 
 export default DataTable

@@ -22,8 +22,9 @@ const CustomTab = styled(Tab)({
     height: "45px",
   },
   "&.Mui-selected": {
-    backgroundColor: "#ccc",
+    backgroundColor: "#081f4A",
     borderRadius: "10px",
+    color: "white !important",
   },
 });
 
@@ -67,8 +68,12 @@ const DevAddApi: React.FC = () => {
                 alignItems: "center",
                 justifyContent: "center",
                 borderRadius: "10px",
+                background: "white",
+                color: "black",
               }}
               value={tab}
+              indicatorColor="primary"
+              textColor="inherit"
               onChange={handleTabChange}>
               <CustomTab
                 icon={<Grade />}
@@ -188,10 +193,9 @@ const useStyles = makeStyles({
     },
   },
   bodyColor: {
-    minHeight: "100vh",
-    background: "#FFFFFF",
-    paddingTop: "15px",
-    height: "100vh",
+    background: "#fff",
+    padding: "15px 1rem 40px 1rem",
+    height: "auto",
   },
   widget1: {
     display: "flex",
@@ -222,7 +226,7 @@ const useStyles = makeStyles({
     },
   },
   widget2: {
-    border: "1px solid #C4C4C4",
+    border: "1px solid whitesmoke",
     borderRadius: "10px",
   },
   rightText: {
@@ -293,7 +297,7 @@ const useStyles = makeStyles({
     gap: "16px",
     width: "190px",
     lineHeight: "46px",
-    background: "#1D1D1D",
+    background: "#058A04",
     borderRadius: "8px",
     cursor: "pointer",
     color: "#FFFFFF",

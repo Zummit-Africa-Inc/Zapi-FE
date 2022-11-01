@@ -17,14 +17,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import { makeStyles } from "@mui/styles";
 
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-        backgroundColor: theme.palette.action.hover,
-        color: theme.palette.common.black,
-    }
-}));
-
-
 
 const User = () => {
     const classes = useStyles()
@@ -62,14 +54,14 @@ const User = () => {
         }}
         stickyHeader>
             <TableHead>
-                <TableRow>
-                    <StyledTableCell><strong>Username</strong></StyledTableCell>
-                    <StyledTableCell align="right"><strong>status</strong></StyledTableCell>
-                    <StyledTableCell align="right"><strong>Name</strong></StyledTableCell>
-                    <StyledTableCell align="right"><strong>Date Subscribed</strong></StyledTableCell>
-                    <StyledTableCell align="right"><strong>Plan Name</strong></StyledTableCell>
-                    <StyledTableCell align="right"><strong>Total paid</strong></StyledTableCell>
-                    <StyledTableCell align="right"><strong>Last Active</strong></StyledTableCell>
+                <TableRow className={classes.root}>
+                    <TableCell><strong>Username</strong></TableCell>
+                    <TableCell align="right"><strong>status</strong></TableCell>
+                    <TableCell align="right"><strong>Name</strong></TableCell>
+                    <TableCell align="right"><strong>Date Subscribed</strong></TableCell>
+                    <TableCell align="right"><strong>Plan Name</strong></TableCell>
+                    <TableCell align="right"><strong>Total paid</strong></TableCell>
+                    <TableCell align="right"><strong>Last Active</strong></TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
@@ -87,6 +79,12 @@ export default User;
 const useStyles = makeStyles({
     user: {
         // width: "calc(100% - 250px)"
+    },
+    root:{
+        "& .MuiTableCell-head": {
+            color: "white",
+            backgroundColor: "#081f4A"
+        }
     },
     tableContainer: {
         ['@media (max-width:450px)']:{
