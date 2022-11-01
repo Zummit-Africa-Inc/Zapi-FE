@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, useEffect } from "react";
+import React, { useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -10,7 +10,8 @@ import { tableCellClasses } from "@mui/material/TableCell";
 import { makeStyles } from "@mui/styles";
 import { toast } from "react-toastify";
 import { styled } from "@mui/material/styles";
-import { Spinner } from "../assets";
+import Cookies from "universal-cookie";
+import { useContextProvider } from "../contexts/ContextProvider";
 
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -30,10 +31,7 @@ import {
   getUserApis,
 } from "../redux/slices/userSlice";
 import { EndpointProps } from "../interfaces";
-import { EndpointsType } from "../types";
-import { useContextProvider } from "../contexts/ContextProvider";
-import Cookies from "universal-cookie";
-const cookies = new Cookies();
+import { Spinner } from "../assets";
 
 const core_url = "VITE_CORE_URL";
 const initialState = {
@@ -94,7 +92,6 @@ const CollapsibleTable: React.FC<Props> = ({ id }) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = async (e: any, id: any) => {
-    console.log(id);
     e.preventDefault();
     setOpen(true);
     setDelId(id);
@@ -125,24 +122,24 @@ const CollapsibleTable: React.FC<Props> = ({ id }) => {
   };
 
   const deleteEndpoint = async (e: any) => {
-    console.log(delId);
     e.preventDefault();
     const headers = { "Content-Type": "application/json" };
     try {
       const data = await sendRequest(
-        `/endpoints/${delId}`,
+        `/endpoints/${delId}?profileId=${cookies.get("profileId")}`,
         "del",
         core_url,
+        payload,
         headers
       );
 
-      setOpen(false);
       if (!data || data === undefined) return;
-      dispatch(removeEndpoint(id));
-      dispatch(getUserApis(profileId));
+      dispatch(removeEndpoint(delId));
+      setOpen(false);
       triggerRefresh();
+      const { message } = data;
+      toast.success(`${message}`);
     } catch (error) {}
-    setOpen(false);
   };
 
   return (

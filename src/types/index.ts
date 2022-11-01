@@ -95,3 +95,10 @@ export type AnalyticsLog = {
    version: string | null,
    location: string | null,
 }
+
+export type OptionsType = {
+   name: string
+   type: string
+   required: boolean
+   value?: any
+}

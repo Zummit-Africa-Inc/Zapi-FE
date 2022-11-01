@@ -64,6 +64,7 @@ export interface CardProps {
     description?: string
     rating?: number
     latency?: number
+    popularity?: number
 }
 
 export interface IErrorType { 

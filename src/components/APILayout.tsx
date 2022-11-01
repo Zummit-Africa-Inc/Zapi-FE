@@ -1,21 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
-import { Typography } from "@mui/material";
-import { useAppSelector } from "../hooks";
+import { Typography, TablePagination, Pagination } from "@mui/material";
+import { useAppSelector, usePagination } from "../hooks";
 import DevAPICard from "./DevAPICard";
 
 const APILayout: React.FC = () => {
   const { userApis } = useAppSelector((store) => store.user);
-  console.log(userApis);
   const classes = useStyles();
+  const PER_PAGE = 6;
+  const count = Math.ceil(userApis.length / PER_PAGE);
+  const _DATA = usePagination(userApis, PER_PAGE);
+  const [page, setPage] = useState(1);
+
+  const handleChange = (event: unknown, value: number) => {
+    setPage(value);
+    _DATA.jump(value);
+  };
+
   return (
     <div>
       {userApis.length !== 0 ? (
-        <div className={classes.apiCard}>
-          {userApis.map((apis: any) => (
-            <DevAPICard key={apis.id} {...apis} />
-          ))}
-        </div>
+        <>
+          <div className={classes.apiCard}>
+            {_DATA.currentData().map((apis: any) => (
+              <DevAPICard key={apis.id} {...apis} />
+            ))}
+          </div>
+          <Pagination
+            count={count}
+            className={classes.pagination}
+            size="large"
+            page={page}
+            color="primary"
+            shape="circular"
+            onChange={handleChange}
+          />
+        </>
       ) : (
         <div className={classes.addApiDesc}>
           <Typography
@@ -128,7 +148,7 @@ const useStyles = makeStyles({
     background: "#FFFFFF",
     borderTop: "1px solid #8C8C8C",
     borderBottom: "1px solid #8C8C8C",
-    borderRight: "1px solid #8C8C8C",
+    borderRight: "1px solid #c5c5c5",
     borderRadius: "0px 8px 8px 0px",
   },
   search: {
@@ -215,12 +235,23 @@ const useStyles = makeStyles({
     height: "calc(100vh - 315px)",
   },
   apiCard: {
-    height: "calc(100vh - 315px)",
+    // height: "calc(100vh - 315px)",
     width: "100vw",
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "left",
     gap: "1.5rem",
     flexWrap: "wrap",
+    paddingBottom: "100px",
+    "@media screen and (max-width: 1024px)": {
+      justifyContent: "center",
+      marginLeft: "-1.5em",
+    },
+  },
+  pagination: {
+    display: "flex",
+    position: "relative",
+    bottom: "0",
+    justifyContent: "center",
   },
 });
