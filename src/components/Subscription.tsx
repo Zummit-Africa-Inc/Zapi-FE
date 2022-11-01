@@ -109,7 +109,7 @@ const Subscription: React.FC = () => {
               <TableRow className={classes.root}>
                 <StyledTableCell>Name</StyledTableCell>
                 <StyledTableCell>Token</StyledTableCell>
-                <StyledTableCell></StyledTableCell>
+                <StyledTableCell>Actions</StyledTableCell>
                 <StyledTableCell></StyledTableCell>
                 <StyledTableCell></StyledTableCell>
               </TableRow>
@@ -131,14 +131,14 @@ const Subscription: React.FC = () => {
                   </StyledTableCell>
                   <StyledTableCell style={{ width: 50 }}>
                     <button
-                      className={classes.button}
+                      className={classes.unsubscribe}
                       onClick={(e) => unsubscribe(e, api.apiId)}>
                       Unsubscribe
                     </button>
                   </StyledTableCell>
                   <StyledTableCell style={{ width: 50 }}>
                     <button
-                      className={classes.button}
+                      className={classes.revoke}
                       onClick={(e) => revoke(e, api.apiId)}>
                       Revoke
                     </button>
@@ -191,7 +191,7 @@ const useStyles = makeStyles({
   subTable: {
     margin: "2rem auto 0 auto",
     padding: "0",
-    width: "90%",
+    width: "100%",
   },
   root: {
     "& .MuiTableCell-head": {
@@ -202,17 +202,29 @@ const useStyles = makeStyles({
   Link: {
     padding: "10px",
     borderRadius: "5px",
-    background: "#058A04",
-    color: "#fff",
+    background: "#e4ffe4",
+    color: "#058A04",
     pointer: "cursor",
+    height: "35px",
+    border: "none",
   },
   addApiDesc: {
     marginTop: "20px",
     paddingBottom: "80px",
     height: "calc(100vh - 315px)",
   },
-  button: {
-    background: "#E32C08",
-    color: "white",
+  unsubscribe: {
+    background: "#ffdfdf",
+    color: "#E32C08",
+    height: "35px",
+    border: "none",
+    pointer: "cursor",
+  },
+  revoke: {
+    background: "#e9e9e9",
+    color: "#505050",
+    height: "35px",
+    border: "none",
+    pointer: "cursor",
   },
 });

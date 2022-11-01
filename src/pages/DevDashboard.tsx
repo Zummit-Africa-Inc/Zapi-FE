@@ -7,34 +7,36 @@ import { getUserApis, getSubscribedApis } from "../redux/slices/userSlice";
 import { DevNavbar, DevAddApi } from "../components";
 import { getValidCategories } from "../redux/slices/apiSlice";
 
-const DevDashboard:React.FC = () => {
-    const { isLoggedIn } = useAppSelector(store => store.user)
-    const { trigger } = useContextProvider()
-    const dispatch = useAppDispatch()
+const DevDashboard: React.FC = () => {
+  const { isLoggedIn } = useAppSelector((store) => store.user);
+  const { trigger } = useContextProvider();
+  const dispatch = useAppDispatch();
 
-    const cookies = new Cookies()
-    const profileId = cookies.get("profileId")
-    const fetchValidCategories = useMemo(() => dispatch(getValidCategories()), []);
-    
+  const cookies = new Cookies();
+  const profileId = cookies.get("profileId");
+  const fetchValidCategories = useMemo(
+    () => dispatch(getValidCategories()),
+    []
+  );
 
-    useEffect(() => {
-        fetchValidCategories;
-      }, []);
+  useEffect(() => {
+    fetchValidCategories;
+  }, []);
 
-    useEffect(() => {
-        dispatch(getUserApis(`${profileId}`))
-    },[(isLoggedIn === true),trigger])
+  useEffect(() => {
+    dispatch(getUserApis(`${profileId}`));
+  }, [isLoggedIn === true, trigger]);
 
-    useEffect(() => {
-        dispatch(getSubscribedApis(`${profileId}`))
-    },[(isLoggedIn === true),trigger])
+  useEffect(() => {
+    dispatch(getSubscribedApis(`${profileId}`));
+  }, [isLoggedIn === true, trigger]);
 
-    return (
-        <>
-        <DevNavbar />
-        <DevAddApi />
-        </>
-    )
-}
+  return (
+    <>
+      <DevNavbar />
+      <DevAddApi />
+    </>
+  );
+};
 
-export default DevDashboard
+export default DevDashboard;

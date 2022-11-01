@@ -21,9 +21,9 @@ const APILayout: React.FC = () => {
     <div>
       {userApis.length !== 0 ? (
         <>
-          <div className={classes.apiCard}>
-            {_DATA.currentData().map((apis: any) => (
-              <DevAPICard key={apis.id} {...apis} />
+          <div className={classes.container}>
+            {_DATA.currentData().map((api: any) => (
+              <DevAPICard key={api.id} {...api} />
             ))}
           </div>
           <Pagination
@@ -50,7 +50,7 @@ const APILayout: React.FC = () => {
               textAlign: "center",
               marginTop: "116px",
             }}>
-            You do no have any API Projects
+            You do not have any API Projects
           </Typography>
           <Typography
             gutterBottom
@@ -68,7 +68,7 @@ const APILayout: React.FC = () => {
             Add a new API Project from scratch or use our “Project 1”
             <br />
             {""}
-            to explore API Projects features.
+            to explore API Project features.
           </Typography>
         </div>
       )}
@@ -79,20 +79,24 @@ const APILayout: React.FC = () => {
 export default APILayout;
 
 const useStyles = makeStyles({
+  container: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+    gap: "1rem",
+    minHeight: "70vh",
+  },
   body: {
-    left: "0rem",
-    right: "0rem",
     zIndex: 30,
     width: "100%",
     display: "flex",
     alignItems: "center",
     marginTop: "80px",
-    padding: "24px 112px",
+    padding: "24px 3rem",
     flexDirection: "row",
     justifyContent: "space-between",
     background: "white",
-    height: "100px",
     fontFamily: "Space Grotesk",
+
     "@media screen and (max-width: 1024px)": {
       padding: "1rem 2rem",
       display: "grid",
@@ -234,24 +238,11 @@ const useStyles = makeStyles({
     paddingBottom: "80px",
     height: "calc(100vh - 315px)",
   },
-  apiCard: {
-    // height: "calc(100vh - 315px)",
-    width: "100vw",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "left",
-    gap: "1.5rem",
-    flexWrap: "wrap",
-    paddingBottom: "100px",
-    "@media screen and (max-width: 1024px)": {
-      justifyContent: "center",
-      marginLeft: "-1.5em",
-    },
-  },
+
   pagination: {
     display: "flex",
     position: "relative",
-    bottom: "0",
     justifyContent: "center",
+    margin: "1rem 0",
   },
 });
