@@ -6137,6 +6137,14 @@ react-generate-context@1.0.1:
   resolved "https://registry.npmjs.org/react-generate-context/-/react-generate-context-1.0.1.tgz"
   integrity sha512-rOFGh3KgC2Ot66DmVCcT1p8lVJCmmCjzGE5WK/KsyDFi43wpIbW1PYcr04cQ3mbF4LaIkY6SpK7k1DOgwtpUXA==
 
+react-google-login@^5.2.2:
+  version "5.2.2"
+  resolved "https://registry.yarnpkg.com/react-google-login/-/react-google-login-5.2.2.tgz#a20b46440c6c1610175ef75baf427118ff0e9859"
+  integrity sha512-JUngfvaSMcOuV0lFff7+SzJ2qviuNMQdqlsDJkUM145xkGPVIfqWXq9Ui+2Dr6jdJWH5KYdynz9+4CzKjI5u6g==
+  dependencies:
+    "@types/react" "*"
+    prop-types "^15.6.0"
+
 react-hook-form@^7.34.0:
   version "7.37.0"
   resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.37.0.tgz"
