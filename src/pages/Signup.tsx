@@ -163,8 +163,9 @@ const Signup: React.FC = () => {
               {MATCH_CHECKER(password, confirm_password) ? (
                 <></>
               ) : (
-                <span className={classes.matchError}>
-                  Passwords do not match
+                <span>
+                  <Cancel sx={{ fontSize: 15, marginRight: 1 }} color="error" />{" "}
+                  Password does not match
                 </span>
               )}
             </div>
@@ -200,10 +201,11 @@ const Signup: React.FC = () => {
           </Stack> */}
           <Typography
             variant="body1"
-            fontSize="14px"
-            alignSelf="center"
+            fontSize="16px"
+            alignSelf="flex-start"
             textAlign="center"
-            mb={4}>
+            // mt={8}
+          >
             Already have an account?
             <span
               className={classes.link}
@@ -223,7 +225,7 @@ const useStyles = makeStyles({
     height: "100%",
     display: "grid",
     placeItems: "center",
-    background: "#fafafa",
+    background: "#FFF",
   },
   main: {
     display: "flex",
@@ -301,30 +303,19 @@ const useStyles = makeStyles({
     backgroundColor: "#081F4A",
     color: "#FFF",
     borderRadius: "4px",
-    border: "none",
+    border: "!px solid #000",
     fontSize: "16px",
     fontWeight: 400,
     lineHeight: "16px",
     cursor: "pointer",
-    margin: "10px 0",
+    margin: "1rem 0 2rem",
     padding: "0 1rem",
     "&:disabled": {
-      backgroundColor: "#c5c5c5",
+      backgroundColor: "#4B4B4B",
     },
-
-    "&:hover": {
-      background: "#b9d2ff",
-    },
-
     "@media screen and (max-width: 768px)": {
       width: "100%",
     },
-  },
-  matchError: {
-    fontSize: "13px",
-    display: "flex",
-    alignItems: "center",
-    color: "#ff2525",
   },
   subtitle: {
     maxWidth: "468px",
@@ -340,7 +331,6 @@ const useStyles = makeStyles({
     textDecoration: "underline",
     marginLeft: "0.5rem",
     cursor: "pointer",
-    color: "#0026ce",
   },
 });
 

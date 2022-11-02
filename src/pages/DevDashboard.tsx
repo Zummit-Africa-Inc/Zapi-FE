@@ -9,6 +9,7 @@ import { getValidCategories } from "../redux/slices/apiSlice";
 import ReactGA from "react-ga4";
 
 ReactGA.send({ hitType: "pageview", page: "/developer/dashboard" });
+
 const DevDashboard: React.FC = () => {
   const { isLoggedIn } = useAppSelector((store) => store.user);
   const { trigger } = useContextProvider();
