@@ -126,9 +126,22 @@ const GeneralTab: React.FC = () => {
       if (!data.success) return;
       dispatch(editAPI(payload));
       navigate("/developer/dashboard");
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
+  };
+
+  const handleDiscard = (e: any) => {
+    e.preventDefault();
+
+    setDescription(""),
+      setAbout(""),
+      setApi_website(""),
+      setTerm_of_use(""),
+      setBase_url(""),
+      setVisibility(""),
+      setCategoryId(""),
+      setRead_me("");
+
+    navigate("/developer/dashboard");
   };
 
   const handleDiscard = (e: any) => {
