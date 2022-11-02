@@ -1,44 +1,59 @@
 import React, { SyntheticEvent, useState, useEffect } from "react";
 import { Tab, Tabs, Button, Tooltip } from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
-import { Apps, Build, School, ChatBubble, Layers, Security, LibraryBooks, SportsFootball, AirplanemodeActive, AttachMoney, DataArray, ArrowBackIos, ArrowForwardIos, Science, MusicNote, FormatColorText, Cloud, Lightbulb } from "@mui/icons-material";
+import {
+  Apps,
+  Build,
+  School,
+  ChatBubble,
+  Layers,
+  Security,
+  LibraryBooks,
+  SportsFootball,
+  AirplanemodeActive,
+  AttachMoney,
+  DataArray,
+  ArrowBackIos,
+  ArrowForwardIos,
+  Science,
+  MusicNote,
+  FormatColorText,
+  Cloud,
+  Lightbulb,
+} from "@mui/icons-material";
 import { MdApps, MdBuild } from "react-icons/md";
 
 import APICard from "../components/APICard";
 import { useAppSelector } from "../hooks";
 import { TabPanel } from "../components";
 
+const APIHubTab: React.FC = ({}) => {
+  const classes = useStyles();
+  const [tab, setTab] = useState<number>(0);
+  const { apis, categories } = useAppSelector((store) => store.apis);
 
-const APIHubTab:React.FC = ({}) => {
-  const classes = useStyles()
-  const [tab, setTab] = useState<number>(0)
-  const { apis, categories } = useAppSelector(store => store.apis)
+  const handleTabChange = (e: SyntheticEvent, value: number) => setTab(value);
 
-  const handleTabChange = (e: SyntheticEvent, value: number) => setTab(value)
-
-  
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const [isSlide, setIsSlide] = useState<boolean>(true);
 
   const handleSideBarChange = () => {
-    if(isOpen) {
-      if(isSlide)
-        setIsOpen(false);
+    if (isOpen) {
+      if (isSlide) setIsOpen(false);
     } else {
-      if(isSlide)
-        setIsOpen(true);
+      if (isSlide) setIsOpen(true);
     }
   };
 
-    window.addEventListener("resize", () => {
-      if(window.innerWidth <= 580) {
-        setIsOpen(false);
-        setIsSlide(false);
-      } else {
-        setIsOpen(false);
-        setIsSlide(true);
-      }
-    })
+  window.addEventListener("resize", () => {
+    if (window.innerWidth <= 580) {
+      setIsOpen(false);
+      setIsSlide(false);
+    } else {
+      setIsOpen(false);
+      setIsSlide(true);
+    }
+  });
 
   let icons: any = {
     "Popular": <LibraryBooks />,
@@ -61,68 +76,84 @@ const APIHubTab:React.FC = ({}) => {
 
   return (
     <div className={classes.container}>
-    
       {isOpen ? (
-          <div className={classes.list}>
-            <StyledTabs orientation="vertical" value={tab} onChange={handleTabChange}>
-              {categories.map((category, index) => (
+        <div className={classes.list}>
+          <StyledTabs
+            orientation="vertical"
+            value={tab}
+            onChange={handleTabChange}>
+            {categories.map((category, index) => (
+              <StyledTab
+                key={index}
+                label={category.name}
+                iconPosition="start"
+                icon={icons[category.name]}
+              />
+            ))}
+
+            <StyledTab
+              label="All APIs"
+              iconPosition="start"
+              icon={icons["All APIs"]}
+            />
+          </StyledTabs>
+
+          <Tooltip title="Collapse" placement="right" arrow>
+            <Button id="collapseButton" onClick={handleSideBarChange}>
+              <ArrowBackIos
+                sx={{ color: "#081F4A", width: "18px", height: "auto" }}
+              />
+            </Button>
+          </Tooltip>
+        </div>
+      ) : (
+        <div
+          className={classes.list}
+          style={{ display: "flex", alignItems: "center", width: "auto" }}>
+          <StyledTabs
+            orientation="vertical"
+            value={tab}
+            onChange={handleTabChange}>
+            {categories.map((category, index) => (
+              <Tooltip title={category.name} placement="right" arrow>
                 <StyledTab
                   key={index}
-                  label={category.name}
                   iconPosition="start"
                   icon={icons[category.name]}
                 />
-              ))}
-
-              <StyledTab label="All APIs" iconPosition="start" icon={icons["All APIs"]} />
-              
-            </StyledTabs>
-            
-            <Tooltip title="Collapse" placement="right" arrow>
-              <Button id="collapseButton" onClick={handleSideBarChange}>
-                <ArrowBackIos sx={{ color: "#071B85", width: "18px", height: "auto" }} />
-              </Button>
-            </Tooltip>
-            
-          </div>
-        ) : (
-          <div className={classes.list} style={{ display: "flex", alignItems: "center", width: "auto", }}>
-            <StyledTabs orientation="vertical" value={tab} onChange={handleTabChange}>
-              {categories.map((category, index) => (
-                <Tooltip title={category.name} placement="right" arrow>
-                  <StyledTab
-                    key={index}
-                    iconPosition="start"
-                    icon={icons[category.name]}
-                  />
-                </Tooltip>  
-              ))}
-              
-              
-              <Tooltip title="All APIs" placement="right" arrow>
-                <StyledTab iconPosition="start" icon={<Apps />} />
               </Tooltip>
+            ))}
 
-            </StyledTabs>
-
-            <Tooltip title="Expand" placement="right" arrow>
-              {isSlide ? (
-                <Button id="expandButton" onClick={handleSideBarChange} sx={{width: "100%"}}>
-                  <ArrowForwardIos sx={{ marginLeft: "12px", color: "#071B85", width: "18px", height: "auto" }} />
-                </Button>
-
-                ) : (
-                  <></>
-                )
-
-              }
+            <Tooltip title="All APIs" placement="right" arrow>
+              <StyledTab iconPosition="start" icon={<Apps />} />
             </Tooltip>
-          </div>
-        )
+          </StyledTabs>
 
-      }
-    
-      <div className={classes.col} style={isOpen ? { width: "70%" } : { width: "89%" } }>
+          <Tooltip title="Expand" placement="right" arrow>
+            {isSlide ? (
+              <Button
+                id="expandButton"
+                onClick={handleSideBarChange}
+                sx={{ width: "100%" }}>
+                <ArrowForwardIos
+                  sx={{
+                    marginLeft: "12px",
+                    color: "#081F4A",
+                    width: "18px",
+                    height: "auto",
+                  }}
+                />
+              </Button>
+            ) : (
+              <></>
+            )}
+          </Tooltip>
+        </div>
+      )}
+
+      <div
+        className={classes.col}
+        style={isOpen ? { width: "70%" } : { width: "89%" }}>
         <div>
           {categories.map((category, index) => (
             <TabPanel key={index} value={tab} index={index}>
@@ -156,11 +187,9 @@ const APIHubTab:React.FC = ({}) => {
           </TabPanel>
         </div>
       </div>
-
-      
     </div>
-  )
-}
+  );
+};
 
 const StyledTabs = styled(Tabs)({
   width: "100%",
@@ -174,14 +203,14 @@ const StyledTabs = styled(Tabs)({
   "@media screen and (max-width: 400px)": {
     width: "50px",
   },
-})
+});
 
 const StyledTab = styled(Tab)({
   gap: "16px",
   "&.Mui-selected": {
     backgroundColor: "#DADDE4",
-    borderLeft: "2px solid #314298",
-    color: "#071B85",
+    borderLeft: "2px solid #081F4A",
+    color: "#081F4A",
     "& svg": {
       marginLeft: "-1px",
     },
@@ -196,7 +225,7 @@ const StyledTab = styled(Tab)({
     borderRadius: "0 8px 8px 0",
     paddingLeft: "40px",
     fontSize: "15px",
-    color: "#071B85",
+    color: "#081F4A",
     "@media screen and (max-width: 990px)": {
       fontSize: "13px",
     },
@@ -210,12 +239,11 @@ const StyledTab = styled(Tab)({
     },
     "@media screen and (max-width: 400px)": {
       justifyContent: "flex-start",
-      paddingLeft: "18px"
+      paddingLeft: "18px",
     },
-    
   },
   "& svg": {
-    color: "#071B85",
+    color: "#081F4A",
     width: "22px",
     height: "22px",
     "@media screen and (max-width: 990px)": {
@@ -230,8 +258,8 @@ const StyledTab = styled(Tab)({
       width: "16px",
       height: "16px",
     },
-  }
-})
+  },
+});
 
 const useStyles = makeStyles({
   container: {
@@ -242,20 +270,14 @@ const useStyles = makeStyles({
     "@media screen and (max-width: 1024px)": {
       margin: "0 0 109px 2rem",
     },
-    "@media screen and (max-width: 900px)": {
-      
-    },
+    "@media screen and (max-width: 900px)": {},
     "@media screen and (max-width: 820px)": {
       gap: "22px",
-      
     },
-    "@media screen and (max-width: 770px)": {
-
-    },
+    "@media screen and (max-width: 770px)": {},
     "@media screen and (max-width: 375px)": {
       margin: "0 0 50px 1rem",
-    }
-    
+    },
   },
   list: {
     width: "320px",
@@ -265,7 +287,7 @@ const useStyles = makeStyles({
     flexDirection: "column",
     alignItems: "flex-end",
     backgroundColor: "#fff",
-    paddingTop:"42px",
+    paddingTop: "42px",
     overflowY: "scroll",
     "@media screen and (max-width: 500px)": {
       width: "100%",
@@ -276,24 +298,20 @@ const useStyles = makeStyles({
     padding: "0 1rem 0 37px",
     width: "100%",
     height: "auto",
-    "@media screen and (max-width: 900px)": {
-
-    },
+    "@media screen and (max-width: 900px)": {},
     "@media screen and (max-width: 820px)": {
       padding: "0 1rem 0 22px",
-      
     },
     "@media screen and (max-width: 500px)": {
       border: "unset",
       padding: "0 1rem 0 0",
-      
     },
   },
   header: {
     display: "flex",
     flexDirection: "column",
     margin: "32px 0",
-    color: "#071B85",
+    color: "#081F4A",
     top: 0,
     left: 0,
     "& h2": {
@@ -326,9 +344,9 @@ const useStyles = makeStyles({
       gap: "0",
     },
     "@media screen and (max-width: 430px)": {
-      margin: "-20px"
+      margin: "-20px",
     },
-  }
-})
+  },
+});
 
-export default APIHubTab
+export default APIHubTab;

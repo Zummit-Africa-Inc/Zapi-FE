@@ -51,7 +51,8 @@ const ImageUpload: React.FC<IUploadProps> = ({ setImageFile }) => {
     <div className={classes.container}>
       {previewURL === null ? (
         <label className={classes.label}>
-          <p>Drag & drop or click to upload file</p>
+          <h5>Click or Drag and Drop image</h5>
+          <p>Max - 500kb</p>
           <i>.png, .jpg, .jpeg, .svg & .gif only.</i>
           {dragActive && <p>Drop files here</p>}
           <input
@@ -85,7 +86,9 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
     overflow: "hidden",
-    background: "#ccc",
+    borderRadius: "8px",
+    background: "#f7f7f7",
+    border: "2px dashed #e9e9e9",
   },
   label: {
     width: "100%",
@@ -96,7 +99,7 @@ const useStyles = makeStyles({
     justifyContent: "center",
     gap: "1rem",
     position: "relative",
-    fontSize: "0.75rem",
+    fontSize: "1rem",
     "& p": {
       width: "70%",
       textAlign: "center",
