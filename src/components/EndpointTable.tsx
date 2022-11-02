@@ -214,8 +214,8 @@ const CollapsibleTable: React.FC<Props> = ({ id }) => {
                   <StyledTableCell>
                     <div>
                       <Button
-                        variant="outlined"
-                        className={classes.btnNo}
+                        variant="contained"
+                        className={classes.btnDelete}
                         onClick={(e) => handleClickOpen(e, endpoint!.id)}>
                         Delete
                       </Button>
@@ -239,6 +239,7 @@ const CollapsibleTable: React.FC<Props> = ({ id }) => {
                             No
                           </Button>
                           <Button
+                            variant="contained"
                             className={classes.btnYes}
                             onClick={(e) => {
                               deleteEndpoint(e);
@@ -306,16 +307,23 @@ const useStyles = makeStyles({
       color: "#131212",
     },
   },
+  btnDelete: {
+    "&.MuiButton-root": {
+      backgroundColor: "red",
+      color: "#ffff",
+      border: "none",
+    },
+  },
   btnNo: {
     "&.MuiButton-root": {
-      backgroundColor: "#f50707",
+      backgroundColor: "var(--color-primary)",
       color: "#ffff",
       border: "none",
     },
   },
   btnYes: {
     "&.MuiButton-root": {
-      backgroundColor: "#07f52f",
+      backgroundColor: "var(--color-primary)",
       color: "#ffff",
       border: "none",
       onHover: "blue",
