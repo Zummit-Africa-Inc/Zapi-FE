@@ -143,7 +143,7 @@ const useStyles = makeStyles({
     width: "100%",
     display: "flex",
     alignItems: "center",
-    padding: "10px 3rem",
+    padding: "24px 112px",
     flexDirection: "row",
     justifyContent: "space-between",
     background: "#C4C4C4",
@@ -156,7 +156,7 @@ const useStyles = makeStyles({
       padding: "1rem",
     },
     "@media screen and (max-width: 375px)": {
-      padding: "5px 1rem",
+      padding: "0",
     },
   },
   logo: {
