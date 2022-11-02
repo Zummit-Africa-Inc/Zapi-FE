@@ -10,8 +10,9 @@ import { useContextProvider } from "../contexts/ContextProvider";
 import { useFormInputs, useHttpRequest } from "../hooks";
 import { Fallback, PasswordStrengthMeter } from "../components";
 import { HomeNavbar } from "../sections";
-import { GoogleIcon } from "../assets";
-import { useGoogleLogin } from "@react-oauth/google";
+// import { GoogleIcon } from "../assets";
+// import { useGoogleLogin } from "@react-oauth/google";
+import ReactGA from "react-ga4";
 
 const initialState = {
   fullName: "",
@@ -34,6 +35,8 @@ const Signup: React.FC = () => {
     !terms ||
     !PASSWORD_REGEX.test(password) ||
     !MATCH_CHECKER(password, confirm_password);
+
+  ReactGA.send({ hitType: "pageview", page: "/signup" });
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -70,19 +73,19 @@ const Signup: React.FC = () => {
     } catch (error) {}
   };
 
-  const googleAuth = useGoogleLogin({
-    flow: "auth-code",
-    onSuccess: async (response) => {
-      console.log(response);
-      // const token = await sendRequest('/endpoint/googleauth', url, "post", response.code, headers)
-      // console.log(token)
-      toast.success("Login Successful!");
-    },
-    onError: (errorResponse) => {
-      console.log(errorResponse);
-      toast.error("Login Failed, try to login with your email.");
-    },
-  });
+  // const googleAuth = useGoogleLogin({
+  //   flow: "auth-code",
+  //   onSuccess: async (response) => {
+  //     console.log(response);
+  // const token = await sendRequest('/endpoint/googleauth', url, "post", response.code, headers)
+  // console.log(token)
+  //     toast.success("Login Successful!");
+  //   },
+  //   onError: (errorResponse) => {
+  //     console.log(errorResponse);
+  //     toast.error("Login Failed, try to login with your email.");
+  //   },
+  // });
 
   useEffect(() => {
     {

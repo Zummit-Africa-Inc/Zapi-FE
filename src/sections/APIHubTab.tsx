@@ -56,23 +56,23 @@ const APIHubTab: React.FC = ({}) => {
   });
 
   let icons: any = {
-    "Popular APIs": <LibraryBooks />,
-    "Safety APIs": <Layers />,
-    "Security APIs": <Security />,
-    "Customer Service APIs": <ChatBubble />,
-    "General APIs": <Lightbulb />,
-    sports: <SportsFootball />,
-    travel: <AirplanemodeActive />,
-    finance: <AttachMoney />,
-    educational: <School />,
-    data: <DataArray />,
-    science: <Science />,
-    music: <MusicNote />,
-    tools: <Build />,
-    "text analysis": <FormatColorText />,
-    weather: <Cloud />,
-    "All APIs": <Apps />,
-  };
+    "Popular": <LibraryBooks />,
+    "Safety": <Layers/>,
+    "Security": <Security/>,
+    "Customer Service": <ChatBubble/>,
+    "General": <Lightbulb/>,
+    "Sports": <SportsFootball/>,
+    "Travel": <AirplanemodeActive/>,
+    "Finance": <AttachMoney/>,
+    "Educational": <School/>,
+    "Data": <DataArray/>,
+    "Science": <Science/>,
+    "Music": <MusicNote/>,
+    "Tools": <Build/>,
+    "Text analysis": <FormatColorText/>,
+    "Weather": <Cloud/>,
+    "All APIs": <Apps/>,
+  }
 
   return (
     <div className={classes.container}>

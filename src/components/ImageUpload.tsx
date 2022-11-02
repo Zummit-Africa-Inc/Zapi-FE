@@ -53,7 +53,7 @@ const ImageUpload: React.FC<IUploadProps> = ({ setImageFile }) => {
         <label className={classes.label}>
           <h5>Click or Drag and Drop image</h5>
           <p>Max - 500kb</p>
-
+          <i>.png, .jpg, .jpeg, .svg & .gif only.</i>
           {dragActive && <p>Drop files here</p>}
           <input
             type="file"

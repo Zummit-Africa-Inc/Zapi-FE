@@ -1,18 +1,18 @@
-import React from 'react'
+import React from "react";
 
-import { HomeNavbar, ComingSoon, Footer } from '../sections'
+import { HomeNavbar, ComingSoon, Footer } from "../sections";
+import ReactGA from "react-ga4";
 
+const Pricing: React.FC = () => {
+  ReactGA.send({ hitType: "pageview", page: "/pricing" });
 
-const Pricing:React.FC = () => {
-
-    return (
-        <>
-            <HomeNavbar />
-            <ComingSoon />
-            <Footer />
-        </>
-    )
-}
-
+  return (
+    <>
+      <HomeNavbar />
+      <ComingSoon />
+      <Footer />
+    </>
+  );
+};
 
 export default Pricing;

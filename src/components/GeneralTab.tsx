@@ -21,6 +21,7 @@ import {
   Switch,
   SelectChangeEvent,
   Paper,
+  Button,
 } from "@mui/material";
 import Cookies from "universal-cookie";
 
@@ -33,13 +34,15 @@ import {
 import ImageUpload from "./ImageUpload";
 import { editAPI } from "../redux/slices/userSlice";
 import { Spinner } from "../assets";
+import axios from "axios";
 
 enum APIVisibility {
   PRIVATE = "private",
   PUBLIC = "public",
 }
 
-const core_url = "VITE_CORE_URL";
+// const core_url = "VITE_CORE_URL";
+const core_url = import.meta.env.VITE_CORE_URL;
 
 const GeneralTab: React.FC = () => {
   const [description, setDescription] = useState<String>("");
@@ -55,7 +58,8 @@ const GeneralTab: React.FC = () => {
   const cookies = new Cookies();
   const profileId = cookies.get("profileId");
   const classes = useStyles();
-  const [image, setImage] = useState(null);
+  // const [img, setImg] = useState(null);
+  // const [image, setImage] = useState<any>("");
   const { userApis } = useAppSelector((store) => store.user);
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -127,6 +131,21 @@ const GeneralTab: React.FC = () => {
     }
   };
 
+  const handleDiscard = (e: any) => {
+    e.preventDefault();
+
+    setDescription(""),
+      setAbout(""),
+      setApi_website(""),
+      setTerm_of_use(""),
+      setBase_url(""),
+      setVisibility(""),
+      setCategoryId(""),
+      setRead_me("");
+
+    navigate("/developer/dashboard");
+  };
+
   return (
     <>
       <Paper elevation={1} className={classes.paper}>
@@ -135,10 +154,6 @@ const GeneralTab: React.FC = () => {
             General Information
           </Typography>
           <form>
-            <Box sx={{ width: "200px", height: "200px", margin: "0.5rem 0" }}>
-              <ImageUpload setImageFile={() => setImage} />
-              {/* <Typography variant="body1" fontSize="14px" mt={2}>Maximum Size: 500 x 500px, JPEG / PNG</Typography> */}
-            </Box>
             <Box mt={2}>
               <InputLabel htmlFor="category" id="category">
                 Category
@@ -316,7 +331,9 @@ const GeneralTab: React.FC = () => {
                   className={classes.saveBtn}>
                   {loading ? <Spinner /> : "Save"}
                 </button>
-                <button className={classes.discardBtn}>Discard</button>
+                <button className={classes.discardBtn} onClick={handleDiscard}>
+                  Discard
+                </button>
               </Stack>
             </Box>
           </form>
@@ -360,6 +377,9 @@ const useStyles = makeStyles({
     "&:hover": {
       backgroundColor: "rgba(0, 0, 0, 0.05)",
     },
+  },
+  imagePreview: {
+    height: "150px",
   },
   saveBtn: {
     padding: "15px 25px",

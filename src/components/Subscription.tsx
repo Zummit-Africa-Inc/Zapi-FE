@@ -21,6 +21,7 @@ import { SyntheticEvent, useState } from "react";
 import Cookies from "universal-cookie";
 import { useContextProvider } from "../contexts/ContextProvider";
 import { toast } from "react-toastify";
+import ReactGA from "react-ga4";
 
 const core_url = "VITE_CORE_URL";
 
@@ -53,6 +54,8 @@ const Subscription: React.FC = () => {
   const dispatch = useAppDispatch();
   const profileId = cookies.get("profileId");
   const { triggerRefresh } = useContextProvider();
+
+  ReactGA.send({ hitType: "pageview", page: "/subscriptionTab" });
 
   const revoke = async (e: SyntheticEvent, apiId: string) => {
     e.preventDefault();

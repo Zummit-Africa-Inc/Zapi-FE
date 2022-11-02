@@ -12,7 +12,9 @@ import { login } from "../redux/slices/userSlice";
 import { Fallback } from "../components";
 import { GoogleIcon } from "../assets";
 import { showModal } from "../redux/slices/modalSlice";
-import { useGoogleLogin } from "@react-oauth/google";
+import ReactGA from "react-ga4";
+
+ReactGA.send({ hitType: "pageview", page: "/login" });
 
 const initialState = { email: "", password: "" };
 // const url = import.meta.env.VITE_IDENTITY_URL;
@@ -27,11 +29,11 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
   const classes = useStyles();
   const cookies = new Cookies();
+
   const headers = { "Content-Type": "application/json" };
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const { email, password } = inputs;
     if (!email || !EMAIL_REGEX.test(email))
       return toast.error("Invalid email address");
@@ -77,53 +79,33 @@ const Login: React.FC = () => {
     } catch (error) {}
   };
 
-  const googleAuth = useGoogleLogin({
-    flow: "auth-code",
-    onSuccess: async (response) => {
-      const payload = {
-        token: response.code,
-        userInfo: {
-          login_time: deviceLocation.time,
-          country: { lat: deviceLocation.lat, lon: deviceLocation.lon },
-          deviceIP,
-          browser_name: deviceInfo.browserName,
-          os_name: deviceInfo.osName,
-        },
-      };
-      console.log("reponse from google", response);
-      const data = await sendRequest(
-        "/auth/google",
-        "post",
-        url,
-        payload,
-        headers
-      );
-      console.log("reponse from BE", data);
-      toast.success("Login Successful!");
-      if (!data || data === undefined) return;
-      const { access, email, fullName, profileId, refresh, userId, secretKey } =
-        data.data;
-      const user = { email, fullName, profileId, secretKey };
-      dispatch(login(user));
-      cookies.set("accessToken", access);
-      cookies.set("refreshToken", refresh);
-      cookies.set("profileId", profileId);
-      cookies.set("userId", userId);
-      cookies.set("secretKey", secretKey);
-      handleUnclicked("login");
-      dispatch(
-        showModal({
-          action: "hide",
-          type: "loginModal",
-        })
-      );
-      navigate("/developer/dashboard");
-    },
-    onError: (errorResponse) => {
-      console.log(errorResponse);
-      toast.error("Login Failed, try to login with your email.");
-    },
-  });
+  // const googleAuth = GoogleLogin({
+  //   flow: "auth-code",
+  //   onSuccess: async (response) => {
+  //     console.log(response);
+  //     const payload = {
+  // token: response.code,
+  // login_time: deviceLocation.time,
+  // country: { lat: deviceLocation.lat, lon: deviceLocation.lon },
+  // deviceIP,
+  // browser_name: deviceInfo.browserName,
+  // os_name: deviceInfo.osName,
+  //     };
+  //     const token = await sendRequest(
+  //       "/auth/google",
+  //       "post",
+  //       url,
+  //       payload,
+  //       headers
+  //     );
+  //     console.log(token);
+  //     toast.success("Login Successful!");
+  //   },
+  //   onError={() => {
+  //     console.log(errorResponse);
+  //     toast.error("Login Failed, try to login with your email.");
+  //   }},
+  // });
 
   useEffect(() => {
     {
@@ -180,7 +162,7 @@ const Login: React.FC = () => {
             </button>
           </form>
 
-          <Typography>OR</Typography>
+          {/* <Typography>OR</Typography>
           <Stack direction="column" alignItems="center" spacing={2}>
             <button
               type="button"
