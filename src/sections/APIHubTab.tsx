@@ -1,35 +1,67 @@
-import React, { SyntheticEvent, useState, useEffect } from "react";
+import React, { SyntheticEvent, useState, useEffect,FormEvent } from "react";
 import { Tab, Tabs, Button, Tooltip } from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
 import { Apps, Build, School, ChatBubble, Layers, Security, LibraryBooks, SportsFootball, AirplanemodeActive, AttachMoney, DataArray, ArrowBackIos, ArrowForwardIos, Science, MusicNote, FormatColorText, Cloud, Lightbulb } from "@mui/icons-material";
 import { MdApps, MdBuild } from "react-icons/md";
 
 import APICard from "../components/APICard";
-import { useAppSelector } from "../hooks";
-import { TabPanel } from "../components";
+import { useAppDispatch,useAppSelector,useHttpRequest } from "../hooks";
+import { ApiHubTabPanel } from "../components";
 
 
-const APIHubTab:React.FC = ({}) => {
+interface Props {
+  categoryId:string
+}
+
+const APIHubTab:React.FC<Props> = () => {
   const classes = useStyles()
   const [tab, setTab] = useState<number>(0)
+  const [categoryId, setCategoryId] = useState<string>("")
+  const [categoryAPIS, setCategoryAPIS] = useState<Array<any>>([])
+  // const [categoryId, setCategoryId] = useState<String>("");
+  const dispatch = useAppDispatch();
   const { apis, categories } = useAppSelector(store => store.apis)
+  const { error, loading, sendRequest } = useHttpRequest();
+  const core_url = import.meta.env.VITE_CORE_URL;
 
-  const handleTabChange = (e: SyntheticEvent, value: number) => setTab(value)
-
+  
   
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const [isSlide, setIsSlide] = useState<boolean>(true);
-
+  const payload = {}
   const handleSideBarChange = () => {
     if(isOpen) {
       if(isSlide)
         setIsOpen(false);
     } else {
       if(isSlide)
-        setIsOpen(true);
+      setIsOpen(true);
     }
   };
 
+  const handleSelector = async (e: FormEvent) => {
+    categories.map(category => category.categoryId);
+    e.preventDefault();
+    const headers = {
+      "Content-Type": "application/json",
+    };
+    try {
+      const data = await sendRequest(
+        `/categories/${categoryId}/apis`,
+        "get",
+        core_url,
+        payload,
+        headers
+        );
+        if (!data.success) return;
+        // dispatch(editAPI(payload));
+        // navigate("/developer/dashboard");
+      } catch (error) {}
+    }
+    
+    const handleTabChange = (e: SyntheticEvent, value: number) => { 
+      setTab(value)
+    }
     window.addEventListener("resize", () => {
       if(window.innerWidth <= 580) {
         setIsOpen(false);
@@ -94,7 +126,7 @@ const APIHubTab:React.FC = ({}) => {
                     key={index}
                     iconPosition="start"
                     icon={icons[category.name]}
-                  />
+                    />
                 </Tooltip>  
               ))}
               
@@ -125,7 +157,7 @@ const APIHubTab:React.FC = ({}) => {
       <div className={classes.col} style={isOpen ? { width: "70%" } : { width: "89%" } }>
         <div>
           {categories.map((category, index) => (
-            <TabPanel key={index} value={tab} index={index}>
+            <ApiHubTabPanel key={index} value={tab} index={index} categoryId={category.id}>
               <>
                 <div className={classes.header}>
                   <h2>{category.name}</h2>
@@ -133,15 +165,15 @@ const APIHubTab:React.FC = ({}) => {
                 </div>
                 <div className={classes.grid}>
                   {apis
-                    .filter((api) => api.categoryId === category.id)
+                    
                     .map((api) => (
                       <APICard key={api.id} {...api} />
                     ))}
                 </div>
               </>
-            </TabPanel>
+            </ApiHubTabPanel>
           ))}
-          <TabPanel value={tab} index={categories.length}>
+          <ApiHubTabPanel categoryId={categoryId} value={tab} index={categories.length}>
             <>
               <div className={classes.header}>
                 <h2>All APIs</h2>
@@ -153,7 +185,7 @@ const APIHubTab:React.FC = ({}) => {
                 ))}
               </div>
             </>
-          </TabPanel>
+          </ApiHubTabPanel>
         </div>
       </div>
 
