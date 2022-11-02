@@ -1,24 +1,22 @@
-import React, { SyntheticEvent, useState, useEffect } from "react";
+import React, { SyntheticEvent, useState } from "react";
 import { Tab, Tabs, Button, Tooltip } from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
 import { Apps, Build, School, ChatBubble, Layers, Security, LibraryBooks, SportsFootball, AirplanemodeActive, AttachMoney, DataArray, ArrowBackIos, ArrowForwardIos, Science, MusicNote, FormatColorText, Cloud, Lightbulb } from "@mui/icons-material";
-import { MdApps, MdBuild } from "react-icons/md";
 
+import APITabPanel from "../components/APITabpanel";
 import APICard from "../components/APICard";
 import { useAppSelector } from "../hooks";
 import { TabPanel } from "../components";
 
-
 const APIHubTab:React.FC = ({}) => {
-  const classes = useStyles()
-  const [tab, setTab] = useState<number>(0)
-  const { apis, categories } = useAppSelector(store => store.apis)
-
-  const handleTabChange = (e: SyntheticEvent, value: number) => setTab(value)
-
-  
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const { apis, categories } = useAppSelector(store => store.apis);
   const [isSlide, setIsSlide] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [tab, setTab] = useState<number>(0);
+  const classes = useStyles();
+  const [categoryId, setCategoryId] = useState<string>("")
+
+  const handleTabChange = (e: SyntheticEvent, value: number) => setTab(value);
 
   const handleSideBarChange = () => {
     if(isOpen) {
@@ -61,48 +59,31 @@ const APIHubTab:React.FC = ({}) => {
 
   return (
     <div className={classes.container}>
-    
       {isOpen ? (
           <div className={classes.list}>
             <StyledTabs orientation="vertical" value={tab} onChange={handleTabChange}>
               {categories.map((category, index) => (
-                <StyledTab
-                  key={index}
-                  label={category.name}
-                  iconPosition="start"
-                  icon={icons[category.name]}
-                />
+                <StyledTab key={index} label={category.name} iconPosition="start" icon={icons[category.name]} onClick={() => setCategoryId(category.id)} />
               ))}
-
               <StyledTab label="All APIs" iconPosition="start" icon={icons["All APIs"]} />
-              
             </StyledTabs>
-            
             <Tooltip title="Collapse" placement="right" arrow>
               <Button id="collapseButton" onClick={handleSideBarChange}>
                 <ArrowBackIos sx={{ color: "#071B85", width: "18px", height: "auto" }} />
               </Button>
             </Tooltip>
-            
           </div>
         ) : (
           <div className={classes.list} style={{ display: "flex", alignItems: "center", width: "auto", }}>
             <StyledTabs orientation="vertical" value={tab} onChange={handleTabChange}>
               {categories.map((category, index) => (
-                <Tooltip title={category.name} placement="right" arrow>
-                  <StyledTab
-                    key={index}
-                    iconPosition="start"
-                    icon={icons[category.name]}
-                  />
+                <Tooltip key={index} title={category.name} placement="right" arrow>
+                  <StyledTab iconPosition="start" icon={icons[category.name]} />
                 </Tooltip>  
               ))}
-              
-              
               <Tooltip title="All APIs" placement="right" arrow>
                 <StyledTab iconPosition="start" icon={<Apps />} />
               </Tooltip>
-
             </StyledTabs>
 
             <Tooltip title="Expand" placement="right" arrow>
@@ -110,36 +91,16 @@ const APIHubTab:React.FC = ({}) => {
                 <Button id="expandButton" onClick={handleSideBarChange} sx={{width: "100%"}}>
                   <ArrowForwardIos sx={{ marginLeft: "12px", color: "#071B85", width: "18px", height: "auto" }} />
                 </Button>
-
                 ) : (
                   <></>
-                )
-
-              }
+                )}
             </Tooltip>
           </div>
-        )
-
-      }
-    
+        )}
       <div className={classes.col} style={isOpen ? { width: "70%" } : { width: "89%" } }>
         <div>
           {categories.map((category, index) => (
-            <TabPanel key={index} value={tab} index={index}>
-              <>
-                <div className={classes.header}>
-                  <h2>{category.name}</h2>
-                  <p>{category.description}</p>
-                </div>
-                <div className={classes.grid}>
-                  {apis
-                    .filter((api) => api.categoryId === category.id)
-                    .map((api) => (
-                      <APICard key={api.id} {...api} />
-                    ))}
-                </div>
-              </>
-            </TabPanel>
+            <APITabPanel value={tab} index={index} categoryId={categoryId} />
           ))}
           <TabPanel value={tab} index={categories.length}>
             <>
@@ -156,8 +117,6 @@ const APIHubTab:React.FC = ({}) => {
           </TabPanel>
         </div>
       </div>
-
-      
     </div>
   )
 }

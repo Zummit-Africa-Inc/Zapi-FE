@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { makeStyles } from "@mui/styles";
+import Cookies from "universal-cookie";
 
 import { useAppSelector, useHttpRequest } from "../hooks";
 import { APIType } from "../types";
@@ -14,23 +15,23 @@ interface Props {
 }
 
 const APITabPanel:React.FC<Props> = ({value, index, categoryId}) => {
-    // const [apis, setApis] = useState<Array<APIType | null>>([]);
-    const { error, loading, sendRequest } = useHttpRequest();
-    const classes = useStyles();
-    const { apis, categories } = useAppSelector(store => store.apis);
+    const { categories } = useAppSelector(store => store.apis);
     const category = categories.find(category => category.id === categoryId);
-    const api = apis.filter(api => api.categoryId === categoryId);
+    const { error, loading, sendRequest } = useHttpRequest();
+    const [apis, setApis] = useState<Array<APIType>>([]);
+    const cookies = new Cookies();
+    const classes = useStyles();
 
     const getApisByCategory = useCallback(async(categoryId: string) => {
-        const headers = { 'Content-Type': "application/json" }
+        const headers = {
+            'Content-Type': "application/json",
+            'X-Zapi-Auth-Token': `Bearer ${cookies.get("accessToken")}`
+        }
         try {
             const data = await sendRequest(`/categories/${categoryId}/apis`, "get", "VITE_CORE_URL", undefined, headers)
             if(!data || data === undefined) return
             console.log(data)
         } catch (error) {}
-    },[])
-    
-    useEffect(() => {
     },[])
     
     return (
@@ -47,7 +48,7 @@ const APITabPanel:React.FC<Props> = ({value, index, categoryId}) => {
                         <p>{category?.description}</p>
                     </div>
                     <div className={classes.grid}>
-                        {api.map((api) => <APICard key={api.id} {...api} />)}
+                        {apis.map((api) => <APICard key={api.id} {...api} />)}
                     </div>
                     </>
                 )}
