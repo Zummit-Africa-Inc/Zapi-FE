@@ -128,9 +128,7 @@ const Hero: React.FC = () => {
               fontSize: ".9rem",
             },
           }}>
-          Z-API allows you to harness the power of AI on your applications
-          without stress. Use powerful AI APIs developed by genius machine
-          learning engineers
+           Z-API allows you to harness the power of AI on your applications without stress. Use powerful AI APIs developed by machine learning engineers all over the world 
         </Typography>
       </div>
 

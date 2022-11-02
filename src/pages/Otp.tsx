@@ -10,6 +10,7 @@ import { Login } from "../components";
 
 import { useHttpRequest } from "../hooks";
 import { Fallback, Navbar } from "../components";
+import ReactGA from "react-ga4";
 
 // const url = import.meta.env.VITE_IDENTITY_URL
 const url = "VITE_IDENTITY_URL";
@@ -24,6 +25,9 @@ const Otp: React.FC = () => {
   const modalType = useAppSelector((state) => state.modal.type);
   const modalDemo = useAppSelector((state) => state);
   const handleChange = (code: React.SetStateAction<string>) => setCode(code);
+
+  ReactGA.send({ hitType: "pageview", page: "/otp" });
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!code) return toast.error("Please enter the OTP");

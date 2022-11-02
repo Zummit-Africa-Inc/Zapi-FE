@@ -12,7 +12,9 @@ import { login } from "../redux/slices/userSlice";
 import { Fallback } from "../components";
 import { GoogleIcon } from "../assets";
 import { showModal } from "../redux/slices/modalSlice";
-import { useGoogleLogin } from "@react-oauth/google";
+import ReactGA from "react-ga4";
+
+ReactGA.send({ hitType: "pageview", page: "/login" });
 
 const initialState = { email: "", password: "" };
 // const url = import.meta.env.VITE_IDENTITY_URL;
@@ -28,15 +30,15 @@ const Login: React.FC = () => {
   const classes = useStyles();
   const cookies = new Cookies();
 
+  const headers = { "Content-Type": "application/json" };
+
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const { email, password } = inputs;
     if (!email || !EMAIL_REGEX.test(email))
       return toast.error("Invalid email address");
     if (!password || !PASSWORD_REGEX.test(password))
       return toast.error("Invalid password");
-    const headers = { "Content-Type": "application/json" };
     const payload = {
       email,
       password,
@@ -77,19 +79,33 @@ const Login: React.FC = () => {
     } catch (error) {}
   };
 
-  const googleAuth = useGoogleLogin({
-    flow: "auth-code",
-    onSuccess: async (response) => {
-      console.log(response);
-      // const token = await sendRequest('/endpoint/googleauth', url, "post", response.code, headers)
-      // console.log(token)
-      toast.success("Login Successful!");
-    },
-    onError: (errorResponse) => {
-      console.log(errorResponse);
-      toast.error("Login Failed, try to login with your email.");
-    },
-  });
+  // const googleAuth = GoogleLogin({
+  //   flow: "auth-code",
+  //   onSuccess: async (response) => {
+  //     console.log(response);
+  //     const payload = {
+  // token: response.code,
+  // login_time: deviceLocation.time,
+  // country: { lat: deviceLocation.lat, lon: deviceLocation.lon },
+  // deviceIP,
+  // browser_name: deviceInfo.browserName,
+  // os_name: deviceInfo.osName,
+  //     };
+  //     const token = await sendRequest(
+  //       "/auth/google",
+  //       "post",
+  //       url,
+  //       payload,
+  //       headers
+  //     );
+  //     console.log(token);
+  //     toast.success("Login Successful!");
+  //   },
+  //   onError={() => {
+  //     console.log(errorResponse);
+  //     toast.error("Login Failed, try to login with your email.");
+  //   }},
+  // });
 
   useEffect(() => {
     {
@@ -150,18 +166,18 @@ const Login: React.FC = () => {
             </button>
           </form>
 
-          <Typography>OR</Typography>
+          {/* <Typography>OR</Typography>
           <Stack direction="column" alignItems="center" spacing={2}>
-            <button
-              type="button"
-              className={classes.button}
-              onClick={() => googleAuth()}>
-              <span style={{ marginRight: "1rem" }}>
-                <GoogleIcon />
-              </span>
-              Signin with Google
-            </button>
-          </Stack>
+            <GoogleLogin
+              onSuccess={(credentialResponse) => {
+                console.log(credentialResponse);
+              }}
+              onError={() => {
+                console.log("Login Failed");
+              }}
+            />
+            ;
+          </Stack> */}
           <Typography variant="body1" fontSize="16px" alignSelf="flex-start">
             Dont't have an account?
             <Link
