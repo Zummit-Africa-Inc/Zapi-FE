@@ -174,6 +174,7 @@ const Login: React.FC = () => {
               Sign in with Google
             </button>
           </Stack>
+  */}
           <Typography variant="body1" fontSize="14px" alignSelf="center">
             Dont't have an account?
             <Link

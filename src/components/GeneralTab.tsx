@@ -42,7 +42,6 @@ enum APIVisibility {
 }
 
 const core_url = "VITE_CORE_URL";
-// const core_url = import.meta.env.VITE_CORE_URL;
 
 const GeneralTab: React.FC = () => {
   const [description, setDescription] = useState<String>("");
@@ -112,7 +111,6 @@ const GeneralTab: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log(payload);
     const headers = {
       "Content-Type": "application/json",
     };

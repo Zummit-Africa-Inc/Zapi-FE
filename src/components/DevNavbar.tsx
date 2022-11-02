@@ -62,12 +62,12 @@ const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
   return (
     <>
       <div className={classes.NavBar}>
-        <div className={classes.logo}>
-          <Link to="/">
+        <Link to="/">
+          <div className={classes.logo}>
             <img src={ZapiDevLogo} alt="Zapi-dev" />
-          </Link>
-          <span className={classes.zapi}>Z-API</span>
-        </div>
+            <span className={classes.zapi}>Z-API</span>
+          </div>
+        </Link>
 
         <div className={classes.widget}>
           <Link to="/developer/dashboard" className={classes.api}>
