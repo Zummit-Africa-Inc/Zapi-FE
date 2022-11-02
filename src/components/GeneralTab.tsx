@@ -243,7 +243,7 @@ const GeneralTab: React.FC = () => {
               <Box
                 sx={{
                   padding: "30px",
-                  border: "1px solid #d4d4d4",
+                  border: "1px solid black",
                   marginBottom: "20px",
                 }}>
                 <Stack direction="row" spacing={2}>
@@ -284,7 +284,7 @@ const GeneralTab: React.FC = () => {
                   </Box>
                 </Stack>
               </Box>
-              <Box sx={{ padding: "30px", border: "1px solid #d4d4d4" }}>
+              <Box sx={{ padding: "30px", border: "1px solid black" }}>
                 <Typography variant="body1" fontSize="18px" fontWeight={600}>
                   Base URL
                 </Typography>
@@ -383,14 +383,14 @@ const useStyles = makeStyles({
   },
   saveBtn: {
     padding: "15px 25px",
-    backgroundColor: "#082c5e",
+    backgroundColor: "rgb(74, 149, 237)",
     color: "white",
     borderRadius: "5px",
     outline: "none",
     border: "none",
     cursor: "pointer",
     "&:hover": {
-      backgroundColor: "#1da5ff",
+      backgroundColor: "#333",
     },
     "&:disabled": {
       backgroundColor: "rgb(214, 217, 219)",
