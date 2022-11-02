@@ -62,12 +62,12 @@ const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
   return (
     <>
       <div className={classes.NavBar}>
-        <div className={classes.logo}>
-          <Link to="/">
+        <Link to="/">
+          <div className={classes.logo}>
             <img src={ZapiDevLogo} alt="Zapi-dev" />
-          </Link>
-          <span className={classes.zapi}>Z-API</span>
-        </div>
+            <span className={classes.zapi}>Z-API</span>
+          </div>
+        </Link>
 
         <div className={classes.widget}>
           <Link to="/developer/dashboard" className={classes.api}>
@@ -143,7 +143,7 @@ const useStyles = makeStyles({
     width: "100%",
     display: "flex",
     alignItems: "center",
-    padding: "10px 3rem",
+    padding: "24px 112px",
     flexDirection: "row",
     justifyContent: "space-between",
     background: "#C4C4C4",
@@ -156,7 +156,7 @@ const useStyles = makeStyles({
       padding: "1rem",
     },
     "@media screen and (max-width: 375px)": {
-      padding: "5px 1rem",
+      padding: "0",
     },
   },
   logo: {
