@@ -157,28 +157,24 @@ const Login: React.FC = () => {
                 Reset it here.
               </Link>
             </Typography>
-            <button
-              type="submit"
-              className={classes.button}
-              style={{ background: "#4B4B4B", color: "#FFF" }}
-              disabled={loading}>
+            <button type="submit" className={classes.button} disabled={loading}>
               {loading ? "loading" : "Sign In"}
             </button>
           </form>
 
           {/* <Typography>OR</Typography>
           <Stack direction="column" alignItems="center" spacing={2}>
-            <GoogleLogin
-              onSuccess={(credentialResponse) => {
-                console.log(credentialResponse);
-              }}
-              onError={() => {
-                console.log("Login Failed");
-              }}
-            />
-            ;
-          </Stack> */}
-          <Typography variant="body1" fontSize="16px" alignSelf="flex-start">
+            <button
+              type="button"
+              className={classes.button}
+              onClick={() => googleAuth()}>
+              <span style={{ marginRight: "1rem" }}>
+                <GoogleIcon />
+              </span>
+              Sign in with Google
+            </button>
+          </Stack>
+          <Typography variant="body1" fontSize="14px" alignSelf="center">
             Dont't have an account?
             <Link
               to="/signup"
@@ -215,7 +211,8 @@ const useStyles = makeStyles({
     alignItems: "center",
     background: "#FFF",
     padding: "1rem 2rem",
-    boxShadow: "2px 2px 7px 3px #CECECE",
+    borderRadius: "10px",
+    border: "2px solid #ececec",
   },
   form: {
     width: "100%",
@@ -257,7 +254,7 @@ const useStyles = makeStyles({
     height: "52px",
     display: "flex",
     flexDirection: "row",
-    background: "#FFF",
+    background: "#c5c5c5",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: "4px",
@@ -265,9 +262,15 @@ const useStyles = makeStyles({
     fontWeight: 600,
     lineHeight: "16px",
     cursor: "pointer",
-    margin: "1rem 0 2rem",
+    margin: "1rem 0",
     padding: "0 1rem",
+    border: "none",
     color: "#081F4A",
+
+    "&:hover": {
+      background: "#b9d2ff",
+    },
+
     "@media screen and (max-width: 768px)": {
       width: "100%",
     },
@@ -285,6 +288,7 @@ const useStyles = makeStyles({
   link: {
     textDecoration: "underline",
     marginLeft: "0.5rem",
+    color: "#081F4A",
   },
 });
 

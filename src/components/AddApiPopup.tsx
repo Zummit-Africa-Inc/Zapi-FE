@@ -266,12 +266,16 @@ const useStyles = makeStyles({
     padding: "8px 16px",
     gap: "16px",
     fontFamily: "inherit",
-    height: "46px",
+    height: "35px",
     cursor: "pointer",
-    background: "red",
-    color: "white",
+    background: "#e9e9e9",
+    color: "#afafaf",
     border: "none",
     borderRadius: "4px",
+
+    "&:hover": {
+      background: "#e4e4e4",
+    },
   },
   addBtn: {
     outline: "none",
@@ -281,7 +285,7 @@ const useStyles = makeStyles({
     alignItems: "center",
     padding: "8px 14px",
     gap: "16px",
-    height: "46px",
+    height: "35px",
     background: "#081F4A",
     fontFamily: "inherit",
     color: "white",
@@ -289,6 +293,10 @@ const useStyles = makeStyles({
     textAlign: "center",
     margin: "0 auto",
     cursor: "pointer",
+
+    "&:hover": {
+      background: "#4b8aff",
+    },
   },
 });
 
