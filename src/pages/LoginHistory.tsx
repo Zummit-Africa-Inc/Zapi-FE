@@ -15,6 +15,7 @@ import { makeStyles } from "@mui/styles";
 import { LOGINHISTORIES } from "../testdata";
 import { loadMapApi } from "../utils";
 import Map from "../components/Map";
+import ReactGA from "react-ga4";
 
 const LoginHistory: React.FC = () => {
   const [scriptLoaded, setScriptLoaded] = useState(false);
@@ -22,6 +23,7 @@ const LoginHistory: React.FC = () => {
   const classes = useStyles();
   const { setActiveMenu, screenSize, setScreenSize } = useContextProvider();
 
+  ReactGA.send({ hitType: "pageview", page: "/login-history" });
   useEffect(() => {
     const googleMapScript = loadMapApi();
     googleMapScript.addEventListener("load", function () {

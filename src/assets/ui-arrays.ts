@@ -165,19 +165,22 @@ export const MarketPlaceText = [
 
 export const FEATURES = [
     {
-        title: "Deep Research",
+        title: "Features",
         texts: [
             {
                 text: "Full-Text Research of AI APIs based on the name of API, description and API developer’s name"
             },
             {
-                text: "Preview of some AI APIs on the Homepage"
+                text: "Explore host of  AI APIs on API Hub"
             },
             {
-                text: "Categorizing APIs based on several metrics - industry use cases, etc."
+                text: "Documentation on marketplace to get you started"
             },
             {
-                text: "Custom pages based on the collection of APIs by developer(s)"
+                text: "Request custom APIs from us with fast delivery time."
+            },
+            {
+                text: "Beautiful user friendly dashboard to monitor you APIs"
             }
         ]
     },
@@ -185,25 +188,29 @@ export const FEATURES = [
         title: "Integration",
         texts: [
             {
-                text: "Interactive discussion forum for collaboration between developers"
+                text: "Z-API makes it easy to connect to Rest, GraphQL or Asynchronous APIs using any type of client, from mobile application to IoT and embedded devices."
             },
             {
-                text: "Evaluation and Testing - Test AI APIs and view documentation in the browser"
+                text: "Use our well documented APIs with information on urls, inputs and outputs for each API to get started quickly and easily."
             },
             {
-                text: "Code snippet support to embed API easily into different applications (C, C#, C++, Ruby, Swift, etc)"
+                text: "Get real-world example use case for all APIs in JavaScript and Python with additional help available on request."
 
             },
+            {
+                text: "Subscribe to the cheapest API plans to start using it. Manage and monitor all your APIs subscriptions from one dashboard in Z-API"
+
+            }
         ]
     },
     {
-        title: "Cost Effective",
+        title: "Monetization",
         texts: [
             {
-                text: "Plans that are free, and premium at affordable prices"
+                text: "As AI engineers or organizations,you want to get value for the models we build. About 80% of all AI models never make it to production. But that can change with Z-API. You can share your models for free or paid subscription and make money from your effort in developing them."
             },
             {
-                text: "Monthly or Quarterly subscription"
+                text: "You don’t want to share private company data? You can always share and get value on your data through your APIs while keeping it secure."
             },
         ]
     },
