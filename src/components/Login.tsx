@@ -13,7 +13,6 @@ import { Fallback } from "../components";
 import { GoogleIcon } from "../assets";
 import { showModal } from "../redux/slices/modalSlice";
 import ReactGA from "react-ga4";
-
 ReactGA.send({ hitType: "pageview", page: "/login" });
 
 const initialState = { email: "", password: "" };
@@ -174,6 +173,7 @@ const Login: React.FC = () => {
               Sign in with Google
             </button>
           </Stack>
+  */}
           <Typography variant="body1" fontSize="14px" alignSelf="center">
             Dont't have an account?
             <Link
