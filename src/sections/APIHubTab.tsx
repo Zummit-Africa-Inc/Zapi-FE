@@ -1,179 +1,232 @@
-import React, { SyntheticEvent, useState, useEffect,FormEvent } from "react";
+import React, { SyntheticEvent, useState, useEffect, FormEvent } from "react";
 import { Tab, Tabs, Button, Tooltip } from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
-import { Apps, Build, School, ChatBubble, Layers, Security, LibraryBooks, SportsFootball, AirplanemodeActive, AttachMoney, DataArray, ArrowBackIos, ArrowForwardIos, Science, MusicNote, FormatColorText, Cloud, Lightbulb } from "@mui/icons-material";
+import {
+  Apps,
+  Build,
+  School,
+  ChatBubble,
+  Layers,
+  Security,
+  LibraryBooks,
+  SportsFootball,
+  AirplanemodeActive,
+  AttachMoney,
+  DataArray,
+  ArrowBackIos,
+  ArrowForwardIos,
+  Science,
+  MusicNote,
+  FormatColorText,
+  Cloud,
+  Lightbulb,
+  Co2Sharp,
+} from "@mui/icons-material";
 import { MdApps, MdBuild } from "react-icons/md";
 
 import APICard from "../components/APICard";
-import { useAppDispatch,useAppSelector,useHttpRequest } from "../hooks";
+import { useAppDispatch, useAppSelector, useHttpRequest } from "../hooks";
 import { ApiHubTabPanel } from "../components";
-
+import { Spinner } from "../assets";
+import axios from "axios";
 
 interface Props {
-  categoryId:string
+  categoryId: string;
 }
 
-const APIHubTab:React.FC<Props> = () => {
-  const classes = useStyles()
-  const [tab, setTab] = useState<number>(0)
-  const [categoryId, setCategoryId] = useState<string>("")
-  const [categoryAPIS, setCategoryAPIS] = useState<Array<any>>([])
+const core_url = "VITE_CORE_URL";
+const APIHubTab: React.FC<Props> = () => {
+  const classes = useStyles();
+  // const [tab, setTab] = useState<any>();
+  const [categoryId, setCategoryId] = useState<any>();
+  const [categoryAPIS, setCategoryAPIS] = useState<Array<any>>([]);
   // const [categoryId, setCategoryId] = useState<String>("");
   const dispatch = useAppDispatch();
-  const { apis, categories } = useAppSelector(store => store.apis)
+  const { apis, categories } = useAppSelector((store) => store.apis);
   const { error, loading, sendRequest } = useHttpRequest();
-  const core_url = import.meta.env.VITE_CORE_URL;
 
-  
-  
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const [isSlide, setIsSlide] = useState<boolean>(true);
-  const payload = {}
+  const payload = {};
   const handleSideBarChange = () => {
-    if(isOpen) {
-      if(isSlide)
-        setIsOpen(false);
+    if (isOpen) {
+      if (isSlide) setIsOpen(false);
     } else {
-      if(isSlide)
-      setIsOpen(true);
+      if (isSlide) setIsOpen(true);
     }
   };
 
-  const handleSelector = async (e: FormEvent) => {
-    categories.map(category => category.categoryId);
-    e.preventDefault();
+  const handleTabChange = (e: SyntheticEvent, value: any) => {
+    // setTab(value);
+    console.log("value: ", value);
+    setCategoryId(value);
+  };
+
+  useEffect(() => {
+    console.log("Handleselector function about to run...");
+    handleSelector(categoryId);
+    console.log("done");
+  }, [categoryId]);
+
+  console.log("categoryId: ", categoryId);
+
+  const handleSelector = async (id: any) => {
+    // categories.map((category) => category.categoryId);
+    // e.preventDefault();
+    console.log("loading...");
     const headers = {
       "Content-Type": "application/json",
     };
     try {
-      const data = await sendRequest(
-        `/categories/${categoryId}/apis`,
-        "get",
-        core_url,
-        payload,
-        headers
-        );
-        if (!data.success) return;
-        // dispatch(editAPI(payload));
-        // navigate("/developer/dashboard");
-      } catch (error) {}
+      const data = await axios.get(
+        `https://core.zapi.ai/api/v1/categories/${id}/apis`
+      );
+      console.log("finished");
+      console.log(data);
+      //   if (!data.success) return;
+      // dispatch(editAPI(payload));
+      // navigate("/developer/dashboard");
+    } catch (error) {}
+  };
+  window.addEventListener("resize", () => {
+    if (window.innerWidth <= 580) {
+      setIsOpen(false);
+      setIsSlide(false);
+    } else {
+      setIsOpen(false);
+      setIsSlide(true);
     }
-    
-    const handleTabChange = (e: SyntheticEvent, value: number) => { 
-      setTab(value)
-    }
-    window.addEventListener("resize", () => {
-      if(window.innerWidth <= 580) {
-        setIsOpen(false);
-        setIsSlide(false);
-      } else {
-        setIsOpen(false);
-        setIsSlide(true);
-      }
-    })
+  });
 
   let icons: any = {
-    "Popular": <LibraryBooks />,
-    "Safety": <Layers/>,
-    "Security": <Security/>,
-    "Customer Service": <ChatBubble/>,
-    "General": <Lightbulb/>,
-    "Sports": <SportsFootball/>,
-    "Travel": <AirplanemodeActive/>,
-    "Finance": <AttachMoney/>,
-    "Educational": <School/>,
-    "Data": <DataArray/>,
-    "Science": <Science/>,
-    "Music": <MusicNote/>,
-    "Tools": <Build/>,
-    "Text analysis": <FormatColorText/>,
-    "Weather": <Cloud/>,
-    "All APIs": <Apps/>,
-  }
+    Popular: <LibraryBooks />,
+    Safety: <Layers />,
+    Security: <Security />,
+    "Customer Service": <ChatBubble />,
+    General: <Lightbulb />,
+    Sports: <SportsFootball />,
+    Travel: <AirplanemodeActive />,
+    Finance: <AttachMoney />,
+    Educational: <School />,
+    Data: <DataArray />,
+    Science: <Science />,
+    Music: <MusicNote />,
+    Tools: <Build />,
+    "Text analysis": <FormatColorText />,
+    Weather: <Cloud />,
+    "All APIs": <Apps />,
+  };
 
   return (
     <div className={classes.container}>
-    
       {isOpen ? (
-          <div className={classes.list}>
-            <StyledTabs orientation="vertical" value={tab} onChange={handleTabChange}>
-              {categories.map((category, index) => (
+        <div className={classes.list}>
+          <StyledTabs
+            orientation="vertical"
+            value={categoryId}
+            onChange={handleTabChange}>
+            {categories.map((category, index) => (
+              <StyledTab
+                key={category.id}
+                label={category.name}
+                value={category.id}
+                iconPosition="start"
+                icon={icons[category.name]}
+              />
+            ))}
+
+            <StyledTab
+              label="All APIs"
+              iconPosition="start"
+              icon={icons["All APIs"]}
+            />
+          </StyledTabs>
+
+          <Tooltip title="Collapse" placement="right" arrow>
+            <Button id="collapseButton" onClick={handleSideBarChange}>
+              <ArrowBackIos
+                sx={{ color: "#071B85", width: "18px", height: "auto" }}
+              />
+            </Button>
+          </Tooltip>
+        </div>
+      ) : (
+        <div
+          className={classes.list}
+          style={{ display: "flex", alignItems: "center", width: "auto" }}>
+          <StyledTabs
+            orientation="vertical"
+            value={categoryId}
+            onChange={handleTabChange}>
+            {categories.map((category, index) => (
+              <Tooltip
+                key={index}
+                title={category.name}
+                placement="right"
+                arrow>
                 <StyledTab
-                  key={index}
-                  label={category.name}
+                  key={category.id}
                   iconPosition="start"
                   icon={icons[category.name]}
+                  value={category.id}
                 />
-              ))}
-
-              <StyledTab label="All APIs" iconPosition="start" icon={icons["All APIs"]} />
-              
-            </StyledTabs>
-            
-            <Tooltip title="Collapse" placement="right" arrow>
-              <Button id="collapseButton" onClick={handleSideBarChange}>
-                <ArrowBackIos sx={{ color: "#071B85", width: "18px", height: "auto" }} />
-              </Button>
-            </Tooltip>
-            
-          </div>
-        ) : (
-          <div className={classes.list} style={{ display: "flex", alignItems: "center", width: "auto", }}>
-            <StyledTabs orientation="vertical" value={tab} onChange={handleTabChange}>
-              {categories.map((category, index) => (
-                <Tooltip title={category.name} placement="right" arrow>
-                  <StyledTab
-                    key={index}
-                    iconPosition="start"
-                    icon={icons[category.name]}
-                    />
-                </Tooltip>  
-              ))}
-              
-              
-              <Tooltip title="All APIs" placement="right" arrow>
-                <StyledTab iconPosition="start" icon={<Apps />} />
               </Tooltip>
+            ))}
 
-            </StyledTabs>
-
-            <Tooltip title="Expand" placement="right" arrow>
-              {isSlide ? (
-                <Button id="expandButton" onClick={handleSideBarChange} sx={{width: "100%"}}>
-                  <ArrowForwardIos sx={{ marginLeft: "12px", color: "#071B85", width: "18px", height: "auto" }} />
-                </Button>
-
-                ) : (
-                  <></>
-                )
-
-              }
+            <Tooltip title="All APIs" placement="right" arrow>
+              <StyledTab iconPosition="start" icon={<Apps />} />
             </Tooltip>
-          </div>
-        )
+          </StyledTabs>
 
-      }
-    
-      <div className={classes.col} style={isOpen ? { width: "70%" } : { width: "89%" } }>
+          <Tooltip title="Expand" placement="right" arrow>
+            {isSlide ? (
+              <Button
+                id="expandButton"
+                onClick={handleSideBarChange}
+                sx={{ width: "100%" }}>
+                <ArrowForwardIos
+                  sx={{
+                    marginLeft: "12px",
+                    color: "#071B85",
+                    width: "18px",
+                    height: "auto",
+                  }}
+                />
+              </Button>
+            ) : (
+              <></>
+            )}
+          </Tooltip>
+        </div>
+      )}
+
+      <div
+        className={classes.col}
+        style={isOpen ? { width: "70%" } : { width: "89%" }}>
         <div>
-          {categories.map((category, index) => (
-            <ApiHubTabPanel key={index} value={tab} index={index} categoryId={category.id}>
+          {categories.map((category: any, index: number) => (
+            <ApiHubTabPanel
+              key={index}
+              value={categoryId}
+              index={category.id}
+              categoryId={category.id}>
               <>
                 <div className={classes.header}>
                   <h2>{category.name}</h2>
                   <p>{category.description}</p>
                 </div>
                 <div className={classes.grid}>
-                  {apis
-                    
-                    .map((api) => (
-                      <APICard key={api.id} {...api} />
-                    ))}
+                  {apis.map((api) => (
+                    <APICard key={api.id} {...api} />
+                  ))}
                 </div>
               </>
             </ApiHubTabPanel>
           ))}
-          <ApiHubTabPanel categoryId={categoryId} value={tab} index={categories.length}>
+          <ApiHubTabPanel
+            categoryId={categoryId}
+            value={categoryId}
+            index={categoryId}>
             <>
               <div className={classes.header}>
                 <h2>All APIs</h2>
@@ -188,11 +241,9 @@ const APIHubTab:React.FC<Props> = () => {
           </ApiHubTabPanel>
         </div>
       </div>
-
-      
     </div>
-  )
-}
+  );
+};
 
 const StyledTabs = styled(Tabs)({
   width: "100%",
@@ -206,7 +257,7 @@ const StyledTabs = styled(Tabs)({
   "@media screen and (max-width: 400px)": {
     width: "50px",
   },
-})
+});
 
 const StyledTab = styled(Tab)({
   gap: "16px",
@@ -242,9 +293,8 @@ const StyledTab = styled(Tab)({
     },
     "@media screen and (max-width: 400px)": {
       justifyContent: "flex-start",
-      paddingLeft: "18px"
+      paddingLeft: "18px",
     },
-    
   },
   "& svg": {
     color: "#071B85",
@@ -262,8 +312,8 @@ const StyledTab = styled(Tab)({
       width: "16px",
       height: "16px",
     },
-  }
-})
+  },
+});
 
 const useStyles = makeStyles({
   container: {
@@ -274,20 +324,14 @@ const useStyles = makeStyles({
     "@media screen and (max-width: 1024px)": {
       margin: "0 0 109px 2rem",
     },
-    "@media screen and (max-width: 900px)": {
-      
-    },
+    "@media screen and (max-width: 900px)": {},
     "@media screen and (max-width: 820px)": {
       gap: "22px",
-      
     },
-    "@media screen and (max-width: 770px)": {
-
-    },
+    "@media screen and (max-width: 770px)": {},
     "@media screen and (max-width: 375px)": {
       margin: "0 0 50px 1rem",
-    }
-    
+    },
   },
   list: {
     width: "320px",
@@ -297,7 +341,7 @@ const useStyles = makeStyles({
     flexDirection: "column",
     alignItems: "flex-end",
     backgroundColor: "#fff",
-    paddingTop:"42px",
+    paddingTop: "42px",
     overflowY: "scroll",
     "@media screen and (max-width: 500px)": {
       width: "100%",
@@ -308,17 +352,13 @@ const useStyles = makeStyles({
     padding: "0 1rem 0 37px",
     width: "100%",
     height: "auto",
-    "@media screen and (max-width: 900px)": {
-
-    },
+    "@media screen and (max-width: 900px)": {},
     "@media screen and (max-width: 820px)": {
       padding: "0 1rem 0 22px",
-      
     },
     "@media screen and (max-width: 500px)": {
       border: "unset",
       padding: "0 1rem 0 0",
-      
     },
   },
   header: {
@@ -358,9 +398,9 @@ const useStyles = makeStyles({
       gap: "0",
     },
     "@media screen and (max-width: 430px)": {
-      margin: "-20px"
+      margin: "-20px",
     },
-  }
-})
+  },
+});
 
-export default APIHubTab
+export default APIHubTab;
