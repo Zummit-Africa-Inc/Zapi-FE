@@ -41,8 +41,7 @@ enum APIVisibility {
   PUBLIC = "public",
 }
 
-// const core_url = "VITE_CORE_URL";
-const core_url = import.meta.env.VITE_CORE_URL;
+const core_url = "VITE_CORE_URL";
 
 const GeneralTab: React.FC = () => {
   const [description, setDescription] = useState<String>("");
@@ -126,9 +125,7 @@ const GeneralTab: React.FC = () => {
       if (!data.success) return;
       dispatch(editAPI(payload));
       navigate("/developer/dashboard");
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const handleDiscard = (e: any) => {
