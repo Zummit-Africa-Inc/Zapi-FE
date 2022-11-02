@@ -83,95 +83,87 @@ const DevAPICard: React.FC<CardProps> = ({
   };
 
   return (
-    <Card variant="outlined" className={classes.card}>
-      <div className={classes.wrapper}>
-        <CardContent style={{ margin: 0, padding: 0, maxHeight: "70%" }}>
-          <CardHeader
-            style={{ margin: 0, padding: 0 }}
-            avatar={
-              <Avatar sx={{ bgcolor: blue[500], mb: 1, mr: 5 }}>
-                <Animation />
-              </Avatar>
-            }
-            action={
-              <IconButton
-                aria-label="settings"
-                id="menuButton"
-                aria-controls={open ? "cardMenu" : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? "true" : undefined}
-                onClick={handleClick}>
-                <MoreVertRounded />
-              </IconButton>
-            }
-          />
+    <Paper className={classes.paper} sx={{width:"395px", height:"255px"}}>
+      <Box sx={{width:"100%", height:"100%"}}>
+        <Card variant="outlined" className={classes.card}>
+          <React.Fragment>
+            <CardContent>
+              <CardHeader
+                avatar={
+                  <Avatar sx={{ bgcolor: blue[500], mb: 1, mr: 5, ml: -2 }}>
+                    <Animation />
+                  </Avatar>
+                }
+                action={
+                  <IconButton
+                    aria-label="settings"
+                    id="menuButton"
+                    aria-controls={open ? "cardMenu" : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? "true" : undefined}
+                    onClick={handleClick}>
+                    <MoreVertRounded />
+                  </IconButton>
+                }
+              />
 
-          <Menu
-            id="cardMenu"
-            MenuListProps={{
-              "aria-labelledby": "menuButton",
-              disablePadding: true,
-            }}
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            TransitionComponent={Fade}>
-            <MenuItem
-              style={{ backgroundColor: "red", color: "white" }}
-              onClick={handleDeleteApi}>
-              {loading ? <Spinner /> : "Delete"}
-            </MenuItem>
-          </Menu>
+              <Menu
+                id="cardMenu"
+                MenuListProps={{
+                  "aria-labelledby": "menuButton",
+                  disablePadding: true,
+                }}
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                TransitionComponent={Fade}>
+                <MenuItem
+                  style={{ backgroundColor: "red", color: "white" }}
+                  onClick={handleDeleteApi}>
+                  {loading ? <Spinner /> : "Delete"}
+                </MenuItem>
+              </Menu>
 
-          <Link to={`/developer/api/${id}`} style={{ color: "#081F4A" }}>
+              <Link to={`/developer/api/${id}`} style={{color: "#081F4A"}}>
+                <Typography
+                  variant="h5"
+                  component="div"
+                  sx={{fontSize: "18px", fontWeight: "500", mb: 1}}>
+                  {name || "👋 Onboarding Project"}
+                </Typography>
+                <Typography variant="body2" sx={{mb: 2}}>
+                  {
+                    description.length > 100 ? `${description.substring(0, 100)}...`
+                    : description || "This project is created by the onboarding process "
+                  }
+                </Typography>
+              </Link>
+            </CardContent>
             <Typography
-              variant="h5"
-              component="div"
-              sx={{ fontSize: "18px", fontWeight: "500", mb: 1 }}>
-              {name || "👋 Onboarding Project"}
+              variant="subtitle1"
+              sx={{margin: 1.5, marginLeft: 2.5, fontSize: "14px"}}
+              color="text.secondary">
+                created: {createdOn && new Date(createdOn).toLocaleDateString() || "Updated"}
+                {/* or new Date(date).toDateString() : this will include the day */}
             </Typography>
-            <Typography variant="body2" sx={{ mb: 2 }}>
-              {description.length > 100
-                ? `${description.substring(0, 100)}...`
-                : description ||
-                  "This project is created by the onboarding process "}
-            </Typography>
-          </Link>
-        </CardContent>
-        <Typography
-          className={classes.created}
-          variant="subtitle1"
-          sx={{ fontSize: "14px" }}
-          color="text.secondary">
-          Created:{" "}
-          {(createdOn && new Date(createdOn).toLocaleDateString()) || "Updated"}
-        </Typography>
-      </div>
-    </Card>
+          </React.Fragment>
+        </Card>
+      </Box>
+    </Paper>
   );
 };
 
 const useStyles = makeStyles({
-  card: {
-    padding: "10px",
-    height: "250px",
+  paper: {
+    transition: "all 0.5s ease-in-out",
     "&:hover": {
-      boxShadow: " rgba(0, 0, 0, 0.1) 0px 4px 12px",
-    },
+      boxShadow: "5px 5px 15px 0px rgba(0, 0, 0, 0.4)",
+    }
   },
-  wrapper: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "left",
-    flexDirection: "column",
-    height: "100%",
-  },
-  created: {
-    width: "fit-content",
-    backgroundColor: "#f3f3f3",
-    padding: "4px 10px",
-    borderRadius: "20px",
-  },
+  card: {
+    width: "100%",
+    height: "100%"
+  }
 });
 
 export default DevAPICard;

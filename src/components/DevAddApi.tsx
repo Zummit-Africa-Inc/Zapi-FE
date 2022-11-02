@@ -159,37 +159,71 @@ const DevAddApi: React.FC = () => {
 
 const useStyles = makeStyles({
   body: {
+    left: "0rem",
+    right: "0rem",
     zIndex: 30,
     width: "100%",
-    marginTop: "6rem",
-    marginBottom: "2rem",
+    marginTop: "80px",
+    padding: "24px 112px",
     background: "white",
+    height: "100px",
     fontFamily: "Space Grotesk",
+    "@media screen and (max-width: 1024px)": {
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      gap: "1rem",
+      paddingTop: "140px",
+      scale: 0.95,
+      marginBottom: "8rem",
+    },
+    "@media screen and (max-width: 500px)": {
+      scale: 0.9,
+    },
+    "@media screen and (max-width: 400px)": {
+      scale: 0.8,
+    },
+    "@media screen and (max-width: 375px)": {
+      padding: "1rem",
+      display: "grid",
+      justifyContent: "center",
+      gap: "1rem",
+      marginTop: "80px",
+    },
   },
   bodyColor: {
     background: "#fff",
-    padding: "0 3rem",
+    padding: "15px 1rem 40px 1rem",
     height: "auto",
   },
   widget1: {
     display: "flex",
     alignItems: "center",
     gap: "1rem",
+    "@media screen and (max-width: 1024px)": {
+      marginBottom: "1rem",
+    },
   },
   switch1: {
     display: "flex",
+    flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     gap: "1rem",
-
-    "@media screen and (max-width: 920px)": {
-      display: "flex",
-      flexDirection: "column",
-      margin: "3rem 0",
+    "@media screen and (max-width: 1024px)": {
+      display: "none",
     },
   },
   switch2: {
     display: "none",
+    "@media screen and (max-width: 1024px)": {
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-between",
+      alignItems: "center",
+      gap: "1rem",
+    },
   },
   widget2: {
     border: "1px solid whitesmoke",
@@ -203,7 +237,7 @@ const useStyles = makeStyles({
     margin: "-35px 30px",
     width: "130px",
     height: "46px",
-    background: "#d8d8d8",
+    background: "#FFFFFF",
     borderTop: "1px solid #8C8C8C",
     borderBottom: "1px solid #8C8C8C",
     borderRight: "1px solid #8C8C8C",
@@ -219,7 +253,7 @@ const useStyles = makeStyles({
     lineHeight: "30px",
     display: "flex",
     alignItems: "center",
-    color: "#d1d1d1",
+    color: "#8B8B8C",
     backgroundColor: "#fff",
   },
   formControl: {
@@ -228,7 +262,7 @@ const useStyles = makeStyles({
     alignItems: "center",
     padding: "8px 64px 8px 16px",
     gap: "16px",
-    width: "250px",
+    width: "269px",
     height: "46px",
     background: "#E1E1E2",
     borderRadius: "8px",
@@ -248,6 +282,12 @@ const useStyles = makeStyles({
     "& ::placeHolder": {
       fontFamily: "Space Grotesk",
     },
+    "@media screen and (max-width: 1024px)": {
+      width: "385px",
+    },
+    "@media screen and (max-width: 500px)": {
+      // width: "100%",
+    },
   },
   button: {
     display: "flex",
@@ -257,17 +297,19 @@ const useStyles = makeStyles({
     gap: "16px",
     width: "190px",
     lineHeight: "46px",
-    background: "#eaefff",
-    borderRadius: "12px",
+    background: "#058A04",
+    borderRadius: "8px",
     cursor: "pointer",
-    color: "#0e93ff",
+    color: "#FFFFFF",
     border: "none",
     fontWeight: "500",
     fontSize: "16px",
-    "&:hover": {
-      color: "#f5f5ff",
-      background: "#003780",
-      transition: "ease-in-out all 0.3s",
+    "@media screen and (max-width: 1024px)": {
+      marginBottom: "1rem",
+      width: "385px",
+    },
+    "@media screen and (max-width: 500px)": {
+      // width: "100%",
     },
   },
 });

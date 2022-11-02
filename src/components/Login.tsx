@@ -157,7 +157,11 @@ const Login: React.FC = () => {
                 Reset it here.
               </Link>
             </Typography>
-            <button type="submit" className={classes.button} disabled={loading}>
+            <button
+              type="submit"
+              className={classes.button}
+              style={{ background: "#4B4B4B", color: "#FFF" }}
+              disabled={loading}>
               {loading ? "loading" : "Sign In"}
             </button>
           </form>
@@ -212,8 +216,7 @@ const useStyles = makeStyles({
     alignItems: "center",
     background: "#FFF",
     padding: "1rem 2rem",
-    borderRadius: "10px",
-    border: "2px solid #ececec",
+    boxShadow: "2px 2px 7px 3px #CECECE",
   },
   form: {
     width: "100%",
@@ -255,7 +258,7 @@ const useStyles = makeStyles({
     height: "52px",
     display: "flex",
     flexDirection: "row",
-    background: "#c5c5c5",
+    background: "#FFF",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: "4px",
@@ -263,15 +266,9 @@ const useStyles = makeStyles({
     fontWeight: 600,
     lineHeight: "16px",
     cursor: "pointer",
-    margin: "1rem 0",
+    margin: "1rem 0 2rem",
     padding: "0 1rem",
-    border: "none",
     color: "#081F4A",
-
-    "&:hover": {
-      background: "#b9d2ff",
-    },
-
     "@media screen and (max-width: 768px)": {
       width: "100%",
     },
@@ -289,7 +286,6 @@ const useStyles = makeStyles({
   link: {
     textDecoration: "underline",
     marginLeft: "0.5rem",
-    color: "#081F4A",
   },
 });
 
