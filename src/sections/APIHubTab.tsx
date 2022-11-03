@@ -26,14 +26,10 @@ import APICard from "../components/APICard";
 import { useAppSelector, useHttpRequest } from "../hooks";
 import { TabPanel, Fallback } from "../components";
 
-interface Props {
-  categoryId: string;
-}
-
 const default_url = import.meta.env.VITE_DEFAULT_CATEGORY_ID;
 
 const core_url = "VITE_CORE_URL";
-const APIHubTab: React.FC<Props> = () => {
+const APIHubTab: React.FC = () => {
   const classes = useStyles();
   const [tab, setTab] = useState<any>();
   const [categoryId, setCategoryId] = useState<string>(default_url);
