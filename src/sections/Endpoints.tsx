@@ -50,11 +50,11 @@ const Endpoints:React.FC = () => {
 				display: "flex",
 				flexDirection: "column",
 				gap: "2rem",
-				width: "auto"
+				width: "45%"
 			}}>
 				<Paper
 					component="form"
-					sx={{ boxShadow: "unset", display: "flex", alignItems: "center", border: "1px solid #d1d1d1", borderRadius: "0", padding: "2px 8px", width: "360px" }}
+					sx={{ boxShadow: "unset", display: "flex", alignItems: "center", border: "1px solid #d1d1d1", borderRadius: "0", padding: "2px 8px" }}
 				>
 					<InputBase
 						sx={{ ml: 1, flex: 1, fontSize: "13px", fontFamily: "Space Grotesk", color: "#000" }}
