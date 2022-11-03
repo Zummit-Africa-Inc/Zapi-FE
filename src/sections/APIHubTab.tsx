@@ -87,9 +87,9 @@ const APIHubTab: React.FC = () => {
 
   let icons: any = {
     Popular: <LibraryBooks />,
-    "Safety APIs": <Layers />,
-    "Security APIs": <Security />,
-    "Customer Service APIs": <ChatBubble />,
+    Safety: <Layers />,
+    Security: <Security />,
+    "Customer Service": <ChatBubble />,
     General: <Lightbulb />,
     Sports: <SportsFootball />,
     Travel: <AirplanemodeActive />,
