@@ -31,7 +31,6 @@ export { default as Sidebar } from "./Sidebar";
 export { default as SplitView } from "./SplitView";
 export { default as Subscription } from "./Subscription";
 export { default as TabPanel } from "./TabPanel";
-export { default as ApiHubTabPanel } from "./ApiHubTabPanel";
 export { default as Threat } from "./Threat";
 export { default as Transform } from "./Transform";
 export { default as UserProSideBar } from "./UserProSideBar";

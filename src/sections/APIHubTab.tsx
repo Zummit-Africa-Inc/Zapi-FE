@@ -1,6 +1,7 @@
-import React, { SyntheticEvent, useState, useEffect, FormEvent } from "react";
+import React, { SyntheticEvent, useState, useEffect } from "react";
 import { Tab, Tabs, Button, Tooltip } from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
+import { toast } from "react-toastify";
 import {
   Apps,
   Build,
@@ -20,34 +21,27 @@ import {
   FormatColorText,
   Cloud,
   Lightbulb,
-  Co2Sharp,
 } from "@mui/icons-material";
-import { MdApps, MdBuild } from "react-icons/md";
-
 import APICard from "../components/APICard";
-import { useAppDispatch, useAppSelector, useHttpRequest } from "../hooks";
-import { ApiHubTabPanel } from "../components";
-import { Spinner } from "../assets";
-import axios from "axios";
+import { useAppSelector, useHttpRequest } from "../hooks";
+import { TabPanel, Fallback } from "../components";
 
 interface Props {
   categoryId: string;
 }
 
+const default_url = import.meta.env.VITE_DEFAULT_CATEGORY_ID;
+
 const core_url = "VITE_CORE_URL";
 const APIHubTab: React.FC<Props> = () => {
   const classes = useStyles();
-  // const [tab, setTab] = useState<any>();
-  const [categoryId, setCategoryId] = useState<any>();
-  const [categoryAPIS, setCategoryAPIS] = useState<Array<any>>([]);
-  // const [categoryId, setCategoryId] = useState<String>("");
-  const dispatch = useAppDispatch();
-  const { apis, categories } = useAppSelector((store) => store.apis);
+  const [tab, setTab] = useState<any>();
+  const [categoryId, setCategoryId] = useState<string>(default_url);
+  const { categories } = useAppSelector((store) => store.apis);
   const { error, loading, sendRequest } = useHttpRequest();
-
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const [isSlide, setIsSlide] = useState<boolean>(true);
-  const payload = {};
+  const [categoryApis, setCategoryApis] = useState<any>([]);
   const handleSideBarChange = () => {
     if (isOpen) {
       if (isSlide) setIsOpen(false);
@@ -57,37 +51,34 @@ const APIHubTab: React.FC<Props> = () => {
   };
 
   const handleTabChange = (e: SyntheticEvent, value: any) => {
-    // setTab(value);
-    console.log("value: ", value);
     setCategoryId(value);
   };
 
-  useEffect(() => {
-    console.log("Handleselector function about to run...");
-    handleSelector(categoryId);
-    console.log("done");
-  }, [categoryId]);
-
-  console.log("categoryId: ", categoryId);
+  const headers = {
+    "Content-Type": "application/json",
+  };
 
   const handleSelector = async (id: any) => {
-    // categories.map((category) => category.categoryId);
-    // e.preventDefault();
-    console.log("loading...");
-    const headers = {
-      "Content-Type": "application/json",
-    };
+    if (categoryId === null || undefined) return;
     try {
-      const data = await axios.get(
-        `https://core.zapi.ai/api/v1/categories/${id}/apis`
+      const res = await sendRequest(
+        `/categories/${id}/apis`,
+        "get",
+        core_url,
+        undefined,
+        headers
       );
-      console.log("finished");
-      console.log(data);
-      //   if (!data.success) return;
-      // dispatch(editAPI(payload));
-      // navigate("/developer/dashboard");
+      setCategoryApis(res);
     } catch (error) {}
   };
+  useEffect(() => {
+    handleSelector(categoryId);
+  }, [categoryId]);
+
+  useEffect(() => {
+    error && toast.error(`${error}`);
+  }, [error]);
+
   window.addEventListener("resize", () => {
     if (window.innerWidth <= 580) {
       setIsOpen(false);
@@ -119,6 +110,7 @@ const APIHubTab: React.FC<Props> = () => {
 
   return (
     <div className={classes.container}>
+      {loading && <Fallback />}
       {isOpen ? (
         <div className={classes.list}>
           <StyledTabs
@@ -135,11 +127,11 @@ const APIHubTab: React.FC<Props> = () => {
               />
             ))}
 
-            <StyledTab
+            {/* <StyledTab
               label="All APIs"
               iconPosition="start"
               icon={icons["All APIs"]}
-            />
+            /> */}
           </StyledTabs>
 
           <Tooltip title="Collapse" placement="right" arrow>
@@ -156,7 +148,7 @@ const APIHubTab: React.FC<Props> = () => {
           style={{ display: "flex", alignItems: "center", width: "auto" }}>
           <StyledTabs
             orientation="vertical"
-            value={categoryId}
+            value={tab}
             onChange={handleTabChange}>
             {categories.map((category, index) => (
               <Tooltip
@@ -165,10 +157,9 @@ const APIHubTab: React.FC<Props> = () => {
                 placement="right"
                 arrow>
                 <StyledTab
-                  key={category.id}
+                  key={index}
                   iconPosition="start"
                   icon={icons[category.name]}
-                  value={category.id}
                 />
               </Tooltip>
             ))}
@@ -205,40 +196,33 @@ const APIHubTab: React.FC<Props> = () => {
         style={isOpen ? { width: "70%" } : { width: "89%" }}>
         <div>
           {categories.map((category: any, index: number) => (
-            <ApiHubTabPanel
-              key={index}
-              value={categoryId}
-              index={category.id}
-              categoryId={category.id}>
+            <TabPanel key={index} value={category.id} index={categoryId}>
               <>
                 <div className={classes.header}>
                   <h2>{category.name}</h2>
                   <p>{category.description}</p>
                 </div>
                 <div className={classes.grid}>
-                  {apis.map((api) => (
+                  {categoryApis.map((api: any) => (
                     <APICard key={api.id} {...api} />
                   ))}
                 </div>
               </>
-            </ApiHubTabPanel>
+            </TabPanel>
           ))}
-          <ApiHubTabPanel
-            categoryId={categoryId}
-            value={categoryId}
-            index={categoryId}>
+          {/* <TabPanel value={tab} index={categories.length}>
             <>
               <div className={classes.header}>
                 <h2>All APIs</h2>
                 <p>List of all public APIs on ZAPI</p>
               </div>
               <div className={classes.grid}>
-                {apis.map((api) => (
+                {allApis.map((api) => (
                   <APICard key={api.id} {...api} />
                 ))}
               </div>
             </>
-          </ApiHubTabPanel>
+          </TabPanel> */}
         </div>
       </div>
     </div>
