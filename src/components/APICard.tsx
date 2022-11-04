@@ -81,14 +81,14 @@ const APICard:React.FC<CardProps> = ({id, name, description, rating, latency, po
             )}
           </Tooltip>
         </div>
-        <div className={classes.body}>
+        <Link to={`/api/${id}`} className={classes.body}>
           <h4>{name || "API Name"}</h4>
           <p>
             {description && description?.length > 60
               ? `${String(description).substring(0, 50)}...`
               : description || "API Description."}
           </p>
-        </div>
+        </Link>
       </div>
 
       <div className={classes.bottomBar}>
