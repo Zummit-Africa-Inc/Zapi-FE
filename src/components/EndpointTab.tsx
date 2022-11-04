@@ -16,7 +16,7 @@ const core_url = "VITE_CORE_URL";
 const initialState = {
   name: "",
   route: "",
-  method: "get",
+  method: "",
   description: "",
   headers: "",
   headerType: "string",
@@ -162,6 +162,10 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
     error && toast.error(`${error.message}`);
   }, [error]);
 
+  useEffect(() => {
+    method === "" && setIsOptionsOpen(false)
+  },[method])
+
   return (
     <Paper className={classes.paper}>
       <Stack direction="column" mb={8}>
@@ -207,31 +211,47 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
       </Stack>
       {isAdding && (
         <form onSubmit={handleSubmit}>
-          <Stack direction="row" alignItems="center" spacing={4} mt={4} mb={2}>
-            <div className={classes.inputs}>
-              <input type="text" name="name" {...bind} placeholder="Name" />
-            </div>
+          <Stack direction="row" alignItems="center" spacing={4} mt={4} mb={1}>
             <div className={classes.inputs}>
               <select name="method" {...select}>
+                <option value="">--METHOD--</option>
                 <option value="get">GET</option>
                 <option value="post">POST</option>
                 <option value="patch">PATCH</option>
                 <option value="delete">DELETE</option>
               </select>
             </div>
-            <div className={classes.inputs}>
-              <input type="text" name="route" {...bind} placeholder="Route" />
-            </div>
-            <button
-              type="submit"
-              className={classes.button}
-              style={{ background: "#10c96b" }}>
-              {loading ? <Spinner /> : "ADD"}
-            </button>
-            <IconButton onClick={toggleOptions} disabled={method === "post"}>
-              {isOptionsOpen ? <Remove /> : <Add />}
-            </IconButton>
+            {method !== "" && (
+              <>
+              <div className={classes.inputs}>
+                <input type="text" name="name" {...bind} placeholder="Name" />
+              </div>
+              <div className={classes.inputs}>
+                <input type="text" name="route" {...bind} placeholder="Route" />
+              </div>
+              <button
+                type="submit"
+                className={classes.button}
+                style={{ background: "#10c96b" }}>
+                {loading ? <Spinner /> : "ADD"}
+              </button>
+              <IconButton onClick={toggleOptions} disabled={method === "post"} title="Toggle Params">
+                {isOptionsOpen ? <Remove /> : <Add />}
+              </IconButton>
+              </>
+            )}
           </Stack>
+          {method !== "" && (
+            <Stack mb={1}>
+              <div className={classes.inputs}>
+                <textarea
+                  name="description"
+                  {...bind}
+                  placeholder="Description"
+                />
+              </div>
+            </Stack>
+          )}
           {(isOptionsOpen || method === "post") && (
             <>
               <Stack direction="column" spacing={1}>
@@ -270,48 +290,50 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                     </button>
                   </div>
                 </Stack>
-                <Stack direction="row" spacing={2}>
-                  <div className={classes.inputs}>
-                    <input
-                      type="text"
-                      name="requestBody"
-                      {...bind}
-                      placeholder="Body"
-                    />
-                  </div>
-                  <div className={classes.inputs}>
-                    <select name="requestBodyType" {...select}>
-                      <option value="string">String</option>
-                      <option value="number">Number</option>
-                      <option value="file">File</option>
-                      <option value="boolean">Boolean</option>
-                      <option value="object">Object</option>
-                      <option value="array">Array</option>
-                      <option value="date">Date</option>
-                      <option value="enum">Enum</option>
-                    </select>
-                  </div>
-                  <div className={classes.inputs}>
-                    <input
-                      type="checkbox"
-                      name="requestBodyIsRequired"
-                      {...toggle}
-                    />
-                  </div>
-                  <div className={classes.inputs}>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        addRequestBody({
-                          name: requestBody,
-                          type: requestBodyType,
-                          required: requestBodyIsRequired,
-                        })
-                      }>
-                      <Add />
-                    </button>
-                  </div>
-                </Stack>
+                {method === "post" && (
+                  <Stack direction="row" spacing={2}>
+                    <div className={classes.inputs}>
+                      <input
+                        type="text"
+                        name="requestBody"
+                        {...bind}
+                        placeholder="Body"
+                      />
+                    </div>
+                    <div className={classes.inputs}>
+                      <select name="requestBodyType" {...select}>
+                        <option value="string">String</option>
+                        <option value="number">Number</option>
+                        <option value="file">File</option>
+                        <option value="boolean">Boolean</option>
+                        <option value="object">Object</option>
+                        <option value="array">Array</option>
+                        <option value="date">Date</option>
+                        <option value="enum">Enum</option>
+                      </select>
+                    </div>
+                    <div className={classes.inputs}>
+                      <input
+                        type="checkbox"
+                        name="requestBodyIsRequired"
+                        {...toggle}
+                      />
+                    </div>
+                    <div className={classes.inputs}>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          addRequestBody({
+                            name: requestBody,
+                            type: requestBodyType,
+                            required: requestBodyIsRequired,
+                          })
+                        }>
+                        <Add />
+                      </button>
+                    </div>
+                  </Stack>
+                )}
                 <Stack direction="row" spacing={2}>
                   <div className={classes.inputs}>
                     <input
@@ -348,13 +370,6 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                     </button>
                   </div>
                 </Stack>
-                <div className={classes.inputs}>
-                  <textarea
-                    name="description"
-                    {...bind}
-                    placeholder="Description"
-                  />
-                </div>
               </Stack>
             </>
           )}
