@@ -5,7 +5,7 @@ import { makeStyles } from "@mui/styles";
 import { toast } from "react-toastify";
 import { Cancel } from "@mui/icons-material";
 
-import { EMAIL_REGEX, PASSWORD_REGEX, MATCH_CHECKER } from "../utils";
+import { EMAIL_REGEX, PASSWORD_REGEX, MATCH_CHECKER, PASSWORD_LENGTH } from "../utils";
 import { useContextProvider } from "../contexts/ContextProvider";
 import { useFormInputs, useHttpRequest } from "../hooks";
 import { Fallback, PasswordStrengthMeter } from "../components";
@@ -135,7 +135,7 @@ const Signup: React.FC = () => {
                 placeholder="Enter your email"
               />
             </div>
-            <div className={classes.input}>
+            <div className={classes.input} style={{marginBottom:'1rem'}}>
               <label htmlFor="password">Password</label>
               <input
                 type="password"
@@ -143,7 +143,15 @@ const Signup: React.FC = () => {
                 {...bind}
                 placeholder="Enter a Password"
               />
-              <PasswordStrengthMeter password={password} />
+              {(password.length > 20) ? (
+                <Typography variant="caption" color="error">
+                {/* <Cancel sx={{ fontSize: 15, marginRight: 0.5 }} color="error" /> */}
+                Password is too long (Enter between 8 - 20 characters long)
+              </Typography>
+              ) : (
+                <PasswordStrengthMeter password={password} />
+              )}
+              
             </div>
             <div className={classes.input}>
               <label htmlFor="confirm_password">
@@ -163,10 +171,10 @@ const Signup: React.FC = () => {
               {MATCH_CHECKER(password, confirm_password) ? (
                 <></>
               ) : (
-                <span>
-                  <Cancel sx={{ fontSize: 15, marginRight: 1 }} color="error" />{" "}
-                  Password does not match
-                </span>
+                <Typography variant="caption" color="error">
+                  {/* <Cancel sx={{ fontSize: 15, marginRight: 0.5 }} color="error" /> */}
+                    Password does not match
+                </Typography>
               )}
             </div>
             <div className={classes.check_input}>
