@@ -41,8 +41,7 @@ enum APIVisibility {
   PUBLIC = "public",
 }
 
-// const core_url = "VITE_CORE_URL";
-const core_url = import.meta.env.VITE_CORE_URL;
+const core_url = "VITE_CORE_URL";
 
 const GeneralTab: React.FC = () => {
   const [description, setDescription] = useState<String>("");
@@ -112,6 +111,7 @@ const GeneralTab: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    console.log("about to update...");
     const headers = {
       "Content-Type": "application/json",
     };
@@ -291,6 +291,7 @@ const GeneralTab: React.FC = () => {
                     )}
                     <Switch
                       value={visibility}
+                      checked={visibility === APIVisibility.PRIVATE}
                       name="visibility"
                       onChange={handleSwitch}
                     />
