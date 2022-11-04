@@ -144,7 +144,7 @@ const APIHubTab: React.FC = () => {
           style={{ display: "flex", alignItems: "center", width: "auto" }}>
           <StyledTabs
             orientation="vertical"
-            value={tab}
+            value={categoryId}
             onChange={handleTabChange}>
             {categories.map((category, index) => (
               <Tooltip
@@ -156,6 +156,7 @@ const APIHubTab: React.FC = () => {
                   key={index}
                   iconPosition="start"
                   icon={icons[category.name]}
+                  value={category.id}
                 />
               </Tooltip>
             ))}
@@ -189,7 +190,7 @@ const APIHubTab: React.FC = () => {
 
       <div
         className={classes.col}
-        style={isOpen ? { width: "70%" } : { width: "89%" }}>
+        style={isOpen ? { width: "100%" } : { width: "89%" }}>
         <div>
           {categories.map((category: any, index: number) => (
             <TabPanel key={index} value={category.id} index={categoryId}>
@@ -299,10 +300,10 @@ const useStyles = makeStyles({
   container: {
     width: "auto",
     display: "flex",
-    gap: "32px",
-    margin: "0 0 109px 5rem",
+    gap: "16px",
+    margin: "0 0 109px 1rem",
     "@media screen and (max-width: 1024px)": {
-      margin: "0 0 109px 2rem",
+      margin: "0 0 109px 1rem",
     },
     "@media screen and (max-width: 900px)": {},
     "@media screen and (max-width: 820px)": {
@@ -314,14 +315,14 @@ const useStyles = makeStyles({
     },
   },
   list: {
-    width: "320px",
+    width: "250px",
     height: "auto",
     // maxHeight: "470px",
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-end",
     backgroundColor: "#fff",
-    paddingTop: "42px",
+    paddingTop: "0px",
     overflowY: "scroll",
     "@media screen and (max-width: 500px)": {
       width: "100%",
@@ -344,7 +345,7 @@ const useStyles = makeStyles({
   header: {
     display: "flex",
     flexDirection: "column",
-    margin: "32px 0",
+    marginBottom: "20px",
     color: "#071B85",
     top: 0,
     left: 0,
@@ -364,20 +365,19 @@ const useStyles = makeStyles({
   },
   grid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-    gridTemplateRows: "240px",
-    // flexWrap: "wrap",
-    gap: "20px",
+    gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+    gridTemplateRows: "260px",
+    gap: "15px",
     marginLeft: "-11px",
     padding: "0 10px 0 0",
-    width: "auto",
-    height: "1250px",
+    width: "100%",
+    height: "100%",
     overflowY: "scroll",
     overflowX: "hidden",
-    "@media screen and (max-width: 820px)": {
-      gap: "0",
-    },
-    "@media screen and (max-width: 430px)": {
+    "@media screen and (max-width: 912px)": {
+      display: "flex",
+      justifyContent: "center",
+      flexWrap: "wrap",
       margin: "-20px",
     },
   },
