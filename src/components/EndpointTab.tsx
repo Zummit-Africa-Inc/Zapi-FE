@@ -138,6 +138,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
       headers: headersArray,
       body: requestBodyArray,
       query: queryParamsArray,
+      mediaType: requestBodyFormat,
     };
     const headers = { "Content-Type": "application/json" };
     try {
