@@ -37,6 +37,7 @@ import { Spinner } from "../assets";
 import axios from "axios";
 import { toast } from "react-toastify";
 import ZAPI from "../images/zapi-logo.png";
+import { useContextProvider } from "../contexts/ContextProvider";
 
 enum APIVisibility {
   PRIVATE = "private",
@@ -59,9 +60,10 @@ const GeneralTab: React.FC = () => {
   const { error, loading, sendRequest } = useHttpRequest();
   const cookies = new Cookies();
   const profileId = cookies.get("profileId");
+  const { triggerRefresh } = useContextProvider();
   const classes = useStyles();
   // const [img, setImg] = useState(null);
-  const [image, setImage] = useState<any>("");
+  const [image, setImage] = useState<string | File>("");
   const { userApis } = useAppSelector((store) => store.user);
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -157,7 +159,6 @@ const GeneralTab: React.FC = () => {
       const headers = {
         "Content-Type": "nulti-part/form-data",
       };
-      console.log(image);
       if (image === null) return;
       try {
         const data = await sendRequest(
@@ -183,7 +184,7 @@ const GeneralTab: React.FC = () => {
             General Information
           </Typography>
           <form>
-            <Box sx={{ width: "200px", height: "200px", marginBottom: "4rem" }}>
+            <Box sx={{ width: "200px", height: "200px", marginBottom: "6rem" }}>
               {/* <ImageUpload setImageFile={() => setImage} /> */}
               <div className={classes.wrapper}>
                 <img src={logo_url ? logo_url : ZAPI} alt="" />
@@ -192,9 +193,22 @@ const GeneralTab: React.FC = () => {
                 type="file"
                 onChange={(e) => setImage(e.target.files![0])}
               />
-              <Button variant="contained" onClick={imageUpload}>
-                Upload
-              </Button>
+
+              <Stack direction="row" spacing={2} my={2}>
+                <button className={classes.saveBtn} onClick={imageUpload}>
+                  Upload
+                </button>
+                <button
+                  className={classes.discardBtn}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setImage("");
+                    triggerRefresh();
+                  }}>
+                  Cancel
+                </button>
+              </Stack>
+
               {/* <Typography variant="body1" fontSize="14px" mt={2}>Maximum Size: 500 x 500px, JPEG / PNG</Typography> */}
             </Box>
             <Box mt={2}>
