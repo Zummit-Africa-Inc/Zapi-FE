@@ -115,7 +115,6 @@ const GeneralTab: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log("about to update...");
     const headers = {
       "Content-Type": "application/json",
     };
