@@ -26,6 +26,7 @@ import {
   APIHub,
   Notifications,
   ComingSoonPage,
+  ApiHubTry
 } from "./pages";
 import { Fallback, Login, AddApiPopup, AddDiscussion } from "./components";
 import { useContextProvider } from "./contexts/ContextProvider";
@@ -124,6 +125,7 @@ const App: React.FC = () => {
             <Route path="/documentation" element={<Documentation />} />
             <Route path="/terms" element={<TermsConditions />} />
             <Route path="/api-hub" element={<APIHub />} />
+            <Route path="/api-hubtry" element={<ApiHubTry />} />
             <Route path="/coming-soon" element={<ComingSoonPage />} />
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
