@@ -88,8 +88,8 @@ const Endpoints:React.FC<Props> = ({endpoints}) => {
 								{endpoints?.map((endpoint, index) => (
 									<CustomTab key={index} label={
 										<Stack direction="row" alignItems="center" spacing={16} px={1}>
-											<p>{endpoint.name}</p>
 											<p style={{color: methodColor[endpoint.method]}}>{endpoint.method}</p>
+											<p>{endpoint.name}</p>
 										</Stack>
 									} />
 								))}
