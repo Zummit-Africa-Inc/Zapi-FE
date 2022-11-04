@@ -21,8 +21,8 @@ const ImageUpload: React.FC<IUploadProps> = ({ setImageFile }) => {
       const fileReader = new FileReader();
       fileReader.onload = () => setPreviewURL(fileReader.result);
       fileReader.readAsDataURL(file);
-      setImageFile(file);
     } else return toast.error("Wrong file type");
+    setImageFile(file);
   };
 
   const handleDrag = (e: DragEvent) => {
