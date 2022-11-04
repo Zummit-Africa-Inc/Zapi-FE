@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect } from "react";
+import React, { FormEvent, useState,useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Stack, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
@@ -72,6 +72,7 @@ const Signup: React.FC = () => {
       }
     } catch (error) {}
   };
+  const [values, setValues] = useState(initialState);
 
   // const googleAuth = useGoogleLogin({
   //   flow: "auth-code",
@@ -172,7 +173,7 @@ const Signup: React.FC = () => {
                 <></>
               ) : (
                 <Typography variant="caption" color="error">
-                  {/* <Cancel sx={{ fontSize: 15, marginRight: 0.5 }} color="error" /> */}
+                  <Cancel sx={{ fontSize: 15, marginRight: 0.5 }} color="error" />
                     Password does not match
                 </Typography>
               )}
