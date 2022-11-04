@@ -129,7 +129,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (!name || !route) return toast.error("Please add a name and route");
+    if (!name || !route || !description) return toast.error("Name, route and description are required fields");
     const payload = {
       name,
       route,
