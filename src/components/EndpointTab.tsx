@@ -16,13 +16,14 @@ const core_url = "VITE_CORE_URL";
 const initialState = {
   name: "",
   route: "",
-  method: "",
+  method: "get",
   description: "",
   headers: "",
   headerType: "string",
   headerIsRequired: false,
   requestBody: "",
   requestBodyType: "string",
+  requestBodyFormat: "application/json",
   requestBodyIsRequired: false,
   queryParams: "",
   queryParamType: "string",
@@ -47,6 +48,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
     headerIsRequired,
     requestBody,
     requestBodyType,
+    requestBodyFormat,
     requestBodyIsRequired,
     queryParams,
     queryParamType,
@@ -211,47 +213,43 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
       </Stack>
       {isAdding && (
         <form onSubmit={handleSubmit}>
-          <Stack direction="row" alignItems="center" spacing={4} mt={4} mb={1}>
+          <Stack direction="row" width="100%" alignItems="center" justifyContent="space-between" my={1}>
+            <Typography>Add Endpoint</Typography>
+            <button
+              type="submit"
+              className={classes.button}
+              style={{ background: "#10c96b" }}>
+              {loading ? <Spinner /> : "ADD"}
+            </button>
+          </Stack>
+          <Stack direction="column" spacing={1} mt={4} mb={1}>
+            <div className={classes.inputs}>
+              <input type="text" name="name" {...bind} placeholder="Name" />
+            </div>
+            <div className={classes.inputs}>
+              <textarea
+                name="description"
+                {...bind}
+                placeholder="Description"
+              />
+            </div>
+          </Stack>
+          <Stack direction="row" alignItems="center" spacing={2} my={1}>
             <div className={classes.inputs}>
               <select name="method" {...select}>
-                <option value="">--METHOD--</option>
                 <option value="get">GET</option>
                 <option value="post">POST</option>
                 <option value="patch">PATCH</option>
                 <option value="delete">DELETE</option>
               </select>
             </div>
-            {method !== "" && (
-              <>
-              <div className={classes.inputs}>
-                <input type="text" name="name" {...bind} placeholder="Name" />
-              </div>
-              <div className={classes.inputs}>
-                <input type="text" name="route" {...bind} placeholder="Route" />
-              </div>
-              <button
-                type="submit"
-                className={classes.button}
-                style={{ background: "#10c96b" }}>
-                {loading ? <Spinner /> : "ADD"}
-              </button>
-              <IconButton onClick={toggleOptions} disabled={method === "post"} title="Toggle Params">
-                {isOptionsOpen ? <Remove /> : <Add />}
-              </IconButton>
-              </>
-            )}
+            <div className={classes.inputs}>
+              <input type="text" name="route" {...bind} placeholder="Route" />
+            </div>
+            <IconButton onClick={toggleOptions} disabled={method === "post"} title="Toggle Params">
+              {isOptionsOpen ? <Remove /> : <Add />}
+            </IconButton>
           </Stack>
-          {method !== "" && (
-            <Stack mb={1}>
-              <div className={classes.inputs}>
-                <textarea
-                  name="description"
-                  {...bind}
-                  placeholder="Description"
-                />
-              </div>
-            </Stack>
-          )}
           {(isOptionsOpen || method === "post") && (
             <>
               <Stack direction="column" spacing={1}>
@@ -267,6 +265,14 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                   <div className={classes.inputs}>
                     <select name="headerType" {...select}>
                       <option value="string">String</option>
+                      <option value="number">Number</option>
+                      <option value="file">File</option>
+                      <option value="boolean">Boolean</option>
+                      <option value="object">Object</option>
+                      <option value="array">Array</option>
+                      <option value="date">Date</option>
+                      <option value="time">Time</option>                      
+                      <option value="enum">Enum</option>
                     </select>
                   </div>
                   <div className={classes.inputs}>
@@ -309,7 +315,17 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                         <option value="object">Object</option>
                         <option value="array">Array</option>
                         <option value="date">Date</option>
+                        <option value="time">Time</option>              
                         <option value="enum">Enum</option>
+                      </select>
+                    </div>
+                    <div className={classes.inputs}>
+                      <select name="requestBodyFormat" {...select}>
+                        <option value="application/json">application/json</option>
+                        <option value="application/xml">application/xml</option>
+                        <option value="application/octet-stream">application/octet-stream</option>
+                        <option value="text/plain">text/plain</option>
+                        <option value="form-data">form-data</option>
                       </select>
                     </div>
                     <div className={classes.inputs}>
@@ -347,6 +363,13 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                     <select name="queryParamType" {...select}>
                       <option value="string">String</option>
                       <option value="number">Number</option>
+                      <option value="file">File</option>
+                      <option value="boolean">Boolean</option>
+                      <option value="object">Object</option>
+                      <option value="array">Array</option>
+                      <option value="date">Date</option>
+                      <option value="time">Time</option>         
+                      <option value="enum">Enum</option>
                     </select>
                   </div>
                   <div className={classes.inputs}>
