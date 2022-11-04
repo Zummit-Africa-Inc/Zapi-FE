@@ -3,10 +3,9 @@ import React, { Suspense, useEffect, useMemo } from "react";
 import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
 import { deviceDetect } from "react-device-detect";
-
+import ReactGA from "react-ga4";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-
 import {
   DevDashboard,
   DeveloperApiPage,
@@ -27,6 +26,7 @@ import {
   APIHub,
   Notifications,
   ComingSoonPage,
+  ApiHubTry
 } from "./pages";
 import { Fallback, Login, AddApiPopup } from "./components";
 import { useContextProvider } from "./contexts/ContextProvider";
@@ -34,10 +34,17 @@ import { login } from "./redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { PrivateRoutes } from "./components/routes";
 import { getUserApis, getSubscribedApis } from "./redux/slices/userSlice";
-import { getApiCategories, getApis } from "./redux/slices/apiSlice";
+import {
+  getApiCategories,
+  getApis,
+  getPopularApis,
+  getValidCategories,
+} from "./redux/slices/apiSlice";
 import { getDeviceIP } from "./utils";
 import { theme } from "./theme";
 import Cookies from "universal-cookie";
+
+ReactGA.initialize("G-EML55TX3Y7");
 
 const App: React.FC = () => {
   const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP } =
@@ -82,11 +89,15 @@ const App: React.FC = () => {
   }, []);
 
   const fetchApis = useMemo(() => dispatch(getApis()), []);
+  // const fetchPopularApis = useMemo(() => dispatch(getPopularApis()), []);
   const fetchCategories = useMemo(() => dispatch(getApiCategories()), []);
 
   useEffect(() => {
     fetchApis;
   }, []);
+  // useEffect(() => {
+  //   fetchPopularApis;
+  // }, []);
   useEffect(() => {
     fetchCategories;
   }, []);
@@ -114,6 +125,7 @@ const App: React.FC = () => {
             <Route path="/documentation" element={<Documentation />} />
             <Route path="/terms" element={<TermsConditions />} />
             <Route path="/api-hub" element={<APIHub />} />
+            <Route path="/api-hubtry" element={<ApiHubTry />} />
             <Route path="/coming-soon" element={<ComingSoonPage />} />
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />

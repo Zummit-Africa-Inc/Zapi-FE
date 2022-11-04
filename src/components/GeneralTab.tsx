@@ -21,6 +21,7 @@ import {
   Switch,
   SelectChangeEvent,
   Paper,
+  Button,
 } from "@mui/material";
 import Cookies from "universal-cookie";
 
@@ -33,15 +34,15 @@ import {
 import ImageUpload from "./ImageUpload";
 import { editAPI } from "../redux/slices/userSlice";
 import { Spinner } from "../assets";
+import axios from "axios";
 
 enum APIVisibility {
   PRIVATE = "private",
   PUBLIC = "public",
 }
 
-// const core_url = import.meta.env.VITE_CORE_URL;
-
-const core_url = "VITE_CORE_URL";
+// const core_url = "VITE_CORE_URL";
+const core_url = import.meta.env.VITE_CORE_URL;
 
 const GeneralTab: React.FC = () => {
   const [description, setDescription] = useState<String>("");
@@ -57,7 +58,8 @@ const GeneralTab: React.FC = () => {
   const cookies = new Cookies();
   const profileId = cookies.get("profileId");
   const classes = useStyles();
-  const [image, setImage] = useState(null);
+  // const [img, setImg] = useState(null);
+  // const [image, setImage] = useState<any>("");
   const { userApis } = useAppSelector((store) => store.user);
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -124,10 +126,38 @@ const GeneralTab: React.FC = () => {
       if (!data.success) return;
       dispatch(editAPI(payload));
       navigate("/developer/dashboard");
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
+
+  const handleDiscard = (e: any) => {
+    e.preventDefault();
+
+    setDescription(""),
+      setAbout(""),
+      setApi_website(""),
+      setTerm_of_use(""),
+      setBase_url(""),
+      setVisibility(""),
+      setCategoryId(""),
+      setRead_me("");
+
+    navigate("/developer/dashboard");
+  };
+
+  // const handleDiscard = (e: any) => {
+  //   e.preventDefault();
+
+  //   setDescription(""),
+  //     setAbout(""),
+  //     setApi_website(""),
+  //     setTerm_of_use(""),
+  //     setBase_url(""),
+  //     setVisibility(""),
+  //     setCategoryId(""),
+  //     setRead_me("");
+
+  //   navigate("/developer/dashboard");
+  // };
 
   return (
     <>
@@ -137,10 +167,6 @@ const GeneralTab: React.FC = () => {
             General Information
           </Typography>
           <form>
-            <Box sx={{ width: "200px", height: "200px", margin: "0.5rem 0" }}>
-              <ImageUpload setImageFile={() => setImage} />
-              {/* <Typography variant="body1" fontSize="14px" mt={2}>Maximum Size: 500 x 500px, JPEG / PNG</Typography> */}
-            </Box>
             <Box mt={2}>
               <InputLabel htmlFor="category" id="category">
                 Category
@@ -151,7 +177,7 @@ const GeneralTab: React.FC = () => {
                   value={categoryId}
                   name="categoryId"
                   onChange={(e) => setCategoryId(e.target.value)}
-                  sx={{ width: "320px", height:'40PX' }}>
+                  sx={{ width: "320px", height: "40PX" }}>
                   {categories.map(
                     (value) =>
                       value && (
@@ -174,7 +200,6 @@ const GeneralTab: React.FC = () => {
                 multiline
                 id="description"
                 rows={4}
-                maxRows={10}
                 fullWidth={true}
                 helperText="Describe in few words what’s this API do"
               />
@@ -188,7 +213,6 @@ const GeneralTab: React.FC = () => {
                 multiline
                 id="read_me"
                 rows={4}
-                maxRows={10}
                 fullWidth={true}
                 helperText="Describe in detail what’s API do and how it might be helpful"
               />
@@ -205,7 +229,6 @@ const GeneralTab: React.FC = () => {
                 multiline
                 rows={4}
                 id="documentation"
-                maxRows={10}
                 fullWidth={true}
                 helperText="Use this section to provide detailed documentation of your API and to highlight its benefits and features."
               />
@@ -238,7 +261,11 @@ const GeneralTab: React.FC = () => {
                 }}>
                 <Stack direction="row" spacing={2}>
                   <Box>
-                    {visibility === APIVisibility.PUBLIC ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                    {visibility === APIVisibility.PUBLIC ? (
+                      <VisibilityIcon />
+                    ) : (
+                      <VisibilityOffIcon />
+                    )}
                   </Box>
                   <Box>
                     {visibility === APIVisibility.PUBLIC ? (
@@ -305,7 +332,6 @@ const GeneralTab: React.FC = () => {
                 rows={4}
                 name="term_of_use"
                 onChange={(e) => setTerm_of_use(e.target.value)}
-                maxRows={10}
                 fullWidth={true}
               />
             </Box>
@@ -315,11 +341,12 @@ const GeneralTab: React.FC = () => {
                   type="submit"
                   onClick={handleSubmit}
                   disabled={isChanged}
-                  
                   className={classes.saveBtn}>
                   {loading ? <Spinner /> : "Save"}
                 </button>
-                <button className={classes.discardBtn}>Discard</button>
+                <button className={classes.discardBtn} onClick={handleDiscard}>
+                  Discard
+                </button>
               </Stack>
             </Box>
           </form>
@@ -364,6 +391,9 @@ const useStyles = makeStyles({
       backgroundColor: "rgba(0, 0, 0, 0.05)",
     },
   },
+  imagePreview: {
+    height: "150px",
+  },
   saveBtn: {
     padding: "15px 25px",
     backgroundColor: "rgb(74, 149, 237)",
@@ -376,9 +406,9 @@ const useStyles = makeStyles({
       backgroundColor: "#333",
     },
     "&:disabled": {
-      backgroundColor: 'rgb(214, 217, 219)',
-      cursor:'default',
-      color: 'black',
+      backgroundColor: "rgb(214, 217, 219)",
+      cursor: "default",
+      color: "black",
       opacity: "0.5",
     },
   },

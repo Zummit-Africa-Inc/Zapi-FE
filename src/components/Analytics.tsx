@@ -24,6 +24,7 @@ import { getAnalytics, getAnalyticsLog } from "../redux/slices/analyticSlice";
 import { useParams } from "react-router-dom";
 import { tableCellClasses } from "@mui/material/TableCell";
 import { styled } from "@mui/material/styles";
+import ReactGA from "react-ga4";
 
 const initialState = {
   statistics: "",
@@ -70,6 +71,8 @@ const Analytics: React.FC = () => {
 
   const { userApis } = useAppSelector((store) => store.user);
   const api = userApis.find((api) => api?.id === id);
+
+  ReactGA.send({ hitType: "pageview", page: "/analytics" });
 
   useMemo(() => {
     api;
