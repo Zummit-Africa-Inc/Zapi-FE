@@ -16,7 +16,7 @@ const core_url = "VITE_CORE_URL";
 const initialState = {
   name: "",
   route: "",
-  method: "get",
+  method: "",
   description: "",
   headers: "",
   headerType: "string",
@@ -238,15 +238,18 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
           <Stack direction="row" alignItems="center" spacing={2} my={1}>
             <div className={classes.inputs}>
               <select name="method" {...select}>
+                <option value="">--METHOD--</option>
                 <option value="get">GET</option>
                 <option value="post">POST</option>
                 <option value="patch">PATCH</option>
                 <option value="delete">DELETE</option>
               </select>
             </div>
-            <div className={classes.inputs}>
-              <input type="text" name="route" {...bind} placeholder="Route" />
-            </div>
+            {method !== "" && (
+              <div className={classes.inputs}>
+                <input type="text" name="route" {...bind} placeholder="Route" />
+              </div>
+            )}
             <IconButton onClick={toggleOptions} disabled={method === "post"} title="Toggle Params">
               {isOptionsOpen ? <Remove /> : <Add />}
             </IconButton>
