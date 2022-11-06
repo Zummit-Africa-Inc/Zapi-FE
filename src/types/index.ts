@@ -74,6 +74,7 @@ export type EndpointsType = {
    headers?: Array<OptionsType>
    body?: Array<OptionsType>
    query?: Array<OptionsType>
+   requestBody?: Array<ReqBody>
 }
 
 export type AnalyticsType = {
@@ -112,3 +113,8 @@ export type OptionsType = {
    required: boolean
    value?: any
 }
+
+export type ReqBody = {
+   key: string;
+   value: string | Date | boolean | number | object | symbol | Array<any>;
+ }
