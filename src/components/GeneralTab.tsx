@@ -41,8 +41,7 @@ enum APIVisibility {
   PUBLIC = "public",
 }
 
-// const core_url = "VITE_CORE_URL";
-const core_url = import.meta.env.VITE_CORE_URL;
+const core_url = "VITE_CORE_URL";
 
 const GeneralTab: React.FC = () => {
   const [description, setDescription] = useState<String>("");
@@ -291,6 +290,7 @@ const GeneralTab: React.FC = () => {
                     )}
                     <Switch
                       value={visibility}
+                      checked={visibility === APIVisibility.PRIVATE}
                       name="visibility"
                       onChange={handleSwitch}
                     />
@@ -396,7 +396,7 @@ const useStyles = makeStyles({
   },
   saveBtn: {
     padding: "15px 25px",
-    backgroundColor: "rgb(74, 149, 237)",
+    backgroundColor: "#0814FA",
     color: "white",
     borderRadius: "5px",
     outline: "none",
