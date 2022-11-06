@@ -14,17 +14,7 @@ export type APIType = {
    secretKey: string
    read_me: string
    endpoints?: Array<EndpointsType | null>
-   discussion?: Array<DiscussionType | null>
-}
-
-export type DiscussionType = {
-   id?: string | undefined
-   title: string
-   discussion: string
-   userId: string
-   createdOn: string | Date | null
-   picture: object | string | null
-   fullName: string
+   discussions?: Array<DiscussionType | null>
 }
 
 
@@ -66,6 +56,17 @@ export type UserProfileType = {
    followers?: string[] | []
    followering?: string[] | []
    picture: object | string | null
+}
+
+export type DiscussionType = {
+   id?: string
+   title: string
+   apiId?: string
+   body: string
+   profileId?: string
+   createdOn?: string | Date | null
+   // picture: object | string | null
+   // fullName: string
 }
 
 export type EndpointsType = {

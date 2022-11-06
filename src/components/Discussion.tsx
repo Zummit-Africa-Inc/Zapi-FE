@@ -10,7 +10,7 @@ import {
     Box,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React, { SyntheticEvent, useState } from "react";
+import React, { SyntheticEvent, useState ,useEffect} from "react";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector, useHttpRequest } from "../hooks";
 import { getFreeApis } from "../redux/slices/freeApiSlice";
@@ -22,31 +22,18 @@ import { useContextProvider } from "../contexts/ContextProvider";
 
 // const core_url = import.meta.env.VITE_CORE_URL
 const core_url = "VITE_CORE_URL";
-const X_ZAPI_FREE_TOKEN = import.meta.env.VITE_FREE_REQUEST_TOKEN;
-
-const Discussion: React.FC = () => {
-    const id = useParams().id
+interface Props { id: string | undefined }
+const Discussion: React.FC<Props> = ({id}) => {
+    // const id = useParams().id
     const classes = useStyles()
     const [tab, setTab] = useState<number>(0)
-    const api = APIS.find(api => api.id === id)
+    const { apis } = useAppSelector(store => store.apis)
+    const api = apis.find(api => api?.id === id)
     const { handleClicked } = useContextProvider();
-    const { apis, categories } = useAppSelector(store => store.apis)
 
-    // const [apiId, setApiId] = useState<string>("");
-    // const [query, setQuery] = useState<string>("");
-    // const [data, setData] = useState("");
     // const dispatch = useAppDispatch();
-    // const { freeApis } = useAppSelector((store) => store.freeApis);
-    // const [apiName, setApiName] = useState<string>("");
     // const { loading, sendRequest } = useHttpRequest();
 
-    // const handleChange = (event: SelectChangeEvent) => {
-    //   setApiId(event.target.value);
-    // };
-
-    // const headers = {
-    //   "X-ZAPI-FREE-TOKEN": X_ZAPI_FREE_TOKEN,
-    // };
     // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     //   e.preventDefault();
     //   try {
@@ -107,7 +94,23 @@ const Discussion: React.FC = () => {
                         backgroundColor: '#F8F9F9',
                     }}
                 >
-                    <div className={classes.discussion_thread}>
+                    {api?.discussions?.map((discussion, index) => (
+                        <>
+                    <div className={classes.discussion_thread} key={index}>
+                         {/* <div key={discussion?.id} {...discussion} /> */}
+                            <div className={classes.discussion_row}>
+                            <img src={ZapiHomeLogo} alt="zapi-Home" />
+                            <div className={classes.discussion_column}>
+                                <Typography variant="body2" fontWeight={400}>{discussion?.title }</Typography>
+                                <Typography variant="body1" fontWeight={500}><Link sx={{ textDecoration: 'none', color: "#071b85" }} href="/" >{ discussion?.body}</Link></Typography>
+                                <Typography variant="body2" fontWeight={400}>{discussion?.createdOn?.toString() }</Typography>
+                            </div>
+                        </div>
+                    </div>
+                        <hr />
+                        </>
+                    ))}
+                    {/* <div className={classes.discussion_thread}>
                         <div className={classes.discussion_row}>
                             <img src={ZapiHomeLogo} alt="zapi-Home" />
                             <div className={classes.discussion_column}>
@@ -172,18 +175,7 @@ const Discussion: React.FC = () => {
                             </div>
                         </div>
                     </div>
-                    <hr />
-                    <div className={classes.discussion_thread}>
-                        <div className={classes.discussion_row}>
-                            <img src={ZapiHomeLogo} alt="zapi-Home" />
-                            <div className={classes.discussion_column}>
-                                <Typography variant="body2" fontWeight={400}>User24</Typography>
-                                <Typography variant="body1" fontWeight={500}><Link sx={{textDecoration:'none', color:"#071b85"}} href="/" >A Comment or Discussion about Text Summarizer</Link></Typography>
-                                <Typography variant="body2" fontWeight={400}>5 hours ago</Typography>
-                            </div>
-                        </div>
-                    </div>
-                    <hr />
+                    <hr /> */}
                 </Box>
 
             </div>

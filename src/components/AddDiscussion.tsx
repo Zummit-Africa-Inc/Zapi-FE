@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect } from "react";
+import React, { FormEvent,useState, useEffect } from "react";
 import {
   Typography
 } from "@mui/material";
@@ -14,7 +14,8 @@ import {
   useHttpRequest,
 } from "../hooks";
 import { Fallback } from ".";
-import { addDiscussion } from "../redux/slices/discussionSlice";
+import { addDiscussion, getApisDiscussion } from "../redux/slices/apiSlice";
+import ReactGA from "react-ga4";
 
 const core_url = "VITE_CORE_URL";
 const initialState = {
@@ -22,10 +23,15 @@ const initialState = {
   discussion: "",
 };
 
-const AddDiscussion: React.FC = () => {
+interface Props {
+  id: string | undefined;
+}
+
+const AddDiscussion: React.FC<Props> = ({ id }) => {
   const { loading, error, sendRequest, clearError } = useHttpRequest();
-  const { inputs, bind, select } = useFormInputs(initialState);
-  const { title, discussion } = inputs;
+  const { inputs, bind } = useFormInputs(initialState);
+  const [isAdding, setIsAdding] = useState<boolean>(false);
+  const { title, body } = inputs;
   const { handleUnclicked } = useContextProvider();
   const classes = useStyles();
   const cookies = new Cookies();
@@ -33,30 +39,36 @@ const AddDiscussion: React.FC = () => {
   const dispatch = useAppDispatch();
   const { triggerRefresh } = useContextProvider();
 
+  ReactGA.send({ hitType: "pageview", page: "/endpointTab" });
+  const toggleAdding = () => {
+    setIsAdding((prev) => !prev);
+  };
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!title || !discussion)
+    if (!title || !body)
       return toast.error("Please fill all fields");
-    // const payload = { title, discussion };
-    // const headers = { "Content-Type": "application/json" };
-    // try {
-    //   const data = await sendRequest(
-    //     `/api/new/${profileId}`,
-    //     "post",
-    //     core_url,
-    //     payload,
-    //     headers
-    //   );
-    //   console.log(data);
-    //   if (!data || data === null) return;
-    //   dispatch(addApi(payload));
-    //   triggerRefresh();
-    //   const { message } = data;
-    //   toast.success(`${message}`);
-    // } catch (err) {
-    //   console.log(err);
-    // }
-    // handleUnclicked();
+    const payload = { title, body };
+    const headers = { "Content-Type": "application/json" };
+    try {
+      const data = await sendRequest(
+        `/discussion`,
+        "post",
+        core_url,
+        payload,
+        headers
+      );
+      console.log(data);
+      if (!data || data === null) return;
+      dispatch(addDiscussion(payload));
+      triggerRefresh();
+      const { message } = data;
+      toast.success(`${message}`);
+    } catch (err) {
+      console.log(err);
+    }
+    dispatch(getApisDiscussion(id));
+    handleUnclicked();
   };
 
   useEffect(() => {
@@ -94,7 +106,7 @@ const AddDiscussion: React.FC = () => {
               <label>Discussion</label>
               <input
                 type="text"
-                name="discussion"
+                name="body"
                 {...bind}
                 placeholder="Add Discussion"
               />
@@ -106,7 +118,7 @@ const AddDiscussion: React.FC = () => {
                 flexDirection: "row",
                 marginLeft: "auto",
               }}>
-              <button type="submit" className={classes.addBtn}>
+              <button onClick={toggleAdding} type="submit" className={classes.addBtn}>
                 Post Discussion
               </button>
               <button
