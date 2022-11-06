@@ -193,8 +193,5 @@ const apiSlice = createSlice({
   },
 });
 
-export const { addApi, removeApi, clearError } = apiSlice.actions;
-export default apiSlice.reducer;
-
 export const { addApi,removeApi,addDiscussion,editDiscussion,removeDiscussion, clearError } = apiSlice.actions
 export default apiSlice.reducer
