@@ -14,6 +14,15 @@ export type APIType = {
    secretKey: string
    read_me: string
    endpoints?: Array<EndpointsType | null>
+   popularity?: number
+   service_level?: number
+   latency?: number
+   createdBy?: Date | string
+   createdOn?: Date | string
+   updatedBy?: Date | string
+   updatedOn?: Date | string
+   deletedBy?: Date | string
+   deletedOn?: Date | string
 }
 
 export type SubscriptionType = {
@@ -62,8 +71,9 @@ export type EndpointsType = {
    route: string
    method: string
    description: string
-   headers?: Array<HeaderObject>
-   requestBody?: Array<object>
+   headers?: Array<OptionsType>
+   body?: Array<OptionsType>
+   query?: Array<OptionsType>
 }
 
 export type AnalyticsType = {

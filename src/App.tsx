@@ -26,7 +26,8 @@ import {
   APIHub,
   Notifications,
   ComingSoonPage,
-  ApiHubTry
+  ApiHubTry,
+  APIMoreInfo,
 } from "./pages";
 import { Fallback, Login, AddApiPopup } from "./components";
 import { useContextProvider } from "./contexts/ContextProvider";
@@ -50,7 +51,6 @@ const App: React.FC = () => {
   const { isClicked, setDeviceLocation, setDeviceInfo, setDeviceIP } =
     useContextProvider();
   const { isLoggedIn } = useAppSelector((store) => store.user);
-  const { trigger } = useContextProvider();
   const cookies = new Cookies();
   const profileId = cookies.get("profileId");
   const dispatch = useAppDispatch();
@@ -106,7 +106,7 @@ const App: React.FC = () => {
     if (profileId === undefined) return;
     dispatch(getUserApis(profileId));
     dispatch(getSubscribedApis(profileId));
-  }, [isLoggedIn === true, trigger, profileId]);
+  }, [isLoggedIn === true, profileId]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -127,11 +127,12 @@ const App: React.FC = () => {
             <Route path="/api-hub" element={<APIHub />} />
             <Route path="/api-hubtry" element={<ApiHubTry />} />
             <Route path="/coming-soon" element={<ComingSoonPage />} />
+            <Route path="/api-hub/:id" element={<APIMoreInfo />} />
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
               <Route path="/developer/dashboard" element={<DevDashboard />} />
               <Route path="/developer/api/:id" element={<DeveloperApiPage />} />
-              <Route path="/api/:id" element={<APIPage />} />
+              <Route path="/api/:id" element={<APIMoreInfo />} />
               <Route path="/configuration" element={<Configuration />} />
               <Route path="/login-history" element={<LoginHistory />} />
               <Route path="/success-page" element={<SuccessPage />} />

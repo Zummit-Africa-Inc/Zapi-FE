@@ -396,7 +396,7 @@ const useStyles = makeStyles({
   },
   saveBtn: {
     padding: "15px 25px",
-    backgroundColor: "rgb(74, 149, 237)",
+    backgroundColor: "#0814FA",
     color: "white",
     borderRadius: "5px",
     outline: "none",

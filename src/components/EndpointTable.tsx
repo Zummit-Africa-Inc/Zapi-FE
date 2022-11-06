@@ -150,11 +150,11 @@ const useStyles = makeStyles({
     gap: "1rem",
   },
   root:{
-        "& .MuiTableCell-head": {
-            color: "white",
-            backgroundColor: "#081f4A"
-        }
-    },
+    "& .MuiTableCell-head": {
+        color: "white",
+        backgroundColor: "#081f4A"
+    }
+  },
   input: {
     display: "flex",
     alignItems: "center",
