@@ -16,7 +16,7 @@ interface DiscussionState {
 }
 
 const initialState: DiscussionState = {
-    discussions: [{id:'001', title:'Cannot Subscribe', body:"It shows an error during payment… i have tried entering multiple times",apiId:'03f20287-9602-47bc-b5bc-50b7b223b3d3'}],
+    discussions: [{id:'001', title:'Cannot Subscribe', body:"It shows an error during payment… i have tried entering multiple times"}],
     loading: "idle",
     error: null,
     // discussionApi: []

@@ -28,6 +28,7 @@ import {
   ComingSoonPage,
   ApiHubTry,
   APIMoreInfo,
+  SingleDiscussionPage
 } from "./pages";
 import { Fallback, Login, AddApiPopup, AddDiscussion } from "./components";
 import { useContextProvider } from "./contexts/ContextProvider";
@@ -128,6 +129,7 @@ const App: React.FC = () => {
             <Route path="/api-hubtry" element={<ApiHubTry />} />
             <Route path="/coming-soon" element={<ComingSoonPage />} />
             <Route path="/api-hub/:id" element={<APIMoreInfo />} />
+            <Route path="/discussion/:id" element={<SingleDiscussionPage />} />
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
               <Route path="/developer/dashboard" element={<DevDashboard />} />

@@ -6,8 +6,8 @@ import { AccessTimeOutlined, DoneOutlined, TrendingUpOutlined } from "@mui/icons
 
 import { Navbar, TabPanel, SplitView } from "../components";
 import { APIS } from "../testdata";
-import {HomeNavbar,Footer} from '../sections';
-import {Discussion} from '../components';
+import { HomeNavbar, Footer } from '../sections';
+import { Discussion } from '../components';
 
 const APIPage: React.FC = () => {
   const id = useParams().id
@@ -66,7 +66,7 @@ const APIPage: React.FC = () => {
           </TabPanel>
         </div>
       </div>
-      <Discussion/>
+      {/* <Discussion id={id} /> */}
       <Footer />
     </div>
   )
@@ -74,7 +74,7 @@ const APIPage: React.FC = () => {
 
 const useStyles = makeStyles({
   apiPage: {
-    height: "100%",
+    // height: "100%",
     width: "100%",
     fontFamily: "Space Grotesk, sans-serif",
     background: "#fff",

@@ -23,11 +23,8 @@ const initialState = {
   discussion: "",
 };
 
-interface Props {
-  id: string | undefined;
-}
 
-const AddDiscussion: React.FC<Props> = ({ id }) => {
+const AddDiscussion: React.FC = () => {
   const { loading, error, sendRequest, clearError } = useHttpRequest();
   const { inputs, bind } = useFormInputs(initialState);
   const [isAdding, setIsAdding] = useState<boolean>(false);
@@ -67,7 +64,7 @@ const AddDiscussion: React.FC<Props> = ({ id }) => {
     } catch (err) {
       console.log(err);
     }
-    dispatch(getApisDiscussion(id));
+    // dispatch(getApisDiscussion(id));
     handleUnclicked();
   };
 

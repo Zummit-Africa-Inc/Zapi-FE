@@ -8,63 +8,27 @@ import {
     SelectChangeEvent,
     Link,
     Box,
+    Stack
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React, { SyntheticEvent, useState ,useEffect} from "react";
+import React, { SyntheticEvent, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector, useHttpRequest } from "../hooks";
-import { getFreeApis } from "../redux/slices/freeApiSlice";
 import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png";
-import { APIS } from "../testdata";
 import { Add } from "@mui/icons-material";
 import { useContextProvider } from "../contexts/ContextProvider";
+import { DiscussionType } from "../types";
 
 
 // const core_url = import.meta.env.VITE_CORE_URL
-const core_url = "VITE_CORE_URL";
-interface Props { id: string | undefined }
-const Discussion: React.FC<Props> = ({id}) => {
-    // const id = useParams().id
+interface Props {
+    discussions: Array<DiscussionType> | null
+}
+const Discussion: React.FC<Props> = ({ discussions }) => {
     const classes = useStyles()
     const [tab, setTab] = useState<number>(0)
-    const { apis } = useAppSelector(store => store.apis)
-    const api = apis.find(api => api?.id === id)
     const { handleClicked } = useContextProvider();
 
-    // const dispatch = useAppDispatch();
-    // const { loading, sendRequest } = useHttpRequest();
-
-    // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    //   e.preventDefault();
-    //   try {
-    //     const res = await sendRequest(
-    //       `/subscription/free-request/${apiId}`,
-    //       "post",
-    //       core_url,
-    //       JSON.parse(query),
-    //       headers
-    //     );
-    //     setData(res.data);
-    //   } catch (error) {
-    //     if (query === null || !query) {
-    //       toast.error("Select an API before you make a request");
-    //     } else {
-    //       toast.error("Request unsuccessful");
-    //     }
-    //   }
-    // };
-    // const isValidJsonString = (query: string) => {
-    //   if (!(query && typeof query === "string")) {
-    //     return false;
-    //   }
-
-    //   try {
-    //     JSON.parse(query);
-    //     return true;
-    //   } catch (error) {
-    //     return false;
-    //   }
-    // };
 
     return (
         <div className={classes.main}>
@@ -86,102 +50,45 @@ const Discussion: React.FC<Props> = ({id}) => {
             </div>
 
             <div className={classes.discussions_container}>
-                <Box
-                    sx={{
-                        width: '90%',
-                        height: 'auto',
-                        borderRadius: 0,
-                        backgroundColor: '#F8F9F9',
-                    }}
-                >
-                    {api?.discussions?.map((discussion, index) => (
-                        <>
-                    <div className={classes.discussion_thread} key={index}>
-                         {/* <div key={discussion?.id} {...discussion} /> */}
-                            <div className={classes.discussion_row}>
-                            <img src={ZapiHomeLogo} alt="zapi-Home" />
-                            <div className={classes.discussion_column}>
-                                <Typography variant="body2" fontWeight={400}>{discussion?.title }</Typography>
-                                <Typography variant="body1" fontWeight={500}><Link sx={{ textDecoration: 'none', color: "#071b85" }} href="/" >{ discussion?.body}</Link></Typography>
-                                <Typography variant="body2" fontWeight={400}>{discussion?.createdOn?.toString() }</Typography>
-                            </div>
-                        </div>
-                    </div>
-                        <hr />
-                        </>
-                    ))}
-                    {/* <div className={classes.discussion_thread}>
-                        <div className={classes.discussion_row}>
-                            <img src={ZapiHomeLogo} alt="zapi-Home" />
-                            <div className={classes.discussion_column}>
-                                <Typography variant="body2" fontWeight={400}>User24</Typography>
-                                <Typography variant="body1" fontWeight={500}><Link sx={{textDecoration:'none', color:"#071b85"}} href="/" >A Comment or Discussion about Text Summarizer</Link></Typography>
-                                <Typography variant="body2" fontWeight={400}>5 hours ago</Typography>
-                            </div>
-                        </div>
-                    </div>
-                    <hr />
-                    <div className={classes.discussion_thread}>
-                        <div className={classes.discussion_row}>
-                            <img src={ZapiHomeLogo} alt="zapi-Home" />
-                            <div className={classes.discussion_column}>
-                                <Typography variant="body2" fontWeight={400}>User24</Typography>
-                                <Typography variant="body1" fontWeight={500}><Link sx={{textDecoration:'none', color:"#071b85"}} href="/" >A Comment or Discussion about Text Summarizer</Link></Typography>
-                                <Typography variant="body2" fontWeight={400}>5 hours ago</Typography>
-                            </div>
-                        </div>
-                    </div>
-                    <hr />
-                    <div className={classes.discussion_thread}>
-                        <div className={classes.discussion_row}>
-                            <img src={ZapiHomeLogo} alt="zapi-Home" />
-                            <div className={classes.discussion_column}>
-                                <Typography variant="body2" fontWeight={400}>User24</Typography>
-                                <Typography variant="body1" fontWeight={500}><Link sx={{textDecoration:'none', color:"#071b85"}} href="/" >A Comment or Discussion about Text Summarizer</Link></Typography>
-                                <Typography variant="body2" fontWeight={400}>5 hours ago</Typography>
-                            </div>
-                        </div>
-                    </div>
-                    <hr />
-                    <div className={classes.discussion_thread}>
-                        <div className={classes.discussion_row}>
-                            <img src={ZapiHomeLogo} alt="zapi-Home" />
-                            <div className={classes.discussion_column}>
-                                <Typography variant="body2" fontWeight={400}>User24</Typography>
-                                <Typography variant="body1" fontWeight={500}><Link sx={{textDecoration:'none', color:"#071b85"}} href="/" >A Comment or Discussion about Text Summarizer</Link></Typography>
-                                <Typography variant="body2" fontWeight={400}>5 hours ago</Typography>
-                            </div>
-                        </div>
-                    </div>
-                    <hr />
-                    <div className={classes.discussion_thread}>
-                        <div className={classes.discussion_row}>
-                            <img src={ZapiHomeLogo} alt="zapi-Home" />
-                            <div className={classes.discussion_column}>
-                                <Typography variant="body2" fontWeight={400}>User24</Typography>
-                                <Typography variant="body1" fontWeight={500}><Link sx={{textDecoration:'none', color:"#071b85"}} href="/" >A Comment or Discussion about Text Summarizer</Link></Typography>
-                                <Typography variant="body2" fontWeight={400}>5 hours ago</Typography>
-                            </div>
-                        </div>
-                    </div>
-                    <hr />
-                    <div className={classes.discussion_thread}>
-                        <div className={classes.discussion_row}>
-                            <img src={ZapiHomeLogo} alt="zapi-Home" />
-                            <div className={classes.discussion_column}>
-                                <Typography variant="body2" fontWeight={400}>User24</Typography>
-                                <Typography variant="body1" fontWeight={500}><Link sx={{textDecoration:'none', color:"#071b85"}} href="/" >A Comment or Discussion about Text Summarizer</Link></Typography>
-                                <Typography variant="body2" fontWeight={400}>5 hours ago</Typography>
-                            </div>
-                        </div>
-                    </div>
-                    <hr /> */}
-                </Box>
-
+                    <Box
+                        sx={{
+                            width: '90%',
+                            height: 'auto',
+                            borderRadius: 0,
+                            backgroundColor: '#F8F9F9',
+                        }}
+                    >
+                        {discussions && discussions.length !== 0 ?
+                            (
+                                <div>
+                                    {discussions?.map((discussion, index) => (
+                                        <>
+                                            <div className={classes.discussion_thread} key={index}>
+                                                <div className={classes.discussion_row}>
+                                                    <img src={ZapiHomeLogo} alt="zapi-Home" />
+                                                    <div className={classes.discussion_column}>
+                                                        <Typography variant="body2" fontWeight={400}>{discussion.title}</Typography>
+                                                        <Typography variant="body1" fontWeight={500}><Link sx={{ textDecoration: 'none', color: "#071b85" }} href={`/discussion/${discussion.id}`} >{discussion?.body}</Link></Typography>
+                                                        <Typography variant="body2" fontWeight={400}>{discussion?.createdOn?.toLocaleString()}</Typography>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr />
+                                        </>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div style={{width:'100%', backgroundColor: '#ffffff', padding:'4rem 0' }}>
+                                    <Typography variant="h5" >
+                                        There are no discussions in this API.
+                                    </Typography>
+                                </div>
+                            )}
+                    </Box>
             </div>
         </div>
-    );
-};
+    )
+}
 
 export default Discussion;
 
@@ -274,7 +181,7 @@ const useStyles = makeStyles({
     discussions_container: {
         width: "100%",
         // margin: "0 5rem 0 10rem",
-        height:'auto',
+        height: 'auto',
         display: 'flex',
         justifyContent: "center",
         marginBottom: '3rem'
@@ -309,7 +216,7 @@ const useStyles = makeStyles({
         gap: "35px",
         flexWrap: "wrap",
         color: "#071B85",
-        paddingLeft:'2rem',
+        paddingLeft: '2rem',
     },
     brandText: {
         display: "flex",

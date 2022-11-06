@@ -68,14 +68,24 @@ export type UserProfileType = {
 }
 
 export type DiscussionType = {
-   id?: string
+   id?: string | undefined
    title: string
-   apiId?: string
+   // apiId?: string
    body: string
-   profileId?: string
-   createdOn?: string | Date | null
+   // profileId?: string
+   createdOn?: Date | string
+   childrenDiscussion?: Array<ChildrenDiscussionType | null>
    // picture: object | string | null
    // fullName: string
+}
+
+export type ChildrenDiscussionType = {
+   id?: string | undefined
+   title: string
+   body: string
+   profileId?: string
+   createdOn?: Date | string
+   discussions?: Array<DiscussionType | null>
 }
 
 export type EndpointsType = {
