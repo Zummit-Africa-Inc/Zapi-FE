@@ -80,7 +80,7 @@ const GeneralTab: React.FC = () => {
     visibility: api?.visibility,
   };
 
-  useEffect(() => {
+  const setFields = () => {
     if (api) {
       setLogo_url(api?.logo_url);
       setDescription(api?.description),
@@ -92,6 +92,10 @@ const GeneralTab: React.FC = () => {
         setCategoryId(api.categoryId),
         setRead_me(api?.read_me);
     }
+  };
+
+  useEffect(() => {
+    setFields();
   }, [id]);
 
   const handleSwitch = (e: ChangeEvent<HTMLInputElement>) => {
@@ -146,7 +150,7 @@ const GeneralTab: React.FC = () => {
       setCategoryId(""),
       setRead_me("");
 
-    navigate("/developer/dashboard");
+    setFields();
   };
 
   const imageUpload = async (e: any) => {
