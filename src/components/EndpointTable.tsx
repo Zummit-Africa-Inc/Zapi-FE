@@ -104,7 +104,7 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
           {api?.endpoints?.map((endpoint, index) => (
             <StyledTableRow key={index}>
               <StyledTableCell>
-                <input type="text" name="name" defaultValue={endpoint?.name} {...bind} className={classes.input} disabled={isEditing !== index} />
+                <input type="text" placeholder='Endpoint name' name="name" defaultValue={endpoint?.name} {...bind} className={classes.input} disabled={isEditing !== index} />
               </StyledTableCell>
               <StyledTableCell>
                 <select name="method" defaultValue={endpoint?.method} {...select} className={classes.input} disabled={isEditing !== index}>
@@ -115,7 +115,7 @@ const CollapsibleTable:React.FC<Props> = ({id}) => {
                 </select>
               </StyledTableCell>
               <StyledTableCell>
-                <input type="text" name="route" defaultValue={endpoint?.route.toString()} {...bind} className={classes.input} disabled={isEditing !== index} />
+                <input type="text" placeholder='Endpoint route' name="route" defaultValue={endpoint?.route.toString()} {...bind} className={classes.input} disabled={isEditing !== index} />
               </StyledTableCell>
               <StyledTableCell>
                 {isEditing === index ? (
