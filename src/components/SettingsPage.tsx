@@ -6,7 +6,7 @@ import { removeEndpoint } from "../redux/slices/userSlice";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "universal-cookie";
-import { Paper } from "@mui/material";
+import { Button, Paper } from "@mui/material";
 import {
   useAppDispatch,
   useAppSelector,
@@ -23,6 +23,7 @@ const SettingsPage: React.FC = () => {
   const [status, setStatus] = useState("");
   const [popup, setPop] = useState(false);
   const { error, loading, sendRequest } = useHttpRequest();
+  const [value, setValue] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
   const classes = useStyles();
@@ -30,7 +31,7 @@ const SettingsPage: React.FC = () => {
 
   const cookies = new Cookies();
   const profileId = cookies.get("profileId");
-  // const [delete, setDelete] = useState("")
+ 
   let payload: object;
 
   const handleClickDelete = () => {
@@ -61,6 +62,8 @@ const SettingsPage: React.FC = () => {
     } catch (error) {}
   };
 
+
+    
   return (
     <Paper elevation={1} className={classes.paper}>
      <div className={classes.textCol}>
@@ -182,17 +185,33 @@ const SettingsPage: React.FC = () => {
                   </li>
                 </ul>
               </span>
-              <span className={classes.delapi}>Type this API project name "Bayo" to confirm the deletion:</span>
+              <span className={classes.delapi}>Type this API project name to confirm the deletion:</span>
               <br/>
               <input
               type="text"
               className={classes.deltext}
+              value={value}
+              onChange={(e)=>setValue(e.target.value)}
               />
             </div>
             <hr />
-            <button onClick={handleDeleteApi} className={classes.buttn}>
+            <Button 
+            sx={{
+              marginLeft: "80%",
+              borderRadius: "6px",
+              backgroundColor: "rgb(235, 76, 76)",
+              color: "rgba(255, 255, 255, 0.87)",
+              marginTop: "5px",
+              "@media screen and (max-width: 576px)": {
+                marginLeft: "60%",
+              },
+            }}
+            variant="contained"
+            onClick={handleDeleteApi} 
+            disabled={!value}
+            >
             {loading ? <Spinner /> : "Delete"}
-            </button>
+            </Button>
             </section>
           </form>
         ) : (
@@ -208,16 +227,16 @@ const useStyles = makeStyles({
     width: "950px",
     margin: "0",
     padding: "50px",
-    "@media screen and (max-width: 576px)": {
+    ["@media screen and (max-width: 576px)"]: {
       paddingTop: "40px",
       paddingLeft: "20px",
       paddingBottom: "40px",
       width: "100%",
     },
-    "@media screen and (max-width: 768px)": {
+    ["@media screen and (max-width: 768px)"]: {
       height: "auto",
       width: "auto",
-      paddingTop: "20px",
+      paddingTop: "40px",
       paddingLeft: "20px",
       paddingBottom: "40px",
     }
@@ -292,11 +311,11 @@ const useStyles = makeStyles({
     border: "1.5px solid #c7bebe",
     borderRadius: "5px",
     transition: "all 0.3s ease",
-    "@media screen and (max-width: 576px)": {
-      width: "auto",
-      height: "auto",
-      padding: "10px",
-    }
+    // "@media screen and (max-width: 576px)": {
+    //   width: "auto",
+    //   height: "auto",
+    //   padding: "10px",
+    // }
   },
   forms: {
     position: "relative",
@@ -312,12 +331,13 @@ const useStyles = makeStyles({
     cursor: "pointer",
     fontSize: "20px",
     marginLeft: "30px",
+    height: "30px",
     width: "265px",
-    "@media screen and (max-width: 576px)": {
-      height: "auto",
-      width: "auto",
-      padding: "10px",
-    }
+    // "@media screen and (max-width: 576px)": {
+    //   height: "auto",
+    //   width: "auto",
+    //   padding: "10px",
+    // }
   },
   btn: {
     marginTop: "20px",
@@ -392,28 +412,28 @@ const useStyles = makeStyles({
     paddingRight: "24px",
     backgroundColor: "#ddd",
     width: "450px",
-    height: "400px",
+    height: "410px",
     justifyContent: "center",
     boxShadow: "rgb(0 0 0 / 8%) 0px 1px 4px",
     boxSizing: "border-box",
     borderRadius: "10px",
     position: "absolute",
     zIndex: "2",
-    top: "35%",
-    left: "45%",
+    top: "40%",
+    left: "55%",
     transform: "translate(-50%, -50%)",
-    "@media screen and (max-width: 576px)": {
-      top: "23%",
-      width: "auto",
-      height: "340px",
-      paddingTop: "0px",
-      paddingLeft: "20px",
-      alighItems: "center",
-      justifyContent: "center",
-      position: "absolute",
-    },
-    "@media screen and (max-width: 768px)": {
-      top: "25%",
+    // "@media screen and (max-width: 576px)": {
+    //   top: "46%",
+    //   width: "250px",
+    //   height: "390px",
+    //   paddingTop: "0px",
+    //   paddingLeft: "20px",
+    //   alighItems: "center",
+    //   justifyContent: "center",
+    //   position: "absolute",
+    // },
+    ["@media screen and (max-width: 768px)"]: {
+      top: "44%",
       width: "auto",
       height: "auto",
     }
@@ -431,10 +451,10 @@ const useStyles = makeStyles({
     fontWeight: "600",
     display: "block",
     boxSizing: "border-box",
-    "@media screen and (max-width: 576px)": {
-      fontSize: "20px",
-      paddingTop: "5px",
-    },
+    // "@media screen and (max-width: 576px)": {
+    //   fontSize: "20px",
+    //   paddingTop: "5px",
+    // },
     "@media screen and (max-width: 768px)": {
       fontSize: "17px",
     }
@@ -443,20 +463,20 @@ const useStyles = makeStyles({
     marginTop: "7px",
     marginBottom: "5px",
     cursor: "pointer",
-    "@media screen and (max-width: 576px)": {
-      fontSize: "15px",
-      padding: "3px",
-    },
+    // "@media screen and (max-width: 576px)": {
+    //   fontSize: "15px",
+    //   padding: "3px",
+    // },
   },
   sctn: {
     display: "block",
     fontSize: "18px",
     fontWeight: "500",
-    "@media screen and (max-width: 576px)": {
-      fontSize: "10px",
-      padding: "3px",
-      width: "200px",
-    },
+    // "@media screen and (max-width: 576px)": {
+    //   fontSize: "10px",
+    //   padding: "3px",
+    //   width: "200px",
+    // },
     "@media screen and (max-width: 768px)": {
       fontSize: "14px",
       width: "auto",
@@ -469,10 +489,10 @@ const useStyles = makeStyles({
     lineHeight: "20px",
     display: "block",
     boxSizing: "border-box",
-    "@media screen and (max-width: 576px)": {
-      fontSize: "17px",
-      lineHeight: "25px",
-    }
+    // "@media screen and (max-width: 576px)": {
+    //   fontSize: "13px",
+    //   lineHeight: "15px",
+    // }
   },
   lose: {
     position: "relative",
@@ -480,12 +500,12 @@ const useStyles = makeStyles({
     color: "rgba(0, 0, 0, 0.38)",
     margin: "5px",
     textDecoration: "none",
-    "@media screen and (max-width: 576px)": {
-      fontSize: "15px",
-      lineHeight: "20px",
-      margin: "0",
-      padding: "3px"
-    },
+    // "@media screen and (max-width: 576px)": {
+    //   fontSize: "10px",
+    //   lineHeight: "20px",
+    //   margin: "0",
+    //   padding: "3px",
+    // },
     "@media screen and (max-width: 768px)": {
       fontSize: "14px",
       padding: "0px",
@@ -495,12 +515,12 @@ const useStyles = makeStyles({
     paddingLeft: "45px",
     paddingRight: "45px",
     fontSize: "15px",
-    "@media screen and (max-width: 576px)": {
-      fontSize: "14px",
-      paddingLeft: "30px",
-      width: "auto",
-      lineHeight: "18px",
-    },
+    // "@media screen and (max-width: 576px)": {
+    //   fontSize: "10px",
+    //   paddingLeft: "30px",
+    //   width: "auto",
+    //   lineHeight: "15px",
+    // },
     "@media screen and (max-width: 768px)": {
       width: "300px",
       paddingLeft: "38px",
@@ -514,37 +534,16 @@ const useStyles = makeStyles({
     deltext: {
     marginTop: "13px",
     height: "35px",
-    borderColor: "#ddd",
-    backgroundColor: "#fff",
-    borderRadius: "5px",
-    borderStyle: "none",
+    borderColor: "#fff",
+    backgroundColor: "#ddd",
+    borderRadius: "7px",
     fontSize: "15px",
     width: "auto",
+    // "@media screen and (max-width: 576px)": {
+    //   width: "150px",
+    // },
     },
-  buttn: {
-    marginLeft: "80%",
-    paddingLeft: "10px",
-    paddingRight: "10px",
-    fontSize: "14px",
-    alignItems: "center",
-    borderRadius: "6px",
-    borderStyle: "solid",
-    boxSizing: "border-box",
-    cursor: "pointer",
-    fontWeight: "500",
-    height: "36px",
-    position: "relative",
-    backgroundColor: "rgb(235, 76, 76)",
-    borderColor: "rgb(235, 76, 76)",
-    color: "rgba(255, 255, 255, 0.87)",
-    "@media screen and (max-width: 576px)": {
-      marginLeft: "auto",
-      height: "30px",
-    },
-    "@media screen and (max-width: 768px)": {
-      marginLeft: "auto",
-    }
-  }
+  
 });
 
 export default SettingsPage;
