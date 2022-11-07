@@ -17,12 +17,12 @@ export type APIType = {
    popularity?: number
    service_level?: number
    latency?: number
-   createdBy?: Date | string
-   createdOn?: Date | string
-   updatedBy?: Date | string
-   updatedOn?: Date | string
-   deletedBy?: Date | string
-   deletedOn?: Date | string
+   createdBy?: string
+   createdOn?: Date
+   updatedBy?: string
+   updatedOn?: Date
+   deletedBy?: string
+   deletedOn?: Date
 }
 
 export type SubscriptionType = {
