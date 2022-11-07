@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import { Link, NavLink } from "react-router-dom";
 
+
 import Menus from "../components/Menus";
 import { ZapiDevLogo, ZapiWidget } from "../assets";
 
@@ -75,6 +76,7 @@ const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
             <Typography className={classes.typography}>API Projects</Typography>
           </Link>
         </div>
+
 
         <div className={classes.menus}>
           <Menus />
@@ -180,6 +182,7 @@ const useStyles = makeStyles({
     "@media screen and (max-width: 900px)": {
       scale: 0.9,
     },
+
     "@media screen and (max-width: 420px)": {
       scale: 0.8,
     },
