@@ -34,7 +34,7 @@ const Signup: React.FC = () => {
   const disabled =
     !terms ||
     !PASSWORD_REGEX.test(password) ||
-    !MATCH_CHECKER(password, confirm_password);
+    !MATCH_CHECKER(password, confirm_password) || (password.length > 20) || (password.length < 8);
 
   ReactGA.send({ hitType: "pageview", page: "/signup" });
 
