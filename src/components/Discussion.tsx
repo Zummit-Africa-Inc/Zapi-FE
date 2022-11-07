@@ -60,8 +60,8 @@ const Discussion: React.FC<Props> = ({ discussions }) => {
                     >
                         {discussions && discussions.length !== 0 ?
                             (
-                                <div>
-                                    {discussions?.map((discussion, index) => (
+                            <>
+                            {discussions?.map((discussion, index) => (
                                         <>
                                             <div className={classes.discussion_thread} key={index}>
                                                 <div className={classes.discussion_row}>
@@ -76,9 +76,9 @@ const Discussion: React.FC<Props> = ({ discussions }) => {
                                             <hr />
                                         </>
                                     ))}
-                                </div>
+                            </>
                             ) : (
-                                <div style={{width:'100%', backgroundColor: '#ffffff', padding:'4rem 0' }}>
+                                <div className={classes.discussion_thread} style={{width:'100%', backgroundColor: '#ffffff', padding:'4rem 0' , display:'flex', alignItems:'center'}}>
                                     <Typography variant="h5" >
                                         There are no discussions in this API.
                                     </Typography>
