@@ -200,7 +200,7 @@ const APIHubTab: React.FC = () => {
                   <p>{category.description}</p>
                 </div>
                 <div className={classes.grid}>
-                  {categoryApis.map((api: any) => (
+                  {categoryApis?.map((api: any) => (
                     <APICard key={api.id} {...api} />
                   ))}
                 </div>
