@@ -28,7 +28,7 @@ const APIMoreInfo:React.FC = () => {
         try {
             const apiData = await sendRequest(`/api/findOne/${apiId}`, "get", core_url, {}, headers)
             const endpointsData = await sendRequest(`/endpoints/${apiId}`, "get", core_url, {}, headers)
-            const apiDiscussion = await sendRequest(`/discussion/${apiId}`, "get", core_url, {}, headers)
+            const apiDiscussion = await sendRequest(`/discussion/api/${apiId}`, "get", core_url, {}, headers)
 
             const [api, endpoints,discussions] = await Promise.all([apiData, endpointsData,apiDiscussion])
             if (api === undefined || endpoints === undefined) return toast.error('Something went wrong')
@@ -42,7 +42,8 @@ const APIMoreInfo:React.FC = () => {
 
     const memoizedApiCall = useMemo(() => (getApiData(id)),[])
 
-    useEffect(() => { memoizedApiCall },[])
+    useEffect(() => { memoizedApiCall }, [])
+    localStorage.setItem("api_id", JSON.stringify(api?.id));
 
     if(loading) return <Fallback />
 
@@ -53,9 +54,8 @@ const APIMoreInfo:React.FC = () => {
             <HomeNavbar />
             <APIDesc api={api} />
                     <Endpoints endpoints={endpoints} />
-                    {discussions ?
-                        <Discussion discussions={discussions} /> :
-                        <Discussion discussions={discussions} /> 
+                    {discussions &&
+                        <Discussion discussions={discussions} />
                     }
                     
             <Footer />

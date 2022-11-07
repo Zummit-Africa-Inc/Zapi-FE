@@ -28,8 +28,8 @@ const core_url = "VITE_CORE_URL";
 
 const SingleDiscussionPage: React.FC = () => {
     const { error, loading, sendRequest } = useHttpRequest();
-    const [api, setApi] = useState<APIType | null>(null)
-    const [discussions, setDiscussions] = useState<Array<DiscussionType> | null>(null)
+    // const [api, setApi] = useState<APIType | null>(null)
+    const [discussions, setdiscussions] = useState<Array<DiscussionType> | null>(null)
     const navigate = useNavigate();
     const classes = useStyles()
     const cookies = new Cookies();
@@ -43,12 +43,12 @@ const SingleDiscussionPage: React.FC = () => {
             'X-Zapi-Auth_Token': `Bearer ${cookies.get("accessToken")}`
         }
         try {
-            const apiNestedDiscussion = await sendRequest(`/discussion/${discussionId}`, "get", core_url, {}, headers)
+            const apiNestedDiscussion = await sendRequest(`/discussion/api/${discussionId}`, "get", core_url, {}, headers)
 
             const [discussions] = await Promise.all([apiNestedDiscussion])
             if (discussions === undefined) console.log("No Child discussion for under this discussion")
-            console.log({ discussions })
-            setDiscussions(discussions.data)
+            console.log({discussions})
+            setdiscussions(discussions.data)
         } catch (error) { }
     }
 
@@ -64,13 +64,13 @@ const SingleDiscussionPage: React.FC = () => {
             {discussions ? (
             <>
                 <HomeNavbar />
-                <ChildrenDiscussions childDiscussion={discussions} />
+                <ChildrenDiscussions discussions={discussions} />
                 <Footer />
             </>
             ) : (
                 <>
                 <HomeNavbar />
-                <ChildrenDiscussions childDiscussion={discussions} />
+                <ChildrenDiscussions discussions={discussions} />
                 <Footer />
             </>
             )

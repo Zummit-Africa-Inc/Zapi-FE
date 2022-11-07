@@ -1,19 +1,13 @@
 import {
-    TextField,
     Typography,
-    InputLabel,
-    MenuItem,
-    FormControl,
-    Select,
-    SelectChangeEvent,
     Link,
     Box,
-    Stack
+    Pagination
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React, { SyntheticEvent, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector, useHttpRequest } from "../hooks";
+import { usePagination } from "../hooks";
 import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png";
 import { Add } from "@mui/icons-material";
 import { useContextProvider } from "../contexts/ContextProvider";
@@ -22,12 +16,21 @@ import { DiscussionType } from "../types";
 
 // const core_url = import.meta.env.VITE_CORE_URL
 interface Props {
-    discussions: Array<DiscussionType> | null
+    discussions: Array<DiscussionType>
 }
 const Discussion: React.FC<Props> = ({ discussions }) => {
     const classes = useStyles()
     const [tab, setTab] = useState<number>(0)
     const { handleClicked } = useContextProvider();
+    const PER_PAGE = 6;
+    const count = Math.ceil(discussions.length / PER_PAGE);
+    const _DATA = usePagination(discussions, PER_PAGE);
+    const [page, setPage] = useState(1);
+
+    const handleChange = (event: unknown, value: number) => {
+        setPage(value);
+        _DATA.jump(value);
+    };
 
 
     return (
@@ -50,41 +53,50 @@ const Discussion: React.FC<Props> = ({ discussions }) => {
             </div>
 
             <div className={classes.discussions_container}>
-                    <Box
-                        sx={{
-                            width: '90%',
-                            height: 'auto',
-                            borderRadius: 0,
-                            backgroundColor: '#F8F9F9',
-                        }}
-                    >
-                        {discussions && discussions.length !== 0 ?
-                            (
+                <Box
+                    sx={{
+                        width: '90%',
+                        height: 'auto',
+                        borderRadius: 0,
+                        // backgroundColor: '#F8F9F9',
+                    }}
+                >
+                    {discussions.length !== 0 ?
+                        (
                             <>
-                            {discussions?.map((discussion, index) => (
-                                        <>
-                                            <div className={classes.discussion_thread} key={index}>
-                                                <div className={classes.discussion_row}>
-                                                    <img src={ZapiHomeLogo} alt="zapi-Home" />
-                                                    <div className={classes.discussion_column}>
-                                                        <Typography variant="body2" fontWeight={400}>{discussion.title}</Typography>
-                                                        <Typography variant="body1" fontWeight={500}><Link sx={{ textDecoration: 'none', color: "#071b85" }} href={`/discussion/${discussion.id}`} >{discussion?.body}</Link></Typography>
-                                                        <Typography variant="body2" fontWeight={400}>{discussion?.createdOn?.toLocaleString()}</Typography>
-                                                    </div>
-                                                </div>
+                                {_DATA.currentData().map((discussion: any) => (
+                                    // <>
+                                    <div className={classes.discussion_thread} key={discussion.id}>
+                                        <div className={classes.discussion_row}>
+                                            <img src={ZapiHomeLogo} alt="zapi-Home" />
+                                            <div className={classes.discussion_column}>
+                                                <Typography variant="body2" fontWeight={400}>{discussion.title}</Typography>
+                                                <Typography variant="body1" fontWeight={500}><Link sx={{ textDecoration: 'none', color: "#071b85" }} href={`/discussion/${discussion.id}`} >{discussion?.body}</Link></Typography>
+                                                <Typography variant="body2" fontWeight={400}>{discussion?.createdOn?.toLocaleString()}</Typography>
                                             </div>
-                                            <hr />
-                                        </>
-                                    ))}
+                                        </div>
+                                    </div>
+
+                                    // </>
+                                ))}
+                                <Pagination
+                                    count={count}
+                                    className={classes.pagination}
+                                    size="large"
+                                    page={page}
+                                    color="primary"
+                                    shape="circular"
+                                    onChange={handleChange}
+                                />
                             </>
-                            ) : (
-                                <div className={classes.discussion_thread} style={{width:'100%', backgroundColor: '#ffffff', padding:'4rem 0' , display:'flex', alignItems:'center'}}>
-                                    <Typography variant="h5" >
-                                        There are no discussions in this API.
-                                    </Typography>
-                                </div>
-                            )}
-                    </Box>
+                        ) : (
+                            <div className={classes.discussion_thread} style={{ width: '100%', backgroundColor: '#ffffff', padding: '4rem 0', display: 'flex', alignItems: 'center' }}>
+                                <Typography variant="h5" >
+                                    There are no discussions in this API.
+                                </Typography>
+                            </div>
+                        )}
+                </Box>
             </div>
         </div>
     )
@@ -197,6 +209,7 @@ const useStyles = makeStyles({
         justifyContent: "start",
         color: "#071B85",
         padding: "16px",
+        borderBottom: "1px solid #071B85",
     },
 
     discussion_column: {
@@ -226,5 +239,12 @@ const useStyles = makeStyles({
     hr: {
         backgroundColor: '#071B85',
         color: "#071B85",
+    },
+    pagination: {
+        display: "flex",
+        padding: '1rem',
+        position: "relative",
+        bottom: "0",
+        justifyContent: "center",
     },
 });

@@ -1,10 +1,11 @@
-import React, { FormEvent,useState, useEffect } from "react";
+import React, { FormEvent, useState, useMemo, useEffect } from "react";
 import {
   Typography
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { useContextProvider } from "../contexts/ContextProvider";
 import {
@@ -16,6 +17,7 @@ import {
 import { Fallback } from ".";
 import { addDiscussion, getApisDiscussion } from "../redux/slices/apiSlice";
 import ReactGA from "react-ga4";
+import { APIType, DiscussionType } from "../types";
 
 const core_url = "VITE_CORE_URL";
 const initialState = {
@@ -30,23 +32,31 @@ const AddDiscussion: React.FC = () => {
   const [isAdding, setIsAdding] = useState<boolean>(false);
   const { title, body } = inputs;
   const { handleUnclicked } = useContextProvider();
+  const [api, setApi] = useState<APIType | null>(null)
+  const [discussions, setDiscussions] = useState<Array<DiscussionType> | null>(null)
   const classes = useStyles();
   const cookies = new Cookies();
-  const profileId = cookies.get("profileId");
+  const profile_id = cookies.get("profileId");
   const dispatch = useAppDispatch();
+  const { id } = useParams();
   const { triggerRefresh } = useContextProvider();
 
-  ReactGA.send({ hitType: "pageview", page: "/endpointTab" });
+  ReactGA.send({ hitType: "pageview", page: "/api/id" });
   const toggleAdding = () => {
     setIsAdding((prev) => !prev);
   };
 
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const api_id = JSON.parse(localStorage.getItem("api_id") || '');
+    console.log(api_id)
+
     if (!title || !body)
       return toast.error("Please fill all fields");
-    const payload = { title, body };
+    // const api_id = id;
     const headers = { "Content-Type": "application/json" };
+    const payload = { title, body, profile_id, api_id };
     try {
       const data = await sendRequest(
         `/discussion`,
