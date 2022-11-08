@@ -1,12 +1,14 @@
 import { Box, Typography, TextField, TextareaAutosize, Button } from "@mui/material";
 import Modal from '@mui/material/Modal';
+import { useState } from "react";
 
-const Modalpopup = ({openmodal, handleClose} : any) => {
+
+const Modalpopup = () => {
+    const [openmodal, setOpenmodal] = useState(false);
     return (
         <div>
             <Modal
             open={openmodal}
-            onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
             >
