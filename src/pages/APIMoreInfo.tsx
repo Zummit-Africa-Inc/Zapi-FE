@@ -1,19 +1,20 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
 
 import { HomeNavbar, Footer, APIDesc, Endpoints } from "../sections";
-import { APIType, EndpointsType } from "../types";
 import { useHttpRequest } from "../hooks";
 import { Fallback } from "../components";
+import { APIType, EndpointsType } from "../types";
 
 const core_url = "VITE_CORE_URL";
 
 const APIMoreInfo:React.FC = () => {
     const {error, loading, sendRequest} = useHttpRequest();
     const [api, setApi] = useState<APIType | null>(null)
-    const [endpoints, setEndpoints] = useState<Array<EndpointsType> | null>(null);
+    const [endpoints, setEndpoints] = useState<Array<EndpointsType> | null>(null)
+    const navigate  =  useNavigate();
     const cookies = new Cookies();
     const {id} = useParams();
 
@@ -28,7 +29,8 @@ const APIMoreInfo:React.FC = () => {
             const endpointsData = await sendRequest(`/endpoints/${apiId}`, "get", core_url, {}, headers)
 
             const [api, endpoints] = await Promise.all([apiData, endpointsData])
-            if(api === undefined || endpoints === undefined) return
+            if(api === undefined || endpoints === undefined) return toast.error('Something went wrong')
+            console.log({api, endpoints})
             setApi(api.data);
             setEndpoints(endpoints.data)
         } catch (error) {}
@@ -37,10 +39,6 @@ const APIMoreInfo:React.FC = () => {
     const memoizedApiCall = useMemo(() => (getApiData(id)),[])
 
     useEffect(() => { memoizedApiCall },[])
-
-    useEffect(() => {
-        error && toast.error(`${error.message}`)
-    },[error])
 
     if(loading) return <Fallback />
 
