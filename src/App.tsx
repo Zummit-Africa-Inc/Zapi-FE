@@ -29,7 +29,7 @@ import {
   ApiHubTry,
   APIMoreInfo,
 } from "./pages";
-import { Fallback, Login, AddApiPopup } from "./components";
+import { Fallback, Login, AddApiPopup, AddDiscussion } from "./components";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { login } from "./redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "./hooks";
@@ -142,6 +142,7 @@ const App: React.FC = () => {
 
         {isClicked.login && <Login />}
         {isClicked.addapi && <AddApiPopup />}
+        {isClicked.addDiscussion && <AddDiscussion />}
       </div>
     </ThemeProvider>
   );
