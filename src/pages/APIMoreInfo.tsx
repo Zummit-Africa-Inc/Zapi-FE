@@ -4,11 +4,9 @@ import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
 
 import { HomeNavbar, Footer, APIDesc, Endpoints } from "../sections";
-import { APIType, EndpointsType } from "../types";
 import { useHttpRequest } from "../hooks";
 import { Fallback,Discussion } from "../components";
 import { APIType, DiscussionType, EndpointsType } from "../types";
-import { Fallback } from "../components";
 
 const core_url = "VITE_CORE_URL";
 
@@ -35,8 +33,6 @@ const APIMoreInfo:React.FC = () => {
             if (api === undefined || endpoints === undefined) return toast.error('Something went wrong')
             if(discussions === undefined) console.log("No discussion for now")
             console.log({api, endpoints, discussions})
-            const [api, endpoints] = await Promise.all([apiData, endpointsData])
-            if(api === undefined || endpoints === undefined) return
             setApi(api.data);
             setEndpoints(endpoints.data)
             setDiscussions(discussions.data)
