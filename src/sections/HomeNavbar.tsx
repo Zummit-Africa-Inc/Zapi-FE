@@ -6,19 +6,13 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useContextProvider } from "../contexts/ContextProvider";
 import Vector from "../assets/images/Vector.png";
 import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png";
-import { TextField, useMediaQuery, useTheme } from "@mui/material";
+import {Box, Button, Modal, TextareaAutosize, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { logout } from "../redux/slices/userSlice";
 import { useAppDispatch } from "../hooks/redux-hook";
 import Cookies from "universal-cookie";
 import CloseIcon from "@mui/icons-material/Close";
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
 import { useLocation } from "react-router-dom";
-import TextareaAutosize from '@mui/material/TextareaAutosize';
-import { Flex } from "@aws-amplify/ui-react";
-import { display, fontSize } from "@mui/system";
+
 
 const HomeNavbar: React.FC = () => {
   const classes = useStyles();
@@ -33,9 +27,9 @@ const HomeNavbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [openmodal, setOpenmodal] = useState(false);
-  const handleOpen = () => setOpenmodal(true);
-  const handleClose = () => setOpenmodal(false);
+  // const [openmodal, setOpenmodal] = useState(false);
+  // const handleOpen = () => setOpenmodal(true);
+  // const handleClose = () => setOpenmodal(false);
 
   const handleClick = () => {
     setMenuOpen((p) => !p);
@@ -78,41 +72,13 @@ const HomeNavbar: React.FC = () => {
 
   return (
     <>
-    <div>
-      <Modal
-        open={openmodal}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            What's your feedback?
-          </Typography>
-          <TextField sx={{my: '5px', width: '25em', fontSize: "1em"}} id="standard-basic" label="Name" variant="standard" />
-          <TextField sx={{my: '5px', width: '25em', fontSize: "1em"}} id="standard-basic" label="Email" variant="standard" />
-          <TextareaAutosize
-            aria-label="minimum height"
-            maxRows={6}
-            minRows={6}
-            placeholder="Give us your feedback"
-            style={{ width: "25em", marginTop: "1.5em", padding: "0.5em", fontSize: "1em"}}
-          />
-          <Typography id="modal-modal-description" sx={{ my: 4, display: "flex", justifyContent: "center"}}>
-           <Button sx={{width: "30em", background: "#081F4A",  color: 'white'}}>Submit</Button>
-          </Typography>
-        </Box>
-      </Modal>
-    </div>
       <div className={classes.NavBar} style={{ background: bg() }}>
         <div className={classes.logo}>
           <a href="/">
             <img src={ZapiHomeLogo} alt="zapi-Home" />
           </a>
           <span className={classes.zapi}>Z-API</span>
-          {/* funny looking stuff in the middle of the bar */}
         </div>
-        {/* <div className={classes.vector}></div> */}
         {isMatch ? (
           <>
             <div className={open}>
@@ -181,16 +147,12 @@ const HomeNavbar: React.FC = () => {
             </div>
             <div className={classes.hamburger} onClick={handleClick}>
               {" "}
-              {/* place to style the hamburger */}
               {menuOpen === false ? <Menu /> : <CloseIcon />}
             </div>
           </>
         ) : (
           <div className={classes.links}>
             <ul>
-              <li>
-              <Button onClick={handleOpen}>Open modal</Button>
-              </li>
               <li>
                 <NavLink
                   end
@@ -415,17 +377,3 @@ const useStyles = makeStyles({
     "& ul": {},
   },
 });
-
-const style = {
-  position: 'absolute' as 'absolute',
-  display: "block",
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 470,
-  height: 450,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
