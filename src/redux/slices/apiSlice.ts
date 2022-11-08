@@ -99,7 +99,7 @@ export const getApisDiscussion = createAsyncThunk("apis/getApisDiscussion", asyn
 export const getApisChildrenDiscussion = createAsyncThunk("apis/getApisChildrenDiscussion", async(discussionId: any, thunkAPI) => {
     const headers = { 'X-Zapi-Auth-Token': `Bearer ${cookies.get('accessToken')}` }
     try {
-        const response = await fetch(`${url}/api/dev-platform-data/discussion/${discussionId}`, {headers})
+        const response = await fetch(`${url}/dev-platform-data/discussion/${discussionId}`, {headers})
         const data = await response.json()
         const childrenDiscussions = data?.data.childrenDiscussions
         return childrenDiscussions
@@ -146,25 +146,26 @@ const apiSlice = createSlice({
             }
         },
         addChildrenDiscussion: (state, action: PayloadAction<any>) => {
-            const { apiId, body } = action.payload
-            const api = state.apis.find(api => api?.id === apiId)
+            const { discussionId, body } = action.payload
+            const discussions = state.discussions.find(discussion => discussion?.id === discussionId)
             let newDiscussion = {body}
-            if(api) {
-                api.childrenDiscussions?.unshift(newDiscussion)
+            if(discussions) {
+             discussions.childrenDiscussion?.unshift(newDiscussion)
+            
             }
         },
         removeChildrenDiscussion: (state, action: PayloadAction<any>) => {
-            const { apiId, id } = action.payload
-            const api =state.apis.find(api => api?.id === apiId)
-            if(api) {
-                api.childrenDiscussions = api.childrenDiscussions?.filter(discussion => discussion?.id !== id)
+            const { discussionId, id } = action.payload
+            const discussions =state.discussions.find(discussion => discussion?.id === discussionId)
+            if(discussions) {
+                discussions.childrenDiscussion = discussions.childrenDiscussion?.filter(discussion => discussion?.id !== id)
             }
         },
         editChildrenDiscussion: (state, action: PayloadAction<any>) => {
-            const { apiId,id, body } = action.payload
-            const api =state.apis.find(api => api?.id === apiId)
-            if(api) {
-                let discussion = api.childrenDiscussions?.find(discussion => discussion?.id === id)
+            const { discussionId,id, body } = action.payload
+            const discussions =state.discussions.find(discussion => discussion?.id === discussionId)
+            if(discussions) {
+                let discussion = discussions.childrenDiscussion?.find(discussion => discussion?.id === discussionId)
                 if(discussion) {
                     discussion.body = body
                 }
@@ -223,6 +224,34 @@ const apiSlice = createSlice({
       }),
       builder.addCase(
         getValidCategories.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.loading = "rejected";
+          state.error = action.payload;
+        }
+      );
+    builder.addCase(getApisDiscussion.pending, (state) => {
+      state.loading = "pending";
+    }),
+      builder.addCase(getApisDiscussion.fulfilled, (state, { payload }) => {
+        state.categories = payload;
+        state.loading = "fulfilled";
+      }),
+      builder.addCase(
+        getApisDiscussion.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.loading = "rejected";
+          state.error = action.payload;
+        }
+      );
+    builder.addCase(getApisChildrenDiscussion.pending, (state) => {
+      state.loading = "pending";
+    }),
+      builder.addCase(getApisChildrenDiscussion.fulfilled, (state, { payload }) => {
+        state.categories = payload;
+        state.loading = "fulfilled";
+      }),
+      builder.addCase(
+        getApisChildrenDiscussion.rejected,
         (state, action: PayloadAction<any>) => {
           state.loading = "rejected";
           state.error = action.payload;

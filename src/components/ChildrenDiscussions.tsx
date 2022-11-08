@@ -11,7 +11,7 @@ import {
     Stack
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React, { FormEvent, SyntheticEvent, useState, useEffect } from "react";
+import React, { FormEvent, SyntheticEvent, useState, useMemo, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector, useHttpRequest, useFormInputs } from "../hooks";
 import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png";
@@ -25,43 +25,29 @@ import { addChildrenDiscussion, getApisChildrenDiscussion } from "../redux/slice
 
 const core_url = import.meta.env.VITE_CORE_URL
 interface Props {
-    discussions: Array<DiscussionType> | null
+    discussions: Array<ChildrenDiscussionType>
 }
 
-const initialState = {
-    body: "",
-};
+
 const ChildrenDiscussion: React.FC<Props> = ({ discussions }) => {
     const { loading, error, sendRequest, clearError } = useHttpRequest();
     const classes = useStyles()
     const cookies = new Cookies();
     const profile_id = cookies.get("profileId");
-    
-    const { inputs, bind } = useFormInputs(initialState);
-    const { body } = inputs;
+
     const [tab, setTab] = useState<number>(0)
     const { handleClicked } = useContextProvider();
     const { triggerRefresh } = useContextProvider();
-    const dispatch = useAppDispatch();
-
+    // const dispatch = useAppDispatch();
+    const { id } = useParams();
+    console.log(discussions)
 
     return (
         <div className={classes.main}>
             <div className={classes.container}>
-                <div className={classes.discussion_tab}>
+                {/* <div className={classes.discussion_tab}>
 
-                    <div className={classes.header}>
-                        <h2>Discussions</h2>
-                    </div>
-                    <div>
-                        <button
-                            className={classes.newDiscussion}
-                            onClick={() => handleClicked("addChildrenDiscussion")}
-                            style={{ height: "46px" }}>
-                            <Add /> <Typography>New Discussion</Typography>
-                        </button>
-                    </div>
-                </div>
+                </div> */}
             </div>
 
             <div className={classes.discussions_container}>
@@ -70,86 +56,61 @@ const ChildrenDiscussion: React.FC<Props> = ({ discussions }) => {
                         width: '90%',
                         height: 'auto',
                         borderRadius: 0,
-                        backgroundColor: '#F8F9F9',
+                        // backgroundColor: '#F8F9F9',
                     }}
                 >
-                    {discussions && discussions.length !== 0 ?
+                    {discussions.length !== 0 ?
                         (
                             <>
-                            {discussions?.map((discussion, index) => (
-                                        <>
-                                            <div className={classes.discussion_thread} key={index}>
-                                                <div className={classes.discussion_row}>
+                                <div className={classes.discussion_thread}>
+                                    <Typography variant="h4" fontWeight={500} style={{ marginBottom: '2rem' }}>A Comment or Discussion about Text Summarizer</Typography>
+                                    <div className={classes.discussion_row}>
+                                        <img src={ZapiHomeLogo} alt="zapi-Home" />
+                                        <div className={classes.discussion_column}>
+                                            <Typography variant="body2" fontWeight={400}>User24</Typography>
+                                            <Typography variant="body2" fontWeight={400}>5 hours ago</Typography>
+                                        </div>
+                                    </div>
+                                    <Typography variant="body2" fontWeight={500} style={{ marginTop: '2rem' }}>A Comment or Discussion about Text Summarizer
+                                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sapiente, vel at eaque consequuntur explicabo dolore delectus, magnam quibusdam repellat debitis rerum. Alias vel amet dolore illum accusantium sequi error iste nisi vero corporis, odio ea repudiandae a laboriosam dolor vitae! Quaerat similique amet veritatis maxime quae minima, quisquam facere voluptatibus. Lorem ipsum dolor sit, amet consectetur adipisicing elit. In ea quibusdam facere dolorem perspiciatis? Fuga accusantium cupiditate soluta deleniti maiores eos animi dicta at molestias quidem, quaerat aliquid amet laborum maxime nisi veniam iusto dolor incidunt, sit illum iste ullam exercitationem aperiam. Ipsam doloremque voluptatum eaque dignissimos officia asperiores, dolores quibusdam, dolore eos temporibus, facilis consequatur! Veniam, fugiat est. Eos modi non recusandae consequuntur, quibusdam consectetur eum earum iste ullam quas officiis voluptas sapiente libero doloremque explicabo obcaecati dolor delectus, maiores, repellendus exercitationem voluptatibus laborum culpa. Sit doloremque consequatur, quasi amet sint nobis beatae neque laboriosam placeat itaque facilis laudantium?
+                                    </Typography>
+                                </div>
+                                <div className={classes.container}>
+                                    <div className={classes.discussion_tab}>
+
+                                        <div className={classes.header}>
+                                            {/* <h2>Discussions</h2> */}
+                                        </div>
+                                        <div>
+                                            <button
+                                                className={classes.newDiscussion}
+                                                onClick={() => handleClicked("addChildrenDiscussion")}
+                                                style={{ height: "46px" }}>
+                                                <Add /> <Typography>New Discussion</Typography>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                {discussions.map((discussion: any) => (
+                                    <>
+
+                                        <div className={classes.discussion_nested_thread} key={discussion.id}>
+                                            <div style={{ padding: '1rem' }}>
+                                                <div className={classes.nested_discussion_row}>
                                                     <img src={ZapiHomeLogo} alt="zapi-Home" />
-                                                    <div className={classes.discussion_column}>
-                                                        <Typography variant="body2" fontWeight={400}>{discussion.title}</Typography>
-                                                        <Typography variant="body1" fontWeight={500}><Link sx={{ textDecoration: 'none', color: "#071b85" }} href={`/discussion/${discussion.id}`} >{discussion?.body}</Link></Typography>
+                                                    <div className={classes.nested_discussion_column}>
+                                                        <Typography variant="body1" fontWeight={500}><Link sx={{ textDecoration: 'none', color: "#071b85" }} href={`/discussion/${discussion?.id}`} >{discussion?.body}</Link></Typography>
                                                         <Typography variant="body2" fontWeight={400}>{discussion?.createdOn?.toLocaleString()}</Typography>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <hr />
-                                        </>
-                                    ))}
+                                        </div>
+                                        {/* <hr /> */}
+                                    </>
+                                ))}
                             </>
-
-                            //     <div className={classes.discussion_thread}>
-                            //         <div className={classes.discussion_column}>
-                            //             <Typography variant="body2" fontWeight={400}>User24</Typography>
-                            //             <TextField
-                            //                 required
-                            //                 value=""
-                            //                 variant="outlined"
-                            //                 name="description"
-                            //                 onChange={() =>{}}
-                            //                 multiline
-                            //                 id="description"
-                            //                 rows={4}
-                            //                 fullWidth={true}
-                            //                 helperText="Describe in few words what’s this API do"
-                            //             />
-                            //         </div>
-                            // </div>
-                            //         <div className={classes.discussion_thread} style={{ width: '100%', backgroundColor: '#ffffff', padding: '4rem 0', display: 'flex', alignItems: 'center' }}>
-                            //             <Typography variant="h5" >
-                            //                 There are no  children discussions in this API.
-                            //             </Typography>
-                            //             <div className={classes.discussion_thread}>
-                            //     <div className={classes.discussion_row}>
-                            //         <img src={ZapiHomeLogo} alt="zapi-Home" />
-                            //         <div className={classes.discussion_column}>
-                            //             <Typography variant="body2" fontWeight={400}>User24</Typography>
-                            //             <TextField
-                            //                 required
-                            //                 value=""
-                            //                 variant="outlined"
-                            //                 name="description"
-                            //                 onChange={() =>{}}
-                            //                 multiline
-                            //                 id="description"
-                            //                 rows={4}
-                            //                 fullWidth={true}
-                            //                 helperText="Describe in few words what’s this API do"
-                            //             />
-                            //         </div>
-                            //     </div>
-                            // </div>
-                            //             <InputLabel htmlFor="description">Short Description</InputLabel>
-                            //             <TextField
-                            //                 required
-                            //                 value=""
-                            //                 variant="outlined"
-                            //                 name="description"
-                            //                 onChange={() =>{}}
-                            //                 multiline
-                            //                 id="description"
-                            //                 rows={4}
-                            //                 fullWidth={true}
-                            //                 helperText="Describe in few words what’s this API do"
-                            //             />
-                            //         </div>
                         ) : (
-                            <div className={classes.discussion_thread} style={{ width: '100%', backgroundColor: '#ffffff', padding: '4rem 0', display: 'flex', alignItems: 'center' }}>
+                            <div className={classes.discussion_thread} style={{ width: '100%', backgroundColor: '#ffffff', paddingBottom: "4rem", display: 'flex', alignItems: 'center' }}>
                                 <Typography variant="h5" >
                                     There are no  children discussions in this API.
                                 </Typography>
@@ -163,6 +124,7 @@ const ChildrenDiscussion: React.FC<Props> = ({ discussions }) => {
 
 export default ChildrenDiscussion;
 
+
 const useStyles = makeStyles({
     main: {
         // marginTop:'5rem',
@@ -172,6 +134,7 @@ const useStyles = makeStyles({
     container: {
         width: "auto",
         display: "flex",
+        paddingTop: "5rem",
         justifyContent: "center",
         gap: "32px",
         // margin: "0 0 0 5rem",

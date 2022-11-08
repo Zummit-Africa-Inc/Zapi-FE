@@ -75,7 +75,7 @@ export type DiscussionType = {
    body: string
    profileId?: string
    createdOn?: Date | string
-   // childrenDiscussion?: Array<ChildrenDiscussionType | null>
+   childrenDiscussion?: Array<ChildrenDiscussionType | null>
    // picture: object | string | null
    // fullName: string
 }
@@ -84,9 +84,10 @@ export type ChildrenDiscussionType = {
    id?: string | undefined
    apiId?: string
    body: string
+   // discussionId: 
    profileId?: string
+   discussions?: DiscussionType | null
    createdOn?: Date | string
-   discussions?: Array<DiscussionType | null>
 }
 
 export type EndpointsType = {

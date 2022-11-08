@@ -72,7 +72,7 @@ const Discussion: React.FC<Props> = ({ discussions }) => {
                                             <div className={classes.discussion_column}>
                                                 <Typography variant="body2" fontWeight={400}>{discussion.title}</Typography>
                                                 <Typography variant="body1" fontWeight={500}><Link sx={{ textDecoration: 'none', color: "#071b85" }} href={`/discussion/${discussion.id}`} >{discussion?.body}</Link></Typography>
-                                                <Typography variant="body2" fontWeight={400}>{discussion?.createdOn?.toLocaleString()}</Typography>
+                                                <Typography variant="body2" fontWeight={400}>{new Date(discussion?.createdOn).toLocaleDateString()}</Typography>
                                             </div>
                                         </div>
                                     </div>
