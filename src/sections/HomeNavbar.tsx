@@ -6,13 +6,13 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useContextProvider } from "../contexts/ContextProvider";
 import Vector from "../assets/images/Vector.png";
 import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png";
-import { useMediaQuery, useTheme } from "@mui/material";
+import {Box, Button, Modal, TextareaAutosize, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { logout } from "../redux/slices/userSlice";
 import { useAppDispatch } from "../hooks/redux-hook";
 import Cookies from "universal-cookie";
 import CloseIcon from "@mui/icons-material/Close";
-
 import { useLocation } from "react-router-dom";
+
 
 const HomeNavbar: React.FC = () => {
   const classes = useStyles();
@@ -27,6 +27,9 @@ const HomeNavbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
   const [scrollPosition, setScrollPosition] = useState(0);
+  // const [openmodal, setOpenmodal] = useState(false);
+  // const handleOpen = () => setOpenmodal(true);
+  // const handleClose = () => setOpenmodal(false);
 
   const handleClick = () => {
     setMenuOpen((p) => !p);
@@ -75,9 +78,7 @@ const HomeNavbar: React.FC = () => {
             <img src={ZapiHomeLogo} alt="zapi-Home" />
           </a>
           <span className={classes.zapi}>Z-API</span>
-          {/* funny looking stuff in the middle of the bar */}
         </div>
-        {/* <div className={classes.vector}></div> */}
         {isMatch ? (
           <>
             <div className={open}>
@@ -146,7 +147,6 @@ const HomeNavbar: React.FC = () => {
             </div>
             <div className={classes.hamburger} onClick={handleClick}>
               {" "}
-              {/* place to style the hamburger */}
               {menuOpen === false ? <Menu /> : <CloseIcon />}
             </div>
           </>
