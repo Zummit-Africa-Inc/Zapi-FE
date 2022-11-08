@@ -35,14 +35,16 @@ import ImageUpload from "./ImageUpload";
 import { editAPI } from "../redux/slices/userSlice";
 import { Spinner } from "../assets";
 import axios from "axios";
+import { toast } from "react-toastify";
+import ZAPI from "../images/zapi-logo.png";
+import { useContextProvider } from "../contexts/ContextProvider";
 
 enum APIVisibility {
   PRIVATE = "private",
   PUBLIC = "public",
 }
 
-// const core_url = "VITE_CORE_URL";
-const core_url = import.meta.env.VITE_CORE_URL;
+const core_url = "VITE_CORE_URL";
 
 const GeneralTab: React.FC = () => {
   const [description, setDescription] = useState<String>("");
@@ -54,12 +56,14 @@ const GeneralTab: React.FC = () => {
   const [visibility, setVisibility] = useState<String>(APIVisibility.PUBLIC);
   const [categoryId, setCategoryId] = useState<String>("");
   const [read_me, setRead_me] = useState<String>("");
+  const [logo_url, setLogo_url] = useState<any>("");
   const { error, loading, sendRequest } = useHttpRequest();
   const cookies = new Cookies();
   const profileId = cookies.get("profileId");
+  const { triggerRefresh } = useContextProvider();
   const classes = useStyles();
   // const [img, setImg] = useState(null);
-  // const [image, setImage] = useState<any>("");
+  const [image, setImage] = useState<string | File>("");
   const { userApis } = useAppSelector((store) => store.user);
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -76,8 +80,9 @@ const GeneralTab: React.FC = () => {
     visibility: api?.visibility,
   };
 
-  useEffect(() => {
+  const setFields = () => {
     if (api) {
+      setLogo_url(api?.logo_url);
       setDescription(api?.description),
         setAbout(api?.about),
         setApi_website(api?.api_website),
@@ -87,6 +92,10 @@ const GeneralTab: React.FC = () => {
         setCategoryId(api.categoryId),
         setRead_me(api?.read_me);
     }
+  };
+
+  useEffect(() => {
+    setFields();
   }, [id]);
 
   const handleSwitch = (e: ChangeEvent<HTMLInputElement>) => {
@@ -141,23 +150,35 @@ const GeneralTab: React.FC = () => {
       setCategoryId(""),
       setRead_me("");
 
-    navigate("/developer/dashboard");
+    setFields();
   };
 
-  // const handleDiscard = (e: any) => {
-  //   e.preventDefault();
-
-  //   setDescription(""),
-  //     setAbout(""),
-  //     setApi_website(""),
-  //     setTerm_of_use(""),
-  //     setBase_url(""),
-  //     setVisibility(""),
-  //     setCategoryId(""),
-  //     setRead_me("");
-
-  //   navigate("/developer/dashboard");
-  // };
+  const imageUpload = async (e: any) => {
+    e.preventDefault();
+    if (!image) {
+      toast.error("Select an Image to upload!");
+    } else {
+      const formData = new FormData();
+      formData.append("image", image);
+      const headers = {
+        "Content-Type": "nulti-part/form-data",
+      };
+      if (image === null) return;
+      try {
+        const data = await sendRequest(
+          `/api/api-logo/${id}`,
+          "post",
+          core_url,
+          formData,
+          headers
+        );
+        setLogo_url(data.data);
+        setTimeout(() => {
+          navigate("/developer/dashboard");
+        }, 2000);
+      } catch (error) {}
+    }
+  };
 
   return (
     <>
@@ -167,6 +188,33 @@ const GeneralTab: React.FC = () => {
             General Information
           </Typography>
           <form>
+            <Box sx={{ width: "200px", height: "200px", marginBottom: "6rem" }}>
+              {/* <ImageUpload setImageFile={() => setImage} /> */}
+              <div className={classes.wrapper}>
+                <img src={logo_url ? logo_url : ZAPI} alt="" />
+              </div>
+              <input
+                type="file"
+                onChange={(e) => setImage(e.target.files![0])}
+              />
+
+              <Stack direction="row" spacing={2} my={2}>
+                <button className={classes.saveBtn} onClick={imageUpload}>
+                  Upload
+                </button>
+                <button
+                  className={classes.discardBtn}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setImage("");
+                    triggerRefresh();
+                  }}>
+                  Cancel
+                </button>
+              </Stack>
+
+              {/* <Typography variant="body1" fontSize="14px" mt={2}>Maximum Size: 500 x 500px, JPEG / PNG</Typography> */}
+            </Box>
             <Box mt={2}>
               <InputLabel htmlFor="category" id="category">
                 Category
@@ -291,6 +339,7 @@ const GeneralTab: React.FC = () => {
                     )}
                     <Switch
                       value={visibility}
+                      checked={visibility === APIVisibility.PRIVATE}
                       name="visibility"
                       onChange={handleSwitch}
                     />
@@ -376,6 +425,16 @@ const useStyles = makeStyles({
   previewContainer: {
     position: "relative",
   },
+  wrapper: {
+    width: "100%",
+    height: "100%",
+    position: "relative",
+    "& img": {
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+    },
+  },
   imgPreview: {
     width: "100px",
     height: "100px",
@@ -396,7 +455,7 @@ const useStyles = makeStyles({
   },
   saveBtn: {
     padding: "15px 25px",
-    backgroundColor: "rgb(74, 149, 237)",
+    backgroundColor: "#0814FA",
     color: "white",
     borderRadius: "5px",
     outline: "none",

@@ -356,6 +356,11 @@ export const DEVELOPERSLINKS = [
     text: "Hub Listing",
     link: "#",
   },
+  {
+    // image: <LanguageOutlinedIcon />,
+    text: "Back to Hub",
+    link: "/developer/dashboard",
+  },
   // {
   //     image: <EditOutlinedIcon />,
   //     text: "Settings",

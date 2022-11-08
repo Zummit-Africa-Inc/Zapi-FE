@@ -14,7 +14,28 @@ export type APIType = {
    secretKey: string
    read_me: string
    endpoints?: Array<EndpointsType | null>
+   popularity?: number
+   service_level?: number
+   latency?: number
+   createdBy?: Date | string
+   createdOn?: Date | string
+   updatedBy?: Date | string
+   updatedOn?: Date | string
+   deletedBy?: Date | string
+   deletedOn?: Date | string
+   discussion?: Array<DiscussionType | null>
 }
+
+export type DiscussionType = {
+   id?: string | undefined
+   title: string
+   discussion: string
+   userId: string
+   createdOn: string | Date | null
+   picture: object | string | null
+   fullName: string
+}
+
 
 export type SubscriptionType = {
    id: string
@@ -62,8 +83,10 @@ export type EndpointsType = {
    route: string
    method: string
    description: string
-   headers?: Array<HeaderObject>
-   requestBody?: Array<object>
+   headers?: Array<OptionsType>
+   body?: Array<OptionsType>
+   query?: Array<OptionsType>
+   requestBody?: Array<ReqBody>
 }
 
 export type AnalyticsType = {
@@ -102,3 +125,8 @@ export type OptionsType = {
    required: boolean
    value?: any
 }
+
+export type ReqBody = {
+   key: string;
+   value: string | Date | boolean | number | object | symbol | Array<any>;
+ }

@@ -13,6 +13,7 @@ import {
 } from "@mui/icons-material";
 
 import { useAppDispatch, useAppSelector, useHttpRequest } from "../hooks";
+import { useContextProvider } from "../contexts/ContextProvider";
 import { getSubscribedApis } from "../redux/slices/userSlice";
 import { getApis } from "../redux/slices/apiSlice";
 import { CardProps } from "../interfaces";
@@ -30,6 +31,7 @@ const APICard: React.FC<CardProps> = ({
 }) => {
   const { error, loading, sendRequest } = useHttpRequest();
   const { subscribedApis } = useAppSelector((store) => store.user);
+  const { handleClicked } = useContextProvider();
   const classes = useStyles();
   const cookies = new Cookies();
   const profileId = cookies.get("profileId");
@@ -97,7 +99,7 @@ const APICard: React.FC<CardProps> = ({
         <div className={classes.topBar}>
           <div className={classes.icon}></div>
           <Tooltip
-            onClick={handleSubscription}
+            onClick={accessToken ? handleSubscription : () => handleClicked("login")}
             title={isSubscribed ? "Unsubscribe" : "Subscribe"}
             placement="right"
             arrow>
@@ -108,14 +110,14 @@ const APICard: React.FC<CardProps> = ({
             )}
           </Tooltip>
         </div>
-        <div className={classes.body}>
+        <Link to={`/api/${id}`} className={classes.body}>
           <h4>{name || "API Name"}</h4>
           <p>
             {description && description?.length > 60
               ? `${String(description).substring(0, 70)}...`
               : description || "API Description."}
           </p>
-        </div>
+        </Link>
       </div>
 
       <div className={classes.bottomBar}>
