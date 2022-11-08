@@ -23,7 +23,19 @@ export type APIType = {
    updatedOn?: Date | string
    deletedBy?: Date | string
    deletedOn?: Date | string
+   discussion?: Array<DiscussionType | null>
 }
+
+export type DiscussionType = {
+   id?: string | undefined
+   title: string
+   discussion: string
+   userId: string
+   createdOn: string | Date | null
+   picture: object | string | null
+   fullName: string
+}
+
 
 export type SubscriptionType = {
    id: string
