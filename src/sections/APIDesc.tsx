@@ -25,13 +25,13 @@ const APIDesc:React.FC<Props> = ({api}) => {
             <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", padding: "0 20px 15px 0", borderBottom: "1px solid #d1d1d1" }}>
                 <div>
                     <h2>{api.name}</h2>
-                    <Stack direction="row" alignItems="center" spacing={1}>
+                    <div className={classes.row}>
                         <p style={{lineHeight:"1px",fontSize:"13px",color: "#515D99"}}>By: {api?.createdBy || "Not specified"}</p>
                         <hr />
                         <p style={{lineHeight:"1px",fontSize:"13px",color: "#515D99"}}>Created on: {api.createdOn && new Date(api.createdOn).toDateString()}</p>
                         <hr />
                         <p style={{lineHeight:"1px",fontSize:"13px",color: "#515D99"}}>{category?.name}</p>
-                    </Stack>
+                    </div>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem", }}>
                     <div className={classes.item}>
@@ -149,6 +149,11 @@ const useStyles = makeStyles({
         transition: "0.5s all ease-in-out cubic-bezier(0.075, 0.82, 0.165, 1)",
         cursor: "pointer",
         background: "#081F4A",
+    },
+    row: {
+        display: "flex",
+        alignItems: "center",
+        gap: "1rem",
     }
 })
 
