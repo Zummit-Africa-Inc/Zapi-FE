@@ -111,14 +111,16 @@ const Endpoints: React.FC<Props> = ({ endpoints }) => {
               marginBottom: "10px",
               fontSize: "21px",
               fontWeight: "bold",
-              background: "#F4F6F5",
               color: "#515D99",
-              padding: "5px",
             }}>
             Endpoints
           </Typography>
           {endpoints && endpoints.length !== 0 ? (
             <div>
+              {/* <CustomAccordion>
+								<AccordionSummary></AccordionSummary>
+								<AccordionDetails></AccordionDetails>
+							</CustomAccordion> */}
               <CustomTabs
                 value={tab}
                 orientation="vertical"
@@ -130,9 +132,9 @@ const Endpoints: React.FC<Props> = ({ endpoints }) => {
                       <Stack
                         direction="row"
                         alignItems="center"
-                        spacing={1}
+                        spacing={16}
                         px={1}>
-                        <p style={{color:methodColor[endpoint.method],fontSize:"14px",fontWeight:600}}>
+                        <p style={{ color: methodColor[endpoint.method] }}>
                           {endpoint.method}
                         </p>
                         <p>{endpoint.name}</p>
@@ -156,26 +158,15 @@ const Endpoints: React.FC<Props> = ({ endpoints }) => {
           <div>
             {endpoints?.map((endpoint, index) => (
               <TabPanel key={index} value={tab} index={index}>
-                <Stack direction="row" alignItems="center" spacing={2} mb={1}>
-                  <Typography
-                    sx={{
-                      fontSize: "16px",
-                      fontWeight: 600,
-                      color: methodColor[endpoint.method],
-                      textTransform: "uppercase",
-                    }}>
-                      {endpoint.method}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "21px",
-                      fontWeight: 400,
-                      color: "#515D99",
-                      textTransform: "capitalize",
-                    }}>
-                      {endpoint.name}
-                  </Typography>
-                </Stack>
+                <Typography
+                  sx={{
+                    marginBottom: "10px",
+                    fontSize: "21px",
+                    fontWeight: "bold",
+                    color: "#515D99",
+                  }}>
+                  Endpoint Description
+                </Typography>
                 <Typography
                   sx={{
                     marginBottom: "2rem",
@@ -185,71 +176,97 @@ const Endpoints: React.FC<Props> = ({ endpoints }) => {
                   }}>
                   {endpoint.description}
                 </Typography>
-                {/* <Stack direction="column" spacing={1} my={1}></Stack> */}
                 <CustomAccordion>
                   <AccordionSummary expandIcon={<ExpandMore />}>
                     <Typography sx={{ fontSize: "15px", color: "#515D99" }}>
-                      Headers Parameters
+                      Headers
                     </Typography>
                   </AccordionSummary>
                   <AccordionDetails>
-                    {endpoint?.headers?.map((header, index) => (
-                      <Stack key={index} direction="row" alignItems="center" spacing={4} my={1}>
-                        <Stack width={200} direction="column" spacing={1} sx={{padding:"0 10px"}}>
-                          <Typography sx={{fontSize:"18px",color:"#081F4A"}}>{header.name}</Typography>
-                          <Typography sx={{fontSize:"12px",color:"#000",textTransform:"uppercase"}}>{header.type}</Typography>
-                        </Stack>
-                        <Stack direction="column" spacing={1}>
-                          <input type="text" defaultValue={header.value} className={classes.input} disabled />
-                          <Typography sx={{fontSize:"12px",color:"#000",textTransform:"uppercase"}}>
-                            {header.required ? "required":"not required"}</Typography>
-                        </Stack>
-                      </Stack>
-                    ))}
+                    <TableContainer>
+                      <Table>
+                        <TableHead>
+                          <TableRow className={classes.tableHead}>
+                            <TableCell>Name</TableCell>
+                            <TableCell>Type</TableCell>
+                            <TableCell>Required</TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {endpoint?.headers?.map((header, index) => (
+                            <TableRow key={index}>
+                              <TableCell>{header.name}</TableCell>
+                              <TableCell>{header.type}</TableCell>
+                              <TableCell>
+                                {header.required ? "true" : "false"}
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
                   </AccordionDetails>
                 </CustomAccordion>
                 <CustomAccordion>
                   <AccordionSummary expandIcon={<ExpandMore />}>
                     <Typography sx={{ fontSize: "15px", color: "#515D99" }}>
-                      Body Parameters
+                      Body
                     </Typography>
                   </AccordionSummary>
                   <AccordionDetails>
-                    {endpoint?.body?.map((bodyItem, index) => (
-                      <Stack key={index} direction="row" alignItems="center" spacing={4} my={1}>
-                        <Stack width={200} direction="column" spacing={1} sx={{padding:"0 10px"}}>
-                          <Typography sx={{fontSize:"18px",color:"#081F4A"}}>{bodyItem.name}</Typography>
-                          <Typography sx={{fontSize:"12px",color:"#000",textTransform:"uppercase"}}>{bodyItem.type}</Typography>
-                        </Stack>
-                        <Stack direction="column" spacing={1}>
-                          <input type="text" defaultValue={bodyItem.value} className={classes.input} disabled />
-                          <Typography sx={{fontSize:"12px",color:"#000",textTransform:"uppercase"}}>
-                            {bodyItem.required ? "required":"not required"}</Typography>
-                        </Stack>
-                      </Stack>
-                    ))}
+                    <TableContainer>
+                      <Table>
+                        <TableHead>
+                          <TableRow className={classes.tableHead}>
+                            <TableCell>Name</TableCell>
+                            <TableCell>Type</TableCell>
+                            <TableCell>Required</TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {endpoint?.body?.map((bodyItem, index) => (
+                            <TableRow key={index}>
+                              <TableCell>{bodyItem.name}</TableCell>
+                              <TableCell>{bodyItem.type}</TableCell>
+                              <TableCell>
+                                {bodyItem.required ? "true" : "false"}
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
                   </AccordionDetails>
                 </CustomAccordion>
                 <CustomAccordion>
                   <AccordionSummary expandIcon={<ExpandMore />}>
                     <Typography sx={{ fontSize: "15px", color: "#515D99" }}>
-                      Query Parameters
+                      Query
                     </Typography>
                   </AccordionSummary>
                   <AccordionDetails>
-                    {endpoint?.query?.map((queryItem, index) => (
-                      <Stack key={index} direction="row" alignItems="center" spacing={4} my={1}>
-                        <Stack width={200} direction="column" spacing={1} sx={{padding:"0 10px"}}>
-                          <Typography sx={{fontSize:"18px",color:"#081F4A"}}>{queryItem.name}</Typography>
-                          <Typography sx={{fontSize:"12px",color:"#000",textTransform:"uppercase"}}>{queryItem.type}</Typography>
-                        </Stack>
-                        <Stack direction="column" spacing={1}>
-                          <input type="text" defaultValue={queryItem.value} className={classes.input} disabled />
-                          <Typography sx={{fontSize:"12px",color:"#000",textTransform:"uppercase"}}>
-                            {queryItem.required ? "required":"not required"}</Typography>
-                        </Stack>
-                      </Stack>
-                    ))}
+                    <TableContainer>
+                      <Table>
+                        <TableHead>
+                          <TableRow className={classes.tableHead}>
+                            <TableCell>Name</TableCell>
+                            <TableCell>Type</TableCell>
+                            <TableCell>Required</TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {endpoint?.query?.map((queryItem, index) => (
+                            <TableRow key={index}>
+                              <TableCell>{queryItem.name}</TableCell>
+                              <TableCell>{queryItem.type}</TableCell>
+                              <TableCell>
+                                {queryItem.required ? "true" : "false"}
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
                   </AccordionDetails>
                 </CustomAccordion>
               </TabPanel>
@@ -297,15 +314,6 @@ const useStyles = makeStyles({
       backgroundColor: "#081F4A",
     },
   },
-  input: {
-    width: "300px",
-    height: "30px",
-    padding: "0 0.5rem",
-    borderRadius: "4px",
-    border: "1px solid #000",
-    outline: "none",
-    color: "#000"
-  }
 });
 
 export default Endpoints;

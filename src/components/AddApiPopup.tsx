@@ -57,6 +57,7 @@ const AddApiPopup: React.FC = () => {
         payload,
         headers
       );
+      console.log(data);
       if (!data || data === null) return;
       dispatch(addApi(payload));
       triggerRefresh();
