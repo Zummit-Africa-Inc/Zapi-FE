@@ -6,7 +6,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useContextProvider } from "../contexts/ContextProvider";
 import Vector from "../assets/images/Vector.png";
 import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png";
-import { useMediaQuery, useTheme } from "@mui/material";
+import { TextField, useMediaQuery, useTheme } from "@mui/material";
 import { logout } from "../redux/slices/userSlice";
 import { useAppDispatch } from "../hooks/redux-hook";
 import Cookies from "universal-cookie";
@@ -16,6 +16,9 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { useLocation } from "react-router-dom";
+import TextareaAutosize from '@mui/material/TextareaAutosize';
+import { Flex } from "@aws-amplify/ui-react";
+import { display, fontSize } from "@mui/system";
 
 const HomeNavbar: React.FC = () => {
   const classes = useStyles();
@@ -84,10 +87,19 @@ const HomeNavbar: React.FC = () => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
+            What's your feedback?
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          <TextField sx={{my: '5px', width: '25em', fontSize: "1em"}} id="standard-basic" label="Name" variant="standard" />
+          <TextField sx={{my: '5px', width: '25em', fontSize: "1em"}} id="standard-basic" label="Email" variant="standard" />
+          <TextareaAutosize
+            aria-label="minimum height"
+            maxRows={6}
+            minRows={6}
+            placeholder="Give us your feedback"
+            style={{ width: "25em", marginTop: "1.5em", padding: "0.5em", fontSize: "1em"}}
+          />
+          <Typography id="modal-modal-description" sx={{ my: 4, display: "flex", justifyContent: "center"}}>
+           <Button sx={{width: "30em", background: "#081F4A",  color: 'white'}}>Submit</Button>
           </Typography>
         </Box>
       </Modal>
@@ -406,10 +418,12 @@ const useStyles = makeStyles({
 
 const style = {
   position: 'absolute' as 'absolute',
+  display: "block",
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: 470,
+  height: 450,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
