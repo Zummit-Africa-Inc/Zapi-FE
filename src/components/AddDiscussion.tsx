@@ -1,6 +1,6 @@
 import React, { FormEvent, useState, useMemo, useEffect } from "react";
 import {
-  Typography
+  Typography, Box, Button
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Cookies from "universal-cookie";
@@ -10,12 +10,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useContextProvider } from "../contexts/ContextProvider";
 import {
   useAppDispatch,
-  useAppSelector,
   useFormInputs,
   useHttpRequest,
 } from "../hooks";
 import { Fallback } from ".";
-import { addDiscussion, getApisDiscussion } from "../redux/slices/apiSlice";
+import { addDiscussion } from "../redux/slices/apiSlice";
 import ReactGA from "react-ga4";
 import { APIType, DiscussionType } from "../types";
 
@@ -33,12 +32,10 @@ const AddDiscussion: React.FC = () => {
   const { title, body } = inputs;
   const { handleUnclicked } = useContextProvider();
   const [api, setApi] = useState<APIType | null>(null)
-  const [discussions, setDiscussions] = useState<Array<DiscussionType> | null>(null)
   const classes = useStyles();
   const cookies = new Cookies();
   const profile_id = cookies.get("profileId");
   const dispatch = useAppDispatch();
-  const { id } = useParams();
   const { triggerRefresh } = useContextProvider();
 
   ReactGA.send({ hitType: "pageview", page: "/api/id" });
@@ -50,7 +47,6 @@ const AddDiscussion: React.FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const api_id = JSON.parse(localStorage.getItem("api_id") || '');
-    console.log(api_id)
 
     if (!title || !body)
       return toast.error("Please fill all fields");
@@ -87,10 +83,10 @@ const AddDiscussion: React.FC = () => {
   return (
     <>
       {loading && <Fallback />}
-      <div
+      <Box
         className={classes.container}
         onClick={() => handleUnclicked("addDiscussion")}>
-        <div className={classes.main} onClick={(e) => e.stopPropagation()}>
+        <Box className={classes.main} onClick={(e) => e.stopPropagation()}>
           <Typography
             variant="body1"
             fontSize="24px"
@@ -100,7 +96,7 @@ const AddDiscussion: React.FC = () => {
             Add New Discussion
           </Typography>
           <form className={classes.form} onSubmit={handleSubmit}>
-            <div className={classes.input}>
+            <Box className={classes.input}>
               <label>Title</label>
               <input
                 type="text"
@@ -108,8 +104,8 @@ const AddDiscussion: React.FC = () => {
                 {...bind}
                 placeholder="Add Discussion Title"
               />
-            </div>
-            <div className={classes.input}>
+            </Box>
+            <Box className={classes.input}>
               <label>Discussion</label>
               <input
                 type="text"
@@ -117,27 +113,32 @@ const AddDiscussion: React.FC = () => {
                 {...bind}
                 placeholder="Add Discussion"
               />
-            </div>
-            <div
+            </Box>
+            <Box
               style={{
                 gap: "1rem",
                 display: "flex",
                 flexDirection: "row",
                 marginLeft: "auto",
               }}>
-              <button onClick={toggleAdding} type="submit" className={classes.addBtn}>
+              <Button
+                sx={{ background: "#071B85", color: "#FFFFFF" }}
+                onClick={toggleAdding} type="submit" className={classes.addBtn}>
                 Post Discussion
-              </button>
-              <button
+              </Button>
+              <Button
+                variant="contained"
+                color="error"
+                sx={{ background: "red", color: "#FFFFFF" }}
                 type="button"
                 className={classes.cancelBtn}
                 onClick={() => handleUnclicked("addDiscussion")}>
                 Cancel
-              </button>
-            </div>
+              </Button>
+            </Box>
           </form>
-        </div>
-      </div>
+        </Box>
+      </Box>
     </>
   );
 };
@@ -226,7 +227,7 @@ const useStyles = makeStyles({
     textDecoration: "underline",
     marginLeft: "0.5rem",
   },
-  divider: {
+  Boxider: {
     width: "100%",
     height: "1px",
     background: "Grey",

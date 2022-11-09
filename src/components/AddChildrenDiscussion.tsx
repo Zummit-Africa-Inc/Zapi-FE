@@ -1,23 +1,20 @@
-import React, { FormEvent, useState, useMemo, useEffect } from "react";
+import React, { FormEvent, useState, useEffect } from "react";
 import {
-  Typography
+  Typography, Box, Button
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
-import { useNavigate, useParams } from "react-router-dom";
 
 import { useContextProvider } from "../contexts/ContextProvider";
 import {
   useAppDispatch,
-  useAppSelector,
   useFormInputs,
   useHttpRequest,
 } from "../hooks";
 import { Fallback } from ".";
-import { addDiscussion, getApisDiscussion,addChildrenDiscussion } from "../redux/slices/apiSlice";
+import { addChildrenDiscussion } from "../redux/slices/apiSlice";
 import ReactGA from "react-ga4";
-import { APIType, DiscussionType } from "../types";
 
 const core_url = "VITE_CORE_URL";
 const initialState = {
@@ -32,14 +29,10 @@ const AddChildrenDiscussion: React.FC = () => {
   const [isAdding, setIsAdding] = useState<boolean>(false);
   const { body } = inputs;
   const { handleUnclicked } = useContextProvider();
-  const [api, setApi] = useState<APIType | null>(null)
-  const [discussions, setDiscussions] = useState<Array<DiscussionType> | null>(null)
   const classes = useStyles();
   const cookies = new Cookies();
   const profile_id = cookies.get("profileId");
   const dispatch = useAppDispatch();
-  const { id } = useParams();
-  console.log(JSON.parse(localStorage.getItem("discussion_id") || ''));
   const { triggerRefresh } = useContextProvider();
 
   ReactGA.send({ hitType: "pageview", page: "/api/id" });
@@ -49,13 +42,9 @@ const AddChildrenDiscussion: React.FC = () => {
 
 
   const discussionId = JSON.parse(localStorage.getItem("discussion_id") || '');
-    console.log(discussionId)
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const api_id = JSON.parse(localStorage.getItem("api_id") || '');
-    console.log(api_id)
-    const discussionId = JSON.parse(localStorage.getItem("discussion_id") || '');
-    console.log(discussionId)
 
     if (!body)
       return toast.error("Please fill all fields");
@@ -73,7 +62,6 @@ const AddChildrenDiscussion: React.FC = () => {
       console.log(data);
       if (!data || data === null) return;
       dispatch(addChildrenDiscussion(payload));
-      console.log(data);
       triggerRefresh();
       const { message } = data;
       toast.success(`${message}`);
@@ -93,10 +81,10 @@ const AddChildrenDiscussion: React.FC = () => {
   return (
     <>
       {loading && <Fallback />}
-      <div
+      <Box
         className={classes.container}
         onClick={() => handleUnclicked("addDiscussion")}>
-        <div className={classes.main} onClick={(e) => e.stopPropagation()}>
+        <Box className={classes.main} onClick={(e) => e.stopPropagation()}>
           <Typography
             variant="body1"
             fontSize="24px"
@@ -106,8 +94,8 @@ const AddChildrenDiscussion: React.FC = () => {
             Add New Discussion
           </Typography>
           <form className={classes.form} onSubmit={handleSubmit}>
-            
-            <div className={classes.input}>
+
+            <Box className={classes.input}>
               <label>Discussion</label>
               <input
                 type="text"
@@ -115,27 +103,33 @@ const AddChildrenDiscussion: React.FC = () => {
                 {...bind}
                 placeholder="Add Discussion"
               />
-            </div>
-            <div
+            </Box>
+            <Box
               style={{
                 gap: "1rem",
                 display: "flex",
                 flexDirection: "row",
                 marginLeft: "auto",
               }}>
-              <button onClick={toggleAdding} type="submit" className={classes.addBtn}>
+              <Button
+                variant="contained"
+                sx={{ background: "#071B85", color: "#FFFFFF" }}
+                onClick={toggleAdding} type="submit" className={classes.addBtn}>
                 Post Discussion
-              </button>
-              <button
+              </Button>
+              <Button
+                variant="contained"
+                color="error"
+                sx={{ background: "red", color: "#FFFFFF" }}
                 type="button"
                 className={classes.cancelBtn}
                 onClick={() => handleUnclicked("addDiscussion")}>
                 Cancel
-              </button>
-            </div>
+              </Button>
+            </Box>
           </form>
-        </div>
-      </div>
+        </Box>
+      </Box>
     </>
   );
 };
@@ -224,7 +218,7 @@ const useStyles = makeStyles({
     textDecoration: "underline",
     marginLeft: "0.5rem",
   },
-  divider: {
+  Boxider: {
     width: "100%",
     height: "1px",
     background: "Grey",

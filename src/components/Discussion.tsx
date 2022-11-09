@@ -2,11 +2,11 @@ import {
     Typography,
     Link,
     Box,
-    Pagination
+    Pagination,
+    Button,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
 import { usePagination } from "../hooks";
 import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png";
 import { Add } from "@mui/icons-material";
@@ -34,50 +34,47 @@ const Discussion: React.FC<Props> = ({ discussions }) => {
 
 
     return (
-        <div className={classes.main}>
-            <div className={classes.container}>
-                <div className={classes.discussion_tab}>
+        <Box className={classes.main}>
+            <Box className={classes.container}>
+                <Box className={classes.discussion_tab}>
 
-                    <div className={classes.header}>
-                        <h2>Discussions</h2>
-                    </div>
-                    <div>
-                        <button
+                    <Box className={classes.header}>
+                        <Typography variant="h2" fontWeight={500}>Discussions</Typography>
+                    </Box>
+                    <Box>
+                        <Button
+                            variant="contained"
+                            sx={{background: "#071B85",color: "#FFFFFF"}}
                             className={classes.newDiscussion}
                             onClick={() => handleClicked("addDiscussion")}
                             style={{ height: "46px" }}>
                             <Add /> <Typography>New Discussion</Typography>
-                        </button>
-                    </div>
-                </div>
-            </div>
+                        </Button>
+                    </Box>
+                </Box>
+            </Box>
 
-            <div className={classes.discussions_container}>
+            <Box className={classes.discussions_container}>
                 <Box
                     sx={{
                         width: '90%',
                         height: 'auto',
                         borderRadius: 0,
-                        // backgroundColor: '#F8F9F9',
                     }}
                 >
                     {discussions.length !== 0 ?
                         (
                             <>
                                 {_DATA.currentData().map((discussion: any) => (
-                                    // <>
-                                    <div className={classes.discussion_thread} key={discussion.id}>
-                                        <div className={classes.discussion_row}>
+                                    <Box className={classes.discussion_thread} key={discussion.id}>
+                                        <Box className={classes.discussion_row}>
                                             <img src={ZapiHomeLogo} alt="zapi-Home" />
-                                            <div className={classes.discussion_column}>
-                                                <Typography variant="body2" fontWeight={400}>{discussion.title}</Typography>
-                                                <Typography variant="body1" fontWeight={500}><Link sx={{ textDecoration: 'none', color: "#071b85" }} href={`/discussion/${discussion.id}`} >{discussion?.body}</Link></Typography>
-                                                <Typography variant="body2" fontWeight={400}>{new Date(discussion?.createdOn).toLocaleDateString()}</Typography>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    // </>
+                                            <Box className={classes.discussion_column}>
+                                                <Typography variant="body1" fontWeight={500}><Link sx={{ textDecoration: 'none', color: "#071b85" }} href={`/discussion/${discussion.id}`} >{discussion.title}</Link></Typography>
+                                                <Typography variant="body2" fontWeight={400}>commented on - {new Date(discussion?.createdOn).toLocaleDateString()}</Typography>
+                                            </Box>
+                                        </Box>
+                                    </Box>
                                 ))}
                                 <Pagination
                                     count={count}
@@ -90,15 +87,15 @@ const Discussion: React.FC<Props> = ({ discussions }) => {
                                 />
                             </>
                         ) : (
-                            <div className={classes.discussion_thread} style={{ width: '100%', backgroundColor: '#ffffff', padding: '4rem 0', display: 'flex', alignItems: 'center' }}>
+                            <Box className={classes.discussion_thread} style={{ width: '100%', backgroundColor: '#ffffff', padding: '4rem 0', display: 'flex', alignItems: 'center' }}>
                                 <Typography variant="h5" >
                                     There are no discussions in this API.
                                 </Typography>
-                            </div>
+                            </Box>
                         )}
                 </Box>
-            </div>
-        </div>
+            </Box>
+        </Box>
     )
 }
 
@@ -106,7 +103,6 @@ export default Discussion;
 
 const useStyles = makeStyles({
     main: {
-        // marginTop:'5rem',
         height: "auto",
         padding: "1rem 2rem 0",
     },
@@ -115,7 +111,6 @@ const useStyles = makeStyles({
         display: "flex",
         justifyContent: "center",
         gap: "32px",
-        // margin: "0 0 0 5rem",
         "@media screen and (max-width: 1024px)": {
             margin: "0 0 109px 2rem",
         },
@@ -187,12 +182,10 @@ const useStyles = makeStyles({
             width: "385px",
         },
         "@media screen and (max-width: 500px)": {
-            // width: "100%",
         },
     },
     discussions_container: {
         width: "100%",
-        // margin: "0 5rem 0 10rem",
         height: 'auto',
         display: 'flex',
         justifyContent: "center",
@@ -201,11 +194,9 @@ const useStyles = makeStyles({
 
     discussion_thread: {
         background: "#F9FAFB",
-        // border:'1px solid #071B85',
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-start",
-        // gap: "3rem",
         justifyContent: "start",
         color: "#071B85",
         padding: "16px",
@@ -217,7 +208,6 @@ const useStyles = makeStyles({
         justifyContent: "start",
         alignItems: "flex-start",
         flexDirection: "column",
-        // gap: "5px",
         flexWrap: "wrap",
         color: "#071B85",
     },
@@ -230,15 +220,6 @@ const useStyles = makeStyles({
         flexWrap: "wrap",
         color: "#071B85",
         paddingLeft: '2rem',
-    },
-    brandText: {
-        display: "flex",
-        alignItems: "center",
-        color: "#071B85",
-    },
-    hr: {
-        backgroundColor: '#071B85',
-        color: "#071B85",
     },
     pagination: {
         display: "flex",
