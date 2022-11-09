@@ -27,9 +27,6 @@ const HomeNavbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
   const [scrollPosition, setScrollPosition] = useState(0);
-  // const [openmodal, setOpenmodal] = useState(false);
-  // const handleOpen = () => setOpenmodal(true);
-  // const handleClose = () => setOpenmodal(false);
 
   const handleClick = () => {
     setMenuOpen((p) => !p);
