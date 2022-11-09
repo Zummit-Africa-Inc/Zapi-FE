@@ -17,7 +17,7 @@ export default Feedback;
 
 const feedback = {
     position: "fixed",
-    bottom: "0%",
+    bottom: "1%",
     right: "-1%",
     "@media screen and (max-width: 400px)": {
       position: "fixed",
