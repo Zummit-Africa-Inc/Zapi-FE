@@ -297,7 +297,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                     </button>
                   </div>
                 </Stack>
-                {method === "post" && (
+                {(method === "post" || method === "post") && (
                   <Stack direction="row" spacing={2}>
                     <div className={classes.inputs}>
                       <input
