@@ -3,12 +3,12 @@ import Modal from '@mui/material/Modal';
 import { useState } from "react";
 
 
-const Modalpopup = () => {
-    const [openmodal, setOpenmodal] = useState(false);
+const Modalpopup = ({open, handleClose} : any) => {
     return (
         <div>
             <Modal
-            open={openmodal}
+            open={open}
+            onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
             >
