@@ -125,14 +125,13 @@ const App: React.FC = () => {
             <Route path="/documentation" element={<Documentation />} />
             <Route path="/terms" element={<TermsConditions />} />
             <Route path="/api-hub" element={<APIHub />} />
+            <Route path="/api/:id" element={<APIMoreInfo />} />
             <Route path="/api-hubtry" element={<ApiHubTry />} />
             <Route path="/coming-soon" element={<ComingSoonPage />} />
-            <Route path="/api-hub/:id" element={<APIMoreInfo />} />
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
               <Route path="/developer/dashboard" element={<DevDashboard />} />
               <Route path="/developer/api/:id" element={<DeveloperApiPage />} />
-              <Route path="/api/:id" element={<APIMoreInfo />} />
               <Route path="/configuration" element={<Configuration />} />
               <Route path="/login-history" element={<LoginHistory />} />
               <Route path="/success-page" element={<SuccessPage />} />
