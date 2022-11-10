@@ -125,8 +125,8 @@ const App: React.FC = () => {
             <Route path="/terms" element={<TermsConditions />} />
             <Route path="/api-hub" element={<APIHub />} />
             <Route path="/coming-soon" element={<ComingSoonPage />} />
+            <Route path="/user/:id" element={<UserProfile />} />
             <Route element={<PrivateRoutes />}>
-              <Route path="/user/:id" element={<UserProfile />} />
               <Route path="/developer/dashboard" element={<DevDashboard />} />
               <Route path="/developer/api/:id" element={<DeveloperApiPage />} />
               <Route path="/api/:id" element={<APIPage />} />
