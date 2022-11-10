@@ -16,7 +16,6 @@ import {
   ForgotPassword,
   LoginHistory,
   Otp,
-  APIPage,
   SuccessPage,
   Configuration,
   TermsConditions,

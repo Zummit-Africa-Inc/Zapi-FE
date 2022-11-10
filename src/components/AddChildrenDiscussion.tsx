@@ -15,6 +15,7 @@ import {
 import { Fallback } from ".";
 import { addChildrenDiscussion } from "../redux/slices/apiSlice";
 import ReactGA from "react-ga4";
+import { getUserApis } from "../redux/slices/userSlice";
 
 const core_url = "VITE_CORE_URL";
 const initialState = {
@@ -33,7 +34,6 @@ const AddChildrenDiscussion: React.FC = () => {
   const cookies = new Cookies();
   const profile_id = cookies.get("profileId");
   const dispatch = useAppDispatch();
-  const { triggerRefresh } = useContextProvider();
 
   ReactGA.send({ hitType: "pageview", page: "/api/id" });
   const toggleAdding = () => {
@@ -61,8 +61,8 @@ const AddChildrenDiscussion: React.FC = () => {
       );
       console.log(data);
       if (!data || data === null) return;
-      dispatch(addChildrenDiscussion(payload));
-      triggerRefresh();
+      // dispatch(addChildrenDiscussion(payload));
+      dispatch(getUserApis(profile_id))
       const { message } = data;
       toast.success(`${message}`);
     } catch (err) {

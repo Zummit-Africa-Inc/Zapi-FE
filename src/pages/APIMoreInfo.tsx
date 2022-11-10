@@ -30,7 +30,7 @@ const APIMoreInfo:React.FC = () => {
             const apiDiscussion = await sendRequest(`/discussion/api/${apiId}`, "get", core_url, {}, headers)
 
             const [api, endpoints,discussions] = await Promise.all([apiData, endpointsData,apiDiscussion])
-            if (api === undefined || endpoints === undefined) return toast.error('Something went wrong')
+            if (api === undefined || endpoints === undefined)
             if(discussions === undefined) console.log("No discussion for now")
             console.log({api, endpoints, discussions})
             setApi(api.data);
