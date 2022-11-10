@@ -62,7 +62,6 @@ const AddChildrenDiscussion: React.FC = () => {
       console.log(data);
       if (!data || data === null) return;
       // dispatch(addChildrenDiscussion(payload));
-      dispatch(getUserApis(profile_id))
       const { message } = data;
       toast.success(`${message}`);
     } catch (err) {
@@ -70,6 +69,7 @@ const AddChildrenDiscussion: React.FC = () => {
     }
     // dispatch(getApisDiscussion(id));
     handleUnclicked();
+    dispatch(getUserApis(profile_id))
   };
 
   useEffect(() => {
