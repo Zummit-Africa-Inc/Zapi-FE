@@ -9,7 +9,6 @@ const ProfileAPIS = () => {
   const [tabIndex, setTabIndex] = React.useState(0);
   const classes = useStyles();
   const { userApis } = useAppSelector((store) => store.user);
-  console.log(userApis);
 
   const StyledTabs = styled(Tabs)({
     width: "100%",

@@ -6,11 +6,12 @@ import {
   TextareaAutosize,
 } from "@mui/material";
 import { EditOutlined } from "@mui/icons-material";
-import { useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import DevNavbar from "../DevNavbar";
-import { useAppSelector, useHttpRequest } from "../../hooks";
+import { useAppDispatch, useAppSelector, useHttpRequest } from "../../hooks";
 import Cookies from "universal-cookie";
 import { makeStyles } from "@mui/styles";
+import { getUserProfile } from "../../redux/slices/userSlice";
 
 const core_url = "VITE_CORE_URL";
 
@@ -18,20 +19,45 @@ const ProfileHeader = () => {
   const [edit, setEdit] = useState<boolean>(false);
   const { user } = useAppSelector((store) => store.user);
   const classes = useStyles();
-  const [image, setImage] = useState<File>();
+  const [image, setImage] = useState<string | Blob | any>();
   const [previewURL, setPreviewURL] = useState<string | ArrayBuffer | null>(
     null
   );
-  const cookies = new Cookies();
-  // const accessToken = cookies.get("accessToken");
-  // console.log(accessToken);
   const { loading, error, sendRequest } = useHttpRequest();
+  const dispatch = useAppDispatch();
+  console.log(user);
 
+  useEffect(() => {
+    dispatch(getUserProfile());
+  }, []);
   const handleChange = (e: any) => {
     setImage(e.target.files[0]);
     const fileReader = new FileReader();
     fileReader.onload = () => setPreviewURL(fileReader.result);
     fileReader.readAsDataURL(e.target.files[0]);
+  };
+
+  const handleCancel = (e: SyntheticEvent) => {
+    e.preventDefault();
+    setEdit(false);
+    setPreviewURL(null);
+  };
+
+  const handleImageUpload = async (e: SyntheticEvent) => {
+    e.preventDefault();
+    const headers = { "Content-Type": "application/json" };
+    const formData = new FormData();
+    formData.append("image", image);
+    try {
+      const data = await sendRequest(
+        `/profile/profile-image/${user.profileId}`,
+        "post",
+        core_url,
+        formData,
+        headers
+      );
+      console.log("data", data);
+    } catch (error) {}
   };
 
   // const profile = async () => {
@@ -66,6 +92,7 @@ const ProfileHeader = () => {
                 <Stack className={classes.preview}>
                   <img src={`${previewURL}`} alt="" />
                   <Button
+                    onClick={handleImageUpload}
                     sx={{
                       background: "rgb(74, 149, 237)",
                       "&:hover": {
@@ -77,8 +104,8 @@ const ProfileHeader = () => {
                 </Stack>
               ) : (
                 <Stack className={classes.image}>
+                  <img src={user.picture} alt="" />
                   <input type="file" onChange={(e) => handleChange(e)} />
-                  {/* <Button>Edit</Button> */}
                 </Stack>
               )}
             </Stack>
@@ -111,7 +138,7 @@ const ProfileHeader = () => {
                 Save
               </Button>
               <Button
-                onClick={() => setEdit(false)}
+                onClick={handleCancel}
                 sx={{
                   background: "#F0F0F0",
                   "&:hover": {
@@ -130,18 +157,23 @@ const ProfileHeader = () => {
                 height: "200px",
                 width: "200px",
                 background: "#F0F0F0",
-              }}></Stack>
+              }}>
+              <img src={user.picture} alt="" />
+            </Stack>
             <Stack spacing={1} sx={{ width: "70%" }}>
-              <Typography>{user.fullName}</Typography>
-              <Stack direction="row" spacing={2}>
-                <Typography>junior dev</Typography>
-                <Typography>@ Zummit</Typography>
-              </Stack>
-              <Typography>Nigeria</Typography>
               <Typography>
-                Budding Front End Developer. Currently learning JavaScript. I am
-                open to suggestions on how to learn better.
+                {user.fullName ? user.fullName : "FullName"}
               </Typography>
+              <Stack direction="row" spacing={2}>
+                <Typography>
+                  {user.position ? user.position : "position"}
+                </Typography>
+                <Typography>
+                  @{user.organization ? user.organization : "organization"}
+                </Typography>
+              </Stack>
+              <Typography>{user.country ? user.country : "country"}</Typography>
+              <Typography>{user.bio ? user.bio : "Bio"}</Typography>
             </Stack>
             <Button
               onClick={() => setEdit(true)}
@@ -188,6 +220,11 @@ const useStyles = makeStyles({
       top: -35,
       left: 0,
       cursor: "pointer",
+    },
+    "& img": {
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
     },
     "& button": {
       width: "2rem",

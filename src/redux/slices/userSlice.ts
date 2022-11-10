@@ -30,9 +30,9 @@ const initialState: UserState = {
 export const getUserProfile = createAsyncThunk("user/getprofile", async(_, thunkAPI) => {
     const headers = { 'X-Zapi-Auth-Token': `Bearer ${cookies.get('accessToken')}` }
     try {
-        const response = await fetch(`${identity_url}/profile/${userId}`, {headers}) //sendRequest() function needs to replace this
+        const response = await fetch(`${core_url}/profile/${profileId}`, {headers}) //sendRequest() function needs to replace this
         const data = await response.json()
-        return data
+        return data.data
     } catch (error: any) {
         return thunkAPI.rejectWithValue(error.message)
     }
