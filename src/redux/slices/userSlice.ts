@@ -10,7 +10,7 @@ const userId = cookies.get("userId")
 const profileId = cookies.get("profileId")
 
 interface UserState {
-    user: UserProfileType | Object
+    user: UserProfileType | any
     userApis: Array<APIType>
     subscribedApis: Array<SubscriptionType>
     loading: "idle" | "pending" | "fulfilled" | "rejected"

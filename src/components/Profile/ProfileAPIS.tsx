@@ -1,11 +1,15 @@
-import { Box, Tab, Tabs } from "@mui/material";
+import { Box, Stack, Tab, Tabs } from "@mui/material";
 import { styled, makeStyles } from "@mui/styles";
 import React from "react";
+import { useAppSelector } from "../../hooks";
+import DevAPICard from "../DevAPICard";
 import TabPanel from "../TabPanel";
 
 const ProfileAPIS = () => {
   const [tabIndex, setTabIndex] = React.useState(0);
   const classes = useStyles();
+  const { userApis } = useAppSelector((store) => store.user);
+  console.log(userApis);
 
   const StyledTabs = styled(Tabs)({
     width: "100%",
@@ -43,15 +47,23 @@ const ProfileAPIS = () => {
           variant="fullWidth"
           TabIndicatorProps={{ style: { background: "none" } }}
           onChange={(e, index) => setTabIndex(index)}>
-          <StyledTab label={"Published APIs (4)"} />
+          <StyledTab label={`Published APIs (${userApis.length})`} />
           <StyledTab label={"Following APIs (0)"} />
-          <StyledTab label={"Followed By (2)"} />
+          <StyledTab label={"Followed By (0)"} />
           <StyledTab label={"Following (0)"} />
         </StyledTabs>
       </Box>
       <div>
         <TabPanel value={tabIndex} index={0}>
-          Published APIs
+          {userApis ? (
+            <Stack direction="row" spacing={2} sx={{ margin: "1rem 1rem" }}>
+              {userApis.map((apis: any) => (
+                <DevAPICard key={apis.id} {...apis} />
+              ))}
+            </Stack>
+          ) : (
+            "Published APIs"
+          )}
         </TabPanel>
         <TabPanel value={tabIndex} index={1}>
           Following APIs

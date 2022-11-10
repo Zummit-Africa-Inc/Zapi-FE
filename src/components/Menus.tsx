@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
   Avatar,
   Fade,
@@ -39,7 +39,7 @@ const Menus: React.FC<MenuProps> = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const cookies = new Cookies();
-  const { userApis } = useAppSelector((store) => store.user);
+  const { userApis, user } = useAppSelector((store) => store.user);
 
   useEffect(() => {
     setSocket(io(import.meta.env.VITE_SOCKET_URL));
@@ -131,6 +131,9 @@ const Menus: React.FC<MenuProps> = () => {
         onClose={handleClose2}
         TransitionComponent={Fade}>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        <MenuItem>
+          <Link to={`/user/${user.profileId}`}>Profile</Link>
+        </MenuItem>
       </Menu>
     </div>
   );
