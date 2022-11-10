@@ -1,5 +1,6 @@
 
 export { default as AddApiPopup } from "./AddApiPopup";
+export { default as AddDiscussion } from "./AddDiscussion";
 export { default as Analytics } from "./Analytics";
 export { default as APILayout } from "./APILayout";
 export { default as ApiPageLayout } from "./ApiPageLayout";
@@ -11,6 +12,7 @@ export { default as DataTable } from "./DataTable";
 export { default as DevAddApi } from "./DevAddApi";
 export { default as DevAPICard } from "./DevAPICard";
 export { default as DevNavbar } from "./DevNavbar";
+export { default as Discussion } from "./Discussion";
 export { default as EndpointTab } from "./EndpointTab";
 export { default as EndpointTable } from "./EndpointTable";
 export { default as Fallback } from "./Fallback";

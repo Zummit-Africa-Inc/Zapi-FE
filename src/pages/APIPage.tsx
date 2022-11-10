@@ -6,6 +6,8 @@ import { AccessTimeOutlined, DoneOutlined, TrendingUpOutlined } from "@mui/icons
 
 import { Navbar, TabPanel, SplitView } from "../components";
 import { APIS } from "../testdata";
+import {HomeNavbar,Footer} from '../sections';
+import {Discussion} from '../components';
 
 const APIPage: React.FC = () => {
   const id = useParams().id
@@ -16,8 +18,8 @@ const APIPage: React.FC = () => {
   const handleChange = (e: SyntheticEvent, newValue: number) => setTab(newValue)
 
   return (
-    <div>
-      <Navbar />
+    <div className={classes.apiPage}>
+      <HomeNavbar />
       <div className={classes.container}>
         <div className={classes.flex}>
           <div><Avatar src={api?.image} variant="square" />{api?.name}</div>
@@ -64,11 +66,19 @@ const APIPage: React.FC = () => {
           </TabPanel>
         </div>
       </div>
+      <Discussion/>
+      <Footer />
     </div>
   )
 }
 
 const useStyles = makeStyles({
+  apiPage: {
+    height: "100%",
+    width: "100%",
+    fontFamily: "Space Grotesk, sans-serif",
+    background: "#fff",
+  },
   container: {
     width: "100%",
     display: "grid",

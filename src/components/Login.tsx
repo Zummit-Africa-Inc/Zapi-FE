@@ -168,17 +168,18 @@ const Login: React.FC = () => {
 
           {/* <Typography>OR</Typography>
           <Stack direction="column" alignItems="center" spacing={2}>
-            <GoogleLogin
-              onSuccess={(credentialResponse) => {
-                console.log(credentialResponse);
-              }}
-              onError={() => {
-                console.log("Login Failed");
-              }}
-            />
-            ;
-          </Stack> */}
-          <Typography variant="body1" fontSize="16px" alignSelf="flex-start">
+            <button
+              type="button"
+              className={classes.button}
+              onClick={() => googleAuth()}>
+              <span style={{ marginRight: "1rem" }}>
+                <GoogleIcon />
+              </span>
+              Sign in with Google
+            </button>
+          </Stack>
+  */}
+          <Typography variant="body1" fontSize="14px" alignSelf="center">
             Dont't have an account?
             <Link
               to="/signup"

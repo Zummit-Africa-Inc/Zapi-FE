@@ -23,7 +23,8 @@ export const useHttpRequest = () => {
                     ...headers,
                 },
                 queryStringParameters,
-                body
+                body,
+                response:true
             }
             const profileId = cookies.get("profileId");
             // const query = ['patch', 'del'].includes(method)?`?profileId=${profileId}` : ''
@@ -32,11 +33,11 @@ export const useHttpRequest = () => {
             activeHttpRequests.current = activeHttpRequests.current.filter((reqCtrl: any) => {
                 reqCtrl !== httpAbortCtrl
             })
-            if(!response.success) {
-                throw new Error(response.message)
+            if(response.status >= 400 ) {
+                throw new Error(response.data.message)
             }
             setLoading(false)
-            return response
+            return response.data
         } catch (error : any) {
             setError(error.response.data.message)
             setLoading(false)

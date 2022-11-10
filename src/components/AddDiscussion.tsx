@@ -1,14 +1,7 @@
 import React, { FormEvent, useEffect } from "react";
 import {
-  Typography,
-  Radio,
-  RadioGroup,
-  FormControlLabel,
-  FormControl,
-  FormLabel,
-  MenuItem,
+  Typography
 } from "@mui/material";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { makeStyles } from "@mui/styles";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
@@ -20,24 +13,21 @@ import {
   useFormInputs,
   useHttpRequest,
 } from "../hooks";
-import { Fallback } from "../components";
-import { addApi } from "../redux/slices/apiSlice";
+import { Fallback } from ".";
+import { addDiscussion } from "../redux/slices/discussionSlice";
 
 const core_url = "VITE_CORE_URL";
 const initialState = {
-  name: "",
-  description: "",
-  base_url: "",
-  categoryId: "",
+  title: "",
+  discussion: "",
 };
 
-const AddApiPopup: React.FC = () => {
+const AddDiscussion: React.FC = () => {
   const { loading, error, sendRequest, clearError } = useHttpRequest();
   const { inputs, bind, select } = useFormInputs(initialState);
-  const { name, description, base_url, categoryId } = inputs;
+  const { title, discussion } = inputs;
   const { handleUnclicked } = useContextProvider();
   const classes = useStyles();
-  const { categories } = useAppSelector((store) => store.apis);
   const cookies = new Cookies();
   const profileId = cookies.get("profileId");
   const dispatch = useAppDispatch();
@@ -45,27 +35,28 @@ const AddApiPopup: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!name || !description || !base_url || !categoryId)
+    if (!title || !discussion)
       return toast.error("Please fill all fields");
-    const payload = { name, description, base_url, categoryId };
-    const headers = { "Content-Type": "application/json" };
-    try {
-      const data = await sendRequest(
-        `/api/new/${profileId}`,
-        "post",
-        core_url,
-        payload,
-        headers
-      );
-      if (!data || data === null) return;
-      dispatch(addApi(payload));
-      triggerRefresh();
-      const { message } = data;
-      toast.success(`${message}`);
-    } catch (err) {
-      console.log(err);
-    }
-    handleUnclicked();
+    // const payload = { title, discussion };
+    // const headers = { "Content-Type": "application/json" };
+    // try {
+    //   const data = await sendRequest(
+    //     `/api/new/${profileId}`,
+    //     "post",
+    //     core_url,
+    //     payload,
+    //     headers
+    //   );
+    //   console.log(data);
+    //   if (!data || data === null) return;
+    //   dispatch(addApi(payload));
+    //   triggerRefresh();
+    //   const { message } = data;
+    //   toast.success(`${message}`);
+    // } catch (err) {
+    //   console.log(err);
+    // }
+    // handleUnclicked();
   };
 
   useEffect(() => {
@@ -79,7 +70,7 @@ const AddApiPopup: React.FC = () => {
       {loading && <Fallback />}
       <div
         className={classes.container}
-        onClick={() => handleUnclicked("addapi")}>
+        onClick={() => handleUnclicked("addDiscussion")}>
         <div className={classes.main} onClick={(e) => e.stopPropagation()}>
           <Typography
             variant="body1"
@@ -87,51 +78,25 @@ const AddApiPopup: React.FC = () => {
             lineHeight="30px"
             fontWeight={700}
             mb={3}>
-            Add API Project
+            Add New Discussion
           </Typography>
           <form className={classes.form} onSubmit={handleSubmit}>
             <div className={classes.input}>
-              <label>Name</label>
+              <label>Title</label>
               <input
                 type="text"
-                name="name"
+                name="title"
                 {...bind}
-                placeholder="Add API Name"
+                placeholder="Add Discussion Title"
               />
             </div>
             <div className={classes.input}>
-              <label>Description</label>
+              <label>Discussion</label>
               <input
                 type="text"
-                name="description"
+                name="discussion"
                 {...bind}
-                placeholder="Add API Description"
-              />
-            </div>
-            <div className={classes.input}>
-              <label>Category</label>
-              <FormControl className={classes.input}>
-                <Select
-                  name="categoryId"
-                  value={categoryId}
-                  displayEmpty
-                  inputProps={{ "aria-label": "Category" }}
-                  {...select}>
-                  {categories.map((item) => (
-                    <MenuItem key={item.id} value={item.id}>
-                      {item.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </div>
-            <div className={classes.input}>
-              <label>Base Url</label>
-              <input
-                type="text"
-                name="base_url"
-                {...bind}
-                placeholder="Add Base Url"
+                placeholder="Add Discussion"
               />
             </div>
             <div
@@ -142,12 +107,12 @@ const AddApiPopup: React.FC = () => {
                 marginLeft: "auto",
               }}>
               <button type="submit" className={classes.addBtn}>
-                Add API Project
+                Post Discussion
               </button>
               <button
                 type="button"
                 className={classes.cancelBtn}
-                onClick={() => handleUnclicked("addapi")}>
+                onClick={() => handleUnclicked("addDiscussion")}>
                 Cancel
               </button>
             </div>
@@ -158,14 +123,6 @@ const AddApiPopup: React.FC = () => {
   );
 };
 
-const categories = [
-  "Advertising",
-  "Sports",
-  "Data Analysis",
-  "Artificial Intelligence",
-  "Business",
-  "Finances",
-];
 
 const useStyles = makeStyles({
   container: {
@@ -291,4 +248,5 @@ const useStyles = makeStyles({
   },
 });
 
-export default AddApiPopup;
+export default AddDiscussion;
+
