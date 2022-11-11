@@ -1,11 +1,13 @@
 
 export { default as AddApiPopup } from "./AddApiPopup";
 export { default as AddDiscussion } from "./AddDiscussion";
+export { default as AddChildrenDiscussion } from "./AddChildrenDiscussion";
 export { default as Analytics } from "./Analytics";
 export { default as APILayout } from "./APILayout";
 export { default as ApiPageLayout } from "./ApiPageLayout";
 export { default as ApiPageSidebar } from "./ApiPageSidebar";
 export { default as BaseButton } from "./Button";
+export { default as ChildrenDiscussions } from "./ChildrenDiscussions";
 export { default as Community } from "./Community";
 export { default as Config } from "./Config";
 export { default as DataTable } from "./DataTable";
