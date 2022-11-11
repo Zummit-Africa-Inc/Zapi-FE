@@ -32,12 +32,10 @@ const Discussion: React.FC<Props> = ({ discussions }) => {
         _DATA.jump(value);
     };
 
-
     return (
         <Box className={classes.main}>
             <Box className={classes.container}>
                 <Box className={classes.discussion_tab}>
-
                     <Box className={classes.header}>
                         <Typography variant="h2" fontWeight={500}>Discussions</Typography>
                     </Box>
@@ -53,7 +51,6 @@ const Discussion: React.FC<Props> = ({ discussions }) => {
                     </Box>
                 </Box>
             </Box>
-
             <Box className={classes.discussions_container}>
                 <Box
                     sx={{
