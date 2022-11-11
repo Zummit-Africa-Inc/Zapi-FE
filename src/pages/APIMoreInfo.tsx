@@ -6,9 +6,9 @@ import { Tab, Tabs } from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
 
 import { HomeNavbar, Footer, APIDesc, Endpoints } from "../sections";
-import { APIType, EndpointsType } from "../types";
 import { useHttpRequest } from "../hooks";
-import { Fallback, TabPanel } from "../components";
+import { Discussion, Fallback, TabPanel, Reviews } from "../components";
+import { APIType, DiscussionType, EndpointsType, ReviewType } from "../types";
 
 const core_url = "VITE_CORE_URL";
 
@@ -38,8 +38,10 @@ const CustomTab = styled(Tab)({
 const APIMoreInfo:React.FC = () => {
     const {error, loading, sendRequest} = useHttpRequest();
     const [tab, setTab] = useState<number>(0);
-    const [api, setApi] = useState<APIType | null>(null)
+    const [api, setApi] = useState<APIType | null>(null);
+    const [reviews, setReviews] = useState<Array<ReviewType> | null>(null);
     const [endpoints, setEndpoints] = useState<Array<EndpointsType> | null>(null);
+    const [discussions, setDiscussions] = useState<Array<DiscussionType> | null>(null);
     const cookies = new Cookies();
     const classes = useStyles();
     const {id} = useParams();
@@ -51,13 +53,18 @@ const APIMoreInfo:React.FC = () => {
             'X-Zapi-Auth_Token': `Bearer ${cookies.get("accessToken")}`
         }
         try {
+            const reviewData = await sendRequest("", "get", core_url, {}, headers)
             const apiData = await sendRequest(`/api/findOne/${apiId}`, "get", core_url, {}, headers)
             const endpointsData = await sendRequest(`/endpoints/${apiId}`, "get", core_url, {}, headers)
+            const apiDiscussion = await sendRequest(`/discussion/api/${apiId}`, "get", core_url, {}, headers)
 
-            const [api, endpoints] = await Promise.all([apiData, endpointsData])
-            if(api === undefined || endpoints === undefined) return
+            const [api, endpoints, discussions, reviews] = await Promise.all([apiData, endpointsData, apiDiscussion, reviewData])
+            if(api === undefined || endpoints === undefined || discussions === undefined) return
+            console.log({api, endpoints, discussions})
             setApi(api.data);
+            setReviews(reviews)
             setEndpoints(endpoints.data)
+            setDiscussions(discussions.data)
         } catch (error) {}
     }
 
@@ -66,6 +73,7 @@ const APIMoreInfo:React.FC = () => {
     const handleTabChange = (e: ChangeEvent<unknown>, value: number) => setTab(value)
 
     useEffect(() => { memoizedApiCall },[])
+    localStorage.setItem("api_id", JSON.stringify(api?.id));
 
     useEffect(() => {
         error && toast.error(`${error.message}`)
@@ -75,7 +83,7 @@ const APIMoreInfo:React.FC = () => {
 
     return (
         <>
-        {api && endpoints && (
+        {api && endpoints && discussions && reviews && (
             <>
             <HomeNavbar />
             <APIDesc api={api} />
@@ -89,10 +97,10 @@ const APIMoreInfo:React.FC = () => {
                     <Endpoints endpoints={endpoints} />
                 </TabPanel>
                 <TabPanel value={tab} index={1}>
-                    <div></div>
+                    <Discussion discussions={discussions} />
                 </TabPanel>
                 <TabPanel value={tab} index={2}>
-                    <div></div>
+                    <Reviews reviews={reviews} />
                 </TabPanel>
             </div>
             <Footer />
