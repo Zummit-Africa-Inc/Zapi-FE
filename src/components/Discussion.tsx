@@ -13,11 +13,12 @@ import { Add } from "@mui/icons-material";
 import { useContextProvider } from "../contexts/ContextProvider";
 import { DiscussionType } from "../types";
 
-
-// const core_url = import.meta.env.VITE_CORE_URL
 interface Props {
     discussions: Array<DiscussionType>
 }
+
+// const core_url = "VITE_CORE_URL"
+
 const Discussion: React.FC<Props> = ({ discussions }) => {
     const classes = useStyles()
     const [tab, setTab] = useState<number>(0)
@@ -34,21 +35,19 @@ const Discussion: React.FC<Props> = ({ discussions }) => {
 
     return (
         <Box className={classes.main}>
-            <Box className={classes.container}>
-                <Box className={classes.discussion_tab}>
-                    <Box className={classes.header}>
-                        <Typography variant="h2" fontWeight={500}>Discussions</Typography>
-                    </Box>
-                    <Box>
-                        <Button
-                            variant="contained"
-                            sx={{background: "#071B85",color: "#FFFFFF"}}
-                            className={classes.newDiscussion}
-                            onClick={() => handleClicked("addDiscussion")}
-                            style={{ height: "46px" }}>
-                            <Add /> <Typography>New Discussion</Typography>
-                        </Button>
-                    </Box>
+            <Box className={classes.discussion_tab}>
+                <Box className={classes.header}>
+                    <Typography variant="h2" fontWeight={500}>Discussions</Typography>
+                </Box>
+                <Box>
+                    <Button
+                        variant="contained"
+                        sx={{background: "#071B85",color: "#FFFFFF"}}
+                        className={classes.newDiscussion}
+                        onClick={() => handleClicked("addDiscussion")}
+                        style={{ height: "46px" }}>
+                        <Add /> <Typography>New Discussion</Typography>
+                    </Button>
                 </Box>
             </Box>
             <Box className={classes.discussions_container}>
@@ -67,8 +66,14 @@ const Discussion: React.FC<Props> = ({ discussions }) => {
                                         <Box className={classes.discussion_row}>
                                             <img src={ZapiHomeLogo} alt="zapi-Home" />
                                             <Box className={classes.discussion_column}>
-                                                <Typography variant="body1" fontWeight={500}><Link sx={{ textDecoration: 'none', color: "#071b85" }} href={`/discussion/${discussion.id}`} >{discussion.title}</Link></Typography>
-                                                <Typography variant="body2" fontWeight={400}>commented on - {new Date(discussion?.createdOn).toLocaleDateString()}</Typography>
+                                                <Typography variant="body1" fontWeight={500}>
+                                                    <Link sx={{textDecoration:'none',color: "#071b85"}} href={`/discussion/${discussion.id}`} >
+                                                        {discussion.title}
+                                                    </Link>
+                                                </Typography>
+                                                <Typography variant="body2" fontWeight={400}>
+                                                    Commented on - {new Date(discussion?.createdOn).toLocaleDateString()}
+                                                </Typography>
                                             </Box>
                                         </Box>
                                     </Box>
@@ -103,36 +108,13 @@ const useStyles = makeStyles({
         height: "auto",
         padding: "1rem 2rem 0",
     },
-    container: {
-        width: "auto",
-        display: "flex",
-        justifyContent: "center",
-        gap: "32px",
-        "@media screen and (max-width: 1024px)": {
-            margin: "0 0 109px 2rem",
-        },
-        "@media screen and (max-width: 900px)": {
-
-        },
-        "@media screen and (max-width: 820px)": {
-            gap: "22px",
-
-        },
-        "@media screen and (max-width: 770px)": {
-
-        },
-        "@media screen and (max-width: 375px)": {
-            margin: "0 0 50px 1rem",
-        }
-
-    },
     discussion_tab: {
+        width: "100%",
         display: "flex",
-        width: "90%",
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        gap: "1rem",
+        padding: "0 2rem",
         "@media screen and (max-width: 1024px)": {
             flexDirection: "column",
         },
@@ -140,10 +122,7 @@ const useStyles = makeStyles({
     header: {
         display: "flex",
         flexDirection: "column",
-        margin: "32px 0",
         color: "#071B85",
-        top: 0,
-        left: 0,
         "& h2": {
             marginBottom: "3px",
             fontSize: "22px",
@@ -159,7 +138,6 @@ const useStyles = makeStyles({
         },
     },
     newDiscussion: {
-
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
@@ -188,7 +166,6 @@ const useStyles = makeStyles({
         justifyContent: "center",
         marginBottom: '3rem'
     },
-
     discussion_thread: {
         background: "#F9FAFB",
         display: "flex",

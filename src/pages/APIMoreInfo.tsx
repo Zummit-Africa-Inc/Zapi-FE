@@ -60,7 +60,7 @@ const APIMoreInfo:React.FC = () => {
 
             const [api, endpoints, discussions, reviews] = await Promise.all([apiData, endpointsData, apiDiscussion, reviewData])
             if(api === undefined || endpoints === undefined || discussions === undefined) return
-            console.log({api, endpoints, discussions})
+            console.log({api, endpoints, discussions,})
             setApi(api.data);
             setReviews(reviews)
             setEndpoints(endpoints.data)
