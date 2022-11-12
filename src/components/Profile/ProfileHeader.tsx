@@ -60,21 +60,6 @@ const ProfileHeader = () => {
     } catch (error) {}
   };
 
-  // const profile = async () => {
-  //   const headers = { "Content-Type": "application/json" };
-  //   try {
-  //     const data = await sendRequest(
-  //       `/profile/${user.profileId}`,
-  //       "get",
-  //       core_url,
-  //       undefined,
-  //       headers
-  //     );
-  //     console.log("data", data);
-  //   } catch (error) {}
-  // };
-
-  // profile();
   return (
     <Stack sx={{ margin: "120px 40px 40px 40px", width: "100vw" }}>
       <DevNavbar />
@@ -104,7 +89,7 @@ const ProfileHeader = () => {
                 </Stack>
               ) : (
                 <Stack className={classes.image}>
-                  <img src={user.picture} alt="" />
+                  <img src={user.picture ? user.picture : null} alt="" />
                   <input type="file" onChange={(e) => handleChange(e)} />
                 </Stack>
               )}
@@ -162,7 +147,7 @@ const ProfileHeader = () => {
             </Stack>
             <Stack spacing={1} sx={{ width: "70%" }}>
               <Typography>
-                {user.fullName ? user.fullName : "FullName"}
+                {user.fullName ? user.fullName : "fullName"}
               </Typography>
               <Stack direction="row" spacing={2}>
                 <Typography>
