@@ -27,7 +27,8 @@ export { default as Monetize } from "./Monetize";
 export { default as Navbar } from "./Navbar";
 export { default as PasswordStrengthMeter } from "./PasswordStrengthMeter";
 export { default as Pricing } from "./Pricing";
-export { default as ProxySecret } from "./ProxySecret"
+export { default as ProxySecret } from "./ProxySecret";
+export { default as Reviews } from "./Reviews";
 export { default as Schema } from "./Schema";
 export { default as SelectMulti } from "./SelectMulti"
 export { default as SettingsPage } from "./SettingsPage";

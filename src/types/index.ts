@@ -27,7 +27,6 @@ export type APIType = {
    childrenDiscussions?: Array<ChildrenDiscussionType | null>
 }
 
-
 export type SubscriptionType = {
    id: string
    apiId: string
@@ -65,7 +64,7 @@ export type UserProfileType = {
    publishedApis?: string[] | []
    followers?: string[] | []
    followering?: string[] | []
-   picture: object | string | null
+   picture?: object | string | null
 }
 
 export type DiscussionType = {
@@ -142,4 +141,16 @@ export type OptionsType = {
 export type ReqBody = {
    key: string;
    value: string | Date | boolean | number | object | symbol | Array<any>;
- }
+}
+
+export type User = {
+   profileId: string
+   fullName: string
+   picture?: string
+}
+
+export type ReviewType = {
+   rating: number,
+   review: string
+   by: User
+}
