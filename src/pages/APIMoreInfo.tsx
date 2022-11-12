@@ -94,7 +94,7 @@ const APIMoreInfo:React.FC = () => {
             </CustomTabs>
             <div className={classes.tabpanel}>
                 <TabPanel value={tab} index={0}>
-                    <Endpoints endpoints={endpoints} />
+                    <Endpoints api={api} endpoints={endpoints} />
                 </TabPanel>
                 <TabPanel value={tab} index={1}>
                     <Discussion discussions={discussions} />
