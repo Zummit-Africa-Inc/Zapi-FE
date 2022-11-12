@@ -12,6 +12,7 @@ import { login } from "../redux/slices/userSlice";
 import { Fallback } from "../components";
 import { GoogleIcon } from "../assets";
 import { showModal } from "../redux/slices/modalSlice";
+import { useGoogleLogin } from "@react-oauth/google";
 import ReactGA from "react-ga4";
 
 ReactGA.send({ hitType: "pageview", page: "/login" });
@@ -79,33 +80,36 @@ const Login: React.FC = () => {
     } catch (error) {}
   };
 
-  // const googleAuth = GoogleLogin({
-  //   flow: "auth-code",
-  //   onSuccess: async (response) => {
-  //     console.log(response);
-  //     const payload = {
-  // token: response.code,
-  // login_time: deviceLocation.time,
-  // country: { lat: deviceLocation.lat, lon: deviceLocation.lon },
-  // deviceIP,
-  // browser_name: deviceInfo.browserName,
-  // os_name: deviceInfo.osName,
-  //     };
-  //     const token = await sendRequest(
-  //       "/auth/google",
-  //       "post",
-  //       url,
-  //       payload,
-  //       headers
-  //     );
-  //     console.log(token);
-  //     toast.success("Login Successful!");
-  //   },
-  //   onError={() => {
-  //     console.log(errorResponse);
-  //     toast.error("Login Failed, try to login with your email.");
-  //   }},
-  // });
+  const googleAuth = useGoogleLogin({
+    flow: "auth-code",
+    onSuccess: async (response) => {
+      const payload = {
+        token: response.code,
+        userInfo: {
+          login_time: deviceLocation.time,
+          country: { lat: deviceLocation.lat, lon: deviceLocation.lon },
+          deviceIP,
+          browser_name: deviceInfo.browserName,
+          os_name: deviceInfo.osName,
+        },
+      };
+      try {
+        const token = await sendRequest(
+          "/auth/google",
+          "post",
+          url,
+          payload,
+          headers
+        );
+        if (!token) return;
+        toast.success("Login Successful!");
+      } catch (error) {}
+    },
+    onError: (errorResponse) => {
+      console.log(errorResponse);
+      toast.error("Login Failed, try to login with your email.");
+    },
+  });
 
   useEffect(() => {
     {
@@ -166,7 +170,7 @@ const Login: React.FC = () => {
             </button>
           </form>
 
-          {/* <Typography>OR</Typography>
+          <Typography>OR</Typography>
           <Stack direction="column" alignItems="center" spacing={2}>
             <button
               type="button"
@@ -178,7 +182,7 @@ const Login: React.FC = () => {
               Sign in with Google
             </button>
           </Stack>
-  */}
+
           <Typography variant="body1" fontSize="14px" alignSelf="center">
             Dont't have an account?
             <Link
