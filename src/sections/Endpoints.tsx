@@ -15,10 +15,11 @@ import { ExpandMore, Menu, Search, Directions } from "@mui/icons-material";
 import { makeStyles, styled } from "@mui/styles";
 
 import TabPanel from "../components/TabPanel";
-import { EndpointsType } from "../types";
+import { APIType, EndpointsType } from "../types";
 
 interface Props {
   endpoints: Array<EndpointsType>;
+  api: APIType
 }
 
 const methodColor: any = {
@@ -57,7 +58,7 @@ const CustomAccordion = styled(Accordion)({
   },
 });
 
-const Endpoints: React.FC<Props> = ({ endpoints }) => {
+const Endpoints: React.FC<Props> = ({api, endpoints}) => {
   const [tab, setTab] = useState<number>(0);
   const classes = useStyles();
 
@@ -194,7 +195,7 @@ const Endpoints: React.FC<Props> = ({ endpoints }) => {
                     <Typography sx={{fontSize:"12px",color:"#000",textTransform:"uppercase"}}></Typography>
                   </Stack>
                   <Stack direction="column" spacing={1}>
-                    <input type="text" defaultValue={endpoint.base_url} className={classes.input} disabled />
+                    <input type="text" defaultValue={api.base_url} className={classes.input} disabled />
                     <Typography sx={{fontSize:"12px",color:"#000",textTransform:"uppercase"}}>required</Typography>
                   </Stack>
                 </Stack>
