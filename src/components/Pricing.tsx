@@ -32,7 +32,7 @@ const Pricing:React.FC = () => {
                 Choose the Right Plan For You
             </Typography>
             <Typography variant="subtitle1" textAlign="center">
-                RapidAPI partners directly with API providers to give you no-fuss, transparent pricing. Find a plan that best matches the scale you need for your application.
+                ZAPI partners directly with API providers to give you no-fuss, transparent pricing. Find a plan that best matches the scale you need for your application.
             </Typography>
         </Stack>
        {/* Select Account Section */}
@@ -105,7 +105,7 @@ const Pricing:React.FC = () => {
                         <strong>How are refunds handled?</strong>
                    </Typography>
                    <Typography variant="caption">
-                        For refund requests, please contact us at support@rapidapi.com
+                        For refund requests, please contact us at support@ZAPI.com
                    </Typography>
                 </Stack><br/>
             </Stack>
@@ -168,7 +168,7 @@ const Pricing:React.FC = () => {
                 One Dashboard, All Your APIs
             </Typography>
             <Typography variant="subtitle1" textAlign="center">
-                RapidAPI provides clear visibility on all of the API you use. Worry less about juggling multiple keys and subscription accounts.
+                ZAPI provides clear visibility on all of the API you use. Worry less about juggling multiple keys and subscription accounts.
             </Typography>
             <Stack alignItems="center">
                 <Stack textAlign="center" justifyContent="space-between" spacing={1} direction={{xs: "column", sm: "column", md: "row", lg: "row"}} mt={2}>
