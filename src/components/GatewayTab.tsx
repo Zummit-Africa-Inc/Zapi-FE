@@ -96,8 +96,8 @@ const GatewayTab: React.FC = () => {
                           lineHeight: "16px",
                         }}>
                         Protect your API by blocking requests that are not from
-                        the RapidAPI infrastructure. RapidAPI adds the
-                        “X-RapidAPI-Proxy-Secret” header on every request. This
+                        the ZAPI infrastructure. ZAPI adds the
+                        “X-ZAPI-Proxy-Secret” header on every request. This
                         header has a unique value for each API.
                       </Typography>
                     </div>
