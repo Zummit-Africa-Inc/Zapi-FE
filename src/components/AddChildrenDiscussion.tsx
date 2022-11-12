@@ -1,11 +1,10 @@
-import React, { FormEvent, useState, useMemo, useEffect } from "react";
+import React, { FormEvent, useState, useEffect } from "react";
 import {
   Typography, Box, Button
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
-import { useNavigate, useParams } from "react-router-dom";
 
 import { useContextProvider } from "../contexts/ContextProvider";
 import {
@@ -14,9 +13,9 @@ import {
   useHttpRequest,
 } from "../hooks";
 import { Fallback } from ".";
-import { addDiscussion } from "../redux/slices/apiSlice";
+import { addChildrenDiscussion } from "../redux/slices/apiSlice";
 import ReactGA from "react-ga4";
-import { APIType, DiscussionType } from "../types";
+import { getUserApis } from "../redux/slices/userSlice";
 
 const core_url = "VITE_CORE_URL";
 const initialState = {
@@ -25,18 +24,16 @@ const initialState = {
 };
 
 
-const AddDiscussion: React.FC = () => {
+const AddChildrenDiscussion: React.FC = () => {
   const { loading, error, sendRequest, clearError } = useHttpRequest();
   const { inputs, bind } = useFormInputs(initialState);
   const [isAdding, setIsAdding] = useState<boolean>(false);
-  const { title, body } = inputs;
+  const { body } = inputs;
   const { handleUnclicked } = useContextProvider();
-  const [api, setApi] = useState<APIType | null>(null)
   const classes = useStyles();
   const cookies = new Cookies();
   const profile_id = cookies.get("profileId");
   const dispatch = useAppDispatch();
-  const { triggerRefresh } = useContextProvider();
 
   ReactGA.send({ hitType: "pageview", page: "/api/id" });
   const toggleAdding = () => {
@@ -44,18 +41,19 @@ const AddDiscussion: React.FC = () => {
   };
 
 
+  const discussionId = JSON.parse(localStorage.getItem("discussion_id") || '');
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const api_id = JSON.parse(localStorage.getItem("api_id") || '');
 
-    if (!title || !body)
+    if (!body)
       return toast.error("Please fill all fields");
     // const api_id = id;
     const headers = { "Content-Type": "application/json" };
-    const payload = { title, body, profile_id, api_id };
+    const payload = { body, profile_id, api_id };
     try {
       const data = await sendRequest(
-        `/discussion`,
+        `/discussion/comment/${discussionId}/${profile_id}`,
         "post",
         core_url,
         payload,
@@ -63,8 +61,7 @@ const AddDiscussion: React.FC = () => {
       );
       console.log(data);
       if (!data || data === null) return;
-      dispatch(addDiscussion(payload));
-      triggerRefresh();
+      // dispatch(addChildrenDiscussion(payload));
       const { message } = data;
       toast.success(`${message}`);
     } catch (err) {
@@ -72,6 +69,7 @@ const AddDiscussion: React.FC = () => {
     }
     // dispatch(getApisDiscussion(id));
     handleUnclicked();
+    dispatch(getUserApis(profile_id))
   };
 
   useEffect(() => {
@@ -96,15 +94,7 @@ const AddDiscussion: React.FC = () => {
             Add New Discussion
           </Typography>
           <form className={classes.form} onSubmit={handleSubmit}>
-            <Box className={classes.input}>
-              <label>Title</label>
-              <input
-                type="text"
-                name="title"
-                {...bind}
-                placeholder="Add Discussion Title"
-              />
-            </Box>
+
             <Box className={classes.input}>
               <label>Discussion</label>
               <input
@@ -122,6 +112,7 @@ const AddDiscussion: React.FC = () => {
                 marginLeft: "auto",
               }}>
               <Button
+                variant="contained"
                 sx={{ background: "#071B85", color: "#FFFFFF" }}
                 onClick={toggleAdding} type="submit" className={classes.addBtn}>
                 Post Discussion
@@ -268,5 +259,5 @@ const useStyles = makeStyles({
   },
 });
 
-export default AddDiscussion;
+export default AddChildrenDiscussion;
 

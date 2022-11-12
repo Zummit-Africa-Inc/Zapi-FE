@@ -132,7 +132,9 @@ const Menus: React.FC<MenuProps> = () => {
         TransitionComponent={Fade}>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
         <MenuItem>
-          <Link to={`/user/${user.profileId}`}>Profile</Link>
+          <Link className={classes.link} to={`/profile/${user.profileId}`}>
+            Profile
+          </Link>
         </MenuItem>
       </Menu>
     </div>
@@ -162,6 +164,9 @@ const useStyles = makeStyles({
       textAlign: "center",
       lineHeight: "25px",
     },
+  },
+  link: {
+    color: "#000000",
   },
   root: {
     width: "450px",
