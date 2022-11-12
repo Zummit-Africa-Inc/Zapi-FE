@@ -12,6 +12,7 @@ import { login } from "../redux/slices/userSlice";
 import { Fallback } from "../components";
 import { GoogleIcon } from "../assets";
 import { showModal } from "../redux/slices/modalSlice";
+import LoginGithub from "react-login-github";
 import ReactGA from "react-ga4";
 
 ReactGA.send({ hitType: "pageview", page: "/login" });
@@ -107,6 +108,9 @@ const Login: React.FC = () => {
   //   }},
   // });
 
+  const onSuccess = (response: any) => console.log(response);
+  const onFailure = (response: any) => console.error(response);
+
   useEffect(() => {
     {
       error && toast.error(`${error}`);
@@ -123,12 +127,10 @@ const Login: React.FC = () => {
           <Typography variant="body1" fontSize="40px" fontWeight={400}>
             Sign In
           </Typography>
-
           <p className={classes.subtitle}>
             Already have a ZAPI account? Sign in to begin exploring our API
             options.
           </p>
-
           <form onSubmit={handleLogin} className={classes.form}>
             <div className={classes.input}>
               <label htmlFor="email">Email Address</label>
@@ -165,7 +167,6 @@ const Login: React.FC = () => {
               {loading ? "loading" : "Sign In"}
             </button>
           </form>
-
           {/* <Typography>OR</Typography>
           <Stack direction="column" alignItems="center" spacing={2}>
             <GoogleLogin
@@ -178,6 +179,11 @@ const Login: React.FC = () => {
             />
             ;
           </Stack> */}
+          <LoginGithub
+            clientId="a6b0ea9080a71180c90f"
+            onSuccess={onSuccess}
+            onFailure={onFailure}
+          />
           <Typography variant="body1" fontSize="16px" alignSelf="flex-start">
             Dont't have an account?
             <Link
