@@ -16,6 +16,7 @@ import otp from "../assets/images/otp.png";
 import login2 from "../assets/images/login2.png";
 import subscriptions1 from "../assets/images/subscriptions1.png";
 import subscriptions2 from "../assets/images/subscriptions2.png";
+import postman from "../assets/images/postman.png";
 
 const CustomTab = styled(Tab)({
 	"&.MuiTab-root": {
@@ -67,7 +68,7 @@ const Documentation:React.FC = () => {
     return (
         <>
             <HomeNavbar />
-            
+
             <Box className={classes.root}>
                 
                 <Box className={classes.header}>
@@ -311,9 +312,14 @@ const Documentation:React.FC = () => {
                             <Typography component="h2">Send Requests</Typography>
                             
                             <Typography component="p">
-                                The first thing you'll want to do is locate an API that you want to use and click the icon on the top right corner of the card to subscribe to the API.
+                                In this example we are going to use Postman to send a request, to do so you will need an endpoint and your access token:
                             </Typography>
-
+  
+                            <Box
+                                component="img"
+                                alt="postman"
+                                src={postman}
+                            />
 
                         </TabPanel>
                     
