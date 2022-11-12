@@ -105,7 +105,7 @@ const Pricing:React.FC = () => {
                         <strong>How are refunds handled?</strong>
                    </Typography>
                    <Typography variant="caption">
-                        For refund requests, please contact us at support@ZAPI.com
+                        For refund requests, please contact us at zapiaistudio@gmail.com
                    </Typography>
                 </Stack><br/>
             </Stack>
