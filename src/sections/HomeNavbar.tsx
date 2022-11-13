@@ -108,13 +108,6 @@ const HomeNavbar: React.FC = () => {
                     Pricing
                   </NavLink>
                 </li>
-                {!isLoggedIn ? (
-                  <li>
-                    <button onClick={() => handleClicked("login")}>
-                      Login
-                    </button>
-                  </li>
-                ) : null}
               </ul>
               <li>
                 <NavLink
@@ -125,6 +118,13 @@ const HomeNavbar: React.FC = () => {
                   Documentation
                 </NavLink>
               </li>
+              {!isLoggedIn ? (
+                  <li>
+                    <button onClick={() => handleClicked("login")}>
+                      Login
+                    </button>
+                  </li>
+                ) : null}
               {isLoggedIn && (
                 <li>
                   <NavLink
@@ -138,7 +138,7 @@ const HomeNavbar: React.FC = () => {
                 {!isLoggedIn ? (
                   <NavLink to="/signup">Sign up</NavLink>
                 ) : (
-                  <button onClick={() => handleLogOut()}>Logout</button>
+                  <button className={classes.logout} onClick={() => handleLogOut()}>Logout</button>
                 )}
               </div>
             </div>
@@ -357,6 +357,16 @@ const useStyles = makeStyles({
     fontWeight: 500,
     fontSize: "1rem",
     color: "#081F4A",
+    cursor: "pointer",
+  },
+  logout: {
+    border: "none",
+    borderRadius: "4px",
+    padding: ".5rem 1rem",
+    background: "#FFEA00",
+    fontWeight: 500,
+    fontSize: "1rem",
+    color: "black",
     cursor: "pointer",
   },
   dashboard: {

@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
 import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
 
 const Feedback = ({handleOpen} : any) => {
