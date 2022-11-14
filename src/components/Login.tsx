@@ -18,7 +18,7 @@ import ReactGA from "react-ga4";
 ReactGA.send({ hitType: "pageview", page: "/login" });
 
 const initialState = { email: "", password: "" };
-// const url = import.meta.env.VITE_IDENTITY_URL;
+
 const url = "VITE_IDENTITY_URL";
 
 const Login: React.FC = () => {
