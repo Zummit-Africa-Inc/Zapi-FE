@@ -6,6 +6,7 @@ import { AccessTimeOutlined, DoneOutlined, TrendingUpOutlined } from "@mui/icons
 
 import { Navbar, TabPanel, SplitView } from "../components";
 import { APIS } from "../testdata";
+import {HomeNavbar,Discussion,Footer} from '../sections';
 
 const APIPage: React.FC = () => {
   const id = useParams().id
@@ -17,7 +18,7 @@ const APIPage: React.FC = () => {
 
   return (
     <div>
-      <Navbar />
+      <HomeNavbar />
       <div className={classes.container}>
         <div className={classes.flex}>
           <div><Avatar src={api?.image} variant="square" />{api?.name}</div>
@@ -64,6 +65,8 @@ const APIPage: React.FC = () => {
           </TabPanel>
         </div>
       </div>
+      <Discussion/>
+      <Footer />
     </div>
   )
 }
