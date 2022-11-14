@@ -50,7 +50,7 @@ const APILayout: React.FC = () => {
               textAlign: "center",
               marginTop: "116px",
             }}>
-            You do no have any API Projects
+            You do not have any API Projects
           </Typography>
           <Typography
             gutterBottom

@@ -12,18 +12,18 @@ const Fallback: React.FC = () => {
 }
 
 const useStyles = makeStyles({
-    container: {
-        width: "100vw",
-        height: "100vh",
-        display: "grid",
-        placeItems: "center",
-        position: "fixed",
-        top: 0,
-        left: 0,
-        background: "rgba(225, 225, 225, 0.3)",
-        backdropFilter: "blur(2px)",
-        zIndex: 70,
-    },
+  container: {
+    width: "100vw",
+    height: "100vh",
+    display: "grid",
+    placeItems: "center",
+    position: "fixed",
+    top: 0,
+    left: 0,
+    background: "rgba(225, 225, 225, 0.3)",
+    backdropFilter: "blur(2px)",
+    zIndex: 70,
+  },
 })
 
 export default Fallback
