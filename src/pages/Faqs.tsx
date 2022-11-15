@@ -71,7 +71,7 @@ const Faqs: React.FC = () => {
           expanded={expanded === "panel1"}
           onChange={handleChange("panel1")}>
           <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-            <Typography>Collapsible Group Item #1</Typography>
+            <Typography>What is Zapi all about</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
@@ -87,7 +87,7 @@ const Faqs: React.FC = () => {
           expanded={expanded === "panel2"}
           onChange={handleChange("panel2")}>
           <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-            <Typography>Collapsible Group Item #2</Typography>
+            <Typography>How to upload Api on Zapi</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
@@ -103,7 +103,7 @@ const Faqs: React.FC = () => {
           expanded={expanded === "panel3"}
           onChange={handleChange("panel3")}>
           <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-            <Typography>Collapsible Group Item #3</Typography>
+            <Typography>How to Create an Endpoint</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
@@ -119,7 +119,7 @@ const Faqs: React.FC = () => {
           expanded={expanded === "panel4"}
           onChange={handleChange("panel4")}>
           <AccordionSummary aria-controls="panel4d-content" id="panel4d-header">
-            <Typography>Collapsible Group Item #4</Typography>
+            <Typography>How to upload image on my api</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
@@ -135,7 +135,7 @@ const Faqs: React.FC = () => {
           expanded={expanded === "panel5"}
           onChange={handleChange("panel5")}>
           <AccordionSummary aria-controls="panel5d-content" id="panel5d-header">
-            <Typography>Collapsible Group Item #5</Typography>
+            <Typography>How can i create an Api</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
@@ -151,7 +151,7 @@ const Faqs: React.FC = () => {
           expanded={expanded === "panel6"}
           onChange={handleChange("panel6")}>
           <AccordionSummary aria-controls="panel6d-content" id="panel6d-header">
-            <Typography>Collapsible Group Item #6</Typography>
+            <Typography>How many Apis can i create</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
@@ -167,7 +167,7 @@ const Faqs: React.FC = () => {
           expanded={expanded === "panel7"}
           onChange={handleChange("panel7")}>
           <AccordionSummary aria-controls="panel7d-content" id="panel7d-header">
-            <Typography>Collapsible Group Item #7</Typography>
+            <Typography>What are the type of Api can i create</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
@@ -183,7 +183,7 @@ const Faqs: React.FC = () => {
           expanded={expanded === "panel8"}
           onChange={handleChange("panel8")}>
           <AccordionSummary aria-controls="panel8d-content" id="panel8d-header">
-            <Typography>Collapsible Group Item #8</Typography>
+            <Typography>Do i have to sign up before creating an Api</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>

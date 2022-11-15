@@ -339,7 +339,7 @@ const GeneralTab: React.FC = () => {
                     )}
                     <Switch
                       value={visibility}
-                      checked={visibility === APIVisibility.PRIVATE}
+                      checked={visibility === APIVisibility.PUBLIC}
                       name="visibility"
                       onChange={handleSwitch}
                     />

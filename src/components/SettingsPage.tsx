@@ -68,7 +68,7 @@ const SettingsPage: React.FC = () => {
       </div>
       <div className="col-col">
         <span>
-          Transfer ownership of this API to another RapidAPI user or team
+          Transfer ownership of this API to another ZAPI user or team
         </span>
       </div>
       <div className="col-4">
@@ -112,7 +112,7 @@ const SettingsPage: React.FC = () => {
                   <input
                     id="input-input"
                     className="search-col"
-                    placeholder="Search RapidAPI users"
+                    placeholder="Search ZAPI users"
                   />
                 </div>
               </div>
@@ -142,7 +142,7 @@ const SettingsPage: React.FC = () => {
         <h3 className="name-col">Delete API Project</h3>
       </div>
       <span className="more-text">
-        Permanently deleting this API project will remove it from the RapidAPI
+        Permanently deleting this API project will remove it from the ZAPI
         Hub <br />
         Listing, will destroy your team's data from Requests, Testing and
         Descriptions. <br /> This action is not reversible
