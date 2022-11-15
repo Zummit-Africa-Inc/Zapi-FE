@@ -54,7 +54,7 @@ const CustomTab = styled(Tab)({
 const CustomAccordion = styled(Accordion)({
   "&.MuiAccordion-root": {
     boxShadow: "unset",
-    borderTop: "1px solid #d1d1d1",
+    borderTop: "1px solid #D1D1D1",
   },
 });
 
