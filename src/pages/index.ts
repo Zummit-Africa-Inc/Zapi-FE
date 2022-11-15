@@ -25,7 +25,8 @@ const Notifications = React.lazy(() => import("./Notifications"));
 const ApiHubTry = React.lazy(() => import("./ApiHubTry"));
 const ComingSoonPage = React.lazy(() => import("./ComingSoonPage"));
 const APIMoreInfo = React.lazy(() => import("./APIMoreInfo"));
+const Faqs = React.lazy(() => import("./Faqs"));
 
 export { APIPage, Configuration, CreateEndpoint,DeveloperApiPage, DevDashboard,
 ForgotPassword, Home, HomePage, LoginHistory, Otp, Signup, SuccessPage, UserProfile, 
-TermsConditions, ResetPassword, Pricing, Documentation, APIHub, Notifications,ApiHubTry, ComingSoonPage, APIMoreInfo };
+TermsConditions, ResetPassword, Pricing, Documentation, APIHub, Notifications,ApiHubTry, ComingSoonPage, APIMoreInfo, Faqs };
