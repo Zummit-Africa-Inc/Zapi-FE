@@ -17,8 +17,8 @@ import { Fallback, PasswordStrengthMeter } from "../components";
 import { HomeNavbar } from "../sections";
 import { GoogleIcon } from "../assets";
 import { useGoogleLogin } from "@react-oauth/google";
+import LoginGithub from "react-login-github";
 import ReactGA from "react-ga4";
-import axios from "axios";
 
 const initialState = {
   fullName: "",
@@ -112,6 +112,9 @@ const Signup: React.FC = () => {
       toast.error("Login Failed, try to login with your email.");
     },
   });
+
+  const onSuccess = (response: any) => console.log(response);
+  const onFailure = (response: any) => console.error(response);
 
   useEffect(() => {
     {
@@ -223,17 +226,22 @@ const Signup: React.FC = () => {
           </form>
 
           <Typography>OR</Typography>
-          <Stack direction="column" alignItems="center" spacing={2}>
+          <Stack direction="column" alignItems="center" mt={1} spacing={2}>
             <button
               type="button"
               className={classes.button}
-              onClick={() => googleAuth()}
-              style={{ background: "#FFF", color: "#081F4A" }}>
-              <span style={{ marginRight: "3rem" }}>
+              onClick={() => googleAuth()}>
+              <span style={{ marginRight: "1rem" }}>
                 <GoogleIcon />
               </span>
-              Signin with Google
+              Sign in with Google
             </button>
+            <LoginGithub
+              className={classes.button}
+              clientId="a6b0ea9080a71180c90f"
+              onSuccess={onSuccess}
+              onFailure={onFailure}
+            />
           </Stack>
           <Typography
             variant="body1"

@@ -104,6 +104,30 @@ const Login: React.FC = () => {
         );
         if (!token) return;
         toast.success("Login Successful!");
+        const {
+          access,
+          email,
+          fullName,
+          profileId,
+          refresh,
+          userId,
+          secretKey,
+        } = token.data;
+        const user = { email, fullName, profileId, secretKey };
+        dispatch(login(user));
+        cookies.set("accessToken", access);
+        cookies.set("refreshToken", refresh);
+        cookies.set("profileId", profileId);
+        cookies.set("userId", userId);
+        cookies.set("secretKey", secretKey);
+        handleUnclicked("login");
+        dispatch(
+          showModal({
+            action: "hide",
+            type: "loginModal",
+          })
+        );
+        navigate("/developer/dashboard");
       } catch (error) {}
     },
     onError: (errorResponse) => {
@@ -166,14 +190,18 @@ const Login: React.FC = () => {
             <button
               type="submit"
               className={classes.button}
-              style={{ background: "#4B4B4B", color: "#FFF" }}
+              style={{
+                background: "#4B4B4B",
+                color: "#FFF",
+                marginBottom: "1rem",
+              }}
               disabled={loading}>
               {loading ? "loading" : "Sign In"}
             </button>
           </form>
 
           <Typography>OR</Typography>
-          <Stack direction="column" alignItems="center" spacing={2}>
+          <Stack direction="column" alignItems="center" mt={1} spacing={2}>
             <button
               type="button"
               className={classes.button}
@@ -184,6 +212,7 @@ const Login: React.FC = () => {
               Sign in with Google
             </button>
             <LoginGithub
+              className={classes.button}
               clientId="a6b0ea9080a71180c90f"
               onSuccess={onSuccess}
               onFailure={onFailure}
@@ -277,7 +306,6 @@ const useStyles = makeStyles({
     fontWeight: 600,
     lineHeight: "16px",
     cursor: "pointer",
-    margin: "1rem 0 2rem",
     padding: "0 1rem",
     color: "#081F4A",
     "@media screen and (max-width: 768px)": {
