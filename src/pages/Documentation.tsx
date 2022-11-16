@@ -17,6 +17,8 @@ import login2 from "../assets/images/login2.png";
 import subscriptions1 from "../assets/images/subscriptions1.png";
 import subscriptions2 from "../assets/images/subscriptions2.png";
 import postman from "../assets/images/postman.png";
+import headers from "../assets/images/headers.png";
+import query_params from "../assets/images/query_params.png";
 
 const CustomTab = styled(Tab)({
 	"&.MuiTab-root": {
@@ -375,6 +377,24 @@ const Documentation:React.FC = () => {
                                     alt="postman"
                                     src={postman}
                                 />
+                                
+                                <Typography component="p">
+                                    Click Headers tab to enter required headers:
+                                </Typography>
+                                <Box
+                                    component="img"
+                                    alt="headers"
+                                    src={headers}
+                                />
+                                
+                                <Typography component="p">
+                                    Click Params tab to enter required query parameters: 
+                                </Typography>
+                                <Box
+                                    component="img"
+                                    alt="query_params"
+                                    src={query_params}
+                                />
 
                             </TabPanel>
                         
@@ -384,7 +404,7 @@ const Documentation:React.FC = () => {
 
                 
                 <TabPanel value={newTab} index={0}>
-                    
+
                 </TabPanel>
 
             </Box>
