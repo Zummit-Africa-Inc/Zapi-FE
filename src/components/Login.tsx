@@ -103,6 +103,30 @@ const Login: React.FC = () => {
         );
         if (!token) return;
         toast.success("Login Successful!");
+        const {
+          access,
+          email,
+          fullName,
+          profileId,
+          refresh,
+          userId,
+          secretKey,
+        } = token.data;
+        const user = { email, fullName, profileId, secretKey };
+        dispatch(login(user));
+        cookies.set("accessToken", access);
+        cookies.set("refreshToken", refresh);
+        cookies.set("profileId", profileId);
+        cookies.set("userId", userId);
+        cookies.set("secretKey", secretKey);
+        handleUnclicked("login");
+        dispatch(
+          showModal({
+            action: "hide",
+            type: "loginModal",
+          })
+        );
+        navigate("/developer/dashboard");
       } catch (error) {}
     },
     onError: (errorResponse) => {
