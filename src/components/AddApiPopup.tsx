@@ -141,14 +141,14 @@ const AddApiPopup: React.FC = () => {
                 flexDirection: "row",
                 marginLeft: "auto",
               }}>
-              <button type="submit" className={classes.addBtn}>
-                Add API Project
-              </button>
               <button
                 type="button"
                 className={classes.cancelBtn}
                 onClick={() => handleUnclicked("addapi")}>
                 Cancel
+              </button>
+              <button type="submit" className={classes.addBtn}>
+                Add API
               </button>
             </div>
           </form>
@@ -281,7 +281,7 @@ const useStyles = makeStyles({
     padding: "8px 14px",
     gap: "16px",
     height: "46px",
-    background: "#081F4A",
+    background: "#058A04",
     fontFamily: "inherit",
     color: "white",
     borderRadius: "4px",
