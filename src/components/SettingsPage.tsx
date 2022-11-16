@@ -534,7 +534,6 @@ const useStyles = makeStyles({
     deltext: {
     marginTop: "13px",
     height: "35px",
-    borderColor: "#fff",
     backgroundColor: "#ddd",
     borderRadius: "7px",
     fontSize: "15px",
