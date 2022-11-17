@@ -53,7 +53,7 @@ const APIMoreInfo:React.FC = () => {
             'X-Zapi-Auth_Token': `Bearer ${cookies.get("accessToken")}`
         }
         try {
-            const reviewData = await sendRequest(`/api/reviews/${apiId}`, "post", core_url, {}, headers)
+            const reviewData = await sendRequest(`/api/reviews/${apiId}`, "get", core_url, {}, headers)
             const apiData = await sendRequest(`/api/findOne/${apiId}`, "get", core_url, {}, headers)
             const endpointsData = await sendRequest(`/endpoints/${apiId}`, "get", core_url, {}, headers)
             const apiDiscussion = await sendRequest(`/discussion/api/${apiId}`, "get", core_url, {}, headers)
