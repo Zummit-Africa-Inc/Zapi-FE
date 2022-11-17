@@ -41,6 +41,7 @@ const Tests:React.FC<Props> = ({id}) => {
 
             const [api, endpoints] = await Promise.all([apiData, endpointsData]);
             if(api === undefined || endpoints === undefined) return
+            console.log({api,endpoints})
             setApi(api.data);
             setEndpoints(endpoints.data);
         } catch (error) {}
