@@ -31,9 +31,6 @@ const Faqs: React.FC = () => {
             width: "100%",
             marginBottom: "2rem",
           }}>
-          <div className={classes.header}>
-            <Typography variant="h2">FAQ'S</Typography>
-          </div>
           <div className={classes.accordionBlock}>
             {FAQDATA.map((val) => {
               return (
@@ -60,7 +57,7 @@ const useStyles = makeStyles({
 
     backgroundImage: "url('../../images/faq.png')",
     width: "100%",
-    opacity: 0.98,
+    opacity: 0.99,
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     "& h1": {
@@ -123,13 +120,6 @@ const useStyles = makeStyles({
     "@media screen and (max-width: 900px)": {
       display: "none",
     },
-  },
-  header: {
-    fontSize: "72px",
-    fontWeight: "bolder",
-    color: "#071B85",
-    textAlign: "center",
-    padding: "10px",
   },
   h1: {
     textAlign: "center",

@@ -35,17 +35,17 @@ const useStyles = makeStyles({
     alignItem: "center",
     padding: ".5em 1em",
     width: "100%",
-    backgroundColor: "rgb(8, 31, 74);",
+    backgroundColor: "whitesmoke",
     margin: "0 auto",
     marginBottom: ".2em",
     borderRadius: ".5em",
     cursor: "pointer",
     "& h2": {
-      color: "#fff",
+      color: "#071B85",
       fontSize: "1.8rem",
     },
     "& p": {
-      color: "#fff",
+      color: "#071B85",
       fontSize: "2.2rem",
       cursor: "pointer",
     },
@@ -54,11 +54,12 @@ const useStyles = makeStyles({
   answer: {
     "& p": {
       fontSize: "1.5rem",
-      backgroundColor: "#fff",
+      backgroundColor: "whitesmoke",
       width: "100%",
       margin: "0 auto",
       padding: ".2em",
       textAlign: "left",
+      color: "#071B85",
     },
   },
 });
