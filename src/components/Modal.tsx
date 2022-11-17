@@ -9,6 +9,7 @@ import Modal from "@mui/material/Modal";
 import { SyntheticEvent, useState } from "react";
 import { useHttpRequest } from "../hooks";
 import { toast } from "react-toastify";
+import { Spinner } from "../assets";
 
 const core_url = "VITE_CORE_URL";
 
@@ -16,11 +17,13 @@ const Modalpopup = ({ open, handleClose, setOpen }: any) => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [body, setBody] = useState<string>("");
+  const [load, setLoad] = useState(false)
   const { error, loading, sendRequest } = useHttpRequest();
   const isValid = name && email && body
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
+    setLoad(true)
     const payload = { name, email, body };
     const headers = { "Content-Type": "application/json" };
     try {
@@ -34,12 +37,14 @@ const Modalpopup = ({ open, handleClose, setOpen }: any) => {
       if (!data) return;
       console.log(data);
       const {message} = data
+      setLoad(false)
       toast.success(`${message}`)
       setName('')
       setEmail('')
       setBody('')
       setOpen(false)
     } catch (error) {
+      setLoad(false)
       toast.error('could not send feedback')
     }
   };
@@ -100,7 +105,7 @@ const Modalpopup = ({ open, handleClose, setOpen }: any) => {
               disabled={!isValid}
               disableFocusRipple
               onClick={handleSubmit}>
-              Submit
+              {load ? <Spinner/> : 'Submit'}
             </Button>
           </Typography>
         </Box>
