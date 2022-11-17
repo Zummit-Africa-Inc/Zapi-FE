@@ -189,16 +189,6 @@ const Endpoints: React.FC<Props> = ({api, endpoints}) => {
                   }}>
                   {endpoint.description}
                 </Typography>
-                <Stack key={index} direction="row" alignItems="center" spacing={4} my={4}>
-                  <Stack width={200} direction="column" spacing={1} sx={{padding:"0 10px"}}>
-                    <Typography sx={{fontSize:"18px",color:"#081F4A"}}>Request URL</Typography>
-                    <Typography sx={{fontSize:"12px",color:"#000",textTransform:"uppercase"}}></Typography>
-                  </Stack>
-                  <Stack direction="column" spacing={1}>
-                    <input type="text" defaultValue={api.base_url} className={classes.input} disabled />
-                    <Typography sx={{fontSize:"12px",color:"#000",textTransform:"uppercase"}}>required</Typography>
-                  </Stack>
-                </Stack>
                 <CustomAccordion>
                   <AccordionSummary expandIcon={<ExpandMore />}>
                     <Typography sx={{ fontSize: "15px", color: "#515D99" }}>
