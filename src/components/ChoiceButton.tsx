@@ -1,16 +1,15 @@
 import React from "react";
+import {Stack} from "@mui/material";
 
 interface Props {
     border: string;
     rejectColor: string;
     acceptColor: string;
-    height: string;
-    onAccept: () => void;
-    onReject: () => void;
+    onAccept: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    onReject: (event: React.MouseEvent<HTMLButtonElement>) => void;
     acceptText: string;
     rejectText: string;
-    radius: string
-    width: string;
+    radius: string;
     acceptBackgroundColor: string;
     rejectBackgroundColor: string;
     padding: string;
@@ -21,28 +20,24 @@ const ChoiceButton: React.FC<Props> = ({
     border,
     rejectColor,
     acceptColor,
-    height,
     onAccept,
     onReject,
     acceptText,
     rejectText,
     radius,
-    width,
     acceptBackgroundColor,
     rejectBackgroundColor,
     padding,
     outline,
 }) => {
     return (
-        <>
+        <Stack direction="row" spacing={2} my={2}>
             <button
                 onClick={onAccept}
                 style={{
                     backgroundColor: acceptBackgroundColor,
                     border,
                     borderRadius: radius,
-                    height,
-                    width,
                     padding,
                     outline,
                     color: acceptColor
@@ -56,8 +51,6 @@ const ChoiceButton: React.FC<Props> = ({
                     backgroundColor: rejectBackgroundColor,
                     border,
                     borderRadius: radius,
-                    height,
-                    width,
                     padding,
                     outline,
                     color: rejectColor
@@ -65,10 +58,7 @@ const ChoiceButton: React.FC<Props> = ({
             >
                 {rejectText}
             </button>
-        </>
-
-
-
+        </Stack>
     );
 }
 
