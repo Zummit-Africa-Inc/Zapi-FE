@@ -38,6 +38,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import ZAPI from "../images/zapi-logo.png";
 import { useContextProvider } from "../contexts/ContextProvider";
+import ChoiceButton from "./ChoiceButton";
 
 enum APIVisibility {
   PRIVATE = "private",
@@ -180,6 +181,14 @@ const GeneralTab: React.FC = () => {
     }
   };
 
+  const clearImageField = () => {
+    setImage("");
+    const input = document.querySelector("input[type=file]");
+    if (input) {
+      input.value = "";
+    }
+  };
+
   return (
     <>
       <Paper elevation={1} className={classes.paper}>
@@ -199,20 +208,25 @@ const GeneralTab: React.FC = () => {
               />
 
               <Stack direction="row" spacing={2} my={2}>
-                <button className={classes.saveBtn} onClick={imageUpload}>
-                  Upload
-                </button>
-                <button
-                  className={classes.discardBtn}
-                  onClick={(e) => {
+                <ChoiceButton
+                  border="1px solid rgb(214, 217, 219)"
+                  acceptColor="#FFF"
+                  rejectColor="rgba(0, 0, 0, 0.87)"
+                  onAccept={imageUpload}
+                  onReject={(e) => {
                     e.preventDefault();
-                    setImage("");
-                    triggerRefresh();
-                  }}>
-                  Cancel
-                </button>
+                    clearImageField();
+                    triggerRefresh();       
+                  }}
+                  radius="5px"
+                  acceptText="Upload"
+                  rejectText="Cancel"
+                  acceptBackgroundColor="#0814FA"
+                  rejectBackgroundColor="#FFF"
+                  padding="15px 25px"
+                  outline="none"
+                />
               </Stack>
-
               {/* <Typography variant="body1" fontSize="14px" mt={2}>Maximum Size: 500 x 500px, JPEG / PNG</Typography> */}
             </Box>
             <Box mt={2}>
