@@ -8,14 +8,16 @@ import {
 import Modal from "@mui/material/Modal";
 import { SyntheticEvent, useState } from "react";
 import { useHttpRequest } from "../hooks";
+import { toast } from "react-toastify";
 
 const core_url = "VITE_CORE_URL";
 
-const Modalpopup = ({ open, handleClose }: any) => {
+const Modalpopup = ({ open, handleClose, setOpen }: any) => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [body, setBody] = useState<string>("");
   const { error, loading, sendRequest } = useHttpRequest();
+  const isValid = name && email && body
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -31,7 +33,15 @@ const Modalpopup = ({ open, handleClose }: any) => {
       );
       if (!data) return;
       console.log(data);
-    } catch (error) {}
+      const {message} = data
+      toast.success(`${message}`)
+      setName('')
+      setEmail('')
+      setBody('')
+      setOpen(false)
+    } catch (error) {
+      toast.error('could not send feedback')
+    }
   };
   return (
     <div>
@@ -74,6 +84,7 @@ const Modalpopup = ({ open, handleClose }: any) => {
             }}
             value={body}
             onChange={(e) => setBody(e.target.value)}
+            required
           />
           <Typography
             id="modal-modal-description"
@@ -86,6 +97,7 @@ const Modalpopup = ({ open, handleClose }: any) => {
               }}
               variant="contained"
               disableElevation
+              disabled={!isValid}
               disableFocusRipple
               onClick={handleSubmit}>
               Submit
