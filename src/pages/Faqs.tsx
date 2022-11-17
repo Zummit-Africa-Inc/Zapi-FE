@@ -1,200 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
 
-import { Faq } from "../assets";
-import { styled } from "@mui/material/styles";
-import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
-import MuiAccordion, { AccordionProps } from "@mui/material/Accordion";
-import MuiAccordionSummary, {
-  AccordionSummaryProps,
-} from "@mui/material/AccordionSummary";
-import MuiAccordionDetails from "@mui/material/AccordionDetails";
+import { Question } from "../assets";
 import Typography from "@mui/material/Typography";
 import { Footer, HomeNavbar } from "../sections";
 
-const Accordion = styled((props: AccordionProps) => (
-  <MuiAccordion disableGutters elevation={0} square {...props} />
-))(({ theme }) => ({
-  border: `1px solid ${theme.palette.divider}`,
-  "&:not(:last-child)": {
-    borderBottom: 0,
-  },
-  "&:before": {
-    display: "none",
-  },
-}));
-
-const AccordionSummary = styled((props: AccordionSummaryProps) => (
-  <MuiAccordionSummary
-    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: "0.9rem" }} />}
-    {...props}
-  />
-))(({ theme }) => ({
-  backgroundColor:
-    theme.palette.mode === "dark"
-      ? "rgba(255, 255, 255, .05)"
-      : "rgba(0, 0, 0, .03)",
-  flexDirection: "row-reverse",
-  "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
-    transform: "rotate(90deg)",
-  },
-  "& .MuiAccordionSummary-content": {
-    marginLeft: theme.spacing(1),
-  },
-}));
-
-const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
-  padding: theme.spacing(2),
-  borderTop: "1px solid rgba(0, 0, 0, .125)",
-}));
+import { FAQDATA } from "../testdata";
+import { Accordion } from "../components";
 
 const Faqs: React.FC = () => {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState<string | false>("panel1");
-
-  const handleChange =
-    (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
-      setExpanded(newExpanded ? panel : false);
-    };
+  const [data, setData] = useState<any>(FAQDATA);
 
   return (
     <>
       <HomeNavbar />
-      <div>
-        <div style={{ width: "100%" }}>
-          <img src={Faq} />
+      <div className={classes.main}>
+        <Typography component="h1">Frequently Asked Questions</Typography>
+      </div>
+      <div className={classes.root}>
+        <div className={classes.faq}>
+          <img src={Question} />
         </div>
-        <div className={classes.header}>
-          <Typography variant="h2">FAQ'S</Typography>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            marginBottom: "2rem",
+          }}>
+          <div className={classes.header}>
+            <Typography variant="h2">FAQ'S</Typography>
+          </div>
+          <div className={classes.accordionBlock}>
+            {FAQDATA.map((val) => {
+              return (
+                <>
+                  <Accordion {...val} />
+                </>
+              );
+            })}
+          </div>
         </div>
-        <Accordion
-          expanded={expanded === "panel1"}
-          onChange={handleChange("panel1")}>
-          <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-            <Typography>What is Zapi all about</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel2"}
-          onChange={handleChange("panel2")}>
-          <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-            <Typography>How to upload Api on Zapi</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel3"}
-          onChange={handleChange("panel3")}>
-          <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-            <Typography>How to Create an Endpoint</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel4"}
-          onChange={handleChange("panel4")}>
-          <AccordionSummary aria-controls="panel4d-content" id="panel4d-header">
-            <Typography>How to upload image on my api</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel5"}
-          onChange={handleChange("panel5")}>
-          <AccordionSummary aria-controls="panel5d-content" id="panel5d-header">
-            <Typography>How can i create an Api</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel6"}
-          onChange={handleChange("panel6")}>
-          <AccordionSummary aria-controls="panel6d-content" id="panel6d-header">
-            <Typography>How many Apis can i create</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel7"}
-          onChange={handleChange("panel7")}>
-          <AccordionSummary aria-controls="panel7d-content" id="panel7d-header">
-            <Typography>What are the type of Api can i create</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel8"}
-          onChange={handleChange("panel8")}>
-          <AccordionSummary aria-controls="panel8d-content" id="panel8d-header">
-            <Typography>Do i have to sign up before creating an Api</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
       </div>
       <Footer />
     </>
@@ -202,11 +51,94 @@ const Faqs: React.FC = () => {
 };
 
 const useStyles = makeStyles({
+  main: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: "170px 1rem 90px 1rem",
+
+    backgroundImage: "url('../../images/faq.png')",
+    width: "100%",
+    opacity: 0.98,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    "& h1": {
+      fontSize: "42px",
+      fontWeight: "bold",
+      textAlign: "center",
+      color: "#fff",
+      lineHeight: "60px",
+
+      "@media screen and (max-width: 1024px)": {
+        fontSize: "36px",
+        lineHeight: "50px",
+      },
+      "@media screen and (max-width: 375px)": {},
+    },
+
+    "@media screen and (max-width: 1024px)": {
+      padding: "150px 1rem 70px 1rem",
+    },
+    "@media screen and (max-width: 375px)": {},
+  },
+
+  root: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: "6rem",
+    padding: "5rem 8rem 0 8rem",
+    fontColor: "#071B85",
+    width: "100%",
+    height: "100%",
+    "@media screen and (max-width: 1200px)": {
+      padding: "5rem 5rem 0 5rem",
+    },
+    "@media screen and (max-width: 1024px)": {
+      gap: "4rem",
+      padding: "5rem 2rem 0 2rem",
+    },
+    "@media screen and (max-width: 900px)": {
+      flexDirection: "column",
+      justifyContent: "center",
+      textAlign: "center",
+    },
+    "@media screen and (max-width: 700px)": {
+      flexDirection: "column",
+      padding: "4rem 4rem 0 4rem",
+      height: "100%",
+    },
+    "@media screen and (max-width: 500px)": {
+      flexDirection: "column",
+      padding: "3.5rem 3.5rem 0 3.5rem",
+      height: "100%",
+    },
+  },
+  faq: {
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "contain",
+    // width: "100%",
+    "@media screen and (max-width: 900px)": {
+      display: "none",
+    },
+  },
   header: {
     fontSize: "72px",
     fontWeight: "bolder",
     color: "#071B85",
     textAlign: "center",
+    padding: "10px",
+  },
+  h1: {
+    textAlign: "center",
+    fontSize: "2rem",
+    margin: "1em 0",
+  },
+
+  accordionBlock: {
+    width: "100%",
   },
 });
 
