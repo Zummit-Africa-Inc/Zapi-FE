@@ -15,7 +15,7 @@ import { useContextProvider } from "../contexts/ContextProvider";
 import { useFormInputs, useHttpRequest } from "../hooks";
 import { Fallback, PasswordStrengthMeter } from "../components";
 import { HomeNavbar } from "../sections";
-import { GoogleIcon } from "../assets";
+import { GithubIcon, GoogleIcon } from "../assets";
 import { useGoogleLogin } from "@react-oauth/google";
 import LoginGithub from "react-login-github";
 import ReactGA from "react-ga4";
@@ -29,6 +29,7 @@ const initialState = {
 };
 // const url = import.meta.env.VITE_IDENTITY_URL;
 const url = "VITE_IDENTITY_URL";
+const GITHUB_CLIENT_ID = import.meta.env.VITE_GITHUB_CLIENT_ID;
 
 const Signup: React.FC = () => {
   const classes = useStyles();
@@ -238,7 +239,13 @@ const Signup: React.FC = () => {
             </button>
             <LoginGithub
               className={classes.button}
-              clientId="a6b0ea9080a71180c90f"
+              buttonText={
+                <Typography
+                  sx={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                  <GithubIcon /> Signin With Github
+                </Typography>
+              }
+              clientId={GITHUB_CLIENT_ID}
               onSuccess={onSuccess}
               onFailure={onFailure}
             />
