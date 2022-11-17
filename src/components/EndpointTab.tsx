@@ -23,15 +23,15 @@ const CustomTabs = styled(Tabs)({
 });
 
 const CustomTab = styled(Tab)({
-  width: "250px",
-  borderRadius: "10px",
+  width: "150px",
+  // borderRadius: "10px",
   "&.MuiTab-wrapper": {
     height: "45px",
-    borderRadius: "10px",
+    // borderRadius: "10px",
   },
   "&.Mui-selected": {
     backgroundColor: "#081f4A",
-    borderRadius: "10px",
+    // borderRadius: "0px",
     color: "white !important",
   },
 });
@@ -323,14 +323,10 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
           textColor="inherit"
           onChange={handleTabChange}>
           <CustomTab
-            icon={<Grade />}
-            iconPosition="start"
-            label="Endpoint Definitions"
+            label="Endpoints"
           />
           <CustomTab
-            icon={<Loyalty />}
-            iconPosition="start"
-            label="OpenApi"
+            label="Api"
           />
         </CustomTabs>
       </Stack>
@@ -617,7 +613,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                   className="input-file-upload"
                   id="file"
                   type="file"
-                  accept=".json, .x-yaml"
+                  accept=".json"
                   onChange={handleChange}
                   name="file"
 
@@ -648,7 +644,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                   fontSize="1rem"
                   color="#081F4A"
                   fontWeight={400}
-                >(application/json, application/x-yaml)</Typography>
+                >(application/json)</Typography>
               </Box>
             </Stack>
 
