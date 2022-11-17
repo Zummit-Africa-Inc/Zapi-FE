@@ -14,6 +14,17 @@ export type APIType = {
    secretKey: string
    read_me: string
    endpoints?: Array<EndpointsType | null>
+   popularity?: number
+   service_level?: number
+   latency?: number
+   createdBy?: Date | string
+   createdOn?: Date | string
+   updatedBy?: Date | string
+   updatedOn?: Date | string
+   deletedBy?: Date | string
+   deletedOn?: Date | string
+   discussions?: Array<DiscussionType | null>
+   childrenDiscussions?: Array<ChildrenDiscussionType | null>
 }
 
 export type SubscriptionType = {
@@ -53,7 +64,29 @@ export type UserProfileType = {
    publishedApis?: string[] | []
    followers?: string[] | []
    followering?: string[] | []
-   picture: object | string | null
+   picture?: object | string | null
+}
+
+export type DiscussionType = {
+   id?: string | undefined
+   title: string
+   apiId?: string
+   body: string
+   profileId?: string
+   createdOn?: Date | string
+   childrenDiscussion?: Array<ChildrenDiscussionType | null>
+   // picture: object | string | null
+   // fullName: string
+}
+
+export type ChildrenDiscussionType = {
+   id?: string | undefined
+   apiId?: string
+   body: string
+   // discussionId: 
+   profileId?: string
+   discussions?: DiscussionType | null
+   createdOn?: Date | string
 }
 
 export type EndpointsType = {
@@ -62,8 +95,10 @@ export type EndpointsType = {
    route: string
    method: string
    description: string
-   headers?: Array<HeaderObject>
-   requestBody?: Array<object>
+   headers?: Array<OptionsType>
+   body?: Array<OptionsType>
+   query?: Array<OptionsType>
+   requestBody?: Array<ReqBody>
 }
 
 export type AnalyticsType = {
@@ -101,4 +136,21 @@ export type OptionsType = {
    type: string
    required: boolean
    value?: any
+}
+
+export type ReqBody = {
+   key: string;
+   value: string | Date | boolean | number | object | symbol | Array<any>;
+}
+
+export type User = {
+   profileId: string
+   fullName: string
+   picture?: string
+}
+
+export type ReviewType = {
+   rating: number,
+   review: string
+   by: User
 }

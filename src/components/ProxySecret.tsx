@@ -33,7 +33,7 @@ const ProxySecret: React.FC = () => {
   return (
     <div className={classes.proxy}>
       <div className={classes.pro}>
-        <Typography>X-RapidAPI-Proxy-Secret</Typography>
+        <Typography>X-ZAPI-Proxy-Secret</Typography>
 
         <div className={classes.border}>
           <>
@@ -68,7 +68,7 @@ const ProxySecret: React.FC = () => {
                 letterSpacing: "normal",
                 lineHeight: "16px",
               }}>
-              Whitelist RapidAPI IPs to allow request only from RapidAPI.
+              Whitelist ZAPI IPs to allow request only from ZAPI.
             </Typography>
           </div>
         </div>

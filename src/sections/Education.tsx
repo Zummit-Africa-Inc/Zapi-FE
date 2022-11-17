@@ -11,12 +11,12 @@ const Education: React.FC = () => {
             <Typography variant="h2" sx={{fontWeight: 500, fontSize: "24px", lineHeight: "30px", letterSpacing: "-0.006em", color: "#071B85" }}>Learn how to build your AI applications and APIs (CTA) 
 </Typography>
             <div className={classes.EdBoxes}>
-                <Widget className={classes.smallBox} />
+                <Widget className={classes.smallBox}/>
                 <div className={classes.midBoxes}>
                     <Widget className={classes.midOne} image={EducationText2.image} title={EducationText2.title} subtitle={EducationText2.text} buttonText={EducationText2.buttonText} buttonText2={EducationText2.buttonText2} />
                     <Widget className={classes.midTwo} image={EducationText3.image} title={EducationText2.title} subtitle={EducationText2.text} buttonText={EducationText2.buttonText} buttonText2={EducationText2.buttonText2} />
                 </div>
-                <Widget className={classes.largeBox} />
+                <Widget className={classes.largeBox}/>
             </div>
         </div>
     )

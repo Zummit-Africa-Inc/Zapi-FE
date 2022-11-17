@@ -1,70 +1,76 @@
-import React, { FormEvent, useEffect } from "react";
+import React, { FormEvent, useState, useMemo, useEffect } from "react";
 import {
-  Typography,
-  Radio,
-  RadioGroup,
-  FormControlLabel,
-  FormControl,
-  FormLabel,
-  MenuItem,
+  Typography, Box, Button
 } from "@mui/material";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { makeStyles } from "@mui/styles";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { useContextProvider } from "../contexts/ContextProvider";
 import {
   useAppDispatch,
-  useAppSelector,
   useFormInputs,
   useHttpRequest,
 } from "../hooks";
-import { Fallback } from "../components";
-import { addApi } from "../redux/slices/apiSlice";
+import { Fallback } from ".";
+import { addDiscussion } from "../redux/slices/apiSlice";
+import ReactGA from "react-ga4";
+import { APIType, DiscussionType } from "../types";
 
 const core_url = "VITE_CORE_URL";
 const initialState = {
-  name: "",
-  description: "",
-  base_url: "",
-  categoryId: "",
+  title: "",
+  discussion: "",
 };
 
-const AddApiPopup: React.FC = () => {
+
+const AddDiscussion: React.FC = () => {
   const { loading, error, sendRequest, clearError } = useHttpRequest();
-  const { inputs, bind, select } = useFormInputs(initialState);
-  const { name, description, base_url, categoryId } = inputs;
+  const { inputs, bind } = useFormInputs(initialState);
+  const [isAdding, setIsAdding] = useState<boolean>(false);
+  const { title, body } = inputs;
   const { handleUnclicked } = useContextProvider();
+  const [api, setApi] = useState<APIType | null>(null)
   const classes = useStyles();
-  const { categories } = useAppSelector((store) => store.apis);
   const cookies = new Cookies();
-  const profileId = cookies.get("profileId");
+  const profile_id = cookies.get("profileId");
   const dispatch = useAppDispatch();
   const { triggerRefresh } = useContextProvider();
 
+  ReactGA.send({ hitType: "pageview", page: "/api/id" });
+  const toggleAdding = () => {
+    setIsAdding((prev) => !prev);
+  };
+
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!name || !description || !base_url || !categoryId)
+    const api_id = JSON.parse(localStorage.getItem("api_id") || '');
+
+    if (!title || !body)
       return toast.error("Please fill all fields");
-    const payload = { name, description, base_url, categoryId };
+    // const api_id = id;
     const headers = { "Content-Type": "application/json" };
+    const payload = { title, body, profile_id, api_id };
     try {
       const data = await sendRequest(
-        `/api/new/${profileId}`,
+        `/discussion`,
         "post",
         core_url,
         payload,
         headers
       );
+      console.log(data);
       if (!data || data === null) return;
-      dispatch(addApi(payload));
+      dispatch(addDiscussion(payload));
       triggerRefresh();
       const { message } = data;
       toast.success(`${message}`);
     } catch (err) {
       console.log(err);
     }
+    // dispatch(getApisDiscussion(id));
     handleUnclicked();
   };
 
@@ -77,95 +83,66 @@ const AddApiPopup: React.FC = () => {
   return (
     <>
       {loading && <Fallback />}
-      <div
+      <Box
         className={classes.container}
-        onClick={() => handleUnclicked("addapi")}>
-        <div className={classes.main} onClick={(e) => e.stopPropagation()}>
+        onClick={() => handleUnclicked("addDiscussion")}>
+        <Box className={classes.main} onClick={(e) => e.stopPropagation()}>
           <Typography
             variant="body1"
             fontSize="24px"
             lineHeight="30px"
             fontWeight={700}
             mb={3}>
-            Add API Project
+            Add New Discussion
           </Typography>
           <form className={classes.form} onSubmit={handleSubmit}>
-            <div className={classes.input}>
-              <label>Name</label>
+            <Box className={classes.input}>
+              <label>Title</label>
               <input
                 type="text"
-                name="name"
+                name="title"
                 {...bind}
-                placeholder="Add API Name"
+                placeholder="Add Discussion Title"
               />
-            </div>
-            <div className={classes.input}>
-              <label>Description</label>
+            </Box>
+            <Box className={classes.input}>
+              <label>Discussion</label>
               <input
                 type="text"
-                name="description"
+                name="body"
                 {...bind}
-                placeholder="Add API Description"
+                placeholder="Add Discussion"
               />
-            </div>
-            <div className={classes.input}>
-              <label>Category</label>
-              <FormControl className={classes.input}>
-                <Select
-                  name="categoryId"
-                  value={categoryId}
-                  displayEmpty
-                  inputProps={{ "aria-label": "Category" }}
-                  {...select}>
-                  {categories.map((item) => (
-                    <MenuItem key={item.id} value={item.id}>
-                      {item.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </div>
-            <div className={classes.input}>
-              <label>Base Url</label>
-              <input
-                type="text"
-                name="base_url"
-                {...bind}
-                placeholder="Add Base Url"
-              />
-            </div>
-            <div
+            </Box>
+            <Box
               style={{
                 gap: "1rem",
                 display: "flex",
                 flexDirection: "row",
                 marginLeft: "auto",
               }}>
-              <button
+              <Button
+                sx={{ background: "#071B85", color: "#FFFFFF" }}
+                onClick={toggleAdding} type="submit" className={classes.addBtn}>
+                Post Discussion
+              </Button>
+              <Button
+                variant="contained"
+                color="error"
+                sx={{ background: "red", color: "#FFFFFF" }}
                 type="button"
                 className={classes.cancelBtn}
-                onClick={() => handleUnclicked("addapi")}>
+                onClick={() => handleUnclicked("addDiscussion")}>
                 Cancel
-              </button>
-              <button type="submit" className={classes.addBtn}>
-                Add API
-              </button>
-            </div>
+              </Button>
+            </Box>
           </form>
-        </div>
-      </div>
+        </Box>
+      </Box>
     </>
   );
 };
 
-const categories = [
-  "Advertising",
-  "Sports",
-  "Data Analysis",
-  "Artificial Intelligence",
-  "Business",
-  "Finances",
-];
 
 const useStyles = makeStyles({
   container: {
@@ -250,7 +227,7 @@ const useStyles = makeStyles({
     textDecoration: "underline",
     marginLeft: "0.5rem",
   },
-  divider: {
+  Boxider: {
     width: "100%",
     height: "1px",
     background: "Grey",
@@ -281,7 +258,7 @@ const useStyles = makeStyles({
     padding: "8px 14px",
     gap: "16px",
     height: "46px",
-    background: "#058A04",
+    background: "#081F4A",
     fontFamily: "inherit",
     color: "white",
     borderRadius: "4px",
@@ -291,4 +268,5 @@ const useStyles = makeStyles({
   },
 });
 
-export default AddApiPopup;
+export default AddDiscussion;
+

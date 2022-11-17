@@ -1,17 +1,23 @@
-import React, { FormEvent, useEffect } from "react";
+import React, { FormEvent, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Stack, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { toast } from "react-toastify";
 import { Cancel } from "@mui/icons-material";
-
-import { EMAIL_REGEX, PASSWORD_REGEX, MATCH_CHECKER } from "../utils";
+import Cookies from "universal-cookie";
+import {
+  EMAIL_REGEX,
+  PASSWORD_REGEX,
+  MATCH_CHECKER,
+  PASSWORD_LENGTH,
+} from "../utils";
 import { useContextProvider } from "../contexts/ContextProvider";
-import { useFormInputs, useHttpRequest } from "../hooks";
+import { useAppDispatch, useFormInputs, useHttpRequest } from "../hooks";
 import { Fallback, PasswordStrengthMeter } from "../components";
 import { HomeNavbar } from "../sections";
-// import { GoogleIcon } from "../assets";
-// import { useGoogleLogin } from "@react-oauth/google";
+import { GoogleIcon } from "../assets";
+import { useGoogleLogin } from "@react-oauth/google";
+import { login } from "../redux/slices/userSlice";
 import ReactGA from "react-ga4";
 
 const initialState = {
@@ -27,10 +33,13 @@ const url = "VITE_IDENTITY_URL";
 const Signup: React.FC = () => {
   const classes = useStyles();
   const { inputs, bind, toggle } = useFormInputs(initialState);
+  const { deviceInfo, deviceLocation, deviceIP, handleClicked } =
+    useContextProvider();
   const { fullName, email, password, confirm_password, terms } = inputs;
   const { error, loading, sendRequest } = useHttpRequest();
-  const { handleClicked } = useContextProvider();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const cookies = new Cookies();
   const disabled =
     !terms ||
     !PASSWORD_REGEX.test(password) ||
@@ -72,20 +81,56 @@ const Signup: React.FC = () => {
       }
     } catch (error) {}
   };
+  const [values, setValues] = useState(initialState);
 
-  // const googleAuth = useGoogleLogin({
-  //   flow: "auth-code",
-  //   onSuccess: async (response) => {
-  //     console.log(response);
-  // const token = await sendRequest('/endpoint/googleauth', url, "post", response.code, headers)
-  // console.log(token)
-  //     toast.success("Login Successful!");
-  //   },
-  //   onError: (errorResponse) => {
-  //     console.log(errorResponse);
-  //     toast.error("Login Failed, try to login with your email.");
-  //   },
-  // });
+  const googleAuth = useGoogleLogin({
+    flow: "auth-code",
+    onSuccess: async (response) => {
+      const payload = {
+        token: response.code,
+        userInfo: {
+          login_time: deviceLocation.time,
+          country: { lat: deviceLocation.lat, lon: deviceLocation.lon },
+          deviceIP,
+          browser_name: deviceInfo.browserName,
+          os_name: deviceInfo.osName,
+        },
+      };
+      const headers = { "Content-Type": "application/json" };
+      try {
+        const token = await sendRequest(
+          "/auth/google",
+          "post",
+          url,
+          payload,
+          headers
+        );
+        if (!token) return;
+        toast.success("Login Successful!");
+        const {
+          access,
+          email,
+          fullName,
+          profileId,
+          refresh,
+          userId,
+          secretKey,
+        } = token.data;
+        const user = { email, fullName, profileId, secretKey };
+        dispatch(login(user));
+        cookies.set("accessToken", access);
+        cookies.set("refreshToken", refresh);
+        cookies.set("profileId", profileId);
+        cookies.set("userId", userId);
+        cookies.set("secretKey", secretKey);
+        navigate("/developer/dashboard");
+      } catch (error) {}
+    },
+    onError: (errorResponse) => {
+      console.log("error", errorResponse);
+      toast.error("Login Failed, try to login with your email.");
+    },
+  });
 
   useEffect(() => {
     {
@@ -135,7 +180,7 @@ const Signup: React.FC = () => {
                 placeholder="Enter your email"
               />
             </div>
-            <div className={classes.input}>
+            <div className={classes.input} style={{ marginBottom: "1rem" }}>
               <label htmlFor="password">Password</label>
               <input
                 type="password"
@@ -143,7 +188,14 @@ const Signup: React.FC = () => {
                 {...bind}
                 placeholder="Enter a Password"
               />
-              <PasswordStrengthMeter password={password} />
+              {password.length > 20 ? (
+                <Typography variant="caption" color="error">
+                  {/* <Cancel sx={{ fontSize: 15, marginRight: 0.5 }} color="error" /> */}
+                  Password is too long (Enter between 8 - 20 characters long)
+                </Typography>
+              ) : (
+                <PasswordStrengthMeter password={password} />
+              )}
             </div>
             <div className={classes.input}>
               <label htmlFor="confirm_password">
@@ -163,10 +215,13 @@ const Signup: React.FC = () => {
               {MATCH_CHECKER(password, confirm_password) ? (
                 <></>
               ) : (
-                <span>
-                  <Cancel sx={{ fontSize: 15, marginRight: 1 }} color="error" />{" "}
+                <Typography variant="caption" color="error">
+                  <Cancel
+                    sx={{ fontSize: 15, marginRight: 0.5 }}
+                    color="error"
+                  />
                   Password does not match
-                </span>
+                </Typography>
               )}
             </div>
             <div className={classes.check_input}>
@@ -186,7 +241,7 @@ const Signup: React.FC = () => {
             </button>
           </form>
 
-          {/* <Typography>OR</Typography>
+          <Typography>OR</Typography>
           <Stack direction="column" alignItems="center" spacing={2}>
             <button
               type="button"
@@ -198,14 +253,13 @@ const Signup: React.FC = () => {
               </span>
               Signin with Google
             </button>
-          </Stack> */}
+          </Stack>
           <Typography
             variant="body1"
             fontSize="16px"
             alignSelf="flex-start"
             textAlign="center"
-            // mt={8}
-          >
+            mt={8}>
             Already have an account?
             <span
               className={classes.link}
