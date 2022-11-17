@@ -45,7 +45,7 @@ const Modalpopup = ({ open, handleClose, setOpen }: any) => {
       setOpen(false)
     } catch (error) {
       setLoad(false)
-      toast.error('could not send feedback')
+      toast.error('could not send your feedback')
     }
   };
   return (
