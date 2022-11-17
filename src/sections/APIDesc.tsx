@@ -69,8 +69,8 @@ const APIDesc:React.FC<Props> = ({api}) => {
                     </button>
                 </div>
             </Stack>
-            <Typography sx={{margin:"24px 0 0",fontSize:"21px",fontWeight:"bold",color:"#515D99"}}>Base URL</Typography>
-            <p className={classes.description}>{api.base_url || "null"}</p>
+            {/* <Typography sx={{margin:"24px 0 0",fontSize:"21px",fontWeight:"bold",color:"#515D99"}}>Base URL</Typography>
+            <p className={classes.description}>{api.base_url || "null"}</p> */}
             <Typography sx={{margin:"24px 0 0",fontSize:"21px",fontWeight:"bold",color:"#515D99"}}>Website</Typography>
             <p className={classes.description}>
                 Website: {api.api_website ? <a href={`${api.api_website}`} target="_blank" rel="noreferrer">{api.api_website}</a> : "Website not specified"}

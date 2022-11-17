@@ -23,19 +23,9 @@ export type APIType = {
    updatedOn?: Date | string
    deletedBy?: Date | string
    deletedOn?: Date | string
-   discussion?: Array<DiscussionType | null>
+   discussions?: Array<DiscussionType | null>
+   childrenDiscussions?: Array<ChildrenDiscussionType | null>
 }
-
-export type DiscussionType = {
-   id?: string | undefined
-   title: string
-   discussion: string
-   userId: string
-   createdOn: string | Date | null
-   picture: object | string | null
-   fullName: string
-}
-
 
 export type SubscriptionType = {
    id: string
@@ -74,7 +64,29 @@ export type UserProfileType = {
    publishedApis?: string[] | []
    followers?: string[] | []
    followering?: string[] | []
-   picture: object | string | null
+   picture?: object | string | null
+}
+
+export type DiscussionType = {
+   id?: string | undefined
+   title: string
+   apiId?: string
+   body: string
+   profileId?: string
+   createdOn?: Date | string
+   childrenDiscussion?: Array<ChildrenDiscussionType | null>
+   // picture: object | string | null
+   // fullName: string
+}
+
+export type ChildrenDiscussionType = {
+   id?: string | undefined
+   apiId?: string
+   body: string
+   // discussionId: 
+   profileId?: string
+   discussions?: DiscussionType | null
+   createdOn?: Date | string
 }
 
 export type EndpointsType = {
@@ -129,4 +141,16 @@ export type OptionsType = {
 export type ReqBody = {
    key: string;
    value: string | Date | boolean | number | object | symbol | Array<any>;
- }
+}
+
+export type User = {
+   profileId: string
+   fullName: string
+   picture?: string
+}
+
+export type ReviewType = {
+   rating: number,
+   review: string
+   by: User
+}

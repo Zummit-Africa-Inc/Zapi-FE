@@ -16,7 +16,6 @@ import {
   ForgotPassword,
   LoginHistory,
   Otp,
-  APIPage,
   SuccessPage,
   Configuration,
   TermsConditions,
@@ -28,8 +27,9 @@ import {
   ComingSoonPage,
   ApiHubTry,
   APIMoreInfo,
+  SingleDiscussionPage
 } from "./pages";
-import { Fallback, Login, AddApiPopup, AddDiscussion } from "./components";
+import { Fallback, Login, AddApiPopup, AddDiscussion , AddChildrenDiscussion} from "./components";
 import { useContextProvider } from "./contexts/ContextProvider";
 import { login } from "./redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "./hooks";
@@ -128,6 +128,8 @@ const App: React.FC = () => {
             <Route path="/api/:id" element={<APIMoreInfo />} />
             <Route path="/api-hubtry" element={<ApiHubTry />} />
             <Route path="/coming-soon" element={<ComingSoonPage />} />
+            <Route path="/api-hub/:id" element={<APIMoreInfo />} />
+            <Route path="/discussion/:id" element={<SingleDiscussionPage />} />
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
               <Route path="/developer/dashboard" element={<DevDashboard />} />
@@ -142,6 +144,7 @@ const App: React.FC = () => {
         {isClicked.login && <Login />}
         {isClicked.addapi && <AddApiPopup />}
         {isClicked.addDiscussion && <AddDiscussion />}
+        {isClicked.addChildrenDiscussion && <AddChildrenDiscussion />}
       </div>
     </ThemeProvider>
   );

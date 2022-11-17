@@ -15,10 +15,11 @@ import { ExpandMore, Menu, Search, Directions } from "@mui/icons-material";
 import { makeStyles, styled } from "@mui/styles";
 
 import TabPanel from "../components/TabPanel";
-import { EndpointsType } from "../types";
+import { APIType, EndpointsType } from "../types";
 
 interface Props {
   endpoints: Array<EndpointsType>;
+  api: APIType
 }
 
 const methodColor: any = {
@@ -57,7 +58,7 @@ const CustomAccordion = styled(Accordion)({
   },
 });
 
-const Endpoints: React.FC<Props> = ({ endpoints }) => {
+const Endpoints: React.FC<Props> = ({api, endpoints}) => {
   const [tab, setTab] = useState<number>(0);
   const classes = useStyles();
 
@@ -188,6 +189,16 @@ const Endpoints: React.FC<Props> = ({ endpoints }) => {
                   }}>
                   {endpoint.description}
                 </Typography>
+                <Stack key={index} direction="row" alignItems="center" spacing={4} my={4}>
+                  <Stack width={200} direction="column" spacing={1} sx={{padding:"0 10px"}}>
+                    <Typography sx={{fontSize:"18px",color:"#081F4A"}}>Request URL</Typography>
+                    <Typography sx={{fontSize:"12px",color:"#000",textTransform:"uppercase"}}></Typography>
+                  </Stack>
+                  <Stack direction="column" spacing={1}>
+                    <input type="text" defaultValue={api.base_url} className={classes.input} disabled />
+                    <Typography sx={{fontSize:"12px",color:"#000",textTransform:"uppercase"}}>required</Typography>
+                  </Stack>
+                </Stack>
                 <CustomAccordion>
                   <AccordionSummary expandIcon={<ExpandMore />}>
                     <Typography sx={{ fontSize: "15px", color: "#515D99" }}>

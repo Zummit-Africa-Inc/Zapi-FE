@@ -391,8 +391,8 @@ export const SCHEMA = [
 
 export const AUTHENTICATION = [
   {
-    label: "RapidAPI Auth Only",
-    value: "RapidAPI Auth Only",
+    label: "ZAPI Auth Only",
+    value: "ZAPI Auth Only",
   },
   {
     label: "OAuth2",
