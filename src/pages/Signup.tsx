@@ -4,7 +4,7 @@ import { Stack, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { toast } from "react-toastify";
 import { Cancel } from "@mui/icons-material";
-
+import Cookies from "universal-cookie";
 import {
   EMAIL_REGEX,
   PASSWORD_REGEX,
@@ -12,12 +12,13 @@ import {
   PASSWORD_LENGTH,
 } from "../utils";
 import { useContextProvider } from "../contexts/ContextProvider";
-import { useFormInputs, useHttpRequest } from "../hooks";
+import { useAppDispatch, useFormInputs, useHttpRequest } from "../hooks";
 import { Fallback, PasswordStrengthMeter } from "../components";
 import { HomeNavbar } from "../sections";
 import { GithubIcon, GoogleIcon } from "../assets";
 import { useGoogleLogin } from "@react-oauth/google";
 import LoginGithub from "react-login-github";
+import { login } from "../redux/slices/userSlice";
 import ReactGA from "react-ga4";
 
 const initialState = {
@@ -38,7 +39,9 @@ const Signup: React.FC = () => {
     useContextProvider();
   const { fullName, email, password, confirm_password, terms } = inputs;
   const { error, loading, sendRequest } = useHttpRequest();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const cookies = new Cookies();
   const disabled =
     !terms ||
     !PASSWORD_REGEX.test(password) ||
@@ -106,6 +109,23 @@ const Signup: React.FC = () => {
         );
         if (!token) return;
         toast.success("Login Successful!");
+        const {
+          access,
+          email,
+          fullName,
+          profileId,
+          refresh,
+          userId,
+          secretKey,
+        } = token.data;
+        const user = { email, fullName, profileId, secretKey };
+        dispatch(login(user));
+        cookies.set("accessToken", access);
+        cookies.set("refreshToken", refresh);
+        cookies.set("profileId", profileId);
+        cookies.set("userId", userId);
+        cookies.set("secretKey", secretKey);
+        navigate("/developer/dashboard");
       } catch (error) {}
     },
     onError: (errorResponse) => {
