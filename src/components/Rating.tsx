@@ -1,10 +1,11 @@
-import React, { ChangeEvent, FormEvent, MouseEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, MouseEvent, SyntheticEvent, useEffect, useState } from "react";
 import { Card, Rating, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { toast } from "react-toastify";
 import Cookies from "universal-cookie";
 
 import { useHttpRequest } from "../hooks";
+import { Spinner } from "../assets";
 
 interface Props {
   apiId: string | undefined
@@ -22,17 +23,24 @@ const RatingComponent:React.FC<Props> = ({apiId, onClose}) => {
 
   const handleRating = async(e: FormEvent) => {
     e.preventDefault()
-    if(rating && rating <= 0) return toast.error('Please add a rating')
+    if(!rating) return toast.error('Please add a rating')
     const headers = {
       'Content-Type': "application/json",
       'X-Zapi-Auth-Token': `Bearer ${cookies.get("accessToken")}`
     }
-    const payload = {rating, review, by: cookies.get("profileId")}
+    const payload = {rating, review}
     try {
-      // const data = await sendRequest("", "post", core_url, payload, headers)
+      const data = await sendRequest(`/api/rate-api/${cookies.get("profileId")}/${apiId}`, "post", core_url, payload, headers)
+      if(data === undefined) return
+      console.log(data)
+      toast.success(`${data.message}`)
     } catch (error: any) {}
-    console.log({headers,payload});
+    return () => onClose()
   }
+  
+  useEffect(() => {
+    error && toast.error(`${error}`)
+  },[error])
 
   return (
     <div className={classes.backdrop} onClick={() => onClose()}>
@@ -42,14 +50,16 @@ const RatingComponent:React.FC<Props> = ({apiId, onClose}) => {
         </Typography>
         <form onSubmit={handleRating} className={classes.form}>
           <div className={classes.control}>
-            <Rating precision={0.5} value={rating} onChange={(e, value) => setRating(value)} />
+            <Rating precision={1} value={rating} onChange={(e: SyntheticEvent, value: number | null) => setRating(value)} />
             <Typography variant="body1" sx={{fontSize:"14px",fontWeight:500,color:"#515D99"}}>
               {rating}
             </Typography>
           </div>
           <textarea rows={3} placeholder="Review comment" value={review} onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setReview(e.target.value)} className={classes.input} />
           <div className={classes.control}>
-            <button type="submit" className={classes.button}>submit</button>
+            <button type="submit" className={classes.button}>
+              {loading ? <Spinner /> : "submit"}
+            </button>
             <button type="button" onClick={() => onClose()} className={classes.button} style={{background:"#E32C08"}}>
               cancel
             </button>
