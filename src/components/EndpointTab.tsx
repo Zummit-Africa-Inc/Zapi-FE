@@ -248,7 +248,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
       toast.error("Invalid JSON file");
     }
     else {
-      if (!(JSON.parse(JsonFile).hasOwnProperty("info")) && !(JSON.parse(JsonFile).hasOwnProperty("event")) && !(JSON.parse(JsonFile).hasOwnProperty("item")) && !(JSON.parse(JsonFile).hasOwnProperty("variable"))) {
+      if (!(JSON.parse(JsonFile).hasOwnProperty("info")) || !(JSON.parse(JsonFile).hasOwnProperty("event")) || !(JSON.parse(JsonFile).hasOwnProperty("item")) || !(JSON.parse(JsonFile).hasOwnProperty("variable"))) {
         toast.error("JSON file is missing required key");
       }
       else {
@@ -276,15 +276,23 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
             headers
           );
           setJsonData(data.data);
-          setTimeout(() => {
-            navigate("/developer/dashboard");
-          }, 2000);
+          if (data.skipped.length === 0) {
+            return toast.success("No items Skipped");
+          }
+          else {
+            return toast.warning(`The following were skipped Skipped ${JSON.stringify(data.skipped)}`);
+          }
+          console.log(data.skipped)
+          // setTimeout(() => {
+          //   navigate("/developer/dashboard");
+          // }, 2000);
         } catch (error) { }
         // }
       }
     }
   };
 
+  // console.log(JsonData)
 
   return (
     <Paper className={classes.paper}>
