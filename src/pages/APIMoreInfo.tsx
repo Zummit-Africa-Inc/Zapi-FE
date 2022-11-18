@@ -53,18 +53,18 @@ const APIMoreInfo:React.FC = () => {
             'X-Zapi-Auth_Token': `Bearer ${cookies.get("accessToken")}`
         }
         try {
-            const reviewData = await sendRequest("", "get", core_url, {}, headers)
+            const reviewData = await sendRequest(`/api/reviews/${apiId}`, "get", core_url, {}, headers)
             const apiData = await sendRequest(`/api/findOne/${apiId}`, "get", core_url, {}, headers)
             const endpointsData = await sendRequest(`/endpoints/${apiId}`, "get", core_url, {}, headers)
             const apiDiscussion = await sendRequest(`/discussion/api/${apiId}`, "get", core_url, {}, headers)
 
             const [api, endpoints, discussions, reviews] = await Promise.all([apiData, endpointsData, apiDiscussion, reviewData])
-            if(api === undefined || endpoints === undefined || discussions === undefined) return
-            console.log({api, endpoints, discussions,})
+            if(api === undefined || endpoints === undefined || discussions === undefined || reviews === undefined) return
+            console.log({api, endpoints, discussions, reviews})
             setApi(api.data);
-            setReviews(reviews)
-            setEndpoints(endpoints.data)
-            setDiscussions(discussions.data)
+            setReviews(reviews.data);
+            setEndpoints(endpoints.data);
+            setDiscussions(discussions.data);
         } catch (error) {}
     }
 
@@ -87,6 +87,7 @@ const APIMoreInfo:React.FC = () => {
             <>
             <HomeNavbar />
             <APIDesc api={api} />
+            <div className={classes.div}>
             <CustomTabs value={tab} onChange={handleTabChange}>
                 <CustomTab label="Endpoints" />
                 <CustomTab label="Discussions" />
@@ -103,6 +104,7 @@ const APIMoreInfo:React.FC = () => {
                     <Reviews reviews={reviews} />
                 </TabPanel>
             </div>
+            </div>
             <Footer />
             </>
         )}
@@ -115,6 +117,9 @@ const useStyles = makeStyles({
         width: "100%",
         minHeight: "500px",
         margin: "1rem 0 0",
+    },
+    div: {
+        padding: "0 4rem",
     }
 })
 
