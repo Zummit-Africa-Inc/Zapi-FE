@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect } from "react";
-import { Stack, Typography } from "@mui/material";
+import { Divider, Stack, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
@@ -10,7 +10,7 @@ import { useAppDispatch, useFormInputs, useHttpRequest } from "../hooks";
 import { EMAIL_REGEX, PASSWORD_REGEX } from "../utils";
 import { login } from "../redux/slices/userSlice";
 import { Fallback } from "../components";
-import { GoogleIcon } from "../assets";
+import { GithubIcon, GoogleIcon } from "../assets";
 import { showModal } from "../redux/slices/modalSlice";
 import LoginGithub from "react-login-github";
 import { useGoogleLogin } from "@react-oauth/google";
@@ -21,6 +21,7 @@ ReactGA.send({ hitType: "pageview", page: "/login" });
 const initialState = { email: "", password: "" };
 
 const url = "VITE_IDENTITY_URL";
+const GITHUB_CLIENT_ID = import.meta.env.VITE_GITHUB_CLIENT_ID;
 
 const Login: React.FC = () => {
   const { deviceInfo, deviceLocation, deviceIP, handleUnclicked } =
@@ -200,7 +201,7 @@ const Login: React.FC = () => {
             </button>
           </form>
 
-          <Typography>OR</Typography>
+          <Divider>OR</Divider>
           <Stack direction="column" alignItems="center" mt={1} spacing={2}>
             <button
               type="button"
@@ -213,7 +214,13 @@ const Login: React.FC = () => {
             </button>
             <LoginGithub
               className={classes.button}
-              clientId="a6b0ea9080a71180c90f"
+              buttonText={
+                <Typography
+                  sx={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                  <GithubIcon /> Sign in With Github
+                </Typography>
+              }
+              clientId={GITHUB_CLIENT_ID}
               onSuccess={onSuccess}
               onFailure={onFailure}
             />
@@ -302,12 +309,15 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: "4px",
+    color: "#FFF",
+    backgroundColor: "#081F4A",
+    outline: "none",
     fontSize: "16px",
     fontWeight: 600,
     lineHeight: "16px",
     cursor: "pointer",
     padding: "0 1rem",
-    color: "#081F4A",
+    border: "none",
     "@media screen and (max-width: 768px)": {
       width: "100%",
     },

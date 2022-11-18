@@ -1,6 +1,11 @@
-import React, { FormEvent, useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Stack, Typography } from "@mui/material";
+import React, { FormEvent, useState, useEffect, SyntheticEvent } from "react";
+import {
+  Link,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
+import { Divider, Stack, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { toast } from "react-toastify";
 import { Cancel } from "@mui/icons-material";
@@ -20,6 +25,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 import LoginGithub from "react-login-github";
 import { login } from "../redux/slices/userSlice";
 import ReactGA from "react-ga4";
+import axios from "axios";
 
 const initialState = {
   fullName: "",
@@ -41,6 +47,7 @@ const Signup: React.FC = () => {
   const { error, loading, sendRequest } = useHttpRequest();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const cookies = new Cookies();
   const disabled =
     !terms ||
@@ -133,6 +140,30 @@ const Signup: React.FC = () => {
       toast.error("Login Failed, try to login with your email.");
     },
   });
+
+  // useEffect(() => {
+  //   const queryString = window.location.search;
+  //   const urlParams = new URLSearchParams(queryString);
+  //   console.log(urlParams);
+  // }, []);
+
+  // const githubAuth = async (e: SyntheticEvent) => {
+  //   e.preventDefault();
+
+  // try {
+  //   const token = await axios.get(
+  //     "https://github.com/login/oauth/authorize?client_id=" + GITHUB_CLIENT_ID
+  //   );
+  //   console.log(token);
+  // } catch (error) {}
+
+  // window.location.assign(
+  //   "https://github.com/login/oauth/authorize?client_id=" + GITHUB_CLIENT_ID
+  // );
+
+  // const code = searchParams.get("code");
+  // console.log(code);
+  // };
 
   const onSuccess = (response: any) => console.log(response);
   const onFailure = (response: any) => console.error(response);
@@ -241,12 +272,17 @@ const Signup: React.FC = () => {
             <button
               type="submit"
               className={classes.button}
+              style={{
+                background: "#4B4B4B",
+                color: "#FFF",
+                marginBottom: "1rem",
+              }}
               disabled={disabled}>
               {loading ? "loading" : "Signup"}
             </button>
           </form>
 
-          <Typography>OR</Typography>
+          <Divider>OR</Divider>
           <Stack direction="column" alignItems="center" mt={1} spacing={2}>
             <button
               type="button"
@@ -257,12 +293,18 @@ const Signup: React.FC = () => {
               </span>
               Sign in with Google
             </button>
+            {/* <button className={classes.button} onClick={(e) => githubAuth(e)}>
+              <Typography
+                sx={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                <GithubIcon /> Signin With Github
+              </Typography>
+            </button> */}
             <LoginGithub
               className={classes.button}
               buttonText={
                 <Typography
                   sx={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                  <GithubIcon /> Signin With Github
+                  <GithubIcon /> Sign in With Github
                 </Typography>
               }
               clientId={GITHUB_CLIENT_ID}
@@ -273,9 +315,8 @@ const Signup: React.FC = () => {
           <Typography
             variant="body1"
             fontSize="16px"
-            alignSelf="flex-start"
-            textAlign="center"
-            mt={8}>
+            alignSelf="center"
+            textAlign="center">
             Already have an account?
             <span
               className={classes.link}
@@ -373,13 +414,12 @@ const useStyles = makeStyles({
     backgroundColor: "#081F4A",
     color: "#FFF",
     borderRadius: "4px",
-    border: "!px solid #000",
     fontSize: "16px",
     fontWeight: 400,
     lineHeight: "16px",
     cursor: "pointer",
-    margin: "1rem 0 2rem",
     padding: "0 1rem",
+    border: "none",
     "&:disabled": {
       backgroundColor: "#4B4B4B",
     },
