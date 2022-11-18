@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
+import { Typography, Box } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 
@@ -17,13 +18,15 @@ const Accordion: React.FC<AccordionProp> = ({ question, answer }) => {
   };
   return (
     <>
-      <div onClick={display} className={classes.question}>
-        <h2>{question}</h2>
-        <p onClick={display}>
+      <Box onClick={display} className={classes.question}>
+        <Typography variant="h2">{question}</Typography>
+        <Typography component="p" onClick={display}>
           {text ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-        </p>
-      </div>
-      <div className={classes.answer}>{text && <p>{answer}</p>}</div>
+        </Typography>
+      </Box>
+      <Box className={classes.answer}>
+        {text && <Typography component="p">{answer}</Typography>}
+      </Box>
     </>
   );
 };

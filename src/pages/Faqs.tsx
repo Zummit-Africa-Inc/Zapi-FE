@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
 
 import { Question } from "../assets";
-import Typography from "@mui/material/Typography";
+import { Typography, Box } from "@mui/material";
 import { Footer, HomeNavbar } from "../sections";
 
 import { FAQDATA } from "../testdata";
@@ -15,14 +15,14 @@ const Faqs: React.FC = () => {
   return (
     <>
       <HomeNavbar />
-      <div className={classes.main}>
+      <Box className={classes.main}>
         <Typography component="h1">Frequently Asked Questions</Typography>
-      </div>
-      <div className={classes.root}>
-        <div className={classes.faq}>
-          <img src={Question} />
-        </div>
-        <div
+      </Box>
+      <Box className={classes.root}>
+        <Box className={classes.faq}>
+          <Box component="img" alt="question." src={Question} />
+        </Box>
+        <Box
           style={{
             display: "flex",
             flexDirection: "column",
@@ -31,7 +31,7 @@ const Faqs: React.FC = () => {
             width: "100%",
             marginBottom: "2rem",
           }}>
-          <div className={classes.accordionBlock}>
+          <Box className={classes.accordionBlock}>
             {FAQDATA.map((val) => {
               return (
                 <>
@@ -39,9 +39,9 @@ const Faqs: React.FC = () => {
                 </>
               );
             })}
-          </div>
-        </div>
-      </div>
+          </Box>
+        </Box>
+      </Box>
       <Footer />
     </>
   );
