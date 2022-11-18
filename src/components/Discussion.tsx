@@ -17,8 +17,6 @@ interface Props {
     discussions: Array<DiscussionType>
 }
 
-// const core_url = "VITE_CORE_URL"
-
 const Discussion: React.FC<Props> = ({ discussions }) => {
     const classes = useStyles()
     const [tab, setTab] = useState<number>(0)
@@ -37,7 +35,16 @@ const Discussion: React.FC<Props> = ({ discussions }) => {
         <Box className={classes.main}>
             <Box className={classes.discussion_tab}>
                 <Box className={classes.header}>
-                    <Typography variant="h2" fontWeight={500}>Discussions</Typography>
+                    <Typography
+                        sx={{
+                            marginBottom: "10px",
+                            fontSize: "21px",
+                            fontWeight: "bold",
+                            color: "#515D99",
+                            padding: "5px",
+                        }}>
+                            Discussions
+                        </Typography>
                 </Box>
                 <Box>
                     <Button
@@ -106,7 +113,6 @@ export default Discussion;
 const useStyles = makeStyles({
     main: {
         height: "auto",
-        padding: "1rem 2rem 0",
     },
     discussion_tab: {
         width: "100%",
@@ -114,7 +120,6 @@ const useStyles = makeStyles({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        padding: "0 2rem",
         "@media screen and (max-width: 1024px)": {
             flexDirection: "column",
         },
@@ -123,19 +128,6 @@ const useStyles = makeStyles({
         display: "flex",
         flexDirection: "column",
         color: "#071B85",
-        "& h2": {
-            marginBottom: "3px",
-            fontSize: "22px",
-            "@media screen and (max-width: 820px)": {
-                fontSize: "20px",
-            },
-        },
-        "& p": {
-            fontSize: "14px",
-            "@media screen and (max-width: 820px)": {
-                fontSize: "12px",
-            },
-        },
     },
     newDiscussion: {
         display: "flex",
