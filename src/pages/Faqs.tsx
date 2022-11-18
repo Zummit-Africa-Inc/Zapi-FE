@@ -7,6 +7,9 @@ import { Footer, HomeNavbar } from "../sections";
 
 import { FAQDATA } from "../testdata";
 import { Accordion } from "../components";
+import ReactGA from "react-ga4";
+
+ReactGA.send({ hitType: "pageview", page: "/faqs" });
 
 const Faqs: React.FC = () => {
   const classes = useStyles();
@@ -54,10 +57,12 @@ const useStyles = makeStyles({
     justifyContent: "center",
     alignItems: "center",
     padding: "170px 1rem 90px 1rem",
-
+    backgroundColor: "#F3F3F3",
     backgroundImage: "url('../../images/faq.png')",
     width: "100%",
-    opacity: 0.99,
+    opacity: 0.98,
+    marginTop: "-0.1rem",
+    boxShadow: "0px 4px 4px rgba(6, 113, 224, 0.05)",
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     "& h1": {

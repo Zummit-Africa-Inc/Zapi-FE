@@ -6,13 +6,21 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useContextProvider } from "../contexts/ContextProvider";
 import Vector from "../assets/images/Vector.png";
 import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png";
-import {Box, Button, Modal, TextareaAutosize, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  Modal,
+  TextareaAutosize,
+  TextField,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { logout } from "../redux/slices/userSlice";
 import { useAppDispatch } from "../hooks/redux-hook";
 import Cookies from "universal-cookie";
 import CloseIcon from "@mui/icons-material/Close";
 import { useLocation } from "react-router-dom";
-
 
 const HomeNavbar: React.FC = () => {
   const classes = useStyles();
@@ -61,6 +69,8 @@ const HomeNavbar: React.FC = () => {
 
   function bg() {
     if (location.pathname === "/api-hub") {
+      return scrollPosition > 250 ? "#081F4A" : "transparent";
+    } else if (location.pathname === "/faqs") {
       return scrollPosition > 250 ? "#081F4A" : "transparent";
     } else {
       return "#081F4A";
