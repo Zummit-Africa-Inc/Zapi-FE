@@ -128,7 +128,7 @@ const Subscription: React.FC = () => {
                     </Button>
                   </StyledTableCell>
                   <StyledTableCell style={{ width: 50 }}>
-                    <Link to="#" className={classes.Link}>
+                    <Link to={`/api/${api.apiId}`} className={classes.Link}>
                       View
                     </Link>
                   </StyledTableCell>
