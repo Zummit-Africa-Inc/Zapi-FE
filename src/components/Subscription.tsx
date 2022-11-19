@@ -101,7 +101,7 @@ const Subscription: React.FC = () => {
   const copyButton = (e: SyntheticEvent, token: string) => {
     e.preventDefault();
     navigator.clipboard.writeText(token);
-    alert("Token Copied!");
+    //alert("Token Copied!");
   };
   return (
     <div>
@@ -141,7 +141,7 @@ const Subscription: React.FC = () => {
                   </StyledTableCell>
                   <StyledTableCell style={{ width: 50 }}>
                     <button
-                      className={classes.button}
+                      className={classes.button1}
                       onClick={(e) => revoke(e, api.apiId)}>
                       Revoke
                     </button>
@@ -205,9 +205,10 @@ const useStyles = makeStyles({
   Link: {
     padding: "10px",
     borderRadius: "5px",
-    background: "#058A04",
+    background: "#2fc973",
     color: "#fff",
     pointer: "cursor",
+    fontSize: "15px",
   },
   addApiDesc: {
     marginTop: "20px",
@@ -215,7 +216,14 @@ const useStyles = makeStyles({
     height: "calc(100vh - 315px)",
   },
   button: {
-    background: "#C90234",
+    background: "#4c8191",
     color: "white",
+    border: "none",
+    fontSize: "15px",
+  },
+  button1: {
+    background: "#e73e39",
+    color: "white",
+    fontSize: "15px",
   },
 });
