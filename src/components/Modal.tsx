@@ -20,7 +20,6 @@ const Modalpopup = ({ open, handleClose, setOpen }: any) => {
   const [body, setBody] = useState<string>("");
   const [load, setLoad] = useState(false)
   const { error, loading, sendRequest } = useHttpRequest();
-  const isValid = name && email && body
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -39,7 +38,6 @@ const Modalpopup = ({ open, handleClose, setOpen }: any) => {
         headers
       );
       if (!data) return;
-      console.log(data);
       const {message} = data
       setLoad(false)
       toast.success(`${message}`)
