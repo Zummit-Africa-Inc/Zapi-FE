@@ -1,23 +1,88 @@
-import React, { useState } from "react";
-import { Stack, Typography } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Stack, Typography, Button } from "@mui/material";
+import Cookies from "universal-cookie";
 import { makeStyles } from '@mui/styles'
-import { StackedLineChart, TimerOutlined, Check } from "@mui/icons-material";
-
-import { useAppSelector } from "../hooks";
+import { StackedLineChart, TimerOutlined, Check, BookmarkAddedOutlined, BookmarkRemove, BookmarkAddOutlined } from "@mui/icons-material";
+import { useAppDispatch, useAppSelector, useHttpRequest } from "../hooks";
+import { toast } from "react-toastify";
 import Rating from "../components/Rating";
 import { APIType } from "../types";
+import { getSubscribedApis } from "../redux/slices/userSlice";
+import { getApis } from "../redux/slices/apiSlice";
+import { useContextProvider } from "../contexts/ContextProvider";
+
+const core_url = "VITE_CORE_URL";
 
 interface Props {
     api: APIType
 }
 
-const APIDesc:React.FC<Props> = ({api}) => {
+const APIDesc: React.FC<Props> = ({ api }) => {
+    const { error, loading, sendRequest } = useHttpRequest();
     const { categories } = useAppSelector(store => store.apis);
     const [isRatingOpen, setIsRatingOpen] = useState<boolean>(false)
+    const { subscribedApis } = useAppSelector((store) => store.user);
+    const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
+    const cookies = new Cookies();
+    const profileId = cookies.get("profileId");
+    const accessToken = cookies.get("accessToken");
     const classes = useStyles();
+    const dispatch = useAppDispatch();
+    const { handleClicked } = useContextProvider();
 
     const category = categories.find((category) => category.id === api.categoryId);
+    
 
+    useEffect(() => {
+        subscribedApis.forEach((api) => {
+            if (api.apiId === api.id) return setIsSubscribed(true);
+        });
+    }, []);
+
+    const handleSubscription = async () => {
+        const headers = {
+            "Content-Type": "application/json",
+            "X-Zapi-Auth-Token": `Bearer ${accessToken}`,
+        };
+        const queryStringParameters = { profileId };
+        if (!isSubscribed) {
+            try {
+                const data = await sendRequest(
+                    `/subscription/subscribe/${api.id}`,
+                    "post",
+                    core_url,
+                    undefined,
+                    headers,
+                    queryStringParameters
+                );
+                if (!data || data === undefined) return;
+                const { message } = data;
+                toast.success(`${message}`);
+                setIsSubscribed(true);
+            } catch (error) {}
+        } else {
+            try {
+                const data = await sendRequest(
+                    `/subscription/unsubscribe/${api.id}`,
+                    "post",
+                    core_url,
+                    undefined,
+                    headers,
+                    queryStringParameters
+                );
+                if (!data || data == undefined) return;
+                const { message } = data;
+                setIsSubscribed(false);
+                toast.success(`${message}`);
+            } catch (error) { }
+        }
+        dispatch(getApis());
+        dispatch(getSubscribedApis(profileId));
+    };
+
+    useEffect(() => {
+        error && toast.error(`${error}`);
+    }, [error]);
     return (
         <>
         {isRatingOpen && <Rating apiId={api.id} onClose={() => setIsRatingOpen(false)} />}
@@ -64,10 +129,25 @@ const APIDesc:React.FC<Props> = ({api}) => {
             <Stack direction="row" spacing={4}>
                 <p className={classes.description}>{api.description}</p>
                 <div>
-                    <button className={classes.button} onClick={() => setIsRatingOpen(true)}>
-                        rate
-                    </button>
-                </div>
+                        <Button variant="outlined"
+                            // className={classes.button}
+                            sx={{ backgroundColor: "#081F4A", color: "#fff", width: "100%", height: "100%", borderRadius: "5px"}}
+                            onClick={() => setIsRatingOpen(true)}
+                        >
+                        rate 
+                        </Button>
+                    </div>
+                    <div>
+                        <Button
+                            endIcon={ isSubscribed ? <BookmarkRemove/> : <BookmarkAddOutlined/>}
+                            variant="outlined"
+                            // className={classes.button}
+                            sx={{ backgroundColor: "#081F4A", color: "#fff", width: "100%", height: "100%", borderRadius: "5px" }}
+                            onClick={accessToken ? handleSubscription : () => handleClicked("login")}
+                        >
+                            {isSubscribed ? "Unsubscribe" : "Subscribe"}
+                        </Button>
+                    </div>
             </Stack>
             {/* <Typography sx={{margin:"24px 0 0",fontSize:"21px",fontWeight:"bold",color:"#515D99"}}>Base URL</Typography>
             <p className={classes.description}>{api.base_url || "null"}</p> */}
