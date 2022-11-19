@@ -199,7 +199,6 @@ const GeneralTab: React.FC = () => {
           </Typography>
           <form>
             <Box sx={{ width: "200px", height: "200px", marginBottom: "6rem" }}>
-              {/* <ImageUpload setImageFile={() => setImage} /> */}
               <UploadFile
                 handleChange={(e: any) => setImage(e.target.files![0])}
                 logo_url={logo_url}
@@ -210,7 +209,6 @@ const GeneralTab: React.FC = () => {
                   triggerRefresh();
                 }}
               />
-              {/* <Typography variant="body1" fontSize="14px" mt={2}>Maximum Size: 500 x 500px, JPEG / PNG</Typography> */}
             </Box>
             <Box mt={2}>
               <InputLabel htmlFor="category" id="category">

@@ -1,9 +1,22 @@
 import React from 'react';
 import { makeStyles } from "@mui/styles";
-import ZAPI from "../images/zapi-logo.png";
 import ChoiceButton from "./ChoiceButton";
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import SvgIcon from '@mui/material/SvgIcon';
+import {
+    Box,
+    Input,
+    Avatar,
+    MenuItem,
+    Select,
+    Stack,
+    TextField,
+    Typography,
+    Switch,
+    SelectChangeEvent,
+    Paper,
+    Button,
+} from "@mui/material";
 
 interface Props {
     logo_url: string;
@@ -21,15 +34,20 @@ const UploadFile: React.FC<Props> = ({
 }) => {
     const classes = useStyles();
     return (
-        <>
-            <div className={classes.wrapper}>     
+        <Box>
+            <Box className={classes.wrapper}>     
                 {logo_url ? (
-                    <img src={logo_url} alt="" />               
+                    <Avatar src={logo_url}
+                        alt=""
+                        variant="square"
+                        sizes='large'
+                        sx={{width: 200, height: 200}}
+                    />               
                 ) : (
                         <SvgIcon component={AttachFileIcon} sx={{ fontSize: 130 }}  viewBox="0 5 25 15" />
                     )}
-            </div>
-            <input
+            </Box>
+            <Input
                 type="file"
                 onChange={handleChange}
             />    
@@ -47,7 +65,7 @@ const UploadFile: React.FC<Props> = ({
                 padding="15px 25px"
                 outline="none"
             />
-        </>
+        </Box>
     )
 }
 

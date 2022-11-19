@@ -1,5 +1,5 @@
 import React from "react";
-import {Stack} from "@mui/material";
+import { Stack, Button } from "@mui/material";
 
 interface Props {
     border: string;
@@ -32,7 +32,7 @@ const ChoiceButton: React.FC<Props> = ({
 }) => {
     return (
         <Stack direction="row" spacing={2} my={2}>
-            <button
+            <Button
                 onClick={onAccept}
                 style={{
                     backgroundColor: acceptBackgroundColor,
@@ -44,8 +44,8 @@ const ChoiceButton: React.FC<Props> = ({
                 }}
             >
                 {acceptText}
-            </button>
-            <button
+            </Button>
+            <Button
                 onClick={onReject}
                 style={{
                     backgroundColor: rejectBackgroundColor,
@@ -57,7 +57,7 @@ const ChoiceButton: React.FC<Props> = ({
                 }}
             >
                 {rejectText}
-            </button>
+            </Button>
         </Stack>
     );
 }
