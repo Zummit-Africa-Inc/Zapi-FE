@@ -83,6 +83,8 @@ const APIDesc: React.FC<Props> = ({ api }) => {
     useEffect(() => {
         error && toast.error(`${error}`);
     }, [error]);
+
+    let subscribedButtonStyles = isSubscribed ? { backgroundColor: "#F5F5F5", color: "#000000", borderRadius: "5px" } : { backgroundColor: "#081F4A", color: "#FFFFFF", borderRadius: "5px" };
     return (
         <>
         {isRatingOpen && <Rating apiId={api.id} onClose={() => setIsRatingOpen(false)} />}
@@ -140,9 +142,9 @@ const APIDesc: React.FC<Props> = ({ api }) => {
                     <div>
                         <Button
                             endIcon={ isSubscribed ? <BookmarkRemove/> : <BookmarkAddOutlined/>}
-                            variant="outlined"
+                            variant={isSubscribed ? "contained" : "outlined"}
                             // className={classes.button}
-                            sx={{ backgroundColor: "#081F4A", color: "#fff", width: "100%", height: "100%", borderRadius: "5px" }}
+                            sx={subscribedButtonStyles}
                             onClick={accessToken ? handleSubscription : () => handleClicked("login")}
                         >
                             {isSubscribed ? "Unsubscribe" : "Subscribe"}
