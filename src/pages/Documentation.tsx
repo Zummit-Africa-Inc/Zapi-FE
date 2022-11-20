@@ -16,8 +16,7 @@ import otp from "../assets/images/otp.png";
 import login2 from "../assets/images/login2.png";
 import subscriptions1 from "../assets/images/subscriptions1.png";
 import subscriptions2 from "../assets/images/subscriptions2.png";
-import post_edit from "../assets/images/post_edit.png";
-import header_edit from "../assets/images/header_edit.png";
+import request from "../assets/images/request.png";
 
 const CustomTab = styled(Tab)({
 	"&.MuiTab-root": {
@@ -64,18 +63,15 @@ const Documentation:React.FC = () => {
         setTab(newValue);
     };
 
-
     return (
         <>
             <HomeNavbar />
-
             <Box className={classes.root}>
                 
                 <Box className={classes.header}>
                     <Typography component="h1">ZAPI Documentation</Typography>
                     <Typography component="p">Welcome to the ZAPI docs. You'll find comprehensive guides and documentation to help you start working with ZAPI as quickly as possible, as well as support if you get stuck.</Typography>
                 </Box>
-
 
                 <Box sx={{ 
                     display: "flex",
@@ -94,7 +90,6 @@ const Documentation:React.FC = () => {
                         
                     },
                 }}>
-
                     
                     <Tabs
                         sx={{
@@ -319,17 +314,8 @@ const Documentation:React.FC = () => {
 
                             <Box
                                 component="img"
-                                alt="post_edit"
-                                src={post_edit}
-                            />
-                            
-                            <Typography component="p">
-                                Click Headers tab to enter required headers:
-                            </Typography>
-                            <Box
-                                component="img"
-                                alt="header_edit"
-                                src={header_edit}
+                                alt="request"
+                                src={request}
                             />
 
                         </TabPanel>
