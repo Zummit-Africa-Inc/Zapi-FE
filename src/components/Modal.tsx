@@ -11,7 +11,6 @@ import { useHttpRequest } from "../hooks";
 import { toast } from "react-toastify";
 import { Spinner } from "../assets";
 import { EMAIL_REGEX } from "../utils";
-import { createTheme } from '@mui/material/styles'
 
 const core_url = "VITE_CORE_URL";
 
@@ -26,7 +25,6 @@ const Modalpopup = ({ open, handleClose, setOpen }: any) => {
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
 
-    if (!name || !email || !body) return toast.error("Please fill all fields")
     if (!EMAIL_REGEX.test(email)) return toast.error("Please input a valid email")
     setLoad(true)
     const payload = { name, email, body };
