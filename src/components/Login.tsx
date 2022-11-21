@@ -1,7 +1,7 @@
 import React, { FormEvent, useEffect } from "react";
 import { Divider, Stack, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
 
@@ -12,7 +12,6 @@ import { login } from "../redux/slices/userSlice";
 import { Fallback } from "../components";
 import { GithubIcon, GoogleIcon } from "../assets";
 import { showModal } from "../redux/slices/modalSlice";
-import LoginGithub from "react-login-github";
 import { useGoogleLogin } from "@react-oauth/google";
 import ReactGA from "react-ga4";
 
@@ -28,6 +27,7 @@ const Login: React.FC = () => {
     useContextProvider();
   const { error, loading, sendRequest } = useHttpRequest();
   const { inputs, bind } = useFormInputs(initialState);
+  const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const classes = useStyles();
@@ -137,8 +137,65 @@ const Login: React.FC = () => {
     },
   });
 
-  const onSuccess = (response: any) => console.log(response);
-  const onFailure = (response: any) => console.error(response);
+  const githubAuth = () => {
+    window.location.assign(
+      "https://github.com/login/oauth/authorize?client_id=" + GITHUB_CLIENT_ID
+    );
+  };
+
+  if (searchParams.get("code")) {
+    useEffect(() => {
+      const githubLogin = async () => {
+        const payload = {
+          token: searchParams.get("code"),
+          userInfo: {
+            login_time: deviceLocation.time,
+            country: { lat: deviceLocation.lat, lon: deviceLocation.lon },
+            deviceIP,
+            browser_name: deviceInfo.browserName,
+            os_name: deviceInfo.osName,
+          },
+        };
+        const headers = { "Content-Type": "application/json" };
+        try {
+          const data = await sendRequest(
+            "/auth/github",
+            "post",
+            url,
+            payload,
+            headers
+          );
+          if (!data) return;
+          toast.success("Login Successful!");
+          const {
+            access,
+            email,
+            fullName,
+            profileId,
+            refresh,
+            userId,
+            secretKey,
+          } = data.data;
+          const user = { email, fullName, profileId, secretKey };
+          dispatch(login(user));
+          cookies.set("accessToken", access);
+          cookies.set("refreshToken", refresh);
+          cookies.set("profileId", profileId);
+          cookies.set("userId", userId);
+          cookies.set("secretKey", secretKey);
+          handleUnclicked("login");
+          dispatch(
+            showModal({
+              action: "hide",
+              type: "loginModal",
+            })
+          );
+          navigate("/developer/dashboard");
+        } catch (error) {}
+      };
+      githubLogin();
+    }, []);
+  }
 
   useEffect(() => {
     {
@@ -212,18 +269,12 @@ const Login: React.FC = () => {
               </span>
               Sign in with Google
             </button>
-            <LoginGithub
-              className={classes.button}
-              buttonText={
-                <Typography
-                  sx={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                  <GithubIcon /> Sign in With Github
-                </Typography>
-              }
-              clientId={GITHUB_CLIENT_ID}
-              onSuccess={onSuccess}
-              onFailure={onFailure}
-            />
+            <button className={classes.button} onClick={githubAuth}>
+              <Typography
+                sx={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                <GithubIcon /> Signin With Github
+              </Typography>
+            </button>
           </Stack>
 
           <Typography variant="body1" fontSize="14px" alignSelf="center">

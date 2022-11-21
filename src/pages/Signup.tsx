@@ -1,10 +1,5 @@
 import React, { FormEvent, useState, useEffect, SyntheticEvent } from "react";
-import {
-  Link,
-  useNavigate,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Divider, Stack, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { toast } from "react-toastify";
@@ -141,32 +136,58 @@ const Signup: React.FC = () => {
     },
   });
 
-  // useEffect(() => {
-  //   const queryString = window.location.search;
-  //   const urlParams = new URLSearchParams(queryString);
-  //   console.log(urlParams);
-  // }, []);
+  const githubAuth = () => {
+    window.location.assign(
+      "https://github.com/login/oauth/authorize?client_id=" + GITHUB_CLIENT_ID
+    );
+  };
 
-  // const githubAuth = async (e: SyntheticEvent) => {
-  //   e.preventDefault();
-
-  // try {
-  //   const token = await axios.get(
-  //     "https://github.com/login/oauth/authorize?client_id=" + GITHUB_CLIENT_ID
-  //   );
-  //   console.log(token);
-  // } catch (error) {}
-
-  // window.location.assign(
-  //   "https://github.com/login/oauth/authorize?client_id=" + GITHUB_CLIENT_ID
-  // );
-
-  // const code = searchParams.get("code");
-  // console.log(code);
-  // };
-
-  const onSuccess = (response: any) => console.log(response);
-  const onFailure = (response: any) => console.error(response);
+  if (searchParams.get("code")) {
+    useEffect(() => {
+      const githubLogin = async () => {
+        const payload = {
+          token: searchParams.get("code"),
+          userInfo: {
+            login_time: deviceLocation.time,
+            country: { lat: deviceLocation.lat, lon: deviceLocation.lon },
+            deviceIP,
+            browser_name: deviceInfo.browserName,
+            os_name: deviceInfo.osName,
+          },
+        };
+        const headers = { "Content-Type": "application/json" };
+        try {
+          const data = await sendRequest(
+            "/auth/github",
+            "post",
+            url,
+            payload,
+            headers
+          );
+          if (!data) return;
+          toast.success("Login Successful!");
+          const {
+            access,
+            email,
+            fullName,
+            profileId,
+            refresh,
+            userId,
+            secretKey,
+          } = data.data;
+          const user = { email, fullName, profileId, secretKey };
+          dispatch(login(user));
+          cookies.set("accessToken", access);
+          cookies.set("refreshToken", refresh);
+          cookies.set("profileId", profileId);
+          cookies.set("userId", userId);
+          cookies.set("secretKey", secretKey);
+          navigate("/developer/dashboard");
+        } catch (error) {}
+      };
+      githubLogin();
+    }, []);
+  }
 
   useEffect(() => {
     {
@@ -293,24 +314,12 @@ const Signup: React.FC = () => {
               </span>
               Sign in with Google
             </button>
-            {/* <button className={classes.button} onClick={(e) => githubAuth(e)}>
+            <button className={classes.button} onClick={githubAuth}>
               <Typography
                 sx={{ display: "flex", alignItems: "center", gap: "1rem" }}>
                 <GithubIcon /> Signin With Github
               </Typography>
-            </button> */}
-            <LoginGithub
-              className={classes.button}
-              buttonText={
-                <Typography
-                  sx={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                  <GithubIcon /> Sign in With Github
-                </Typography>
-              }
-              clientId={GITHUB_CLIENT_ID}
-              onSuccess={onSuccess}
-              onFailure={onFailure}
-            />
+            </button>
           </Stack>
           <Typography
             variant="body1"
