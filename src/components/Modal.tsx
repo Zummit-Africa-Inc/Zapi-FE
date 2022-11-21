@@ -11,6 +11,7 @@ import { useHttpRequest } from "../hooks";
 import { toast } from "react-toastify";
 import { Spinner } from "../assets";
 import { EMAIL_REGEX } from "../utils";
+import { createTheme } from '@mui/material/styles'
 
 const core_url = "VITE_CORE_URL";
 
@@ -20,6 +21,7 @@ const Modalpopup = ({ open, handleClose, setOpen }: any) => {
   const [body, setBody] = useState<string>("");
   const [load, setLoad] = useState(false)
   const { error, loading, sendRequest } = useHttpRequest();
+  const isValid = name && email && body
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -67,6 +69,7 @@ const Modalpopup = ({ open, handleClose, setOpen }: any) => {
             label="Name"
             variant="standard"
             value={name}
+            required
             onChange={(e) => setName(e.target.value)}
           />
           <TextField
@@ -75,6 +78,7 @@ const Modalpopup = ({ open, handleClose, setOpen }: any) => {
             label="Email"
             variant="standard"
             value={email}
+            required
             onChange={(e) => setEmail(e.target.value)}
           />
           <TextareaAutosize
@@ -90,6 +94,7 @@ const Modalpopup = ({ open, handleClose, setOpen }: any) => {
               fontSize: "1em",
             }}
             value={body}
+            required
             onChange={(e) => setBody(e.target.value)}
           />
           <Typography
@@ -104,6 +109,7 @@ const Modalpopup = ({ open, handleClose, setOpen }: any) => {
               variant="contained"
               disableElevation
               disableFocusRipple
+              disabled={!isValid}
               onClick={handleSubmit}>
               {load ? <Spinner/> : 'Submit'}
             </Button>
