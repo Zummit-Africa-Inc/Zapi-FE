@@ -203,7 +203,7 @@ const useStyles = makeStyles({
         lineHeight: "0px",
     },
     description: {
-        width: "70%",
+        width: "100%",
         display: "flex",
         alignItems: "center",
         fontSize: "15px",
