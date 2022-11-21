@@ -23,7 +23,7 @@ const Homepage: React.FC = () => {
 
   return (
     <div className={classes.homePage}>
-      <Modalpopup open={open} handleClose={handleClose}/>
+      <Modalpopup open={open} setOpen={setOpen} handleClose={handleClose}/>
       <HomeNavbar />
       <Hero />
       <Brand />
