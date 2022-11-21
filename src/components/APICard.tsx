@@ -38,7 +38,7 @@ const APICard: React.FC<CardProps> = ({
   const accessToken = cookies.get("accessToken");
   const dispatch = useAppDispatch();
   const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
-
+  
   useEffect(() => {
     subscribedApis.forEach((api) => {
       if (api.apiId === id) return setIsSubscribed(true);
@@ -61,9 +61,11 @@ const APICard: React.FC<CardProps> = ({
           headers,
           queryStringParameters
         );
+        console.log(data)
         if (!data || data === undefined) return;
         const { message } = data;
         toast.success(`${message}`);
+        setIsSubscribed(true);
       } catch (error) {}
     } else {
       try {
@@ -78,6 +80,7 @@ const APICard: React.FC<CardProps> = ({
         if (!data || data == undefined) return;
         const { message } = data;
         toast.success(`${message}`);
+        setIsSubscribed(false);
       } catch (error) {}
     }
     dispatch(getApis());
