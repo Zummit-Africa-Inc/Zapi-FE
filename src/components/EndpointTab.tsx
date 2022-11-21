@@ -763,7 +763,7 @@ const useStyles = makeStyles({
     fontFamily: "var(--body-font)",
     transition: "0.5s all ease-in-out cubic-bezier(0.075, 0.82, 0.165, 1)",
     cursor: "pointer",
-    "& disabled": {
+    "&:disabled": {
       background: "#E0E0E0",
       color: "#484848",
     },

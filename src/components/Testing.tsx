@@ -51,7 +51,7 @@ const useStyles = makeStyles({
     main: {
         width: "100%",
         height: "100%",
-        padding: "32px",
+        margin: "20px 0 0",
     }
 });
 

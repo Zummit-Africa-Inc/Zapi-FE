@@ -154,3 +154,9 @@ export type ReviewType = {
    review: string
    by: User
 }
+
+export type TestType = {
+   name: string
+   action: string
+   icon: JSX.Element
+}
