@@ -16,6 +16,7 @@ import otp from "../assets/images/otp.png";
 import login2 from "../assets/images/login2.png";
 import subscriptions1 from "../assets/images/subscriptions1.png";
 import subscriptions2 from "../assets/images/subscriptions2.png";
+import request from "../assets/images/request.png";
 
 const CustomTab = styled(Tab)({
 	"&.MuiTab-root": {
@@ -37,9 +38,7 @@ const CustomTab = styled(Tab)({
 	},
 	"&.Mui-selected": {
 		backgroundColor: "#d1d1d1",
-        // paddingLeft: "45px",
         fontWeight: "bold",
-
 	},
     "& svg": {
         width: "22px",
@@ -67,7 +66,6 @@ const Documentation:React.FC = () => {
     return (
         <>
             <HomeNavbar />
-            
             <Box className={classes.root}>
                 
                 <Box className={classes.header}>
@@ -79,12 +77,12 @@ const Documentation:React.FC = () => {
                     display: "flex",
                     flexDirection: "row",
                     gap: "2.5rem",
-                    marginTop: "50px",
+                    marginTop: "30px",
                     padding: "30px 5rem 5rem 3rem",
                     width: "100%",
                     "@media screen and (max-width: 1024px)": {
                         gap: "2rem",
-                        marginTop: "30px",
+                        marginTop: "10px",
                         padding: "30px 2rem 5rem .5rem",
                         
                     },
@@ -311,15 +309,21 @@ const Documentation:React.FC = () => {
                             <Typography component="h2">Send Requests</Typography>
                             
                             <Typography component="p">
-                                The first thing you'll want to do is locate an API that you want to use and click the icon on the top right corner of the card to subscribe to the API.
+                                In this example we are going to use Postman to send a request, to do so you will need an endpoint and your access token:
                             </Typography>
 
+                            <Box
+                                component="img"
+                                alt="request"
+                                src={request}
+                            />
 
                         </TabPanel>
                     
                     </Box>
                 </Box>
 
+            
             </Box>
 
             <Footer />
