@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Stack, Typography, Button } from "@mui/material";
+import { Stack, Typography, Button, Box } from "@mui/material";
 import Cookies from "universal-cookie";
 import { makeStyles } from '@mui/styles'
 import { StackedLineChart, TimerOutlined, Check, BookmarkAddedOutlined, BookmarkRemove, BookmarkAddOutlined } from "@mui/icons-material";
@@ -31,7 +31,7 @@ const APIDesc: React.FC<Props> = ({ api }) => {
     const { handleClicked } = useContextProvider();
 
     const category = categories.find((category) => category.id === api.categoryId);
-    
+
 
     useEffect(() => {
         subscribedApis.forEach((api) => {
@@ -44,7 +44,7 @@ const APIDesc: React.FC<Props> = ({ api }) => {
             "Content-Type": "application/json",
             "X-Zapi-Auth-Token": `Bearer ${accessToken}`,
         };
-        const queryStringParameters = { profileId };
+
         if (!isSubscribed) {
             try {
                 const data = await sendRequest(
@@ -53,13 +53,13 @@ const APIDesc: React.FC<Props> = ({ api }) => {
                     core_url,
                     undefined,
                     headers,
-                    queryStringParameters
+                    { profileId }
                 );
                 if (!data || data === undefined) return;
                 const { message } = data;
                 toast.success(`${message}`);
                 setIsSubscribed(true);
-            } catch (error) {}
+            } catch (error) { }
         } else {
             try {
                 const data = await sendRequest(
@@ -68,7 +68,7 @@ const APIDesc: React.FC<Props> = ({ api }) => {
                     core_url,
                     undefined,
                     headers,
-                    queryStringParameters
+                    { profileId }
                 );
                 if (!data || data == undefined) return;
                 const { message } = data;
@@ -87,85 +87,83 @@ const APIDesc: React.FC<Props> = ({ api }) => {
     let subscribedButtonStyles = isSubscribed ? { backgroundColor: "#F5F5F5", color: "#000000", borderRadius: "5px" } : { backgroundColor: "#081F4A", color: "#FFFFFF", borderRadius: "5px" };
     return (
         <>
-        {isRatingOpen && <Rating apiId={api.id} onClose={() => setIsRatingOpen(false)} />}
-        <div className={classes.root}>
-            <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", padding: "0 20px 15px 0", borderBottom: "1px solid #d1d1d1" }}>
-                <div>
-                    <h2>{api.name}</h2>
-                    <div className={classes.row}>
-                        <p style={{lineHeight:"1px",fontSize:"13px",color: "#515D99"}}>
-                            <>by: {api.createdBy || "unknown"}</>
-                        </p>
-                        <hr />
-                        <p style={{lineHeight:"1px",fontSize:"13px",color: "#515D99"}}>
-                            <>created on: {api.createdOn && new Date(api.createdOn).toDateString()}</>
-                        </p>
-                        <hr />
-                        <p style={{lineHeight:"1px",fontSize:"13px",color: "#515D99"}}>{category?.name}</p>
-                    </div>
-                </div>
-                <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem", }}>
-                    <div className={classes.item}>
-                        <div className={classes.subItem}>
-                            <p className={classes.itemHeader}>Popularity</p>
-                            <StackedLineChart sx={{ width: "19px" }} className={classes.itemIcon} />
-                        </div>
-                        <p className={classes.itemTitle}>{api.popularity}/10</p>
-                    </div>
-                    <div className={classes.item}>
-                        <div className={classes.subItem}>
-                            <p className={classes.itemHeader}>Latency</p>
-                            <TimerOutlined sx={{ width: "19px" }} className={classes.itemIcon} />
-                        </div>
-                        <p className={classes.itemTitle}>{api.latency}ms</p>
-                    </div>
-                    <div className={classes.item}>
-                        <div className={classes.subItem}>
-                            <p className={classes.itemHeader}>Service level</p>
-                            <Check sx={{ width: "19px" }} className={classes.itemIcon} />
-                        </div>
-                        <p className={classes.itemTitle}>{api.service_level}%</p>
-                    </div>
-                </div>
-            </div>
-            <Stack direction="row" spacing={4}>
-                <p className={classes.description}>{api.description}</p>
-                <div>
+            {isRatingOpen && <Rating apiId={api.id} onClose={() => setIsRatingOpen(false)} />}
+            <Box className={classes.root}>
+                <Box style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", padding: "0 20px 15px 0", borderBottom: "1px solid #d1d1d1" }}>
+                    <Box>
+                        <Typography variant="h2">{api.name}</Typography>
+                        <Box className={classes.row}>
+                            <p style={{ lineHeight: "1px", fontSize: "13px", color: "#515D99" }}>
+                                <>by: {api.createdBy || "unknown"}</>
+                            </p>
+                            <hr />
+                            <p style={{ lineHeight: "1px", fontSize: "13px", color: "#515D99" }}>
+                                <>created on: {api.createdOn && new Date(api.createdOn).toDateString()}</>
+                            </p>
+                            <hr />
+                            <p style={{ lineHeight: "1px", fontSize: "13px", color: "#515D99" }}>{category?.name}</p>
+                        </Box>
+                    </Box>
+                    <Box style={{ display: "flex", justifyContent: "space-between", gap: "1rem", }}>
+                        <Box className={classes.item}>
+                            <Box className={classes.subItem}>
+                                <p className={classes.itemHeader}>Popularity</p>
+                                <StackedLineChart sx={{ width: "19px" }} className={classes.itemIcon} />
+                            </Box>
+                            <p className={classes.itemTitle}>{api.popularity}/10</p>
+                        </Box>
+                        <Box className={classes.item}>
+                            <Box className={classes.subItem}>
+                                <p className={classes.itemHeader}>Latency</p>
+                                <TimerOutlined sx={{ width: "19px" }} className={classes.itemIcon} />
+                            </Box>
+                            <p className={classes.itemTitle}>{api.latency}ms</p>
+                        </Box>
+                        <Box className={classes.item}>
+                            <Box className={classes.subItem}>
+                                <p className={classes.itemHeader}>Service level</p>
+                                <Check sx={{ width: "19px" }} className={classes.itemIcon} />
+                            </Box>
+                            <p className={classes.itemTitle}>{api.service_level}%</p>
+                        </Box>
+                    </Box>
+                </Box>
+                <Stack direction="row" spacing={4} justifyContent={"end"} alignItems={"center"}>
+                    <p className={classes.description}>{api.description}</p>
+                    <Box>
                         <Button variant="outlined"
-                            // className={classes.button}
-                            sx={{ backgroundColor: "#081F4A", color: "#fff", width: "100%", height: "100%", borderRadius: "5px"}}
+                            sx={{ backgroundColor: "#081F4A", color: "#fff", borderRadius: "5px" }}
                             onClick={() => setIsRatingOpen(true)}
                         >
-                        rate 
+                            rate
                         </Button>
-                    </div>
-                    <div>
+                    </Box>
+                    <Box>
                         <Button
-                            endIcon={ isSubscribed ? <BookmarkRemove/> : <BookmarkAddOutlined/>}
+                            endIcon={isSubscribed ? <BookmarkRemove /> : <BookmarkAddOutlined />}
                             variant={isSubscribed ? "contained" : "outlined"}
-                            // className={classes.button}
                             sx={subscribedButtonStyles}
                             onClick={accessToken ? handleSubscription : () => handleClicked("login")}
                         >
                             {isSubscribed ? "Unsubscribe" : "Subscribe"}
                         </Button>
-                    </div>
-            </Stack>
-            {/* <Typography sx={{margin:"24px 0 0",fontSize:"21px",fontWeight:"bold",color:"#515D99"}}>Base URL</Typography>
+                    </Box>
+                </Stack>
+                {/* <Typography sx={{margin:"24px 0 0",fontSize:"21px",fontWeight:"bold",color:"#515D99"}}>Base URL</Typography>
             <p className={classes.description}>{api.base_url || "null"}</p> */}
-            <Typography sx={{margin:"24px 0 0",fontSize:"21px",fontWeight:"bold",color:"#515D99"}}>Website</Typography>
-            <p className={classes.description}>
-                Website: {api.api_website ? <a href={`${api.api_website}`} target="_blank" rel="noreferrer">{api.api_website}</a> : "Website not specified"}
-            </p>
-            <Typography sx={{margin:"24px 0 0",fontSize:"21px",fontWeight:"bold",color:"#515D99"}}>Documentation</Typography>
-            <p className={classes.description}>{api.read_me ? api.read_me : "ReadMe file not attached"}</p>
-        </div>
+                <Typography sx={{ margin: "24px 0 0", fontSize: "21px", fontWeight: "bold", color: "#515D99" }}>Website</Typography>
+                <p className={classes.description}>
+                    Website: {api.api_website ? <a href={`${api.api_website}`} target="_blank" rel="noreferrer">{api.api_website}</a> : "Website not specified"}
+                </p>
+                <Typography sx={{ margin: "24px 0 0", fontSize: "21px", fontWeight: "bold", color: "#515D99" }}>Documentation</Typography>
+                <p className={classes.description}>{api.read_me ? api.read_me : "ReadMe file not attached"}</p>
+            </Box>
         </>
     )
 }
 
 const useStyles = makeStyles({
-    root:{
+    root: {
         display: 'flex',
         flexDirection: 'column',
         marginBottom: "15px",
@@ -186,7 +184,7 @@ const useStyles = makeStyles({
         height: "65px"
     },
     subItem: {
-        display: "flex", 
+        display: "flex",
         flexDirection: "row",
         alignItems: "center",
         gap: ".3rem"
