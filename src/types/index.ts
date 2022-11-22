@@ -133,8 +133,8 @@ export type AnalyticsLog = {
 
 export type OptionsType = {
    name: string
-   type: string
-   required: boolean
+   type?: string
+   required?: boolean
    value?: any
 }
 

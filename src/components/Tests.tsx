@@ -1,11 +1,11 @@
 import React, { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from "react";
-import { Box, IconButton, Menu, MenuItem, Paper, Select, Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
+import { Box, Button, MenuItem, Paper, Select, Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { ContentCopy, Delete, Edit, PlayArrow } from "@mui/icons-material";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
 
-import { APIType, EndpointsType, TestType } from "../types";
+import { APIType, EndpointsType, OptionsType, TestType } from "../types";
 import { useFormInputs, useHttpRequest } from "../hooks";
 
 interface Props {
@@ -26,24 +26,30 @@ const testOptions: Array<TestType> = [
     { name: "Duplicate", action: "duplicate", icon: <ContentCopy /> },
 ]
 
-const initialState = { testName: "", endpointName: "", endpoint: "", route: "", }
+const initialState = { testName: "", endpointName: "", endpoint: "", route: "", headerName: "", headerValue: "", bodyName: "", bodyValue: "", paramsName: "", paramsValue: ""}
 
 const Tests:React.FC<Props> = ({id}) => {
     const [endpoints, setEndpoints] = useState<Array<EndpointsType> | null>([]);
     const [creatingTest, setCreatingTest] = useState<boolean>(false);
+    const [testAction, setTestAction] = useState<string>("run");
     const {inputs, bind, select} = useFormInputs(initialState);
     const {error, loading, sendRequest} = useHttpRequest();
     const [api, setApi] = useState<APIType | null>(null);
-    const { testName, endpointName, endpoint, route } = inputs;
+    const { testName, endpointName, endpoint, route, headerName, headerValue, bodyName, bodyValue, paramsName, paramsValue } = inputs
     const cookies = new Cookies();
-    const classes= useStyles();
+    const classes= useStyles(); 
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (e: MouseEvent<HTMLElement>) => setAnchorEl(e.currentTarget);
-    const handleClose = () => setAnchorEl(null)
+    const handleClose = () => setAnchorEl(null);
     
-    const [testAction, setTestAction] = useState<string>("run")
+    const initialFields = {headers: [], body: [], params: []};
+    const [fields, setFields] = useState(initialFields);
+    const {headers, body, params} = fields;
+    const handleFieldChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
+        
+    };
 
     const fetchApiData = async(apiId: string | undefined): Promise<any> => {
         const headers = {
@@ -82,8 +88,10 @@ const Tests:React.FC<Props> = ({id}) => {
             'Content-Type': "application/json",
             'X-Zapi-Auth-Token': `Bearer ${cookies.get("accessToken")}`
         };
+        const payload = {}
         try {
-            // const data = await sendRequest
+            // const data = await sendRequest(``, "post", payload, headers)
+            console.log(action)
         } catch (error) {
             
         }
@@ -98,26 +106,26 @@ const Tests:React.FC<Props> = ({id}) => {
   return (
     <Paper className={classes.paper}>
         <Stack width="100%" direction="row" alignItems="center" justifyContent="space-between" mt={2} mb={4}>
-            <div className={classes.inputs}>
+            <Box className={classes.inputs}>
                 <input type="text" name="search" placeholder="Search tests" />
-            </div>
-            <button onClick={handleCreating} className={classes.button}>
-                {creatingTest ? "Canel" : "Create Test"}
-            </button>
+            </Box>
+            <Button onClick={handleCreating} className={classes.button}>
+                {creatingTest ? "Cancel" : "Create Test"}
+            </Button>
         </Stack>
         {creatingTest && (
             <form onSubmit={addTest} style={{margin: "0 0 2rem"}}>
                 <Stack width="100%" direction="row" alignItems="center" spacing={2} my={2}>
-                    <div className={classes.inputs}>
+                    <Box className={classes.inputs}>
                         <input type="text" name="testName" {...bind} placeholder="Test name" />
-                    </div>
-                    <div className={classes.inputs}>
-                        <button type="submit" style={{}} disabled={!endpointName}>add</button>
-                    </div>
+                    </Box>
+                    <Box className={classes.inputs}>
+                        <button type="submit" disabled={!endpointName}>add</button>
+                    </Box>
                 </Stack>
                 {testName && endpoints && (
                     <Stack width="100%" direction="row" alignItems="center" spacing={2} my={2}>
-                        <div className={classes.inputs}>
+                        <Box className={classes.inputs}>
                             <label>Endpoint name</label>
                             <select name="endpointName" {...select}>
                                 {endpoints.map((endpoint, index) => (
@@ -126,15 +134,15 @@ const Tests:React.FC<Props> = ({id}) => {
                                     </option>
                                 ))}
                             </select>
-                        </div>
-                        <div className={classes.inputs}>
+                        </Box>
+                        <Box className={classes.inputs}>
                             <label>Endpoint route</label>
                             {endpoints
                             .filter((endpoint) => endpoint.name === endpointName)
                             .map((endpoint, index) => (
                                 <input key={index} type="text" value={endpoint.route} name="endpoint" {...bind} disabled />
                             ))}
-                        </div>
+                        </Box>
                     </Stack>
                 )}
                 {testName && endpoints && endpoints
@@ -159,7 +167,7 @@ const Tests:React.FC<Props> = ({id}) => {
                                     <Typography sx={{fontSize: "13px",color: "#081F4A"}}>
                                         {key.name}
                                     </Typography>
-                                    <input type={key.type.toLowerCase()} required={key.required} className={classes.input} />
+                                    <input type={key.type?.toLowerCase()} required={key.required} className={classes.input} />
                                 </Stack>
                             ))}
                         </Stack>
@@ -201,13 +209,13 @@ const Tests:React.FC<Props> = ({id}) => {
                         {testOptions
                         .filter((opt) => opt.action === testAction)
                         .map((opt, index) => (
-                            <div key={index} className={classes.inputs}>
-                                <button onClick={() => console.log(opt.action)} style={{background: colors[opt.action]}}>
+                            <Box key={index} className={classes.inputs}>
+                                <Button onClick={() => runTestAction(opt.action)} style={{background: colors[opt.action]}}>
                                     {opt.name}
-                                </button>
-                            </div>
+                                </Button>
+                            </Box>
                         ))}
-                        <div className={classes.inputs}>
+                        <Box className={classes.inputs}>
                             <select name="test" value={testAction} onChange={(e: ChangeEvent<HTMLSelectElement>) => setTestAction(e.target.value)}>
                                 {testOptions.map((opt, index) => (
                                     <option key={index} value={opt.action}>
@@ -215,7 +223,7 @@ const Tests:React.FC<Props> = ({id}) => {
                                     </option>
                                 ))}
                             </select>
-                        </div>
+                        </Box>
                         </>
                     </TableCell>
                 </TableRow>
@@ -269,15 +277,12 @@ const useStyles = makeStyles({
           "& button": {
             width: "75px",
             height: "40px",
-            background: "#22EF48",
+            background: "#49B443",
             color: "#FFF",
             border: "none",
             borderRadius: "4px",
             textTransform: "uppercase",
             fontSize: "12px",
-            // display: "flex",
-            // alignItems: "center",
-            // justifyContent: "space-between",
             "&:disabled": {
                 background: "#E0E0E0",
                 color: "#484848",
@@ -293,29 +298,37 @@ const useStyles = makeStyles({
           },
     },
     button: {
-        display: "flex",
-        alignItems: "center",
-        gap: "0.25rem",
-        background: "#081F4A",
-        color: "#FFF",
-        padding: "3px 12px",
-        borderRadius: "5px",
-        border: "none",
-        outline: "none",
-        fontSize: "12px",
-        fontWeight: 500,
-        textTransform: "uppercase",
-        fontFamily: "var(--body-font)",
-        cursor: "pointer",
-        "&:disabled": {
-          background: "#E0E0E0",
-          color: "#484848",
-        },
+        "&.MuiButtonBase-root": {
+            display: "flex",
+            alignItems: "center",
+            gap: "0.25rem",
+            background: "#081F4A",
+            color: "#FFF",
+            padding: "3px 12px",
+            borderRadius: "5px",
+            border: "none",
+            outline: "none",
+            fontSize: "12px",
+            fontWeight: 500,
+            textTransform: "uppercase",
+            fontFamily: "var(--body-font)",
+            cursor: "pointer",
+            "&:hover": {
+                background: "#081F4A",
+            },
+            "&:disabled": {
+              background: "#E0E0E0",
+              color: "#484848",
+            },
+        }
     },
     head: {
         "&.MuiTableHead-root": {
             background: "#081F4A",
         },
+        "&.MuiTableCell-root": {
+            width: "350px",
+        }
     },
     cell: {
         "&.MuiTableCell-root": {
