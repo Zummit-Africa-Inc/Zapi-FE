@@ -296,7 +296,6 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
     setJsonFile("");
     const input = document.querySelector("input[type=file]");
     if (input) {
-      input.setAttribute("value", "");
     }
   };
 
