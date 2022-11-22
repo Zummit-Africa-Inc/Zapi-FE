@@ -54,7 +54,7 @@ const CustomTab = styled(Tab)({
 const CustomAccordion = styled(Accordion)({
   "&.MuiAccordion-root": {
     boxShadow: "unset",
-    borderTop: "1px solid #d1d1d1",
+    borderTop: "1px solid #D1D1D1",
   },
 });
 
@@ -75,43 +75,43 @@ const Endpoints: React.FC<Props> = ({api, endpoints}) => {
           gap: "2rem",
           width: "45%",
         }}>
-        <Paper
-          component="form"
-          sx={{
-            boxShadow: "unset",
-            display: "flex",
-            alignItems: "center",
-            border: "1px solid #d1d1d1",
-            borderRadius: "0",
-            padding: "2px 8px",
-          }}>
-          <InputBase
-            sx={{
-              ml: 1,
-              flex: 1,
-              fontSize: "13px",
-              fontFamily: "Space Grotesk",
-              color: "#000",
-            }}
-            placeholder="Search endpoints"
-            inputProps={{ "aria-label": "search endpoints" }}
-          />
-          <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
-            <Search sx={{ width: "21px" }} />
-          </IconButton>
-        </Paper>
         <div>
           <Typography
             sx={{
               marginBottom: "10px",
               fontSize: "21px",
               fontWeight: "bold",
-              background: "#F4F6F5",
               color: "#515D99",
               padding: "5px",
             }}>
             Endpoints
           </Typography>
+          <Paper
+            component="form"
+            sx={{
+              boxShadow: "unset",
+              display: "flex",
+              alignItems: "center",
+              border: "1px solid #d1d1d1",
+              borderRadius: "0",
+              padding: "2px 8px",
+              margin: "0 0 1rem",
+            }}>
+            <InputBase
+              sx={{
+                ml: 1,
+                flex: 1,
+                fontSize: "13px",
+                fontFamily: "Space Grotesk",
+                color: "#000",
+              }}
+              placeholder="Search endpoints"
+              inputProps={{ "aria-label": "search endpoints" }}
+            />
+            <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+              <Search sx={{ width: "21px" }} />
+            </IconButton>
+          </Paper>
           {endpoints && endpoints.length !== 0 ? (
             <div>
               <CustomTabs
@@ -189,16 +189,6 @@ const Endpoints: React.FC<Props> = ({api, endpoints}) => {
                   }}>
                   {endpoint.description}
                 </Typography>
-                <Stack key={index} direction="row" alignItems="center" spacing={4} my={4}>
-                  <Stack width={200} direction="column" spacing={1} sx={{padding:"0 10px"}}>
-                    <Typography sx={{fontSize:"18px",color:"#081F4A"}}>Request URL</Typography>
-                    <Typography sx={{fontSize:"12px",color:"#000",textTransform:"uppercase"}}></Typography>
-                  </Stack>
-                  <Stack direction="column" spacing={1}>
-                    <input type="text" defaultValue={api.base_url} className={classes.input} disabled />
-                    <Typography sx={{fontSize:"12px",color:"#000",textTransform:"uppercase"}}>required</Typography>
-                  </Stack>
-                </Stack>
                 <CustomAccordion>
                   <AccordionSummary expandIcon={<ExpandMore />}>
                     <Typography sx={{ fontSize: "15px", color: "#515D99" }}>
@@ -281,7 +271,7 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "row",
     gap: "2.5rem",
-    margin: "0 5rem 8rem 5rem",
+    margin: "0 0 8rem",
   },
   paper: {
     boxShadow: "unset",

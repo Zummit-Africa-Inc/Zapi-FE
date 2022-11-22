@@ -34,16 +34,9 @@ const Sidebar: React.FC = () => {
               {link.image}
               <Typography>{link.text}</Typography>
             </NavLink>
-            // <Tabs key={i} className={classes.link}>
-            //     <Tab icon={link.image} iconPosition="start" component={NavLink} to={link.link} label={link.text} />
-            // </Tabs>
           ))}
         </div>
       </div>
-      {/* <div className={classes.collapse} onClick={handleCollapse}>
-                <KeyboardDoubleArrowLeftOutlinedIcon />
-                {isOpen === true ? <Typography sx={{ fontSize: "16px" }}>Collapse Sidebar</Typography> : <Typography sx={{ fontSize: "16px" }}>Open Sidebar</Typography>}
-            </div> */}
     </div>
   );
 };
