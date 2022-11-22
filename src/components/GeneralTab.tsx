@@ -182,13 +182,6 @@ const GeneralTab: React.FC = () => {
     }
   };
 
-  const clearImageField = () => {
-    setImage("");
-    const input = document.querySelector("input[type=file]");
-    if (input) {
-      // input.value = "";
-    }
-  };
 
   return (
     <>
@@ -205,7 +198,7 @@ const GeneralTab: React.FC = () => {
                 imageUpload={imageUpload}
                 imageReject={(e: any) => {
                   e.preventDefault();
-                  clearImageField();
+                  setImage("");
                   triggerRefresh();
                 }}
               />
