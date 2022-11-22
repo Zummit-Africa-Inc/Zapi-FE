@@ -1,12 +1,13 @@
 import React, { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from "react";
-import { Box, Button, MenuItem, Paper, Select, Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
+import { Box, Button, IconButton, MenuItem, Paper, Select, Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
+import { Add, ContentCopy, Delete, Edit, PlayArrow } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
-import { ContentCopy, Delete, Edit, PlayArrow } from "@mui/icons-material";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
 
 import { APIType, EndpointsType, OptionsType, TestType } from "../types";
 import { useFormInputs, useHttpRequest } from "../hooks";
+import { ids } from "webpack";
 
 interface Props {
     id: string | undefined
@@ -26,7 +27,7 @@ const testOptions: Array<TestType> = [
     { name: "Duplicate", action: "duplicate", icon: <ContentCopy /> },
 ]
 
-const initialState = { testName: "", endpointName: "", endpoint: "", route: "", headerName: "", headerValue: "", bodyName: "", bodyValue: "", paramsName: "", paramsValue: ""}
+const initialState = { testName: "", endpointName: "", route: "", headerValue: "", bodyValue: "", paramsValue: ""}
 
 const Tests:React.FC<Props> = ({id}) => {
     const [endpoints, setEndpoints] = useState<Array<EndpointsType> | null>([]);
@@ -35,7 +36,7 @@ const Tests:React.FC<Props> = ({id}) => {
     const {inputs, bind, select} = useFormInputs(initialState);
     const {error, loading, sendRequest} = useHttpRequest();
     const [api, setApi] = useState<APIType | null>(null);
-    const { testName, endpointName, endpoint, route, headerName, headerValue, bodyName, bodyValue, paramsName, paramsValue } = inputs
+    const { testName, endpointName, route, headerValue, bodyValue, paramsValue } = inputs
     const cookies = new Cookies();
     const classes= useStyles(); 
 
@@ -44,12 +45,30 @@ const Tests:React.FC<Props> = ({id}) => {
     const handleClick = (e: MouseEvent<HTMLElement>) => setAnchorEl(e.currentTarget);
     const handleClose = () => setAnchorEl(null);
     
-    const initialFields = {headers: [], body: [], params: []};
-    const [fields, setFields] = useState(initialFields);
-    const {headers, body, params} = fields;
-    const handleFieldChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
-        
-    };
+    const [headers, setHeaders] = useState<Array<OptionsType>>([])
+    const [body, setBody] = useState<Array<OptionsType>>([])
+    const [params, setParams] = useState<Array<OptionsType>>([])
+    
+    const addHeaderValue = (object: OptionsType) => {
+        const { name, value } = object;
+        if (!value) return toast.error("Add a valid value");
+        if(headers.find((obj) => obj.name.toLowerCase() === name.toLowerCase())) return toast.error("Duplicate values!");
+        setHeaders(prev => [...prev, object]);
+    }
+
+    const addBodyValue = (object: OptionsType) => {
+        const { name, value } = object;
+        if (!value) return toast.error("Add a valid value");
+        if(body.find((obj) => obj.name.toLowerCase() === name.toLowerCase())) return toast.error("Duplicate values!");
+        setBody(prev => [...prev, object]);
+    }
+
+    const addParamsValue = (object: OptionsType) => {
+        const { name, value } = object;
+        if (!value) return toast.error("Add a valid value");
+        if(params.find((obj) => obj.name.toLowerCase() === name.toLowerCase())) return toast.error("Duplicate values!");
+        setParams(prev => [...prev, object]);
+    }
 
     const fetchApiData = async(apiId: string | undefined): Promise<any> => {
         const headers = {
@@ -71,16 +90,27 @@ const Tests:React.FC<Props> = ({id}) => {
     const addTest = async(e: FormEvent) => {
         e.preventDefault()
         if(!testName) return toast.error("Test name cannot be empty")
-        const headers = {
+        const requestHeaders = {
             'Content-type': "application/json",
             'X-Zapi-Auth-Token': `Bearer ${cookies.get("accessToken")}`
         };
-        const payload = {testName}
+        const payload = {
+            apiId: id,
+            profileId: cookies.get("profileId"),
+            testName,
+            route,
+            payload: {
+                headers,
+                body,
+                params,
+            }
+        }
         console.log(payload)
         try {
-            const data = await sendRequest(``, "get", "VITE_CORE_URL", payload, headers)
-            if(data === undefined) return
+            // const data = await sendRequest(``, "get", "VITE_CORE_URL", payload, requestHeaders)
+            // if(data === undefined) return
         } catch (error) {}
+        setCreatingTest(false)
     };
 
     const runTestAction = async(action: string) => {
@@ -140,7 +170,7 @@ const Tests:React.FC<Props> = ({id}) => {
                             {endpoints
                             .filter((endpoint) => endpoint.name === endpointName)
                             .map((endpoint, index) => (
-                                <input key={index} type="text" value={endpoint.route} name="endpoint" {...bind} disabled />
+                                <input key={index} type="text" value={endpoint.route} name="route" {...bind} disabled />
                             ))}
                         </Box>
                     </Stack>
@@ -156,7 +186,10 @@ const Tests:React.FC<Props> = ({id}) => {
                                     <Typography sx={{fontSize: "13px",color: "#081F4A"}}>
                                         {header.name}
                                     </Typography>
-                                    <input type="text" required={header.required} className={classes.input} />
+                                    <input type="text" name="headerValue" {...bind} required={header.required} className={classes.input} />
+                                    <IconButton type="button" onClick={() => addHeaderValue({name: header.name, value: headerValue})}>
+                                        <Add />
+                                    </IconButton>
                                 </Stack>
                             ))}
                         </Stack>
@@ -167,7 +200,10 @@ const Tests:React.FC<Props> = ({id}) => {
                                     <Typography sx={{fontSize: "13px",color: "#081F4A"}}>
                                         {key.name}
                                     </Typography>
-                                    <input type={key.type?.toLowerCase()} required={key.required} className={classes.input} />
+                                    <input type="text" name="bodyValue" {...bind} required={key.required} className={classes.input} />
+                                    <IconButton type="button" onClick={() => addBodyValue({name: key.name, value: bodyValue})}>
+                                        <Add />
+                                    </IconButton>
                                 </Stack>
                             ))}
                         </Stack>
@@ -178,7 +214,10 @@ const Tests:React.FC<Props> = ({id}) => {
                                     <Typography sx={{fontSize: "13px",color: "#081F4A"}}>
                                         {param.name}
                                     </Typography>
-                                    <input type="text" required={param.required} className={classes.input} />
+                                    <input type="text" name="paramsValue" {...bind} required={param.required} className={classes.input} />
+                                    <IconButton type="button" onClick={() => addParamsValue({name: param.name, value: paramsValue})}>
+                                        <Add />
+                                    </IconButton>
                                 </Stack>
                             ))}
                         </Stack>
@@ -326,12 +365,10 @@ const useStyles = makeStyles({
         "&.MuiTableHead-root": {
             background: "#081F4A",
         },
-        "&.MuiTableCell-root": {
-            width: "350px",
-        }
     },
     cell: {
         "&.MuiTableCell-root": {
+            width: "150px",
             color: "#FFF",
             fontWeight: 500,
             fontSize: "16px",
