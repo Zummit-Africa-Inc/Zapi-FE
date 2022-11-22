@@ -1,6 +1,6 @@
-import React, { FormEvent, useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Stack, Typography } from "@mui/material";
+import React, { FormEvent, useState, useEffect, SyntheticEvent } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Divider, Stack, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { toast } from "react-toastify";
 import { Cancel } from "@mui/icons-material";
@@ -15,10 +15,11 @@ import { useContextProvider } from "../contexts/ContextProvider";
 import { useAppDispatch, useFormInputs, useHttpRequest } from "../hooks";
 import { Fallback, PasswordStrengthMeter } from "../components";
 import { HomeNavbar } from "../sections";
-import { GoogleIcon } from "../assets";
+import { GithubIcon, GoogleIcon } from "../assets";
 import { useGoogleLogin } from "@react-oauth/google";
 import { login } from "../redux/slices/userSlice";
 import ReactGA from "react-ga4";
+import axios from "axios";
 
 const initialState = {
   fullName: "",
@@ -29,6 +30,7 @@ const initialState = {
 };
 // const url = import.meta.env.VITE_IDENTITY_URL;
 const url = "VITE_IDENTITY_URL";
+const GITHUB_CLIENT_ID = import.meta.env.VITE_GITHUB_CLIENT_ID;
 
 const Signup: React.FC = () => {
   const classes = useStyles();
@@ -39,6 +41,7 @@ const Signup: React.FC = () => {
   const { error, loading, sendRequest } = useHttpRequest();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const cookies = new Cookies();
   const disabled =
     !terms ||
@@ -131,6 +134,59 @@ const Signup: React.FC = () => {
       toast.error("Login Failed, try to login with your email.");
     },
   });
+
+  const githubAuth = () => {
+    window.location.assign(
+      "https://github.com/login/oauth/authorize?client_id=" + GITHUB_CLIENT_ID
+    );
+  };
+
+  if (searchParams.get("code")) {
+    useEffect(() => {
+      const githubLogin = async () => {
+        const payload = {
+          token: searchParams.get("code"),
+          userInfo: {
+            login_time: deviceLocation.time,
+            country: { lat: deviceLocation.lat, lon: deviceLocation.lon },
+            deviceIP,
+            browser_name: deviceInfo.browserName,
+            os_name: deviceInfo.osName,
+          },
+        };
+        const headers = { "Content-Type": "application/json" };
+        try {
+          const data = await sendRequest(
+            "/auth/github",
+            "post",
+            url,
+            payload,
+            headers
+          );
+          if (!data) return;
+          toast.success("Login Successful!");
+          const {
+            access,
+            email,
+            fullName,
+            profileId,
+            refresh,
+            userId,
+            secretKey,
+          } = data.data;
+          const user = { email, fullName, profileId, secretKey };
+          dispatch(login(user));
+          cookies.set("accessToken", access);
+          cookies.set("refreshToken", refresh);
+          cookies.set("profileId", profileId);
+          cookies.set("userId", userId);
+          cookies.set("secretKey", secretKey);
+          navigate("/developer/dashboard");
+        } catch (error) {}
+      };
+      githubLogin();
+    }, []);
+  }
 
   useEffect(() => {
     {
@@ -236,30 +292,39 @@ const Signup: React.FC = () => {
             <button
               type="submit"
               className={classes.button}
+              style={{
+                background: "#4B4B4B",
+                color: "#FFF",
+                marginBottom: "1rem",
+              }}
               disabled={disabled}>
               {loading ? "loading" : "Signup"}
             </button>
           </form>
 
-          <Typography>OR</Typography>
-          <Stack direction="column" alignItems="center" spacing={2}>
+          <Divider>OR</Divider>
+          <Stack direction="column" alignItems="center" mt={1} spacing={2}>
             <button
               type="button"
               className={classes.button}
-              onClick={() => googleAuth()}
-              style={{ background: "#FFF", color: "#081F4A" }}>
-              <span style={{ marginRight: "3rem" }}>
+              onClick={() => googleAuth()}>
+              <span style={{ marginRight: "1rem" }}>
                 <GoogleIcon />
               </span>
-              Signin with Google
+              Sign in with Google
+            </button>
+            <button className={classes.button} onClick={githubAuth}>
+              <Typography
+                sx={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                <GithubIcon /> Signin With Github
+              </Typography>
             </button>
           </Stack>
           <Typography
             variant="body1"
             fontSize="16px"
-            alignSelf="flex-start"
-            textAlign="center"
-            mt={8}>
+            alignSelf="center"
+            textAlign="center">
             Already have an account?
             <span
               className={classes.link}
@@ -357,13 +422,12 @@ const useStyles = makeStyles({
     backgroundColor: "#081F4A",
     color: "#FFF",
     borderRadius: "4px",
-    border: "!px solid #000",
     fontSize: "16px",
     fontWeight: 400,
     lineHeight: "16px",
     cursor: "pointer",
-    margin: "1rem 0 2rem",
     padding: "0 1rem",
+    border: "none",
     "&:disabled": {
       backgroundColor: "#4B4B4B",
     },
