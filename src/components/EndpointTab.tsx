@@ -14,6 +14,7 @@ import { OptionsType } from "../types";
 import { Spinner } from "../assets";
 import { useContextProvider } from "../contexts/ContextProvider";
 import ReactGA from "react-ga4";
+import UploadFile from "./UploadFile";
 
 
 const CustomTabs = styled(Tabs)({
@@ -291,8 +292,13 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
       }
     }
   };
-
-  // console.log(JsonData)
+  const clearInputField = () => {
+    setJsonFile("");
+    const input = document.querySelector("input[type=file]");
+    if (input) {
+      input.setAttribute("value", "");
+    }
+  };
 
   return (
     <Paper className={classes.paper}>
@@ -616,35 +622,16 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
               <Typography variant="body1" fontSize="16px" fontWeight={400} mb={10}>
                 We only make use of Postman collection for now.
               </Typography>
-              <Box className={classes.pageActions}>
-                <input
-                  className="input-file-upload"
-                  id="file"
-                  type="file"
-                  accept=".json"
-                  onChange={handleChange}
-                  name="file"
-
-                />
-              </Box>
-              <Box className={classes.pageActions}>
-
-                <Stack direction="row" spacing={2} my={2}>
-                  <button className={classes.saveBtn} onClick={fileUpload}>
-                    Upload
-                  </button>
-                  <button
-                    className={classes.discardBtn}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setJsonFile("");
-                      triggerRefresh();
-                    }}>
-                    Cancel
-                  </button>
-                </Stack>
-
-              </Box>
+              <UploadFile
+                logo_url=""
+                handleChange={handleChange}
+                imageUpload={fileUpload}
+                imageReject={(e: any) => {
+                  e.preventDefault();
+                  clearInputField();
+                  triggerRefresh();
+                }}
+              />
               <Box className={classes.pageActions}>
 
                 <Typography
