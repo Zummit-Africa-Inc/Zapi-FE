@@ -17,15 +17,9 @@ import {
 } from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
 import { toast } from "react-toastify";
-import {
-  Add,
-  Remove,
-  Grade,
-  Loyalty,
-  UploadFile,
-  BorderColor,
-} from "@mui/icons-material";
+import { Add, Remove, Grade, Loyalty, BorderColor } from "@mui/icons-material";
 import Cookies from "universal-cookie";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
 
 import { useAppDispatch, useFormInputs, useHttpRequest } from "../hooks";
 import { useNavigate } from "react-router-dom";
@@ -311,7 +305,6 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
     setJsonFile("");
     const input = document.querySelector("input[type=file]");
     if (input) {
-      input.value = "";
     }
   };
 
@@ -357,7 +350,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
             label="Endpoints"
           />
           <CustomTab
-            icon={<UploadFile />}
+            icon={<UploadFileIcon />}
             iconPosition="start"
             label="Upload"
           />
