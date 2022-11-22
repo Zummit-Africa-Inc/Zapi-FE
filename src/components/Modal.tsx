@@ -10,6 +10,7 @@ import { SyntheticEvent, useState } from "react";
 import { useHttpRequest } from "../hooks";
 import { toast } from "react-toastify";
 import { Spinner } from "../assets";
+import { EMAIL_REGEX } from "../utils";
 
 const core_url = "VITE_CORE_URL";
 
@@ -19,10 +20,12 @@ const Modalpopup = ({ open, handleClose, setOpen }: any) => {
   const [body, setBody] = useState<string>("");
   const [load, setLoad] = useState(false)
   const { error, loading, sendRequest } = useHttpRequest();
-  const isValid = name && email && body
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
+
+    if (!name || !email || !body) return toast.error("Please fill all fields")
+    if (!EMAIL_REGEX.test(email)) return toast.error("Please input a valid email")
     setLoad(true)
     const payload = { name, email, body };
     const headers = { "Content-Type": "application/json" };
@@ -35,7 +38,6 @@ const Modalpopup = ({ open, handleClose, setOpen }: any) => {
         headers
       );
       if (!data) return;
-      console.log(data);
       const {message} = data
       setLoad(false)
       toast.success(`${message}`)
@@ -89,7 +91,6 @@ const Modalpopup = ({ open, handleClose, setOpen }: any) => {
             }}
             value={body}
             onChange={(e) => setBody(e.target.value)}
-            required
           />
           <Typography
             id="modal-modal-description"
@@ -102,7 +103,6 @@ const Modalpopup = ({ open, handleClose, setOpen }: any) => {
               }}
               variant="contained"
               disableElevation
-              disabled={!isValid}
               disableFocusRipple
               onClick={handleSubmit}>
               {load ? <Spinner/> : 'Submit'}
