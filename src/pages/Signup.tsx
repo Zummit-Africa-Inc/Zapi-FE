@@ -17,7 +17,6 @@ import { Fallback, PasswordStrengthMeter } from "../components";
 import { HomeNavbar } from "../sections";
 import { GithubIcon, GoogleIcon } from "../assets";
 import { useGoogleLogin } from "@react-oauth/google";
-import LoginGithub from "react-login-github";
 import { login } from "../redux/slices/userSlice";
 import ReactGA from "react-ga4";
 import axios from "axios";
