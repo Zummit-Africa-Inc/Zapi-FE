@@ -9,7 +9,7 @@ const APIHub: React.FC = () => {
   return (
     <>
       <HomeNavbar />
-      <APIHubHeader />
+      <APIHubHero />
       <APIHubTab />
       <Footer />
     </>
