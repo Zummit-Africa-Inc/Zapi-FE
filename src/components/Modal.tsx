@@ -20,11 +20,11 @@ const Modalpopup = ({ open, handleClose, setOpen }: any) => {
   const [body, setBody] = useState<string>("");
   const [load, setLoad] = useState(false)
   const { error, loading, sendRequest } = useHttpRequest();
+  const isValid = name && email && body
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
 
-    if (!name || !email || !body) return toast.error("Please fill all fields")
     if (!EMAIL_REGEX.test(email)) return toast.error("Please input a valid email")
     setLoad(true)
     const payload = { name, email, body };
@@ -67,6 +67,7 @@ const Modalpopup = ({ open, handleClose, setOpen }: any) => {
             label="Name"
             variant="standard"
             value={name}
+            required
             onChange={(e) => setName(e.target.value)}
           />
           <TextField
@@ -75,6 +76,7 @@ const Modalpopup = ({ open, handleClose, setOpen }: any) => {
             label="Email"
             variant="standard"
             value={email}
+            required
             onChange={(e) => setEmail(e.target.value)}
           />
           <TextareaAutosize
@@ -90,6 +92,7 @@ const Modalpopup = ({ open, handleClose, setOpen }: any) => {
               fontSize: "1em",
             }}
             value={body}
+            required
             onChange={(e) => setBody(e.target.value)}
           />
           <Typography
@@ -104,6 +107,7 @@ const Modalpopup = ({ open, handleClose, setOpen }: any) => {
               variant="contained"
               disableElevation
               disableFocusRipple
+              disabled={!isValid}
               onClick={handleSubmit}>
               {load ? <Spinner/> : 'Submit'}
             </Button>
