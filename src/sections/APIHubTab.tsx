@@ -48,12 +48,14 @@ const APIHubTab: React.FC = () => {
     }
   };
 
-  const handleTabChange = (e: SyntheticEvent, value: any) => {
-    setCategoryId(value);
-  };
+  const apis = categories.find((category) => category.id === categoryId);
 
-  const handleChange = (event: SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+  const handleTabChange = (e: SyntheticEvent, value: any) => {
+    if (apis) {
+      setCategoryId(value);
+    } else {
+      setValue(value);
+    }
   };
 
   const headers = {
@@ -61,7 +63,7 @@ const APIHubTab: React.FC = () => {
   };
 
   const handleSelector = async (id: any) => {
-    if (categoryId === null || undefined) return;
+    if (categoryId === null || undefined || 0) return;
     try {
       const res = await sendRequest(
         `/categories/${id}/apis`,
@@ -144,10 +146,11 @@ const APIHubTab: React.FC = () => {
           </StyledTabs> */}
           <StyledTabs
             orientation="vertical"
-            value={categoryId}
-            onChange={categoryId ? handleTabChange : handleChange}>
+            value={value}
+            onChange={handleTabChange}>
             <StyledTab
               label="All APIs"
+              value={value}
               iconPosition="start"
               icon={icons["All APIs"]}
             />
@@ -231,7 +234,7 @@ const APIHubTab: React.FC = () => {
         className={classes.col}
         style={isOpen ? { width: "100%" } : { width: "89%" }}>
         <div>
-          <TabPanel value={value} index={categoryId ? categoryId : 0}>
+          <TabPanel value={value} index={value}>
             <>
               <div className={classes.header}>
                 <h2>All APIs</h2>
