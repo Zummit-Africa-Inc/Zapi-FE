@@ -1,5 +1,5 @@
 import React, { SyntheticEvent, useState, useEffect } from "react";
-import { Tab, Tabs, Button, Tooltip } from "@mui/material";
+import { Tab, Tabs, Button, Tooltip, Box, Typography } from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
 import { toast } from "react-toastify";
 import {
@@ -46,6 +46,7 @@ const APIHubTab: React.FC = () => {
     }
   };
 
+
   const handleTabChange = (e: SyntheticEvent, value: any) => {
     setCategoryId(value);
   };
@@ -80,91 +81,133 @@ const APIHubTab: React.FC = () => {
       setIsOpen(false);
       setIsSlide(false);
     } else {
-      setIsOpen(false);
       setIsSlide(true);
     }
   });
 
   let icons: any = {
-    Popular: <LibraryBooks />,
-    Safety: <Layers />,
-    Security: <Security />,
-    "Customer Service": <ChatBubble />,
-    General: <Lightbulb />,
-    Sports: <SportsFootball />,
-    Travel: <AirplanemodeActive />,
-    Finance: <AttachMoney />,
-    Educational: <School />,
-    Data: <DataArray />,
-    Science: <Science />,
-    Music: <MusicNote />,
-    Tools: <Build />,
-    "Text analysis": <FormatColorText />,
-    Weather: <Cloud />,
-    "All APIs": <Apps />,
+    "popular apis": <LibraryBooks />,
+    "safety apis": <Layers />,
+    "security apis": <Security />,
+    "customer service apis": <ChatBubble />,
+    "general apis": <Lightbulb />,
+    "sports": <SportsFootball />,
+    "travel": <AirplanemodeActive />,
+    "finance": <AttachMoney />,
+    "educational": <School />,
+    "data": <DataArray />,
+    "science": <Science />,
+    "music": <MusicNote />,
+    "tools": <Build />,
+    "text analysis": <FormatColorText />,
+    "weather": <Cloud />,
+    "All apis": <Apps />,
   };
 
   return (
-    <div className={classes.container}>
+    <Box className={classes.container}>
       {loading && <Fallback />}
       {isOpen ? (
-        <div className={classes.list}>
-          <StyledTabs
-            orientation="vertical"
-            value={categoryId}
-            onChange={handleTabChange}>
-            {categories.map((category, index) => (
-              <StyledTab
-                key={category.id}
-                label={category.name}
-                value={category.id}
-                iconPosition="start"
-                icon={icons[category.name]}
-              />
-            ))}
+        <Box className={classes.list}>
+          <Box 
+            sx={{
+              paddingRight: "25px",
+              maxHeight: "510px",
+              overflowY: "scroll",
 
-            {/* <StyledTab
-              label="All APIs"
-              iconPosition="start"
-              icon={icons["All APIs"]}
-            /> */}
-          </StyledTabs>
+              "&::-webkit-scrollbar": {
+                width: "2px"
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "#071B85",
+                borderRadius: 0
+              },
+              
+            }}
+          >
+            <StyledTabs
+              orientation="vertical"
+              value={categoryId}
+              onChange={handleTabChange}>
+              {categories.map((category, index) => (
+                <StyledTab
+                  key={category.id}
+                  label={category.name}
+                  value={category.id}
+                  iconPosition="start"
+                  icon={icons[category.name.toLowerCase()]}
+                />
+              ))}
+
+              {/* <StyledTab
+                label="All APIs"
+                iconPosition="start"
+                icon={icons["All APIs"]}
+              /> */}
+            </StyledTabs>
+          </Box>
 
           <Tooltip title="Collapse" placement="right" arrow>
-            <Button id="collapseButton" onClick={handleSideBarChange}>
+            <Button
+
+                id="collapseButton" 
+                onClick={handleSideBarChange}
+                sx={{ marginRight: "-20px" }}
+            >
               <ArrowBackIos
                 sx={{ color: "#071B85", width: "18px", height: "auto" }}
               />
             </Button>
           </Tooltip>
-        </div>
+        </Box>
       ) : (
-        <div
+        <Box
           className={classes.list}
-          style={{ display: "flex", alignItems: "center", width: "auto" }}>
-          <StyledTabs
-            orientation="vertical"
-            value={categoryId}
-            onChange={handleTabChange}>
-            {categories.map((category, index) => (
-              <Tooltip
-                key={index}
-                title={category.name}
-                placement="right"
-                arrow>
-                <StyledTab
-                  key={index}
-                  iconPosition="start"
-                  icon={icons[category.name]}
-                  value={category.id}
-                />
-              </Tooltip>
-            ))}
+          style={{ display: "flex", alignItems: "center", width: "auto" }}
+        >
 
-            <Tooltip title="All APIs" placement="right" arrow>
-              <StyledTab iconPosition="start" icon={<Apps />} />
-            </Tooltip>
-          </StyledTabs>
+          <Box 
+            sx={{
+              paddingRight: "25px",
+              maxHeight: "510px",
+              overflowY: "scroll",
+
+              "&::-webkit-scrollbar": {
+                width: "2px"
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "#071B85",
+                borderRadius: 0
+              },
+              
+            }}
+          >
+            
+            <StyledTabs
+              orientation="vertical"
+              value={categoryId}
+              onChange={handleTabChange}>
+              {categories.map((category, index) => (
+                <Tooltip
+                  key={index}
+                  title={category.name}
+                  placement="right"
+                  arrow>
+                  <StyledTab
+                    key={index}
+                    iconPosition="start"
+                    icon={icons[category.name.toLowerCase()]}
+                    value={category.id}
+                  />
+                </Tooltip>
+              ))}
+
+              {/* <Tooltip title="All APIs" placement="right" arrow>
+                <StyledTab iconPosition="start" icon={<Apps />} />
+              </Tooltip> */}
+            </StyledTabs>
+
+          </Box>
 
           <Tooltip title="Expand" placement="right" arrow>
             {isSlide ? (
@@ -174,7 +217,7 @@ const APIHubTab: React.FC = () => {
                 sx={{ width: "100%" }}>
                 <ArrowForwardIos
                   sx={{
-                    marginLeft: "12px",
+                    marginLeft: "-12px",
                     color: "#071B85",
                     width: "18px",
                     height: "auto",
@@ -185,44 +228,44 @@ const APIHubTab: React.FC = () => {
               <></>
             )}
           </Tooltip>
-        </div>
+        </Box>
       )}
 
-      <div
+      <Box
         className={classes.col}
         style={isOpen ? { width: "100%" } : { width: "89%" }}>
-        <div>
+        <Box>
           {categories.map((category: any, index: number) => (
             <TabPanel key={index} value={category.id} index={categoryId}>
               <>
-                <div className={classes.header}>
-                  <h2>{category.name}</h2>
-                  <p>{category.description}</p>
-                </div>
-                <div className={classes.grid}>
+                <Box className={classes.header}>
+                  <Typography component="h2">{category.name}</Typography>
+                  <Typography component="p">{category.description}</Typography>
+                </Box>
+                <Box className={classes.grid}>
                   {categoryApis?.map((api: any) => (
                     <APICard key={api.id} {...api} />
                   ))}
-                </div>
+                </Box>
               </>
             </TabPanel>
           ))}
           {/* <TabPanel value={tab} index={categories.length}>
             <>
-              <div className={classes.header}>
+              <Box className={classes.header}>
                 <h2>All APIs</h2>
                 <p>List of all public APIs on ZAPI</p>
-              </div>
-              <div className={classes.grid}>
+              </Box>
+              <Box className={classes.grid}>
                 {allApis.map((api) => (
                   <APICard key={api.id} {...api} />
                 ))}
-              </div>
+              </Box>
             </>
           </TabPanel> */}
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 
@@ -245,7 +288,7 @@ const StyledTab = styled(Tab)({
   "&.Mui-selected": {
     backgroundColor: "#DADDE4",
     borderLeft: "2px solid #314298",
-    color: "#071B85",
+    color: "#071b85",
     "& svg": {
       marginLeft: "-1px",
     },
@@ -300,8 +343,8 @@ const useStyles = makeStyles({
   container: {
     width: "auto",
     display: "flex",
-    gap: "16px",
-    margin: "0 0 109px 1rem",
+    // gap: "16px",
+    margin: "0 0 80px 1.8rem",
     "@media screen and (max-width: 1024px)": {
       margin: "0 0 109px 1rem",
     },
@@ -315,21 +358,20 @@ const useStyles = makeStyles({
     },
   },
   list: {
-    width: "250px",
-    height: "auto",
-    // maxHeight: "470px",
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-end",
     backgroundColor: "#fff",
     paddingTop: "0px",
-    overflowY: "scroll",
+    width: "390px",
+    height: "100%",
+    overflowX: "hidden",
     "@media screen and (max-width: 500px)": {
       width: "100%",
     },
   },
   col: {
-    borderLeft: "1px solid #c1c1c1",
+    // borderLeft: "1px solid #c1c1c1",
     padding: "0 1rem 0 37px",
     width: "100%",
     height: "auto",
@@ -352,6 +394,8 @@ const useStyles = makeStyles({
     "& h2": {
       marginBottom: "3px",
       fontSize: "22px",
+      fontWeight: "bold",
+      textTransform: "capitalize",
       "@media screen and (max-width: 820px)": {
         fontSize: "20px",
       },
