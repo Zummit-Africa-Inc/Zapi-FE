@@ -5,9 +5,8 @@ import { makeStyles } from "@mui/styles";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
 
-import { APIType, EndpointsType, OptionsType, TestType } from "../types";
+import { APIType, EndpointsType, OptionsType, TestResponse, TestType } from "../types";
 import { useFormInputs, useHttpRequest } from "../hooks";
-import { ids } from "webpack";
 
 interface Props {
     id: string | undefined
@@ -39,11 +38,6 @@ const Tests:React.FC<Props> = ({id}) => {
     const { testName, endpointName, route, headerValue, bodyValue, paramsValue } = inputs
     const cookies = new Cookies();
     const classes= useStyles();
-
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (e: MouseEvent<HTMLElement>) => setAnchorEl(e.currentTarget);
-    const handleClose = () => setAnchorEl(null);
     
     const [headers, setHeaders] = useState<Array<OptionsType>>([])
     const [body, setBody] = useState<Array<OptionsType>>([])
@@ -246,24 +240,12 @@ const Tests:React.FC<Props> = ({id}) => {
                     <TableCell>Time</TableCell>
                     {/* <TableCell>Status</TableCell> */}
                     <TableCell sx={{display: "flex",alignItems: "center",gap: "1rem"}}>
-                        <>
-                        <IconButton onClick={handleClick}>
-                            <MoreVert />
-                        </IconButton>
-                        <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-                            <MenuItem onClick={handleClose}>
-                                <Button onClick={() => console.log("run")} style={{background: colors["run"],color: "#FFF"}}>
-                                    run
-                                </Button>
-                            </MenuItem>
-                            <MenuItem onClick={handleClose}>
-                                <Button onClick={() => console.log("delete")} style={{background: colors["delete"],color: "#FFF"}}>
-                                    delete
-                                </Button>
-                            </MenuItem>
-                        </Menu>
-                        </>
-
+                        <Button onClick={() => console.log("run")} sx={{background: colors["run"],color: "#FFF"}}>
+                            run
+                        </Button>
+                        <Button onClick={() => console.log("delete")} sx={{background: colors["delete"],color: "#FFF"}}>
+                            delete
+                        </Button>
                     </TableCell>
                 </TableRow>
             </TableBody>

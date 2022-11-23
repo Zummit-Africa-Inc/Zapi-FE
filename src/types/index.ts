@@ -160,3 +160,8 @@ export type TestType = {
    action: string
    icon: JSX.Element
 }
+
+export type TestResponse = {
+   id: string
+   testName: string
+}
