@@ -297,7 +297,7 @@ const useStyles = makeStyles({
     gap: "16px",
     width: "190px",
     lineHeight: "46px",
-    background: "#2fc973",
+    background: "#00b651",
     borderRadius: "8px",
     cursor: "pointer",
     color: "#FFFFFF",

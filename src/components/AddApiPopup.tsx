@@ -281,7 +281,7 @@ const useStyles = makeStyles({
     padding: "8px 14px",
     gap: "16px",
     height: "46px",
-    background: "#2fc973",
+    background: "#00b651",
     fontFamily: "inherit",
     color: "white",
     borderRadius: "4px",
