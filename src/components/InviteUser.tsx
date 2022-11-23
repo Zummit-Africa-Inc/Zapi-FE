@@ -124,7 +124,7 @@ const useStyles = makeStyles({
     },
   },
   button: {
-    backgroundColor: "#00b651",
+    backgroundColor: "#26c340",
     border: "none",
     boxSizing: "border-box",
     alignItems: "center",

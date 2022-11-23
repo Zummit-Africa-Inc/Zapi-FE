@@ -205,7 +205,7 @@ const useStyles = makeStyles({
   Link: {
     padding: "10px",
     borderRadius: "5px",
-    background: "#00b651",
+    background: "#26c340",
     color: "#fff",
     pointer: "cursor",
     fontSize: "15px",
@@ -216,13 +216,13 @@ const useStyles = makeStyles({
     height: "calc(100vh - 315px)",
   },
   button: {
-    background: "#4c8191",
+    background: "#274974",
     color: "white",
     border: "none",
     fontSize: "15px",
   },
   button1: {
-    background: "#e73e39",
+    background: "#e83f33",
     color: "white",
     fontSize: "15px",
   },
