@@ -186,7 +186,7 @@ const GeneralTab: React.FC = () => {
     setImage("");
     const input = document.querySelector("input[type=file]");
     if (input) {
-      input.value = "";
+      // input.value = "";
     }
   };
 
