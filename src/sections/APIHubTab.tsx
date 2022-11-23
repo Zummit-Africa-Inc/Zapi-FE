@@ -73,23 +73,6 @@ const APIHubTab: React.FC = () => {
     handleSelector(categoryId);
   }, [categoryId]);
 
-  const allApis = async () => {
-    try {
-      const data = await sendRequest(
-        "/api",
-        "get",
-        core_url,
-        undefined,
-        headers
-      );
-      setAPIs(data.data);
-    } catch (error) {}
-  };
-
-  useEffect(() => {
-    allApis();
-  }, []);
-
   useEffect(() => {
     error && toast.error(`${error}`);
   }, [error]);
