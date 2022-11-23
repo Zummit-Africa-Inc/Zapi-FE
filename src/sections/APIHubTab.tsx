@@ -48,14 +48,8 @@ const APIHubTab: React.FC = () => {
     }
   };
 
-  const apis = categories.find((category) => category.id === categoryId);
-
   const handleTabChange = (e: SyntheticEvent, value: any) => {
-    if (apis) {
-      setCategoryId(value);
-    } else {
-      setValue(value);
-    }
+    setCategoryId(value);
   };
 
   const headers = {
@@ -63,7 +57,7 @@ const APIHubTab: React.FC = () => {
   };
 
   const handleSelector = async (id: any) => {
-    if (categoryId === null || undefined || 0) return;
+    if (categoryId === null || undefined) return;
     try {
       const res = await sendRequest(
         `/categories/${id}/apis`,
@@ -126,7 +120,7 @@ const APIHubTab: React.FC = () => {
     Tools: <Build />,
     "Text analysis": <FormatColorText />,
     Weather: <Cloud />,
-    "All APIs": <Apps />,
+    All: <Apps />,
   };
 
   return (
@@ -134,26 +128,10 @@ const APIHubTab: React.FC = () => {
       {loading && <Fallback />}
       {isOpen ? (
         <Box className={classes.list}>
-          {/* <StyledTabs
-            orientation="vertical"
-            value={value}
-            onChange={handleChange}>
-            <StyledTab
-              label="All APIs"
-              iconPosition="start"
-              icon={icons["All APIs"]}
-            />
-          </StyledTabs> */}
           <StyledTabs
             orientation="vertical"
-            value={value}
+            value={categoryId}
             onChange={handleTabChange}>
-            <StyledTab
-              label="All APIs"
-              value={value}
-              iconPosition="start"
-              icon={icons["All APIs"]}
-            />
             {categories.map((category, index) => (
               <StyledTab
                 key={category.id}
@@ -177,21 +155,10 @@ const APIHubTab: React.FC = () => {
         <div
           className={classes.list}
           style={{ display: "flex", alignItems: "center", width: "auto" }}>
-          {/* <StyledTabs
-            orientation="vertical"
-            value={value}
-            onChange={handleChange}>
-            <Tooltip title="All APIs" placement="right" arrow>
-              <StyledTab iconPosition="start" icon={<Apps />} />
-            </Tooltip>
-          </StyledTabs> */}
           <StyledTabs
             orientation="vertical"
             value={categoryId}
             onChange={handleTabChange}>
-            <Tooltip title="All APIs" placement="right" arrow>
-              <StyledTab iconPosition="start" icon={<Apps />} />
-            </Tooltip>
             {categories.map((category, index) => (
               <Tooltip
                 key={index}
@@ -234,19 +201,6 @@ const APIHubTab: React.FC = () => {
         className={classes.col}
         style={isOpen ? { width: "100%" } : { width: "89%" }}>
         <div>
-          <TabPanel value={value} index={value}>
-            <>
-              <div className={classes.header}>
-                <h2>All APIs</h2>
-                <p>List of all public APIs on ZAPI</p>
-              </div>
-              <div className={classes.grid}>
-                {APIs.map((api: any) => (
-                  <APICard key={api.id} {...api} />
-                ))}
-              </div>
-            </>
-          </TabPanel>
           {categories.map((category: any, index: number) => (
             <TabPanel key={index} value={category.id} index={categoryId}>
               <>

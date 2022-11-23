@@ -13,12 +13,12 @@ import ReactGA from "react-ga4";
 const CustomTabs = styled(Tabs)({
   "&.MuiTabs-root": {
     width: "200px",
-    padding: "0 8px"
+    padding: "0 8px",
   },
   "& .MuiTabs-indicator": {
     display: "none",
   },
-})
+});
 
 const CustomTab = styled(Tab)({
   "&.MuiTab-root": {
@@ -43,12 +43,12 @@ const CustomTab = styled(Tab)({
       color: "#FFF",
     },
   },
-})
+});
 
 const TabItems = [
-  {name: "Hub Listing", icon: <LanguageOutlined />},
-  {name: "Tests", icon: <ScienceOutlined />},
-]
+  { name: "Hub Listing", icon: <LanguageOutlined /> },
+  { name: "Tests", icon: <ScienceOutlined /> },
+];
 
 const DeveloperApiPage: React.FC = () => {
   const classes = useStyles();
@@ -56,11 +56,11 @@ const DeveloperApiPage: React.FC = () => {
   const navigate = useNavigate();
   const { userApis } = useAppSelector((store) => store.user);
   const api = userApis.find((api) => api?.id === id);
-  const [tab, setTab] = useState<number>(0)
+  const [tab, setTab] = useState<number>(0);
 
   ReactGA.send({ hitType: "pageview", page: "/developer/api/id" });
 
-  const handleTabChange = (e: SyntheticEvent, value: number) => setTab(value)
+  const handleTabChange = (e: SyntheticEvent, value: number) => setTab(value);
 
   if (api === undefined) {
     return <ErrorPage />;
@@ -68,18 +68,22 @@ const DeveloperApiPage: React.FC = () => {
 
   return (
     <div className={classes.root}>
-      <Box sx={{width: "100%", height: "70px"}}>
+      <Box sx={{ width: "100%", height: "70px" }}>
         <DevNavbar />
       </Box>
       <div className={classes.container}>
         <Stack className={classes.sidebar}>
-          <CustomTabs orientation="vertical" value={tab} onChange={handleTabChange}>
+          <CustomTabs
+            orientation="vertical"
+            value={tab}
+            onChange={handleTabChange}>
             {TabItems.map((item, index) => (
               <CustomTab
-              key={index}
-              label={item.name}
-              icon={item.icon}
-              iconPosition="start" />
+                key={index}
+                label={item.name}
+                icon={item.icon}
+                iconPosition="start"
+              />
             ))}
           </CustomTabs>
         </Stack>
@@ -87,9 +91,9 @@ const DeveloperApiPage: React.FC = () => {
           <TabPanel value={tab} index={0}>
             <ApiPageLayout id={id} />
           </TabPanel>
-          <TabPanel value={tab} index={1}>
+          {/* <TabPanel value={tab} index={1}>
             <Testing id={id} />
-          </TabPanel>
+          </TabPanel> */}
         </Box>
       </div>
     </div>
@@ -118,7 +122,7 @@ const useStyles = makeStyles({
     width: "100%",
     height: "100%",
     overflowY: "hidden",
-  }
+  },
 });
 
 export default DeveloperApiPage;
