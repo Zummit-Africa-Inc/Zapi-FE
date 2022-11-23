@@ -313,12 +313,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
       }
     }
   };
-  const clearInputField = () => {
-    setJsonFile("");
-    const input = document.querySelector("input[type=file]");
-    if (input) {
-    }
-  };
+
 
   return (
     <Paper className={classes.paper}>
@@ -697,7 +692,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                 imageUpload={fileUpload}
                 imageReject={(e: any) => {
                   e.preventDefault();
-                  clearInputField();
+                  setJsonFile("");
                   triggerRefresh();
                 }}
               />
