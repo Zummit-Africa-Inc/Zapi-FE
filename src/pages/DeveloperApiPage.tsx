@@ -112,12 +112,13 @@ const useStyles = makeStyles({
   },
   sidebar: {
     height: "100%",
-    padding: "1rem 0 0",
+    padding: "3rem 0.75rem 0",
   },
   scroll: {
     width: "100%",
     height: "100%",
     overflowY: "hidden",
+    padding: "1rem 0.5rem 0",
   }
 });
 

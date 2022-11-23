@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from "react";
-import { Box, Button, IconButton, MenuItem, Paper, Select, Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
-import { Add, ContentCopy, Delete, Edit, PlayArrow } from "@mui/icons-material";
+import { Box, Button, IconButton, Menu, MenuItem, Paper, Select, Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
+import { Add, ContentCopy, Delete, Edit, MoreVert, PlayArrow } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
@@ -22,9 +22,9 @@ const colors: any = {
 
 const testOptions: Array<TestType> = [
     { name: "Run", action: "run", icon: <PlayArrow />},
-    { name: "Edit", action: "edit", icon: <Edit /> },
     { name: "Delete", action: "delete", icon: <Delete /> },
-    { name: "Duplicate", action: "duplicate", icon: <ContentCopy /> },
+    // { name: "Edit", action: "edit", icon: <Edit /> },
+    // { name: "Duplicate", action: "duplicate", icon: <ContentCopy /> },
 ]
 
 const initialState = { testName: "", endpointName: "", route: "", headerValue: "", bodyValue: "", paramsValue: ""}
@@ -38,7 +38,7 @@ const Tests:React.FC<Props> = ({id}) => {
     const [api, setApi] = useState<APIType | null>(null);
     const { testName, endpointName, route, headerValue, bodyValue, paramsValue } = inputs
     const cookies = new Cookies();
-    const classes= useStyles(); 
+    const classes= useStyles();
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -75,7 +75,6 @@ const Tests:React.FC<Props> = ({id}) => {
             'Content-Type': "application/json",
             'X-Zapi-Auth-Token': `Bearer ${cookies.get("accessToken")}`
         };
-        const paylod = {}
         try {
             const apiData = await sendRequest(`/api/findOne/${apiId}`, "get", "VITE_CORE_URL", {}, headers);
             const endpointsData = await sendRequest(`/endpoints/${apiId}`, "get", "VITE_CORE_URL", {}, headers);
@@ -127,8 +126,6 @@ const Tests:React.FC<Props> = ({id}) => {
         }
     };
     
-    const handleCreating = () => creatingTest ? setCreatingTest(false) : setCreatingTest(true)
-    
     useEffect(() => {
         fetchApiData(id)
     },[])
@@ -139,9 +136,11 @@ const Tests:React.FC<Props> = ({id}) => {
             <Box className={classes.inputs}>
                 <input type="text" name="search" placeholder="Search tests" />
             </Box>
-            <Button onClick={handleCreating} className={classes.button}>
-                {creatingTest ? "Cancel" : "Create Test"}
-            </Button>
+            {!creatingTest && (
+                <Button onClick={() => setCreatingTest(true)} className={classes.button}>
+                    Create Test
+                </Button>
+            )}
         </Stack>
         {creatingTest && (
             <form onSubmit={addTest} style={{margin: "0 0 2rem"}}>
@@ -151,6 +150,9 @@ const Tests:React.FC<Props> = ({id}) => {
                     </Box>
                     <Box className={classes.inputs}>
                         <button type="submit" disabled={!endpointName}>add</button>
+                    </Box>
+                    <Box className={classes.inputs}>
+                        <button type="button" onClick={() => setCreatingTest(false)} style={{background: colors["delete"]}}>cancel</button>
                     </Box>
                 </Stack>
                 {testName && endpoints && (
@@ -245,25 +247,23 @@ const Tests:React.FC<Props> = ({id}) => {
                     {/* <TableCell>Status</TableCell> */}
                     <TableCell sx={{display: "flex",alignItems: "center",gap: "1rem"}}>
                         <>
-                        {testOptions
-                        .filter((opt) => opt.action === testAction)
-                        .map((opt, index) => (
-                            <Box key={index} className={classes.inputs}>
-                                <Button onClick={() => runTestAction(opt.action)} style={{background: colors[opt.action]}}>
-                                    {opt.name}
+                        <IconButton onClick={handleClick}>
+                            <MoreVert />
+                        </IconButton>
+                        <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+                            <MenuItem onClick={handleClose}>
+                                <Button onClick={() => console.log("run")} style={{background: colors["run"],color: "#FFF"}}>
+                                    run
                                 </Button>
-                            </Box>
-                        ))}
-                        <Box className={classes.inputs}>
-                            <select name="test" value={testAction} onChange={(e: ChangeEvent<HTMLSelectElement>) => setTestAction(e.target.value)}>
-                                {testOptions.map((opt, index) => (
-                                    <option key={index} value={opt.action}>
-                                        {opt.name}
-                                    </option>
-                                ))}
-                            </select>
-                        </Box>
+                            </MenuItem>
+                            <MenuItem onClick={handleClose}>
+                                <Button onClick={() => console.log("delete")} style={{background: colors["delete"],color: "#FFF"}}>
+                                    delete
+                                </Button>
+                            </MenuItem>
+                        </Menu>
                         </>
+
                     </TableCell>
                 </TableRow>
             </TableBody>
