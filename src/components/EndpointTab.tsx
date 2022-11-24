@@ -316,7 +316,6 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
     }
   };
 
-
   return (
     <Paper className={classes.paper}>
       <Stack direction="column" mb={6}>
@@ -353,8 +352,16 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
           indicatorColor="primary"
           textColor="inherit"
           onChange={handleTabChange}>
-          <CustomTab label="Endpoints" />
-          <CustomTab label="Api" />
+          <CustomTab
+            icon={<BorderColor />}
+            iconPosition="start"
+            label="Endpoints"
+          />
+          <CustomTab
+            icon={<UploadFileIcon />}
+            iconPosition="start"
+            label="Upload"
+          />
         </CustomTabs>
       </Stack>
       <Box>
