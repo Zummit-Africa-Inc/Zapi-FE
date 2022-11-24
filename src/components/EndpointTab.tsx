@@ -1,9 +1,25 @@
-import React, { FormEvent, useEffect, useState, SyntheticEvent, useRef } from "react";
-import { IconButton, Paper, Stack, Typography, Tab, Tabs, Button, Box } from "@mui/material";
+import React, {
+  FormEvent,
+  useEffect,
+  useState,
+  SyntheticEvent,
+  useRef,
+} from "react";
+import {
+  IconButton,
+  Paper,
+  Stack,
+  Typography,
+  Tab,
+  Tabs,
+  Button,
+  Box,
+} from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
 import { toast } from "react-toastify";
-import { Add, Remove, Grade, Loyalty } from "@mui/icons-material";
+import { Add, Remove, Grade, Loyalty, BorderColor } from "@mui/icons-material";
 import Cookies from "universal-cookie";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
 
 import { useAppDispatch, useFormInputs, useHttpRequest } from "../hooks";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +31,6 @@ import { Spinner } from "../assets";
 import { useContextProvider } from "../contexts/ContextProvider";
 import ReactGA from "react-ga4";
 import UploadFile from "./UploadFile";
-
 
 const CustomTabs = styled(Tabs)({
   "& .MuiTabs-indicator": {
@@ -32,7 +47,7 @@ const CustomTab = styled(Tab)({
   },
   "&.Mui-selected": {
     backgroundColor: "#081f4A",
-    // borderRadius: "0px",
+    borderRadius: "10px",
     color: "white !important",
   },
 });
@@ -64,6 +79,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
   const [isOptionsOpen, setIsOptionsOpen] = useState<boolean>(false);
   const { error, loading, sendRequest } = useHttpRequest();
   const [tab, setTab] = useState<number>(0);
+  const [file, setFile] = useState<any>();
   const [JsonFile, setJsonFile] = useState<any>("");
   const [JsonData, setJsonData] = useState<any>("");
   const { triggerRefresh } = useContextProvider();
@@ -163,7 +179,10 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (!name || !route || !description) return toast.error("Name, route and description are required fields");
+    if (!name || !route || !description)
+      return toast.error("Name, route and description are required fields");
+    const formData = new FormData();
+    formData.append("file", file);
     const payload = {
       name,
       route,
@@ -187,7 +206,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
       dispatch(addEndpoint(payload));
       const { message } = data;
       toast.success(`${message}`);
-    } catch (error) { }
+    } catch (error) {}
     setIsAdding(false);
     setHeadersArray([]);
     setRequestBodyArray([]);
@@ -200,18 +219,17 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
   }, [error]);
 
   useEffect(() => {
-    method === "" && setIsOptionsOpen(false)
-  }, [method])
+    method === "" && setIsOptionsOpen(false);
+  }, [method]);
 
   const handleChange = (e: any) => {
     const fileReader = new FileReader();
     fileReader.readAsText(e.target.files![0], "UTF-8");
-    fileReader.onload = e => {
+    fileReader.onload = (e) => {
       // console.log("e.target.result", e.target!.result);
       setJsonFile(e.target!.result);
     };
-  }
-
+  };
 
   const isValidJsonString = (query: string) => {
     if (!(query && typeof query === "string")) {
@@ -226,9 +244,9 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
     }
   };
   const JsonKeysExists = (objectName: string, keyName: string) => {
-    JSON.parse(JsonFile).hasOwnProperty(keyName)
+    JSON.parse(JsonFile).hasOwnProperty(keyName);
     return toast.error(`{JSON file is missing ${keyName} key}`);
-  }
+  };
 
   const checkField = (obj: any, fields: any) => {
     for (let field of fields) {
@@ -244,21 +262,22 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
     e.preventDefault();
     if (!JsonFile) {
       toast.error("Select a file to upload");
-    }
-    else if (!isValidJsonString(JsonFile)) {
+    } else if (!isValidJsonString(JsonFile)) {
       toast.error("Invalid JSON file");
-    }
-    else {
-      if (!(JSON.parse(JsonFile).hasOwnProperty("info")) || !(JSON.parse(JsonFile).hasOwnProperty("event")) || !(JSON.parse(JsonFile).hasOwnProperty("item")) || !(JSON.parse(JsonFile).hasOwnProperty("variable"))) {
+    } else {
+      if (
+        !JSON.parse(JsonFile).hasOwnProperty("info") ||
+        !JSON.parse(JsonFile).hasOwnProperty("event") ||
+        !JSON.parse(JsonFile).hasOwnProperty("item") ||
+        !JSON.parse(JsonFile).hasOwnProperty("variable")
+      ) {
         toast.error("JSON file is missing required key");
-      }
-      else {
-        const parsedJson = JSON.parse(JsonFile)
+      } else {
+        const parsedJson = JSON.parse(JsonFile);
         for (const key in parsedJson) {
           if (Object.prototype.hasOwnProperty.call(parsedJson, key)) {
             const element = parsedJson[key];
             // console.log(element)
-
           }
         }
         toast.success("Items uploadd successfully");
@@ -277,25 +296,23 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
             headers
           );
           setJsonData(data.data);
+
           if (data.skipped.length === 0) {
             return toast.success("No items Skipped");
+          } else {
+            return toast.warning(
+              `The following were skipped Skipped ${JSON.stringify(
+                data.skipped
+              )}`
+            );
           }
-          else {
-            return toast.warning(`The following were skipped Skipped ${JSON.stringify(data.skipped)}`);
-          }
-          console.log(data.skipped)
+          console.log(data.skipped);
           // setTimeout(() => {
           //   navigate("/developer/dashboard");
           // }, 2000);
-        } catch (error) { }
+        } catch (error) {}
         // }
       }
-    }
-  };
-  const clearInputField = () => {
-    setJsonFile("");
-    const input = document.querySelector("input[type=file]");
-    if (input) {
     }
   };
 
@@ -327,7 +344,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            borderRadius: "10px",
+            borderRadius: "10px !important",
             background: "white",
             color: "black",
           }}
@@ -336,10 +353,14 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
           textColor="inherit"
           onChange={handleTabChange}>
           <CustomTab
+            icon={<BorderColor />}
+            iconPosition="start"
             label="Endpoints"
           />
           <CustomTab
-            label="Api"
+            icon={<UploadFileIcon />}
+            iconPosition="start"
+            label="Upload"
           />
         </CustomTabs>
       </Stack>
@@ -356,7 +377,11 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                 Endpoints
               </Typography>
 
-              <Typography variant="body1" fontSize="16px" fontWeight={400} mb={1}>
+              <Typography
+                variant="body1"
+                fontSize="16px"
+                fontWeight={400}
+                mb={1}>
                 Changes made to the endpoints will be reflected in the Hub.
               </Typography>
               <Box className={classes.pageDescription}>
@@ -378,7 +403,12 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
             </Stack>
             {isAdding && (
               <form onSubmit={handleSubmit}>
-                <Stack direction="row" width="100%" alignItems="center" justifyContent="space-between" my={1}>
+                <Stack
+                  direction="row"
+                  width="100%"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  my={1}>
                   <Typography>Add Endpoint</Typography>
                   <button
                     type="submit"
@@ -389,7 +419,12 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                 </Stack>
                 <Stack direction="column" spacing={1} mt={4} mb={1}>
                   <Box className={classes.inputs}>
-                    <input type="text" name="name" {...bind} placeholder="Name" />
+                    <input
+                      type="text"
+                      name="name"
+                      {...bind}
+                      placeholder="Name"
+                    />
                   </Box>
                   <Box className={classes.inputs}>
                     <textarea
@@ -409,9 +444,17 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                     </select>
                   </Box>
                   <Box className={classes.inputs}>
-                    <input type="text" name="route" {...bind} placeholder="Route" />
+                    <input
+                      type="text"
+                      name="route"
+                      {...bind}
+                      placeholder="Route"
+                    />
                   </Box>
-                  <IconButton onClick={toggleOptions} disabled={method === "post"} title="Toggle Params">
+                  <IconButton
+                    onClick={toggleOptions}
+                    disabled={method === "post"}
+                    title="Toggle Params">
                     {isOptionsOpen ? <Remove /> : <Add />}
                   </IconButton>
                 </Stack>
@@ -486,13 +529,40 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                           </Box>
                           <Box className={classes.inputs}>
                             <select name="requestBodyFormat" {...select}>
-                              <option value="application/json">application/json</option>
-                              <option value="application/xml">application/xml</option>
-                              <option value="application/octet-stream">application/octet-stream</option>
+                              <option value="application/json">
+                                application/json
+                              </option>
+                              <option value="application/xml">
+                                application/xml
+                              </option>
+                              <option value="application/octet-stream">
+                                application/octet-stream
+                              </option>
                               <option value="text/plain">text/plain</option>
                               <option value="form-data">form-data</option>
                             </select>
                           </Box>
+                          {requestBodyFormat === "form-data" && (
+                            <Box
+                              sx={{
+                                display: "flex",
+                                // justifyContent: "center",
+                                alignItems: "center",
+                                "& input": {
+                                  width: "200px",
+                                  // height: "40px",
+                                  padding: "0.5rem 0.5rem",
+                                  borderRadius: "4px",
+                                  border: "1px solid #999",
+                                  outline: "none",
+                                },
+                              }}>
+                              <input
+                                type="file"
+                                onChange={(e) => setFile(e.target.files)}
+                              />
+                            </Box>
+                          )}
                           <Box className={classes.inputs}>
                             <input
                               type="checkbox"
@@ -618,7 +688,11 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                 Update API Definition
               </Typography>
 
-              <Typography variant="body1" fontSize="16px" fontWeight={400} mb={10}>
+              <Typography
+                variant="body1"
+                fontSize="16px"
+                fontWeight={400}
+                mb={10}>
                 We only make use of Postman collection for now.
               </Typography>
               <UploadFile
@@ -627,21 +701,20 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                 imageUpload={fileUpload}
                 imageReject={(e: any) => {
                   e.preventDefault();
-                  clearInputField();
+                  setJsonFile("");
                   triggerRefresh();
                 }}
               />
               <Box className={classes.pageActions}>
-
                 <Typography
                   variant="subtitle1"
                   fontSize="1rem"
                   color="#081F4A"
-                  fontWeight={400}
-                >(application/json)</Typography>
+                  fontWeight={400}>
+                  (application/json)
+                </Typography>
               </Box>
             </Stack>
-
           </Stack>
         </TabPanel>
       </Box>
@@ -795,6 +868,5 @@ const useStyles = makeStyles({
       color: "red",
       padding: "1em",
     },
-  }
+  },
 });
-
