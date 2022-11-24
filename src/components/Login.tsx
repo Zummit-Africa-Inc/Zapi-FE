@@ -1,7 +1,7 @@
 import React, { FormEvent, useEffect } from "react";
-import { Stack, Typography } from "@mui/material";
+import { Divider, Stack, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
 
@@ -10,7 +10,7 @@ import { useAppDispatch, useFormInputs, useHttpRequest } from "../hooks";
 import { EMAIL_REGEX, PASSWORD_REGEX } from "../utils";
 import { login } from "../redux/slices/userSlice";
 import { Fallback } from "../components";
-import { GoogleIcon } from "../assets";
+import { GithubIcon, GoogleIcon } from "../assets";
 import { showModal } from "../redux/slices/modalSlice";
 import { useGoogleLogin } from "@react-oauth/google";
 import ReactGA from "react-ga4";
@@ -18,14 +18,16 @@ import ReactGA from "react-ga4";
 ReactGA.send({ hitType: "pageview", page: "/login" });
 
 const initialState = { email: "", password: "" };
-// const url = import.meta.env.VITE_IDENTITY_URL;
+
 const url = "VITE_IDENTITY_URL";
+const GITHUB_CLIENT_ID = import.meta.env.VITE_GITHUB_CLIENT_ID;
 
 const Login: React.FC = () => {
   const { deviceInfo, deviceLocation, deviceIP, handleUnclicked } =
     useContextProvider();
   const { error, loading, sendRequest } = useHttpRequest();
   const { inputs, bind } = useFormInputs(initialState);
+  const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const classes = useStyles();
@@ -135,6 +137,66 @@ const Login: React.FC = () => {
     },
   });
 
+  const githubAuth = () => {
+    window.location.assign(
+      "https://github.com/login/oauth/authorize?client_id=" + GITHUB_CLIENT_ID
+    );
+  };
+
+  if (searchParams.get("code")) {
+    useEffect(() => {
+      const githubLogin = async () => {
+        const payload = {
+          token: searchParams.get("code"),
+          userInfo: {
+            login_time: deviceLocation.time,
+            country: { lat: deviceLocation.lat, lon: deviceLocation.lon },
+            deviceIP,
+            browser_name: deviceInfo.browserName,
+            os_name: deviceInfo.osName,
+          },
+        };
+        const headers = { "Content-Type": "application/json" };
+        try {
+          const data = await sendRequest(
+            "/auth/github",
+            "post",
+            url,
+            payload,
+            headers
+          );
+          if (!data) return;
+          toast.success("Login Successful!");
+          const {
+            access,
+            email,
+            fullName,
+            profileId,
+            refresh,
+            userId,
+            secretKey,
+          } = data.data;
+          const user = { email, fullName, profileId, secretKey };
+          dispatch(login(user));
+          cookies.set("accessToken", access);
+          cookies.set("refreshToken", refresh);
+          cookies.set("profileId", profileId);
+          cookies.set("userId", userId);
+          cookies.set("secretKey", secretKey);
+          handleUnclicked("login");
+          dispatch(
+            showModal({
+              action: "hide",
+              type: "loginModal",
+            })
+          );
+          navigate("/developer/dashboard");
+        } catch (error) {}
+      };
+      githubLogin();
+    }, []);
+  }
+
   useEffect(() => {
     {
       error && toast.error(`${error}`);
@@ -151,12 +213,10 @@ const Login: React.FC = () => {
           <Typography variant="body1" fontSize="40px" fontWeight={400}>
             Sign In
           </Typography>
-
           <p className={classes.subtitle}>
             Already have a ZAPI account? Sign in to begin exploring our API
             options.
           </p>
-
           <form onSubmit={handleLogin} className={classes.form}>
             <div className={classes.input}>
               <label htmlFor="email">Email Address</label>
@@ -188,14 +248,18 @@ const Login: React.FC = () => {
             <button
               type="submit"
               className={classes.button}
-              style={{ background: "#4B4B4B", color: "#FFF" }}
+              style={{
+                background: "#4B4B4B",
+                color: "#FFF",
+                marginBottom: "1rem",
+              }}
               disabled={loading}>
               {loading ? "loading" : "Sign In"}
             </button>
           </form>
 
-          <Typography>OR</Typography>
-          <Stack direction="column" alignItems="center" spacing={2}>
+          <Divider>OR</Divider>
+          <Stack direction="column" alignItems="center" mt={1} spacing={2}>
             <button
               type="button"
               className={classes.button}
@@ -204,6 +268,15 @@ const Login: React.FC = () => {
                 <GoogleIcon />
               </span>
               Sign in with Google
+            </button>
+            <button
+              className={classes.button}
+              style={{ border: "1px solid #ccc" }}
+              onClick={githubAuth}>
+              <span style={{ marginRight: "1rem" }}>
+                <GithubIcon />
+              </span>
+              Sign in With Github
             </button>
           </Stack>
 
@@ -290,13 +363,13 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: "4px",
+    color: "#000",
+    outline: "none",
     fontSize: "16px",
     fontWeight: 600,
     lineHeight: "16px",
     cursor: "pointer",
-    margin: "1rem 0 2rem",
     padding: "0 1rem",
-    color: "#081F4A",
     "@media screen and (max-width: 768px)": {
       width: "100%",
     },
