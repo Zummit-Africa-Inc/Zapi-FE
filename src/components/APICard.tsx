@@ -64,6 +64,7 @@ const APICard: React.FC<CardProps> = ({
         if (!data || data === undefined) return;
         const { message } = data;
         toast.success(`${message}`);
+        setIsSubscribed(true);
       } catch (error) {}
     } else {
       try {
@@ -78,6 +79,7 @@ const APICard: React.FC<CardProps> = ({
         if (!data || data == undefined) return;
         const { message } = data;
         toast.success(`${message}`);
+        setIsSubscribed(false);
       } catch (error) {}
     }
     dispatch(getApis());
