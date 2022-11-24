@@ -17,8 +17,9 @@ import {
 } from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
 import { toast } from "react-toastify";
-import { Add, Remove, Grade, Loyalty } from "@mui/icons-material";
+import { Add, Remove, Grade, Loyalty, BorderColor } from "@mui/icons-material";
 import Cookies from "universal-cookie";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
 
 import { useAppDispatch, useFormInputs, useHttpRequest } from "../hooks";
 import { useNavigate } from "react-router-dom";
@@ -46,7 +47,7 @@ const CustomTab = styled(Tab)({
   },
   "&.Mui-selected": {
     backgroundColor: "#081f4A",
-    // borderRadius: "0px",
+    borderRadius: "10px",
     color: "white !important",
   },
 });
@@ -295,6 +296,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
             headers
           );
           setJsonData(data.data);
+
           if (data.skipped.length === 0) {
             return toast.success("No items Skipped");
           } else {
@@ -313,7 +315,6 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
       }
     }
   };
-
 
   return (
     <Paper className={classes.paper}>
@@ -343,7 +344,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            borderRadius: "10px",
+            borderRadius: "10px !important",
             background: "white",
             color: "black",
           }}
@@ -351,8 +352,16 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
           indicatorColor="primary"
           textColor="inherit"
           onChange={handleTabChange}>
-          <CustomTab label="Endpoints" />
-          <CustomTab label="Api" />
+          <CustomTab
+            icon={<BorderColor />}
+            iconPosition="start"
+            label="Endpoints"
+          />
+          <CustomTab
+            icon={<UploadFileIcon />}
+            iconPosition="start"
+            label="Upload"
+          />
         </CustomTabs>
       </Stack>
       <Box>
