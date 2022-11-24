@@ -352,7 +352,6 @@ const useStyles = makeStyles({
     },
   },
   col: {
-    // borderLeft: "1px solid #c1c1c1",
     padding: "0 1rem 0 30px",
     width: "100%",
     height: "auto",
