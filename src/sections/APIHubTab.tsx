@@ -101,7 +101,7 @@ const APIHubTab: React.FC = () => {
     "tools": <Build />,
     "text analysis": <FormatColorText />,
     "weather": <Cloud />,
-    "All apis": <Apps />,
+    "all": <Apps />,
   };
 
   return (
@@ -139,11 +139,6 @@ const APIHubTab: React.FC = () => {
                 />
               ))}
 
-              {/* <StyledTab
-                label="All APIs"
-                iconPosition="start"
-                icon={icons["All APIs"]}
-              /> */}
             </StyledTabs>
           </Box>
 
@@ -202,9 +197,6 @@ const APIHubTab: React.FC = () => {
                 </Tooltip>
               ))}
 
-              {/* <Tooltip title="All APIs" placement="right" arrow>
-                <StyledTab iconPosition="start" icon={<Apps />} />
-              </Tooltip> */}
             </StyledTabs>
 
           </Box>
@@ -246,23 +238,12 @@ const APIHubTab: React.FC = () => {
                   {categoryApis?.map((api: any) => (
                     <APICard key={api.id} {...api} />
                   ))}
+                          
                 </Box>
               </>
             </TabPanel>
           ))}
-          {/* <TabPanel value={tab} index={categories.length}>
-            <>
-              <Box className={classes.header}>
-                <h2>All APIs</h2>
-                <p>List of all public APIs on ZAPI</p>
-              </Box>
-              <Box className={classes.grid}>
-                {allApis.map((api) => (
-                  <APICard key={api.id} {...api} />
-                ))}
-              </Box>
-            </>
-          </TabPanel> */}
+
         </Box>
       </Box>
     </Box>
@@ -301,7 +282,7 @@ const StyledTab = styled(Tab)({
     textTransform: "capitalize",
     textAlign: "left",
     borderRadius: "0 8px 8px 0",
-    paddingLeft: "40px",
+    paddingLeft: "35px",
     fontSize: "15px",
     color: "#071B85",
     "@media screen and (max-width: 990px)": {
@@ -344,9 +325,9 @@ const useStyles = makeStyles({
     width: "auto",
     display: "flex",
     // gap: "16px",
-    margin: "0 0 80px 1.8rem",
+    margin: "0 0 80px 1rem",
     "@media screen and (max-width: 1024px)": {
-      margin: "0 0 109px 1rem",
+      margin: "0 0 80px 1rem",
     },
     "@media screen and (max-width: 900px)": {},
     "@media screen and (max-width: 820px)": {
@@ -363,7 +344,7 @@ const useStyles = makeStyles({
     alignItems: "flex-end",
     backgroundColor: "#fff",
     paddingTop: "0px",
-    width: "390px",
+    width: "300px",
     height: "100%",
     overflowX: "hidden",
     "@media screen and (max-width: 500px)": {
@@ -372,7 +353,7 @@ const useStyles = makeStyles({
   },
   col: {
     // borderLeft: "1px solid #c1c1c1",
-    padding: "0 1rem 0 37px",
+    padding: "0 1rem 0 30px",
     width: "100%",
     height: "auto",
     "@media screen and (max-width: 900px)": {},
@@ -411,19 +392,22 @@ const useStyles = makeStyles({
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
     gridTemplateRows: "260px",
-    gap: "15px",
+    gap: "15px 0",
     marginLeft: "-11px",
     padding: "0 10px 0 0",
     width: "100%",
-    height: "100%",
+    height: "480px",
     overflowY: "scroll",
     overflowX: "hidden",
-    "@media screen and (max-width: 912px)": {
-      display: "flex",
-      justifyContent: "center",
-      flexWrap: "wrap",
-      margin: "-20px",
+
+    "&::-webkit-scrollbar": {
+      width: "4px"
     },
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "#071B85",
+      borderRadius: 0
+    },
+    
   },
 });
 
