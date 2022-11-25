@@ -1,5 +1,5 @@
 import { makeStyles } from "@mui/styles";
-import React, {useState} from 'react'
+import React, { useState } from "react";
 import {
   Education,
   Hero,
@@ -9,6 +9,7 @@ import {
   Pricing,
   Brand,
   MarketPlace,
+  ContactUs,
 } from "../sections";
 import ReactGA from "react-ga4";
 import Modalpopup from "../components/Modal";
@@ -23,15 +24,16 @@ const Homepage: React.FC = () => {
 
   return (
     <div className={classes.homePage}>
-      <Modalpopup open={open} setOpen={setOpen} handleClose={handleClose}/>
+      <Modalpopup open={open} setOpen={setOpen} handleClose={handleClose} />
       <HomeNavbar />
       <Hero />
       <Brand />
       <MarketPlace />
       <Features />
-      <Feedback handleOpen={handleOpen}/>
+      <Feedback handleOpen={handleOpen} />
       <Pricing />
       <Education />
+      <ContactUs />
       <Footer />
     </div>
   );

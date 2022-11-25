@@ -11,7 +11,8 @@ import ZapiArrow from './images/arrow_drop_down.svg';
 import ZapiPic from './images/pic.svg';
 import Spinner from "./icons/Spinner";
 import GithubIcon from "./icons/Github"
+import Peach from "./images/peach.png"
 import { BRANDS, FEATURES, FOOTER_LINKS, MarketPlaceText, } from "./ui-arrays"
 
 export { GoogleIcon, LinkedInIcon, Spinner, TwitterIcon, YoutubeIcon, ZapiDevLogo,
-    ZapiWidget, ZapiDash, ZapiApps, ZapiHelp, ZapiArrow, ZapiPic, BRANDS, FEATURES, FOOTER_LINKS, MarketPlaceText, GithubIcon }
+    ZapiWidget, ZapiDash, ZapiApps, ZapiHelp, ZapiArrow, ZapiPic, BRANDS, FEATURES, FOOTER_LINKS, MarketPlaceText, GithubIcon, Peach }
