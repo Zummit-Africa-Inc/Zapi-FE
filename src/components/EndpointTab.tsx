@@ -104,6 +104,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
   const classes = useStyles();
   const cookies = new Cookies();
   const profileId = cookies.get("profileId");
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
   const handleTabChange = (e: SyntheticEvent, newValue: number) => {
     setTab(newValue);
@@ -313,6 +314,12 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
         } catch (error) {}
         // }
       }
+    }
+  };
+  const clearInputField = () => {
+    setJsonFile("");
+    if (inputRef.current) {
+      inputRef.current.value = "";
     }
   };
 
@@ -696,14 +703,17 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                 We only make use of Postman collection for now.
               </Typography>
               <UploadFile
+                label="Upload JSON"
                 logo_url=""
+                visible={JsonFile ? true : false}
                 handleChange={handleChange}
                 imageUpload={fileUpload}
                 imageReject={(e: any) => {
                   e.preventDefault();
-                  setJsonFile("");
+                  clearInputField();
                   triggerRefresh();
                 }}
+                inputRef={inputRef}
               />
               <Box className={classes.pageActions}>
                 <Typography
