@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Stack, Typography, Button, Box } from "@mui/material";
 import Cookies from "universal-cookie";
 import { makeStyles } from '@mui/styles'
-import { StackedLineChart, TimerOutlined, Check, BookmarkAddedOutlined, BookmarkRemove, BookmarkAddOutlined } from "@mui/icons-material";
+import { StackedLineChart, TimerOutlined, Check, BookmarkAddedOutlined, BookmarkRemove, BookmarkAddOutlined, StarBorder } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector, useHttpRequest } from "../hooks";
 import { toast } from "react-toastify";
 import Rating from "../components/Rating";
@@ -84,55 +84,56 @@ const APIDesc: React.FC<Props> = ({ api }) => {
         error && toast.error(`${error}`);
     }, [error]);
 
-    let subscribedButtonStyles = isSubscribed ? { backgroundColor: "#F5F5F5", color: "#000000", borderRadius: "5px" } : { backgroundColor: "#081F4A", color: "#FFFFFF", borderRadius: "5px" };
+    let subscribedButtonStyles = isSubscribed ? { backgroundColor: "#F5F5F5", color: "#000000", borderRadius: "5px", fontSize: "13px", minWidth: "130px", height: "2.3rem" } : { backgroundColor: "#264276", border: "1px solid #264276", color: "#FFFFFF", borderRadius: "5px", fontSize: "13px", minWidth: "130px", height: "2.3rem" };
     return (
         <>
             {isRatingOpen && <Rating apiId={api.id} onClose={() => setIsRatingOpen(false)} />}
             <Box className={classes.root}>
                 <Box style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", padding: "0 20px 15px 0", borderBottom: "1px solid #d1d1d1" }}>
                     <Box>
-                        <Typography variant="h2">{api.name}</Typography>
+                        <Typography component="h2">{api.name}</Typography>
                         <Box className={classes.row}>
-                            <p style={{ lineHeight: "1px", fontSize: "13px", color: "#515D99" }}>
+                            <Typography component="p" sx={{ lineHeight: "1px", fontSize: "13px", color: "#515D99" }}>
                                 <>by: {api.createdBy || "unknown"}</>
-                            </p>
+                            </Typography>
                             <hr />
-                            <p style={{ lineHeight: "1px", fontSize: "13px", color: "#515D99" }}>
+                            <Typography component="p" style={{ lineHeight: "1px", fontSize: "13px", color: "#515D99" }}>
                                 <>created on: {api.createdOn && new Date(api.createdOn).toDateString()}</>
-                            </p>
+                            </Typography>
                             <hr />
-                            <p style={{ lineHeight: "1px", fontSize: "13px", color: "#515D99" }}>{category?.name}</p>
+                            <Typography component="p" style={{ lineHeight: "1px", fontSize: "13px", color: "#515D99" }}>{category?.name}</Typography>
                         </Box>
                     </Box>
                     <Box style={{ display: "flex", justifyContent: "space-between", gap: "1rem", }}>
                         <Box className={classes.item}>
                             <Box className={classes.subItem}>
-                                <p className={classes.itemHeader}>Popularity</p>
+                                <Typography component="p" className={classes.itemHeader}>Popularity</Typography>
                                 <StackedLineChart sx={{ width: "19px" }} className={classes.itemIcon} />
                             </Box>
-                            <p className={classes.itemTitle}>{api.popularity}/10</p>
+                            <Typography component="p" className={classes.itemTitle}>{api.popularity}/10</Typography>
                         </Box>
                         <Box className={classes.item}>
                             <Box className={classes.subItem}>
-                                <p className={classes.itemHeader}>Latency</p>
+                                <Typography component="p" className={classes.itemHeader}>Latency</Typography>
                                 <TimerOutlined sx={{ width: "19px" }} className={classes.itemIcon} />
                             </Box>
-                            <p className={classes.itemTitle}>{api.latency}ms</p>
+                            <Typography component="p" className={classes.itemTitle}>{api.latency}ms</Typography>
                         </Box>
                         <Box className={classes.item}>
                             <Box className={classes.subItem}>
-                                <p className={classes.itemHeader}>Service level</p>
+                                <Typography component="p" className={classes.itemHeader}>Service level</Typography>
                                 <Check sx={{ width: "19px" }} className={classes.itemIcon} />
                             </Box>
-                            <p className={classes.itemTitle}>{api.service_level}%</p>
+                            <Typography component="p" className={classes.itemTitle}>{api.service_level}%</Typography>
                         </Box>
                     </Box>
                 </Box>
                 <Stack direction="row" spacing={4} justifyContent={"end"} alignItems={"center"}>
-                    <p className={classes.description}>{api.description}</p>
+                    <Typography component="p" className={classes.description}>{api.description}</Typography>
                     <Box>
                         <Button variant="outlined"
-                            sx={{ backgroundColor: "#081F4A", color: "#fff", borderRadius: "5px" }}
+                            endIcon={<StarBorder />}
+                            sx={{ border: "1px solid #515D99", color: "#515D99", borderRadius: "5px", fontSize: "13px", minWidth: "130px", height: "2.3rem", }}
                             onClick={() => setIsRatingOpen(true)}
                         >
                             rate
@@ -149,14 +150,19 @@ const APIDesc: React.FC<Props> = ({ api }) => {
                         </Button>
                     </Box>
                 </Stack>
-                {/* <Typography sx={{margin:"24px 0 0",fontSize:"21px",fontWeight:"bold",color:"#515D99"}}>Base URL</Typography>
-            <p className={classes.description}>{api.base_url || "null"}</p> */}
-                <Typography sx={{ margin: "24px 0 0", fontSize: "21px", fontWeight: "bold", color: "#515D99" }}>Website</Typography>
-                <p className={classes.description}>
-                    Website: {api.api_website ? <a href={`${api.api_website}`} target="_blank" rel="noreferrer">{api.api_website}</a> : "Website not specified"}
-                </p>
-                <Typography sx={{ margin: "24px 0 0", fontSize: "21px", fontWeight: "bold", color: "#515D99" }}>Documentation</Typography>
-                <p className={classes.description}>{api.read_me ? api.read_me : "ReadMe file not attached"}</p>
+                
+                <Box>
+                    {/* <Typography sx={{margin:"24px 0 0",fontSize:"21px",fontWeight:"bold",color:"#515D99"}}>Base URL</Typography>
+                    <Typography component="p" className={classes.description}>{api.base_url || "null"}</Typography> */}
+                    <Typography sx={{ margin: "24px 0 0", fontSize: "18px", fontWeight: "bold", color: "#264276" }}>Website</Typography>
+                    <Typography component="p" className={classes.description}>
+                        Website: {api.api_website ? <a href={`${api.api_website}`} target="_blank" rel="noreferrer">{api.api_website}</a> : "Website not specified"}
+                    </Typography>
+                    <Typography sx={{ margin: "24px 0 0", fontSize: "18px", fontWeight: "bold", color: "#264276" }}>Documentation</Typography>
+                    <Typography component="p" className={classes.description}>{api.read_me ? api.read_me : "ReadMe file not attached"}</Typography>
+                    
+                </Box>
+
             </Box>
         </>
     )
@@ -167,10 +173,10 @@ const useStyles = makeStyles({
         display: 'flex',
         flexDirection: 'column',
         marginBottom: "15px",
-        padding: "130px 5rem 50px 5rem",
+        padding: "150px 5rem 50px 5rem",
         lineHeight: "41px",
         width: '100%',
-        minHeight: "500px",
+        // minHeight: "500px",
         "& h2": {
             marginBottom: "5px",
             fontSize: "26px",
@@ -180,7 +186,7 @@ const useStyles = makeStyles({
     item: {
         display: "flex",
         flexDirection: "column",
-        width: "100px",
+        width: "120px",
         height: "65px"
     },
     subItem: {
@@ -206,7 +212,7 @@ const useStyles = makeStyles({
         width: "100%",
         display: "flex",
         alignItems: "center",
-        fontSize: "15px",
+        fontSize: "14px",
         lineHeight: "26px",
         color: "#071B85",
         gap: "0.5rem",
