@@ -51,7 +51,10 @@ const ContactUs: React.FC = () => {
       <Box className={classes.root}>
         <Box className={classes.contactContainer}>
           <Box className={classes.formContainer}>
-            <Typography variant="h3">Message Us</Typography>
+            <Typography variant="h3">Get In Touch</Typography>
+            <Typography variant="h6">
+              We are here to help you, How can we help?
+            </Typography>
             <form className={classes.contactForm}>
               <input
                 type="text"
@@ -79,8 +82,8 @@ const ContactUs: React.FC = () => {
               />
               <Button
                 sx={{
-                  background: "#EDF5FD",
-                  color: "black",
+                  background: "blue",
+                  color: "#fff",
                 }}
                 disableElevation
                 disableFocusRipple
@@ -108,7 +111,9 @@ const useStyles = makeStyles({
     flexDirection: "column",
     justifyContent: "center",
     color: "#fff",
-    background: "#EDF5FD",
+    backgroundImage: 'url("../../images/contact.png")',
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "100% 100%",
     "@media screen and (max-width: 700px)": {
       gridTemplateColumns: "1fr",
       gap: "1rem",
@@ -123,25 +128,35 @@ const useStyles = makeStyles({
     display: "grid",
     gridTemplateColumns: "repeat(2, 1fr)",
     gap: "1.5rem",
-    background: "#363953",
-    borderRadius: "0.5rem",
+    background: "#fff",
+    borderRadius: "1rem",
     overflow: "hidden",
+    boxShadow: "2px 2px 2px 1px rgba(0, 0, 0, 0.2)",
     "@media screen and (max-width: 964px)": {
       margin: "0 auto",
       width: "90%",
     },
     "@media screen and (max-width: 700px)": {
-      gridTemplateColumns: "1fr",
+      display: "flex",
+      flexDirection: "column",
       gap: "1rem",
-      marginTop: "20rem !important%",
     },
   },
   formContainer: {
     padding: "20px",
+    display: "flex",
+    flexDirection: "column",
     "& h3": {
       fontSize: "1.2rem",
       fontWeight: "600",
       marginBottom: "1rem",
+      color: "blue",
+    },
+    "& h6": {
+      fontSize: "1.2rem",
+      fontWeight: "300",
+      marginBottom: "1rem",
+      color: "black",
     },
   },
   contactForm: {
@@ -151,10 +166,10 @@ const useStyles = makeStyles({
       width: "100%",
       border: "none",
       outline: "none",
-      background: "#2c2f48",
+      background: "gainsboro",
       padding: "10px",
       fontSize: "0.9rem",
-      color: "#fff",
+      color: "black",
       borderRadius: "0.4rem",
     },
     "& textarea": {
@@ -163,10 +178,10 @@ const useStyles = makeStyles({
       width: "100%",
       border: "none",
       outline: "none",
-      background: "#2c2f48",
+      background: "gainsboro",
       padding: "10px",
       fontSize: "0.9rem",
-      color: "#fff",
+      color: "black",
       borderRadius: "0.4rem",
     },
     "@media screen and (max-width: 964px)": {
