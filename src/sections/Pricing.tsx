@@ -20,6 +20,7 @@ const Pricing: React.FC = () => {
               fontSize: "36px",
               lineHeight: "45.94px",
               fontFamily: "Space Grotesk",
+              marginTop: "7rem",
             }}>
             Flexible pricing to get you started.
           </Typography>
