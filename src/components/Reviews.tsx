@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardContent, Box, Rating, Stack, Typography} from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import { ChatRounded } from "@mui/icons-material";
 
 import { ReviewType } from "../types";
 
@@ -14,16 +15,20 @@ const Reviews:React.FC<Props> = ({reviews}) => {
     return (
         <Box className={classes.container}>
             <Box className={classes.wrapper}>
-                <Typography
-                sx={{
-                    marginBottom: "10px",
-                    fontSize: "21px",
-                    fontWeight: "bold",
-                    color: "#515D99",
-                    padding: "5px",
-                }}>
-                    Reviews
-                </Typography>
+                {reviews.length !== 0 ? (
+                    <Typography
+                    sx={{
+                        marginBottom: "10px",
+                        fontSize: "21px",
+                        fontWeight: "bold",
+                        color: "#264276",
+                        padding: "5px",
+                    }}>
+                        Reviews
+                    </Typography>
+                ) : (
+                    <></>                
+                )}   
             </Box>
             <Box className={classes.list}>
                 {reviews.length !== 0 ? 
@@ -42,10 +47,12 @@ const Reviews:React.FC<Props> = ({reviews}) => {
                     ))}
                 </Box>
                 </>):(
-                    <Box>
-                        <Typography sx={{fontSize:"21px",color:"#081F4A"}}>No reviews on the API yet.</Typography>
+                    <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginTop: "110px", width: "100%" }}>
+                        <ChatRounded sx={{ fontSize: "32px", color: "#264276", }} />
+                        <Typography sx={{fontSize:"18px",color:"#515D99"}}>No reviews on the API yet.</Typography>
                     </Box>
                 )}
+
             </Box>
         </Box>
     )
