@@ -1,82 +1,146 @@
-import React, { useState, FormEvent, ChangeEvent } from 'react'
+import React, { useState, FormEvent, ChangeEvent, useEffect } from 'react'
 import { makeStyles } from "@mui/styles"
 import InputSearch from './InputSearch';
 import { DataTable } from '.'
+import { useHttpRequest } from "../hooks"
+import { toast } from "react-toastify";
+import { useParams } from 'react-router-dom';
 
 
-const InviteUser:React.FC = () => {
+const InviteUser: React.FC = () => {
   const classes = useStyles();
   const [queryString, setQueryString] = useState<string>("");
+  const [subscribedUsers, setSubscribedUsers] = useState<string>("");
 
-  const handleSubmit = (e: FormEvent) => {
+
+  const { sendRequest } = useHttpRequest()
+  const { id } = useParams()
+  const headers = { "Content-Type": "application/json" };
+  const core_url = "VITE_CORE_URL";
+  const inviteurl = "/api/v1/invitation"
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
+    if (!queryString) {
+      return toast.error("Enter the user's email");
+    }
+    try {
+      const sendInvite = await sendRequest(
+        `${inviteurl}/invite/${id}`,
+        "post",
+        core_url,
+        queryString,
+        headers
+      )
+      return toast.success(`Invite sent to ${queryString}`);
+    }
+    catch (error) {
+      console.log(error)
+      toast.error(` ${error} error occurred`)
+    }
+  }
+  console.log(id)
+
+  const GetUsers = async () => {
+    return await sendRequest(
+      `/api/v1/invitation/get-all/${id}`,
+      "get",
+      core_url,
+      headers,
+    )
   }
 
+  useEffect(() => {
+
+    console.log(GetUsers())
+  
+  }, [subscribedUsers])
+
+
+  const temp = [
+    { "name": "Juke", "email": "juke@gmail.com" },
+    { "name": "Juke", "email": "juke@gmail.com" },
+    { "name": "Juke", "email": "juke@gmail.com" },
+    { "name": "Juke", "email": "juke@gmail.com" },
+    { "name": "Juke", "email": "juke@gmail.com" },
+    { "name": "Juke", "email": "juke@gmail.com" },
+    { "name": "Juke", "email": "juke@gmail.com" },
+    { "name": "Juke", "email": "juke@gmail.com" },
+    { "name": "Juke", "email": "juke@gmail.com" },
+    { "name": "Juke", "email": "juke@gmail.com" },
+    { "name": "Juke", "email": "juke@gmail.com" },
+    { "name": "Juke", "email": "juke@gmail.com" },
+    { "name": "Juke", "email": "juke@gmail.com" },
+    { "name": "Juke", "email": "juke@gmail.com" },
+  ]
+
   const header = ['Type', 'Name']
+  const td = ['Name', 'Description']
 
-  const row = [{type:'Team',name: 
-              <>
-                <div className={classes.tbody}>
-                  <div className={classes.avatar}></div>
+  const row = [{
+    type: 'Team', name:
+      <>
+        <div className={classes.tbody}>
+          <div className={classes.avatar}></div>
 
-                  <div className={classes.border}>
-                    <span className={classes.text}>Topbiz-Default</span>
-                  </div>
-                </div>
-              </>
-}]
+          <div className={classes.border}>
+            <span className={classes.text}>Topbiz-Default</span>
+          </div>
+        </div>
+      </>
+  }]
 
 
 
   return (
     <div className={classes.container}>
       <span className={classes.text}>
-      Your API project is currently private and not shared publicly on the ZAPI Hub (to make your API public,
-      change its visibility under “General”).
-      You can invite users to view your API privately on the Hub and perform requests to your API.
+        Your API project is currently private and not shared publicly on the ZAPI Hub (to make your API public,
+        change its visibility under “General”).
+        You can invite users to view your API privately on the Hub and perform requests to your API.
       </span>
-      <div className={classes.wrap}>   
-          <form onSubmit={handleSubmit} className={classes.search}>
-                <InputSearch className={classes.formControl} type="text" name="queryString" value={queryString} onChange={(e: ChangeEvent<HTMLInputElement>) => setQueryString(e.target.value)} placeholder="Search a User"/>
-                <button className={classes.button}>
-                    Send Invite
-                </button>
-          </form>
+      <div className={classes.wrap}>
+        <form onSubmit={handleSubmit} className={classes.search}>
+          <InputSearch className={classes.formControl} type="text" name="queryString" value={queryString} onChange={(e: ChangeEvent<HTMLInputElement>) => setQueryString(e.target.value)} placeholder="Search a User" />
+          <button className={classes.button} onClick={handleSubmit}>
+            Send Invite
+          </button>
+        </form>
       </div>
       <span className={classes.header}>
         Invitees
       </span>
       <div className={classes.table}>
-        <DataTable Heading={header} Rows={row} />
+        <DataTable Heading={header} Rows={temp} />
       </div>
     </div>
   )
 }
 
 const useStyles = makeStyles({
-  container:{
-    marginTop:' 16px',
+  container: {
+    marginTop: ' 16px',
     flex: '1 1 0%',
     flexDirection: 'column',
     boxSizing: 'border-box',
     display: 'flex',
   },
-  text:{
+  text: {
     marginBottom: '32px',
     color: 'rgba(0, 0, 0, 0.38)',
     fontSize: '16px',
     letterSpacing: 'normal',
     lineHeight: '24px',
     fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir, Helvetica, sans-serif',
-    display: 'block', 
+    display: 'block',
     maxWidth: '600px',
     boxSizing: 'border-box',
     outline: 'none 0px',
   },
-  wrap:{
+  wrap: {
     boxSizing: 'border-box'
   },
-  search:{
+  search: {
     marginTop: '12px',
     maxWidth: '600px',
     alignItems: 'center',
@@ -95,87 +159,87 @@ const useStyles = makeStyles({
     background: "#E1E1E2",
     borderRadius: "8px",
     "& input": {
-        width: 250,
-        height: "100%",
-        outline: "none",
-        border: "none",
-        background: "#E1E1E2",
+      width: 250,
+      height: "100%",
+      outline: "none",
+      border: "none",
+      background: "#E1E1E2",
     },
     "& select": {
-        width: 100,
-        height: "100%",
-        outline: "none",
-        border: "none",
+      width: 100,
+      height: "100%",
+      outline: "none",
+      border: "none",
     },
     "& ::placeHolder": {
-        fontFamily: 'Space Grotesk',
+      fontFamily: 'Space Grotesk',
     },
     "@media screen and (max-width: 900px)": {
       marginTop: "1rem",
     }
-},
-button:{
-  backgroundColor: "#058A04",
-  border: "none",
-  boxSizing: 'border-box',
-  alignItems: 'center',
-  display: 'flex',
-  justifyContent: 'center',
-  position: 'relative',
-  whiteSpace: 'nowrap',
-  marginLeft:'2rem',
-  height:'46px',
-},
-header:{
-  marginTop: '16px',
-  marginBottom: '16px',
-  color: 'rgba(0, 0, 0, 0.87)',
-  fontSize: '24px',
-  letterSpacing: 'normal',
-  lineHeight: '32px',
-  fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir, Helvetica, sans-serif',
-  fontWeight: '600',
-  display: 'block',
-  boxSizing: 'border-box',
-  outline: 'none 0px',
-},
-table:{
-  boxSizing: 'border-box',
-  display: 'flex',
-  flex: '1 1 0%',
-  flexDirection: 'column',
-  minWidth: 'fit-content',
-  border: '1px solid rgb(214, 217, 219)',
-  borderRadius: '6px',
-},
-avatar:{
-  backgroundColor: 'rgb(244, 244, 245)',
-  display: 'flex',
-  webkitBoxPack: 'center',
-  justifyContent: 'center',
-  webkitBoxAlign: 'center',
-  alignItems: 'center',
-  borderRadius: '50%',
-  borderColor: 'rgb(214, 217, 219)',
-  borderWidth: '1px',
-  borderStyle: 'solid',
-  boxSizing: 'border-box',
-  cursor: 'default',
-  overflow: 'hidden',
-  userSelect: 'none',
-  width: '36px',
-  height: '36px',
-},
-border:{
-  marginLeft: '8px',
-  boxSizing: 'border-box',
-  marginTop:'0.5rem'
-},
-tbody:{
-  flexDirection:'row',
-  display:"flex",
-  marginTop:'1rem'
-}
+  },
+  button: {
+    backgroundColor: "#058A04",
+    border: "none",
+    boxSizing: 'border-box',
+    alignItems: 'center',
+    display: 'flex',
+    justifyContent: 'center',
+    position: 'relative',
+    whiteSpace: 'nowrap',
+    marginLeft: '2rem',
+    height: '46px',
+  },
+  header: {
+    marginTop: '16px',
+    marginBottom: '16px',
+    color: 'rgba(0, 0, 0, 0.87)',
+    fontSize: '24px',
+    letterSpacing: 'normal',
+    lineHeight: '32px',
+    fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir, Helvetica, sans-serif',
+    fontWeight: '600',
+    display: 'block',
+    boxSizing: 'border-box',
+    outline: 'none 0px',
+  },
+  table: {
+    boxSizing: 'border-box',
+    display: 'flex',
+    flex: '1 1 0%',
+    flexDirection: 'column',
+    minWidth: 'fit-content',
+    border: '1px solid rgb(214, 217, 219)',
+    borderRadius: '6px',
+  },
+  avatar: {
+    backgroundColor: 'rgb(244, 244, 245)',
+    display: 'flex',
+    webkitBoxPack: 'center',
+    justifyContent: 'center',
+    webkitBoxAlign: 'center',
+    alignItems: 'center',
+    borderRadius: '50%',
+    borderColor: 'rgb(214, 217, 219)',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    boxSizing: 'border-box',
+    cursor: 'default',
+    overflow: 'hidden',
+    userSelect: 'none',
+    width: '36px',
+    height: '36px',
+  },
+  border: {
+    marginLeft: '8px',
+    boxSizing: 'border-box',
+    marginTop: '0.5rem'
+  },
+  tbody: {
+    flexDirection: 'row',
+    display: "flex",
+    marginTop: '1rem'
+  }
 
 
 })
