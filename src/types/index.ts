@@ -154,3 +154,17 @@ export type ReviewType = {
    review: string
    by: User
 }
+
+export type SubscribedUser = {
+createdBy: string | null,
+createdOn: string | Date | null,
+deletedBy: string | null,
+deletedOn: string | Date | null,
+email: string
+id: string
+picture: string | null
+subscriptions: string[]
+updatedBy: string | null
+updatedOn: string | Date | null,
+userId: string
+}
