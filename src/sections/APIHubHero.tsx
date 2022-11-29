@@ -1,17 +1,18 @@
 import React from 'react'
 import { makeStyles } from '@mui/styles'
 
+import { Typography, Box } from "@mui/material";
 
-const APIHubHeader:React.FC = () => {
+const APIHubHero:React.FC = () => {
     const classes = useStyles();
 
     return (
-        <div className={classes.root}>
-       <div className={classes.text}>
-            <h1>Welcome to the Z-API hub</h1>
-            <p>Discover and connect to hundreds of APIs</p>
-        </div>
-        </div>
+        <Box className={classes.root}>
+            <Box className={classes.text}>
+                <Typography component="h1">Welcome to the Z-API hub</Typography>
+                <Typography component="p">Discover and connect to hundreds of APIs</Typography>
+            </Box>
+        </Box>
     )
 }
 
@@ -22,16 +23,16 @@ const useStyles = makeStyles({
         marginBottom: "46px",
         backgroundColor: "#F3F3F3",
         backgroundImage: "url(../../images/endless-constellation.svg)",
-        padding: "236px 5rem 50px 5rem",
+        padding: "0 5rem",
         lineHeight: "46px",
         boxShadow: "0px 4px 4px rgba(6, 113, 224, 0.05)",
         width: '100%',
-        height: "370px",
-        opacity: .98,
+        height: "360px",
         position:'relative',
 
         "& h1": {
-            fontSize: "45px",
+            fontSize: "43px",
+            fontWeight: "bold",
             color: "#fff",
             "@media screen and (max-width: 900px)": {
                 fontSize: "36px",
@@ -41,7 +42,7 @@ const useStyles = makeStyles({
             },
         },
         "& p": {
-            fontSize: "18px",
+            fontSize: "16px",
             color: "#fff",
             margin: "0 0 68px",
             "@media screen and (max-width: 900px)": {
@@ -55,17 +56,20 @@ const useStyles = makeStyles({
                 lineHeight: "20px",
             },
         },
+
         "@media screen and (max-width: 1024px)": {
-            padding: "236px 2rem 50px 2rem",
+            padding: "0 2rem",
         },
         "@media screen and (max-width: 900px)": {
             lineHeight: "40px",
+            height: "330px",
         },
         "@media screen and (max-width: 700px)": {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            textAlign: "center"
+            textAlign: "center",
+            height: "300px",
         },
     },
 
@@ -76,4 +80,4 @@ const useStyles = makeStyles({
 })
 
 
-export default APIHubHeader;
+export default APIHubHero;

@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Stack, Typography, Button, Box } from "@mui/material";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
 import { Tab, Tabs } from "@mui/material";
@@ -83,31 +84,35 @@ const APIMoreInfo:React.FC = () => {
 
     return (
         <>
-        {api && endpoints && discussions && reviews && (
-            <>
-            <HomeNavbar />
-            <APIDesc api={api} />
-            <div className={classes.div}>
-            <CustomTabs value={tab} onChange={handleTabChange}>
-                <CustomTab label="Endpoints" />
-                <CustomTab label="Discussions" />
-                <CustomTab label="Reviews" />
-            </CustomTabs>
-            <div className={classes.tabpanel}>
-                <TabPanel value={tab} index={0}>
-                    <Endpoints api={api} endpoints={endpoints} />
-                </TabPanel>
-                <TabPanel value={tab} index={1}>
-                    <Discussion discussions={discussions} />
-                </TabPanel>
-                <TabPanel value={tab} index={2}>
-                    <Reviews reviews={reviews} />
-                </TabPanel>
-            </div>
-            </div>
-            <Footer />
-            </>
-        )}
+            
+            {api && endpoints && discussions && reviews && (
+                <>
+                    <HomeNavbar />
+                    
+                    <APIDesc api={api} />
+
+                    <Box className={classes.div}>
+                        <CustomTabs value={tab} onChange={handleTabChange}>
+                            <CustomTab label="Endpoints" />
+                            <CustomTab label="Discussions" />
+                            <CustomTab label="Reviews" />
+                        </CustomTabs>
+                        <Box className={classes.tabpanel}>
+                            <TabPanel value={tab} index={0}>
+                                <Endpoints api={api} endpoints={endpoints} />
+                            </TabPanel>
+                            <TabPanel value={tab} index={1}>
+                                <Discussion discussions={discussions} />
+                            </TabPanel>
+                            <TabPanel value={tab} index={2}>
+                                <Reviews reviews={reviews} />
+                            </TabPanel>
+                        </Box>
+                    </Box>
+
+                    <Footer />
+                </>
+            )}
         </>
     )
 }

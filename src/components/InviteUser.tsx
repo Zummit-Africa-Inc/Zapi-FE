@@ -99,7 +99,6 @@ const InviteUser: React.FC = () => {
   }]
 
 
-
   return (
     <div className={classes.container}>
       <span className={classes.text}>
@@ -115,15 +114,13 @@ const InviteUser: React.FC = () => {
           </button>
         </form>
       </div>
-      <span className={classes.header}>
-        Invitees
-      </span>
+      <span className={classes.header}>Invitees</span>
       <div className={classes.table}>
         <DataTable Heading={header} Rows={temp} />
       </div>
     </div>
-  )
-}
+  );
+};
 
 const useStyles = makeStyles({
   container: {
@@ -252,4 +249,4 @@ const useStyles = makeStyles({
 
 })
 
-export default InviteUser
+export default InviteUser;
