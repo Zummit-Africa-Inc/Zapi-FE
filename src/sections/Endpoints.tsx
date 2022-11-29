@@ -15,10 +15,11 @@ import { ExpandMore, Menu, Search, Directions } from "@mui/icons-material";
 import { makeStyles, styled } from "@mui/styles";
 
 import TabPanel from "../components/TabPanel";
-import { EndpointsType } from "../types";
+import { APIType, EndpointsType } from "../types";
 
 interface Props {
   endpoints: Array<EndpointsType>;
+  api: APIType
 }
 
 const methodColor: any = {
@@ -53,11 +54,11 @@ const CustomTab = styled(Tab)({
 const CustomAccordion = styled(Accordion)({
   "&.MuiAccordion-root": {
     boxShadow: "unset",
-    borderTop: "1px solid #d1d1d1",
+    borderTop: "1px solid #D1D1D1",
   },
 });
 
-const Endpoints: React.FC<Props> = ({ endpoints }) => {
+const Endpoints: React.FC<Props> = ({api, endpoints}) => {
   const [tab, setTab] = useState<number>(0);
   const classes = useStyles();
 
@@ -74,43 +75,43 @@ const Endpoints: React.FC<Props> = ({ endpoints }) => {
           gap: "2rem",
           width: "45%",
         }}>
-        <Paper
-          component="form"
-          sx={{
-            boxShadow: "unset",
-            display: "flex",
-            alignItems: "center",
-            border: "1px solid #d1d1d1",
-            borderRadius: "0",
-            padding: "2px 8px",
-          }}>
-          <InputBase
-            sx={{
-              ml: 1,
-              flex: 1,
-              fontSize: "13px",
-              fontFamily: "Space Grotesk",
-              color: "#000",
-            }}
-            placeholder="Search endpoints"
-            inputProps={{ "aria-label": "search endpoints" }}
-          />
-          <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
-            <Search sx={{ width: "21px" }} />
-          </IconButton>
-        </Paper>
         <div>
           <Typography
             sx={{
               marginBottom: "10px",
               fontSize: "21px",
               fontWeight: "bold",
-              background: "#F4F6F5",
               color: "#515D99",
               padding: "5px",
             }}>
             Endpoints
           </Typography>
+          <Paper
+            component="form"
+            sx={{
+              boxShadow: "unset",
+              display: "flex",
+              alignItems: "center",
+              border: "1px solid #d1d1d1",
+              borderRadius: "0",
+              padding: "2px 8px",
+              margin: "0 0 1rem",
+            }}>
+            <InputBase
+              sx={{
+                ml: 1,
+                flex: 1,
+                fontSize: "13px",
+                fontFamily: "Space Grotesk",
+                color: "#000",
+              }}
+              placeholder="Search endpoints"
+              inputProps={{ "aria-label": "search endpoints" }}
+            />
+            <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+              <Search sx={{ width: "21px" }} />
+            </IconButton>
+          </Paper>
           {endpoints && endpoints.length !== 0 ? (
             <div>
               <CustomTabs
@@ -270,7 +271,7 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "row",
     gap: "2.5rem",
-    margin: "0 5rem 8rem 5rem",
+    margin: "0 0 8rem",
   },
   paper: {
     boxShadow: "unset",

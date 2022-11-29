@@ -10,7 +10,8 @@ import ZapiHelp from './images/help.svg';
 import ZapiArrow from './images/arrow_drop_down.svg';
 import ZapiPic from './images/pic.svg';
 import Spinner from "./icons/Spinner";
+import GithubIcon from "./icons/Github"
 import { BRANDS, FEATURES, FOOTER_LINKS, MarketPlaceText, } from "./ui-arrays"
 
 export { GoogleIcon, LinkedInIcon, Spinner, TwitterIcon, YoutubeIcon, ZapiDevLogo,
-    ZapiWidget, ZapiDash, ZapiApps, ZapiHelp, ZapiArrow, ZapiPic, BRANDS, FEATURES, FOOTER_LINKS, MarketPlaceText }
+    ZapiWidget, ZapiDash, ZapiApps, ZapiHelp, ZapiArrow, ZapiPic, BRANDS, FEATURES, FOOTER_LINKS, MarketPlaceText, GithubIcon }

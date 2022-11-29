@@ -38,6 +38,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import ZAPI from "../images/zapi-logo.png";
 import { useContextProvider } from "../contexts/ContextProvider";
+import ChoiceButton from "./ChoiceButton";
+import UploadFile from "./UploadFile";
 
 enum APIVisibility {
   PRIVATE = "private",
@@ -135,7 +137,7 @@ const GeneralTab: React.FC = () => {
       if (!data.success) return;
       dispatch(editAPI(payload));
       navigate("/developer/dashboard");
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const handleDiscard = (e: any) => {
@@ -176,9 +178,10 @@ const GeneralTab: React.FC = () => {
         setTimeout(() => {
           navigate("/developer/dashboard");
         }, 2000);
-      } catch (error) {}
+      } catch (error) { }
     }
   };
+
 
   return (
     <>
@@ -189,31 +192,16 @@ const GeneralTab: React.FC = () => {
           </Typography>
           <form>
             <Box sx={{ width: "200px", height: "200px", marginBottom: "6rem" }}>
-              {/* <ImageUpload setImageFile={() => setImage} /> */}
-              <div className={classes.wrapper}>
-                <img src={logo_url ? logo_url : ZAPI} alt="" />
-              </div>
-              <input
-                type="file"
-                onChange={(e) => setImage(e.target.files![0])}
+              <UploadFile
+                handleChange={(e: any) => setImage(e.target.files![0])}
+                logo_url={logo_url}
+                imageUpload={imageUpload}
+                imageReject={(e: any) => {
+                  e.preventDefault();
+                  setImage("");
+                  triggerRefresh();
+                }}
               />
-
-              <Stack direction="row" spacing={2} my={2}>
-                <button className={classes.saveBtn} onClick={imageUpload}>
-                  Upload
-                </button>
-                <button
-                  className={classes.discardBtn}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setImage("");
-                    triggerRefresh();
-                  }}>
-                  Cancel
-                </button>
-              </Stack>
-
-              {/* <Typography variant="body1" fontSize="14px" mt={2}>Maximum Size: 500 x 500px, JPEG / PNG</Typography> */}
             </Box>
             <Box mt={2}>
               <InputLabel htmlFor="category" id="category">
@@ -339,7 +327,7 @@ const GeneralTab: React.FC = () => {
                     )}
                     <Switch
                       value={visibility}
-                      checked={visibility === APIVisibility.PRIVATE}
+                      checked={visibility === APIVisibility.PUBLIC}
                       name="visibility"
                       onChange={handleSwitch}
                     />
