@@ -111,7 +111,8 @@ const SettingsPage: React.FC = () => {
                   </span>
                   <input
                     id="input-input"
-                    className="search-col"
+                    disabled={true}
+                    className={classes.searchcol}
                     placeholder="Search ZAPI users"
                   />
             </div>
@@ -391,7 +392,7 @@ const useStyles = makeStyles({
     display: "block",
   },
   btnbtns: {
-    margin: "0px",
+    marginTop: "20px",
     paddingLeft: "10px",
     paddingRight: "10px",
     fontSize: "14px",
@@ -402,7 +403,6 @@ const useStyles = makeStyles({
     cursor: "pointer",
     fontWeight: "500",
     height: "36px",
-    position: "relative",
     backgroundColor: "rgb(235, 76, 76)",
     borderColor: "rgb(235, 76, 76)",
     color: "rgba(255, 255, 255, 0.87)",
