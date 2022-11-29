@@ -23,7 +23,7 @@ export const theme = createTheme({
                         backgroundColor: "var(--color-primary)",
                         color: "var(--color-secondary)",
                         transform: "translateY(-5px)",
-                    }
+                    },
                 },
                 outlined: {
                     backgroundColor: "#FFF",
@@ -39,5 +39,17 @@ export const theme = createTheme({
                 },
             },
         },
+        MuiFormLabel: {
+            styleOverrides: {
+                asterisk: {
+                    color: "#db3131",
+                    fontSize: '12px',
+                    "&$error": {
+                        color: "#db3131"
+                      }
+                }
+            }
+        }
+
     },
 });

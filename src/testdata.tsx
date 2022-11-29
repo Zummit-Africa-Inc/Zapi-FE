@@ -356,6 +356,11 @@ export const DEVELOPERSLINKS = [
     text: "Hub Listing",
     link: "#",
   },
+  {
+    // image: <LanguageOutlinedIcon />,
+    text: "Back to Hub",
+    link: "/developer/dashboard",
+  },
   // {
   //     image: <EditOutlinedIcon />,
   //     text: "Settings",
@@ -386,8 +391,8 @@ export const SCHEMA = [
 
 export const AUTHENTICATION = [
   {
-    label: "RapidAPI Auth Only",
-    value: "RapidAPI Auth Only",
+    label: "ZAPI Auth Only",
+    value: "ZAPI Auth Only",
   },
   {
     label: "OAuth2",

@@ -1,5 +1,5 @@
 import React, { SyntheticEvent, useState, useEffect } from "react";
-import { Tab, Tabs, Button, Tooltip } from "@mui/material";
+import { Tab, Tabs, Button, Tooltip, Box } from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
 import { toast } from "react-toastify";
 import {
@@ -38,6 +38,8 @@ const APIHubTab: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const [isSlide, setIsSlide] = useState<boolean>(true);
   const [categoryApis, setCategoryApis] = useState<any>([]);
+  const [value, setValue] = useState(0);
+  const [APIs, setAPIs] = useState<any>([]);
   const handleSideBarChange = () => {
     if (isOpen) {
       if (isSlide) setIsOpen(false);
@@ -101,14 +103,14 @@ const APIHubTab: React.FC = () => {
     Tools: <Build />,
     "Text analysis": <FormatColorText />,
     Weather: <Cloud />,
-    "All APIs": <Apps />,
+    All: <Apps />,
   };
 
   return (
-    <div className={classes.container}>
+    <Box className={classes.container}>
       {loading && <Fallback />}
       {isOpen ? (
-        <div className={classes.list}>
+        <Box className={classes.list}>
           <StyledTabs
             orientation="vertical"
             value={categoryId}
@@ -122,12 +124,6 @@ const APIHubTab: React.FC = () => {
                 icon={icons[category.name]}
               />
             ))}
-
-            {/* <StyledTab
-              label="All APIs"
-              iconPosition="start"
-              icon={icons["All APIs"]}
-            /> */}
           </StyledTabs>
 
           <Tooltip title="Collapse" placement="right" arrow>
@@ -137,7 +133,7 @@ const APIHubTab: React.FC = () => {
               />
             </Button>
           </Tooltip>
-        </div>
+        </Box>
       ) : (
         <div
           className={classes.list}
@@ -160,10 +156,6 @@ const APIHubTab: React.FC = () => {
                 />
               </Tooltip>
             ))}
-
-            <Tooltip title="All APIs" placement="right" arrow>
-              <StyledTab iconPosition="start" icon={<Apps />} />
-            </Tooltip>
           </StyledTabs>
 
           <Tooltip title="Expand" placement="right" arrow>
@@ -200,29 +192,16 @@ const APIHubTab: React.FC = () => {
                   <p>{category.description}</p>
                 </div>
                 <div className={classes.grid}>
-                  {categoryApis.map((api: any) => (
+                  {categoryApis?.map((api: any) => (
                     <APICard key={api.id} {...api} />
                   ))}
                 </div>
               </>
             </TabPanel>
           ))}
-          {/* <TabPanel value={tab} index={categories.length}>
-            <>
-              <div className={classes.header}>
-                <h2>All APIs</h2>
-                <p>List of all public APIs on ZAPI</p>
-              </div>
-              <div className={classes.grid}>
-                {allApis.map((api) => (
-                  <APICard key={api.id} {...api} />
-                ))}
-              </div>
-            </>
-          </TabPanel> */}
         </div>
       </div>
-    </div>
+    </Box>
   );
 };
 
