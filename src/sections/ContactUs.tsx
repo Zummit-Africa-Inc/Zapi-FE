@@ -50,6 +50,9 @@ const ContactUs: React.FC = () => {
     <>
       <Box className={classes.root}>
         <Box className={classes.contactContainer}>
+          <Box className={classes.image}>
+            <img src={Peach} width={450} />
+          </Box>
           <Box className={classes.formContainer}>
             <Typography variant="h3">Get In Touch</Typography>
             <Typography variant="h6">
@@ -82,9 +85,10 @@ const ContactUs: React.FC = () => {
               />
               <Button
                 sx={{
-                  background: "blue",
+                  background: "#071B85",
                   color: "#fff",
                 }}
+                variant="contained"
                 disableElevation
                 disableFocusRipple
                 disabled={!isValid}
@@ -92,10 +96,6 @@ const ContactUs: React.FC = () => {
                 {load ? <Spinner /> : "Submit"}
               </Button>
             </form>
-          </Box>
-
-          <Box className={classes.image}>
-            <img src={Peach} width={450} />
           </Box>
         </Box>
       </Box>
@@ -106,14 +106,11 @@ const ContactUs: React.FC = () => {
 const useStyles = makeStyles({
   root: {
     width: "100%",
-    height: "100vh",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
+    padding: "1rem",
     color: "#fff",
-    backgroundImage: 'url("../../images/contact.png")',
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "100% 100%",
     "@media screen and (max-width: 700px)": {
       gridTemplateColumns: "1fr",
       gap: "1rem",
@@ -122,19 +119,22 @@ const useStyles = makeStyles({
     },
   },
   contactContainer: {
-    maxWidth: "960px",
     margin: "auto",
     width: "100%",
-    display: "grid",
-    gridTemplateColumns: "repeat(2, 1fr)",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
     gap: "1.5rem",
     background: "#fff",
     borderRadius: "1rem",
     overflow: "hidden",
-    boxShadow: "2px 2px 2px 1px rgba(0, 0, 0, 0.2)",
+    boxShadow: "2px 2px 2px 5px rgba(0, 0, 0, 0.2)",
     "@media screen and (max-width: 964px)": {
       margin: "0 auto",
       width: "90%",
+      display: "flex",
+      flexDirection: "column",
     },
     "@media screen and (max-width: 700px)": {
       display: "flex",
@@ -146,11 +146,12 @@ const useStyles = makeStyles({
     padding: "20px",
     display: "flex",
     flexDirection: "column",
+    alignItems: "inherit",
     "& h3": {
-      fontSize: "1.2rem",
+      fontSize: "2.2rem",
       fontWeight: "600",
       marginBottom: "1rem",
-      color: "blue",
+      color: "#071B85",
     },
     "& h6": {
       fontSize: "1.2rem",
@@ -162,6 +163,7 @@ const useStyles = makeStyles({
   contactForm: {
     display: "grid",
     rowGap: "1rem",
+    width: "100%",
     "& input": {
       width: "100%",
       border: "none",
@@ -192,12 +194,16 @@ const useStyles = makeStyles({
     },
   },
   image: {
-    width: "100%",
     height: "100%",
     display: "flex",
     alignItem: "center",
     justifyContent: "center",
     padding: "1rem",
+    backgroundColor: "white",
+    "@media screen and (max-width: 700px)": {
+      width: "100px",
+      objectFit: "contain",
+    },
   },
 });
 
