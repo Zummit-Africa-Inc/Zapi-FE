@@ -5,6 +5,7 @@ import { DataTable } from '.'
 import { useHttpRequest } from "../hooks"
 import { toast } from "react-toastify";
 import { useParams } from 'react-router-dom';
+import axios from "axios"
 
 
 const InviteUser: React.FC = () => {
@@ -21,25 +22,32 @@ const InviteUser: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    if (!queryString) {
+    if (!queryString || queryString.length < 1 ) {
       return toast.error("Enter the user's email");
     }
-    try {
-      const sendInvite = await sendRequest(
-        `${inviteurl}/invite/${id}`,
-        "post",
-        core_url,
-        queryString,
-        headers
-      )
-      return toast.success(`Invite sent to ${queryString}`);
+    if(queryString.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)){
+      try {
+        const sendInvite = await sendRequest(
+          `${inviteurl}/invite/${id}`,
+          "post",
+          core_url,
+          queryString,
+          headers
+        )
+        console.log(sendInvite);
+        return toast.success(`Invite sent to ${queryString}`);
+      }
+      
+      catch (error) {
+        console.log(error)
+        toast.error(` ${error} error occurred`)
+      }
+    } else {
+      return toast.error("Enter a valid email address to invite a user");
     }
-    catch (error) {
-      console.log(error)
-      toast.error(` ${error} error occurred`)
-    }
+    
   }
-  console.log(id)
+  // console.log(id)
 
   const GetUsers = async () => {
     return await sendRequest(
@@ -52,7 +60,7 @@ const InviteUser: React.FC = () => {
 
   useEffect(() => {
 
-    console.log(GetUsers())
+    // console.log(GetUsers())
   
   }, [subscribedUsers])
 
