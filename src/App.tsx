@@ -1,4 +1,3 @@
-import "./App.css";
 import React, { Suspense, useEffect, useMemo } from "react";
 import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
