@@ -269,11 +269,14 @@ const Login: React.FC = () => {
               </span>
               Sign in with Google
             </button>
-            <button className={classes.button} onClick={githubAuth}>
-              <Typography
-                sx={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                <GithubIcon /> Signin With Github
-              </Typography>
+            <button
+              className={classes.button}
+              style={{ border: "1px solid #ccc" }}
+              onClick={githubAuth}>
+              <span style={{ marginRight: "1rem" }}>
+                <GithubIcon />
+              </span>
+              Sign in With Github
             </button>
           </Stack>
 
@@ -360,15 +363,13 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: "4px",
-    color: "#FFF",
-    backgroundColor: "#081F4A",
+    color: "#000",
     outline: "none",
     fontSize: "16px",
     fontWeight: 600,
     lineHeight: "16px",
     cursor: "pointer",
     padding: "0 1rem",
-    border: "none",
     "@media screen and (max-width: 768px)": {
       width: "100%",
     },

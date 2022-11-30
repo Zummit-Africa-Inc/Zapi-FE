@@ -12,6 +12,7 @@ import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png";
 import { Add } from "@mui/icons-material";
 import { useContextProvider } from "../contexts/ContextProvider";
 import { DiscussionType } from "../types";
+import { ChatRounded } from "@mui/icons-material";
 
 interface Props {
     discussions: Array<DiscussionType>
@@ -35,25 +36,28 @@ const Discussion: React.FC<Props> = ({ discussions }) => {
         <Box className={classes.main}>
             <Box className={classes.discussion_tab}>
                 <Box className={classes.header}>
-                    <Typography
-                        sx={{
-                            marginBottom: "10px",
-                            fontSize: "21px",
-                            fontWeight: "bold",
-                            color: "#515D99",
-                            padding: "5px",
-                        }}>
-                            Discussions
+                    {discussions.length == 0 ? (
+                        <Typography
+                            sx={{
+                                marginBottom: "10px",
+                                fontSize: "21px",
+                                fontWeight: "bold",
+                                color: "#264276",
+                                padding: "5px",
+                            }}>
+                                Discussions
                         </Typography>
+                    ) : (
+                        <></>
+                    )}
                 </Box>
                 <Box>
                     <Button
                         variant="contained"
-                        sx={{background: "#071B85",color: "#FFFFFF"}}
+                        sx={{backgroundColor: "#264276", color: "#fff", width: "200px", height: "2.5rem"}}
                         className={classes.newDiscussion}
-                        onClick={() => handleClicked("addDiscussion")}
-                        style={{ height: "46px" }}>
-                        <Add /> <Typography>New Discussion</Typography>
+                        onClick={() => handleClicked("addDiscussion")}>
+                        <Add /> <Typography sx={{ fontSize: "14px" }}>New Discussion</Typography>
                     </Button>
                 </Box>
             </Box>
@@ -65,7 +69,7 @@ const Discussion: React.FC<Props> = ({ discussions }) => {
                         borderRadius: 0,
                     }}
                 >
-                    {discussions.length !== 0 ?
+                    {discussions.length == 0 ?
                         (
                             <>
                                 {_DATA.currentData().map((discussion: any) => (
@@ -96,10 +100,10 @@ const Discussion: React.FC<Props> = ({ discussions }) => {
                                 />
                             </>
                         ) : (
-                            <Box className={classes.discussion_thread} style={{ width: '100%', backgroundColor: '#ffffff', padding: '4rem 0', display: 'flex', alignItems: 'center' }}>
-                                <Typography variant="h5" >
-                                    There are no discussions in this API.
-                                </Typography>
+                            
+                            <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginTop: "110px", width: "100%" }}>
+                                <ChatRounded sx={{ fontSize: "32px", color: "#264276", }} />
+                                <Typography sx={{fontSize:"18px",color:"#515D99"}}>There are no discussions in this API.</Typography>
                             </Box>
                         )}
                 </Box>
