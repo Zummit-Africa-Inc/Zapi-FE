@@ -20,6 +20,13 @@ const colors: any = {
     "duplicate": "#E6BA36",
 }
 
+const methodColors: any = {
+    "get": "#1B5598",
+    "post": "#49B443",
+    "patch": "#E6BA36",
+    "delete": "#E64F36",
+}
+
 const testOptions: Array<TestType> = [
     { name: "Run", action: "run", icon: <PlayArrow />},
     { name: "Delete", action: "delete", icon: <Delete /> },
@@ -207,7 +214,6 @@ const Tests:React.FC<Props> = ({id}) => {
             if(data === undefined) return
             console.log(data)
         } catch (error) {}
-        getAllTests()
     }
 
     const handleCancelCreating = () => {
@@ -324,7 +330,8 @@ const Tests:React.FC<Props> = ({id}) => {
                 <TableRow>
                     <TableCell className={classes.cell}>Name</TableCell>
                     <TableCell className={classes.cell}>Route</TableCell>
-                    <TableCell className={classes.cell}>Method</TableCell>
+                    <TableCell className={classes.cell}>Status</TableCell>
+                    <TableCell className={classes.cell}>Message</TableCell>
                     <TableCell className={classes.cell}>Time</TableCell>
                     {/* <TableCell className={classes.cell}>Status</TableCell> */}
                     <TableCell className={classes.cell}>Actions</TableCell>
@@ -334,10 +341,15 @@ const Tests:React.FC<Props> = ({id}) => {
                 {tests && tests.map((test: TestResponse, index: number) => (
                     <TableRow key={index}>
                         <TableCell sx={{textTransform: "capitalize"}}>{test.name}</TableCell>
-                        <TableCell>{test.route}</TableCell>
-                        <TableCell sx={{textTransform: "uppercase"}}>{test.method}</TableCell>
-                        <TableCell>{test.createdOn && new Date(test.createdOn).toDateString()}</TableCell>
-                        {/* <TableCell className={classes.cell2}>Status</TableCell> */}
+                        <TableCell sx={{display: "flex",alignItems: "center",gap: "0.5rem"}}>
+                            <Typography sx={{color: methodColors[test.method],fontSize: "12px",fontWeight: 700, textTransform: "uppercase"}}>
+                                {test.method}
+                            </Typography>
+                            {test.route}
+                        </TableCell>
+                        <TableCell>Status</TableCell>
+                        <TableCell>Message</TableCell>
+                        <TableCell>{test.createdOn && new Date(test.createdOn).toLocaleString()}</TableCell>
                         <TableCell sx={{display: "flex",alignItems: "center",gap: "1rem"}}>
                             <>
                             <IconButton onClick={handleOpen}>
@@ -458,7 +470,7 @@ const useStyles = makeStyles({
     },
     cell: {
         "&.MuiTableCell-root": {
-            width: "150px",
+            width: "auto",
             color: "#FFF",
             fontWeight: 500,
             fontSize: "16px",

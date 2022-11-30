@@ -174,6 +174,7 @@ export type TestResponse = {
    payload?: Array<OptionsType>
    profileId?: string
    route: string
+   status: string
    updatedOn?: string | Date | null,
    updatedBy?: string | null,
 }
