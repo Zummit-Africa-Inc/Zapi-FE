@@ -13,7 +13,7 @@ import ReactGA from "react-ga4";
 const CustomTabs = styled(Tabs)({
   "&.MuiTabs-root": {
     width: "200px",
-    padding: "0 8px"
+    padding: "0 8px",
   },
   "& .MuiTabs-indicator": {
     display: "none",
@@ -29,6 +29,7 @@ const CustomTab = styled(Tab)({
     fontSize: "14px",
     color: "#081F4A",
     borderRadius: "5px",
+    margin: "0.25rem 0",
   },
   "&.MuiButtonBase-root": {
     minHeight: "50px",

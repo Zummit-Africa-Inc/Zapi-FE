@@ -1,12 +1,13 @@
 import React, { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from "react";
 import { Box, Button, IconButton, Menu, MenuItem, Paper, Select, Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
 import { Add, ContentCopy, Delete, Edit, MoreVert, PlayArrow } from "@mui/icons-material";
-import { makeStyles } from "@mui/styles";
+import { makeStyles, styled } from "@mui/styles";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
 
 import { APIType, EndpointsType, OptionsType, TestResponse, TestType } from "../types";
 import { useFormInputs, useHttpRequest } from "../hooks";
+import { Fallback } from "../components";
 
 interface Props {
     id: string | undefined
@@ -26,42 +27,100 @@ const testOptions: Array<TestType> = [
     // { name: "Duplicate", action: "duplicate", icon: <ContentCopy /> },
 ]
 
-const initialState = { testName: "", endpointName: "", route: "", headerValue: "", bodyValue: "", paramsValue: ""}
+const CustomButton = styled(Button)({
+    "&.MuiButtonBase-root": {
+        "&:hover": {
+            background: "#F9F9F9",
+            color: "#000",
+        },
+    }
+})
+
+const initialState = { name: "" }
 
 const Tests:React.FC<Props> = ({id}) => {
+    // !test objects
+    const [tests, setTests] = useState<Array<TestResponse>>([])
+    // !test objects
+
     const [endpoints, setEndpoints] = useState<Array<EndpointsType> | null>([]);
     const [creatingTest, setCreatingTest] = useState<boolean>(false);
-    const [testAction, setTestAction] = useState<string>("run");
     const {inputs, bind, select} = useFormInputs(initialState);
     const {error, loading, sendRequest} = useHttpRequest();
     const [api, setApi] = useState<APIType | null>(null);
-    const { testName, endpointName, route, headerValue, bodyValue, paramsValue } = inputs
+    const { name } = inputs
     const cookies = new Cookies();
     const classes= useStyles();
     
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+    const handleOpen = (e: MouseEvent<HTMLElement>) => setAnchorEl(e.currentTarget);
+    const handleClose = () => setAnchorEl(null);
+    
+    const [endpointName, setEndpointName] = useState<string>("");
+    const [route, setRoute] = useState<string>("");
+    const [method, setMethod] = useState<string>("");
+    const [endpointId, setEndpointId] = useState<string>("");
+    const handleEndpointChange = (e: ChangeEvent<HTMLSelectElement>) => {
+        const name = e.target.value;
+        if(!name) {            
+            setEndpointName("");
+            setEndpointId("");
+            setMethod("");
+            setRoute("");
+            return
+        }
+        const route = endpoints?.find((endpoint) => endpoint.name === name)?.route;
+        const method = endpoints?.find((endpoint) => endpoint.name === name)?.method;
+        const id = endpoints?.find((endpoint) => endpoint.name === name)?.id;
+        if(!route || !method || !id) return;
+        setEndpointName(name);
+        setEndpointId(id);
+        setMethod(method);
+        setRoute(route);
+    }
+
     const [headers, setHeaders] = useState<Array<OptionsType>>([])
     const [body, setBody] = useState<Array<OptionsType>>([])
     const [params, setParams] = useState<Array<OptionsType>>([])
     
     const addHeaderValue = (object: OptionsType) => {
-        const { name, value } = object;
-        if (!value) return toast.error("Add a valid value");
-        if(headers.find((obj) => obj.name.toLowerCase() === name.toLowerCase())) return toast.error("Duplicate values!");
+        const {name, value} = object;
+        let isHeader = headers.find((header) => header.name === name);
+        if(isHeader) return isHeader.value = value;
         setHeaders(prev => [...prev, object]);
     }
 
     const addBodyValue = (object: OptionsType) => {
-        const { name, value } = object;
-        if (!value) return toast.error("Add a valid value");
-        if(body.find((obj) => obj.name.toLowerCase() === name.toLowerCase())) return toast.error("Duplicate values!");
+        const {name, value} = object;
+        let isBody = body.find((item) => item.name === name);
+        if(isBody) return isBody.value = value;
         setBody(prev => [...prev, object]);
     }
 
     const addParamsValue = (object: OptionsType) => {
-        const { name, value } = object;
-        if (!value) return toast.error("Add a valid value");
-        if(params.find((obj) => obj.name.toLowerCase() === name.toLowerCase())) return toast.error("Duplicate values!");
+        const {name, value} = object;
+        let isParam = params.find((param) => param.name === name);
+        if(isParam) return isParam.value = value;
         setParams(prev => [...prev, object]);
+    }
+
+    const handleHeaderChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const name = e.target.name
+        const value = e.target.value
+        addHeaderValue({name, value})
+    }
+
+    const handleBodyChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const name = e.target.name
+        const value = e.target.value
+        addBodyValue({name, value})
+    }
+
+    const handleParamsChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const name = e.target.name
+        const value = e.target.value
+        addParamsValue({name, value})
     }
 
     const fetchApiData = async(apiId: string | undefined): Promise<any> => {
@@ -82,49 +141,100 @@ const Tests:React.FC<Props> = ({id}) => {
 
     const addTest = async(e: FormEvent) => {
         e.preventDefault()
-        if(!testName) return toast.error("Test name cannot be empty")
+        if(!name) return toast.error("Test name cannot be empty!")
+        if(!endpointName) return toast.error("Please select an endpoint!")
         const requestHeaders = {
             'Content-type': "application/json",
             'X-Zapi-Auth-Token': `Bearer ${cookies.get("accessToken")}`
         };
         const payload = {
-            apiId: id,
-            profileId: cookies.get("profileId"),
-            testName,
+            method,
             route,
             payload: {
                 headers,
                 body,
                 params,
-            }
+            },
+            headers: "",
+            requestStatus: "",
+            url: "",
+            profileId: cookies.get("profileId"),
+            apiId: id,
+            endpointId,
+            name,
         }
-        console.log(payload)
         try {
-            // const data = await sendRequest(``, "get", "VITE_CORE_URL", payload, requestHeaders)
-            // if(data === undefined) return
+            const data = await sendRequest(`/subscription/save-dev-test/`, "post", "VITE_CORE_URL", payload, requestHeaders)
+            if(data === undefined) return
+            toast.success(`${data.message}`)
         } catch (error) {}
-        setCreatingTest(false)
+        handleCancelCreating()
     };
-
-    const runTestAction = async(action: string) => {
+    
+    const getAllTests = async() => {
         const headers = {
             'Content-Type': "application/json",
             'X-Zapi-Auth-Token': `Bearer ${cookies.get("accessToken")}`
         };
-        const payload = {}
         try {
-            // const data = await sendRequest(``, "post", payload, headers)
-            console.log(action)
+            const data = await sendRequest(`/subscription/get-dev-tests`, "get", "VITE_CORE_URL", "", headers)
+            if(data === undefined) return
+            setTests(data?.data)
         } catch (error) {
-            
+            console.log(error)
         }
+    }
+
+    const runTestAction = async(testId: string) => {
+        const headers = {
+            'Content-Type': "application/json",
+            'X-Zapi-Auth-Token': `Bearer ${cookies.get("accessToken")}`
+        };
+        try {
+            const data = await sendRequest(`/subscription/api-dev-test/${testId}`, "post", "", headers)
+            if(data === undefined) return
+            console.log(data)
+        } catch (error) {}
     };
+
+    const deleteTest = async(testId: string) => {
+        const headers = {
+            'Content-Type': "application/json",
+            'X-Zapi-Auth-Token': `Bearer ${cookies.get("accessToken")}`
+        };
+        try {
+            const data = await sendRequest(`/subscription/delete-test/${testId}`, "del", "", headers)
+            if(data === undefined) return
+            console.log(data)
+        } catch (error) {}
+        getAllTests()
+    }
+
+    const handleCancelCreating = () => {
+        setCreatingTest(false);
+        setEndpointName("");
+        setMethod("");
+        setRoute("");
+        setHeaders([]);
+        setBody([]);
+        setParams([]);
+    }
     
     useEffect(() => {
         fetchApiData(id)
     },[])
 
+    useEffect(() => {
+        getAllTests()
+    },[])
+
+    useEffect(() => {
+        error && toast.error(`${error}`)
+    },[error])
+
   return (
+    <>
+    {loading && <Fallback />}
     <Paper className={classes.paper}>
         <Stack width="100%" direction="row" alignItems="center" justifyContent="space-between" mt={2} mb={4}>
             <Box className={classes.inputs}>
@@ -140,20 +250,21 @@ const Tests:React.FC<Props> = ({id}) => {
             <form onSubmit={addTest} style={{margin: "0 0 2rem"}}>
                 <Stack width="100%" direction="row" alignItems="center" spacing={2} my={2}>
                     <Box className={classes.inputs}>
-                        <input type="text" name="testName" {...bind} placeholder="Test name" />
+                        <input type="text" name="name" {...bind} placeholder="Test name" />
                     </Box>
                     <Box className={classes.inputs}>
                         <button type="submit" disabled={!endpointName}>add</button>
                     </Box>
                     <Box className={classes.inputs}>
-                        <button type="button" onClick={() => setCreatingTest(false)} style={{background: colors["delete"]}}>cancel</button>
+                        <button type="button" onClick={handleCancelCreating} style={{background: colors["delete"]}}>cancel</button>
                     </Box>
                 </Stack>
-                {testName && endpoints && (
+                {name && endpoints && (
                     <Stack width="100%" direction="row" alignItems="center" spacing={2} my={2}>
                         <Box className={classes.inputs}>
                             <label>Endpoint name</label>
-                            <select name="endpointName" {...select}>
+                            <select value={endpointName} onChange={handleEndpointChange}>
+                                <option value="">SELECT ENDPOINT</option>
                                 {endpoints.map((endpoint, index) => (
                                     <option key={index} value={endpoint.name}>
                                         {endpoint.name}
@@ -163,15 +274,11 @@ const Tests:React.FC<Props> = ({id}) => {
                         </Box>
                         <Box className={classes.inputs}>
                             <label>Endpoint route</label>
-                            {endpoints
-                            .filter((endpoint) => endpoint.name === endpointName)
-                            .map((endpoint, index) => (
-                                <input key={index} type="text" value={endpoint.route} name="route" {...bind} disabled />
-                            ))}
+                            <input type="text" value={route} disabled />
                         </Box>
                     </Stack>
                 )}
-                {testName && endpoints && endpoints
+                {name && endpoints && endpoints
                 .filter((endpoint) => endpoint.name === endpointName)
                 .map((endpoint, index) => (
                     <Stack key={index} width="100%" direction="column" spacing={2} my={1}>
@@ -182,10 +289,7 @@ const Tests:React.FC<Props> = ({id}) => {
                                     <Typography sx={{fontSize: "13px",color: "#081F4A"}}>
                                         {header.name}
                                     </Typography>
-                                    <input type="text" name="headerValue" {...bind} required={header.required} className={classes.input} />
-                                    <IconButton type="button" onClick={() => addHeaderValue({name: header.name, value: headerValue})}>
-                                        <Add />
-                                    </IconButton>
+                                    <input type="text" name={header.name} onChange={handleHeaderChange} required={header.required} className={classes.input} />
                                 </Stack>
                             ))}
                         </Stack>
@@ -196,10 +300,7 @@ const Tests:React.FC<Props> = ({id}) => {
                                     <Typography sx={{fontSize: "13px",color: "#081F4A"}}>
                                         {key.name}
                                     </Typography>
-                                    <input type="text" name="bodyValue" {...bind} required={key.required} className={classes.input} />
-                                    <IconButton type="button" onClick={() => addBodyValue({name: key.name, value: bodyValue})}>
-                                        <Add />
-                                    </IconButton>
+                                    <input type="text" name={key.name} onChange={handleBodyChange} required={key.required} className={classes.input} />
                                 </Stack>
                             ))}
                         </Stack>
@@ -210,10 +311,7 @@ const Tests:React.FC<Props> = ({id}) => {
                                     <Typography sx={{fontSize: "13px",color: "#081F4A"}}>
                                         {param.name}
                                     </Typography>
-                                    <input type="text" name="paramsValue" {...bind} required={param.required} className={classes.input} />
-                                    <IconButton type="button" onClick={() => addParamsValue({name: param.name, value: paramsValue})}>
-                                        <Add />
-                                    </IconButton>
+                                    <input type="text" name={param.name} onChange={handleParamsChange} required={param.required} className={classes.input} />
                                 </Stack>
                             ))}
                         </Stack>
@@ -225,32 +323,42 @@ const Tests:React.FC<Props> = ({id}) => {
             <TableHead className={classes.head}>
                 <TableRow>
                     <TableCell className={classes.cell}>Name</TableCell>
-                    <TableCell className={classes.cell}>Endpoint</TableCell>
                     <TableCell className={classes.cell}>Route</TableCell>
+                    <TableCell className={classes.cell}>Method</TableCell>
                     <TableCell className={classes.cell}>Time</TableCell>
                     {/* <TableCell className={classes.cell}>Status</TableCell> */}
                     <TableCell className={classes.cell}>Actions</TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
-                <TableRow>
-                    <TableCell>Test name</TableCell>
-                    <TableCell>Endpoint</TableCell>
-                    <TableCell>Route</TableCell>
-                    <TableCell>Time</TableCell>
-                    {/* <TableCell>Status</TableCell> */}
-                    <TableCell sx={{display: "flex",alignItems: "center",gap: "1rem"}}>
-                        <Button onClick={() => console.log("run")} sx={{background: colors["run"],color: "#FFF"}}>
-                            run
-                        </Button>
-                        <Button onClick={() => console.log("delete")} sx={{background: colors["delete"],color: "#FFF"}}>
-                            delete
-                        </Button>
-                    </TableCell>
-                </TableRow>
+                {tests && tests.map((test: TestResponse, index: number) => (
+                    <TableRow key={index}>
+                        <TableCell sx={{textTransform: "capitalize"}}>{test.name}</TableCell>
+                        <TableCell>{test.route}</TableCell>
+                        <TableCell sx={{textTransform: "uppercase"}}>{test.method}</TableCell>
+                        <TableCell>{test.createdOn && new Date(test.createdOn).toDateString()}</TableCell>
+                        {/* <TableCell className={classes.cell2}>Status</TableCell> */}
+                        <TableCell sx={{display: "flex",alignItems: "center",gap: "1rem"}}>
+                            <>
+                            <IconButton onClick={handleOpen}>
+                                <MoreVert />
+                            </IconButton>
+                            <Menu anchorEl={anchorEl} open={open} onClose={handleClose} sx={{}}>
+                                <MenuItem onClick={handleClose}>
+                                    <CustomButton onClick={() => runTestAction(test.id)} sx={{background: colors["run"],color: "#FFF"}}>run</CustomButton>
+                                </MenuItem>
+                                <MenuItem onClick={handleClose}>
+                                    <CustomButton onClick={() => deleteTest(test.id)} sx={{background: colors["delete"],color: "#FFF"}}>delete</CustomButton>
+                                </MenuItem>
+                            </Menu>
+                            </>
+                        </TableCell>
+                    </TableRow>
+                ))}
             </TableBody>
         </Table>
     </Paper>
+    </>
   )
 };
 
@@ -354,6 +462,7 @@ const useStyles = makeStyles({
             color: "#FFF",
             fontWeight: 500,
             fontSize: "16px",
+            textTransform: "capitalize",
         }
     },
     input: {

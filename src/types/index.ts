@@ -162,6 +162,18 @@ export type TestType = {
 }
 
 export type TestResponse = {
+   apiId?: string
+   createdOn?: string | Date | null,
+   createdBy?: string | null,
+   deletedOn?: string | Date | null,
+   deletedBy?: string | null,
+   endpointId?: string
    id: string
-   testName: string
+   method: string
+   name: string
+   payload?: Array<OptionsType>
+   profileId?: string
+   route: string
+   updatedOn?: string | Date | null,
+   updatedBy?: string | null,
 }
