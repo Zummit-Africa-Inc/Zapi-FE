@@ -10,7 +10,7 @@ import axios from "axios"
 
 const InviteUser: React.FC = () => {
   const classes = useStyles();
-  const [queryString, setQueryString] = useState<string>("");
+  const [inviteeEmail, setInviteeEmail] = useState<string>("");
   const [subscribedUsers, setSubscribedUsers] = useState<string>("");
 
 
@@ -18,25 +18,26 @@ const InviteUser: React.FC = () => {
   const { id } = useParams()
   const headers = { "Content-Type": "application/json" };
   const core_url = "VITE_CORE_URL";
-  const inviteurl = "/api/v1/invitation"
+  const inviteurl = "/api/v1/invitation";
+  const url = "VITE_IDENTITY_URL";
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    if (!queryString || queryString.length < 1 ) {
+    if (!inviteeEmail || inviteeEmail.length < 1 ) {
       return toast.error("Enter the user's email");
     }
-    if(queryString.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)){
+    const payload = {inviteeEmail}
+    if(inviteeEmail.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)){
       try {
-        const sendInvite = await sendRequest(
-          `${inviteurl}/invite/${id}`,
+      await sendRequest(
+          `/invitation/invite/${id}`,
           "post",
           core_url,
-          queryString,
+          payload,
           headers
-        )
-        console.log(sendInvite);
-        return toast.success(`Invite sent to ${queryString}`);
+        ).then((res) => console.log("My response ...",res)).then(() => toast.success("Sent")).catch((err) => toast.error(err))
       }
+     
       
       catch (error) {
         console.log(error)
@@ -49,20 +50,20 @@ const InviteUser: React.FC = () => {
   }
   // console.log(id)
 
-  const GetUsers = async () => {
-    return await sendRequest(
-      `/api/v1/invitation/get-all/${id}`,
-      "get",
-      core_url,
-      headers,
-    )
-  }
+  // const GetUsers = async () => {
+  //    await sendRequest(
+  //     `invitation/get-all/${id}`,
+  //     "get",
+  //     "https://development.core.zapi.ai/api/v1",
+  //     headers,
+  //   )
+  // }
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    // console.log(GetUsers())
+  //   console.log("Here is the users", GetUsers())
   
-  }, [subscribedUsers])
+  // }, [subscribedUsers])
 
 
   const temp = [
@@ -108,7 +109,7 @@ const InviteUser: React.FC = () => {
       </span>
       <div className={classes.wrap}>
         <form onSubmit={handleSubmit} className={classes.search}>
-          <InputSearch className={classes.formControl} type="text" name="queryString" value={queryString} onChange={(e: ChangeEvent<HTMLInputElement>) => setQueryString(e.target.value)} placeholder="Search a User" />
+          <InputSearch className={classes.formControl} type="text" name="queryString" value={inviteeEmail} onChange={(e: ChangeEvent<HTMLInputElement>) => setInviteeEmail(e.target.value)} placeholder="Search a User" />
           <button className={classes.button} onClick={handleSubmit}>
             Send Invite
           </button>
