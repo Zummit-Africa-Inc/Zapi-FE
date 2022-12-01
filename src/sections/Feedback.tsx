@@ -5,11 +5,11 @@ import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
 
 const Feedback = ({handleOpen} : any) => {
     return (
-    <Box sx={feedback}>
+    // <Box sx={feedback}>
       <Button onClick={handleOpen}>
-        <FeedbackOutlinedIcon fontSize="large" sx={{fontSize: "4em", background: "white", borderRadius: "30%"}}/>
+        <FeedbackOutlinedIcon fontSize="small" sx={{ fontSize: 20, background: "white", borderRadius: "50%"}}/>
       </Button>
-    </Box>
+    //  </Box> *
     )
 }
 
