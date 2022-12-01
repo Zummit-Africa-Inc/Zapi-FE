@@ -16,7 +16,7 @@ import otp from "../assets/images/otp.png";
 import login2 from "../assets/images/login2.png";
 import subscriptions1 from "../assets/images/subscriptions1.png";
 import subscriptions2 from "../assets/images/subscriptions2.png";
-import request from "../assets/images/request.png";
+import request from "../assets/images/request_edit.png";
 
 const CustomTab = styled(Tab)({
 	"&.MuiTab-root": {
