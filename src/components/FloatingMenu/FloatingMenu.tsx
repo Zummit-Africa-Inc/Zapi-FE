@@ -20,13 +20,13 @@ export enum Directions {
 export interface FloatingMenuProps {
   children: JSX.Element[] | JSX.Element | string;
   spacing?: number;
-  slideSpeed?: number;
+  slidespeed?: number;
   direction?: Directions;
   isOpen: boolean;
 }
 
 const FloatingMenu = ({
-  slideSpeed = 500,
+  slidespeed = 500,
   direction = Directions.Down,
   isOpen = false,
   spacing = 8,
@@ -38,7 +38,7 @@ const FloatingMenu = ({
     (child: any, index: number) =>
       React.cloneElement(child, {
         isOpen,
-        slideSpeed,
+        slidespeed,
         direction,
         index,
         spacing,
