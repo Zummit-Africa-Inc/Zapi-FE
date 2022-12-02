@@ -11,19 +11,25 @@ import {
     TableBody,
     TableCell,
     tableCellClasses,
-    TableRow
+    TableRow,
+    Box
 } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import { makeStyles } from "@mui/styles";
+import { DataTable } from ".";
 
 
+const header = ["Username", "Status", "Name", "Date Subscribed", "Plan Name", "Total paid", "Last Active"];
+const row = [{
+  user: (<>No users to display</>)
+}];
 
 const User = () => {
     const classes = useStyles()
     
     return (
-    <div className={classes.user}>
-        <div style={{ display: 'flex', alignItems: "center", justifyContent: "flex-end" }}>
+    <Box className={classes.user}>
+        <Box style={{ display: 'flex', alignItems: "center", justifyContent: "flex-end" }}>
             <TextField
                 InputProps={{
             startAdornment: (
@@ -44,34 +50,11 @@ const User = () => {
                 <Button sx={{lineHeight: 1}}>Paid Users(0)</Button>
                 <Button sx={{lineHeight: 1}}>Free Users(1)</Button>
             </ButtonGroup>
-        </div>
-        <TableContainer className={classes.tableContainer}>
-        <Table sx={{
-            border:1,
-            borderColor: "grey.300",
-            borderRadius: "10px",
-            height: "300px",
-        }}
-        stickyHeader>
-            <TableHead>
-                <TableRow className={classes.root}>
-                    <TableCell><strong>Username</strong></TableCell>
-                    <TableCell align="right"><strong>status</strong></TableCell>
-                    <TableCell align="right"><strong>Name</strong></TableCell>
-                    <TableCell align="right"><strong>Date Subscribed</strong></TableCell>
-                    <TableCell align="right"><strong>Plan Name</strong></TableCell>
-                    <TableCell align="right"><strong>Total paid</strong></TableCell>
-                    <TableCell align="right"><strong>Last Active</strong></TableCell>
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                <tr>
-                    <td>No users to display</td>
-                </tr>
-            </TableBody>
-        </Table>
-        </TableContainer>
-    </div>
+        </Box>
+
+        <DataTable Heading={header} Rows={row} />
+        
+    </Box>
 )};
 
 export default User;
