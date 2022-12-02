@@ -133,8 +133,8 @@ export type AnalyticsLog = {
 
 export type OptionsType = {
    name: string
-   type: string
-   required: boolean
+   type?: string
+   required?: boolean
    value?: any
 }
 
@@ -153,4 +153,28 @@ export type ReviewType = {
    rating: number,
    review: string
    by: User
+}
+
+export type TestType = {
+   name: string
+   action: string
+   icon: JSX.Element
+}
+
+export type TestResponse = {
+   apiId?: string
+   createdOn?: string | Date | null,
+   createdBy?: string | null,
+   deletedOn?: string | Date | null,
+   deletedBy?: string | null,
+   endpointId?: string
+   id: string
+   method: string
+   name: string
+   payload?: Array<OptionsType>
+   profileId?: string
+   route: string
+   status: string
+   updatedOn?: string | Date | null,
+   updatedBy?: string | null,
 }

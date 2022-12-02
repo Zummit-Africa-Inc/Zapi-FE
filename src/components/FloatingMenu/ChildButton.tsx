@@ -5,9 +5,9 @@ import ListItem from '@mui/material/ListItem';
 
 
 
-const Wrapper = ({ isOpen, slideSpeed, background, size, spacing, direction, ...rest }: any) => {
+const Wrapper = ({ isOpen, slidespeed, background, size, spacing, direction, ...rest }: any) => {
     return (
-        <ListItem sx={listItemStyle({ isOpen, slideSpeed, background, size, spacing, direction })} {...rest} /> 
+        <ListItem sx={listItemStyle({ isOpen, slidespeed, background, size, spacing, direction })} {...rest} /> 
     );
 };
 
@@ -67,7 +67,7 @@ const ChildButton = ({
 
 export default ChildButton
 
-const listItemStyle = ({ isOpen, slideSpeed, background, size, spacing, direction }: any) => ({
+const listItemStyle = ({ isOpen, slidespeed, background, size, spacing, direction }: any) => ({
     background,
     display: 'flex',
     border: 'none',
@@ -81,7 +81,7 @@ const listItemStyle = ({ isOpen, slideSpeed, background, size, spacing, directio
     justifyContent: 'center',
     alignItems: 'center',
     opacity: isOpen ? 1 : 0,
-    transition: `all ${slideSpeed}ms`,
+    transition: `all ${slidespeed}ms`,
     width: size,
     height: size,
     marginTop: direction === 'down' ? spacing : 0,
