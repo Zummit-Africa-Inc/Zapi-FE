@@ -7,6 +7,7 @@ import {
   Typography,
   Table,
   Button,
+  Box
 } from "@mui/material";
 import { useAppDispatch, useAppSelector, useHttpRequest } from "../hooks";
 import { tableCellClasses } from "@mui/material/TableCell";
@@ -22,6 +23,7 @@ import Cookies from "universal-cookie";
 import { useContextProvider } from "../contexts/ContextProvider";
 import { toast } from "react-toastify";
 import ReactGA from "react-ga4";
+import { DataTable } from ".";
 
 const core_url = "VITE_CORE_URL";
 
@@ -103,56 +105,64 @@ const Subscription: React.FC = () => {
     navigator.clipboard.writeText(token);
     //alert("Token Copied!");
   };
+
+
+  const header = ["Name", "Token", "", "", ""];
+  const row = [{}];
+
+  if(subscribedApis.length !== 0) {
+    row.pop();
+  } else {
+    row.pop();
+    row.push({
+      results: <>No results</>
+    })
+  }
+
+  subscribedApis?.map((api, index) => (
+    row.push({
+      name: api.name,
+      token: (
+        <>
+          <>{"..." + api.token.slice(217, 280)}{" "}</>
+          <Button onClick={(e) => copyButton(e, api.token)}>
+            <ContentCopy />
+          </Button>
+        </>
+      ),
+      view: (
+        <Link to={`/api/${api.apiId}`} className={classes.Link}>
+          View
+        </Link>
+      ),
+      unsubscribe: (
+        <button
+          className={classes.button}
+          onClick={(e) => unsubscribe(e, api.apiId)}>
+          Unsubscribe
+        </button>
+      ),
+      revoke: (
+        <button
+          className={classes.button1}
+          onClick={(e) => revoke(e, api.apiId)}>
+          Revoke
+        </button>
+      )
+    })
+
+
+  ));
+
+  
   return (
-    <div>
+    <Box>
       {subscribedApis.length !== 0 ? (
-        <div className={classes.subTable}>
-          <Table>
-            <TableHead>
-              <TableRow className={classes.root}>
-                <StyledTableCell>Name</StyledTableCell>
-                <StyledTableCell>Token</StyledTableCell>
-                <StyledTableCell></StyledTableCell>
-                <StyledTableCell></StyledTableCell>
-                <StyledTableCell></StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {subscribedApis?.map((api, index) => (
-                <StyledTableRow key={index}>
-                  <StyledTableCell>{api.name}</StyledTableCell>
-                  <StyledTableCell>
-                    {"..." + api.token.slice(217, 280)}{" "}
-                    <Button onClick={(e) => copyButton(e, api.token)}>
-                      <ContentCopy />
-                    </Button>
-                  </StyledTableCell>
-                  <StyledTableCell style={{ width: 50 }}>
-                    <Link to={`/api/${api.apiId}`} className={classes.Link}>
-                      View
-                    </Link>
-                  </StyledTableCell>
-                  <StyledTableCell style={{ width: 50 }}>
-                    <button
-                      className={classes.button}
-                      onClick={(e) => unsubscribe(e, api.apiId)}>
-                      Unsubscribe
-                    </button>
-                  </StyledTableCell>
-                  <StyledTableCell style={{ width: 50 }}>
-                    <button
-                      className={classes.button1}
-                      onClick={(e) => revoke(e, api.apiId)}>
-                      Revoke
-                    </button>
-                  </StyledTableCell>
-                </StyledTableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+        <Box className={classes.subTable}>
+          <DataTable Heading={header} Rows={row} />
+        </Box>
       ) : (
-        <div className={classes.addApiDesc}>
+        <Box className={classes.addApiDesc}>
           <Typography
             gutterBottom
             variant="subtitle1"
@@ -182,9 +192,9 @@ const Subscription: React.FC = () => {
             }}>
             Visit the Hub to subscribe to an API
           </Typography>
-        </div>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 };
 
