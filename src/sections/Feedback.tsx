@@ -7,7 +7,7 @@ const Feedback = ({handleOpen} : any) => {
     return (
     // <Box sx={feedback}>
       <Button onClick={handleOpen}>
-        <FeedbackOutlinedIcon fontSize="small" sx={{ fontSize: 20, background: "white", borderRadius: "50%"}}/>
+        <FeedbackOutlinedIcon fontSize="small" sx={{ fontSize: 25, background: "white", borderRadius: "50%"}}/>
       </Button>
     //  </Box> *
     )

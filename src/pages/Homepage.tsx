@@ -16,6 +16,7 @@ import Feedback from "../sections/Feedback";
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import {
   MainButton,
   ChildButton,
@@ -51,15 +52,15 @@ const Homepage: React.FC = () => {
         <MainButton
           isOpen={isOpen}
           background="#081F4A"
-          iconResting={<AddCircleOutlineRoundedIcon sx={{ fontSize: 20, background: "transparent" }} />}
-          iconActive={<RemoveCircleOutlineIcon sx={{ fontSize: 20, background: "transparent" }} />}
+          iconResting={<SupportAgentIcon sx={{ fontSize: 30, background: "transparent" }} />}
+          iconActive={<RemoveCircleOutlineIcon sx={{ fontSize: 25, background: "transparent" }} />}
           onClick={() => {
             setIsOpen((prev) => !prev);
           }}
           size={56}
         />
           <ChildButton
-          icon={<WhatsAppIcon sx={{ fontSize: 20, background: "transparent" }} />}
+          icon={<WhatsAppIcon sx={{ fontSize: 25, background: "transparent" }} />}
             background="green"
           size={40}
           onClick={() => {
