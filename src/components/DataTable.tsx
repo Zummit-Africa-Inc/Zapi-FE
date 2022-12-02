@@ -69,7 +69,7 @@ const DataTable: React.FC<TableProps> = ({ Heading, Rows }) => {
           <TableHead>
             <TableRow className={classes.root}>
               {Heading.map((heading) => (
-                <TableCell className="tableCell" key={heading}>
+                <TableCell sx={{ fontWeight: "bold" }} className="tableCell" key={heading}>
                   {heading}
                 </TableCell>
               ))}

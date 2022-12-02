@@ -21,6 +21,7 @@ import {
 import { removeEndpoint, editEndpoint } from "../redux/slices/userSlice";
 import { EndpointProps } from "../interfaces";
 import { Spinner } from "../assets";
+import { DataTable } from ".";
 
 const core_url = "VITE_CORE_URL";
 const initialState = {
@@ -111,84 +112,88 @@ const CollapsibleTable: React.FC<Props> = ({ id }) => {
     } catch (error) {}
   };
 
+  
+  const header = ["Name", "Method", "Route", "", ""];
+  const row = [{}];
+
+  if(api?.endpoints?.length !== 0) {
+    row.pop();
+  } else {
+    row.pop();
+    row.push({
+      results: <>No results</>
+    })
+  }
+
+
+  api?.endpoints?.map((endpoint, index) => (
+    row.push({
+      name: (
+        <input
+            type="text"
+            name="name"
+            defaultValue={endpoint?.name}
+            {...bind}
+            className={classes.input}
+            disabled={isEditing !== index}
+          />
+      ),
+      method: (
+        <select
+          name="method"
+          defaultValue={endpoint?.method}
+          {...select}
+          className={classes.input}
+          disabled={isEditing !== index}>
+          <option value="get">GET</option>
+          <option value="post">POST</option>
+          <option value="patch">PATCH</option>
+          <option value="delete">DELETE</option>
+        </select>
+      ),
+      route: (
+          <input
+            type="text"
+            name="route"
+            defaultValue={endpoint?.route.toString()}
+            {...bind}
+            className={classes.input}
+            disabled={isEditing !== index}
+          />
+      ),
+      edit: (
+        (isEditing === index) ? (
+          <button
+            onClick={() => save(endpoint?.id)}
+            className={classes.button}
+            style={{ background: "#10c96b" }}>
+            DONE
+          </button>
+        ) : (
+          <button
+            onClick={() => openEditing(index)}
+            className={classes.button}
+            style={{ background: "#c5c5c5" }}>
+            EDIT
+          </button>
+        )
+      ), 
+      delete: (
+        <button
+          onClick={() => deleteRoute(endpoint?.id)}
+          className={classes.button}
+          style={{ background: "#e83f33" }}>
+          {loading ? <Spinner /> : "DELETE"}
+        </button>
+      )
+    })
+
+  ))
+
   return (
     <>
-      <TableContainer component={Paper}>
-        <Table aria-label="collapsible table">
-          <TableHead>
-            <TableRow className={classes.root}>
-              <TableCell>Name</TableCell>
-              <TableCell>Method</TableCell>
-              <TableCell>Route</TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {api?.endpoints?.map((endpoint, index) => (
-              <StyledTableRow key={index}>
-                <StyledTableCell>
-                  <input
-                    type="text"
-                    name="name"
-                    defaultValue={endpoint?.name}
-                    {...bind}
-                    className={classes.input}
-                    disabled={isEditing !== index}
-                  />
-                </StyledTableCell>
-                <StyledTableCell>
-                  <select
-                    name="method"
-                    defaultValue={endpoint?.method}
-                    {...select}
-                    className={classes.input}
-                    disabled={isEditing !== index}>
-                    <option value="get">GET</option>
-                    <option value="post">POST</option>
-                    <option value="patch">PATCH</option>
-                    <option value="delete">DELETE</option>
-                  </select>
-                </StyledTableCell>
-                <StyledTableCell>
-                  <input
-                    type="text"
-                    name="route"
-                    defaultValue={endpoint?.route.toString()}
-                    {...bind}
-                    className={classes.input}
-                    disabled={isEditing !== index}
-                  />
-                </StyledTableCell>
-                <StyledTableCell>
-                  {isEditing === index ? (
-                    <button
-                      onClick={() => save(endpoint?.id)}
-                      className={classes.button}
-                      style={{ background: "#10c96b" }}>
-                      DONE
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => openEditing(index)}
-                      className={classes.button}
-                      style={{ background: "#c5c5c5" }}>
-                      EDIT
-                    </button>
-                  )}
-                </StyledTableCell>
-                <StyledTableCell>
-                  <button
-                    onClick={() => deleteRoute(endpoint?.id)}
-                    className={classes.button}
-                    style={{ background: "#e83f33" }}>
-                    {loading ? <Spinner /> : "DELETE"}
-                  </button>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
+      <TableContainer sx={{ marginBottom: "50px" }} component={Paper}>
+        <DataTable Heading={header} Rows={row} />
       </TableContainer>
     </>
   );

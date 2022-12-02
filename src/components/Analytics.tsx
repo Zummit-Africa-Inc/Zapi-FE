@@ -7,6 +7,7 @@ import {
   TableHead,
   TableRow,
   TablePagination,
+  Box
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useState, useEffect, useMemo } from "react";
@@ -118,10 +119,47 @@ const Analytics: React.FC = () => {
     setErrStyle("tab");
     setSuccessStyle("clickTab");
   };
+
+
+  const header = ["Time", "API Version", "Endpoint", "Method", "Response Status", "Latency"];
+  const row = [{}];
+
+  if(analyticsLog.length !== 0) {
+    row.pop();
+  } else {
+    row.pop();
+    row.push({
+      results: <>No results</>
+    })
+  }
+  
+  analyticsLog.map((logs, index) => (
+    row.push({
+      createdOn: (
+        <>{logs.createdOn}</>
+      ),
+      version: (
+        <>{logs.version}</>
+      ),
+      endpoint: (
+        <>{logs.endpoint}</>
+      ),
+      method: (
+        <>{logs.method}</>
+      ),
+      status: (
+        <>{logs.status}</>
+      ),
+      latency: (
+        <>{logs.latency}</>
+      )
+    })
+  ))
+
   return (
     <Paper elevation={1} className={classes.paper}>
-      <div className={classes.analytics}>
-        <div className="heading">
+      <Box className={classes.analytics}>
+        <Box className="heading">
           <Typography
             sx={{
               fontSize: "1.5rem",
@@ -131,9 +169,9 @@ const Analytics: React.FC = () => {
             }}>
             {api!.name} API - Analytics
           </Typography>
-        </div>
-        <div className={classes.Tab}>
-          <div className="tabs">
+        </Box>
+        <Box className={classes.Tab}>
+          <Box className="tabs">
             <Widget
               className={style}
               title="API Calls"
@@ -141,8 +179,8 @@ const Analytics: React.FC = () => {
               onClick={handleStatClick}
               span={analytics.total_calls}
             />
-          </div>
-          <div className="tabs">
+          </Box>
+          <Box className="tabs">
             <Widget
               className={errStyle}
               title="Errors"
@@ -150,8 +188,8 @@ const Analytics: React.FC = () => {
               onClick={handleErrClick}
               span={analytics.total_errors}
             />
-          </div>
-          <div className="tabs">
+          </Box>
+          <Box className="tabs">
             <Widget
               className={successStyle}
               title="Success"
@@ -159,46 +197,11 @@ const Analytics: React.FC = () => {
               onClick={handleSuccessClick}
               span={analytics.successful_calls}
             />
-          </div>
-        </div>
-        <div>
-          <Table aria-label="collapsible table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell>Time</StyledTableCell>
-                <StyledTableCell>API Version</StyledTableCell>
-                <StyledTableCell>Endpoint</StyledTableCell>
-                <StyledTableCell>Method</StyledTableCell>
-                <StyledTableCell>Response Status</StyledTableCell>
-                <StyledTableCell>Latency</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {analyticsLog
-                ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                ?.map((logs, index) => (
-                  <StyledTableRow key={index}>
-                    <StyledTableCell>{logs.createdOn}</StyledTableCell>
-                    <StyledTableCell>{logs.version}</StyledTableCell>
-                    <StyledTableCell>{logs.endpoint}</StyledTableCell>
-                    <StyledTableCell>{logs.method}</StyledTableCell>
-                    <StyledTableCell>{logs.status}</StyledTableCell>
-                    <StyledTableCell>{logs.latency}</StyledTableCell>
-                  </StyledTableRow>
-                ))}
-            </TableBody>
-          </Table>
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 20]}
-            component="div"
-            count={analyticsLog.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </div>
-      </div>
+          </Box>
+        </Box>
+
+        <DataTable Heading={header} Rows={row} />
+      </Box>
     </Paper>
   );
 };
@@ -239,6 +242,7 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     gap: "2rem",
+    marginBottom: "80px"
   },
   Tab: {
     width: "500px",
@@ -248,7 +252,7 @@ const useStyles = makeStyles({
 });
 
 {
-  /* <div className={classes.selects}>
+  /* <Box className={classes.selects}>
                 <Box sx={{ minWidth: 120 }}>
                     <FormControl fullWidth>
                         <label>Statistics</label>
@@ -289,5 +293,5 @@ const useStyles = makeStyles({
                         </Select>
                     </FormControl>
                 </Box>
-            </div> */
+            </Box> */
 }
