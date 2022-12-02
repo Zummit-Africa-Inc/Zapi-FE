@@ -123,8 +123,10 @@ export interface UserState {
     isLoggedIn: boolean
 }
 
-// export interface TestResponse {
-//     data: string
-//     name: string
-//     status: string | number
-// }
+export interface RunTestResponse {
+    data: string
+    message: string
+    status: string | number
+    success: boolean
+    onClose: () => void
+}

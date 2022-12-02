@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 
 import { APIType, EndpointsType, OptionsType, TestResponse, TestType } from "../types";
 import { useFormInputs, useHttpRequest } from "../hooks";
+import { RunTestResponse } from "../interfaces";
+import TestResultModal from "./TestResultModal";
 import { Fallback } from "../components";
 
 interface Props {
@@ -58,6 +60,7 @@ const Tests:React.FC<Props> = ({id}) => {
     const { name } = inputs
     const cookies = new Cookies();
     const classes= useStyles();
+    const [testResponse, setTestResponse] = useState<RunTestResponse | null>(null)
     
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -201,8 +204,7 @@ const Tests:React.FC<Props> = ({id}) => {
         try {
             const data = await sendRequest(`/subscription/api-dev-test/${testId}`, "post", "VITE_CORE_URL", undefined, headers)
             if(data === undefined) return
-            console.log(data)
-            toast.success(`${data?.message}`)
+            setTestResponse(data)
         } catch (error) {}
     };
 
@@ -244,6 +246,7 @@ const Tests:React.FC<Props> = ({id}) => {
   return (
     <>
     {loading && <Fallback />}
+    {testResponse && <TestResultModal {...testResponse} onClose={() => setTestResponse(null)} />}
     <Paper className={classes.paper}>
         <Stack width="100%" direction="row" alignItems="center" justifyContent="space-between" mt={2} mb={4}>
             <Box className={classes.inputs}>
