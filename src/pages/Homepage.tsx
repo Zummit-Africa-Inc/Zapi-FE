@@ -89,7 +89,9 @@ const Homepage: React.FC = () => {
           icon={<SlackIcon sx={{ fontSize: 25, background: "transparent" }} />}
           background="white"
           size={40}
-        // onClick={() => handleOpen}
+          onClick={() => {
+            window.open('https://zapiai.slack.com', '_blank')
+          }}
         />
       </FloatingMenu>
       <Footer />
