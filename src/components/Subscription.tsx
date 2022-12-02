@@ -123,12 +123,12 @@ const Subscription: React.FC = () => {
     row.push({
       name: api.name,
       token: (
-        <>
+        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "80%" }}>
           <>{"..." + api.token.slice(217, 280)}{" "}</>
           <Button onClick={(e) => copyButton(e, api.token)}>
             <ContentCopy />
           </Button>
-        </>
+        </Box>
       ),
       view: (
         <Link to={`/api/${api.apiId}`} className={classes.Link}>
