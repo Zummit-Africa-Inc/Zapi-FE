@@ -122,3 +122,9 @@ export interface UserState {
     error?: any
     isLoggedIn: boolean
 }
+
+// export interface TestResponse {
+//     data: string
+//     name: string
+//     status: string | number
+// }

@@ -176,6 +176,7 @@ const Tests:React.FC<Props> = ({id}) => {
             toast.success(`${data.message}`)
         } catch (error) {}
         handleCancelCreating()
+        getAllTests()
     };
     
     const getAllTests = async() => {
@@ -198,9 +199,10 @@ const Tests:React.FC<Props> = ({id}) => {
             'X-Zapi-Auth-Token': `Bearer ${cookies.get("accessToken")}`
         };
         try {
-            const data = await sendRequest(`/subscription/api-dev-test/${testId}`, "post", "", headers)
+            const data = await sendRequest(`/subscription/api-dev-test/${testId}`, "post", "VITE_CORE_URL", undefined, headers)
             if(data === undefined) return
             console.log(data)
+            toast.success(`${data?.message}`)
         } catch (error) {}
     };
 
@@ -210,10 +212,11 @@ const Tests:React.FC<Props> = ({id}) => {
             'X-Zapi-Auth-Token': `Bearer ${cookies.get("accessToken")}`
         };
         try {
-            const data = await sendRequest(`/subscription/delete-test/${testId}`, "del", "", headers)
+            const data = await sendRequest(`/subscription/delete-test/${testId}`, "del", "VITE_CORE_URL", undefined, headers)
             if(data === undefined) return
-            console.log(data)
+            toast.success(`${data?.message}`)
         } catch (error) {}
+        getAllTests()
     }
 
     const handleCancelCreating = () => {
