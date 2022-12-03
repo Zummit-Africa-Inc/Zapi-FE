@@ -5,6 +5,12 @@ import { useAppSelector } from "../hooks";
 import { AnalyticsTab, AnalyticsUser } from ".";
 import { useParams } from "react-router-dom";
 import ReactGA from "react-ga4";
+import {
+  Accessibility,
+  BookmarkAdd,
+  SettingsEthernet,
+  WifiTethering,
+} from "@mui/icons-material";
 
 const Analytics: React.FC = () => {
   const classes = useStyles();
@@ -47,8 +53,12 @@ const Analytics: React.FC = () => {
               color: "white",
             },
           }}>
-          <Tab label="Requests" />
-          <Tab label="Subscribers" />
+          <Tab label="Requests" icon={<WifiTethering />} iconPosition="start" />
+          <Tab
+            label="Subscribers"
+            icon={<Accessibility />}
+            iconPosition="start"
+          />
         </Tabs>
       </div>
       {selectedTab === 0 && <AnalyticsTab />}
