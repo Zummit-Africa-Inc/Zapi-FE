@@ -68,11 +68,11 @@ const GeneralTab: React.FC = () => {
   const inputRef = React.useRef<HTMLInputElement>(null);
   // const [img, setImg] = useState(null);
   const [image, setImage] = useState<string | File>("");
-  const { userApis } = useAppSelector((store) => store.user);
+  const { userApis } = useAppSelector((store: any) => store.user);
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const api = userApis.find((api) => api?.id === id);
+  const api = userApis.find((api: any) => api?.id === id);
   const userData = {
     about: api?.about,
     api_website: api?.api_website,
@@ -139,7 +139,7 @@ const GeneralTab: React.FC = () => {
       if (!data.success) return;
       dispatch(editAPI(payload));
       navigate("/developer/dashboard");
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const handleDiscard = (e: any) => {
@@ -165,7 +165,7 @@ const GeneralTab: React.FC = () => {
       const formData = new FormData();
       formData.append("image", image);
       const headers = {
-        "Content-Type": "nulti-part/form-data",
+        "Content-Type": "multi-part/form-data",
       };
       if (image === null) return;
       try {
@@ -180,7 +180,7 @@ const GeneralTab: React.FC = () => {
         setTimeout(() => {
           navigate("/developer/dashboard");
         }, 2000);
-      } catch (error) { }
+      } catch (error) {}
     }
   };
 
@@ -210,7 +210,7 @@ const GeneralTab: React.FC = () => {
                   e.preventDefault();
                   clearImageField();
                   triggerRefresh();
-                }} 
+                }}
                 inputRef={inputRef}
               />
             </Box>
@@ -226,7 +226,7 @@ const GeneralTab: React.FC = () => {
                   onChange={(e) => setCategoryId(e.target.value)}
                   sx={{ width: "320px", height: "40PX" }}>
                   {categories.map(
-                    (value) =>
+                    (value: any) =>
                       value && (
                         <MenuItem key={value.id} value={value.id}>
                           {value.name}
