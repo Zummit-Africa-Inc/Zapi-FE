@@ -68,11 +68,11 @@ const GeneralTab: React.FC = () => {
   const inputRef = React.useRef<HTMLInputElement>(null);
   // const [img, setImg] = useState(null);
   const [image, setImage] = useState<string | File>("");
-  const { userApis } = useAppSelector((store) => store.user);
+  const { userApis } = useAppSelector((store: any) => store.user);
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const api = userApis.find((api) => api?.id === id);
+  const api = userApis.find((api: any) => api?.id === id);
   const userData = {
     about: api?.about,
     api_website: api?.api_website,
@@ -226,7 +226,7 @@ const GeneralTab: React.FC = () => {
                   onChange={(e) => setCategoryId(e.target.value)}
                   sx={{ width: "320px", height: "40PX" }}>
                   {categories.map(
-                    (value) =>
+                    (value: any) =>
                       value && (
                         <MenuItem key={value.id} value={value.id}>
                           {value.name}

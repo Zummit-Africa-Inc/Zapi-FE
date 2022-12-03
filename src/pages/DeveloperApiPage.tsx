@@ -29,6 +29,7 @@ const CustomTab = styled(Tab)({
     fontSize: "14px",
     color: "#081F4A",
     borderRadius: "5px",
+    margin: "0.25rem 0",
   },
   "&.MuiButtonBase-root": {
     minHeight: "50px",
@@ -91,9 +92,9 @@ const DeveloperApiPage: React.FC = () => {
           <TabPanel value={tab} index={0}>
             <ApiPageLayout id={id} />
           </TabPanel>
-          {/* <TabPanel value={tab} index={1}>
+          <TabPanel value={tab} index={1}>
             <Testing id={id} />
-          </TabPanel> */}
+          </TabPanel>
         </Box>
       </div>
     </div>
@@ -116,13 +117,14 @@ const useStyles = makeStyles({
   },
   sidebar: {
     height: "100%",
-    padding: "1rem 0 0",
+    padding: "3rem 0.75rem 0",
   },
   scroll: {
     width: "100%",
     height: "100%",
     overflowY: "hidden",
-  },
+    padding: "1rem 0.5rem 0",
+  }
 });
 
 export default DeveloperApiPage;
