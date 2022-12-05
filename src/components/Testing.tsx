@@ -6,18 +6,18 @@ import Cookies from "universal-cookie";
 import { APIType, EndpointsType } from "../types";
 import { useHttpRequest } from "../hooks";
 import { TabPanel } from "../components";
-import Tests from "../components/Tests"
+import Tests from "../components/Tests";
 
 interface Props {
-    id: string | undefined
-};
+  id: string | undefined;
+}
 
-const Testing:React.FC<Props> = ({id}) => {
-    const [tab, setTab] = useState<number>(0);
-    const cookies = new Cookies();
-    const classes = useStyles();
-    
-    const handleTabChange = (e: SyntheticEvent, value: number) => setTab(value);
+const Testing: React.FC<Props> = ({ id }) => {
+  const [tab, setTab] = useState<number>(0);
+  const cookies = new Cookies();
+  const classes = useStyles();
+
+  const handleTabChange = (e: SyntheticEvent, value: number) => setTab(value);
 
   return (
     <Box className={classes.container}>
@@ -38,21 +38,21 @@ const Testing:React.FC<Props> = ({id}) => {
             </TabPanel> */}
         </Box>
     </Box>
-  )
+  );
 };
 
 const useStyles = makeStyles({
-    container: {
-        width: "100%",
-    },
-    tab: {
-        width: "950px",
-    },
-    main: {
-        width: "100%",
-        height: "100%",
-        margin: "20px 0 0",
-    }
+  container: {
+    width: "100%",
+  },
+  tab: {
+    width: "950px",
+  },
+  main: {
+    width: "100%",
+    height: "100%",
+    margin: "20px 0 0",
+  },
 });
 
-export default Testing
+export default Testing;
