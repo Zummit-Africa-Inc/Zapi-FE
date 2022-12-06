@@ -31,6 +31,8 @@ import { Spinner } from "../assets";
 import { useContextProvider } from "../contexts/ContextProvider";
 import ReactGA from "react-ga4";
 import UploadFile from "./UploadFile";
+import AddIcon from '@mui/icons-material/Add';
+import CloseIcon from '@mui/icons-material/Close';
 
 const CustomTabs = styled(Tabs)({
   "& .MuiTabs-indicator": {
@@ -394,17 +396,19 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
               <Box className={classes.pageDescription}>
                 <Typography>Add and define your API endpoints.</Typography>
               </Box>
-              <Box className={classes.pageActions}>
-                <Box className={classes.inputs}>
+              <Box sx={{ display: "flex", alignItems: "center", justifyContent:"flex-end" }}>
+                {/* <Box className={classes.inputs}>
                   <input type="text" name="search" placeholder="Search..." />
-                </Box>
+                </Box> */}
                 <Box>
-                  <button
+                  <Button
                     onClick={toggleAdding}
-                    className={classes.button}
-                    style={{ background: isAdding ? "#c5c5c5" : "#081F4A" }}>
+                    // className={classes.button}
+                    startIcon={isAdding ? <CloseIcon /> : <AddIcon />}
+                    style={{ background: isAdding ? "#c5c5c5" : "#26c340", color: isAdding ? "#fff" : "#fff" }}
+                    >
                     {isAdding ? "Cancel" : "Add Endpoint"}
-                  </button>
+                  </Button>
                 </Box>
               </Box>
             </Stack>
@@ -696,11 +700,11 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
               </Typography>
 
               <Typography
-                variant="body1"
-                fontSize="16px"
+                variant="subtitle2"
+                // fontSize="16px"
                 fontWeight={400}
                 mb={10}>
-                We only make use of Postman collection for now.
+                *Postman collections only
               </Typography>
               <UploadFile
                 label="Upload JSON"

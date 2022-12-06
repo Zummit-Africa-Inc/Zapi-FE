@@ -138,7 +138,8 @@ const GeneralTab: React.FC = () => {
       );
       if (!data.success) return;
       dispatch(editAPI(payload));
-      navigate("/developer/dashboard");
+      // navigate("/developer/dashboard");
+      toast.success("API updated successfully");
     } catch (error) {}
   };
 
@@ -178,7 +179,8 @@ const GeneralTab: React.FC = () => {
         );
         setLogo_url(data.data);
         setTimeout(() => {
-          navigate("/developer/dashboard");
+          // navigate("/developer/dashboard");
+          toast.success("API logo updated successfully");
         }, 2000);
       } catch (error) {}
     }
@@ -193,8 +195,8 @@ const GeneralTab: React.FC = () => {
 
   return (
     <>
-      <Paper elevation={1} className={classes.paper}>
-        <div className={classes.container}>
+      <Paper className={classes.paper} variant="outlined">
+        <Box className={classes.container}>
           <Typography variant="body1" fontSize="24px" fontWeight={800}>
             General Information
           </Typography>
@@ -398,7 +400,7 @@ const GeneralTab: React.FC = () => {
               </Stack>
             </Box>
           </form>
-        </div>
+        </Box>
       </Paper>
     </>
   );
@@ -420,6 +422,7 @@ const useStyles = makeStyles({
     "@media screen and (max-width: 900px)": {
       width: "auto",
     },
+    // marginBottom: "20px",
   },
   previewContainer: {
     position: "relative",

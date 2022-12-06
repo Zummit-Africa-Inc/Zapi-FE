@@ -30,34 +30,34 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
   const profileId = cookies.get("profileId");
   // notifications.push("apiHosted")
 
-  socket = io(import.meta.env.VITE_SOCKET_URL);
-  useEffect(() => {
-    const item = localStorage.getItem("notifications");
-    if (notifications) {
-      setNotifications(notifications);
-    }
-  }, []);
-  useEffect(() => {
-    try {
-      socket.on(`newSubscription_${profileId}`, (data: any) => {
-        setNotifications([...notifications, data]);
-        notifications.unshift(data);
-      });
-      socket.on(`unSubscription_${profileId}`, (data: any) => {
-        setNotifications([...notifications, data]);
-        notifications.unshift(data);
-      });
-      socket.on(`apiHosted_${profileId}`, (data: any) => {
-        setNotifications([...notifications, data]);
-        notifications.unshift(data);
-      });
-      socket.on(`apiDown_${profileId}`, (data: any) => {
-        setNotifications([...notifications, data]);
-        notifications.unshift(data);
-      });
-      localStorage.setItem("notifications", JSON.stringify([...notifications]));
-    } catch (error) {}
-  }, [socket, notifications]);
+  // socket = io(import.meta.env.VITE_SOCKET_URL);
+  // useEffect(() => {
+  //   const item = localStorage.getItem("notifications");
+  //   if (notifications) {
+  //     setNotifications(notifications);
+  //   }
+  // }, []);
+  // useEffect(() => {
+  //   try {
+  //     socket.on(`newSubscription_${profileId}`, (data: any) => {
+  //       setNotifications([...notifications, data]);
+  //       notifications.unshift(data);
+  //     });
+  //     socket.on(`unSubscription_${profileId}`, (data: any) => {
+  //       setNotifications([...notifications, data]);
+  //       notifications.unshift(data);
+  //     });
+  //     socket.on(`apiHosted_${profileId}`, (data: any) => {
+  //       setNotifications([...notifications, data]);
+  //       notifications.unshift(data);
+  //     });
+  //     socket.on(`apiDown_${profileId}`, (data: any) => {
+  //       setNotifications([...notifications, data]);
+  //       notifications.unshift(data);
+  //     });
+  //     localStorage.setItem("notifications", JSON.stringify([...notifications]));
+  //   } catch (error) {}
+  // }, [socket, notifications]);
 
   // console.log(notifications);
 

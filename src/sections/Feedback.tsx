@@ -4,12 +4,8 @@ import { Box } from "@mui/system";
 import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
 
 const Feedback = ({handleOpen} : any) => {
-    return (
-    // <Box sx={feedback}>
-      <Button onClick={handleOpen}>
-        <FeedbackOutlinedIcon fontSize="small" sx={{ fontSize: 25, background: "white", borderRadius: "50%"}}/>
-      </Button>
-    //  </Box> *
+    return (    
+        <FeedbackOutlinedIcon onClick={handleOpen} fontSize="small" sx={{ fontSize: 25, background: "white", borderRadius: "50%", color: "#081F4A" }} />
     )
 }
 
