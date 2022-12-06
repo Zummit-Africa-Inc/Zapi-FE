@@ -67,7 +67,7 @@ const Contact: React.FC = () => {
             />
 
             <Box className={classes.form}>
-                <Typography component="h2" sx={{ fontSize: "32px", fontWeight: "bold", textAlign: "center", color: "#071B85" }}>Get in touch</Typography>
+                <Typography component="h2">Get in touch</Typography>
 
                 <TextField
                     className={classes.textField}
@@ -148,11 +148,37 @@ const useStyles = makeStyles({
             // boxShadow: "2px 2px 10px 2px #e1e1e1",
             width: "40%",
             height: "auto",
-        }
+                
+            "@media screen and (max-width: 870px)": {
+                display: "none"
+            },
+        },
+        "@media screen and (max-width: 1024px)": {
+            justifyContent: "space-between",
+        }, 
+        "@media screen and (max-width: 870px)": {
+            justifyContent: "center",
+            margin: "0 3rem 3rem",
+        },
     },
     form: {
         width: "43%", 
-        height: "auto",
+        height: "auto", 
+        "& h2": {
+            fontSize: "32px", 
+            fontWeight: "bold", 
+            textAlign: "center", 
+            color: "#071B85",
+            "@media screen and (max-width: 1024px)": {
+                fontSize: "28px",
+            }, 
+            "@media screen and (max-width: 870px)": {
+                fontSize: "26px",
+            },
+        },
+        "@media screen and (max-width: 870px)": {
+            width: "100%", 
+        },
     },
     textField: {
         marginTop: "5px",
