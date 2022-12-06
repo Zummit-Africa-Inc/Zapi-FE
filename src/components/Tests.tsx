@@ -344,7 +344,9 @@ const Tests:React.FC<Props> = ({id}) => {
                 </TableRow>
             </TableHead>
             <TableBody>
-                {tests && tests.map((test: TestResponse, index: number) => (
+                {tests && tests
+                .filter((test: TestResponse) => test.apiId === id)
+                .map((test: TestResponse, index: number) => (
                     <TableRow key={index}>
                         <TableCell sx={{textTransform: "capitalize"}}>{test.name}</TableCell>
                         <TableCell sx={{display: "flex",alignItems: "center",gap: "0.5rem"}}>
@@ -357,19 +359,17 @@ const Tests:React.FC<Props> = ({id}) => {
                         <TableCell>Message</TableCell>
                         <TableCell>{test.createdOn && new Date(test.createdOn).toLocaleString()}</TableCell>
                         <TableCell sx={{display: "flex",alignItems: "center",gap: "1rem"}}>
-                            <>
+                            <CustomButton onClick={() => runTestAction(test.id)} sx={{background: colors["run"],color: "#FFF"}}>run</CustomButton>
+                            <CustomButton onClick={() => deleteTest(test.id)} sx={{background: colors["delete"],color: "#FFF"}}>delete</CustomButton>
+                            {/* <>
                             <IconButton onClick={handleOpen}>
                                 <MoreVert />
                             </IconButton>
                             <Menu anchorEl={anchorEl} open={open} onClose={handleClose} sx={{}}>
                                 <MenuItem onClick={handleClose}>
-                                    <CustomButton onClick={() => runTestAction(test.id)} sx={{background: colors["run"],color: "#FFF"}}>run</CustomButton>
-                                </MenuItem>
-                                <MenuItem onClick={handleClose}>
-                                    <CustomButton onClick={() => deleteTest(test.id)} sx={{background: colors["delete"],color: "#FFF"}}>delete</CustomButton>
                                 </MenuItem>
                             </Menu>
-                            </>
+                            </> */}
                         </TableCell>
                     </TableRow>
                 ))}

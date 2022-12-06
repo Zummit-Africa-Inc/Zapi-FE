@@ -21,22 +21,22 @@ const Testing: React.FC<Props> = ({ id }) => {
 
   return (
     <Box className={classes.container}>
-      <Tabs value={tab} onChange={handleTabChange} className={classes.tab}>
-        <Tab label="Tests" />
-        <Tab label="Performance" />
-        <Tab label="Testing Settings" />
-      </Tabs>
-      <Box className={classes.main}>
-        <TabPanel value={tab} index={0}>
-          <Tests id={id} />
-        </TabPanel>
-        <TabPanel value={tab} index={1}>
-          <p>Performance</p>
-        </TabPanel>
-        <TabPanel value={tab} index={2}>
-          <p>Testing Setting</p>
-        </TabPanel>
-      </Box>
+        <Tabs value={tab} onChange={handleTabChange} className={classes.tab}>
+            <Tab label="Tests" />
+            {/* <Tab label="Performance" />
+            <Tab label="Testing Settings" /> */}
+        </Tabs>
+        <Box className={classes.main}>
+            <TabPanel value={tab} index={0}>
+                <Tests id={id}/>
+            </TabPanel>
+            {/* <TabPanel value={tab} index={1}>
+                <p>Performance</p>
+            </TabPanel>
+            <TabPanel value={tab} index={2}>
+                <p>Testing Setting</p>
+            </TabPanel> */}
+        </Box>
     </Box>
   );
 };
