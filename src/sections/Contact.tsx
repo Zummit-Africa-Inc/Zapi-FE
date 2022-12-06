@@ -36,7 +36,7 @@ const Contact: React.FC = () => {
         
         try {
             const data = await sendRequest(
-                "/send-message",
+                "/feedback/create",
                 "post",
                 core_url,
                 payload,
