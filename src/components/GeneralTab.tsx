@@ -8,6 +8,7 @@ import React, {
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import { ImageRounded } from "@mui/icons-material";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import {
   Box,
@@ -22,6 +23,7 @@ import {
   SelectChangeEvent,
   Paper,
   Button,
+  InputAdornment,
 } from "@mui/material";
 import Cookies from "universal-cookie";
 
@@ -38,7 +40,6 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import ZAPI from "../images/zapi-logo.png";
 import { useContextProvider } from "../contexts/ContextProvider";
-import ChoiceButton from "./ChoiceButton";
 import UploadFile from "./UploadFile";
 
 enum APIVisibility {
@@ -64,13 +65,14 @@ const GeneralTab: React.FC = () => {
   const profileId = cookies.get("profileId");
   const { triggerRefresh } = useContextProvider();
   const classes = useStyles();
+  const inputRef = React.useRef<HTMLInputElement>(null);
   // const [img, setImg] = useState(null);
   const [image, setImage] = useState<string | File>("");
-  const { userApis } = useAppSelector((store) => store.user);
+  const { userApis } = useAppSelector((store: any) => store.user);
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const api = userApis.find((api) => api?.id === id);
+  const api = userApis.find((api: any) => api?.id === id);
   const userData = {
     about: api?.about,
     api_website: api?.api_website,
@@ -137,7 +139,7 @@ const GeneralTab: React.FC = () => {
       if (!data.success) return;
       dispatch(editAPI(payload));
       navigate("/developer/dashboard");
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const handleDiscard = (e: any) => {
@@ -163,7 +165,7 @@ const GeneralTab: React.FC = () => {
       const formData = new FormData();
       formData.append("image", image);
       const headers = {
-        "Content-Type": "nulti-part/form-data",
+        "Content-Type": "multi-part/form-data",
       };
       if (image === null) return;
       try {
@@ -178,10 +180,16 @@ const GeneralTab: React.FC = () => {
         setTimeout(() => {
           navigate("/developer/dashboard");
         }, 2000);
-      } catch (error) { }
+      } catch (error) {}
     }
   };
 
+  const clearImageField = () => {
+    setImage("");
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
+  };
 
   return (
     <>
@@ -191,16 +199,19 @@ const GeneralTab: React.FC = () => {
             General Information
           </Typography>
           <form>
-            <Box sx={{ width: "200px", height: "200px", marginBottom: "6rem" }}>
+            <Box>
               <UploadFile
+                label="Upload Logo"
                 handleChange={(e: any) => setImage(e.target.files![0])}
+                visible={image ? true : false}
                 logo_url={logo_url}
                 imageUpload={imageUpload}
                 imageReject={(e: any) => {
                   e.preventDefault();
-                  setImage("");
+                  clearImageField();
                   triggerRefresh();
                 }}
+                inputRef={inputRef}
               />
             </Box>
             <Box mt={2}>
@@ -215,7 +226,7 @@ const GeneralTab: React.FC = () => {
                   onChange={(e) => setCategoryId(e.target.value)}
                   sx={{ width: "320px", height: "40PX" }}>
                   {categories.map(
-                    (value) =>
+                    (value: any) =>
                       value && (
                         <MenuItem key={value.id} value={value.id}>
                           {value.name}

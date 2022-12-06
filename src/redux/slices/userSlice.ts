@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import Cookies from "universal-cookie";
 
-import { UserProfileType, APIType, SubscriptionType } from "../../types";
+import { UserProfileType, APIType, SubscriptionType, SubscribedUser } from "../../types";
 
 const core_url = import.meta.env.VITE_CORE_URL
 const identity_url = import.meta.env.VITE_IDENTITY_URL
@@ -13,6 +13,7 @@ interface UserState {
     user: UserProfileType | Object
     userApis: Array<APIType>
     subscribedApis: Array<SubscriptionType>
+    subscribedUsers: Array<SubscribedUser>
     loading: "idle" | "pending" | "fulfilled" | "rejected"
     error?: any
     isLoggedIn: boolean
@@ -24,7 +25,8 @@ const initialState: UserState = {
     error: null,
     isLoggedIn: false,
     userApis: [],
-    subscribedApis: []
+    subscribedApis: [],
+    subscribedUsers: []
 }
 
 export const getUserProfile = createAsyncThunk("user/getprofile", async(_, thunkAPI) => {
@@ -62,6 +64,18 @@ export const getSubscribedApis = createAsyncThunk("user/getsubscribed", async(id
     }
 })
 
+export const getSubscribedUsers = createAsyncThunk("user/getSubscribedUsers", async(id: any, thunkAPI) => {
+    const headers = { 'X-Zapi-Auth-Token': `Bearer ${cookies.get('accessToken')}` }
+    try {
+        const response = await fetch(`${core_url}/api/subscriptions/${id}`, {headers})
+        const data = await response.json()
+        const user = data.data
+        return user
+    } catch (error: any) {
+        return thunkAPI.rejectWithValue(error.message)
+    }
+})
+
 const userSlice = createSlice({
     name: "user",
     initialState,
@@ -82,6 +96,9 @@ const userSlice = createSlice({
         })
         builder.addCase(getSubscribedApis.fulfilled, (state, action: PayloadAction<any>) => {
             state.subscribedApis = action.payload
+        })
+        builder.addCase(getSubscribedUsers.fulfilled, (state, action: PayloadAction<any>) => {
+            state.subscribedUsers = action.payload
         })
     },
     reducers: {

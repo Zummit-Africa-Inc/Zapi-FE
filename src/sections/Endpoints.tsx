@@ -10,8 +10,9 @@ import {
   InputBase,
   IconButton,
   Stack,
+  Box
 } from "@mui/material";
-import { ExpandMore, Menu, Search, Directions } from "@mui/icons-material";
+import { ExpandMore, Menu, Search, Directions, ChatRounded } from "@mui/icons-material";
 import { makeStyles, styled } from "@mui/styles";
 
 import TabPanel from "../components/TabPanel";
@@ -67,21 +68,21 @@ const Endpoints: React.FC<Props> = ({api, endpoints}) => {
   };
 
   return (
-    <div className={classes.root}>
-      <div
+    <Box className={classes.root}>
+      <Box
         style={{
           display: "flex",
           flexDirection: "column",
           gap: "2rem",
           width: "45%",
         }}>
-        <div>
+        <Box>
           <Typography
             sx={{
               marginBottom: "10px",
               fontSize: "21px",
               fontWeight: "bold",
-              color: "#515D99",
+              color: "#264276",
               padding: "5px",
             }}>
             Endpoints
@@ -113,7 +114,7 @@ const Endpoints: React.FC<Props> = ({api, endpoints}) => {
             </IconButton>
           </Paper>
           {endpoints && endpoints.length !== 0 ? (
-            <div>
+            <Box>
               <CustomTabs
                 value={tab}
                 orientation="vertical"
@@ -136,19 +137,20 @@ const Endpoints: React.FC<Props> = ({api, endpoints}) => {
                   />
                 ))}
               </CustomTabs>
-            </div>
+            </Box>
           ) : (
-            <div>
-              <Typography sx={{ fontSize: "15px", color: "#515D99" }}>
-                There are no endpoints in this API.
-              </Typography>
-            </div>
+            <Box>
+              <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginTop: "80px", width: "100%" }}>
+                  <ChatRounded sx={{ fontSize: "28px", color: "#264276", }} />
+                  <Typography sx={{fontSize:"15px",color:"#515D99"}}>There are no endpoints in this API.</Typography>
+              </Box>
+            </Box>
           )}
-        </div>
-      </div>
-      <div style={{ width: "100%" }}>
+        </Box>
+      </Box>
+      <Box style={{ width: "100%" }}>
         {endpoints && endpoints.length !== 0 ? (
-          <div>
+          <Box>
             {endpoints?.map((endpoint, index) => (
               <TabPanel key={index} value={tab} index={index}>
                 <Stack direction="row" alignItems="center" spacing={1} mb={1}>
@@ -163,7 +165,7 @@ const Endpoints: React.FC<Props> = ({api, endpoints}) => {
                   </Typography>
                   <Typography
                     sx={{
-                      fontSize: "20px",
+                      fontSize: "16px",
                       fontWeight: 400,
                       color: "#515D99",
                       textTransform: "capitalize",
@@ -176,7 +178,7 @@ const Endpoints: React.FC<Props> = ({api, endpoints}) => {
                     marginBottom: "10px",
                     fontSize: "21px",
                     fontWeight: "bold",
-                    color: "#515D99",
+                    color: "#264276",
                   }}>
                   Endpoint Description
                 </Typography>
@@ -191,7 +193,7 @@ const Endpoints: React.FC<Props> = ({api, endpoints}) => {
                 </Typography>
                 <CustomAccordion>
                   <AccordionSummary expandIcon={<ExpandMore />}>
-                    <Typography sx={{ fontSize: "15px", color: "#515D99" }}>
+                    <Typography sx={{ fontSize: "15px", color: "#264276" }}>
                       Headers Parameters
                     </Typography>
                   </AccordionSummary>
@@ -199,13 +201,13 @@ const Endpoints: React.FC<Props> = ({api, endpoints}) => {
                     {endpoint?.headers?.map((header, index) => (
                       <Stack key={index} direction="row" alignItems="center" spacing={4} my={1}>
                         <Stack width={200} direction="column" spacing={1} sx={{padding:"0 10px"}}>
-                          <Typography sx={{fontSize:"18px",color:"#081F4A"}}>{header.name}</Typography>
-                          <Typography sx={{fontSize:"12px",color:"#000",textTransform:"uppercase"}}>{header.type}</Typography>
+                          <Typography sx={{fontSize:"18px",color:"#264276"}}>{header.name}</Typography>
+                          <Typography sx={{fontSize:"12px",color:"#264276",textTransform:"uppercase"}}>{header.type}</Typography>
                         </Stack>
                         <Stack direction="column" spacing={1}>
-                          <input type="text" defaultValue={header.value} className={classes.input} disabled />
-                          <Typography sx={{fontSize:"12px",color:"#000",textTransform:"uppercase"}}>
-                            {header.required ? "required":"not required"}</Typography>
+                          <input style={{ border: "1px solid #515D99" }} type="text" defaultValue={header.value} className={classes.input} disabled />
+                          <Typography sx={{fontSize:"12px",color:"#264276",textTransform:"uppercase"}}>
+                            {header.required ? "*required":"not required"}</Typography>
                         </Stack>
                       </Stack>
                     ))}
@@ -213,7 +215,7 @@ const Endpoints: React.FC<Props> = ({api, endpoints}) => {
                 </CustomAccordion>
                 <CustomAccordion>
                   <AccordionSummary expandIcon={<ExpandMore />}>
-                    <Typography sx={{ fontSize: "15px", color: "#515D99" }}>
+                    <Typography sx={{ fontSize: "15px", color: "#264276" }}>
                       Body Parameters
                     </Typography>
                   </AccordionSummary>
@@ -221,13 +223,13 @@ const Endpoints: React.FC<Props> = ({api, endpoints}) => {
                     {endpoint?.body?.map((bodyItem, index) => (
                       <Stack key={index} direction="row" alignItems="center" spacing={4} my={1}>
                         <Stack width={200} direction="column" spacing={1} sx={{padding:"0 10px"}}>
-                          <Typography sx={{fontSize:"18px",color:"#081F4A"}}>{bodyItem.name}</Typography>
-                          <Typography sx={{fontSize:"12px",color:"#000",textTransform:"uppercase"}}>{bodyItem.type}</Typography>
+                          <Typography sx={{fontSize:"18px",color:"#264276"}}>{bodyItem.name}</Typography>
+                          <Typography sx={{fontSize:"12px",color:"#264276",textTransform:"uppercase"}}>{bodyItem.type}</Typography>
                         </Stack>
                         <Stack direction="column" spacing={1}>
-                          <input type="text" defaultValue={bodyItem.value} className={classes.input} disabled />
-                          <Typography sx={{fontSize:"12px",color:"#000",textTransform:"uppercase"}}>
-                            {bodyItem.required ? "required":"not required"}</Typography>
+                          <input style={{ border: "1px solid #515D99" }} type="text" defaultValue={bodyItem.value} className={classes.input} disabled />
+                          <Typography sx={{fontSize:"12px",color:"#264276",textTransform:"uppercase"}}>
+                            {bodyItem.required ? "*required":"not required"}</Typography>
                         </Stack>
                       </Stack>
                     ))}
@@ -235,7 +237,7 @@ const Endpoints: React.FC<Props> = ({api, endpoints}) => {
                 </CustomAccordion>
                 <CustomAccordion>
                   <AccordionSummary expandIcon={<ExpandMore />}>
-                    <Typography sx={{ fontSize: "15px", color: "#515D99" }}>
+                    <Typography sx={{ fontSize: "15px", color: "#264276" }}>
                       Query Parameters
                     </Typography>
                   </AccordionSummary>
@@ -243,13 +245,13 @@ const Endpoints: React.FC<Props> = ({api, endpoints}) => {
                     {endpoint?.query?.map((queryItem, index) => (
                       <Stack key={index} direction="row" alignItems="center" spacing={4} my={1}>
                         <Stack width={200} direction="column" spacing={1} sx={{padding:"0 10px"}}>
-                          <Typography sx={{fontSize:"18px",color:"#081F4A"}}>{queryItem.name}</Typography>
-                          <Typography sx={{fontSize:"12px",color:"#000",textTransform:"uppercase"}}>{queryItem.type}</Typography>
+                          <Typography sx={{fontSize:"18px",color:"#264276"}}>{queryItem.name}</Typography>
+                          <Typography sx={{fontSize:"12px",color:"#264276",textTransform:"uppercase"}}>{queryItem.type}</Typography>
                         </Stack>
                         <Stack direction="column" spacing={1}>
-                          <input type="text" defaultValue={queryItem.value} className={classes.input} disabled />
-                          <Typography sx={{fontSize:"12px",color:"#000",textTransform:"uppercase"}}>
-                            {queryItem.required ? "required":"not required"}</Typography>
+                          <input style={{ border: "1px solid #515D99" }} type="text" defaultValue={queryItem.value} className={classes.input} disabled />
+                          <Typography sx={{fontSize:"12px",color:"#264276",textTransform:"uppercase"}}>
+                            {queryItem.required ? "*required":"not required"}</Typography>
                         </Stack>
                       </Stack>
                     ))}
@@ -257,12 +259,12 @@ const Endpoints: React.FC<Props> = ({api, endpoints}) => {
                 </CustomAccordion>
               </TabPanel>
             ))}
-          </div>
+          </Box>
         ) : (
-          <div></div>
+          <Box></Box>
         )}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

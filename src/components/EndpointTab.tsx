@@ -17,8 +17,9 @@ import {
 } from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
 import { toast } from "react-toastify";
-import { Add, Remove, Grade, Loyalty } from "@mui/icons-material";
+import { Add, Remove, Grade, Loyalty, BorderColor } from "@mui/icons-material";
 import Cookies from "universal-cookie";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
 
 import { useAppDispatch, useFormInputs, useHttpRequest } from "../hooks";
 import { useNavigate } from "react-router-dom";
@@ -46,7 +47,7 @@ const CustomTab = styled(Tab)({
   },
   "&.Mui-selected": {
     backgroundColor: "#081f4A",
-    // borderRadius: "0px",
+    borderRadius: "10px",
     color: "white !important",
   },
 });
@@ -103,6 +104,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
   const classes = useStyles();
   const cookies = new Cookies();
   const profileId = cookies.get("profileId");
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
   const handleTabChange = (e: SyntheticEvent, newValue: number) => {
     setTab(newValue);
@@ -295,6 +297,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
             headers
           );
           setJsonData(data.data);
+
           if (data.skipped.length === 0) {
             return toast.success("No items Skipped");
           } else {
@@ -313,7 +316,12 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
       }
     }
   };
-
+  const clearInputField = () => {
+    setJsonFile("");
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
+  };
 
   return (
     <Paper className={classes.paper}>
@@ -343,7 +351,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            borderRadius: "10px",
+            borderRadius: "10px !important",
             background: "white",
             color: "black",
           }}
@@ -351,8 +359,16 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
           indicatorColor="primary"
           textColor="inherit"
           onChange={handleTabChange}>
-          <CustomTab label="Endpoints" />
-          <CustomTab label="Api" />
+          <CustomTab
+            icon={<BorderColor />}
+            iconPosition="start"
+            label="Endpoints"
+          />
+          <CustomTab
+            icon={<UploadFileIcon />}
+            iconPosition="start"
+            label="Upload"
+          />
         </CustomTabs>
       </Stack>
       <Box>
@@ -687,14 +703,17 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                 We only make use of Postman collection for now.
               </Typography>
               <UploadFile
+                label="Upload JSON"
                 logo_url=""
+                visible={JsonFile ? true : false}
                 handleChange={handleChange}
                 imageUpload={fileUpload}
                 imageReject={(e: any) => {
                   e.preventDefault();
-                  setJsonFile("");
+                  clearInputField();
                   triggerRefresh();
                 }}
+                inputRef={inputRef}
               />
               <Box className={classes.pageActions}>
                 <Typography
@@ -821,7 +840,7 @@ const useStyles = makeStyles({
     fontFamily: "var(--body-font)",
     transition: "0.5s all ease-in-out cubic-bezier(0.075, 0.82, 0.165, 1)",
     cursor: "pointer",
-    "& disabled": {
+    "&:disabled": {
       background: "#E0E0E0",
       color: "#484848",
     },

@@ -14,6 +14,7 @@ interface Props {
     rejectBackgroundColor: string;
     padding: string;
     outline: string;
+    visible: boolean;
 }
 
 const ChoiceButton: React.FC<Props> = ({
@@ -29,9 +30,10 @@ const ChoiceButton: React.FC<Props> = ({
     rejectBackgroundColor,
     padding,
     outline,
+    visible
 }) => {
     return (
-        <Stack direction="row" spacing={2} my={2}>
+        <Stack direction="row" spacing={2} my={2} sx={{ display: visible ? 'flex' : 'none' }}>
             <Button
                 onClick={onAccept}
                 style={{
