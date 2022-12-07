@@ -38,7 +38,7 @@ const APICard: React.FC<CardProps> = ({
   const accessToken = cookies.get("accessToken");
   const dispatch = useAppDispatch();
   const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
-  
+
   useEffect(() => {
     subscribedApis.forEach((api) => {
       if (api.apiId === id) return setIsSubscribed(true);
@@ -61,7 +61,6 @@ const APICard: React.FC<CardProps> = ({
           headers,
           queryStringParameters
         );
-        console.log(data)
         if (!data || data === undefined) return;
         const { message } = data;
         toast.success(`${message}`);
@@ -153,10 +152,10 @@ const useStyles = makeStyles({
     justifyContent: "space-between",
     boxSizing: "border-box",
     padding: "31px 28px 33px 29px",
-    width: "300px",
+    minWidth: "300px",
     height: "250px",
     background: "#fff",
-    border: "1px solid #d1d1d1",
+    border: "1px solid #c5c5c5",
     borderRadius: "0.5rem",
     margin: "10px",
     transition: "ease-in-out all 0.3s",
@@ -164,6 +163,7 @@ const useStyles = makeStyles({
       boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.25)",
     },
     "@media screen and (max-width: 820px)": {
+      marginLeft: "-20px",
       scale: 0.9,
     },
     "@media screen and (max-width: 430px)": {
@@ -200,7 +200,7 @@ const useStyles = makeStyles({
       fontSize: "12px",
       lineHeight: "22px",
       color: "#4554A3",
-      width: "auto",
+      maxWidth: "300px",
     },
   },
   bottomBar: {
