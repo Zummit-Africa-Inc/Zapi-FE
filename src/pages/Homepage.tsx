@@ -9,6 +9,7 @@ import {
   Pricing,
   Brand,
   MarketPlace,
+  Contact
 } from "../sections";
 import ReactGA from "react-ga4";
 import Modalpopup from "../components/Modal";
@@ -67,6 +68,7 @@ const Homepage: React.FC = () => {
       {/* <Feedback handleOpen={handleOpen}/> */}
       <Pricing />
       <Education />
+      <Contact />
       <FloatingMenu
         slidespeed={500}
         isOpen={isOpen}
