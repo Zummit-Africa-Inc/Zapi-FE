@@ -45,7 +45,7 @@ const Discussion: React.FC<Props> = ({ discussions }) => {
                                 color: "#264276",
                                 padding: "5px",
                             }}>
-                                Discussions
+                                {/* Discussions */}
                         </Typography>
                     ) : (
                         <></>
@@ -102,9 +102,9 @@ const Discussion: React.FC<Props> = ({ discussions }) => {
                         ) : (
                             
                             <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginTop: "110px", width: "100%" }}>
-                                <ChatRounded sx={{ fontSize: "32px", color: "#264276", }} />
-                                <Typography sx={{fontSize:"18px",color:"#515D99"}}>There are no discussions in this API.</Typography>
-                            </Box>
+                            <ChatRounded sx={{ fontSize: "32px", color: "#264276", }} />
+                            <Typography sx={{fontSize:"18px",color:"#515D99"}}></Typography>
+                        </Box>
                         )}
                 </Box>
             </Box>
@@ -134,7 +134,7 @@ const useStyles = makeStyles({
         color: "#071B85",
     },
     newDiscussion: {
-        display: "flex",
+        // display: "flex",
         flexDirection: "row",
         alignItems: "center",
         padding: "8px 16px",

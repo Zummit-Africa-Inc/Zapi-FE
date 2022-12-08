@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardContent, Box, Rating, Stack, Typography} from "@mui/material";
+import { Card, CardContent, Box, Button, Rating, Stack, Typography} from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { ChatRounded } from "@mui/icons-material";
-
-import { ReviewType } from "../types";
+import { Add } from "@mui/icons-material"
+import { ReviewsType } from "../types";
+import { useContextProvider } from "../contexts/ContextProvider";
 
 interface Props {
-    reviews: Array<ReviewType>
+    reviews: Array<ReviewsType>
 }
 
 const Reviews:React.FC<Props> = ({reviews}) => {
     const classes = useStyles();
+
+    const { handleClicked } = useContextProvider();
 
     return (
         <Box className={classes.container}>
@@ -24,12 +27,21 @@ const Reviews:React.FC<Props> = ({reviews}) => {
                         color: "#264276",
                         padding: "5px",
                     }}>
-                        Reviews
+                        {/* Reviews */}
                     </Typography>
                 ) : (
                     <></>                
                 )}   
             </Box>
+            <Box>
+            <Button
+                        variant="contained"
+                        sx={{backgroundColor: "#264276", color: "#fff", width: "200px", height: "2.5rem"}}
+                        className={classes.newDiscussion}
+                        onClick={() => handleClicked("addReviews")}>
+                        <Add /> <Typography sx={{ fontSize: "14px" }}>New Reviews</Typography>
+                    </Button>
+                </Box>
             <Box className={classes.list}>
                 {reviews.length !== 0 ? 
                 (<>
@@ -39,9 +51,9 @@ const Reviews:React.FC<Props> = ({reviews}) => {
                             <Typography sx={{fontSize: "16px", color: "#081F4A",fontWeight: 700}}>
                                 By: 
                             </Typography>
-                            <Rating size="small" defaultValue={review.rating} disabled />
+                            {/* <Rating size="small" defaultValue={review.rating} disabled /> */}
                             <Typography sx={{fontSize: "14px", color: "#081F4A"}}>
-                                {review.review}
+                                {/* {review.reviews} */}
                             </Typography>
                         </Card>
                     ))}
@@ -93,7 +105,30 @@ const useStyles = makeStyles({
             border: "1px solid #081F4A",
             objectFit: "cover",
         }
-    }
+    },
+    newDiscussion: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        padding: "8px 16px",
+        gap: "16px",
+        width: "200px",
+        left: "87%",
+        lineHeight: "46px",
+        background: "#071B85",
+        borderRadius: "8px",
+        cursor: "pointer",
+        color: "#FFFFFF",
+        border: "none",
+        fontWeight: "500",
+        fontSize: "16px",
+        "@media screen and (max-width: 1024px)": {
+            marginBottom: "1rem",
+            width: "385px",
+        },
+        "@media screen and (max-width: 500px)": {
+        },
+    },
 });
 
 export default Reviews

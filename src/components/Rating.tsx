@@ -43,6 +43,7 @@ const RatingComponent:React.FC<Props> = ({apiId, onClose}) => {
   },[error])
 
   return (
+    
     <div className={classes.backdrop} onClick={() => onClose()}>
       <Card className={classes.container} onClick={(e: MouseEvent) => e.stopPropagation()}>
         <Typography variant="body1" sx={{fontSize:"16px",fontWeight:500,color:"#515D99",margin:"1rem 0 2rem"}}>
