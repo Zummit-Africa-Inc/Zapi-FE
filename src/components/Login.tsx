@@ -270,6 +270,7 @@ const Login: React.FC = () => {
               Sign in with Google
             </button>
             <button
+              disabled
               className={classes.button}
               style={{ border: "1px solid #ccc" }}
               onClick={githubAuth}>
