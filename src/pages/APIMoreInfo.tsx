@@ -9,7 +9,7 @@ import { makeStyles, styled } from "@mui/styles";
 import { HomeNavbar, Footer, APIDesc, Endpoints } from "../sections";
 import { useHttpRequest } from "../hooks";
 import { Discussion, Fallback, TabPanel, Reviews } from "../components";
-import { APIType, DiscussionType, EndpointsType, ReviewType } from "../types";
+import { APIType, DiscussionType, EndpointsType, ReviewsType } from "../types";
 
 const core_url = "VITE_CORE_URL";
 
@@ -40,7 +40,7 @@ const APIMoreInfo:React.FC = () => {
     const {error, loading, sendRequest} = useHttpRequest();
     const [tab, setTab] = useState<number>(0);
     const [api, setApi] = useState<APIType | null>(null);
-    const [reviews, setReviews] = useState<Array<ReviewType> | null>(null);
+    const [reviews, setReviews] = useState<Array<ReviewsType> | null>(null);
     const [endpoints, setEndpoints] = useState<Array<EndpointsType> | null>(null);
     const [discussions, setDiscussions] = useState<Array<DiscussionType> | null>(null);
     const cookies = new Cookies();

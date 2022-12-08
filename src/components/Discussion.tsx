@@ -4,6 +4,8 @@ import {
     Box,
     Pagination,
     Button,
+    Card,
+    CardContent,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React, { useState } from "react";
@@ -11,7 +13,7 @@ import { usePagination } from "../hooks";
 import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png";
 import { Add } from "@mui/icons-material";
 import { useContextProvider } from "../contexts/ContextProvider";
-import { DiscussionType } from "../types";
+import { DiscussionType, ReviewType } from "../types";
 import { ChatRounded } from "@mui/icons-material";
 
 interface Props {
@@ -61,6 +63,30 @@ const Discussion: React.FC<Props> = ({ discussions }) => {
                     </Button>
                 </Box>
             </Box>
+            <Box className={classes.list}>
+                {discussions.length !== 0 ? 
+                (<>
+                <Box>
+                    {discussions.map((Discussions, index) => (
+                        <Card key={index} className={classes.card}>
+                            <Typography sx={{fontSize: "16px", color: "#081F4A",fontWeight: 700}}>
+                                By: 
+                            </Typography>
+                            {/* <Rating size="small" defaultValue={review.rating} disabled /> */}
+                            <Typography sx={{fontSize: "14px", color: "#081F4A"}}>
+                                {/* {review.reviews} */}
+                            </Typography>
+                        </Card>
+                    ))}
+                </Box>
+                </>):(
+                    <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginTop: "110px", width: "100%" }}>
+                        <ChatRounded sx={{ fontSize: "32px", color: "#264276", }} />
+                        <Typography sx={{fontSize:"18px",color:"#515D99"}}>No discussion on the API yet.</Typography>
+                    </Box>
+                )}
+
+            </Box>
             <Box className={classes.discussions_container}>
                 <Box
                     sx={{
@@ -100,10 +126,9 @@ const Discussion: React.FC<Props> = ({ discussions }) => {
                                 />
                             </>
                         ) : (
-                            
                             <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginTop: "110px", width: "100%" }}>
                             <ChatRounded sx={{ fontSize: "32px", color: "#264276", }} />
-                            <Typography sx={{fontSize:"18px",color:"#515D99"}}></Typography>
+                            <Typography sx={{fontSize:"18px",color:"#515D99"}}>No reviews on the API yet.</Typography>
                         </Box>
                         )}
                 </Box>
@@ -172,7 +197,23 @@ const useStyles = makeStyles({
         padding: "16px",
         borderBottom: "1px solid #071B85",
     },
-
+    list: {
+        width: "100%",
+        display: "flex",
+        alignItems: "center",
+        flexWrap: "wrap",
+        gap: "1rem",
+    },
+    card: {
+        width: "250px",
+        minHeight: "100px",
+        borderRadius: "4px",
+        border: "1px solid #081F4A",
+        display: "flex",
+        flexDirection: "column",
+        gap: "0.5rem",
+        padding: "0.5rem",
+    },
     discussion_column: {
         display: "flex",
         justifyContent: "start",

@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import {
   APIType,
-  ReviewsType,
+  // ReviewsType,
   DiscussionType,
   ChildrenDiscussionType,
 } from "../../types";
@@ -12,7 +12,7 @@ const cookies = new Cookies();
 const url = import.meta.env.VITE_CORE_URL;
 // const api_Id = "03f20287-9602-47bc-b5bc-50b7b223b3d3"
 interface ApiState {
-  reviews: Array<ReviewsType>;
+  // reviews: Array<ReviewsType>;
   apis: Array<APIType>;
   categories: Array<APIType>;
   discussions: Array<DiscussionType>;
@@ -150,14 +150,14 @@ const apiSlice = createSlice({
         api.discussions?.unshift(newDiscussion);
       }
     },
-    addReviews: (state, action: PayloadAction<any>) => {
-      const { apiId, title, body } = action.payload;
-      const api = state.apis.find((api) => api?.id === apiId);
-      let newReviews = { title, body };
-      if (api) {
-        api.reviews?.unshift(newReviews);
-      }
-    },
+    // addReviews: (state, action: PayloadAction<any>) => {
+    //   const { apiId, title, body } = action.payload;
+    //   const api = state.apis.find((api) => api?.id === apiId);
+    //   let newReviews = { title, body };
+    //   if (api) {
+    //     api.reviews?.unshift(newReviews);
+    //   }
+    // },
     removeDiscussion: (state, action: PayloadAction<any>) => {
       const { apiId, id } = action.payload;
       const api = state.apis.find((api) => api?.id === apiId);
@@ -311,7 +311,7 @@ export const {
   addApi,
   removeApi,
   addDiscussion,
-  addReviews,
+  // addReviews,
   addChildrenDiscussion,
   editDiscussion,
   editChildrenDiscussion,
