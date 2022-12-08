@@ -43,9 +43,9 @@ const Contact: React.FC = () => {
                 headers
             );
 
+            const {message} = data
             if (!data) return;
             
-            const {message} = data
             setLoad(false)
             toast.success(`${message}`)
             setName('')
