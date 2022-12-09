@@ -1,5 +1,5 @@
 import React from "react";
-import Discussion from "./discussion";
+import Discussion from "./Discussion";
 import ProfileAPIS from "./ProfileAPIS";
 import ProfileHeader from "./ProfileHeader";
 
