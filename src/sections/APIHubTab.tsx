@@ -46,7 +46,6 @@ const APIHubTab: React.FC = () => {
     }
   };
 
-
   const handleTabChange = (e: SyntheticEvent, value: any) => {
     setCategoryId(value);
   };
@@ -86,22 +85,22 @@ const APIHubTab: React.FC = () => {
   });
 
   let icons: any = {
-    "popular apis": <LibraryBooks />,
-    "safety apis": <Layers />,
-    "security apis": <Security />,
-    "customer service apis": <ChatBubble />,
-    "general apis": <Lightbulb />,
-    "sports": <SportsFootball />,
-    "travel": <AirplanemodeActive />,
-    "finance": <AttachMoney />,
-    "educational": <School />,
-    "data": <DataArray />,
-    "science": <Science />,
-    "music": <MusicNote />,
-    "tools": <Build />,
+    popular: <LibraryBooks />,
+    safety: <Layers />,
+    security: <Security />,
+    "customer service": <ChatBubble />,
+    general: <Lightbulb />,
+    sports: <SportsFootball />,
+    travel: <AirplanemodeActive />,
+    finance: <AttachMoney />,
+    educational: <School />,
+    data: <DataArray />,
+    science: <Science />,
+    music: <MusicNote />,
+    tools: <Build />,
     "text analysis": <FormatColorText />,
-    "weather": <Cloud />,
-    "all": <Apps />,
+    weather: <Cloud />,
+    all: <Apps />,
   };
 
   return (
@@ -109,22 +108,20 @@ const APIHubTab: React.FC = () => {
       {loading && <Fallback />}
       {isOpen ? (
         <Box className={classes.list}>
-          <Box 
+          <Box
             sx={{
               paddingRight: "25px",
               maxHeight: "510px",
               overflowY: "scroll",
 
               "&::-webkit-scrollbar": {
-                width: "2px"
+                width: "2px",
               },
               "&::-webkit-scrollbar-thumb": {
                 backgroundColor: "#071B85",
-                borderRadius: 0
+                borderRadius: 0,
               },
-              
-            }}
-          >
+            }}>
             <StyledTabs
               orientation="vertical"
               value={categoryId}
@@ -138,17 +135,14 @@ const APIHubTab: React.FC = () => {
                   icon={icons[category.name.toLowerCase()]}
                 />
               ))}
-
             </StyledTabs>
           </Box>
 
           <Tooltip title="Collapse" placement="right" arrow>
             <Button
-
-                id="collapseButton" 
-                onClick={handleSideBarChange}
-                sx={{ marginRight: "-20px" }}
-            >
+              id="collapseButton"
+              onClick={handleSideBarChange}
+              sx={{ marginRight: "-20px" }}>
               <ArrowBackIos
                 sx={{ color: "#071B85", width: "18px", height: "auto" }}
               />
@@ -158,26 +152,21 @@ const APIHubTab: React.FC = () => {
       ) : (
         <Box
           className={classes.list}
-          style={{ display: "flex", alignItems: "center", width: "auto" }}
-        >
-
-          <Box 
+          style={{ display: "flex", alignItems: "center", width: "auto" }}>
+          <Box
             sx={{
               paddingRight: "25px",
               maxHeight: "510px",
               overflowY: "scroll",
 
               "&::-webkit-scrollbar": {
-                width: "2px"
+                width: "2px",
               },
               "&::-webkit-scrollbar-thumb": {
                 backgroundColor: "#071B85",
-                borderRadius: 0
+                borderRadius: 0,
               },
-              
-            }}
-          >
-            
+            }}>
             <StyledTabs
               orientation="vertical"
               value={categoryId}
@@ -196,9 +185,7 @@ const APIHubTab: React.FC = () => {
                   />
                 </Tooltip>
               ))}
-
             </StyledTabs>
-
           </Box>
 
           <Tooltip title="Expand" placement="right" arrow>
@@ -238,12 +225,10 @@ const APIHubTab: React.FC = () => {
                   {categoryApis?.map((api: any) => (
                     <APICard key={api.id} {...api} />
                   ))}
-                          
                 </Box>
               </>
             </TabPanel>
           ))}
-
         </Box>
       </Box>
     </Box>
@@ -400,13 +385,12 @@ const useStyles = makeStyles({
     overflowX: "hidden",
 
     "&::-webkit-scrollbar": {
-      width: "4px"
+      width: "4px",
     },
     "&::-webkit-scrollbar-thumb": {
       backgroundColor: "#071B85",
-      borderRadius: 0
+      borderRadius: 0,
     },
-    
   },
 });
 
