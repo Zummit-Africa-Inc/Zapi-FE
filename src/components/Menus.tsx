@@ -23,6 +23,7 @@ import { ZapiDash, ZapiApps, ZapiHelp, ZapiArrow, ZapiPic } from "../assets";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hook";
 import { getUserApis, logout } from "../redux/slices/userSlice";
 import Notification from "./Notification";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 interface MenuProps {
   id?: string;
@@ -123,7 +124,9 @@ const Menus: React.FC<MenuProps> = () => {
         aria-haspopup="true"
         aria-expanded={isAvatarOpen ? "true" : undefined}
         onClick={handleAvatarClick}>
-        <Avatar src={ZapiPic} alt="zapi-pic" />
+        <AccountCircleIcon
+          style={{ fontSize: "xxx-large", color: "#000000" }}
+        />
       </Button>
       <Menu
         anchorEl={anchorE2}
