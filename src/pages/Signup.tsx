@@ -1,18 +1,25 @@
-import React, { FormEvent, useState,useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Stack, Typography } from "@mui/material";
+import React, { FormEvent, useState, useEffect, SyntheticEvent } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Divider, Stack, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { toast } from "react-toastify";
 import { Cancel } from "@mui/icons-material";
-
-import { EMAIL_REGEX, PASSWORD_REGEX, MATCH_CHECKER, PASSWORD_LENGTH } from "../utils";
+import Cookies from "universal-cookie";
+import {
+  EMAIL_REGEX,
+  PASSWORD_REGEX,
+  MATCH_CHECKER,
+  PASSWORD_LENGTH,
+} from "../utils";
 import { useContextProvider } from "../contexts/ContextProvider";
-import { useFormInputs, useHttpRequest } from "../hooks";
+import { useAppDispatch, useFormInputs, useHttpRequest } from "../hooks";
 import { Fallback, PasswordStrengthMeter } from "../components";
 import { HomeNavbar } from "../sections";
-// import { GoogleIcon } from "../assets";
-// import { useGoogleLogin } from "@react-oauth/google";
+import { GithubIcon, GoogleIcon } from "../assets";
+import { useGoogleLogin } from "@react-oauth/google";
+import { login } from "../redux/slices/userSlice";
 import ReactGA from "react-ga4";
+import axios from "axios";
 
 const initialState = {
   fullName: "",
@@ -23,14 +30,19 @@ const initialState = {
 };
 // const url = import.meta.env.VITE_IDENTITY_URL;
 const url = "VITE_IDENTITY_URL";
+const GITHUB_CLIENT_ID = import.meta.env.VITE_GITHUB_CLIENT_ID;
 
 const Signup: React.FC = () => {
   const classes = useStyles();
   const { inputs, bind, toggle } = useFormInputs(initialState);
+  const { deviceInfo, deviceLocation, deviceIP, handleClicked } =
+    useContextProvider();
   const { fullName, email, password, confirm_password, terms } = inputs;
   const { error, loading, sendRequest } = useHttpRequest();
-  const { handleClicked } = useContextProvider();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const cookies = new Cookies();
   const disabled =
     !terms ||
     !PASSWORD_REGEX.test(password) ||
@@ -74,19 +86,107 @@ const Signup: React.FC = () => {
   };
   const [values, setValues] = useState(initialState);
 
-  // const googleAuth = useGoogleLogin({
-  //   flow: "auth-code",
-  //   onSuccess: async (response) => {
-  //     console.log(response);
-  // const token = await sendRequest('/endpoint/googleauth', url, "post", response.code, headers)
-  // console.log(token)
-  //     toast.success("Login Successful!");
-  //   },
-  //   onError: (errorResponse) => {
-  //     console.log(errorResponse);
-  //     toast.error("Login Failed, try to login with your email.");
-  //   },
-  // });
+  const googleAuth = useGoogleLogin({
+    flow: "auth-code",
+    onSuccess: async (response) => {
+      const payload = {
+        token: response.code,
+        userInfo: {
+          login_time: deviceLocation.time,
+          country: { lat: deviceLocation.lat, lon: deviceLocation.lon },
+          deviceIP,
+          browser_name: deviceInfo.browserName,
+          os_name: deviceInfo.osName,
+        },
+      };
+      const headers = { "Content-Type": "application/json" };
+      try {
+        const token = await sendRequest(
+          "/auth/google",
+          "post",
+          url,
+          payload,
+          headers
+        );
+        if (!token) return;
+        toast.success("Login Successful!");
+        const {
+          access,
+          email,
+          fullName,
+          profileId,
+          refresh,
+          userId,
+          secretKey,
+        } = token.data;
+        const user = { email, fullName, profileId, secretKey };
+        dispatch(login(user));
+        cookies.set("accessToken", access);
+        cookies.set("refreshToken", refresh);
+        cookies.set("profileId", profileId);
+        cookies.set("userId", userId);
+        cookies.set("secretKey", secretKey);
+        navigate("/developer/dashboard");
+      } catch (error) {}
+    },
+    onError: (errorResponse) => {
+      console.log("error", errorResponse);
+      toast.error("Login Failed, try to login with your email.");
+    },
+  });
+
+  const githubAuth = () => {
+    window.location.assign(
+      "https://github.com/login/oauth/authorize?client_id=" + GITHUB_CLIENT_ID
+    );
+  };
+
+  if (searchParams.get("code")) {
+    useEffect(() => {
+      const githubLogin = async () => {
+        const payload = {
+          token: searchParams.get("code"),
+          userInfo: {
+            login_time: deviceLocation.time,
+            country: { lat: deviceLocation.lat, lon: deviceLocation.lon },
+            deviceIP,
+            browser_name: deviceInfo.browserName,
+            os_name: deviceInfo.osName,
+          },
+        };
+        const headers = { "Content-Type": "application/json" };
+        try {
+          const data = await sendRequest(
+            "/auth/github",
+            "post",
+            url,
+            payload,
+            headers
+          );
+          if (!data) return;
+          toast.success("Login Successful!");
+          const {
+            access,
+            email,
+            fullName,
+            profileId,
+            refresh,
+            userId,
+            secretKey,
+          } = data.data;
+          const user = { email, fullName, profileId, secretKey };
+          dispatch(login(user));
+          cookies.set("accessToken", access);
+          cookies.set("refreshToken", refresh);
+          cookies.set("profileId", profileId);
+          cookies.set("userId", userId);
+          cookies.set("secretKey", secretKey);
+          navigate("/developer/dashboard");
+        } catch (error) {}
+      };
+      githubLogin();
+    }, []);
+  }
 
   useEffect(() => {
     {
@@ -136,7 +236,7 @@ const Signup: React.FC = () => {
                 placeholder="Enter your email"
               />
             </div>
-            <div className={classes.input} style={{marginBottom:'1rem'}}>
+            <div className={classes.input} style={{ marginBottom: "1rem" }}>
               <label htmlFor="password">Password</label>
               <input
                 type="password"
@@ -144,15 +244,14 @@ const Signup: React.FC = () => {
                 {...bind}
                 placeholder="Enter a Password"
               />
-              {(password.length > 20) ? (
+              {password.length > 20 ? (
                 <Typography variant="caption" color="error">
-                {/* <Cancel sx={{ fontSize: 15, marginRight: 0.5 }} color="error" /> */}
-                Password is too long (Enter between 8 - 20 characters long)
-              </Typography>
+                  {/* <Cancel sx={{ fontSize: 15, marginRight: 0.5 }} color="error" /> */}
+                  Password is too long (Enter between 8 - 20 characters long)
+                </Typography>
               ) : (
                 <PasswordStrengthMeter password={password} />
               )}
-              
             </div>
             <div className={classes.input}>
               <label htmlFor="confirm_password">
@@ -173,8 +272,11 @@ const Signup: React.FC = () => {
                 <></>
               ) : (
                 <Typography variant="caption" color="error">
-                  <Cancel sx={{ fontSize: 15, marginRight: 0.5 }} color="error" />
-                    Password does not match
+                  <Cancel
+                    sx={{ fontSize: 15, marginRight: 0.5 }}
+                    color="error"
+                  />
+                  Password does not match
                 </Typography>
               )}
             </div>
@@ -190,31 +292,42 @@ const Signup: React.FC = () => {
             <button
               type="submit"
               className={classes.button}
+              style={{
+                background: "#4B4B4B",
+                color: "#FFF",
+                marginBottom: "1rem",
+              }}
               disabled={disabled}>
               {loading ? "loading" : "Signup"}
             </button>
           </form>
 
-          {/* <Typography>OR</Typography>
-          <Stack direction="column" alignItems="center" spacing={2}>
+          <Divider>OR</Divider>
+          <Stack direction="column" alignItems="center" mt={1} spacing={2}>
             <button
               type="button"
               className={classes.button}
-              onClick={() => googleAuth()}
-              style={{ background: "#FFF", color: "#081F4A" }}>
-              <span style={{ marginRight: "3rem" }}>
+              onClick={() => googleAuth()}>
+              <span style={{ marginRight: "1rem" }}>
                 <GoogleIcon />
               </span>
-              Signin with Google
+              Sign in with Google
             </button>
-          </Stack> */}
+            <button
+              className={classes.button}
+              style={{ border: "1px solid #ccc" }}
+              onClick={githubAuth}>
+              <span style={{ marginRight: "1rem" }}>
+                <GithubIcon />
+              </span>
+              Sign in With Github
+            </button>
+          </Stack>
           <Typography
             variant="body1"
             fontSize="16px"
-            alignSelf="flex-start"
-            textAlign="center"
-            // mt={8}
-          >
+            alignSelf="center"
+            textAlign="center">
             Already have an account?
             <span
               className={classes.link}
@@ -307,21 +420,17 @@ const useStyles = makeStyles({
     height: "52px",
     display: "flex",
     flexDirection: "row",
+    background: "#FFF",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#081F4A",
-    color: "#FFF",
     borderRadius: "4px",
-    border: "!px solid #000",
+    color: "#000",
+    outline: "none",
     fontSize: "16px",
-    fontWeight: 400,
+    fontWeight: 600,
     lineHeight: "16px",
     cursor: "pointer",
-    margin: "1rem 0 2rem",
     padding: "0 1rem",
-    "&:disabled": {
-      backgroundColor: "#4B4B4B",
-    },
     "@media screen and (max-width: 768px)": {
       width: "100%",
     },

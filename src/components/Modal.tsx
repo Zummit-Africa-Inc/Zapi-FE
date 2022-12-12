@@ -8,17 +8,25 @@ import {
 import Modal from "@mui/material/Modal";
 import { SyntheticEvent, useState } from "react";
 import { useHttpRequest } from "../hooks";
+import { toast } from "react-toastify";
+import { Spinner } from "../assets";
+import { EMAIL_REGEX } from "../utils";
 
 const core_url = "VITE_CORE_URL";
 
-const Modalpopup = ({ open, handleClose }: any) => {
+const Modalpopup = ({ open, handleClose, setOpen }: any) => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [body, setBody] = useState<string>("");
+  const [load, setLoad] = useState(false)
   const { error, loading, sendRequest } = useHttpRequest();
+  const isValid = name && email && body
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
+
+    if (!EMAIL_REGEX.test(email)) return toast.error("Please input a valid email")
+    setLoad(true)
     const payload = { name, email, body };
     const headers = { "Content-Type": "application/json" };
     try {
@@ -30,8 +38,17 @@ const Modalpopup = ({ open, handleClose }: any) => {
         headers
       );
       if (!data) return;
-      console.log(data);
-    } catch (error) {}
+      const {message} = data
+      setLoad(false)
+      toast.success(`${message}`)
+      setName('')
+      setEmail('')
+      setBody('')
+      setOpen(false)
+    } catch (error) {
+      setLoad(false)
+      toast.error('Could not create your feedback')
+    }
   };
   return (
     <div>
@@ -50,6 +67,7 @@ const Modalpopup = ({ open, handleClose }: any) => {
             label="Name"
             variant="standard"
             value={name}
+            required
             onChange={(e) => setName(e.target.value)}
           />
           <TextField
@@ -58,6 +76,7 @@ const Modalpopup = ({ open, handleClose }: any) => {
             label="Email"
             variant="standard"
             value={email}
+            required
             onChange={(e) => setEmail(e.target.value)}
           />
           <TextareaAutosize
@@ -73,6 +92,7 @@ const Modalpopup = ({ open, handleClose }: any) => {
               fontSize: "1em",
             }}
             value={body}
+            required
             onChange={(e) => setBody(e.target.value)}
           />
           <Typography
@@ -87,8 +107,9 @@ const Modalpopup = ({ open, handleClose }: any) => {
               variant="contained"
               disableElevation
               disableFocusRipple
+              disabled={!isValid}
               onClick={handleSubmit}>
-              Submit
+              {load ? <Spinner/> : 'Submit'}
             </Button>
           </Typography>
         </Box>

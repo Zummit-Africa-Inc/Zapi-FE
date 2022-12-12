@@ -92,7 +92,7 @@ const DevAddApi: React.FC = () => {
               className={classes.button}
               onClick={() => handleClicked("addapi")}
               style={{ height: "46px" }}>
-              <AddIcon /> <Typography>Add API Project</Typography>
+              <AddIcon /> <Typography>Add API</Typography>
             </button>
           </div>
         </div>
@@ -297,7 +297,7 @@ const useStyles = makeStyles({
     gap: "16px",
     width: "190px",
     lineHeight: "46px",
-    background: "#058A04",
+    background: "#26c340",
     borderRadius: "8px",
     cursor: "pointer",
     color: "#FFFFFF",

@@ -1,16 +1,11 @@
 import React from "react";
 import { Button, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import MessageIcon from '@mui/icons-material/Message';
+import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
 
 const Feedback = ({handleOpen} : any) => {
-    return (
-    <Box sx={feedback}>
-      <Button onClick={handleOpen}>
-        <Typography marginRight={0.5} fontWeight="600">Feedback</Typography>
-        <MessageIcon fontSize="medium"/>
-      </Button>
-    </Box>
+    return (    
+        <FeedbackOutlinedIcon onClick={handleOpen} fontSize="small" sx={{ fontSize: 25, background: "white", borderRadius: "50%", color: "#081F4A" }} />
     )
 }
 
@@ -19,8 +14,7 @@ export default Feedback;
 const feedback = {
     position: "fixed",
     bottom: "1%",
-    right: "1%",
-    background: "yellow",
+    right: "-1%",
     "@media screen and (max-width: 400px)": {
       position: "fixed",
       bottom: "1%",

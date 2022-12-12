@@ -12,12 +12,11 @@ import ZapiHomeLogo from "../assets/images/ZapiHomeLogo.png";
 import { Add } from "@mui/icons-material";
 import { useContextProvider } from "../contexts/ContextProvider";
 import { DiscussionType } from "../types";
+import { ChatRounded } from "@mui/icons-material";
 
 interface Props {
     discussions: Array<DiscussionType>
 }
-
-// const core_url = "VITE_CORE_URL"
 
 const Discussion: React.FC<Props> = ({ discussions }) => {
     const classes = useStyles()
@@ -37,16 +36,28 @@ const Discussion: React.FC<Props> = ({ discussions }) => {
         <Box className={classes.main}>
             <Box className={classes.discussion_tab}>
                 <Box className={classes.header}>
-                    <Typography variant="h2" fontWeight={500}>Discussions</Typography>
+                    {discussions.length == 0 ? (
+                        <Typography
+                            sx={{
+                                marginBottom: "10px",
+                                fontSize: "21px",
+                                fontWeight: "bold",
+                                color: "#264276",
+                                padding: "5px",
+                            }}>
+                                Discussions
+                        </Typography>
+                    ) : (
+                        <></>
+                    )}
                 </Box>
                 <Box>
                     <Button
                         variant="contained"
-                        sx={{background: "#071B85",color: "#FFFFFF"}}
+                        sx={{backgroundColor: "#264276", color: "#fff", width: "200px", height: "2.5rem"}}
                         className={classes.newDiscussion}
-                        onClick={() => handleClicked("addDiscussion")}
-                        style={{ height: "46px" }}>
-                        <Add /> <Typography>New Discussion</Typography>
+                        onClick={() => handleClicked("addDiscussion")}>
+                        <Add /> <Typography sx={{ fontSize: "14px" }}>New Discussion</Typography>
                     </Button>
                 </Box>
             </Box>
@@ -58,7 +69,7 @@ const Discussion: React.FC<Props> = ({ discussions }) => {
                         borderRadius: 0,
                     }}
                 >
-                    {discussions.length !== 0 ?
+                    {discussions.length == 0 ?
                         (
                             <>
                                 {_DATA.currentData().map((discussion: any) => (
@@ -89,10 +100,10 @@ const Discussion: React.FC<Props> = ({ discussions }) => {
                                 />
                             </>
                         ) : (
-                            <Box className={classes.discussion_thread} style={{ width: '100%', backgroundColor: '#ffffff', padding: '4rem 0', display: 'flex', alignItems: 'center' }}>
-                                <Typography variant="h5" >
-                                    There are no discussions in this API.
-                                </Typography>
+                            
+                            <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginTop: "110px", width: "100%" }}>
+                                <ChatRounded sx={{ fontSize: "32px", color: "#264276", }} />
+                                <Typography sx={{fontSize:"18px",color:"#515D99"}}>There are no discussions in this API.</Typography>
                             </Box>
                         )}
                 </Box>
@@ -106,7 +117,6 @@ export default Discussion;
 const useStyles = makeStyles({
     main: {
         height: "auto",
-        padding: "1rem 2rem 0",
     },
     discussion_tab: {
         width: "100%",
@@ -114,7 +124,6 @@ const useStyles = makeStyles({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        padding: "0 2rem",
         "@media screen and (max-width: 1024px)": {
             flexDirection: "column",
         },
@@ -123,19 +132,6 @@ const useStyles = makeStyles({
         display: "flex",
         flexDirection: "column",
         color: "#071B85",
-        "& h2": {
-            marginBottom: "3px",
-            fontSize: "22px",
-            "@media screen and (max-width: 820px)": {
-                fontSize: "20px",
-            },
-        },
-        "& p": {
-            fontSize: "14px",
-            "@media screen and (max-width: 820px)": {
-                fontSize: "12px",
-            },
-        },
     },
     newDiscussion: {
         display: "flex",

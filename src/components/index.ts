@@ -42,3 +42,5 @@ export { default as UserProSideBar } from "./UserProSideBar";
 export { default as Version } from "./Version";
 export { default as Widget } from "./Widget";
 export { default as Profile } from "./Profile"
+export { default as AnalyticsTab } from "./AnalyticsTab";
+export { default as AnalyticsUser } from "./AnalyticsUser";
