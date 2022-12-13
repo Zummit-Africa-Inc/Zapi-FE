@@ -34,6 +34,7 @@ import {
   Login,
   AddApiPopup,
   AddDiscussion,
+  AddReviews,
   AddChildrenDiscussion,
 } from "./components";
 import { useContextProvider } from "./contexts/ContextProvider";
@@ -150,6 +151,7 @@ const App: React.FC = () => {
         {isClicked.login && <Login />}
         {isClicked.addapi && <AddApiPopup />}
         {isClicked.addDiscussion && <AddDiscussion />}
+        {isClicked.addReviews && <AddReviews />}
         {isClicked.addChildrenDiscussion && <AddChildrenDiscussion />}
       </div>
     </ThemeProvider>

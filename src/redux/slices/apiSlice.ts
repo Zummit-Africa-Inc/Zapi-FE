@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { APIType,DiscussionType, ChildrenDiscussionType } from "../../types";
+import { APIType,DiscussionType, ReviewType, ChildrenDiscussionType } from "../../types";
 // import { headers } from "./constant";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
@@ -10,6 +10,7 @@ interface ApiState {
   apis: Array<APIType>;
   categories: Array<APIType>;
   discussions: Array<DiscussionType>;
+  reviews: Array<ReviewType>;
   childrenDiscussion: Array<ChildrenDiscussionType>;
   loading: "idle" | "pending" | "fulfilled" | "rejected";
   error?: any;
@@ -19,6 +20,7 @@ const initialState = {
   apis: [],
   categories: [],
   discussions: [],
+  reviews: [],
     childrenDiscussion: [],
   loading: "idle",
   error: null,
@@ -96,6 +98,17 @@ export const getApisDiscussion = createAsyncThunk("apis/getApisDiscussion", asyn
         return thunkAPI.rejectWithValue(error.message)
     }
 })
+export const getApisReviews = createAsyncThunk("apis/getApisReviews", async(api_id: any, thunkAPI) => {
+    const headers = { 'X-Zapi-Auth-Token': `Bearer ${cookies.get('accessToken')}` }
+    try {
+        const response = await fetch(`${url}/api/dev-platform-data/discussion/${api_id}`, {headers})
+        const data = await response.json()
+        const reviews = data?.data.reviews
+        return reviews
+    } catch (error: any) {
+        return thunkAPI.rejectWithValue(error.message)
+    }
+})
 export const getApisChildrenDiscussion = createAsyncThunk("apis/getApisChildrenDiscussion", async(discussionId: any, thunkAPI) => {
     const headers = { 'X-Zapi-Auth-Token': `Bearer ${cookies.get('accessToken')}` }
     try {
@@ -125,6 +138,14 @@ const apiSlice = createSlice({
             let newDiscussion = {title, body}
             if(api) {
                 api.discussions?.unshift(newDiscussion)
+            }
+        },
+        addReviews: (state, action: PayloadAction<any>) => {
+            const { apiId, title, body } = action.payload
+            const api = state.apis.find(api => api?.id === apiId)
+            let newReviews = {title, body}
+            if(api) {
+                api.reviews?.unshift(newReviews)
             }
         },
         removeDiscussion: (state, action: PayloadAction<any>) => {
@@ -260,5 +281,5 @@ const apiSlice = createSlice({
   },
 });
 
-export const { addApi,removeApi,addDiscussion, addChildrenDiscussion,editDiscussion,editChildrenDiscussion,removeDiscussion,removeChildrenDiscussion, clearError } = apiSlice.actions
+export const { addApi,removeApi,addDiscussion, addReviews, addChildrenDiscussion,editDiscussion,editChildrenDiscussion,removeDiscussion,removeChildrenDiscussion, clearError } = apiSlice.actions
 export default apiSlice.reducer

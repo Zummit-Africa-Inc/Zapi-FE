@@ -45,7 +45,7 @@ const Discussion: React.FC<Props> = ({ discussions }) => {
                                 color: "#264276",
                                 padding: "5px",
                             }}>
-                                Discussions
+                             
                         </Typography>
                     ) : (
                         <></>
