@@ -122,7 +122,7 @@ const useStyles = makeStyles({
   scroll: {
     width: "100%",
     height: "100%",
-    padding: "2rem",
+    // padding: "2rem",
   }
 });
 

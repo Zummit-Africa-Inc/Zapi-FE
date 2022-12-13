@@ -147,7 +147,7 @@ const useStyles = makeStyles({
     flexDirection: "row",
     justifyContent: "space-between",
     background: "#C4C4C4",
-    // height: "70px",
+    height: "70px",
     fontFamily: "Space Grotesk",
     "@media screen and (max-width: 1024px)": {
       padding: "1rem 2rem",
