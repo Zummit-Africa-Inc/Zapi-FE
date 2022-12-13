@@ -122,8 +122,6 @@ const useStyles = makeStyles({
   scroll: {
     width: "100%",
     height: "100%",
-    // overflowY: "hidden",
-    // padding: "1rem 0.5rem 0",
     padding: "2rem",
   }
 });
