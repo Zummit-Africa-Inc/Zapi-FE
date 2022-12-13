@@ -89,7 +89,7 @@ const ProfileHeader = () => {
                 </Stack>
               ) : (
                 <Stack className={classes.image}>
-                  <img src={user.picture ? user.picture : null} alt="" />
+                  {/* <img src={user ? user.picture : null} alt="" /> */}
                   <input type="file" onChange={(e) => handleChange(e)} />
                 </Stack>
               )}
