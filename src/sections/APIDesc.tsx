@@ -134,7 +134,8 @@ const APIDesc: React.FC<Props> = ({ api }) => {
                         <Button variant="outlined"
                             endIcon={<StarBorder />}
                             sx={{ border: "1px solid #515D99", color: "#515D99", borderRadius: "5px", fontSize: "13px", minWidth: "130px", height: "2.3rem", }}
-                            onClick={() => setIsRatingOpen(true)}
+                            // onClick={() => setIsRatingOpen(true)}
+                            onClick={() => handleClicked("login")}
                         >
                             rate
                         </Button>
