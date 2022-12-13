@@ -1,13 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  Card,
-  CardContent,
-  Box,
-  Button,
-  Rating,
-  Stack,
-  Typography,
-} from "@mui/material";
+import React, { useState } from "react";
+import { Card, Box, Button, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { ChatRounded } from "@mui/icons-material";
 import { Add } from "@mui/icons-material";
@@ -15,7 +7,6 @@ import { ReviewsType } from "../types";
 import { Fallback } from ".";
 import { useHttpRequest } from "../hooks";
 import { useContextProvider } from "../contexts/ContextProvider";
-import { addDiscussion } from "../redux/slices/apiSlice";
 
 interface Props {
   reviews: Array<ReviewsType>;
@@ -38,9 +29,7 @@ const Reviews: React.FC<Props> = ({ reviews }) => {
               fontWeight: "bold",
               color: "#264276",
               padding: "5px",
-            }}>
-            {/* Reviews */}
-          </Typography>
+            }}></Typography>
         ) : (
           <></>
         )}
@@ -140,10 +129,9 @@ const Reviews: React.FC<Props> = ({ reviews }) => {
                     }}>
                     By:
                   </Typography>
-                  {/* <Rating size="small" defaultValue={review.rating} disabled /> */}
-                  <Typography sx={{ fontSize: "14px", color: "#081F4A" }}>
-                    {/* {review.reviews} */}
-                  </Typography>
+
+                  <Typography
+                    sx={{ fontSize: "14px", color: "#081F4A" }}></Typography>
                 </Card>
               ))}
             </Box>
