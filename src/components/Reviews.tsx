@@ -104,7 +104,6 @@ const Reviews: React.FC<Props> = ({ reviews }) => {
                   }}>
                   <Button
                     sx={{ background: "#071B85", color: "#FFFFFF" }}
-                    //   onClick={toggleAdding}
                     type="submit"
                     className={classes.addBtn}>
                     Post Reviews
