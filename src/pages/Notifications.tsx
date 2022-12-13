@@ -115,7 +115,7 @@ const useStyles = makeStyles({
     placeItems: "center",
   },
   noNotification: {
-    marginTop: "200px",
+    marginTop: "120px",
     alignItems: "center",
     paddingBottom: "80px",
     height: "calc(100vh - 315px)",
