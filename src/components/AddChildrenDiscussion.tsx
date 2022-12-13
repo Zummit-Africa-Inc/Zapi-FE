@@ -1,17 +1,11 @@
 import React, { FormEvent, useState, useEffect } from "react";
-import {
-  Typography, Box, Button
-} from "@mui/material";
+import { Typography, Box, Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
 
 import { useContextProvider } from "../contexts/ContextProvider";
-import {
-  useAppDispatch,
-  useFormInputs,
-  useHttpRequest,
-} from "../hooks";
+import { useAppDispatch, useFormInputs, useHttpRequest } from "../hooks";
 import { Fallback } from ".";
 import { addChildrenDiscussion } from "../redux/slices/apiSlice";
 import ReactGA from "react-ga4";
@@ -22,7 +16,6 @@ const initialState = {
   title: "",
   discussion: "",
 };
-
 
 const AddChildrenDiscussion: React.FC = () => {
   const { loading, error, sendRequest, clearError } = useHttpRequest();
@@ -40,14 +33,12 @@ const AddChildrenDiscussion: React.FC = () => {
     setIsAdding((prev) => !prev);
   };
 
-
-  const discussionId = JSON.parse(localStorage.getItem("discussion_id") || '');
+  const discussionId = JSON.parse(localStorage.getItem("discussion_id") || "");
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const api_id = JSON.parse(localStorage.getItem("api_id") || '');
+    const api_id = JSON.parse(localStorage.getItem("api_id") || "");
 
-    if (!body)
-      return toast.error("Please fill all fields");
+    if (!body) return toast.error("Please fill all fields");
     // const api_id = id;
     const headers = { "Content-Type": "application/json" };
     const payload = { body, profile_id, api_id };
@@ -69,7 +60,7 @@ const AddChildrenDiscussion: React.FC = () => {
     }
     // dispatch(getApisDiscussion(id));
     handleUnclicked();
-    dispatch(getUserApis(profile_id))
+    dispatch(getUserApis(profile_id));
   };
 
   useEffect(() => {
@@ -94,7 +85,6 @@ const AddChildrenDiscussion: React.FC = () => {
             Add New Discussion
           </Typography>
           <form className={classes.form} onSubmit={handleSubmit}>
-
             <Box className={classes.input}>
               <label>Discussion</label>
               <input
@@ -113,14 +103,16 @@ const AddChildrenDiscussion: React.FC = () => {
               }}>
               <Button
                 variant="contained"
-                sx={{ background: "#071B85", color: "#FFFFFF" }}
-                onClick={toggleAdding} type="submit" className={classes.addBtn}>
+                sx={{ background: "#515D99", color: "#FFFFFF" }}
+                onClick={toggleAdding}
+                type="submit"
+                className={classes.addBtn}>
                 Post Discussion
               </Button>
               <Button
                 variant="contained"
                 color="error"
-                sx={{ background: "red", color: "#FFFFFF" }}
+                sx={{ background: "#515D99", color: "#FFFFFF" }}
                 type="button"
                 className={classes.cancelBtn}
                 onClick={() => handleUnclicked("addDiscussion")}>
@@ -133,7 +125,6 @@ const AddChildrenDiscussion: React.FC = () => {
     </>
   );
 };
-
 
 const useStyles = makeStyles({
   container: {
@@ -260,4 +251,3 @@ const useStyles = makeStyles({
 });
 
 export default AddChildrenDiscussion;
-
