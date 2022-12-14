@@ -74,10 +74,6 @@ const APIHubTab: React.FC = () => {
   }, [categoryId]);
 
   useEffect(() => {
-    localStorage.removeItem("category");
-  }, []);
-
-  useEffect(() => {
     error && toast.error(`${error}`);
   }, [error]);
 
