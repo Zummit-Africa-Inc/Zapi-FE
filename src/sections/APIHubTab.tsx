@@ -32,7 +32,8 @@ const core_url = "VITE_CORE_URL";
 const APIHubTab: React.FC = () => {
   const classes = useStyles();
   const [tab, setTab] = useState<any>();
-  const [categoryId, setCategoryId] = useState<string>(default_url);
+  let category_id = localStorage.getItem("category") || default_url;
+  const [categoryId, setCategoryId] = useState<string>(category_id);
   const { categories } = useAppSelector((store) => store.apis);
   const { error, loading, sendRequest } = useHttpRequest();
   const [isOpen, setIsOpen] = useState<boolean>(true);
@@ -69,6 +70,7 @@ const APIHubTab: React.FC = () => {
   };
   useEffect(() => {
     handleSelector(categoryId);
+    localStorage.removeItem("category");
   }, [categoryId]);
 
   useEffect(() => {
@@ -102,6 +104,7 @@ const APIHubTab: React.FC = () => {
     weather: <Cloud />,
     all: <Apps />,
   };
+  
 
   return (
     <Box className={classes.container}>

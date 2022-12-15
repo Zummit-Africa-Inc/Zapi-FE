@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Stack, Typography, Button, Box } from "@mui/material";
+import { Stack, Typography, Button, Box, Tooltip } from "@mui/material";
+import { Link } from 'react-router-dom';
 import Cookies from "universal-cookie";
 import { makeStyles } from '@mui/styles'
 import { StackedLineChart, TimerOutlined, Check, BookmarkAddedOutlined, BookmarkRemove, BookmarkAddOutlined, StarBorder } from "@mui/icons-material";
@@ -80,9 +81,15 @@ const APIDesc: React.FC<Props> = ({ api }) => {
         dispatch(getSubscribedApis(profileId));
     };
 
+    const saveCategory = (category: any) => {
+        localStorage.setItem("category", category);
+    };
+
     useEffect(() => {
         error && toast.error(`${error}`);
     }, [error]);
+
+
 
     let subscribedButtonStyles = isSubscribed ? { backgroundColor: "#F5F5F5", color: "#000000", borderRadius: "5px", fontSize: "13px", minWidth: "130px", height: "2.3rem" } : { backgroundColor: "#264276", border: "1px solid #264276", color: "#FFFFFF", borderRadius: "5px", fontSize: "13px", minWidth: "130px", height: "2.3rem" };
     return (
@@ -101,7 +108,11 @@ const APIDesc: React.FC<Props> = ({ api }) => {
                                 <>created on: {api.createdOn && new Date(api.createdOn).toDateString()}</>
                             </Typography>
                             <hr />
-                            <Typography component="p" style={{ lineHeight: "1px", fontSize: "13px", color: "#515D99" }}>{category?.name}</Typography>
+                            <Tooltip title="Category" placement="right" arrow>
+                                <Link to={'/api-hub'} onClick={ () => { saveCategory(api.categoryId) } }>
+                                    <Typography component="p" style={{ lineHeight: "1px", fontSize: "13px", color: "#515D99" }}>{category?.name}</Typography>
+                                </Link>
+                            </Tooltip>
                         </Box>
                     </Box>
                     <Box style={{ display: "flex", justifyContent: "space-between", gap: "1rem", }}>
