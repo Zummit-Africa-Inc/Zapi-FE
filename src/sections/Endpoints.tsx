@@ -53,6 +53,8 @@ const CustomTab = styled(Tab)({
     alignItems: "flex-start",
     fontWeight: "normal",
     fontSize: "14px",
+    maxWidth: "100%",
+    borderBottom: "1px solid #D1D1D1",
     
   },
   "&.Mui-selected": {
@@ -111,10 +113,10 @@ const Endpoints: React.FC<Props> = ({api, endpoints}) => {
               boxShadow: "unset",
               display: "flex",
               alignItems: "center",
-              // border: "1px solid #d1d1d1",
+              borderBottom: "1px solid #D1D1D1",
               borderRadius: "0",
               padding: "10px",
-              margin: "0 0 1rem",
+              // margin: "0 0 1rem",
               backgroundColor: " #F4F4F5",
               borderRight: "1px solid #D1D1D1",
             }}>
@@ -174,7 +176,7 @@ const Endpoints: React.FC<Props> = ({api, endpoints}) => {
           <Box>
             {endpoints?.map((endpoint, index) => (
               <TabPanel key={index} value={tab} index={index}>
-                <Stack direction="row" alignItems="center" spacing={0} mb={1} sx={{ backgroundColor: " #F4F4F5", padding: "10px" }}>
+                <Stack direction="row" alignItems="center" spacing={0} mb={1} sx={{ backgroundColor: " #F4F4F5", padding: "10px", borderBottom: "1px solid #D1D1D1" }}>
                   <Typography
                     sx={{
                       fontSize: "14px",
@@ -195,6 +197,7 @@ const Endpoints: React.FC<Props> = ({api, endpoints}) => {
                       {endpoint.name}
                   </Typography>
                   <Button
+                    disabled
                     variant="contained"
                     startIcon={<SwapHorizIcon />}
                     sx={{
