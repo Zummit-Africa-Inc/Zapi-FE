@@ -10,11 +10,16 @@ import {
   InputBase,
   IconButton,
   Stack,
-  Box
+  Box, 
+  Button,
+  Card
 } from "@mui/material";
 import { ExpandMore, Menu, Search, Directions, ChatRounded } from "@mui/icons-material";
+import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
+import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import { makeStyles, styled } from "@mui/styles";
-
+import Cookies from "universal-cookie";
+import { useContextProvider } from "../contexts/ContextProvider";
 import TabPanel from "../components/TabPanel";
 import { APIType, EndpointsType } from "../types";
 
@@ -33,6 +38,8 @@ const methodColor: any = {
 const CustomTabs = styled(Tabs)({
   "&.MuiTabs-root": {
     width: "auto",
+    borderRight: "1px solid #D1D1D1",
+    height: "100vh",
   },
   "& .MuiTabs-indicator": {
     display: "none",
@@ -46,6 +53,7 @@ const CustomTab = styled(Tab)({
     alignItems: "flex-start",
     fontWeight: "normal",
     fontSize: "14px",
+    
   },
   "&.Mui-selected": {
     backgroundColor: "#f1f1f1",
@@ -59,14 +67,24 @@ const CustomAccordion = styled(Accordion)({
   },
 });
 
+
+
 const Endpoints: React.FC<Props> = ({api, endpoints}) => {
   const [tab, setTab] = useState<number>(0);
   const classes = useStyles();
-
+  const cookies = new Cookies();
+  const accessToken = cookies.get("accessToken");
+  const { handleClicked } = useContextProvider();
   const handleTabChange = (e: SyntheticEvent, newValue: number) => {
     setTab(newValue);
   };
 
+  const handleTest = (e: FormEvent) => {
+    e.preventDefault();
+    console.log("test");
+    // TODO: add test endpoint functionality
+  };
+  
   return (
     <Box className={classes.root}>
       <Box
@@ -77,7 +95,7 @@ const Endpoints: React.FC<Props> = ({api, endpoints}) => {
           width: "45%",
         }}>
         <Box>
-          <Typography
+          {/* <Typography
             sx={{
               marginBottom: "10px",
               fontSize: "21px",
@@ -86,17 +104,19 @@ const Endpoints: React.FC<Props> = ({api, endpoints}) => {
               padding: "5px",
             }}>
             Endpoints
-          </Typography>
+          </Typography> */}
           <Paper
             component="form"
             sx={{
               boxShadow: "unset",
               display: "flex",
               alignItems: "center",
-              border: "1px solid #d1d1d1",
+              // border: "1px solid #d1d1d1",
               borderRadius: "0",
-              padding: "2px 8px",
+              padding: "10px",
               margin: "0 0 1rem",
+              backgroundColor: " #F4F4F5",
+              borderRight: "1px solid #D1D1D1",
             }}>
             <InputBase
               sx={{
@@ -105,13 +125,14 @@ const Endpoints: React.FC<Props> = ({api, endpoints}) => {
                 fontSize: "13px",
                 fontFamily: "Space Grotesk",
                 color: "#000",
+                backgroundColor: " #fff"
               }}
               placeholder="Search endpoints"
               inputProps={{ "aria-label": "search endpoints" }}
+              startAdornment={<IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+                <Search sx={{ width: "21px" }} />
+              </IconButton>}
             />
-            <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
-              <Search sx={{ width: "21px" }} />
-            </IconButton>
           </Paper>
           {endpoints && endpoints.length !== 0 ? (
             <Box>
@@ -153,7 +174,7 @@ const Endpoints: React.FC<Props> = ({api, endpoints}) => {
           <Box>
             {endpoints?.map((endpoint, index) => (
               <TabPanel key={index} value={tab} index={index}>
-                <Stack direction="row" alignItems="center" spacing={1} mb={1}>
+                <Stack direction="row" alignItems="center" spacing={0} mb={1} sx={{ backgroundColor: " #F4F4F5", padding: "10px" }}>
                   <Typography
                     sx={{
                       fontSize: "14px",
@@ -164,6 +185,7 @@ const Endpoints: React.FC<Props> = ({api, endpoints}) => {
                       {endpoint.method}
                   </Typography>
                   <Typography
+                    ml={1}
                     sx={{
                       fontSize: "16px",
                       fontWeight: 400,
@@ -172,8 +194,21 @@ const Endpoints: React.FC<Props> = ({api, endpoints}) => {
                     }}>
                       {endpoint.name}
                   </Typography>
+                  <Button
+                    variant="contained"
+                    startIcon={<SwapHorizIcon />}
+                    sx={{
+                      marginLeft: "auto",
+                      fontSize: "14px",
+                      fontWeight: 600,
+                      textTransform: "capitalize",
+                    }}
+                    onClick={accessToken ? handleTest : () => handleClicked("login")}
+                    >
+                    Test Endpoint
+                  </Button>
                 </Stack>
-                <Typography
+                {/* <Typography
                   sx={{
                     marginBottom: "10px",
                     fontSize: "21px",
@@ -181,13 +216,14 @@ const Endpoints: React.FC<Props> = ({api, endpoints}) => {
                     color: "#264276",
                   }}>
                   Endpoint Description
-                </Typography>
+                </Typography> */}
                 <Typography
                   sx={{
                     marginBottom: "2rem",
                     fontSize: "14px",
                     color: "#515D99",
                     width: "100%",
+                    padding: "10px 15px",
                   }}>
                   {endpoint.description}
                 </Typography>
@@ -272,7 +308,7 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "row",
-    gap: "2.5rem",
+    // gap: "0.1rem",
     margin: "0 0 8rem",
   },
   paper: {
