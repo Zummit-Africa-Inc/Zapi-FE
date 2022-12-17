@@ -122,3 +122,11 @@ export interface UserState {
     error?: any
     isLoggedIn: boolean
 }
+
+export interface RunTestResponse {
+    data: string
+    message: string
+    status: string | number
+    success: boolean
+    onClose: () => void
+}

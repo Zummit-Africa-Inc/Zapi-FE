@@ -55,9 +55,9 @@ const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
 
   const [socket, setSocket] = useState<any>("");
 
-  useEffect(() => {
-    setSocket(io(import.meta.env.VITE_SOCKET_URL));
-  }, []);
+  // useEffect(() => {
+  //   setSocket(io(import.meta.env.VITE_SOCKET_URL));
+  // }, []);
 
   return (
     <>
