@@ -73,7 +73,7 @@ export type DiscussionType = {
    apiId?: string
    body: string
    profileId?: string
-   createdOn?: Date | string
+   createdOn: string | number | Date
    childrenDiscussion?: Array<ChildrenDiscussionType | null>
    // picture: object | string | null
    // fullName: string

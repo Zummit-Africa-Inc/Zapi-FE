@@ -24,6 +24,7 @@ import { useAppDispatch, useAppSelector } from "../hooks/redux-hook";
 import { getUserApis, logout } from "../redux/slices/userSlice";
 import Notification from "./Notification";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { FiChevronDown } from "react-icons/fi";
 
 interface MenuProps {
   id?: string;
@@ -119,26 +120,36 @@ const Menus: React.FC<MenuProps> = () => {
         <Notification socket={socket} />
       </Stack>
 
-      <Button
-        aria-controls={isAvatarOpen ? "avatar-menu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={isAvatarOpen ? "true" : undefined}
-        onClick={handleAvatarClick}>
-        <AccountCircleIcon
-          style={{ fontSize: "xxx-large", color: "#000000" }}
-        />
-      </Button>
+      <Stack
+        onClick={handleAvatarClick}
+        direction="row"
+        spacing={1}
+        sx={{
+          cursor: "pointer",
+          border: "1px solid #fff",
+          borderRadius: "4px",
+          display: "flex",
+          alignItems: "center",
+          width: "200px",
+          padding: ".5rem .5rem",
+        }}>
+        <AccountCircleIcon style={{ fontSize: "2rem", color: "#000000" }} />
+        <Typography sx={{ color: "blue", fontSize: "1rem" }}>
+          Taiwo Akindele
+        </Typography>
+        <FiChevronDown />
+      </Stack>
       <Menu
         anchorEl={anchorE2}
         open={isAvatarOpen}
         onClose={handleClose2}
         TransitionComponent={Fade}>
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
         <MenuItem>
           <Link className={classes.link} to={`/profile/${user.profileId}`}>
             Profile
           </Link>
         </MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </div>
   );
@@ -154,7 +165,7 @@ const useStyles = makeStyles({
   items: {
     alignItems: "center",
     display: "flex",
-    width: "450px",
+    width: "100%",
     gap: "2rem",
   },
   menuItem: {
