@@ -17,11 +17,12 @@ export const theme = createTheme({
             styleOverrides: {
                 contained: {
                     backgroundColor: "var(--color-primary)",
-                    color: "var(--color-secondary)",
+                    color: "var(--color-grey)",
                     transition: "0.3s all ease",
                     "&: hover": {
                         backgroundColor: "var(--color-primary)",
-                        color: "var(--color-secondary)",
+                        color: "var(--color-grey)",
+                        opacity: .88,
                         transform: "translateY(-5px)",
                     },
                 },

@@ -135,7 +135,7 @@ const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
 
 const useStyles = makeStyles({
   NavBar: {
-    position: "fixed",
+    // position: "fixed",
     top: "0",
     left: "0rem",
     right: "0rem",
