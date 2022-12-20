@@ -28,6 +28,7 @@ import {
   ApiHubTry,
   APIMoreInfo,
   SingleDiscussionPage,
+  Feedback,
 } from "./pages";
 import {
   Fallback,
@@ -136,6 +137,7 @@ const App: React.FC = () => {
             <Route path="/coming-soon" element={<ComingSoonPage />} />
             <Route path="/api-hub/:id" element={<APIMoreInfo />} />
             <Route path="/discussion/:id" element={<SingleDiscussionPage />} />
+            <Route path="/feedback" element={<Feedback />} />
             <Route element={<PrivateRoutes />}>
               <Route path="/user/:id" element={<UserProfile />} />
               <Route path="/developer/dashboard" element={<DevDashboard />} />
