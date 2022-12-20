@@ -6,6 +6,7 @@ interface ITabPanel {
   className?: string;
   value: number;
   index: number | string;
+  borderRight?: string;
 }
 
 const TabPanel: React.FC<ITabPanel> = ({
@@ -13,16 +14,17 @@ const TabPanel: React.FC<ITabPanel> = ({
   className,
   value,
   index,
+  borderRight,
 }) => {
   return (
-    <div
-      style={{width: "100%", height: "100%"}}
+    <Box
+      style={{ width: "100%", height: "100%"}}
       className={className}
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tab-${index}`}>
-      {value === index && <Box style={{ padding: "0 0.5rem" }}>{children}</Box>}
-    </div>
+      {value === index && <Box style={{ padding: "0 0rem", height: "100%", borderRight: borderRight }}>{children}</Box>}
+    </Box>
   );
 };
 
