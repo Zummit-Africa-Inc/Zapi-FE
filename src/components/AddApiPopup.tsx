@@ -141,14 +141,14 @@ const AddApiPopup: React.FC = () => {
                 flexDirection: "row",
                 marginLeft: "auto",
               }}>
+              <button type="submit" className={classes.addBtn}>
+                Add API
+              </button>
               <button
                 type="button"
                 className={classes.cancelBtn}
                 onClick={() => handleUnclicked("addapi")}>
                 Cancel
-              </button>
-              <button type="submit" className={classes.addBtn}>
-                Add API
               </button>
             </div>
           </form>
