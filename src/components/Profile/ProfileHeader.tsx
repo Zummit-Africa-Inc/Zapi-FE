@@ -28,10 +28,7 @@ const ProfileHeader = () => {
   const { loading, error, sendRequest } = useHttpRequest();
   const { id } = useParams();
   const [profile, setProfile] = useState<any>({});
-  console.log(profile);
-  // useEffect(() => {
-  //   dispatch(getUserProfile());
-  // }, []);
+
   const handleChange = (e: any) => {
     setImage(e.target.files[0]);
     const fileReader = new FileReader();
@@ -73,7 +70,7 @@ const ProfileHeader = () => {
         formData,
         headers
       );
-      console.log("data", data);
+      return data;
     } catch (error) {}
   };
 
@@ -83,7 +80,7 @@ const ProfileHeader = () => {
       <Box sx={{ background: "#081F4A", color: "#FFF" }}>
         <Stack
           sx={{
-            padding: "120px 40px 40px 40px",
+            padding: "40px 40px 40px 40px",
             width: "100vw",
           }}>
           <Stack direction="row" spacing={3}>

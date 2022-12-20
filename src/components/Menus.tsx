@@ -130,13 +130,9 @@ const Menus: React.FC<MenuProps> = () => {
           borderRadius: "4px",
           display: "flex",
           alignItems: "center",
-          width: "200px",
           padding: ".5rem .5rem",
         }}>
         <AccountCircleIcon style={{ fontSize: "2rem", color: "#000000" }} />
-        <Typography sx={{ color: "blue", fontSize: "1rem" }}>
-          Taiwo Akindele
-        </Typography>
         <FiChevronDown />
       </Stack>
       <Menu
@@ -165,7 +161,7 @@ const useStyles = makeStyles({
   items: {
     alignItems: "center",
     display: "flex",
-    width: "100%",
+    width: "450px",
     gap: "2rem",
   },
   menuItem: {
