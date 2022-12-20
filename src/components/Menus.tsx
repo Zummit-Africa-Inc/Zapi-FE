@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
   Avatar,
   Fade,
@@ -24,6 +24,7 @@ import { useAppDispatch, useAppSelector } from "../hooks/redux-hook";
 import { getUserApis, logout } from "../redux/slices/userSlice";
 import Notification from "./Notification";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { FiChevronDown } from "react-icons/fi";
 
 interface MenuProps {
   id?: string;
@@ -40,7 +41,7 @@ const Menus: React.FC<MenuProps> = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const cookies = new Cookies();
-  const { userApis } = useAppSelector((store) => store.user);
+  const { userApis, user } = useAppSelector((store) => store.user);
 
   useEffect(() => {
     setSocket(io(import.meta.env.VITE_SOCKET_URL));
@@ -119,20 +120,31 @@ const Menus: React.FC<MenuProps> = () => {
         <Notification socket={socket} />
       </Stack>
 
-      <Button
-        aria-controls={isAvatarOpen ? "avatar-menu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={isAvatarOpen ? "true" : undefined}
-        onClick={handleAvatarClick}>
-        <AccountCircleIcon
-          style={{ fontSize: "xxx-large", color: "#000000" }}
-        />
-      </Button>
+      <Stack
+        onClick={handleAvatarClick}
+        direction="row"
+        spacing={1}
+        sx={{
+          cursor: "pointer",
+          border: "1px solid #fff",
+          borderRadius: "4px",
+          display: "flex",
+          alignItems: "center",
+          padding: ".5rem .5rem",
+        }}>
+        <AccountCircleIcon style={{ fontSize: "2rem", color: "#000000" }} />
+        <FiChevronDown />
+      </Stack>
       <Menu
         anchorEl={anchorE2}
         open={isAvatarOpen}
         onClose={handleClose2}
         TransitionComponent={Fade}>
+        <MenuItem>
+          <Link className={classes.link} to={`/profile/${user.profileId}`}>
+            Profile
+          </Link>
+        </MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </div>
@@ -162,6 +174,9 @@ const useStyles = makeStyles({
       textAlign: "center",
       lineHeight: "25px",
     },
+  },
+  link: {
+    color: "#000000",
   },
   root: {
     width: "450px",
