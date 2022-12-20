@@ -17,13 +17,13 @@ const TestResultModal:React.FC<RunTestResponse> = ({data, message, onClose, stat
             </Box>
             <Stack width="100%" direction="column" mt={2} spacing={1} my={4} px={2}>
                 <Typography sx={{fontWeight: 500,color: "var(--color-primary)"}}>
-                    Status: {status}
+                    Status: {typeof data === 'string' ? status : data?.status}
                 </Typography>
                 <Typography sx={{fontWeight: 500,color: "var(--color-primary)"}}>
-                    Success: {success ? 'True' : 'False'}
+                    Success: {typeof data === 'string' ? (success ? 'True' : 'False') : (data?.success ? 'True' : 'False')}
                 </Typography>
                 <Typography sx={{fontWeight: 500,color: "var(--color-primary)"}}>
-                    Data: {data}
+                    Data: {typeof data === 'string' ? data : data?.message}
                 </Typography>
                 <Button onClick={() => onClose()} className={classes.button}>Close</Button>
             </Stack>
