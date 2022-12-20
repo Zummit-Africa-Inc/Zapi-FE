@@ -24,6 +24,7 @@ export type APIType = {
    deletedBy?: Date | string
    deletedOn?: Date | string
    discussions?: Array<DiscussionType | null>
+   reviews?: Array<ReviewsType | null>
    childrenDiscussions?: Array<ChildrenDiscussionType | null>
 }
 
@@ -75,6 +76,16 @@ export type DiscussionType = {
    profileId?: string
    createdOn?: Date | string
    childrenDiscussion?: Array<ChildrenDiscussionType | null>
+   // picture: object | string | null
+   // fullName: string
+}
+export type ReviewsType = {
+   id?: string | undefined
+   title: string
+   apiId?: string
+   body: string
+   profileId?: string
+   createdOn?: Date | string
    // picture: object | string | null
    // fullName: string
 }
