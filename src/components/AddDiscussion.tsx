@@ -11,6 +11,7 @@ import { Fallback } from ".";
 import { addDiscussion } from "../redux/slices/apiSlice";
 import ReactGA from "react-ga4";
 import { APIType, DiscussionType } from "../types";
+import ChoiceButton from "./ChoiceButton";
 
 const core_url = "VITE_CORE_URL";
 const initialState = {
@@ -36,7 +37,7 @@ const AddDiscussion: React.FC = () => {
     setIsAdding((prev) => !prev);
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const api_id = JSON.parse(localStorage.getItem("api_id") || "");
 
@@ -86,7 +87,7 @@ const AddDiscussion: React.FC = () => {
             mb={3}>
             Add New Discussion
           </Typography>
-          <form className={classes.form} onSubmit={handleSubmit}>
+          <form className={classes.form}>
             <Box className={classes.input}>
               <label>Title</label>
 
@@ -113,23 +114,21 @@ const AddDiscussion: React.FC = () => {
                 flexDirection: "row",
                 marginLeft: "auto",
               }}>
-              <Button
-                variant="contained"
-                sx={{ background: "#515D99", color: "#FFFFFF" }}
-                onClick={toggleAdding}
-                type="submit"
-                className={classes.addBtn}>
-                Post Discussion
-              </Button>
-              <Button
-                variant="contained"
-                color="error"
-                sx={{ background: "#515D99", color: "#FFFFFF" }}
-                type="button"
-                className={classes.cancelBtn}
-                onClick={() => handleUnclicked("addDiscussion")}>
-                Cancel
-              </Button>
+              <ChoiceButton
+                border="1px solid rgb(214, 217, 219)"
+                acceptColor="#FFF"
+                rejectColor="#FFF"
+                onAccept={handleSubmit}
+                onReject={() => handleUnclicked("addDiscussion")}
+                radius="5px"
+                acceptText="Post Discussion"
+                rejectText="Cancel"
+                acceptBackgroundColor="#26c340"
+                rejectBackgroundColor="#e73e39"
+                padding="15px 25px"
+                outline="none"
+                visible={true}
+              />
             </Box>
           </form>
         </Box>
@@ -199,24 +198,6 @@ const useStyles = makeStyles({
       width: "100%",
     },
   },
-  button: {
-    width: "440px",
-    height: "52px",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: "4px",
-    fontSize: "16px",
-    fontWeight: 400,
-    lineHeight: "16px",
-    cursor: "pointer",
-    margin: "2rem 0",
-    padding: "0 1rem",
-    "@media screen and (max-width: 768px)": {
-      width: "100%",
-    },
-  },
   link: {
     textDecoration: "underline",
     marginLeft: "0.5rem",
@@ -227,38 +208,6 @@ const useStyles = makeStyles({
     background: "Grey",
     marginTop: "10px",
     marginBottom: "20px",
-  },
-  cancelBtn: {
-    outline: "none",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    padding: "8px 16px",
-    gap: "16px",
-    fontFamily: "inherit",
-    height: "46px",
-    cursor: "pointer",
-    background: "red",
-    color: "white",
-    border: "none",
-    borderRadius: "4px",
-  },
-  addBtn: {
-    outline: "none",
-    border: "none",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    padding: "8px 14px",
-    gap: "16px",
-    height: "46px",
-    background: "#081F4A",
-    fontFamily: "inherit",
-    color: "white",
-    borderRadius: "4px",
-    textAlign: "center",
-    margin: "0 auto",
-    cursor: "pointer",
   },
 });
 
