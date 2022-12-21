@@ -55,7 +55,7 @@ const GeneralTab: React.FC = () => {
   const [api_website, setApi_website] = useState<String>("");
   const [term_of_use, setTerm_of_use] = useState<String>("");
   const { apis, categories } = useAppSelector((store) => store.apis);
-  const [base_url, setBase_url] = useState<String>("");
+  const [base_url, setBase_url] = useState<string>("");
   const [visibility, setVisibility] = useState<String>(APIVisibility.PUBLIC);
   const [categoryId, setCategoryId] = useState<String>("");
   const [read_me, setRead_me] = useState<String>("");
@@ -83,6 +83,7 @@ const GeneralTab: React.FC = () => {
     term_of_use: api?.term_of_use,
     visibility: api?.visibility,
   };
+  const pattern = /^((https):\/\/)/;
 
   const setFields = () => {
     if (api) {
@@ -121,10 +122,20 @@ const GeneralTab: React.FC = () => {
     visibility,
   };
 
+  useEffect(() => {
+    triggerRefresh();
+  }, [api]);
+
+  const requiredFields = !description || !base_url;
+
   const isChanged = JSON.stringify(payload) === JSON.stringify(userData);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    if (!description) return toast.error("short description can not be empty");
+    if (!base_url) return toast.error("base url can not be empty");
+    if (!pattern.test(base_url))
+      return toast.error("base url must start with https://");
     const headers = {
       "Content-Type": "application/json",
     };
@@ -140,6 +151,9 @@ const GeneralTab: React.FC = () => {
       dispatch(editAPI(payload));
       // navigate("/developer/dashboard");
       toast.success("API updated successfully");
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
     } catch (error) {}
   };
 
