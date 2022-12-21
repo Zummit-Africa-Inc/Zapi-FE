@@ -124,7 +124,7 @@ export interface UserState {
 }
 
 export interface RunTestResponse {
-    data: string
+    data: any
     message: string
     status: string | number
     success: boolean
