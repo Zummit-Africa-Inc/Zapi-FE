@@ -137,7 +137,7 @@ const App: React.FC = () => {
             <Route path="/api-hub/:id" element={<APIMoreInfo />} />
             <Route path="/discussion/:id" element={<SingleDiscussionPage />} />
             <Route element={<PrivateRoutes />}>
-              <Route path="/user/:id" element={<UserProfile />} />
+              <Route path="/profile/:id" element={<UserProfile />} />
               <Route path="/developer/dashboard" element={<DevDashboard />} />
               <Route path="/developer/api/:id" element={<DeveloperApiPage />} />
               <Route path="/configuration" element={<Configuration />} />

@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { FiTrash } from "react-icons/fi";
 
 interface IUploadProps {
-  setImageFile: (file: File | ArrayBuffer | string) => SetStateAction<any>;
+  setImageFile: (file: File | ArrayBuffer | string) => void;
 }
 
 const ImageUpload: React.FC<IUploadProps> = ({ setImageFile }) => {
@@ -22,7 +22,6 @@ const ImageUpload: React.FC<IUploadProps> = ({ setImageFile }) => {
       fileReader.onload = () => setPreviewURL(fileReader.result);
       fileReader.readAsDataURL(file);
     } else return toast.error("Wrong file type");
-    setImageFile(file);
   };
 
   const handleDrag = (e: DragEvent) => {
@@ -43,8 +42,8 @@ const ImageUpload: React.FC<IUploadProps> = ({ setImageFile }) => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.currentTarget.files) return;
-    let pickedFile = e.currentTarget.files[0];
-    handleFile(pickedFile);
+    setImageFile(e.currentTarget.files[0]);
+    handleFile(e.currentTarget.files[0]);
   };
 
   return (
