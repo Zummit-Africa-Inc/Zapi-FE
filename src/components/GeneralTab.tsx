@@ -126,8 +126,6 @@ const GeneralTab: React.FC = () => {
     triggerRefresh();
   }, [api]);
 
-  const requiredFields = !description || !base_url;
-
   const isChanged = JSON.stringify(payload) === JSON.stringify(userData);
 
   const handleSubmit = async (e: FormEvent) => {
