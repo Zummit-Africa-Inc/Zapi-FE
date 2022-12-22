@@ -122,10 +122,6 @@ const GeneralTab: React.FC = () => {
     visibility,
   };
 
-  useEffect(() => {
-    triggerRefresh();
-  }, [api]);
-
   const isChanged = JSON.stringify(payload) === JSON.stringify(userData);
 
   const handleSubmit = async (e: FormEvent) => {
