@@ -43,4 +43,4 @@ export { default as Version } from "./Version";
 export { default as Widget } from "./Widget";
 export { default as AnalyticsTab } from "./AnalyticsTab";
 export { default as AnalyticsUser } from "./AnalyticsUser";
-
+export { default as FeedbackCard } from "./FeedbackCard";
