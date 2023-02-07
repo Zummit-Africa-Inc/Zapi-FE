@@ -196,7 +196,10 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
       query: queryParamsArray,
       mediaType: requestBodyFormat,
     };
-    const headers = { "Content-Type": "application/json" };
+    const headers = {
+      "Content-Type": "application/json",
+      "X-Zapi-Auth-Token": `Bearer ${cookies.get("accessToken")}`
+    };
     try {
       const data = await sendRequest(
         `/endpoints/new/${id}`,

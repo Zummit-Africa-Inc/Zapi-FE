@@ -23,7 +23,7 @@ const TestResultModal:React.FC<RunTestResponse> = ({data, message, onClose, stat
                     Success: {typeof data === 'string' ? (success ? 'True' : 'False') : (data?.success ? 'True' : 'False')}
                 </Typography>
                 <Typography sx={{fontWeight: 500,color: "var(--color-primary)"}}>
-                    Data: {typeof data === 'string' ? data : data?.message}
+                    Data: {JSON.stringify(data, undefined, 4)}
                 </Typography>
                 <Button onClick={() => onClose()} className={classes.button}>Close</Button>
             </Stack>
@@ -47,6 +47,8 @@ const useStyles = makeStyles({
     },
     modal: {
         width: "600px",
+        maxHeight: "80vh",
+        overflowY: "scroll",
         "@media screen and (max-width: 900px)": {
             width: "90%",
         }
