@@ -47,6 +47,8 @@ const useStyles = makeStyles({
     },
     modal: {
         width: "600px",
+        maxHeight: "80vh",
+        overflowY: "scroll",
         "@media screen and (max-width: 900px)": {
             width: "90%",
         }
