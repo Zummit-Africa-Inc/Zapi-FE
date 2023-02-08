@@ -501,7 +501,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                               type="text"
                               name="headers"
                               {...bind}
-                              placeholder="Headers"
+                              placeholder="Authorization"
                             />
                           </Box>
                         </Box>
@@ -571,7 +571,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                                 type="text"
                                 name="requestBody"
                                 {...bind}
-                                placeholder="Body"
+                                placeholder="name"
                               />
                             </Box>
                           </Box>
@@ -684,7 +684,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                               type="text"
                               name="queryParams"
                               {...bind}
-                              placeholder="Query"
+                              placeholder="userId"
                             />
                           </Box>
                         </Box>
