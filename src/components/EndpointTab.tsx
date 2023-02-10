@@ -31,8 +31,9 @@ import { Spinner } from "../assets";
 import { useContextProvider } from "../contexts/ContextProvider";
 import ReactGA from "react-ga4";
 import UploadFile from "./UploadFile";
-import AddIcon from '@mui/icons-material/Add';
-import CloseIcon from '@mui/icons-material/Close';
+import AddIcon from "@mui/icons-material/Add";
+import CloseIcon from "@mui/icons-material/Close";
+import { fontWeight } from "@mui/system";
 
 const CustomTabs = styled(Tabs)({
   "& .MuiTabs-indicator": {
@@ -198,7 +199,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
     };
     const headers = {
       "Content-Type": "application/json",
-      "X-Zapi-Auth-Token": `Bearer ${cookies.get("accessToken")}`
+      "X-Zapi-Auth-Token": `Bearer ${cookies.get("accessToken")}`,
     };
     try {
       const data = await sendRequest(
@@ -399,7 +400,12 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
               <Box className={classes.pageDescription}>
                 <Typography>Add and define your API endpoints.</Typography>
               </Box>
-              <Box sx={{ display: "flex", alignItems: "center", justifyContent:"flex-end" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "flex-end",
+                }}>
                 {/* <Box className={classes.inputs}>
                   <input type="text" name="search" placeholder="Search..." />
                 </Box> */}
@@ -408,8 +414,10 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                     onClick={toggleAdding}
                     // className={classes.button}
                     startIcon={isAdding ? <CloseIcon /> : <AddIcon />}
-                    style={{ background: isAdding ? "#c5c5c5" : "#26c340", color: isAdding ? "#fff" : "#fff" }}
-                    >
+                    style={{
+                      background: isAdding ? "#c5c5c5" : "#26c340",
+                      color: isAdding ? "#fff" : "#fff",
+                    }}>
                     {isAdding ? "Cancel" : "Add Endpoint"}
                   </Button>
                 </Box>
@@ -476,35 +484,57 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                   <>
                     <Stack direction="column" spacing={1}>
                       <Stack direction="row" spacing={2}>
-                        <Box className={classes.inputs}>
-                          <input
-                            type="text"
-                            name="headers"
-                            {...bind}
-                            placeholder="Headers"
-                          />
+                        <Box>
+                          <h4
+                            style={{
+                              fontSize: "15px",
+                              marginTop: "10px",
+                              marginBottom: "5px",
+                            }}>
+                            Headers
+                          </h4>
+                          <p style={{ fontSize: "13px", paddingBottom: "5px" }}>
+                            Variable name
+                          </p>
+                          <Box className={classes.inputs}>
+                            <input
+                              type="text"
+                              name="headers"
+                              {...bind}
+                              placeholder="e.g Authorization"
+                            />
+                          </Box>
                         </Box>
-                        <Box className={classes.inputs}>
-                          <select name="headerType" {...select}>
-                            <option value="string">String</option>
-                            <option value="number">Number</option>
-                            <option value="file">File</option>
-                            <option value="boolean">Boolean</option>
-                            <option value="object">Object</option>
-                            <option value="array">Array</option>
-                            <option value="date">Date</option>
-                            <option value="time">Time</option>
-                            <option value="enum">Enum</option>
-                          </select>
+                        <Box sx={{ paddingTop: "2.1em" }}>
+                          <p style={{ fontSize: "13px", paddingBottom: "5px" }}>
+                            Data types
+                          </p>
+                          <Box className={classes.inputs}>
+                            <select name="headerType" {...select}>
+                              <option value="string">String</option>
+                              <option value="number">Number</option>
+                              <option value="file">File</option>
+                              <option value="boolean">Boolean</option>
+                              <option value="object">Object</option>
+                              <option value="array">Array</option>
+                              <option value="date">Date</option>
+                              <option value="time">Time</option>
+                              <option value="enum">Enum</option>
+                            </select>
+                          </Box>
                         </Box>
-                        <Box className={classes.inputs}>
+                        <Box
+                          sx={{ paddingTop: "4em" }}
+                          className={classes.inputs}>
                           <input
                             type="checkbox"
                             name="headerIsRequired"
                             {...toggle}
                           />
                         </Box>
-                        <Box className={classes.inputs}>
+                        <Box
+                          sx={{ paddingTop: "4em" }}
+                          className={classes.inputs}>
                           <button
                             type="button"
                             onClick={() =>
@@ -520,28 +550,56 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                       </Stack>
                       {(method === "post" || method === "post") && (
                         <Stack direction="row" spacing={2}>
-                          <Box className={classes.inputs}>
-                            <input
-                              type="text"
-                              name="requestBody"
-                              {...bind}
-                              placeholder="Body"
-                            />
+                          <Box>
+                            <h4
+                              style={{
+                                fontSize: "15px",
+                                marginTop: "10px",
+                                marginBottom: "5px",
+                              }}>
+                              Body
+                            </h4>
+                            <p
+                              style={{
+                                fontSize: "13px",
+                                paddingBottom: "5px",
+                              }}>
+                              Variable name
+                            </p>
+                            <Box className={classes.inputs}>
+                              <input
+                                type="text"
+                                name="requestBody"
+                                {...bind}
+                                placeholder="e.g name"
+                              />
+                            </Box>
                           </Box>
-                          <Box className={classes.inputs}>
-                            <select name="requestBodyType" {...select}>
-                              <option value="string">String</option>
-                              <option value="number">Number</option>
-                              <option value="file">File</option>
-                              <option value="boolean">Boolean</option>
-                              <option value="object">Object</option>
-                              <option value="array">Array</option>
-                              <option value="date">Date</option>
-                              <option value="time">Time</option>
-                              <option value="enum">Enum</option>
-                            </select>
+                          <Box sx={{ paddingTop: "2.1em" }}>
+                            <p
+                              style={{
+                                fontSize: "13px",
+                                paddingBottom: "5px",
+                              }}>
+                              Data types
+                            </p>
+                            <Box className={classes.inputs}>
+                              <select name="requestBodyType" {...select}>
+                                <option value="string">String</option>
+                                <option value="number">Number</option>
+                                <option value="file">File</option>
+                                <option value="boolean">Boolean</option>
+                                <option value="object">Object</option>
+                                <option value="array">Array</option>
+                                <option value="date">Date</option>
+                                <option value="time">Time</option>
+                                <option value="enum">Enum</option>
+                              </select>
+                            </Box>
                           </Box>
-                          <Box className={classes.inputs}>
+                          <Box
+                            sx={{ paddingTop: "4em" }}
+                            className={classes.inputs}>
                             <select name="requestBodyFormat" {...select}>
                               <option value="application/json">
                                 application/json
@@ -577,14 +635,18 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                               />
                             </Box>
                           )}
-                          <Box className={classes.inputs}>
+                          <Box
+                            sx={{ paddingTop: "4em" }}
+                            className={classes.inputs}>
                             <input
                               type="checkbox"
                               name="requestBodyIsRequired"
                               {...toggle}
                             />
                           </Box>
-                          <Box className={classes.inputs}>
+                          <Box
+                            sx={{ paddingTop: "4em" }}
+                            className={classes.inputs}>
                             <button
                               type="button"
                               onClick={() =>
@@ -599,36 +661,67 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                           </Box>
                         </Stack>
                       )}
+
                       <Stack direction="row" spacing={2}>
-                        <Box className={classes.inputs}>
-                          <input
-                            type="text"
-                            name="queryParams"
-                            {...bind}
-                            placeholder="Query"
-                          />
+                        <Box>
+                          <h4
+                            style={{
+                              fontSize: "15px",
+                              marginTop: "10px",
+                              marginBottom: "5px",
+                            }}>
+                            Query
+                          </h4>
+                          <p
+                            style={{
+                              fontSize: "13px",
+                              paddingBottom: "5px",
+                            }}>
+                            Variable name
+                          </p>
+                          <Box className={classes.inputs}>
+                            <input
+                              type="text"
+                              name="queryParams"
+                              {...bind}
+                              placeholder="e.g userId"
+                            />
+                          </Box>
                         </Box>
-                        <Box className={classes.inputs}>
-                          <select name="queryParamType" {...select}>
-                            <option value="string">String</option>
-                            <option value="number">Number</option>
-                            <option value="file">File</option>
-                            <option value="boolean">Boolean</option>
-                            <option value="object">Object</option>
-                            <option value="array">Array</option>
-                            <option value="date">Date</option>
-                            <option value="time">Time</option>
-                            <option value="enum">Enum</option>
-                          </select>
+                        <Box sx={{ paddingTop: "2.1em" }}>
+                          <p
+                            style={{
+                              fontSize: "13px",
+                              paddingBottom: "5px",
+                            }}>
+                            Data types
+                          </p>
+                          <Box className={classes.inputs}>
+                            <select name="queryParamType" {...select}>
+                              <option value="string">String</option>
+                              <option value="number">Number</option>
+                              <option value="file">File</option>
+                              <option value="boolean">Boolean</option>
+                              <option value="object">Object</option>
+                              <option value="array">Array</option>
+                              <option value="date">Date</option>
+                              <option value="time">Time</option>
+                              <option value="enum">Enum</option>
+                            </select>
+                          </Box>
                         </Box>
-                        <Box className={classes.inputs}>
+                        <Box
+                          sx={{ paddingTop: "4em" }}
+                          className={classes.inputs}>
                           <input
                             type="checkbox"
                             name="queryParamIsRequired"
                             {...toggle}
                           />
                         </Box>
-                        <Box className={classes.inputs}>
+                        <Box
+                          sx={{ paddingTop: "4em" }}
+                          className={classes.inputs}>
                           <button
                             type="button"
                             onClick={() =>
