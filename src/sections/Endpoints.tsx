@@ -15,7 +15,6 @@ import {
   Card
 } from "@mui/material";
 import { ExpandMore, Menu, Search, Directions, ChatRounded } from "@mui/icons-material";
-import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import { makeStyles, styled } from "@mui/styles";
 import Cookies from "universal-cookie";
