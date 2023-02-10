@@ -12,6 +12,7 @@ import {
     Avatar,
     InputBase,
     InputLabel,
+    Typography
 } from "@mui/material";
 
 interface Props {
@@ -55,15 +56,21 @@ const UploadFile: React.FC<Props> = ({
                             sx={{ width: 200, height: 200 }}
                         />
                     ) : (
-                            <>
-                                <SvgIcon component={UploadFileIcon} sx={{ fontSize: 130 }} />
-                                <Box sx={{ ml: 2 }}>
-                                    {label}
-                                </Box>
-                            </>
+                        <Box sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}>
+                            <SvgIcon component={UploadFileIcon} sx={{ fontSize: 130 }} />
+                            <Typography>
+                                {label}
+                            </Typography>
+                        </Box>
                     )}
                 </Box>
             </Box>
+
             <InputBase
                 type="file"
                 onChange={handleChange}
@@ -74,16 +81,22 @@ const UploadFile: React.FC<Props> = ({
                 inputRef={inputRef}
                 sx={{ display: 'none' }}
             />  
+            
             <Fab
                 color="info"
                 size="small"
                 component="span"
                 aria-label="add"
                 variant="extended"
-                sx={{  marginTop: 2, padding: 2 }}
+                sx={{  
+                    marginTop: 2, 
+                    padding: 2,
+                    width: "100%"
+                }}
             >
                 <AddIcon /> Choose file
             </Fab>
+
             <ChoiceButton
                 border="1px solid rgb(214, 217, 219)"
                 acceptColor="#FFF"
@@ -107,11 +120,12 @@ export default UploadFile;
 
 const useStyles = makeStyles({
     wrapper: {
-        width: "50%",
-        height: "80%",
-        position: "relative",
         display: "flex",
         flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+        height: "100%",
         "& img": {
             width: "100%",
             height: "100%",
