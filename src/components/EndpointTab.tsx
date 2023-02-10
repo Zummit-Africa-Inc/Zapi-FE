@@ -83,7 +83,9 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
   const [tab, setTab] = useState<number>(0);
   const [file, setFile] = useState<any>();
   const [JsonFile, setJsonFile] = useState<any>("");
+  const [yamlFile, setYamlFile] = useState<any>("");
   const [JsonData, setJsonData] = useState<any>("");
+  const [yamlData, setYamlData] = useState<any>("");
   const { triggerRefresh } = useContextProvider();
   const navigate = useNavigate();
   const {
@@ -237,6 +239,15 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
     };
   };
 
+  const handleFileChange = (e: any) => {
+    const fileReader = new FileReader();
+    fileReader.readAsText(e.target.files![0], "UTF-8");
+    fileReader.onload = (e) => {
+      // console.log("e.target.result", e.target!.result);
+      setYamlFile(e.target!.result);
+    };
+  };
+
   const isValidJsonString = (query: string) => {
     if (!(query && typeof query === "string")) {
       return false;
@@ -249,6 +260,20 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
       return false;
     }
   };
+  
+  const isValidYamlString = (query: string) => {
+    if (!(query && typeof query === "string")) {
+      return false;
+    }
+    
+    try {
+      JSON.parse(query);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
+  
   const JsonKeysExists = (objectName: string, keyName: string) => {
     JSON.parse(JsonFile).hasOwnProperty(keyName);
     return toast.error(`{JSON file is missing ${keyName} key}`);
@@ -270,6 +295,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
       toast.error("Select a file to upload");
     } else if (!isValidJsonString(JsonFile)) {
       toast.error("Invalid JSON file");
+      clearInputField();
     } else {
       if (
         !JSON.parse(JsonFile).hasOwnProperty("info") ||
@@ -278,6 +304,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
         !JSON.parse(JsonFile).hasOwnProperty("variable")
       ) {
         toast.error("JSON file is missing required key");
+        clearInputField();
       } else {
         const parsedJson = JSON.parse(JsonFile);
         for (const key in parsedJson) {
@@ -286,7 +313,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
             // console.log(element)
           }
         }
-        toast.success("Items uploadd successfully");
+        toast.success("Items upload successfully");
         const formData = new FormData();
         formData.append("JsonFile", JsonFile);
         const headers = {
@@ -321,8 +348,76 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
       }
     }
   };
+
+  const yamlFileUpload: any = async (e: any) => {
+    e.preventDefault();
+    if (!yamlFile) {
+      toast.error("Select a file to upload");
+    } else if (!isValidYamlString(yamlFile)) {
+      toast.error("Invalid YAML file");
+      clearYamlInputField();
+    } else {
+      if (
+        !JSON.parse(yamlFile).hasOwnProperty("info") ||
+        !JSON.parse(yamlFile).hasOwnProperty("event") ||
+        !JSON.parse(yamlFile).hasOwnProperty("item") ||
+        !JSON.parse(yamlFile).hasOwnProperty("variable")
+      ) {
+        toast.error("YAML file is missing required key");
+        clearYamlInputField();
+      } else {
+        const parsedYaml = JSON.parse(yamlFile);
+        for (const key in parsedYaml) {
+          if (Object.prototype.hasOwnProperty.call(parsedYaml, key)) {
+            const element = parsedYaml[key];
+            // console.log(element)
+          }
+        }
+        toast.success("Items upload successfully");
+        const formData = new FormData();
+        formData.append("yamlFile", yamlFile);
+        const headers = {
+          "Content-Type": "application/json",
+        };
+        if (yamlFile === null) return;
+        try {
+          const data = await sendRequest(
+            `/endpoints/new/collection/${id}`,
+            "post",
+            core_url,
+            parsedYaml,
+            headers
+          );
+          setYamlData(data.data);
+
+          if (data.skipped.length === 0) {
+            return toast.success("No items Skipped");
+          } else {
+            return toast.warning(
+              `The following were skipped Skipped ${JSON.stringify(
+                data.skipped
+              )}`
+            );
+          }
+          console.log(data.skipped);
+          // setTimeout(() => {
+          //   navigate("/developer/dashboard");
+          // }, 2000);
+        } catch (error) {}
+        // }
+      }
+    }
+  };
+
   const clearInputField = () => {
     setJsonFile("");
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
+  };
+  
+  const clearYamlInputField = () => {
+    setYamlFile("");
     if (inputRef.current) {
       inputRef.current.value = "";
     }
@@ -336,12 +431,17 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
             API Definition
           </Typography>
         </Box>
-        <Box className={classes.pageSubHeading}>
-          <Typography variant="subtitle2" width="auto" fontWeight={400}>
-            When publishing an API to the ZapiAPI Hub, you can either manually
-            edit endpoint definitions, use a specification file.
-          </Typography>
-        </Box>
+        <Typography 
+          variant="subtitle2"
+          sx={{
+            paddingBottom: "1rem",
+            fontWeight: 400,
+            width: "auto", 
+          }}
+        >
+          When publishing an API to the ZapiAPI Hub, you can either manually
+          edit endpoint definitions, use a specification file.
+        </Typography>
         {/* <Typography
           variant="body1"
           fontSize="24px"
@@ -376,7 +476,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
           />
         </CustomTabs>
       </Stack>
-      <Box>
+      <Box sx={{ marginBottom: "2rem" }}>
         <TabPanel value={tab} index={0}>
           <Stack>
             <Stack direction="column" mb={6}>
@@ -691,24 +791,32 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
           </Stack>
         </TabPanel>
         <TabPanel value={tab} index={1}>
-          <Stack>
-            <Stack direction="column" mb={6}>
-              <Typography
-                variant="body1"
-                fontSize="24px"
-                color="#081F4A"
-                fontWeight={500}
-                mt={2}>
-                Update API Definition
-              </Typography>
+          <Typography
+            variant="body1"
+            fontSize="24px"
+            color="#081F4A"
+            fontWeight={500}
+            mt={2}>
+            Update API Definition
+          </Typography>
 
-              <Typography
-                variant="subtitle2"
-                // fontSize="16px"
-                fontWeight={400}
-                mb={10}>
-                *Postman collections only
-              </Typography>
+          <Typography
+            variant="subtitle2"
+            // fontSize="16px"
+            fontWeight={400}
+            mb={5}>
+            *Postman collections only
+          </Typography>
+
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              gap: "50px",
+            }}
+          >
+
+            <Box>
               <UploadFile
                 label="Upload JSON"
                 logo_url=""
@@ -722,17 +830,34 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                 }}
                 inputRef={inputRef}
               />
-              <Box className={classes.pageActions}>
-                <Typography
-                  variant="subtitle1"
-                  fontSize="1rem"
-                  color="#081F4A"
-                  fontWeight={400}>
-                  (application/json)
-                </Typography>
-              </Box>
-            </Stack>
-          </Stack>
+              
+              <Typography
+                variant="subtitle1"
+                fontSize="1rem"
+                color="#081F4A"
+                fontWeight={400}>
+                (application/json)
+              </Typography>
+
+            </Box>
+            
+            <Box>
+              <UploadFile
+                label="Upload YAML"
+                logo_url=""
+                visible={yamlFile ? true : false}
+                handleChange={handleFileChange}
+                imageUpload={yamlFileUpload}
+                imageReject={(e: any) => {
+                  e.preventDefault();
+                  clearYamlInputField();
+                  triggerRefresh();
+                }}
+                inputRef={inputRef}
+              />
+            </Box>
+
+          </Box>
         </TabPanel>
       </Box>
     </Paper>
@@ -743,22 +868,14 @@ export default EndpointTab;
 
 const useStyles = makeStyles({
   paper: {
-    width: "100%",
-    minWidth: "890px",
     marginTop: "20px",
     padding: "2rem",
-    marginBottom: "2rem",
-  },
-  pageSubHeading: {
-    paddingBottom: "1rem",
+    marginBottom: "5rem",
+    width: "100%",
+    minWidth: "890px",
   },
   pageDescription: {
     paddingBottom: "1rem",
-  },
-  pageActions: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
   },
   inputs: {
     width: "max-content",
