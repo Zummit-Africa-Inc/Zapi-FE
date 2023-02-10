@@ -23,6 +23,7 @@ import login2 from "../assets/images/login2.png";
 import subscriptions1 from "../assets/images/subscriptions1.png";
 import subscriptions2 from "../assets/images/subscriptions2.png";
 import request from "../assets/images/request_edit.png";
+import request2 from "../assets/images/request_2.png";
 
 const CustomTab = styled(Tab)({
   "&.MuiTab-root": {
@@ -283,12 +284,24 @@ const Documentation: React.FC = () => {
 
               <Typography component="p">
                 In this example we are going to use Postman to send a request,
-                to do so you will need an endpoint
-                (https://core.zapi.ai/api/v1/subscription/api-request) and your
-                access token (x-zapi-request-token):
+                to do so you will need: <br />
+                1. An endpoint (https://core.zapi.ai/api/v1/subscription/api-request) <br />
+                2. Access token (x-zapi-request-token):
               </Typography>
 
               <Box component="img" alt="request" src={request} />
+
+              <Typography component="p">
+                For the Body, you will need to add the following information: <br />
+                <strong>1. method</strong>(*required) - method accepts a http method as a string e.g <strong>"get"</strong>, <strong>"post"</strong>, <strong>"delete"</strong> etc. <br />
+                <strong>2. route</strong>(*required) - every route must start with "/..." and the value must be a string. <br />
+                <strong>3. payload</strong>(optional) - payload accepts any data type depending on what the endpoint accepts. <br />
+                <strong>4. headers</strong>(optional) - headers accepts an access token as a string. <br />
+              </Typography>
+
+              <Box component="img" alt="request" src={request2} />
+
+
             </TabPanel>
           </Box>
         </Box>
