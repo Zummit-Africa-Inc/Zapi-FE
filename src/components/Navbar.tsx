@@ -3,7 +3,7 @@ import { Box, IconButton, Stack, Toolbar,} from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { AccountCircleOutlined, InsertDriveFileOutlined, NotificationsOutlined } from "@mui/icons-material";
 import Notification from './Notification';
-import { io } from 'socket.io-client';
+// import { io } from 'socket.io-client';
 interface INavProps {
   title?: string
   subtitle?: string
@@ -11,11 +11,11 @@ interface INavProps {
 
 const Navbar: React.FC<INavProps> = () => {
   const classes = useStyles();
-  const [socket, setSocket] = useState<any>("");
+  // const [socket, setSocket] = useState<any>("");
 
-  useEffect(() => { 
-    setSocket(io(import.meta.env.VITE_SOCKET_URL));
-  }, []);
+  // useEffect(() => { 
+  //   setSocket(io(import.meta.env.VITE_SOCKET_URL));
+  // }, []);
 
   return (
   <Toolbar className={classes.toolbar}>
@@ -28,7 +28,7 @@ const Navbar: React.FC<INavProps> = () => {
                <InsertDriveFileOutlined />
             </IconButton>
             <IconButton color="primary" style={{marginTop:".2rem"}}>
-            <Notification socket={socket}/>
+            {/* <Notification socket={socket}/> */}
             </IconButton>
             <IconButton color="primary">
               <AccountCircleOutlined />
