@@ -29,7 +29,6 @@ interface Props {
     visible: boolean;
 };
 
-
 const UploadFile: React.FC<Props> = ({
     label,
     logo_url,
@@ -60,10 +59,9 @@ const UploadFile: React.FC<Props> = ({
                             display: "flex",
                             flexDirection: "column",
                             justifyContent: "center",
-                            alignItems: "center",
                         }}>
                             <SvgIcon component={UploadFileIcon} sx={{ fontSize: 130 }} />
-                            <Typography>
+                            <Typography component="p" sx={{ marginLeft: "15px" }}>
                                 {label}
                             </Typography>
                         </Box>
@@ -91,7 +89,6 @@ const UploadFile: React.FC<Props> = ({
                 sx={{  
                     marginTop: 2, 
                     padding: 2,
-                    width: "100%"
                 }}
             >
                 <AddIcon /> Choose file
