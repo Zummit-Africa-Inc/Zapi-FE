@@ -285,18 +285,21 @@ const Documentation: React.FC = () => {
               <Typography component="p">
                 In this example we are going to use Postman to send a request,
                 to do so you will need: <br />
-                1. An endpoint (https://core.zapi.ai/api/v1/subscription/api-request) <br />
-                2. Access token (x-zapi-request-token):
+
+                All requests would be made to (https://core.zapi.ai/api/v1/subscription/api-request) <br />
+                An Access token (x-zapi-request-token) is required for requests.
+                This token is the subscription token for the API you subscribed to. <br/>
+                It can be located on your dashboard under `subscription` tab. <br/>
               </Typography>
 
               <Box component="img" alt="request" src={request} />
 
               <Typography component="p">
-                For the Body, you will need to add the following information: <br />
-                <strong>1. method</strong>(*required) - method accepts a http method as a string e.g <strong>"get"</strong>, <strong>"post"</strong>, <strong>"delete"</strong> etc. <br />
-                <strong>2. route</strong>(*required) - every route must start with "/..." and the value must be a string. <br />
-                <strong>3. payload</strong>(optional) - payload accepts any data type depending on what the endpoint accepts. <br />
-                <strong>4. headers</strong>(optional) - headers accepts an access token as a string. <br />
+                All requests, made to the url above are POST requests and should have a body with the following structure: <br />
+                1.<strong> method</strong>(*required) - method of the API endpoint you want to hit e.g <strong>"get"</strong>, <strong>"post"</strong> etc. <br />
+                2.<strong> route</strong>(*required) - the exact route of the API. must start with "/" e.g "/get-users" <br />
+                3.<strong> payload</strong>(optional) - payload accepts an object. the structure is dependent on the route requirements <br />
+                4.<strong> headers</strong>(optional) - headers accepts an access token as a string. <br />
               </Typography>
 
               <Box component="img" alt="request" src={request2} />
