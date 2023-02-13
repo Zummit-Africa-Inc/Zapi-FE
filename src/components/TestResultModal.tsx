@@ -15,18 +15,18 @@ const TestResultModal:React.FC<RunTestResponse> = ({data, message, onClose, stat
                     {message}
                 </Typography>
             </Box>
-            <Stack width="100%" direction="column" mt={2} spacing={1} my={4} px={2}>
+            <Box className={classes.body}>
                 <Typography sx={{fontWeight: 500,color: "var(--color-primary)"}}>
                     Status: {typeof data === 'string' ? status : data?.status}
                 </Typography>
                 <Typography sx={{fontWeight: 500,color: "var(--color-primary)"}}>
-                    Success: {typeof data === 'string' ? (success ? 'True' : 'False') : (data?.success ? 'True' : 'False')}
+                    Success: {success ? "True" : "False"}
                 </Typography>
-                <Typography sx={{fontWeight: 500,color: "var(--color-primary)"}}>
+                <Typography component="pre" className={classes.pre}>
                     Data: {JSON.stringify(data, undefined, 4)}
                 </Typography>
                 <Button onClick={() => onClose()} className={classes.button}>Close</Button>
-            </Stack>
+            </Box>
         </Card>
     </Box>
   )
@@ -48,7 +48,6 @@ const useStyles = makeStyles({
     modal: {
         width: "600px",
         maxHeight: "80vh",
-        overflowY: "scroll",
         "@media screen and (max-width: 900px)": {
             width: "90%",
         }
@@ -56,6 +55,17 @@ const useStyles = makeStyles({
     header: {
         width: "100%",
         padding: "1rem 1.5rem",
+    },
+    body: {
+        width: "100%",
+        maxHeight: "60vh",
+        display: "flex",
+        flexDirection: "column",
+        gap: "16px",
+        padding: "32px 16px",
+        overflowX: "hidden",
+        overflowY: "scroll",
+        wordWrap: "break-word",
     },
     button: {
         "&.MuiButtonBase-root": {
@@ -83,6 +93,12 @@ const useStyles = makeStyles({
             },
         }
     },
+    pre: {
+        fontWeight: 500,
+        color: "var(--color-primary)",
+        whiteSpace: "pre-wrap",
+        wordWrap: "break-word",
+    }
 })
 
 export default TestResultModal

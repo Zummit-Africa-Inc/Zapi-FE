@@ -233,7 +233,6 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
     const fileReader = new FileReader();
     fileReader.readAsText(e.target.files![0], "UTF-8");
     fileReader.onload = (e) => {
-      // console.log("e.target.result", e.target!.result);
       setJsonFile(e.target!.result);
     };
   };
@@ -284,7 +283,6 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
         for (const key in parsedJson) {
           if (Object.prototype.hasOwnProperty.call(parsedJson, key)) {
             const element = parsedJson[key];
-            // console.log(element)
           }
         }
         toast.success("Items uploadd successfully");
@@ -313,7 +311,6 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
               )}`
             );
           }
-          console.log(data.skipped);
           // setTimeout(() => {
           //   navigate("/developer/dashboard");
           // }, 2000);
@@ -548,7 +545,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                           </button>
                         </Box>
                       </Stack>
-                      {(method === "post" || method === "post") && (
+                      {(method === "post" || method === "patch") && (
                         <Stack direction="row" spacing={2}>
                           <Box>
                             <h4
@@ -780,7 +777,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                 </ul>
               </Stack>
             )}
-            <EndpointTable id={`${id}`} />
+            <EndpointTable id={`${id}`} reloadFn={() => dispatch(getUserApis(profileId))} />
           </Stack>
         </TabPanel>
         <TabPanel value={tab} index={1}>

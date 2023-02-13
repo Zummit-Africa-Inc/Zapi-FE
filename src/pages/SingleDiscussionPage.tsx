@@ -38,7 +38,7 @@ const SingleDiscussionPage: React.FC = () => {
             const apiDiscussion = await sendRequest(`/discussion/api/${apiId}`, "get", core_url, {}, headers)
             const apiNestedDiscussion = await sendRequest(`/discussion/${discussionId}`, "get", core_url, {}, headers)
             const [discussion, discussions] = await Promise.all([apiDiscussion, apiNestedDiscussion])
-            if (discussion === undefined || discussions === undefined) console.log("No discussion for now")
+            if (discussion === undefined || discussions === undefined) return;
             setDiscussion(discussion.data)
             setDiscussions(Object.values(discussions.data.comments))
             localStorage.setItem("discussion_id", JSON.stringify(id));
