@@ -260,12 +260,12 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
       return false;
     }
   };
-  
+
   const isValidYamlString = (query: string) => {
     if (!(query && typeof query === "string")) {
       return false;
     }
-    
+
     try {
       JSON.parse(query);
       return true;
@@ -273,7 +273,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
       return false;
     }
   };
-  
+
   const JsonKeysExists = (objectName: string, keyName: string) => {
     JSON.parse(JsonFile).hasOwnProperty(keyName);
     return toast.error(`{JSON file is missing ${keyName} key}`);
@@ -413,7 +413,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
       inputRef.current.value = "";
     }
   };
-  
+
   const clearYamlInputField = () => {
     setYamlFile("");
     if (inputRef.current) {
@@ -429,14 +429,13 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
             API Definition
           </Typography>
         </Box>
-        <Typography 
+        <Typography
           variant="subtitle2"
           sx={{
             paddingBottom: "1rem",
             fontWeight: 400,
-            width: "auto", 
-          }}
-        >
+            width: "auto",
+          }}>
           When publishing an API to the ZapiAPI Hub, you can either manually
           edit endpoint definitions, use a specification file.
         </Typography>
@@ -620,14 +619,24 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                             </select>
                           </Box>
                         </Box>
-                        <Box
-                          sx={{ paddingTop: "4em" }}
-                          className={classes.inputs}>
-                          <input
-                            type="checkbox"
-                            name="headerIsRequired"
-                            {...toggle}
-                          />
+                        <Box sx={{ paddingTop: "2.1em" }}>
+                          <p
+                            style={{
+                              fontSize: "13px",
+                              paddingBottom: "5px",
+                            }}>
+                            Required
+                          </p>
+                          <Box
+                            sx={{ paddingTop: "1em", marginLeft: "1.5em" }}
+                            className={classes.inputs}>
+                            <input
+                              type="checkbox"
+                              name="headerIsRequired"
+                              {...toggle}
+                              required
+                            />
+                          </Box>
                         </Box>
                         <Box
                           sx={{ paddingTop: "4em" }}
@@ -694,22 +703,29 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                               </select>
                             </Box>
                           </Box>
-                          <Box
-                            sx={{ paddingTop: "4em" }}
-                            className={classes.inputs}>
-                            <select name="requestBodyFormat" {...select}>
-                              <option value="application/json">
-                                application/json
-                              </option>
-                              <option value="application/xml">
-                                application/xml
-                              </option>
-                              <option value="application/octet-stream">
-                                application/octet-stream
-                              </option>
-                              <option value="text/plain">text/plain</option>
-                              <option value="form-data">form-data</option>
-                            </select>
+                          <Box sx={{ paddingTop: "2.1em" }}>
+                            <p
+                              style={{
+                                fontSize: "13px",
+                                paddingBottom: "5px",
+                              }}>
+                              Content type
+                            </p>
+                            <Box className={classes.inputs}>
+                              <select name="requestBodyFormat" {...select}>
+                                <option value="application/json">
+                                  application/json
+                                </option>
+                                <option value="application/xml">
+                                  application/xml
+                                </option>
+                                <option value="application/octet-stream">
+                                  application/octet-stream
+                                </option>
+                                <option value="text/plain">text/plain</option>
+                                <option value="form-data">form-data</option>
+                              </select>
+                            </Box>
                           </Box>
                           {requestBodyFormat === "form-data" && (
                             <Box
@@ -732,14 +748,24 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                               />
                             </Box>
                           )}
-                          <Box
-                            sx={{ paddingTop: "4em" }}
-                            className={classes.inputs}>
-                            <input
-                              type="checkbox"
-                              name="requestBodyIsRequired"
-                              {...toggle}
-                            />
+                          <Box sx={{ paddingTop: "2.1em" }}>
+                            <p
+                              style={{
+                                fontSize: "13px",
+                                paddingBottom: "5px",
+                              }}>
+                              Required
+                            </p>
+                            <Box
+                              sx={{ paddingTop: "1em", marginLeft: "1.5em" }}
+                              className={classes.inputs}>
+                              <input
+                                type="checkbox"
+                                name="requestBodyIsRequired"
+                                {...toggle}
+                                required
+                              />
+                            </Box>
                           </Box>
                           <Box
                             sx={{ paddingTop: "4em" }}
@@ -807,14 +833,24 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                             </select>
                           </Box>
                         </Box>
-                        <Box
-                          sx={{ paddingTop: "4em" }}
-                          className={classes.inputs}>
-                          <input
-                            type="checkbox"
-                            name="queryParamIsRequired"
-                            {...toggle}
-                          />
+                        <Box sx={{ paddingTop: "2.1em" }}>
+                          <p
+                            style={{
+                              fontSize: "13px",
+                              paddingBottom: "5px",
+                            }}>
+                            Required
+                          </p>
+                          <Box
+                            sx={{ paddingTop: "1em", marginLeft: "1.5em" }}
+                            className={classes.inputs}>
+                            <input
+                              type="checkbox"
+                              name="queryParamIsRequired"
+                              {...toggle}
+                              required
+                            />
+                          </Box>
                         </Box>
                         <Box
                           sx={{ paddingTop: "4em" }}
@@ -903,9 +939,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
               display: "flex",
               flexDirection: "row",
               gap: "50px",
-            }}
-          >
-
+            }}>
             <Box>
               <UploadFile
                 label="Upload JSON"
@@ -920,7 +954,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                 }}
                 inputRef={inputRef}
               />
-              
+
               <Typography
                 variant="subtitle1"
                 fontSize="1rem"
@@ -928,9 +962,8 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                 fontWeight={400}>
                 (application/json)
               </Typography>
-
             </Box>
-            
+
             <Box>
               <UploadFile
                 label="Upload YAML"
@@ -946,7 +979,6 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                 inputRef={inputRef}
               />
             </Box>
-
           </Box>
         </TabPanel>
       </Box>
