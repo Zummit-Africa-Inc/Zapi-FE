@@ -87,11 +87,11 @@ const APIHubTab: React.FC = () => {
   });
 
   let icons: any = {
-    "popular apis": <LibraryBooks />,
-    "safety apis": <Layers />,
-    "security apis": <Security />,
-    "customer service apis": <ChatBubble />,
-    "general apis": <Lightbulb />,
+    "popular": <LibraryBooks />,
+    "safety": <Layers />,
+    "security": <Security />,
+    "customer service": <ChatBubble />,
+    "general": <Lightbulb />,
     "sports": <SportsFootball />,
     "travel": <AirplanemodeActive />,
     "finance": <AttachMoney />,
