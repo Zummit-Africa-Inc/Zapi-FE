@@ -18,15 +18,12 @@ const theme = createTheme({
 });
 
 const Community = () => {
-
     const classes = useStyles();
-
     const [selectedTab, setSelectedTab] = useState(0);
     const [active, setActive] = useState(true)
     const handleTabs = (e :any, value : number) => {
         setSelectedTab(value);
     };
-
 
     return (
         <Paper elevation={1} className={classes.paper}>
@@ -61,7 +58,7 @@ export default Community;
 
 const useStyles = makeStyles({
     paper: {
-        width: "950px",
+        width: "100%",
         marginTop: "20px",
         padding: "2rem 2rem",
         ['@media (max-width:450px)']:{

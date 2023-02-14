@@ -62,7 +62,6 @@ const Otp: React.FC = () => {
 
   useEffect(() => {
     error && toast.error(`${error}`);
-    error && console.log(error);
   }, [error]);
 
   return (

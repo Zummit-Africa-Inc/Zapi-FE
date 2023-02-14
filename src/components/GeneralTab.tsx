@@ -418,7 +418,7 @@ export default GeneralTab;
 
 const useStyles = makeStyles({
   paper: {
-    width: "950px",
+    width: "100%",
     marginTop: "20px",
     padding: "2rem 2rem",
   },

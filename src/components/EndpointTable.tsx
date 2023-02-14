@@ -32,6 +32,7 @@ let initialState = {
 
 interface Props {
   id: string | undefined;
+  reloadFn: () => void;
 }
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -56,7 +57,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const CollapsibleTable: React.FC<Props> = ({ id }) => {
+const CollapsibleTable = ({id, reloadFn}:Props) => {
   const [isEditing, setIsEditing] = useState<number | null>(null);
   const { userApis } = useAppSelector((store) => store.user);
   const { error, loading, sendRequest } = useHttpRequest();
@@ -90,7 +91,6 @@ const CollapsibleTable: React.FC<Props> = ({ id }) => {
       initialState = {id: id, method: endpoint.method, name: endpoint.name, route: endpoint.route}
     }
     const payload = initialState
-    console.log(payload)
     const headers = {
       "Content-Type": "application/json",
       "X-Zapi-Auth-Token": `Bearer ${cookies.get("accessToken")}`
@@ -109,8 +109,8 @@ const CollapsibleTable: React.FC<Props> = ({ id }) => {
       setIsEditing(null);
       const { message } = data;
       toast.success(`${message}`);
-    } catch (error) {}
-    window.location.reload();
+    } catch (error) {};
+    return () => reloadFn();
   };
 
   const deleteRoute = async (id: string | undefined) => {
@@ -129,8 +129,8 @@ const CollapsibleTable: React.FC<Props> = ({ id }) => {
       );
       if (!data || data === undefined) return;
       dispatch(removeEndpoint(id));
-    } catch (error) {}
-    window.location.reload();
+    } catch (error) {};
+    return () => reloadFn();
   };
 
   useEffect(() => {

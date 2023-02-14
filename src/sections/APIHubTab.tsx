@@ -27,8 +27,8 @@ import { useAppSelector, useHttpRequest } from "../hooks";
 import { TabPanel, Fallback } from "../components";
 
 const default_url = import.meta.env.VITE_DEFAULT_CATEGORY_ID;
-
 const core_url = "VITE_CORE_URL";
+
 const APIHubTab: React.FC = () => {
   const classes = useStyles();
   const [tab, setTab] = useState<any>();
@@ -87,25 +87,24 @@ const APIHubTab: React.FC = () => {
   });
 
   let icons: any = {
-    popular: <LibraryBooks />,
-    safety: <Layers />,
-    security: <Security />,
+    "popular": <LibraryBooks />,
+    "safety": <Layers />,
+    "security": <Security />,
     "customer service": <ChatBubble />,
-    general: <Lightbulb />,
-    sports: <SportsFootball />,
-    travel: <AirplanemodeActive />,
-    finance: <AttachMoney />,
-    educational: <School />,
-    data: <DataArray />,
-    science: <Science />,
-    music: <MusicNote />,
-    tools: <Build />,
+    "general": <Lightbulb />,
+    "sports": <SportsFootball />,
+    "travel": <AirplanemodeActive />,
+    "finance": <AttachMoney />,
+    "educational": <School />,
+    "data": <DataArray />,
+    "science": <Science />,
+    "music": <MusicNote />,
+    "tools": <Build />,
     "text analysis": <FormatColorText />,
-    weather: <Cloud />,
-    all: <Apps />,
+    "weather": <Cloud />,
+    "all": <Apps />,
   };
   
-
   return (
     <Box className={classes.container}>
       {loading && <Fallback />}

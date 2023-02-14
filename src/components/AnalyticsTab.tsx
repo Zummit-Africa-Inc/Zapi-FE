@@ -203,7 +203,7 @@ const useStyles = makeStyles({
     /* padding: 1rem 1rem; */
   },
   paper: {
-    width: "950px",
+    width: "100%",
     marginTop: "20px",
     padding: "2rem 2rem",
   },

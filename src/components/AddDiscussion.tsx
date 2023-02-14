@@ -61,15 +61,12 @@ const AddDiscussion: React.FC = () => {
         payload,
         headers
       );
-      console.log(data);
       if (!data || data === null) return;
       dispatch(addDiscussion(payload));
       triggerRefresh();
       const { message } = data;
       toast.success(`${message}`);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {};
     // dispatch(getApisDiscussion(id));
     handleUnclicked();
   };

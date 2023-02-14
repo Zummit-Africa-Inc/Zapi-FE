@@ -132,7 +132,6 @@ const Login: React.FC = () => {
       } catch (error) {}
     },
     onError: (errorResponse) => {
-      console.log(errorResponse);
       toast.error("Login Failed, try to login with your email.");
     },
   });

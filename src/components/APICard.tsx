@@ -145,6 +145,7 @@ const APICard: React.FC<CardProps> = ({
 
 const useStyles = makeStyles({
   card: {
+    maxWidth: "300px",
     position: "relative",
     userSelect: "none",
     display: "flex",

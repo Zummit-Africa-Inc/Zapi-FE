@@ -59,8 +59,6 @@ const Notification: React.FC<INotificationProps> = ({ socket }) => {
   //   } catch (error) {}
   // }, [socket, notifications]);
 
-  // console.log(notifications);
-
   const displayNotification = (type: string) => {
     let action;
 
