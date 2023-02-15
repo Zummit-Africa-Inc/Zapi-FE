@@ -241,7 +241,6 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
 
   const handleYamlFileChange = (e: any) => {
     const filename: string = e.target.files![0].name;
-    console.log(filename.substring(filename.lastIndexOf('.') + 1).toLocaleLowerCase())
     if(filename.substring(filename.lastIndexOf('.') + 1).toLocaleLowerCase() === "yaml" || 
       filename.substring(filename.lastIndexOf('.') + 1).toLocaleLowerCase() === "yml") {
       setYamlFile(e.target.files![0]);
