@@ -23,6 +23,7 @@ import login2 from "../assets/images/login2.png";
 import subscriptions1 from "../assets/images/subscriptions1.png";
 import subscriptions2 from "../assets/images/subscriptions2.png";
 import request from "../assets/images/request_edit.png";
+import request2 from "../assets/images/request_2.png";
 
 const CustomTab = styled(Tab)({
   "&.MuiTab-root": {
@@ -283,12 +284,27 @@ const Documentation: React.FC = () => {
 
               <Typography component="p">
                 In this example we are going to use Postman to send a request,
-                to do so you will need an endpoint
-                (https://core.zapi.ai/api/v1/subscription/api-request) and your
-                access token (x-zapi-request-token):
+                to do so you will need: <br />
+
+                All requests would be made to (https://core.zapi.ai/api/v1/subscription/api-request) <br />
+                An Access token (x-zapi-request-token) is required for requests.
+                This token is the subscription token for the API you subscribed to. <br/>
+                It can be located on your dashboard under `subscription` tab. <br/>
               </Typography>
 
               <Box component="img" alt="request" src={request} />
+
+              <Typography component="p">
+                All requests, made to the url above are POST requests and should have a body with the following structure: <br />
+                1.<strong> method</strong>(*required) - method of the API endpoint you want to hit e.g <strong>"get"</strong>, <strong>"post"</strong> etc. <br />
+                2.<strong> route</strong>(*required) - the exact route of the API. must start with "/" e.g "/get-users" <br />
+                3.<strong> payload</strong>(optional) - payload accepts an object. the structure is dependent on the route requirements <br />
+                4.<strong> headers</strong>(optional) - headers accepts an access token as a string. <br />
+              </Typography>
+
+              <Box component="img" alt="request" src={request2} />
+
+
             </TabPanel>
           </Box>
         </Box>
