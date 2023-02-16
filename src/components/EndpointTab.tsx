@@ -349,17 +349,17 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
         "Content-Type": "multi-part/form-data",
       };
       if (yamlFile === null) return;
-      toast.info("Uploading YAML File!");
       try {
         const data = await sendRequest(
-          `/api/v1/endpoints/new/yaml/${id}`,
+          `/endpoints/new/yaml/${id}`,
           "post",
           core_url,
           formData,
           headers
         );
-        toast.dismiss()
-        toast.success("YAML File Uploaded Successfully!");
+        if(!data || data === undefined) return;
+        const { message } = data;
+        toast.success(`${message}`);
         triggerRefresh();
       } catch (error) {}
     }
