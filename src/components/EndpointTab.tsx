@@ -86,6 +86,8 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
   const [tab, setTab] = useState<number>(0);
   const [file, setFile] = useState<any>();
   const dispatch = useAppDispatch();
+  const [yamlFile, setYamlFile] = useState<any>("");
+  const [yamlData, setYamlData] = useState<any>("");
   const navigate = useNavigate();
   const classes = useStyles();
 
@@ -271,6 +273,85 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
       console.log(data)
       toast.success(`${message}`)
     } catch(error) {}
+
+  const isValidYamlString = (query: string) => {
+    if (!(query && typeof query === "string")) {
+      return false;
+    }
+
+    try {
+      JSON.parse(query);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
+
+  const yamlFileUpload: any = async (e: any) => {
+    e.preventDefault();
+    if (!yamlFile) {
+      toast.error("Select a file to upload");
+    } else if (!isValidYamlString(yamlFile)) {
+      toast.error("Invalid YAML file");
+      clearYamlInputField();
+    } else {
+      if (
+        !JSON.parse(yamlFile).hasOwnProperty("info") ||
+        !JSON.parse(yamlFile).hasOwnProperty("event") ||
+        !JSON.parse(yamlFile).hasOwnProperty("item") ||
+        !JSON.parse(yamlFile).hasOwnProperty("variable")
+      ) {
+        toast.error("YAML file is missing required key");
+        clearYamlInputField();
+      } else {
+        const parsedYaml = JSON.parse(yamlFile);
+        for (const key in parsedYaml) {
+          if (Object.prototype.hasOwnProperty.call(parsedYaml, key)) {
+            const element = parsedYaml[key];
+            // console.log(element)
+          }
+        }
+        toast.success("Items upload successfully");
+        const formData = new FormData();
+        formData.append("yamlFile", yamlFile);
+        const headers = {
+          "Content-Type": "application/json",
+        };
+        if (yamlFile === null) return;
+        try {
+          const data = await sendRequest(
+            `/endpoints/new/collection/${id}`,
+            "post",
+            core_url,
+            parsedYaml,
+            headers
+          );
+          setYamlData(data.data);
+
+          if (data.skipped.length === 0) {
+            return toast.success("No items Skipped");
+          } else {
+            return toast.warning(
+              `The following were skipped Skipped ${JSON.stringify(
+                data.skipped
+              )}`
+            );
+          }
+          console.log(data.skipped);
+          // setTimeout(() => {
+          //   navigate("/developer/dashboard");
+          // }, 2000);
+        } catch (error) {}
+        // }
+      }
+    }
+  };
+
+  const clearYamlInputField = () => {
+    setYamlFile("");
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
   };
 
   return (
@@ -281,13 +362,24 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
             API Definition
           </Typography>
         </Box>
-        <Box className={classes.pageSubHeading}>
-          <Typography variant="subtitle2" width="auto" fontWeight={400}>
-            When publishing an API to the ZapiAPI Hub, you can either manually
-            edit endpoint definitions, use a specification file.
-          </Typography>
-        </Box>
-
+        <Typography
+          variant="subtitle2"
+          sx={{
+            paddingBottom: "1rem",
+            fontWeight: 400,
+            width: "auto",
+          }}>
+          When publishing an API to the ZapiAPI Hub, you can either manually
+          edit endpoint definitions, use a specification file.
+        </Typography>
+        {/* <Typography
+          variant="body1"
+          fontSize="24px"
+          color="#081F4A"
+          fontWeight={500}
+          mt={2}>
+          Endpoints
+        </Typography> */}
         <CustomTabs
           sx={{
             height: "46px",
@@ -314,7 +406,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
           />
         </CustomTabs>
       </Stack>
-      <Box>
+      <Box sx={{ marginBottom: "2rem" }}>
         <TabPanel value={tab} index={0}>
           <Stack>
             <Stack direction="column" mb={6}>
@@ -460,14 +552,24 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                             </select>
                           </Box>
                         </Box>
-                        <Box
-                          sx={{ paddingTop: "4em" }}
-                          className={classes.inputs}>
-                          <input
-                            type="checkbox"
-                            name="headerIsRequired"
-                            {...toggle}
-                          />
+                        <Box sx={{ paddingTop: "2.1em" }}>
+                          <p
+                            style={{
+                              fontSize: "13px",
+                              paddingBottom: "5px",
+                            }}>
+                            Required
+                          </p>
+                          <Box
+                            sx={{ paddingTop: "1em", marginLeft: "1.5em" }}
+                            className={classes.inputs}>
+                            <input
+                              type="checkbox"
+                              name="headerIsRequired"
+                              {...toggle}
+                              required
+                            />
+                          </Box>
                         </Box>
                         <Box
                           sx={{ paddingTop: "4em" }}
@@ -534,22 +636,29 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                               </select>
                             </Box>
                           </Box>
-                          <Box
-                            sx={{ paddingTop: "4em" }}
-                            className={classes.inputs}>
-                            <select name="requestBodyFormat" {...select}>
-                              <option value="application/json">
-                                application/json
-                              </option>
-                              <option value="application/xml">
-                                application/xml
-                              </option>
-                              <option value="application/octet-stream">
-                                application/octet-stream
-                              </option>
-                              <option value="text/plain">text/plain</option>
-                              <option value="form-data">form-data</option>
-                            </select>
+                          <Box sx={{ paddingTop: "2.1em" }}>
+                            <p
+                              style={{
+                                fontSize: "13px",
+                                paddingBottom: "5px",
+                              }}>
+                              Content type
+                            </p>
+                            <Box className={classes.inputs}>
+                              <select name="requestBodyFormat" {...select}>
+                                <option value="application/json">
+                                  application/json
+                                </option>
+                                <option value="application/xml">
+                                  application/xml
+                                </option>
+                                <option value="application/octet-stream">
+                                  application/octet-stream
+                                </option>
+                                <option value="text/plain">text/plain</option>
+                                <option value="form-data">form-data</option>
+                              </select>
+                            </Box>
                           </Box>
                           {requestBodyFormat === "form-data" && (
                             <Box
@@ -572,14 +681,24 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                               />
                             </Box>
                           )}
-                          <Box
-                            sx={{ paddingTop: "4em" }}
-                            className={classes.inputs}>
-                            <input
-                              type="checkbox"
-                              name="requestBodyIsRequired"
-                              {...toggle}
-                            />
+                          <Box sx={{ paddingTop: "2.1em" }}>
+                            <p
+                              style={{
+                                fontSize: "13px",
+                                paddingBottom: "5px",
+                              }}>
+                              Required
+                            </p>
+                            <Box
+                              sx={{ paddingTop: "1em", marginLeft: "1.5em" }}
+                              className={classes.inputs}>
+                              <input
+                                type="checkbox"
+                                name="requestBodyIsRequired"
+                                {...toggle}
+                                required
+                              />
+                            </Box>
                           </Box>
                           <Box
                             sx={{ paddingTop: "4em" }}
@@ -647,14 +766,24 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                             </select>
                           </Box>
                         </Box>
-                        <Box
-                          sx={{ paddingTop: "4em" }}
-                          className={classes.inputs}>
-                          <input
-                            type="checkbox"
-                            name="queryParamIsRequired"
-                            {...toggle}
-                          />
+                        <Box sx={{ paddingTop: "2.1em" }}>
+                          <p
+                            style={{
+                              fontSize: "13px",
+                              paddingBottom: "5px",
+                            }}>
+                            Required
+                          </p>
+                          <Box
+                            sx={{ paddingTop: "1em", marginLeft: "1.5em" }}
+                            className={classes.inputs}>
+                            <input
+                              type="checkbox"
+                              name="queryParamIsRequired"
+                              {...toggle}
+                              required
+                            />
+                          </Box>
                         </Box>
                         <Box
                           sx={{ paddingTop: "4em" }}
@@ -721,17 +850,14 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
           </Stack>
         </TabPanel>
         <TabPanel value={tab} index={1}>
-          <Stack>
-            <Stack direction="column" mb={6}>
-              <Typography
-                variant="body1"
-                fontSize="24px"
-                color="#081F4A"
-                fontWeight={500}
-                mt={2}>
-                Update API Definition
-              </Typography>
-
+          <Typography
+            variant="body1"
+            fontSize="24px"
+            color="#081F4A"
+            fontWeight={500}
+            mt={2}>
+            Update API Definition
+          </Typography>
               <Typography
                 variant="subtitle2"
                 // fontSize="16px"
@@ -774,22 +900,14 @@ export default EndpointTab;
 
 const useStyles = makeStyles({
   paper: {
-    width: "100%",
-    minWidth: "890px",
     marginTop: "20px",
     padding: "2rem",
-    marginBottom: "2rem",
-  },
-  pageSubHeading: {
-    paddingBottom: "1rem",
+    marginBottom: "5rem",
+    width: "100%",
+    minWidth: "890px",
   },
   pageDescription: {
     paddingBottom: "1rem",
-  },
-  pageActions: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
   },
   inputs: {
     width: "max-content",

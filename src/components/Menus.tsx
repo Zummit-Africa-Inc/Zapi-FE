@@ -16,7 +16,7 @@ import {
   DeveloperBoardRounded,
 } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
-import { io } from "socket.io-client";
+// import { io } from "socket.io-client";
 import Cookies from "universal-cookie";
 
 import { ZapiDash, ZapiApps, ZapiHelp, ZapiArrow, ZapiPic } from "../assets";
@@ -35,16 +35,16 @@ const Menus: React.FC<MenuProps> = () => {
   const [anchorE2, setAnchorE2] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const isAvatarOpen = Boolean(anchorE2);
-  const [socket, setSocket] = useState<any>("");
+  // const [socket, setSocket] = useState<any>("");
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const cookies = new Cookies();
   const { userApis } = useAppSelector((store) => store.user);
 
-  useEffect(() => {
-    setSocket(io(import.meta.env.VITE_SOCKET_URL));
-  }, []);
+  // useEffect(() => {
+  //   setSocket(io(import.meta.env.VITE_SOCKET_URL));
+  // }, []);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -116,7 +116,7 @@ const Menus: React.FC<MenuProps> = () => {
         <DeveloperBoardRounded />
         <AppsRounded />
         <HelpOutline />
-        <Notification socket={socket} />
+        {/* <Notification socket={socket} /> */}
       </Stack>
 
       <Button
