@@ -1,4 +1,5 @@
 import React, {
+  ChangeEvent,
   FormEvent,
   useEffect,
   useState,
@@ -33,7 +34,6 @@ import ReactGA from "react-ga4";
 import UploadFile from "./UploadFile";
 import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
-import { fontWeight } from "@mui/system";
 
 const CustomTabs = styled(Tabs)({
   "& .MuiTabs-indicator": {
@@ -78,15 +78,20 @@ interface Props {
 
 const EndpointTab: React.FC<Props> = ({ id }) => {
   const { inputs, bind, select, toggle } = useFormInputs(initialState);
-  const [isAdding, setIsAdding] = useState<boolean>(false);
   const [isOptionsOpen, setIsOptionsOpen] = useState<boolean>(false);
+  const [JSONObject, setJSONObject] = useState<any | null>(null);
+  const [JSONFile, setJSONFile] = useState<File | null>(null);
   const { error, loading, sendRequest } = useHttpRequest();
+  const [isAdding, setIsAdding] = useState<boolean>(false);
   const [tab, setTab] = useState<number>(0);
   const [file, setFile] = useState<any>();
-  const [JsonFile, setJsonFile] = useState<any>("");
-  const [JsonData, setJsonData] = useState<any>("");
-  const { triggerRefresh } = useContextProvider();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const classes = useStyles();
+
+  const cookies = new Cookies();
+  const profileId = cookies.get("profileId");
+
   const {
     name,
     route,
@@ -103,15 +108,8 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
     queryParamType,
     queryParamIsRequired,
   } = inputs;
-  const dispatch = useAppDispatch();
-  const classes = useStyles();
-  const cookies = new Cookies();
-  const profileId = cookies.get("profileId");
-  const inputRef = React.useRef<HTMLInputElement>(null);
 
-  const handleTabChange = (e: SyntheticEvent, newValue: number) => {
-    setTab(newValue);
-  };
+  const handleTabChange = (e: SyntheticEvent, newValue: number) => setTab(newValue);
 
   const [headersArray, setHeadersArray] = useState<Array<OptionsType>>([]);
   const [requestBodyArray, setRequestBodyArray] = useState<Array<OptionsType>>(
@@ -185,8 +183,6 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
 
     if (!name || !route || !description)
       return toast.error("Name, route and description are required fields");
-    const formData = new FormData();
-    formData.append("file", file);
     const payload = {
       name,
       route,
@@ -229,101 +225,52 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
     method === "" && setIsOptionsOpen(false);
   }, [method]);
 
-  const handleChange = (e: any) => {
+  const JSONKeyExists = (object: string, key: string) => {
+    return JSON.parse(object).hasOwnProperty(key);
+  };
+
+  const getTextFromFile = (file: File) => {
+    if(!file) return;
     const fileReader = new FileReader();
-    fileReader.readAsText(e.target.files![0], "UTF-8");
-    fileReader.onload = (e) => {
-      setJsonFile(e.target!.result);
+    fileReader.onload = () => {
+      const fileContent = fileReader.result as string;
+      const jsonObject = JSON.parse(fileContent);
+      setJSONObject(jsonObject);
     };
-  };
+    fileReader.readAsText(file);
+  }
 
-  const isValidJsonString = (query: string) => {
-    if (!(query && typeof query === "string")) {
-      return false;
-    }
-
-    try {
-      JSON.parse(query);
-      return true;
-    } catch (error) {
-      return false;
-    }
-  };
-  const JsonKeysExists = (objectName: string, keyName: string) => {
-    JSON.parse(JsonFile).hasOwnProperty(keyName);
-    return toast.error(`{JSON file is missing ${keyName} key}`);
-  };
-
-  const checkField = (obj: any, fields: any) => {
-    for (let field of fields) {
-      if (!Array.isArray(field)) {
-        if (obj?.[field] === undefined) return false;
-      } else if (!obj?.[field[0]] || !checkField(obj[field[0]], field[1]))
-        return false;
-    }
-    return true;
-  };
-
-  const fileUpload = async (e: any) => {
-    e.preventDefault();
-    if (!JsonFile) {
-      toast.error("Select a file to upload");
-    } else if (!isValidJsonString(JsonFile)) {
-      toast.error("Invalid JSON file");
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if(!e.target.files || e.target.files.length === 0) return;
+    const file = e.target.files[0];
+    const { type } = file;
+    if(type === "application/json") {
+      setJSONFile(file);
+      getTextFromFile(file);
     } else {
-      if (
-        !JSON.parse(JsonFile).hasOwnProperty("info") ||
-        !JSON.parse(JsonFile).hasOwnProperty("event") ||
-        !JSON.parse(JsonFile).hasOwnProperty("item") ||
-        !JSON.parse(JsonFile).hasOwnProperty("variable")
-      ) {
-        toast.error("JSON file is missing required key");
-      } else {
-        const parsedJson = JSON.parse(JsonFile);
-        for (const key in parsedJson) {
-          if (Object.prototype.hasOwnProperty.call(parsedJson, key)) {
-            const element = parsedJson[key];
-          }
-        }
-        toast.success("Items uploadd successfully");
-        const formData = new FormData();
-        formData.append("JsonFile", JsonFile);
-        const headers = {
-          "Content-Type": "application/json",
-        };
-        if (JsonFile === null) return;
-        try {
-          const data = await sendRequest(
-            `/endpoints/new/collection/${id}`,
-            "post",
-            core_url,
-            parsedJson,
-            headers
-          );
-          setJsonData(data.data);
-
-          if (data.skipped.length === 0) {
-            return toast.success("No items Skipped");
-          } else {
-            return toast.warning(
-              `The following were skipped Skipped ${JSON.stringify(
-                data.skipped
-              )}`
-            );
-          }
-          // setTimeout(() => {
-          //   navigate("/developer/dashboard");
-          // }, 2000);
-        } catch (error) {}
-        // }
-      }
+      return toast.error("Invalid file type");
     }
   };
-  const clearInputField = () => {
-    setJsonFile("");
-    if (inputRef.current) {
-      inputRef.current.value = "";
-    }
+
+  const uploadJSONFile = async() => {
+    if(!JSONFile || JSONFile === null) return toast.error("Please select a file!");
+    if(JSONObject === null) return toast.error("Invalid JSON File!");
+    const JSONString = JSON.stringify(JSONObject)
+    if(!JSONKeyExists(JSONString, "info")) return toast.error("File does not contain key: info");
+    if(!JSONKeyExists(JSONString, "item")) return toast.error("File does not contain key: item");
+    // if(!JSONKeyExists(JSONString, "event")) return toast.error("File does not contain key: event");
+    // if(!JSONKeyExists(JSONString, "variable")) return toast.error("File does not contain key: variable");
+    const headers = {
+      "Content-Type": "application/json",
+      "X-Zapi-Auth-Token": `Bearer ${cookies.get("accessToken")}`,
+    };
+    try {
+      const data = await sendRequest(`/endpoints/new/collection/${id}`, "post", "VITE_CORE_URL", JSONObject, headers)
+      if(!data || data === undefined) return
+      const { message } = data;
+      console.log(data)
+      toast.success(`${message}`)
+    } catch(error) {}
   };
 
   return (
@@ -340,14 +287,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
             edit endpoint definitions, use a specification file.
           </Typography>
         </Box>
-        {/* <Typography
-          variant="body1"
-          fontSize="24px"
-          color="#081F4A"
-          fontWeight={500}
-          mt={2}>
-          Endpoints
-        </Typography> */}
+
         <CustomTabs
           sx={{
             height: "46px",
@@ -799,19 +739,20 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                 mb={10}>
                 *Postman collections only
               </Typography>
-              <UploadFile
-                label="Upload JSON"
-                logo_url=""
-                visible={JsonFile ? true : false}
-                handleChange={handleChange}
-                imageUpload={fileUpload}
-                imageReject={(e: any) => {
-                  e.preventDefault();
-                  clearInputField();
-                  triggerRefresh();
-                }}
-                inputRef={inputRef}
-              />
+              <Box>
+               <UploadFile
+                  label={loading ? "Uploading" : "Upload JSON"}
+                  handleChange={handleChange}
+                  imageUpload={uploadJSONFile}
+                  logo_url={""}
+                  imageReject={(e: any) => {
+                    e.preventDefault();
+                    setJSONFile(null);
+                    setJSONObject(null);
+                  }}
+                  visible={JSONObject ? true : false}              
+               />
+              </Box>
               <Box className={classes.pageActions}>
                 <Typography
                   variant="subtitle1"
