@@ -86,6 +86,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
   const [tab, setTab] = useState<number>(0);
   const [file, setFile] = useState<any>();
 <<<<<<< HEAD
+<<<<<<< HEAD
   const dispatch = useAppDispatch();
 =======
   const [JsonFile, setJsonFile] = useState<any>("");
@@ -94,6 +95,11 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
   const [yamlData, setYamlData] = useState<any>("");
   const { triggerRefresh } = useContextProvider();
 >>>>>>> dfeb6cd41275d646b12db21f43ad365b27222185
+=======
+  const dispatch = useAppDispatch();
+  const [yamlFile, setYamlFile] = useState<any>("");
+  const [yamlData, setYamlData] = useState<any>("");
+>>>>>>> d1cebc4339af39ce9e496b45d40ff779142a95fb
   const navigate = useNavigate();
   const classes = useStyles();
 
@@ -249,6 +255,9 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d1cebc4339af39ce9e496b45d40ff779142a95fb
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if(!e.target.files || e.target.files.length === 0) return;
     const file = e.target.files[0];
@@ -272,6 +281,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
     const headers = {
       "Content-Type": "application/json",
       "X-Zapi-Auth-Token": `Bearer ${cookies.get("accessToken")}`,
+<<<<<<< HEAD
     };
     try {
       const data = await sendRequest(`/endpoints/new/collection/${id}`, "post", "VITE_CORE_URL", JSONObject, headers)
@@ -287,21 +297,16 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
     fileReader.onload = (e) => {
       // console.log("e.target.result", e.target!.result);
       setYamlFile(e.target!.result);
+=======
+>>>>>>> d1cebc4339af39ce9e496b45d40ff779142a95fb
     };
-  };
-
-  const isValidJsonString = (query: string) => {
-    if (!(query && typeof query === "string")) {
-      return false;
-    }
-
     try {
-      JSON.parse(query);
-      return true;
-    } catch (error) {
-      return false;
-    }
-  };
+      const data = await sendRequest(`/endpoints/new/collection/${id}`, "post", "VITE_CORE_URL", JSONObject, headers)
+      if(!data || data === undefined) return
+      const { message } = data;
+      console.log(data)
+      toast.success(`${message}`)
+    } catch(error) {}
 
   const isValidYamlString = (query: string) => {
     if (!(query && typeof query === "string")) {
@@ -313,79 +318,6 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
       return true;
     } catch (error) {
       return false;
-    }
-  };
-
-  const JsonKeysExists = (objectName: string, keyName: string) => {
-    JSON.parse(JsonFile).hasOwnProperty(keyName);
-    return toast.error(`{JSON file is missing ${keyName} key}`);
-  };
-
-  const checkField = (obj: any, fields: any) => {
-    for (let field of fields) {
-      if (!Array.isArray(field)) {
-        if (obj?.[field] === undefined) return false;
-      } else if (!obj?.[field[0]] || !checkField(obj[field[0]], field[1]))
-        return false;
-    }
-    return true;
-  };
-
-  const fileUpload = async (e: any) => {
-    e.preventDefault();
-    if (!JsonFile) {
-      toast.error("Select a file to upload");
-    } else if (!isValidJsonString(JsonFile)) {
-      toast.error("Invalid JSON file");
-      clearInputField();
-    } else {
-      if (
-        !JSON.parse(JsonFile).hasOwnProperty("info") ||
-        !JSON.parse(JsonFile).hasOwnProperty("event") ||
-        !JSON.parse(JsonFile).hasOwnProperty("item") ||
-        !JSON.parse(JsonFile).hasOwnProperty("variable")
-      ) {
-        toast.error("JSON file is missing required key");
-        clearInputField();
-      } else {
-        const parsedJson = JSON.parse(JsonFile);
-        for (const key in parsedJson) {
-          if (Object.prototype.hasOwnProperty.call(parsedJson, key)) {
-            const element = parsedJson[key];
-          }
-        }
-        toast.success("Items upload successfully");
-        const formData = new FormData();
-        formData.append("JsonFile", JsonFile);
-        const headers = {
-          "Content-Type": "application/json",
-        };
-        if (JsonFile === null) return;
-        try {
-          const data = await sendRequest(
-            `/endpoints/new/collection/${id}`,
-            "post",
-            core_url,
-            parsedJson,
-            headers
-          );
-          setJsonData(data.data);
-
-          if (data.skipped.length === 0) {
-            return toast.success("No items Skipped");
-          } else {
-            return toast.warning(
-              `The following were skipped Skipped ${JSON.stringify(
-                data.skipped
-              )}`
-            );
-          }
-          // setTimeout(() => {
-          //   navigate("/developer/dashboard");
-          // }, 2000);
-        } catch (error) {}
-        // }
-      }
     }
   };
 
@@ -449,6 +381,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
     }
   };
 
+<<<<<<< HEAD
   const clearInputField = () => {
     setJsonFile("");
     if (inputRef.current) {
@@ -457,6 +390,8 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
 >>>>>>> dfeb6cd41275d646b12db21f43ad365b27222185
   };
 
+=======
+>>>>>>> d1cebc4339af39ce9e496b45d40ff779142a95fb
   const clearYamlInputField = () => {
     setYamlFile("");
     if (inputRef.current) {
@@ -473,6 +408,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
           </Typography>
         </Box>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <Box className={classes.pageSubHeading}>
           <Typography variant="subtitle2" width="auto" fontWeight={400}>
             When publishing an API to the ZapiAPI Hub, you can either manually
@@ -481,6 +417,8 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
         </Box>
 
 =======
+=======
+>>>>>>> d1cebc4339af39ce9e496b45d40ff779142a95fb
         <Typography
           variant="subtitle2"
           sx={{
@@ -499,7 +437,10 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
           mt={2}>
           Endpoints
         </Typography> */}
+<<<<<<< HEAD
 >>>>>>> dfeb6cd41275d646b12db21f43ad365b27222185
+=======
+>>>>>>> d1cebc4339af39ce9e496b45d40ff779142a95fb
         <CustomTabs
           sx={{
             height: "46px",
@@ -978,8 +919,11 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
             mt={2}>
             Update API Definition
           </Typography>
+<<<<<<< HEAD
 
 <<<<<<< HEAD
+=======
+>>>>>>> d1cebc4339af39ce9e496b45d40ff779142a95fb
               <Typography
                 variant="subtitle2"
                 // fontSize="16px"
@@ -1012,6 +956,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
               </Box>
             </Stack>
           </Stack>
+<<<<<<< HEAD
 =======
           <Typography
             variant="subtitle2"
@@ -1068,6 +1013,8 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
             </Box>
           </Box>
 >>>>>>> dfeb6cd41275d646b12db21f43ad365b27222185
+=======
+>>>>>>> d1cebc4339af39ce9e496b45d40ff779142a95fb
         </TabPanel>
       </Box>
     </Paper>
