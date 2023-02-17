@@ -14,7 +14,7 @@ import Cookies from "universal-cookie";
 import { ZapiArrow } from "../assets";
 import { Button, List, ListItem, Typography } from "@mui/material";
 
-import { io } from "socket.io-client";
+// import { io } from "socket.io-client";
 import Notification from "./Notification";
 interface NavbarProps {
   id?: string;
@@ -53,7 +53,7 @@ const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
     }
   };
 
-  const [socket, setSocket] = useState<any>("");
+  // const [socket, setSocket] = useState<any>("");
 
   // useEffect(() => {
   //   setSocket(io(import.meta.env.VITE_SOCKET_URL));
@@ -81,7 +81,7 @@ const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
         </div>
 
         <div className={classes.right_container}>
-          <Notification socket={socket} />
+          {/* <Notification socket={socket} /> */}
           <div className={classes.hamburger} onClick={handleClick}>
             <Menu />
           </div>
@@ -135,7 +135,7 @@ const DevNavbar: React.FC<NavbarProps> = ({ id }) => {
 
 const useStyles = makeStyles({
   NavBar: {
-    position: "fixed",
+    // position: "fixed",
     top: "0",
     left: "0rem",
     right: "0rem",

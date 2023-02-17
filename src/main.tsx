@@ -15,7 +15,7 @@ const cookies = new Cookies();
 const client_Id = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 const vite_identity_url = import.meta.env.VITE_IDENTITY_URL;
 const vite_core_url = import.meta.env.VITE_CORE_URL;
-const vite_socket_url = import.meta.env.VITE_SOCKET_URL;
+// const vite_socket_url = import.meta.env.VITE_SOCKET_URL;
 
 Amplify.configure({
   API: {
@@ -29,10 +29,10 @@ Amplify.configure({
         endpoint:
           "https://qnanswer-api.pk25mf6178910.eu-west-3.cs.amazonlightsail.com/q_and_a",
       },
-      {
-        name: "VITE_SOCKET_URL",
-        endpoint: vite_socket_url,
-      },
+      // {
+      //   name: "VITE_SOCKET_URL",
+      //   endpoint: vite_socket_url,
+      // },
       {
         name: "VITE_CORE_URL",
         endpoint: vite_core_url,

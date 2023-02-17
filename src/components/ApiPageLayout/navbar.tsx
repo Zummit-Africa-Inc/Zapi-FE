@@ -73,6 +73,7 @@ export default Navbar;
 const useStyles = makeStyles({
   tabpanel: {
     height: "90vh",
+    padding: "0px 16px",
     overflowY: "scroll",
   },
   tabs: {

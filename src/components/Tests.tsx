@@ -189,12 +189,10 @@ const Tests:React.FC<Props> = ({id}) => {
         };
         try {
             const data = await sendRequest(`/subscription/get-dev-tests`, "get", "VITE_CORE_URL", "", headers)
-            if(data === undefined) return
-            setTests(data?.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+            if(data === undefined) return;
+            setTests(data?.data);
+        } catch (error) {};
+    };
 
     const runTestAction = async(testId: string) => {
         const headers = {

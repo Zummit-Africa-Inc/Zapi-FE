@@ -1,4 +1,5 @@
 import React, {
+  ChangeEvent,
   FormEvent,
   useEffect,
   useState,
@@ -31,8 +32,9 @@ import { Spinner } from "../assets";
 import { useContextProvider } from "../contexts/ContextProvider";
 import ReactGA from "react-ga4";
 import UploadFile from "./UploadFile";
-import AddIcon from '@mui/icons-material/Add';
-import CloseIcon from '@mui/icons-material/Close';
+import AddIcon from "@mui/icons-material/Add";
+import CloseIcon from "@mui/icons-material/Close";
+import { fontWeight } from "@mui/system";
 
 const CustomTabs = styled(Tabs)({
   "& .MuiTabs-indicator": {
@@ -82,8 +84,10 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
   const { error, loading, sendRequest } = useHttpRequest();
   const [tab, setTab] = useState<number>(0);
   const [file, setFile] = useState<any>();
-  const [JsonFile, setJsonFile] = useState<any>("");
-  const [JsonData, setJsonData] = useState<any>("");
+  const [JsonFile, setJsonFile] = useState<File | null>(null);
+  const [yamlFile, setYamlFile] = useState<any>("");
+  const [JsonObject, setJsonObject] = useState<any | null>(null);
+  const [yamlData, setYamlData] = useState<any>("");
   const { triggerRefresh } = useContextProvider();
   const navigate = useNavigate();
   const {
@@ -184,8 +188,6 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
 
     if (!name || !route || !description)
       return toast.error("Name, route and description are required fields");
-    const formData = new FormData();
-    formData.append("file", file);
     const payload = {
       name,
       route,
@@ -196,7 +198,10 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
       query: queryParamsArray,
       mediaType: requestBodyFormat,
     };
-    const headers = { "Content-Type": "application/json" };
+    const headers = {
+      "Content-Type": "application/json",
+      "X-Zapi-Auth-Token": `Bearer ${cookies.get("accessToken")}`,
+    };
     try {
       const data = await sendRequest(
         `/endpoints/new/${id}`,
@@ -225,101 +230,95 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
     method === "" && setIsOptionsOpen(false);
   }, [method]);
 
-  const handleChange = (e: any) => {
-    const fileReader = new FileReader();
-    fileReader.readAsText(e.target.files![0], "UTF-8");
-    fileReader.onload = (e) => {
-      // console.log("e.target.result", e.target!.result);
-      setJsonFile(e.target!.result);
-    };
+  const JsonKeyExists = (object: string, key: string) => {
+    return JSON.parse(object).hasOwnProperty(key);
   };
 
-  const isValidJsonString = (query: string) => {
-    if (!(query && typeof query === "string")) {
-      return false;
-    }
-
-    try {
-      JSON.parse(query);
-      return true;
-    } catch (error) {
-      return false;
-    }
-  };
-  const JsonKeysExists = (objectName: string, keyName: string) => {
-    JSON.parse(JsonFile).hasOwnProperty(keyName);
-    return toast.error(`{JSON file is missing ${keyName} key}`);
-  };
-
-  const checkField = (obj: any, fields: any) => {
-    for (let field of fields) {
-      if (!Array.isArray(field)) {
-        if (obj?.[field] === undefined) return false;
-      } else if (!obj?.[field[0]] || !checkField(obj[field[0]], field[1]))
-        return false;
-    }
-    return true;
-  };
-
-  const fileUpload = async (e: any) => {
-    e.preventDefault();
-    if (!JsonFile) {
-      toast.error("Select a file to upload");
-    } else if (!isValidJsonString(JsonFile)) {
-      toast.error("Invalid JSON file");
+  const handleYamlFileChange = (e: any) => {
+    const filename: string = e.target.files![0].name;
+    if(filename.substring(filename.lastIndexOf('.') + 1).toLocaleLowerCase() === "yaml" || 
+      filename.substring(filename.lastIndexOf('.') + 1).toLocaleLowerCase() === "yml") {
+      setYamlFile(e.target.files![0]);
     } else {
-      if (
-        !JSON.parse(JsonFile).hasOwnProperty("info") ||
-        !JSON.parse(JsonFile).hasOwnProperty("event") ||
-        !JSON.parse(JsonFile).hasOwnProperty("item") ||
-        !JSON.parse(JsonFile).hasOwnProperty("variable")
-      ) {
-        toast.error("JSON file is missing required key");
-      } else {
-        const parsedJson = JSON.parse(JsonFile);
-        for (const key in parsedJson) {
-          if (Object.prototype.hasOwnProperty.call(parsedJson, key)) {
-            const element = parsedJson[key];
-            // console.log(element)
-          }
-        }
-        toast.success("Items uploadd successfully");
-        const formData = new FormData();
-        formData.append("JsonFile", JsonFile);
-        const headers = {
-          "Content-Type": "application/json",
-        };
-        if (JsonFile === null) return;
-        try {
-          const data = await sendRequest(
-            `/endpoints/new/collection/${id}`,
-            "post",
-            core_url,
-            parsedJson,
-            headers
-          );
-          setJsonData(data.data);
-
-          if (data.skipped.length === 0) {
-            return toast.success("No items Skipped");
-          } else {
-            return toast.warning(
-              `The following were skipped Skipped ${JSON.stringify(
-                data.skipped
-              )}`
-            );
-          }
-          console.log(data.skipped);
-          // setTimeout(() => {
-          //   navigate("/developer/dashboard");
-          // }, 2000);
-        } catch (error) {}
-        // }
-      }
+      toast.error("Invalid YAML File!");
+      clearYamlInputField();
     }
   };
-  const clearInputField = () => {
-    setJsonFile("");
+  
+  const getTextFromFile = (file: File) => {
+    if(!file) return;
+    const fileReader = new FileReader();
+    fileReader.onload = () => {
+      const fileContent = fileReader.result as string;
+      const jsonObject = JSON.parse(fileContent);
+      setJsonObject(jsonObject);
+    };
+    fileReader.readAsText(file);
+  };
+
+  const handleJsonFile = (e: ChangeEvent<HTMLInputElement>) => {
+    if(!e.target.files || e.target.files.length === 0) return;
+    const file = e.target.files[0];
+    const { type } = file;
+    if(type === "application/json") {
+      setJsonFile(file);
+      getTextFromFile(file);
+    } else {
+      return toast.error("Invalid file type");
+    }
+  };
+
+  const uploadJSONFile = async() => {
+    if(!JsonFile || JsonFile === null) return toast.error("Please select a file!");
+    if(JsonObject === null) return toast.error("Invalid JSON File!");
+    const JSONString = JSON.stringify(JsonObject)
+    if(!JsonKeyExists(JSONString, "info")) return toast.error("File does not contain key: info");
+    if(!JsonKeyExists(JSONString, "item")) return toast.error("File does not contain key: item");
+    // if(!JsonKeyExists(JSONString, "event")) return toast.error("File does not contain key: event");
+    // if(!JsonKeyExists(JSONString, "variable")) return toast.error("File does not contain key: variable");
+    const headers = {
+      "Content-Type": "application/json",
+      "X-Zapi-Auth-Token": `Bearer ${cookies.get("accessToken")}`,
+    };
+    try {
+      const data = await sendRequest(`/endpoints/new/collection/${id}`, "post", "VITE_CORE_URL", JsonObject, headers)
+      if(!data || data === undefined) return
+      const { message } = data;
+      console.log(data)
+      toast.success(`${message}`)
+    } catch(error) {}
+  };
+
+  const yamlFileUpload: any = async (e: any) => {
+    e.preventDefault();
+    clearYamlInputField();
+    if (!yamlFile) {
+      toast.error("Select a YAML File to Upload!");
+    } else {
+      const formData = new FormData();
+      formData.append("file", yamlFile);
+      const headers = {
+        "Content-Type": "multi-part/form-data",
+      };
+      if (yamlFile === null) return;
+      try {
+        const data = await sendRequest(
+          `/endpoints/new/yaml/${id}`,
+          "post",
+          core_url,
+          formData,
+          headers
+        );
+        if(!data || data === undefined) return;
+        const { message } = data;
+        toast.success(`${message}`);
+        triggerRefresh();
+      } catch (error) {}
+    }
+  };
+
+  const clearYamlInputField = () => {
+    setYamlFile("");
     if (inputRef.current) {
       inputRef.current.value = "";
     }
@@ -333,12 +332,16 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
             API Definition
           </Typography>
         </Box>
-        <Box className={classes.pageSubHeading}>
-          <Typography variant="subtitle2" width="auto" fontWeight={400}>
-            When publishing an API to the ZapiAPI Hub, you can either manually
-            edit endpoint definitions, use a specification file.
-          </Typography>
-        </Box>
+        <Typography
+          variant="subtitle2"
+          sx={{
+            paddingBottom: "1rem",
+            fontWeight: 400,
+            width: "auto",
+          }}>
+          When publishing an API to the ZapiAPI Hub, you can either manually
+          edit endpoint definitions, use a specification file.
+        </Typography>
         {/* <Typography
           variant="body1"
           fontSize="24px"
@@ -373,7 +376,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
           />
         </CustomTabs>
       </Stack>
-      <Box>
+      <Box sx={{ marginBottom: "2rem" }}>
         <TabPanel value={tab} index={0}>
           <Stack>
             <Stack direction="column" mb={6}>
@@ -396,7 +399,12 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
               <Box className={classes.pageDescription}>
                 <Typography>Add and define your API endpoints.</Typography>
               </Box>
-              <Box sx={{ display: "flex", alignItems: "center", justifyContent:"flex-end" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "flex-end",
+                }}>
                 {/* <Box className={classes.inputs}>
                   <input type="text" name="search" placeholder="Search..." />
                 </Box> */}
@@ -405,8 +413,10 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                     onClick={toggleAdding}
                     // className={classes.button}
                     startIcon={isAdding ? <CloseIcon /> : <AddIcon />}
-                    style={{ background: isAdding ? "#c5c5c5" : "#26c340", color: isAdding ? "#fff" : "#fff" }}
-                    >
+                    style={{
+                      background: isAdding ? "#c5c5c5" : "#26c340",
+                      color: isAdding ? "#fff" : "#fff",
+                    }}>
                     {isAdding ? "Cancel" : "Add Endpoint"}
                   </Button>
                 </Box>
@@ -473,35 +483,67 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                   <>
                     <Stack direction="column" spacing={1}>
                       <Stack direction="row" spacing={2}>
-                        <Box className={classes.inputs}>
-                          <input
-                            type="text"
-                            name="headers"
-                            {...bind}
-                            placeholder="Headers"
-                          />
+                        <Box>
+                          <h4
+                            style={{
+                              fontSize: "15px",
+                              marginTop: "10px",
+                              marginBottom: "5px",
+                            }}>
+                            Headers
+                          </h4>
+                          <p style={{ fontSize: "13px", paddingBottom: "5px" }}>
+                            Variable name
+                          </p>
+                          <Box className={classes.inputs}>
+                            <input
+                              type="text"
+                              name="headers"
+                              {...bind}
+                              placeholder="e.g Authorization"
+                            />
+                          </Box>
                         </Box>
-                        <Box className={classes.inputs}>
-                          <select name="headerType" {...select}>
-                            <option value="string">String</option>
-                            <option value="number">Number</option>
-                            <option value="file">File</option>
-                            <option value="boolean">Boolean</option>
-                            <option value="object">Object</option>
-                            <option value="array">Array</option>
-                            <option value="date">Date</option>
-                            <option value="time">Time</option>
-                            <option value="enum">Enum</option>
-                          </select>
+                        <Box sx={{ paddingTop: "2.1em" }}>
+                          <p style={{ fontSize: "13px", paddingBottom: "5px" }}>
+                            Data types
+                          </p>
+                          <Box className={classes.inputs}>
+                            <select name="headerType" {...select}>
+                              <option value="string">String</option>
+                              <option value="number">Number</option>
+                              <option value="file">File</option>
+                              <option value="boolean">Boolean</option>
+                              <option value="object">Object</option>
+                              <option value="array">Array</option>
+                              <option value="date">Date</option>
+                              <option value="time">Time</option>
+                              <option value="enum">Enum</option>
+                            </select>
+                          </Box>
                         </Box>
-                        <Box className={classes.inputs}>
-                          <input
-                            type="checkbox"
-                            name="headerIsRequired"
-                            {...toggle}
-                          />
+                        <Box sx={{ paddingTop: "2.1em" }}>
+                          <p
+                            style={{
+                              fontSize: "13px",
+                              paddingBottom: "5px",
+                            }}>
+                            Required
+                          </p>
+                          <Box
+                            sx={{ paddingTop: "1em", marginLeft: "1.5em" }}
+                            className={classes.inputs}>
+                            <input
+                              type="checkbox"
+                              name="headerIsRequired"
+                              {...toggle}
+                              required
+                            />
+                          </Box>
                         </Box>
-                        <Box className={classes.inputs}>
+                        <Box
+                          sx={{ paddingTop: "4em" }}
+                          className={classes.inputs}>
                           <button
                             type="button"
                             onClick={() =>
@@ -515,43 +557,78 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                           </button>
                         </Box>
                       </Stack>
-                      {(method === "post" || method === "post") && (
+                      {(method === "post" || method === "patch") && (
                         <Stack direction="row" spacing={2}>
-                          <Box className={classes.inputs}>
-                            <input
-                              type="text"
-                              name="requestBody"
-                              {...bind}
-                              placeholder="Body"
-                            />
+                          <Box>
+                            <h4
+                              style={{
+                                fontSize: "15px",
+                                marginTop: "10px",
+                                marginBottom: "5px",
+                              }}>
+                              Body
+                            </h4>
+                            <p
+                              style={{
+                                fontSize: "13px",
+                                paddingBottom: "5px",
+                              }}>
+                              Variable name
+                            </p>
+                            <Box className={classes.inputs}>
+                              <input
+                                type="text"
+                                name="requestBody"
+                                {...bind}
+                                placeholder="e.g name"
+                              />
+                            </Box>
                           </Box>
-                          <Box className={classes.inputs}>
-                            <select name="requestBodyType" {...select}>
-                              <option value="string">String</option>
-                              <option value="number">Number</option>
-                              <option value="file">File</option>
-                              <option value="boolean">Boolean</option>
-                              <option value="object">Object</option>
-                              <option value="array">Array</option>
-                              <option value="date">Date</option>
-                              <option value="time">Time</option>
-                              <option value="enum">Enum</option>
-                            </select>
+                          <Box sx={{ paddingTop: "2.1em" }}>
+                            <p
+                              style={{
+                                fontSize: "13px",
+                                paddingBottom: "5px",
+                              }}>
+                              Data types
+                            </p>
+                            <Box className={classes.inputs}>
+                              <select name="requestBodyType" {...select}>
+                                <option value="string">String</option>
+                                <option value="number">Number</option>
+                                <option value="file">File</option>
+                                <option value="boolean">Boolean</option>
+                                <option value="object">Object</option>
+                                <option value="array">Array</option>
+                                <option value="date">Date</option>
+                                <option value="time">Time</option>
+                                <option value="enum">Enum</option>
+                              </select>
+                            </Box>
                           </Box>
-                          <Box className={classes.inputs}>
-                            <select name="requestBodyFormat" {...select}>
-                              <option value="application/json">
-                                application/json
-                              </option>
-                              <option value="application/xml">
-                                application/xml
-                              </option>
-                              <option value="application/octet-stream">
-                                application/octet-stream
-                              </option>
-                              <option value="text/plain">text/plain</option>
-                              <option value="form-data">form-data</option>
-                            </select>
+                          <Box sx={{ paddingTop: "2.1em" }}>
+                            <p
+                              style={{
+                                fontSize: "13px",
+                                paddingBottom: "5px",
+                              }}>
+                              Content type
+                            </p>
+                            <Box className={classes.inputs}>
+                              <select name="requestBodyFormat" {...select}>
+                                <option value="application/json">
+                                  application/json
+                                </option>
+                                <option value="application/xml">
+                                  application/xml
+                                </option>
+                                <option value="application/octet-stream">
+                                  application/octet-stream
+                                </option>
+                                <option value="text/plain">text/plain</option>
+                                <option value="form-data">form-data</option>
+                              </select>
+                            </Box>
                           </Box>
                           {requestBodyFormat === "form-data" && (
                             <Box
@@ -574,14 +651,28 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                               />
                             </Box>
                           )}
-                          <Box className={classes.inputs}>
-                            <input
-                              type="checkbox"
-                              name="requestBodyIsRequired"
-                              {...toggle}
-                            />
+                          <Box sx={{ paddingTop: "2.1em" }}>
+                            <p
+                              style={{
+                                fontSize: "13px",
+                                paddingBottom: "5px",
+                              }}>
+                              Required
+                            </p>
+                            <Box
+                              sx={{ paddingTop: "1em", marginLeft: "1.5em" }}
+                              className={classes.inputs}>
+                              <input
+                                type="checkbox"
+                                name="requestBodyIsRequired"
+                                {...toggle}
+                                required
+                              />
+                            </Box>
                           </Box>
-                          <Box className={classes.inputs}>
+                          <Box
+                            sx={{ paddingTop: "4em" }}
+                            className={classes.inputs}>
                             <button
                               type="button"
                               onClick={() =>
@@ -596,36 +687,77 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                           </Box>
                         </Stack>
                       )}
+
                       <Stack direction="row" spacing={2}>
-                        <Box className={classes.inputs}>
-                          <input
-                            type="text"
-                            name="queryParams"
-                            {...bind}
-                            placeholder="Query"
-                          />
+                        <Box>
+                          <h4
+                            style={{
+                              fontSize: "15px",
+                              marginTop: "10px",
+                              marginBottom: "5px",
+                            }}>
+                            Query
+                          </h4>
+                          <p
+                            style={{
+                              fontSize: "13px",
+                              paddingBottom: "5px",
+                            }}>
+                            Variable name
+                          </p>
+                          <Box className={classes.inputs}>
+                            <input
+                              type="text"
+                              name="queryParams"
+                              {...bind}
+                              placeholder="e.g userId"
+                            />
+                          </Box>
                         </Box>
-                        <Box className={classes.inputs}>
-                          <select name="queryParamType" {...select}>
-                            <option value="string">String</option>
-                            <option value="number">Number</option>
-                            <option value="file">File</option>
-                            <option value="boolean">Boolean</option>
-                            <option value="object">Object</option>
-                            <option value="array">Array</option>
-                            <option value="date">Date</option>
-                            <option value="time">Time</option>
-                            <option value="enum">Enum</option>
-                          </select>
+                        <Box sx={{ paddingTop: "2.1em" }}>
+                          <p
+                            style={{
+                              fontSize: "13px",
+                              paddingBottom: "5px",
+                            }}>
+                            Data types
+                          </p>
+                          <Box className={classes.inputs}>
+                            <select name="queryParamType" {...select}>
+                              <option value="string">String</option>
+                              <option value="number">Number</option>
+                              <option value="file">File</option>
+                              <option value="boolean">Boolean</option>
+                              <option value="object">Object</option>
+                              <option value="array">Array</option>
+                              <option value="date">Date</option>
+                              <option value="time">Time</option>
+                              <option value="enum">Enum</option>
+                            </select>
+                          </Box>
                         </Box>
-                        <Box className={classes.inputs}>
-                          <input
-                            type="checkbox"
-                            name="queryParamIsRequired"
-                            {...toggle}
-                          />
+                        <Box sx={{ paddingTop: "2.1em" }}>
+                          <p
+                            style={{
+                              fontSize: "13px",
+                              paddingBottom: "5px",
+                            }}>
+                            Required
+                          </p>
+                          <Box
+                            sx={{ paddingTop: "1em", marginLeft: "1.5em" }}
+                            className={classes.inputs}>
+                            <input
+                              type="checkbox"
+                              name="queryParamIsRequired"
+                              {...toggle}
+                              required
+                            />
+                          </Box>
                         </Box>
-                        <Box className={classes.inputs}>
+                        <Box
+                          sx={{ paddingTop: "4em" }}
+                          className={classes.inputs}>
                           <button
                             type="button"
                             onClick={() =>
@@ -684,52 +816,63 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                 </ul>
               </Stack>
             )}
-            <EndpointTable id={`${id}`} />
+            <EndpointTable id={`${id}`} reloadFn={() => dispatch(getUserApis(profileId))} />
           </Stack>
         </TabPanel>
         <TabPanel value={tab} index={1}>
-          <Stack>
-            <Stack direction="column" mb={6}>
-              <Typography
-                variant="body1"
-                fontSize="24px"
-                color="#081F4A"
-                fontWeight={500}
-                mt={2}>
-                Update API Definition
-              </Typography>
+          <Typography
+            variant="body1"
+            fontSize="24px"
+            color="#081F4A"
+            fontWeight={500}
+            mt={2}>
+            Update API Definition
+          </Typography>
 
-              <Typography
-                variant="subtitle2"
-                // fontSize="16px"
-                fontWeight={400}
-                mb={10}>
-                *Postman collections only
-              </Typography>
+          <Typography
+            variant="subtitle2"
+            // fontSize="16px"
+            fontWeight={400}
+            mb={5}>
+            *Postman collections only
+          </Typography>
+
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              gap: "50px",
+            }}>
+            <Box>
               <UploadFile
-                label="Upload JSON"
+                label={loading ? "Uploadding" : "Upload JSON"}
                 logo_url=""
                 visible={JsonFile ? true : false}
-                handleChange={handleChange}
-                imageUpload={fileUpload}
+                handleChange={handleJsonFile}
+                imageUpload={uploadJSONFile}
                 imageReject={(e: any) => {
                   e.preventDefault();
-                  clearInputField();
+                }}
+                inputRef={inputRef}
+              />
+            </Box>
+
+            <Box>
+              <UploadFile
+                label="Upload YAML"
+                logo_url=""
+                visible={yamlFile ? true : false}
+                handleChange={handleYamlFileChange}
+                imageUpload={yamlFileUpload}
+                imageReject={(e: any) => {
+                  e.preventDefault();
+                  clearYamlInputField();
                   triggerRefresh();
                 }}
                 inputRef={inputRef}
               />
-              <Box className={classes.pageActions}>
-                <Typography
-                  variant="subtitle1"
-                  fontSize="1rem"
-                  color="#081F4A"
-                  fontWeight={400}>
-                  (application/json)
-                </Typography>
-              </Box>
-            </Stack>
-          </Stack>
+            </Box>
+          </Box>
         </TabPanel>
       </Box>
     </Paper>
@@ -740,22 +883,14 @@ export default EndpointTab;
 
 const useStyles = makeStyles({
   paper: {
-    width: "100%",
-    minWidth: "890px",
     marginTop: "20px",
     padding: "2rem",
-    marginBottom: "2rem",
-  },
-  pageSubHeading: {
-    paddingBottom: "1rem",
+    marginBottom: "5rem",
+    width: "100%",
+    minWidth: "890px",
   },
   pageDescription: {
     paddingBottom: "1rem",
-  },
-  pageActions: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
   },
   inputs: {
     width: "max-content",

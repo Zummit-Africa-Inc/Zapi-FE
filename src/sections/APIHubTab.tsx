@@ -27,12 +27,13 @@ import { useAppSelector, useHttpRequest } from "../hooks";
 import { TabPanel, Fallback } from "../components";
 
 const default_url = import.meta.env.VITE_DEFAULT_CATEGORY_ID;
-
 const core_url = "VITE_CORE_URL";
+
 const APIHubTab: React.FC = () => {
   const classes = useStyles();
   const [tab, setTab] = useState<any>();
-  const [categoryId, setCategoryId] = useState<string>(default_url);
+  let category_id = localStorage.getItem("category") || default_url;
+  const [categoryId, setCategoryId] = useState<string>(category_id);
   const { categories } = useAppSelector((store) => store.apis);
   const { error, loading, sendRequest } = useHttpRequest();
   const [isOpen, setIsOpen] = useState<boolean>(true);
@@ -69,6 +70,7 @@ const APIHubTab: React.FC = () => {
   };
   useEffect(() => {
     handleSelector(categoryId);
+    localStorage.removeItem("category");
   }, [categoryId]);
 
   useEffect(() => {
@@ -85,24 +87,24 @@ const APIHubTab: React.FC = () => {
   });
 
   let icons: any = {
-    popular: <LibraryBooks />,
-    safety: <Layers />,
-    security: <Security />,
+    "popular": <LibraryBooks />,
+    "safety": <Layers />,
+    "security": <Security />,
     "customer service": <ChatBubble />,
-    general: <Lightbulb />,
-    sports: <SportsFootball />,
-    travel: <AirplanemodeActive />,
-    finance: <AttachMoney />,
-    educational: <School />,
-    data: <DataArray />,
-    science: <Science />,
-    music: <MusicNote />,
-    tools: <Build />,
+    "general": <Lightbulb />,
+    "sports": <SportsFootball />,
+    "travel": <AirplanemodeActive />,
+    "finance": <AttachMoney />,
+    "educational": <School />,
+    "data": <DataArray />,
+    "science": <Science />,
+    "music": <MusicNote />,
+    "tools": <Build />,
     "text analysis": <FormatColorText />,
-    weather: <Cloud />,
-    all: <Apps />,
+    "weather": <Cloud />,
+    "all": <Apps />,
   };
-
+  
   return (
     <Box className={classes.container}>
       {loading && <Fallback />}

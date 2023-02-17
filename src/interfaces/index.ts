@@ -67,6 +67,14 @@ export interface CardProps {
     popularity?: number
 }
 
+export interface FeedbackProps {
+    id?: string
+    name?: string
+    email?: string
+    body?: string
+    createdOn?: any
+}
+
 export interface IErrorType { 
     error?: any 
 }
@@ -124,7 +132,7 @@ export interface UserState {
 }
 
 export interface RunTestResponse {
-    data: string
+    data: any
     message: string
     status: string | number
     success: boolean

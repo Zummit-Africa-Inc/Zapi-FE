@@ -125,7 +125,8 @@ const GatewayTab: React.FC = () => {
 };
 const useStyles = makeStyles({
   paper: {
-    width: "950px",
+    width: "100%",
+    // width: "950px",
     marginTop: "20px",
     padding: "2rem 2rem",
   },

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -23,7 +23,7 @@ import { EndpointProps } from "../interfaces";
 import { Spinner } from "../assets";
 
 const core_url = "VITE_CORE_URL";
-const initialState = {
+let initialState = {
   id: "",
   name: "",
   route: "",
@@ -32,6 +32,7 @@ const initialState = {
 
 interface Props {
   id: string | undefined;
+  reloadFn: () => void;
 }
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -56,7 +57,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const CollapsibleTable: React.FC<Props> = ({ id }) => {
+const CollapsibleTable = ({ id, reloadFn }: Props) => {
   const [isEditing, setIsEditing] = useState<number | null>(null);
   const { userApis } = useAppSelector((store) => store.user);
   const { error, loading, sendRequest } = useHttpRequest();
@@ -66,6 +67,8 @@ const CollapsibleTable: React.FC<Props> = ({ id }) => {
   const dispatch = useAppDispatch();
   const classes = useStyles();
   const cookies = new Cookies();
+  const profileId = cookies.get("profileId");
+  const [newId, setNewId] = useState<any | null>(null);
   let payload: object;
 
   const openEditing = (index: number) => {
@@ -73,20 +76,54 @@ const CollapsibleTable: React.FC<Props> = ({ id }) => {
   };
 
   const save = async (id: string | undefined) => {
-    if (!name || !method || !route) {
-      toast.error("No changes made");
-      setIsEditing(null);
-      return;
+    if (!id) return;
+    const endpoint = api?.endpoints?.find((endpoint) => endpoint?.id === id);
+    if (!endpoint) return;
+    if (!name) {
+      initialState = {
+        id: id,
+        method: method,
+        name: endpoint.name,
+        route: route,
+      };
     }
-    payload = { id, name, method, route };
-    const headers = { "Content-Type": "application/json" };
+    if (!method) {
+      initialState = {
+        id: id,
+        method: endpoint.method,
+        name: name,
+        route: route,
+      };
+    }
+    if (!route) {
+      initialState = {
+        id: id,
+        method: method,
+        name: name,
+        route: endpoint.route,
+      };
+    }
+    if (!name && !method && !route) {
+      initialState = {
+        id: id,
+        method: endpoint.method,
+        name: endpoint.name,
+        route: endpoint.route,
+      };
+    }
+    const payload = initialState;
+    const headers = {
+      "Content-Type": "application/json",
+      "X-Zapi-Auth-Token": `Bearer ${cookies.get("accessToken")}`,
+    };
     try {
       const data = await sendRequest(
         `/endpoints/${id}`,
         "patch",
         core_url,
         payload,
-        headers
+        headers,
+        { profileId }
       );
       if (!data || data === undefined) return;
       dispatch(editEndpoint(payload));
@@ -94,22 +131,34 @@ const CollapsibleTable: React.FC<Props> = ({ id }) => {
       const { message } = data;
       toast.success(`${message}`);
     } catch (error) {}
+    return () => reloadFn();
   };
 
   const deleteRoute = async (id: string | undefined) => {
-    const headers = { "Content-Type": "application/json" };
+    setNewId(id);
+    const headers = {
+      "Content-Type": "application/json",
+      "X-Zapi-Auth-Token": `Bearer ${cookies.get("accessToken")}`,
+    };
     try {
       const data = await sendRequest(
-        `/endpoints/${id}?profileId=${cookies.get("profileId")}`,
+        `/endpoints/${id}`,
         "del",
         core_url,
         payload,
-        headers
+        headers,
+        { profileId }
       );
       if (!data || data === undefined) return;
       dispatch(removeEndpoint(id));
+      setNewId(null);
     } catch (error) {}
+    return () => reloadFn();
   };
+
+  useEffect(() => {
+    error && toast.error(`${error}`);
+  }, [error]);
 
   return (
     <>
@@ -179,10 +228,10 @@ const CollapsibleTable: React.FC<Props> = ({ id }) => {
                 </StyledTableCell>
                 <StyledTableCell>
                   <button
-                    onClick={() => deleteRoute(endpoint?.id)}
+                    onClick={() => deleteRoute(endpoint!.id)}
                     className={classes.button}
                     style={{ background: "#e83f33" }}>
-                    {loading ? <Spinner /> : "DELETE"}
+                    {newId === endpoint?.id ? <Spinner /> : "DELETE"}
                   </button>
                 </StyledTableCell>
               </StyledTableRow>

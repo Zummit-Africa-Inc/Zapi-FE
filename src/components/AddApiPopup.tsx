@@ -62,16 +62,12 @@ const AddApiPopup: React.FC = () => {
       triggerRefresh();
       const { message } = data;
       toast.success(`${message}`);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
     handleUnclicked();
   };
 
   useEffect(() => {
-    {
-      error && toast.error(`${error}`);
-    }
+    error && toast.error(`${error}`);
   }, [error]);
 
   return (
