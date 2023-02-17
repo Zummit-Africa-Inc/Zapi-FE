@@ -188,8 +188,6 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
 
     if (!name || !route || !description)
       return toast.error("Name, route and description are required fields");
-    const formData = new FormData();
-    formData.append("file", file);
     const payload = {
       name,
       route,
@@ -236,6 +234,17 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
     return JSON.parse(object).hasOwnProperty(key);
   };
 
+  const handleYamlFileChange = (e: any) => {
+    const filename: string = e.target.files![0].name;
+    if(filename.substring(filename.lastIndexOf('.') + 1).toLocaleLowerCase() === "yaml" || 
+      filename.substring(filename.lastIndexOf('.') + 1).toLocaleLowerCase() === "yml") {
+      setYamlFile(e.target.files![0]);
+    } else {
+      toast.error("Invalid YAML File!");
+      clearYamlInputField();
+    }
+  };
+  
   const getTextFromFile = (file: File) => {
     if(!file) return;
     const fileReader = new FileReader();
@@ -245,7 +254,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
       setJsonObject(jsonObject);
     };
     fileReader.readAsText(file);
-  }
+  };
 
   const handleJsonFile = (e: ChangeEvent<HTMLInputElement>) => {
     if(!e.target.files || e.target.files.length === 0) return;
@@ -280,84 +289,31 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
     } catch(error) {}
   };
 
-  const handleYamlFile = (e: any) => {
-    const fileReader = new FileReader();
-    fileReader.readAsText(e.target.files![0], "UTF-8");
-    fileReader.onload = (e) => {
-      // console.log("e.target.result", e.target!.result);
-      setYamlFile(e.target!.result);
-    };
-  };
-
-  const isValidYamlString = (query: string) => {
-    if (!(query && typeof query === "string")) {
-      return false;
-    }
-    try {
-      JSON.parse(query);
-      return true;
-    } catch (error) {
-      return false;
-    }
-  };
-
   const yamlFileUpload: any = async (e: any) => {
     e.preventDefault();
+    clearYamlInputField();
     if (!yamlFile) {
-      toast.error("Select a file to upload");
-    } else if (!isValidYamlString(yamlFile)) {
-      toast.error("Invalid YAML file");
-      clearYamlInputField();
+      toast.error("Select a YAML File to Upload!");
     } else {
-      if (
-        !JSON.parse(yamlFile).hasOwnProperty("info") ||
-        !JSON.parse(yamlFile).hasOwnProperty("event") ||
-        !JSON.parse(yamlFile).hasOwnProperty("item") ||
-        !JSON.parse(yamlFile).hasOwnProperty("variable")
-      ) {
-        toast.error("YAML file is missing required key");
-        clearYamlInputField();
-      } else {
-        const parsedYaml = JSON.parse(yamlFile);
-        for (const key in parsedYaml) {
-          if (Object.prototype.hasOwnProperty.call(parsedYaml, key)) {
-            const element = parsedYaml[key];
-            // console.log(element)
-          }
-        }
-        toast.success("Items upload successfully");
-        const formData = new FormData();
-        formData.append("yamlFile", yamlFile);
-        const headers = {
-          "Content-Type": "application/json",
-        };
-        if (yamlFile === null) return;
-        try {
-          const data = await sendRequest(
-            `/endpoints/new/collection/${id}`,
-            "post",
-            core_url,
-            parsedYaml,
-            headers
-          );
-          setYamlData(data.data);
-
-          if (data.skipped.length === 0) {
-            return toast.success("No items Skipped");
-          } else {
-            return toast.warning(
-              `The following were skipped Skipped ${JSON.stringify(
-                data.skipped
-              )}`
-            );
-          }
-          console.log(data.skipped);
-          // setTimeout(() => {
-          //   navigate("/developer/dashboard");
-          // }, 2000);
-        } catch (error) {}
-        // }
-      }
+      const formData = new FormData();
+      formData.append("file", yamlFile);
+      const headers = {
+        "Content-Type": "multi-part/form-data",
+      };
+      if (yamlFile === null) return;
+      try {
+        const data = await sendRequest(
+          `/endpoints/new/yaml/${id}`,
+          "post",
+          core_url,
+          formData,
+          headers
+        );
+        if(!data || data === undefined) return;
+        const { message } = data;
+        toast.success(`${message}`);
+        triggerRefresh();
+      } catch (error) {}
     }
   };
 
@@ -906,7 +862,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                 label="Upload YAML"
                 logo_url=""
                 visible={yamlFile ? true : false}
-                handleChange={handleYamlFile}
+                handleChange={handleYamlFileChange}
                 imageUpload={yamlFileUpload}
                 imageReject={(e: any) => {
                   e.preventDefault();
