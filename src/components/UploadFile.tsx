@@ -1,18 +1,18 @@
-import React from 'react';
+import React from "react";
 import { makeStyles } from "@mui/styles";
 import ChoiceButton from "./ChoiceButton";
-import AttachFileIcon from '@mui/icons-material/AttachFile';
-import UploadFileIcon from '@mui/icons-material/UploadFile';
-import SvgIcon from '@mui/material/SvgIcon';
-import Fab from '@mui/material/Fab';
-import AddIcon from '@mui/icons-material/Add';
+import AttachFileIcon from "@mui/icons-material/AttachFile";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
+import SvgIcon from "@mui/material/SvgIcon";
+import Fab from "@mui/material/Fab";
+import AddIcon from "@mui/icons-material/Add";
 import {
-    Box,
-    Input,
-    Avatar,
-    InputBase,
-    InputLabel,
-    Typography
+  Box,
+  Input,
+  Avatar,
+  InputBase,
+  InputLabel,
+  Typography,
 } from "@mui/material";
 
 interface Props {
@@ -44,57 +44,59 @@ const UploadFile: React.FC<Props> = ({
     visible,
     loading
 }) => {
-    const classes = useStyles();
-    return (
-        <InputLabel className={classes.wrapper}>  
-            <Box>
-                <Box sx={{ display: 'flex',flexDirection: 'column' }}>
-                    {logo_url ? (
-                        <Avatar src={logo_url}
-                            alt=""
-                            variant="square"
-                            sizes='large'
-                            sx={{ width: 200, height: 200 }}
-                        />
-                    ) : (
-                        <Box sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center",
-                        }}>
-                            <SvgIcon component={UploadFileIcon} sx={{ fontSize: 130 }} />
-                            <Typography component="p" sx={{ marginLeft: "15px" }}>
-                                {label}
-                            </Typography>
-                        </Box>
-                    )}
-                </Box>
+  const classes = useStyles();
+  return (
+    <InputLabel className={classes.wrapper}>
+      <Box>
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          {logo_url ? (
+            <Avatar
+              src={logo_url}
+              alt=""
+              variant="square"
+              sizes="large"
+              sx={{ width: 100, height: 200 }}
+            />
+          ) : (
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                margin: "0 auto",
+              }}>
+              <SvgIcon component={UploadFileIcon} sx={{ fontSize: 130 }} />
+              <Typography component="p" sx={{ marginLeft: "15px" }}>
+                {label}
+              </Typography>
             </Box>
+          )}
+        </Box>
+      </Box>
 
-            <InputBase
-                type="file"
-                onChange={handleChange}
-                startAdornment={startAdornment}
-                endAdornment={endAdornment}
-                error={error}
-                inputProps={inputProps}
-                inputRef={inputRef}
-                sx={{ display: 'none' }}
-            />  
-            
-            <Fab
-                color="info"
-                size="small"
-                component="span"
-                aria-label="add"
-                variant="extended"
-                sx={{  
-                    marginTop: 2, 
-                    padding: 2,
-                }}
-            >
-                <AddIcon /> Choose file
-            </Fab>
+      <InputBase
+        type="file"
+        onChange={handleChange}
+        startAdornment={startAdornment}
+        endAdornment={endAdornment}
+        error={error}
+        inputProps={inputProps}
+        inputRef={inputRef}
+        sx={{ display: "none" }}
+      />
+
+      {/* <Fab
+        color="info"
+        size="small"
+        component="span"
+        aria-label="add"
+        variant="extended"
+        sx={{
+          marginTop: 2,
+          padding: 2,
+        }}>
+        <AddIcon /> Choose file
+      </Fab> */}
 
             <ChoiceButton
                 border="1px solid rgb(214, 217, 219)"
@@ -118,17 +120,20 @@ const UploadFile: React.FC<Props> = ({
 export default UploadFile;
 
 const useStyles = makeStyles({
-    wrapper: {
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-        height: "100%",
-        "& img": {
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-        },
-    }
+  wrapper: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "50%",
+    height: "50%",
+    border: "1px solid #000000",
+    borderRadius: "8px",
+    "& img": {
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+      margin: "0 auto",
+    },
+  },
 });
