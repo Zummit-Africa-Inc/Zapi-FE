@@ -283,10 +283,13 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
     try {
       const data = await sendRequest(`/endpoints/new/collection/${id}`, "post", "VITE_CORE_URL", JsonObject, headers)
       if(!data || data === undefined) return
-      const { message } = data;
-      console.log(data)
-      toast.success(`${message}`)
-    } catch(error) {}
+      const { message, skipped } = data;
+      toast.success(`${message}`);
+      if(!skipped) return;
+      console.log(skipped);
+    } catch(error) {
+      console.log(error)
+    };
   };
 
   const yamlFileUpload: any = async (e: any) => {
@@ -310,9 +313,11 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
           headers
         );
         if(!data || data === undefined) return;
-        const { message } = data;
+        const { message, data:{skipped} } = data;
+        console.log(data);
         toast.success(`${message}`);
-        triggerRefresh();
+        if(!skipped) return;
+        console.log(skipped);
       } catch (error) {}
     }
   };
@@ -845,7 +850,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
             }}>
             <Box>
               <UploadFile
-                label={loading ? "Uploadding" : "Upload JSON"}
+                label="Upload JSON"
                 logo_url=""
                 visible={JsonFile ? true : false}
                 handleChange={handleJsonFile}
@@ -854,6 +859,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                   e.preventDefault();
                 }}
                 inputRef={inputRef}
+                loading={loading}
               />
             </Box>
 
@@ -870,6 +876,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                   triggerRefresh();
                 }}
                 inputRef={inputRef}
+                loading={loading}
               />
             </Box>
           </Box>

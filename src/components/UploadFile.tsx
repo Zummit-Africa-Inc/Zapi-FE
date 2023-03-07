@@ -27,6 +27,7 @@ interface Props {
     inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
     inputRef?: React.Ref<HTMLInputElement>;
     visible: boolean;
+    loading?: boolean
 };
 
 const UploadFile: React.FC<Props> = ({
@@ -40,7 +41,8 @@ const UploadFile: React.FC<Props> = ({
     inputRef,
     startAdornment,
     endAdornment,
-    visible
+    visible,
+    loading
 }) => {
     const classes = useStyles();
     return (
@@ -101,7 +103,7 @@ const UploadFile: React.FC<Props> = ({
                 onAccept={imageUpload}
                 onReject={imageReject}
                 radius="5px"
-                acceptText="Upload"
+                acceptText={loading ? "Loading" : "Upload"}
                 rejectText="Cancel"
                 acceptBackgroundColor="#26c340"
                 rejectBackgroundColor="#FFF"
