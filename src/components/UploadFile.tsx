@@ -1,19 +1,17 @@
 import React from "react";
 import { makeStyles } from "@mui/styles";
-import ChoiceButton from "./ChoiceButton";
-import AttachFileIcon from "@mui/icons-material/AttachFile";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import SvgIcon from "@mui/material/SvgIcon";
-import Fab from "@mui/material/Fab";
-import AddIcon from "@mui/icons-material/Add";
 import {
-  Box,
-  Input,
   Avatar,
+  Box,
+  Button,
   InputBase,
   InputLabel,
   Typography,
 } from "@mui/material";
+
+import ChoiceButton from "./ChoiceButton";
 
 interface Props {
     logo_url: string;
@@ -65,8 +63,8 @@ const UploadFile: React.FC<Props> = ({
                 justifyContent: "center",
                 margin: "0 auto",
               }}>
-              <SvgIcon component={UploadFileIcon} sx={{ fontSize: 130 }} />
-              <Typography component="p" sx={{ marginLeft: "15px" }}>
+              <SvgIcon component={UploadFileIcon} sx={{fontSize: 130}} />
+              <Typography component="p" sx={{marginLeft: "15px",color: "var(--color-primary)"}}>
                 {label}
               </Typography>
             </Box>
@@ -84,36 +82,21 @@ const UploadFile: React.FC<Props> = ({
         inputRef={inputRef}
         sx={{ display: "none" }}
       />
-
-      {/* <Fab
-        color="info"
-        size="small"
-        component="span"
-        aria-label="add"
-        variant="extended"
-        sx={{
-          marginTop: 2,
-          padding: 2,
-        }}>
-        <AddIcon /> Choose file
-      </Fab> */}
-
-            <ChoiceButton
-                border="1px solid rgb(214, 217, 219)"
-                acceptColor="#FFF"
-                rejectColor="rgba(0, 0, 0, 0.87)"
-                onAccept={imageUpload}
-                onReject={imageReject}
-                radius="5px"
-                acceptText={loading ? "Loading" : "Upload"}
-                rejectText="Cancel"
-                acceptBackgroundColor="#26c340"
-                rejectBackgroundColor="#FFF"
-                padding="15px 25px"
-                outline="none"
-                visible={visible}
-            />
-        </InputLabel>
+      {visible && (
+        <Box className={classes.flex}>
+          <Button
+            className={`${classes.button} Upload`}
+            onClick={imageUpload}>
+            {loading ? "Loading" : "Upload"}
+          </Button>
+          <Button
+            className={`${classes.button} Reject`}
+            onClick={imageReject}>
+            Cancel
+          </Button>
+        </Box>
+      )}
+      </InputLabel>
     )
 }
 
@@ -125,8 +108,8 @@ const useStyles = makeStyles({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    width: "50%",
-    height: "50%",
+    width: "200px",
+    height: "225px",
     border: "1px solid #000000",
     borderRadius: "8px",
     "& img": {
@@ -136,4 +119,27 @@ const useStyles = makeStyles({
       margin: "0 auto",
     },
   },
+  flex: {
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: "0 4px",
+    margin: "12px 0 0"
+  },
+  button: {
+    "&.MuiButton-root": {
+      minWidth: "80px",
+      fontWeight: 700,
+      padding: "6px 12px",
+      "&.Upload": {
+        background: "green",
+        color: "#FFF",
+      },
+      "&.Reject": {
+        background: "red",
+        color: "#FFF",
+      },
+    }
+  }
 });

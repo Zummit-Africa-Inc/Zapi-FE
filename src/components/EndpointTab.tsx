@@ -262,6 +262,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
     const { type } = file;
     if(type === "application/json") {
       setJsonFile(file);
+      console.log(file)
       getTextFromFile(file);
     } else {
       return toast.error("Invalid file type");
@@ -320,6 +321,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
         console.log(skipped);
       } catch (error) {}
     }
+    setJsonFile(null);
   };
 
   const clearYamlInputField = () => {
@@ -857,6 +859,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                 imageUpload={uploadJSONFile}
                 imageReject={(e: any) => {
                   e.preventDefault();
+                  setJsonFile(null)
                 }}
                 inputRef={inputRef}
                 loading={loading}
