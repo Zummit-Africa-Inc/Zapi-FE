@@ -1,14 +1,7 @@
-import React, {
-  ChangeEvent,
-  FormEvent,
-  useState,
-  useEffect,
-  SyntheticEvent,
-} from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import React, { ChangeEvent, FormEvent, useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { ImageRounded } from "@mui/icons-material";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import {
   Box,
@@ -20,27 +13,20 @@ import {
   TextField,
   Typography,
   Switch,
-  SelectChangeEvent,
   Paper,
-  Button,
-  InputAdornment,
 } from "@mui/material";
 import Cookies from "universal-cookie";
+import { toast } from "react-toastify";
 
 import {
   useAppDispatch,
   useAppSelector,
-  useFormInputs,
   useHttpRequest,
 } from "../hooks";
-import ImageUpload from "./ImageUpload";
-import { editAPI } from "../redux/slices/userSlice";
-import { Spinner } from "../assets";
-import axios from "axios";
-import { toast } from "react-toastify";
-import ZAPI from "../images/zapi-logo.png";
 import { useContextProvider } from "../contexts/ContextProvider";
+import { editAPI } from "../redux/slices/userSlice";
 import UploadFile from "./UploadFile";
+import { Spinner } from "../assets";
 
 enum APIVisibility {
   PRIVATE = "private",
@@ -63,7 +49,6 @@ const GeneralTab: React.FC = () => {
   const { error, loading, sendRequest } = useHttpRequest();
   const cookies = new Cookies();
   const profileId = cookies.get("profileId");
-  const { triggerRefresh } = useContextProvider();
   const classes = useStyles();
   const inputRef = React.useRef<HTMLInputElement>(null);
   // const [img, setImg] = useState(null);
@@ -174,7 +159,7 @@ const GeneralTab: React.FC = () => {
       const formData = new FormData();
       formData.append("image", image);
       const headers = {
-        "Content-Type": "multi-part/form-data",
+        "Authorization": `Bearer ${cookies.get("accessToken")}`,
       };
       if (image === null) return;
       try {
@@ -185,12 +170,10 @@ const GeneralTab: React.FC = () => {
           formData,
           headers
         );
+        if(!data || data === undefined) return;
+        console.log(data);
         setLogo_url(data.data);
-        setTimeout(() => {
-          // navigate("/developer/dashboard");
-          toast.success("API logo updated successfully");
-        }, 2000);
-      } catch (error) {}
+      } catch (error) {};
     }
   };
 
@@ -200,6 +183,10 @@ const GeneralTab: React.FC = () => {
       inputRef.current.value = "";
     }
   };
+
+  useEffect(() => {
+    error && toast
+  },[error])
 
   return (
     <>
@@ -219,9 +206,9 @@ const GeneralTab: React.FC = () => {
                 imageReject={(e: any) => {
                   e.preventDefault();
                   clearImageField();
-                  triggerRefresh();
                 }}
                 inputRef={inputRef}
+                loading={loading}
               />
             </Box>
             <Box mt={2}>
