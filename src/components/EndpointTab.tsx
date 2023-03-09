@@ -15,6 +15,7 @@ import {
   Tabs,
   Button,
   Box,
+  Backdrop,
 } from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
 import { toast } from "react-toastify";
@@ -34,7 +35,8 @@ import ReactGA from "react-ga4";
 import UploadFile from "./UploadFile";
 import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
-import { fontWeight } from "@mui/system";
+
+type Skipped = { name: string, reason: string }
 
 const CustomTabs = styled(Tabs)({
   "& .MuiTabs-indicator": {
@@ -111,6 +113,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
   const cookies = new Cookies();
   const profileId = cookies.get("profileId");
   const inputRef = React.useRef<HTMLInputElement>(null);
+  const [skipped, setSkipped] = useState<Array<Skipped>>([])
 
   const handleTabChange = (e: SyntheticEvent, newValue: number) => {
     setTab(newValue);
@@ -287,7 +290,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
       const { message, skipped } = data;
       toast.success(`${message}`);
       if(!skipped) return;
-      console.log(skipped);
+      setSkipped(skipped);
     } catch(error) {
       console.log(error)
     };
@@ -315,10 +318,9 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
         );
         if(!data || data === undefined) return;
         const { message, data:{skipped} } = data;
-        console.log(data);
         toast.success(`${message}`);
         if(!skipped) return;
-        console.log(skipped);
+        setSkipped(skipped);
       } catch (error) {}
     }
     setJsonFile(null);
@@ -332,6 +334,26 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
   };
 
   return (
+    <>
+    {skipped.length > 0 && (
+      <Backdrop open={skipped.length > 0} sx={{zIndex: 1000}} onClick={() => setSkipped([])}>
+        <Box className={classes.modal} onClick={e => e.stopPropagation()}>
+          <Typography sx={{color: "var(--color-primary)", fontSize: 20, fontWeight: 700}}>
+            The following endpoints were not added
+          </Typography>
+          <Box sx={{margin: "16px 0"}}>
+            {skipped?.map((item, index) => (
+              <Typography key={index} sx={{color: "var(--color-primary)", margin: "4px 0"}}>
+                {item?.name}: {item?.reason}
+              </Typography>
+            ))}
+          </Box>
+          <Button className={`${classes.button} Reject`} onClick={() => setSkipped([])}>
+            Close
+          </Button>
+        </Box>
+      </Backdrop>
+    )}
     <Paper className={classes.paper}>
       <Stack direction="column" mb={6}>
         <Box>
@@ -886,6 +908,7 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
         </TabPanel>
       </Box>
     </Paper>
+    </>
   );
 };
 
@@ -993,6 +1016,14 @@ const useStyles = makeStyles({
       background: "#E0E0E0",
       color: "#484848",
     },
+    "&.Reject": {
+      background: "red",
+      color: "#FFF",
+      margin: "8px auto",
+      "&:hover": {
+        background: "red",
+      }
+    },
   },
   list: {
     display: "flex",
@@ -1027,5 +1058,16 @@ const useStyles = makeStyles({
       color: "red",
       padding: "1em",
     },
+  },
+  modal: {
+    width: "500px",
+    maxWidth: "95%",
+    minHeight: "200px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "16px 8px",
+    background: "#FFF",
+    borderRadius: "6px",
   },
 });
