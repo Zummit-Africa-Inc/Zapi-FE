@@ -566,7 +566,6 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                               type="checkbox"
                               name="headerIsRequired"
                               {...toggle}
-                              required
                             />
                           </Box>
                         </Box>
@@ -695,7 +694,6 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                                 type="checkbox"
                                 name="requestBodyIsRequired"
                                 {...toggle}
-                                required
                               />
                             </Box>
                           </Box>
@@ -780,7 +778,6 @@ const EndpointTab: React.FC<Props> = ({ id }) => {
                               type="checkbox"
                               name="queryParamIsRequired"
                               {...toggle}
-                              required
                             />
                           </Box>
                         </Box>
