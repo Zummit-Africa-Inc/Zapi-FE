@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import {
   Typography,
   Radio,
@@ -22,6 +22,7 @@ import {
 } from "../hooks";
 import { Fallback } from "../components";
 import { addApi } from "../redux/slices/apiSlice";
+import ChoiceButton from "./ChoiceButton";
 
 const core_url = "VITE_CORE_URL";
 const initialState = {
@@ -42,8 +43,13 @@ const AddApiPopup: React.FC = () => {
   const profileId = cookies.get("profileId");
   const dispatch = useAppDispatch();
   const { triggerRefresh } = useContextProvider();
+  const [isAdding, setIsAdding] = useState<boolean>(false);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const toggleAdding = () => {
+    setIsAdding((prev) => !prev);
+  };
+
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (!name || !description || !base_url || !categoryId)
       return toast.error("Please fill all fields");
@@ -85,7 +91,7 @@ const AddApiPopup: React.FC = () => {
             mb={3}>
             Add API Project
           </Typography>
-          <form className={classes.form} onSubmit={handleSubmit}>
+          <form className={classes.form}>
             <div className={classes.input}>
               <label>Name</label>
               <input
@@ -137,15 +143,21 @@ const AddApiPopup: React.FC = () => {
                 flexDirection: "row",
                 marginLeft: "auto",
               }}>
-              <button
-                type="button"
-                className={classes.cancelBtn}
-                onClick={() => handleUnclicked("addapi")}>
-                Cancel
-              </button>
-              <button type="submit" className={classes.addBtn}>
-                Add API
-              </button>
+              <ChoiceButton
+                border="1px solid rgb(214, 217, 219)"
+                acceptColor="#FFF"
+                rejectColor="#FFF"
+                onAccept={handleSubmit}
+                onReject={() => handleUnclicked("addapi")}
+                radius="5px"
+                acceptText="Add API"
+                rejectText="Cancel"
+                acceptBackgroundColor="#26c340"
+                rejectBackgroundColor="#e73e39"
+                padding="15px 25px"
+                outline="none"
+                visible={true}
+              />
             </div>
           </form>
         </div>
