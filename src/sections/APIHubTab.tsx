@@ -224,7 +224,7 @@ const APIHubTab: React.FC = () => {
                   <Typography component="p">{category.description}</Typography>
                 </Box>
                 <Box className={classes.grid}>
-                  {categoryApis.data.length > 0 ? (
+                  {categoryApis.data?.length > 0 ? (
                     categoryApis.data?.map((api: any) => (
                       <APICard key={api.id} {...api} />
                     ))
