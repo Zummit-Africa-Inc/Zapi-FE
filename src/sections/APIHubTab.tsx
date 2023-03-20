@@ -87,24 +87,24 @@ const APIHubTab: React.FC = () => {
   });
 
   let icons: any = {
-    "popular": <LibraryBooks />,
-    "safety": <Layers />,
-    "security": <Security />,
+    popular: <LibraryBooks />,
+    safety: <Layers />,
+    security: <Security />,
     "customer service": <ChatBubble />,
-    "general": <Lightbulb />,
-    "sports": <SportsFootball />,
-    "travel": <AirplanemodeActive />,
-    "finance": <AttachMoney />,
-    "educational": <School />,
-    "data": <DataArray />,
-    "science": <Science />,
-    "music": <MusicNote />,
-    "tools": <Build />,
+    general: <Lightbulb />,
+    sports: <SportsFootball />,
+    travel: <AirplanemodeActive />,
+    finance: <AttachMoney />,
+    educational: <School />,
+    data: <DataArray />,
+    science: <Science />,
+    music: <MusicNote />,
+    tools: <Build />,
     "text analysis": <FormatColorText />,
-    "weather": <Cloud />,
-    "all": <Apps />,
+    weather: <Cloud />,
+    all: <Apps />,
   };
-  
+
   return (
     <Box className={classes.container}>
       {loading && <Fallback />}
@@ -224,9 +224,13 @@ const APIHubTab: React.FC = () => {
                   <Typography component="p">{category.description}</Typography>
                 </Box>
                 <Box className={classes.grid}>
-                  {categoryApis?.map((api: any) => (
-                    <APICard key={api.id} {...api} />
-                  ))}
+                  {categoryApis.data.length > 0 ? (
+                    categoryApis.data?.map((api: any) => (
+                      <APICard key={api.id} {...api} />
+                    ))
+                  ) : (
+                    <Typography component="p">No apis found</Typography>
+                  )}
                 </Box>
               </>
             </TabPanel>
