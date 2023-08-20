@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<url> <loc>http://127.0.0.1:5173/</loc> </url>
+<url> <loc>http://127.0.0.1:5173/</loc> </url>
+<url> <loc>http://127.0.0.1:5173/login</loc> </url>
+<url> <loc>http://127.0.0.1:5173/signup</loc> </url>
+<url> <loc>http://127.0.0.1:5173/notifications</loc> </url>
+<url> <loc>http://127.0.0.1:5173/forgot-password</loc> </url>
+<url> <loc>http://127.0.0.1:5173/otp</loc> </url>
+<url> <loc>http://127.0.0.1:5173/reset-password</loc> </url>
+<url> <loc>http://127.0.0.1:5173/pricing</loc> </url>
+<url> <loc>http://127.0.0.1:5173/documentation</loc> </url>
+<url> <loc>http://127.0.0.1:5173/terms</loc> </url>
+<url> <loc>http://127.0.0.1:5173/api-hub</loc> </url>
+<url> <loc>http://127.0.0.1:5173/api/:id</loc> </url>
+<url> <loc>http://127.0.0.1:5173/api-hubtry</loc> </url>
+<url> <loc>http://127.0.0.1:5173/coming-soon</loc> </url>
+<url> <loc>http://127.0.0.1:5173/api-hub/:id</loc> </url>
+<url> <loc>http://127.0.0.1:5173/discussion/:id</loc> </url>
+<url> <loc>http://127.0.0.1:5173/3965207478e6a58f7c87af5d49a0c165</loc> </url>
+<url> <loc>http://127.0.0.1:5173/user/:id</loc> </url>
+<url> <loc>http://127.0.0.1:5173/developer/dashboard</loc> </url>
+<url> <loc>http://127.0.0.1:5173/developer/api/:id</loc> </url>
+<url> <loc>http://127.0.0.1:5173/configuration</loc> </url>
+<url> <loc>http://127.0.0.1:5173/login-history</loc> </url>
+<url> <loc>http://127.0.0.1:5173/success-page</loc> </url>
+</urlset>

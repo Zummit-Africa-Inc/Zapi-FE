@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "lint:fix": "eslint ./src --ext .jsx,.js,.ts,.tsx --quiet --fix --ignore-path ./.gitignore",
     "lint:format": "prettier  --loglevel warn --write \"./**/*.{js,jsx,ts,tsx,css,md,json}\" ",
-    "lint": "npm lint:format && npm lint:fix "
+    "lint": "npm lint:format && npm lint:fix ",
+    "sitemap": "babel-node ./sitemap-builder.cjs"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^3.5.7",
@@ -35,6 +36,7 @@
     "react-otp-input": "^2.4.0",
     "react-redux": "^8.0.2",
     "react-router-dom": "^6.3.0",
+    "react-router-sitemap": "^1.2.0",
     "react-select": "^5.4.0",
     "react-toastify": "^9.0.8",
     "socket.io": "^4.5.1",
@@ -54,6 +56,10 @@
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
     "@vitejs/plugin-react": "^2.0.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-register": "^6.26.0",
     "eslint": "^8.20.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-react": "^7.30.1",
